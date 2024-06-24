@@ -27,6 +27,7 @@ class AuthController extends Controller
 
         // Kiểm tra đăng nhập thành công
         if (Auth::attempt($credentials)) {
+            flash()->success('Đăng nhập thành công');
             return redirect()->route('dashboard.index');
         }
 
