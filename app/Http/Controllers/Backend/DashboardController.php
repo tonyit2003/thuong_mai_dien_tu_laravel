@@ -17,7 +17,7 @@ class DashboardController extends Controller
         return view('backend.dashboard.layout', compact('template', 'config'));
     }
 
-    public function config()
+    private function config()
     {
         return [
             'js' => [

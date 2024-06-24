@@ -17,3 +17,73 @@ h5 {
     text-transform: uppercase;
     font-weight: normal;
 }
+
+table .image {
+    display: block;
+    height: 73px;
+}
+
+.img-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+table strong {
+    min-width: 88px;
+    display: inline-block;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    vertical-align: middle;
+}
+
+.uk-flex-space-between {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.uk-flex-middle {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.uk-flex {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.filter-wrapper {
+    margin-bottom: 20px;
+}
+
+.filter-wrapper .perpage {
+    display: inline-block;
+}
+
+.btn {
+    margin-bottom: 0 !important;
+    border-radius: 0;
+    height: 32px;
+}
+
+.filter-wrapper .form-control {
+    height: 32px;
+    max-width: 200px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.mr5 {
+    margin-right: 5px;
+}
