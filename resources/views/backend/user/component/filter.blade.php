@@ -27,7 +27,7 @@
                         </span>
                     </div>
                 </div>
-                <a href="#" class="btn btn-danger">
+                <a href="{{ route('user.create') }}" class="btn btn-danger">
                     <i class="fa fa-plus mr5"></i>
                     Thêm mới thành viên
                 </a>

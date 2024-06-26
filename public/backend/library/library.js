@@ -11,7 +11,12 @@
         });
     };
 
+    HT.select2 = () => {
+        $(".setupSelect2").select2();
+    };
+
     document.ready(function () {
         HT.switchery();
+        HT.select2();
     });
 })(jQuery);

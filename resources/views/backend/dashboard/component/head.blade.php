@@ -3,6 +3,7 @@
 
 <title>Admin</title>
 
+<base href="http://localhost/thuongmaidientu/public/">
 <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/animate.css') }}" rel="stylesheet">

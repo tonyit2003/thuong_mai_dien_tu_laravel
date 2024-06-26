@@ -14,7 +14,7 @@
 
 <script src="{{ asset('backend/library/library.js') }}"></script>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('.chart').easyPieChart({
             barColor: '#f8ac59',
@@ -220,4 +220,4 @@
             },
         });
     });
-</script>
+</script> --}}
