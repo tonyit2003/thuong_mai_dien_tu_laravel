@@ -96,6 +96,10 @@ table strong {
     margin-bottom: 15px;
 }
 
+.mt20 {
+    margin-top: 20px;
+}
+
 .box .ibox {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

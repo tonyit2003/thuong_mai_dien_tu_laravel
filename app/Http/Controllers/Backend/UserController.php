@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Repositories\ProvinceRepository;
 use App\Services\UserService;
 
@@ -44,11 +45,21 @@ class UserController extends Controller
             ],
             'js' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                'backend/library/location.js'
+                'backend/library/location.js',
             ]
         ];
         $config['seo'] = config('apps.user');
         $template = 'backend.user.create';
         return view('backend.dashboard.layout', compact('template', 'config', 'provinces'));
+    }
+
+    public function store(StoreUserRequest $storeUserRequest)
+    {
+        if ($this->userService->create($storeUserRequest)) {
+            flash()->success('Thêm mới bản ghi thành công');
+            return redirect()->route('user.index');
+        }
+        flash()->error('Thêm mới bản ghi không thành công');
+        return redirect()->route('user.index');
     }
 }

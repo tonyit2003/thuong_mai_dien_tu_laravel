@@ -4,30 +4,48 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\DistrictRepository;
+use App\Repositories\ProvinceRepository;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
     protected $districtRepository;
+    protected $provinceRepository;
 
-    public function __construct(DistrictRepository $districtRepository)
+    public function __construct(DistrictRepository $districtRepository, ProvinceRepository $provinceRepository)
     {
         $this->districtRepository = $districtRepository;
+        $this->provinceRepository = $provinceRepository;
     }
 
     public function getLocation(Request $request)
     {
-        $province_id = $request->input('province_id');
-        $districts = $this->districtRepository->fileDistrictsByProvinceId($province_id);
+        $get = $request->input();
+        $html = '';
+        if ($get['target'] == 'district') {
+            // Lấy province theo code và các district theo province
+            $provinces = $this->provinceRepository->findById($get['data']['location_id'], ['code', 'name'], ['districts']);
+            $districts = $provinces->districts;
+            $html = $this->renderHtml($districts, '[Chọn quận/huyện]');
+        } else if ($get['target'] == 'ward') {
+            // Lấy district theo code và các ward theo district
+            $districts = $this->districtRepository->findById($get['data']['location_id'], ['code', 'name'], ['wards']);
+            $wards = $districts->wards;
+            $html = $this->renderHtml($wards, '[Chọn phường/xã]');
+        }
+
+        // Cách khác để lấy danh sách district
+        // $districts = $this->districtRepository->fileDistrictsByProvinceId($province_id);
+
         $response = [
-            'html' => $this->renderHtml($districts)
+            'html' => $html
         ];
         return response()->json($response);
     }
 
-    public function renderHtml($districts)
+    public function renderHtml($districts, $root)
     {
-        $html = '<option value="0">[Chọn quận/huyện]</option>';
+        $html = '<option value="0">' . $root . '</option>';
         foreach ($districts as $district) {
             $html .= '<option value="' . $district->code . '">' . $district->name . '</option>';
         }

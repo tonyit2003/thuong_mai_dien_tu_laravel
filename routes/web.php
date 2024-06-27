@@ -19,7 +19,6 @@ Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dash
 Route::group(['prefix' => 'user'], function () {
     Route::get('index', [UserController::class, 'index'])->name('user.index')->middleware(AuthenticateMiddleware::class);
     Route::get('create', [UserController::class, 'create'])->name('user.create')->middleware(AuthenticateMiddleware::class);
-    Route::get('update', [UserController::class, 'update'])->name('user.update')->middleware(AuthenticateMiddleware::class);
-    Route::get('destroy', [UserController::class, 'destroy'])->name('user.destroy')->middleware(AuthenticateMiddleware::class);
+    Route::post('store', [UserController::class, 'store'])->name('user.store')->middleware(AuthenticateMiddleware::class);
 });
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index')->middleware(AuthenticateMiddleware::class);
