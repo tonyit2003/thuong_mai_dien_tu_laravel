@@ -18,10 +18,34 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20)
+    {
+        $query = $this->model->select($column)->where($condition);
+        if (!empty($join)) {
+            $query->join(...$join);
+        }
+        return $query->paginate($perpage);
+    }
+
     public function create($payload = [])
     {
-        $model = $this->model->create($payload);
-        return $model->fresh();
+        return $this->model->create($payload)->fresh();
+    }
+
+    public function update($id = 0, $payload = [])
+    {
+        return $this->findById($id)->update($payload);
+    }
+
+    // xóa mềm (thêm cột delete_at trong bảng users và thêm SoftDeletes trong Model\User)
+    public function delete($id = 0)
+    {
+        return $this->findById($id)->delete();
+    }
+
+    public function forceDelete($id = 0)
+    {
+        return $this->findById($id)->forceDelete();
     }
 
     public function all()

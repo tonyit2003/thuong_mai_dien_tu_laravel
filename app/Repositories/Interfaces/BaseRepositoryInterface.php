@@ -10,4 +10,9 @@ interface BaseRepositoryInterface
 {
     public function all();
     public function findById($modelId, $column, $relation);
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20);
+    public function create($payload = []);
+    public function update($id = 0, $payload = []);
+    public function delete($id = 0);
+    public function forceDelete($id = 0);
 }
