@@ -100,6 +100,10 @@ table strong {
     margin-top: 20px;
 }
 
+.ml10 {
+    margin-left: 10px;
+}
+
 .box .ibox {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -155,4 +159,14 @@ table strong {
 
 .form-control {
     height: 31px;
+}
+
+.active-bg {
+    background: #ffc !important;
+}
+
+#checkAll,
+.checkBoxItem {
+    width: 15px;
+    height: 15px;
 }

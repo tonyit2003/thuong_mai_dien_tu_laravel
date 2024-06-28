@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\Interfaces\UserServiceInterface;
 use Carbon\Carbon;
@@ -23,16 +22,18 @@ class UserService implements UserServiceInterface
         $this->userRepository = $userRepository;
     }
 
-    public function paginate()
+    public function paginate($request)
     {
-        return $this->userRepository->pagination(['id', 'name', 'email', 'phone', 'address', 'publish']);
+        $condition['keyword'] = addslashes($request->input('keyword'));
+        $perPage = $request->integer('perpage');
+        return $this->userRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'user/index']);
     }
 
     public function create($request)
     {
         DB::beginTransaction();
         try {
-            $payload = $request->except('_token', 'send', 're_password'); // lấy tất cả nhưng ngoại trừ...
+            $payload = $request->except('_token', 'send', 're_password'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
 
             $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
             $payload['password'] = Hash::make($payload['password']);
@@ -51,7 +52,7 @@ class UserService implements UserServiceInterface
     {
         DB::beginTransaction();
         try {
-            $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ...
+            $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
             $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
             $user = $this->userRepository->update($id, $payload);
             DB::commit();
@@ -75,10 +76,43 @@ class UserService implements UserServiceInterface
         }
     }
 
+    public function updateStatus($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
+            $user = $this->userRepository->update($post['modelId'], $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function updateStatusAll($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $payload[$post['field']] = $post['value'];
+            $this->userRepository->updateByWhereIn('id', $post['id'], $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
     private function convertBirthdayDate($birthday = '')
     {
         if ($birthday == null) return null;
         $carbonDate = Carbon::createFromFormat('Y-m-d', $birthday); // input type date trả về dạng Y-m-d
         return $carbonDate->format('Y-m-d H:i:s');
+    }
+
+    private function paginateSelect()
+    {
+        return ['id', 'name', 'email', 'phone', 'address', 'publish'];
     }
 }

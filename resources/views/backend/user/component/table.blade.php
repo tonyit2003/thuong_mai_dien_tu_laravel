@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>
-                <input type="checkbox" value="" class="input-checkbox checkBoxItem" />
+                <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
             <th class="text-center">Họ tên</th>
             <th class="text-center">Email</th>
@@ -17,7 +17,7 @@
             @foreach ($users as $user)
                 <tr>
                     <td>
-                        <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
+                        <input type="checkbox" value="{{ $user->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td>
                         {{ $user->name }}
@@ -31,8 +31,9 @@
                     <td>
                         {{ $user->address }}
                     </td>
-                    <td class="text-center">
-                        <input type="checkbox" value="{{ $user->publish }}" class="js-switch"
+                    <td class="text-center js-switch-{{ $user->id }}">
+                        <input type="checkbox" value="{{ $user->publish }}" class="js-switch status"
+                            data-field="publish" data-model="User" data-modelId="{{ $user->id }}"
                             {{ $user->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">

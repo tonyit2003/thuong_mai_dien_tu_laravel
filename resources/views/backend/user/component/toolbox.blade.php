@@ -6,9 +6,15 @@
         <i class="fa fa-wrench"></i>
     </a>
     <ul class="dropdown-menu dropdown-user">
-        <li><a href="#">Config option 1</a>
+        <li>
+            <a class="changeStatusAll" data-field="publish" data-model="User" data-value="1" href="#">
+                Mở khóa toàn bộ thành viên
+            </a>
         </li>
-        <li><a href="#">Config option 2</a>
+        <li>
+            <a class="changeStatusAll" data-field="publish" data-model="User" data-value="0" href="#">
+                Khóa toàn bộ thành viên
+            </a>
         </li>
     </ul>
     <a class="close-link">
