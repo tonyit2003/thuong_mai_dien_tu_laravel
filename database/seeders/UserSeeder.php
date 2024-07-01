@@ -14,6 +14,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // cấu hình cho UserFactory trong thư mục factories
-        User::factory()->count(100000)->create();
+        User::factory()->count(999)->create();
     }
 }

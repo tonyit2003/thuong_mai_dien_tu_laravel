@@ -9,8 +9,9 @@
                         Xác nhận xóa thành viên
                     </div>
                     <div class="panel-description">
-                        <p>Bạn đang muốn xóa thành viên có email là: {{ $user->email }} ?</p>
-                        <p>Lưu ý: Bạn sẽ không thể khôi phục thành viên sau khi xóa.</p>
+                        <p>Bạn đang muốn xóa thành viên có email là: <span class="text-danger">{{ $user->email }}</span>
+                            ?</p>
+                        <p>Lưu ý: Bạn sẽ không thể khôi phục lại thành viên sau khi xóa.</p>
                     </div>
                 </div>
             </div>

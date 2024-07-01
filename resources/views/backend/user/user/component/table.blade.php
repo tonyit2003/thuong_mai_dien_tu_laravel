@@ -1,7 +1,7 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>
+            <th class="text-center">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
             <th class="text-center">Họ tên</th>
@@ -16,7 +16,7 @@
         @if (isset($users) && is_object($users))
             @foreach ($users as $user)
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <input type="checkbox" value="{{ $user->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td>

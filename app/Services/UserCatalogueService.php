@@ -2,24 +2,24 @@
 
 namespace App\Services;
 
-use App\Repositories\UserRepository;
-use App\Services\Interfaces\UserServiceInterface;
+use App\Repositories\UserCatalogueRepository;
+use App\Services\Interfaces\UserCatalogueServiceInterface;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * Class UserService
+ * Class UserCatalogueService
  * @package App\Services
  */
-class UserService implements UserServiceInterface
+class UserCatalogueService implements UserCatalogueServiceInterface
 {
-    protected $userRepository;
+    protected $userCatalogueRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserCatalogueRepository $userCatalogueRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->userCatalogueRepository = $userCatalogueRepository;
     }
 
     public function paginate($request)
@@ -27,19 +27,16 @@ class UserService implements UserServiceInterface
         $condition['keyword'] = addslashes($request->input('keyword'));
         $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
-        return $this->userRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'user/index']);
+        return $this->userCatalogueRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'user/catalogue/index'], ['users']);
     }
 
     public function create($request)
     {
         DB::beginTransaction();
         try {
-            $payload = $request->except('_token', 'send', 're_password'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
+            $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
 
-            $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
-            $payload['password'] = Hash::make($payload['password']);
-
-            $this->userRepository->create($payload);
+            $this->userCatalogueRepository->create($payload);
 
             DB::commit();
             return true;
@@ -54,8 +51,7 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
-            $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
-            $this->userRepository->update($id, $payload);
+            $this->userCatalogueRepository->update($id, $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -68,7 +64,7 @@ class UserService implements UserServiceInterface
     {
         DB::beginTransaction();
         try {
-            $this->userRepository->delete($id);
+            $this->userCatalogueRepository->delete($id);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -82,7 +78,7 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try {
             $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-            $this->userRepository->update($post['modelId'], $payload);
+            $this->userCatalogueRepository->update($post['modelId'], $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -96,7 +92,7 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try {
             $payload[$post['field']] = $post['value'];
-            $this->userRepository->updateByWhereIn('id', $post['id'], $payload);
+            $this->userCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -105,15 +101,8 @@ class UserService implements UserServiceInterface
         }
     }
 
-    private function convertBirthdayDate($birthday = '')
-    {
-        if ($birthday == null) return null;
-        $carbonDate = Carbon::createFromFormat('Y-m-d', $birthday); // input type date trả về dạng Y-m-d
-        return $carbonDate->format('Y-m-d H:i:s');
-    }
-
     private function paginateSelect()
     {
-        return ['id', 'name', 'email', 'phone', 'address', 'publish'];
+        return ['id', 'name', 'description', 'publish'];
     }
 }

@@ -23,11 +23,11 @@
                 </div>
             </li>
             <li class="active">
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">QL Thành viên</span>
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Thành viên</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="index.html">QL Nhóm thành viên</a></li>
-                    <li><a href="{{ route('user.index') }}">QL Thành viên</a></li>
+                    <li><a href="{{ route('user.catalogue.index') }}">Nhóm thành viên</a></li>
+                    <li><a href="{{ route('user.index') }}">Thành viên</a></li>
                 </ul>
             </li>
         </ul>

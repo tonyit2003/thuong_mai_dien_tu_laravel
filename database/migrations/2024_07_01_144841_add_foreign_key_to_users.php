@@ -4,7 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-// thêm cột user_catalogue_id vào bảng users
 return new class extends Migration
 {
     /**
@@ -13,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('user_catalogue_id')->default(2);
+            $table->foreign('user_catalogue_id')->references('id')->on('user_catalogues');
         });
     }
 
@@ -23,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('user_catalogue_id');
+            $table->dropForeign(['user_catalogue_id']);
         });
     }
 };

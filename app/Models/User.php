@@ -57,4 +57,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Tên bảng tương ứng trong mysql
+    protected $table = 'users';
+    // Thông báo khóa chính là cột 'code'
+    protected $primaryKey = 'id';
+    // khóa chính không tự động tăng
+    public $incrementing = true;
+
+    public function user_catalogues()
+    {
+        // quan hệ n --- 1: (class thiết lập mối quan hệ, khóa ngoại trong bảng users, khóa chính trong bảng user_catalogues)
+        return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id', 'id');
+    }
 }

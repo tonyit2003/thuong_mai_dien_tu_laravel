@@ -1,4 +1,4 @@
-<form method="GET" action="{{ route('user.index') }}">
+<form method="GET" action="{{ route('user.catalogue.index') }}">
     <div class="filter-wrapper">
         <div class="uk-flex uk-flex-middle uk-flex-space-between">
             <div class="perpage">
@@ -16,28 +16,27 @@
             </div>
             <div class="action">
                 <div class="uk-flex uk-flex-middle">
-                    <select name="user_catalogue_id" class="form-control mr10 setupSelect2 mr10" id="">
-                        <option value="0" selected="selected">
-                            Chọn nhóm thành viên
-                        </option>
-                        <option value="1">Quản trị viên</option>
+                    <select name="publish" class="form-control mr10 setupSelect2" id="">
+                        @foreach (config('apps.general.publish') as $key => $val)
+                            <option value="{{ $key }}">
+                                {{ $val }}</option>
+                        @endforeach
                     </select>
-                    <div class="uk-search uk-flex uk-flex-middle mr10 ml10">
+                    <div class="uk-search uk-flex uk-flex-middle mr10">
                         <div class="input-group">
                             {{-- VT ?: VP => hiển thị VT nếu VT không null, VT null thì hiển thị VP --}}
                             {{-- request('keyword'): lấy dữ liệu từ yêu cầu HTTP hiện tại --}}
                             <input value="{{ request('keyword') ?: old('keyword') }}" type="text" name="keyword"
                                 id="" placeholder="Nhập từ khóa..." class="form-control">
                             <span class="input-group-btn">
-                                <button type="submit" name="search" value="search"
-                                    class="btn btn-primary mb0 btn-sm">Tìm
+                                <button type="submit" class="btn btn-primary mb0 btn-sm">Tìm
                                     kiếm</button>
                             </span>
                         </div>
                     </div>
-                    <a href="{{ route('user.create') }}" class="btn btn-danger">
+                    <a href="{{ route('user.catalogue.create') }}" class="btn btn-danger">
                         <i class="fa fa-plus mr5"></i>
-                        Thêm mới thành viên
+                        Thêm mới nhóm thành viên
                     </a>
                 </div>
             </div>
