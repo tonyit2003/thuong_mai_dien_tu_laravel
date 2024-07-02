@@ -34,7 +34,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                         ->orWhere('phone', 'LIKE', '%' . $condition['keyword'] . '%');
                 });
             }
-        });
+            // with: lấy các bản ghi từ bảng user_catalogues
+            // user_catalogues: Tên quan hệ trong model
+        })->with('user_catalogues');
 
         if (!empty($join)) {
             $query->join(...$join);

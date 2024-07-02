@@ -30,6 +30,14 @@
                     <li><a href="{{ route('user.index') }}">Thành viên</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="#"><i class="fa fa-file"></i> <span class="nav-label">Bài viết</span>
+                    <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ route('user.catalogue.index') }}">Nhóm thành viên</a></li>
+                    <li><a href="{{ route('user.index') }}">Thành viên</a></li>
+                </ul>
+            </li>
         </ul>
 
     </div>

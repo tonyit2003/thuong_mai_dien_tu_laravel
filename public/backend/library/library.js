@@ -23,6 +23,7 @@
         if ($(".status").length) {
             // bắt sự kiện change của tất cả các phần tử có class là status
             $(document).on("change", ".status", function (e) {
+                let _this = $(this);
                 let option = {
                     value: $(this).val(), // lấy giá trị phần tử
                     modelId: $(this).attr("data-modelId"), // lấy giá trị thuộc tính data-modelId
@@ -36,7 +37,12 @@
                     type: "POST",
                     data: option,
                     dataType: "json",
-                    success: function (res) {},
+                    success: function (res) {
+                        let inputValue = option.value == 1 ? 0 : 1;
+                        if (res.flag == true) {
+                            _this.val(inputValue); // thiết lập giá trị value cho phần tử
+                        }
+                    },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log("Lỗi: " + textStatus + " " + errorThrown);
                     },
@@ -57,7 +63,7 @@
                         id.push(checkBox.val());
                     }
                 });
-
+                let _this = $(this);
                 let option = {
                     value: $(this).attr("data-value"),
                     model: $(this).attr("data-model"),
@@ -83,6 +89,9 @@
                             let cssUnActive2 =
                                 "left: 0px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s;";
                             for (let i = 0; i < id.length; i++) {
+                                $(".js-switch-" + id[i])
+                                    .find("input.status")
+                                    .val(option.value);
                                 // lấy dữ liệu từ đối tượng option
                                 if (option.value == 1) {
                                     $(".js-switch-" + id[i])

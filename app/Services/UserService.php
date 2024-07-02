@@ -64,19 +64,6 @@ class UserService implements UserServiceInterface
         }
     }
 
-    public function delete($id)
-    {
-        DB::beginTransaction();
-        try {
-            $this->userRepository->delete($id);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
     public function updateStatus($post = [])
     {
         DB::beginTransaction();
@@ -105,6 +92,19 @@ class UserService implements UserServiceInterface
         }
     }
 
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->userRepository->delete($id);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
     private function convertBirthdayDate($birthday = '')
     {
         if ($birthday == null) return null;
@@ -114,6 +114,6 @@ class UserService implements UserServiceInterface
 
     private function paginateSelect()
     {
-        return ['id', 'name', 'email', 'phone', 'address', 'publish'];
+        return ['id', 'name', 'email', 'phone', 'address', 'publish', 'user_catalogue_id'];
     }
 }

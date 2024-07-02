@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UserCatalogueRepository;
+use App\Repositories\UserRepository;
 use App\Services\Interfaces\UserCatalogueServiceInterface;
 use Carbon\Carbon;
 use Exception;
@@ -16,10 +17,12 @@ use Illuminate\Support\Facades\Hash;
 class UserCatalogueService implements UserCatalogueServiceInterface
 {
     protected $userCatalogueRepository;
+    protected $userRepository;
 
-    public function __construct(UserCatalogueRepository $userCatalogueRepository)
+    public function __construct(UserCatalogueRepository $userCatalogueRepository, UserRepository $userRepository)
     {
         $this->userCatalogueRepository = $userCatalogueRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function paginate($request)
@@ -27,7 +30,7 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         $condition['keyword'] = addslashes($request->input('keyword'));
         $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
-        return $this->userCatalogueRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'user/catalogue/index'], ['users']);
+        return $this->userCatalogueRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'user/catalogue/index'], ['users']); //users: Tên quan hệ trong model
     }
 
     public function create($request)
@@ -60,25 +63,13 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         }
     }
 
-    public function delete($id)
-    {
-        DB::beginTransaction();
-        try {
-            $this->userCatalogueRepository->delete($id);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
     public function updateStatus($post = [])
     {
         DB::beginTransaction();
         try {
             $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
             $this->userCatalogueRepository->update($post['modelId'], $payload);
+            $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -93,6 +84,41 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         try {
             $payload[$post['field']] = $post['value'];
             $this->userCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
+            $this->changeUserStatus($post);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->userCatalogueRepository->delete($id);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    private function changeUserStatus($post)
+    {
+        DB::beginTransaction();
+        try {
+            $array = [];
+            if (isset($post['modelId'])) {
+                $array[] = $post['modelId'];
+                $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
+            } else {
+                $array = $post['id'];
+                $payload[$post['field']] = $post['value'];
+            }
+            $this->userRepository->updateByWhereIn('user_catalogue_id', $array, $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {
