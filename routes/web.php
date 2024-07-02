@@ -44,6 +44,28 @@ Route::group(['prefix' => 'user/catalogue'], function () {
     Route::post('{id}/destroy', [UserCatalogueController::class, 'destroy'])->name('user.catalogue.destroy')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
 });
 
+// POST
+Route::group(['prefix' => 'post'], function () {
+    Route::get('index', [UserController::class, 'index'])->name('post.index')->middleware(AuthenticateMiddleware::class);
+    Route::get('create', [UserController::class, 'create'])->name('post.create')->middleware(AuthenticateMiddleware::class);
+    Route::post('store', [UserController::class, 'store'])->name('post.store')->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/edit', [UserController::class, 'edit'])->name('post.edit')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/update', [UserController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/delete', [UserController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/destroy', [UserController::class, 'destroy'])->name('post.destroy')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+});
+
+// POST CATALOGUE
+Route::group(['prefix' => 'post/catalogue'], function () {
+    Route::get('index', [UserCatalogueController::class, 'index'])->name('post.catalogue.index')->middleware(AuthenticateMiddleware::class);
+    Route::get('create', [UserCatalogueController::class, 'create'])->name('post.catalogue.create')->middleware(AuthenticateMiddleware::class);
+    Route::post('store', [UserCatalogueController::class, 'store'])->name('post.catalogue.store')->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/edit', [UserCatalogueController::class, 'edit'])->name('post.catalogue.edit')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/update', [UserCatalogueController::class, 'update'])->name('post.catalogue.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/delete', [UserCatalogueController::class, 'delete'])->name('post.catalogue.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/destroy', [UserCatalogueController::class, 'destroy'])->name('post.catalogue.destroy')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+});
+
 // AJAX
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index')->middleware(AuthenticateMiddleware::class);
 Route::post('ajax/dashboard/changeStatus', [AjaxDashboardController::class, 'changeStatus'])->name('ajax.dashboard.changeStatus')->middleware(AuthenticateMiddleware::class);
