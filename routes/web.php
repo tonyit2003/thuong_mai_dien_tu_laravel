@@ -4,6 +4,7 @@ use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\LanguageController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Middleware\AuthenticateMiddleware;
@@ -64,6 +65,17 @@ Route::group(['prefix' => 'post/catalogue'], function () {
     Route::post('{id}/update', [UserCatalogueController::class, 'update'])->name('post.catalogue.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
     Route::get('{id}/delete', [UserCatalogueController::class, 'delete'])->name('post.catalogue.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
     Route::post('{id}/destroy', [UserCatalogueController::class, 'destroy'])->name('post.catalogue.destroy')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+});
+
+// LANGUAGE
+Route::group(['prefix' => 'language'], function () {
+    Route::get('index', [LanguageController::class, 'index'])->name('language.index')->middleware(AuthenticateMiddleware::class);
+    Route::get('create', [LanguageController::class, 'create'])->name('language.create')->middleware(AuthenticateMiddleware::class);
+    Route::post('store', [LanguageController::class, 'store'])->name('language.store')->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/edit', [LanguageController::class, 'edit'])->name('language.edit')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/update', [LanguageController::class, 'update'])->name('language.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/delete', [LanguageController::class, 'delete'])->name('language.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/destroy', [LanguageController::class, 'destroy'])->name('language.destroy')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
 });
 
 // AJAX

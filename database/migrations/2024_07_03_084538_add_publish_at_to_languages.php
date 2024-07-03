@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('languages', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+            $table->tinyInteger('publish')->default(0);
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('languages', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+            $table->dropColumn('publish');
         });
     }
 };

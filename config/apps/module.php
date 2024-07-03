@@ -5,7 +5,7 @@ return [
         [
             'title' => 'Thành viên',
             'icon' => 'fa fa-th-large',
-            'name' => 'user',
+            'name' => ['user'],
             'subModule' => [
                 [
                     'title' => 'Nhóm thành viên',
@@ -20,7 +20,7 @@ return [
         [
             'title' => 'Bài viết',
             'icon' => 'fa fa-file',
-            'name' => 'post',
+            'name' => ['post'],
             'subModule' => [
                 [
                     'title' => 'Nhóm bài viết',
@@ -29,6 +29,17 @@ return [
                 [
                     'title' => 'Bài viết',
                     'route' => 'post.index'
+                ]
+            ]
+        ],
+        [
+            'title' => 'Cấu hình chung',
+            'icon' => 'fa fa-file',
+            'name' => ['language'],
+            'subModule' => [
+                [
+                    'title' => 'Ngôn ngữ',
+                    'route' => 'language.index'
                 ]
             ]
         ]

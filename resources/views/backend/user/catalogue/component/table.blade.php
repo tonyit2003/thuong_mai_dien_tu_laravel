@@ -22,10 +22,10 @@
                         {{ $userCatalogue->name }}
                     </td>
                     <td class="text-center">
+                        {{-- xem thuộc tính bằng dd() --}}
                         {{ $userCatalogue->users_count }} thành viên
                     </td>
                     <td>
-                        {{-- xem thuộc tính bằng dd() --}}
                         {{ $userCatalogue->description }}
                     </td>
                     <td class="text-center js-switch-{{ $userCatalogue->id }}">
