@@ -42,6 +42,7 @@ class LanguageController extends Controller
 
     public function create()
     {
+        $config = $this->configData();
         $config['seo'] = config('apps.language');
         $config['method'] = 'create';
         $template = 'backend.language.store';
@@ -60,6 +61,7 @@ class LanguageController extends Controller
 
     public function edit($id)
     {
+        $config = $this->configData();
         $language = $this->languageRepository->findById($id);
         $config['seo'] = config('apps.language');
         $config['method'] = 'edit';
@@ -93,5 +95,15 @@ class LanguageController extends Controller
         }
         flash()->error('Xóa bản ghi không thành công');
         return redirect()->route('language.index');
+    }
+
+    private function configData()
+    {
+        return [
+            'js' => [
+                'backend/plugins/ckfinder_2/ckfinder.js',
+                'backend/library/finder.js'
+            ]
+        ];
     }
 }

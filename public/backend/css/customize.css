@@ -20,7 +20,7 @@ h5 {
 
 table .image {
     display: block;
-    height: 73px;
+    height: 50px;
 }
 
 .img-cover img {
@@ -184,4 +184,33 @@ table strong {
 
 .select2-container--default {
     margin-right: 10px;
+}
+
+.meta-title {
+    font-size: 2rem;
+    color: #1a0dab;
+}
+
+.canonical {
+    color: green;
+    margin-bottom: 8px;
+}
+
+.meta-description {
+    font-size: 1.4rem;
+}
+
+.seo-wrapper {
+    margin-top: 30px;
+}
+
+.seo-wrapper textarea {
+    height: 200px !important;
+}
+
+.notice {
+    font-size: 1.1rem;
+    font-style: italic;
+    display: block;
+    margin-bottom: 10px;
 }

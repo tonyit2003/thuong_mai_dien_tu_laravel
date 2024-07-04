@@ -41,6 +41,13 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         if (!empty($join)) {
             $query->join(...$join);
         }
+
+        if (isset($relations) && !empty($relations)) {
+            foreach ($relations as $relation) {
+                $query->withCount($relation);
+            }
+        }
+
         // withQueryString: giữ lại cái điều kiện trên url (perpage=20&user_catalogue_id=0&keyword=Khalil&search=search&page=2)
         // withPath: đường dẫn đến các điều kiện đó (http://localhost/thuongmaidientu/public/user/index)
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);

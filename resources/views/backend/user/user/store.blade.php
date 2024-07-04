@@ -121,8 +121,9 @@
                                     <label for="" class="control-label text-left">
                                         Ảnh đại diện
                                     </label>
-                                    <input type="text" name="image" value="{{ old('image', $user->image ?? '') }}"
-                                        class="form-control input-image" placeholder="" autocomplete="off"
+                                    <input placeholder="Click vào đây để chọn ảnh" readonly type="text"
+                                        name="image" value="{{ old('image', $user->image ?? '') }}"
+                                        class="form-control input-image upload-image" placeholder="" autocomplete="off"
                                         data-upload = "Images">
                                 </div>
                             </div>

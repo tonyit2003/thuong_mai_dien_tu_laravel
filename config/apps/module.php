@@ -3,21 +3,6 @@
 return [
     'module' => [
         [
-            'title' => 'Thành viên',
-            'icon' => 'fa fa-th-large',
-            'name' => ['user'],
-            'subModule' => [
-                [
-                    'title' => 'Nhóm thành viên',
-                    'route' => 'user.catalogue.index'
-                ],
-                [
-                    'title' => 'Thành viên',
-                    'route' => 'user.index'
-                ]
-            ]
-        ],
-        [
             'title' => 'Bài viết',
             'icon' => 'fa fa-file',
             'name' => ['post'],
@@ -29,6 +14,21 @@ return [
                 [
                     'title' => 'Bài viết',
                     'route' => 'post.index'
+                ]
+            ]
+        ],
+        [
+            'title' => 'Thành viên',
+            'icon' => 'fa fa-th-large',
+            'name' => ['user'],
+            'subModule' => [
+                [
+                    'title' => 'Nhóm thành viên',
+                    'route' => 'user.catalogue.index'
+                ],
+                [
+                    'title' => 'Thành viên',
+                    'route' => 'user.index'
                 ]
             ]
         ],

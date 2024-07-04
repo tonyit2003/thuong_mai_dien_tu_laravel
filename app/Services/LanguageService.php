@@ -126,6 +126,6 @@ class LanguageService implements LanguageServiceInterface
 
     private function paginateSelect()
     {
-        return ['id', 'name', 'canonical', 'publish', 'description'];
+        return ['id', 'name', 'canonical', 'publish', 'description', 'image'];
     }
 }

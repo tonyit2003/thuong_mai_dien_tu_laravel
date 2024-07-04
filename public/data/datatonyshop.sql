@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 02, 2024 lúc 05:16 PM
+-- Thời gian đã tạo: Th7 04, 2024 lúc 09:20 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -895,12 +895,25 @@ CREATE TABLE `languages` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `canonical` varchar(10) NOT NULL,
-  `image` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `delete_at` timestamp NULL DEFAULT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 0,
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `languages`
+--
+
+INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`) VALUES
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam_flag.jpg', 201014, '2024-07-03 01:42:57', '2024-07-04 09:45:01', NULL, 1, 'Ngôn ngữ tiếng Việt'),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/english_flag.jpg', 201014, '2024-07-03 01:52:50', '2024-07-04 09:45:17', NULL, 1, 'Ngôn ngữ tiếng Anh'),
+(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china_flag.jpg', 201014, '2024-07-03 01:54:07', '2024-07-04 09:46:11', NULL, 1, 'Ngôn ngữ tiếng Trung'),
+(4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test'),
+(5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-04 09:46:17', NULL, 0, '123');
 
 -- --------------------------------------------------------
 
@@ -934,7 +947,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2024_07_02_140556_create_posts_table', 11),
 (17, '2024_07_02_135704_create_post_catalogue_language_table', 12),
 (18, '2024_07_02_142932_create_post_language_table', 12),
-(19, '2024_07_02_143601_add_deleted_at_at_to_languages_table', 13);
+(19, '2024_07_02_143601_add_deleted_at_at_to_languages_table', 13),
+(20, '2024_07_03_084124_add_publish_at_to_languages', 14),
+(21, '2024_07_03_084538_add_publish_at_to_languages', 15),
+(22, '2024_07_03_084921_add_description_at_to_languages', 16);
 
 -- --------------------------------------------------------
 
@@ -963,7 +979,7 @@ CREATE TABLE `posts` (
   `publish` tinyint(4) NOT NULL DEFAULT 1,
   `order` int(11) NOT NULL DEFAULT 0,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `delete_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -983,10 +999,10 @@ CREATE TABLE `post_catalogues` (
   `image` varchar(255) DEFAULT NULL,
   `icon` varchar(255) DEFAULT NULL,
   `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
+  `publish` tinyint(4) NOT NULL DEFAULT 0,
   `order` int(11) NOT NULL DEFAULT 0,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `delete_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1131,9 +1147,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('JaB69VKVoszVoOwv6zVQxgfqYAsrVRRJ5EP1nBVb', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicUJXb0ZNZEx3VXZnZ2RkRWd6NDVBNklFcHdQdlNyeUdpNDZ0MWVhTiI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MDoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3VzZXIvY2F0YWxvZ3VlL2luZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1719907281),
-('OCsv2KmmDH2r7lLeaNeFXyd6XWkcpmv9de2J1AdP', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT0QzUldrNHlqOWFpTm9mUHJzOXVOOGE0QWZqVkJHaHM4SDJxZDludCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0NToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL2FkbWluIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1719900030),
-('skLcZE2kDZL3Oc72sJIlHFTJGt2iCKG53vvVoJZZ', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoick9oR2oyTU83QzNxQ2JFeUR5OUluVVVXSG1ZUVMxZmJnY1BFbnVmbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTA6Imh0dHA6Ly9sb2NhbGhvc3QvdGh1b25nbWFpZGllbnR1L3B1YmxpYy91c2VyL2luZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1719932091);
+('uQf08lBJVeNGsBHwHcAe41LliWPPbTcI1PxFL2pg', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVGVEdVNwTnhuQW1Nek81QlRTaUEzYVp3cnFFOUljTnd0a1NLNWJSbSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Bvc3QvY2F0YWxvZ3VlL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720111833),
+('ZlGPOsSocIuxnIdimYXkmZSjFn9Iz5uhFefwdBhk', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNmRyYldla1h2SklTYXJGODQxQTVMSGtCbzM0Nkh5NkJ3WDBJSGdRZSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3Bvc3QvY2F0YWxvZ3VlL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720110962);
 
 -- --------------------------------------------------------
 
@@ -1170,7 +1185,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
-(200015, 'Griffin Trantow', '+1 (360) 755-3544', NULL, NULL, NULL, '654 Langosh Light\nNorth Mathew, TN 58910-1440', NULL, NULL, NULL, NULL, NULL, 'franecki.sylvester@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'MoE1GgJz0F', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
+(200015, 'Griffin Trantow', '+1 (360) 755-3544', '0', '0', '0', '654 Langosh LightNorth Mathew, TN 58910-1440', NULL, 'userfiles/image/language/china_flag.jpg', NULL, NULL, NULL, 'franecki.sylvester@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'MoE1GgJz0F', '2024-07-01 08:10:44', '2024-07-03 07:47:55', 1, NULL, 1),
 (200016, 'Oran Bergstrom', '+1 (517) 218-1270', NULL, NULL, NULL, '64624 Hodkiewicz Green Apt. 061\nSouth Bellland, NY 29772', NULL, NULL, NULL, NULL, NULL, 'felicita44@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'goYmlefYzW', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
 (200017, 'Rosina Daniel', '+1-863-630-5391', NULL, NULL, NULL, '4317 Harber Harbors\nKatrinetown, WY 61448', NULL, NULL, NULL, NULL, NULL, 'mekhi.dooley@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'CLahXknElA', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
 (200018, 'Ben O\'Kon', '770.899.2459', NULL, NULL, NULL, '96923 Erna Throughway\nLake Kaseyside, WY 23738-0425', NULL, NULL, NULL, NULL, NULL, 'stanton.raquel@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'K7VFkDoPfR', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
@@ -2175,7 +2190,7 @@ INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_
 (201011, 'Mr. Cicero Quigley II', '1-757-614-1678', NULL, NULL, NULL, '26466 Cummings Avenue\nNew Amaniburgh, SC 48956', NULL, NULL, NULL, NULL, NULL, 'kaitlin49@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'W3qKWzm3Z5', '2024-07-01 08:10:45', '2024-07-02 00:23:46', 1, NULL, 1),
 (201012, 'Santa King', '(757) 246-9637', NULL, NULL, NULL, '1579 Metz Port\nArvelview, MN 88318-3535', NULL, NULL, NULL, NULL, NULL, 'herzog.linnea@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'PNfbWoGubb', '2024-07-01 08:10:45', '2024-07-02 00:23:46', 1, NULL, 1),
 (201013, 'Mr. Antwon Hyatt Sr.', '1-757-613-5219', NULL, NULL, NULL, '5188 Maybell Stream\nNew Stephon, OH 15605-5579', NULL, NULL, NULL, NULL, NULL, 'jmohr@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'QRkwIZK3TI', '2024-07-01 08:10:45', '2024-07-02 00:23:46', 1, NULL, 1),
-(201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 15:12:14', 'lehutai.avatar', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-02 00:23:46', 1, NULL, 1),
+(201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 14:51:45', 'userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-03 07:51:45', 1, NULL, 1),
 (201015, 'Monkey D Luffy', NULL, '0', '0', '0', '11, đường số 27, Sơn Kỳ, Tân Phú, TP. HCM', '2003-04-09 13:36:08', 'b dbdb', NULL, NULL, NULL, 'luffy@gmail.com', NULL, '$2y$12$y9sM7NeEHZluiyoyVlPIt./IopbsLJmC6ovkWNON60o.d8m32jyWu', NULL, '2024-07-02 06:36:08', '2024-07-02 06:36:44', 1, '2024-07-02 06:36:44', 0);
 
 -- --------------------------------------------------------
@@ -13005,13 +13020,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT cho bảng `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`

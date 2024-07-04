@@ -3,7 +3,12 @@
 return [
     'publish' => [
         -1 => 'Chọn tình trạng',
-        0 => 'Thành viên bị khóa',
-        1 => 'Thành viên không bị khóa'
+        0 => 'Bị khóa',
+        1 => 'Mở khóa'
+    ],
+    'follow' => [
+        -1 => 'Chọn điều hướng',
+        0 => 'No follow',
+        1 => 'Follow'
     ]
 ];
