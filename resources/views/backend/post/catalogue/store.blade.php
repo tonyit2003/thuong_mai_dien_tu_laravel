@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="text-right mb15">
+        <div class="text-right mb15 button-fix">
             <input class="btn btn-primary" type="submit" name="send" value="Lưu lại" />
         </div>
     </div>

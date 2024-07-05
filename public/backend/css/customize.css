@@ -214,3 +214,38 @@ table strong {
     display: block;
     margin-bottom: 10px;
 }
+
+.img-target {
+    cursor: pointer;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input:focus {
+    border-color: #e5e6e7 !important;
+}
+
+.input-wrapper .baseUrl {
+    position: absolute;
+    height: 31px;
+    line-height: 31px;
+    display: inline-block;
+    padding: 0 10px;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to bottom, #fff, #f9fafb);
+    border-color: #e5e6e7 !important;
+    border: 1px solid;
+    border-right: 0;
+}
+
+input[name="canonical"] {
+    color: navy;
+    font-weight: 600;
+}
+
+.button-fix {
+    
+}

@@ -5,14 +5,13 @@
     <div class="ibox-content">
         <div class="seo-container">
             <div class="meta-title">
-                CellphoneS - Điện thoại, laptop, tablet, phụ kiện chính hãng
+                Bạn chưa có tiêu đề SEO
             </div>
             <div class="canonical">
-                https://cellphones.com.vn/
+                https://duong-dan-cua-ban.html
             </div>
             <div class="meta-description">
-                Hệ thống 120 cửa hàng bán lẻ điện thoại, máy tính laptop, smartwatch, gia dụng, thiết bị
-                IT, phụ kiện chính hãng - Giá tốt, trả góp 0%, giao miễn phí.
+                Bạn chưa có mô tả SEO
             </div>
         </div>
         <div class="seo-wrapper">
@@ -25,8 +24,9 @@
                                 <span class="count_meta_title">0 ký tự</span>
                             </div>
                         </label>
-                        <input type="text" name="title" value="{{ old('title', $postCatalogue->title ?? '') }}"
-                            class="form-control" placeholder="" autocomplete="off">
+                        <input type="text" name="meta_title"
+                            value="{{ old('meta_title', $postCatalogue->meta_title ?? '') }}" class="form-control"
+                            placeholder="" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -62,9 +62,12 @@
                         <label for="" class="control-label text-left">
                             <span>Đường dẫn</span>
                         </label>
-                        <input type="text" name="canonical"
-                            value="{{ old('canonical', $postCatalogue->canonical ?? '') }}" class="form-control"
-                            placeholder="" autocomplete="off">
+                        <div class="input-wrapper">
+                            <input type="text" name="canonical"
+                                value="{{ old('canonical', $postCatalogue->canonical ?? '') }}" class="form-control"
+                                placeholder="" autocomplete="off">
+                            <span class="baseUrl">{{ config('app.url') }}</span>
+                        </div>
                     </div>
                 </div>
             </div>

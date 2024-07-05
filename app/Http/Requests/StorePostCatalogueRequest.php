@@ -11,7 +11,7 @@ class StorePostCatalogueRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class StorePostCatalogueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            '' => 'gt:0'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => "Bạn chưa nhập tên tiêu đề.",
+            '.gt' => 'Bạn chưa chọn danh mục cha'
         ];
     }
 }

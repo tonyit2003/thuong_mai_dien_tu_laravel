@@ -20,11 +20,10 @@
                 <div class="form-row">
                     <label for="" class="control-label text-left">
                         Mô tả ngắn
-                        <span class="text-danger">(*)</span>
                     </label>
                     <textarea id="description" type="text" name="description"
                         value="{{ old('description', $postCatalogue->description ?? '') }}" class="form-control ck-editor" placeholder=""
-                        autocomplete="off"></textarea>
+                        autocomplete="off" data-height="150"></textarea>
                 </div>
             </div>
         </div>
@@ -33,10 +32,9 @@
                 <div class="form-row">
                     <label for="" class="control-label text-left">
                         Nội dung
-                        <span class="text-danger">(*)</span>
                     </label>
                     <textarea id="content" type="text" name="content" value="{{ old('content', $postCatalogue->content ?? '') }}"
-                        class="form-control ck-editor" placeholder="" autocomplete="off"></textarea>
+                        class="form-control ck-editor" placeholder="" autocomplete="off" data-height="500"></textarea>
                 </div>
             </div>
         </div>
