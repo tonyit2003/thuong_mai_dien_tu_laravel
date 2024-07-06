@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 04, 2024 lúc 09:20 PM
+-- Thời gian đã tạo: Th7 06, 2024 lúc 05:21 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -950,7 +950,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2024_07_02_143601_add_deleted_at_at_to_languages_table', 13),
 (20, '2024_07_03_084124_add_publish_at_to_languages', 14),
 (21, '2024_07_03_084538_add_publish_at_to_languages', 15),
-(22, '2024_07_03_084921_add_description_at_to_languages', 16);
+(22, '2024_07_03_084921_add_description_at_to_languages', 16),
+(23, '2024_07_06_082538_add_follow_at_to_post_catalogues', 17),
+(24, '2024_07_06_083429_add_canonical_at_post_catalogue_language', 18),
+(25, '2024_07_06_115814_add_timestamps_at_post_catalogue_language', 19);
 
 -- --------------------------------------------------------
 
@@ -992,7 +995,7 @@ CREATE TABLE `posts` (
 
 CREATE TABLE `post_catalogues` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `parentid` int(11) NOT NULL DEFAULT 0,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
   `lft` int(11) NOT NULL DEFAULT 0,
   `rgt` int(11) NOT NULL DEFAULT 0,
   `level` int(11) NOT NULL DEFAULT 0,
@@ -1004,8 +1007,22 @@ CREATE TABLE `post_catalogues` (
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `follow` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `post_catalogues`
+--
+
+INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `follow`) VALUES
+(24, 0, 2, 7, 1, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-06 07:07:47', '2024-07-06 07:07:47', -1),
+(25, 0, 8, 15, 1, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-06 07:08:03', '2024-07-06 07:08:03', -1),
+(26, 25, 9, 14, 2, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-06 07:08:54', '2024-07-06 07:08:54', -1),
+(27, 26, 10, 13, 3, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-06 07:10:23', '2024-07-06 07:10:23', -1),
+(28, 27, 11, 12, 4, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-06 07:12:19', '2024-07-06 07:12:19', -1),
+(29, 24, 5, 6, 2, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-06 07:12:52', '2024-07-06 07:12:52', -1),
+(30, 24, 3, 4, 2, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-06 07:13:22', '2024-07-06 07:13:22', -1);
 
 -- --------------------------------------------------------
 
@@ -1017,12 +1034,28 @@ CREATE TABLE `post_catalogue_language` (
   `post_catalogue_id` bigint(20) UNSIGNED NOT NULL,
   `language_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `content` longtext NOT NULL,
-  `meta_title` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  `meta_description` text NOT NULL
+  `description` text DEFAULT NULL,
+  `content` longtext DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_keyword` varchar(255) DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `canonical` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `post_catalogue_language`
+--
+
+INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
+(25, 1, 'Bóng đá', NULL, NULL, NULL, NULL, NULL, 'bong-da', '2024-07-06 07:08:03', '2024-07-06 07:08:03'),
+(27, 1, 'Bóng đá Bến Tre', NULL, NULL, NULL, NULL, NULL, 'bong-da-ben-tre', '2024-07-06 07:10:23', '2024-07-06 07:10:23'),
+(28, 1, 'Bóng đá Chợ Lách', NULL, NULL, NULL, NULL, NULL, 'bong-da-cho-lach', '2024-07-06 07:12:19', '2024-07-06 07:12:19'),
+(26, 1, 'Bóng đá trong nước', NULL, NULL, NULL, NULL, NULL, 'bong-da-trong-nuoc', '2024-07-06 07:08:54', '2024-07-06 07:08:54'),
+(24, 1, 'Thời sự', NULL, NULL, NULL, NULL, NULL, 'thoi-su', '2024-07-06 07:07:47', '2024-07-06 07:07:47'),
+(29, 1, 'Thời sự quốc tế', NULL, NULL, NULL, NULL, NULL, 'thoi-su-quoc-te', '2024-07-06 07:12:52', '2024-07-06 07:12:52'),
+(30, 1, 'Thời sự trong nước', NULL, NULL, NULL, NULL, NULL, 'thoi-su-trong-nuoc', '2024-07-06 07:13:22', '2024-07-06 07:13:22');
 
 -- --------------------------------------------------------
 
@@ -1147,8 +1180,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('uQf08lBJVeNGsBHwHcAe41LliWPPbTcI1PxFL2pg', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVGVEdVNwTnhuQW1Nek81QlRTaUEzYVp3cnFFOUljTnd0a1NLNWJSbSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Bvc3QvY2F0YWxvZ3VlL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720111833),
-('ZlGPOsSocIuxnIdimYXkmZSjFn9Iz5uhFefwdBhk', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNmRyYldla1h2SklTYXJGODQxQTVMSGtCbzM0Nkh5NkJ3WDBJSGdRZSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3Bvc3QvY2F0YWxvZ3VlL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720110962);
+('wP6xB3I7HrWLNRr4jawKsVBdzWgUwmBzoIqukYLp', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQ0piNDhSck9hSWJ4QW5TYW9sV2VGc2dIQTZiYTdvcExwV2U5OFFFSCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Bvc3QvY2F0YWxvZ3VlL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720275206);
 
 -- --------------------------------------------------------
 
@@ -1185,26 +1217,26 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
-(200015, 'Griffin Trantow', '+1 (360) 755-3544', '0', '0', '0', '654 Langosh LightNorth Mathew, TN 58910-1440', NULL, 'userfiles/image/language/china_flag.jpg', NULL, NULL, NULL, 'franecki.sylvester@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'MoE1GgJz0F', '2024-07-01 08:10:44', '2024-07-03 07:47:55', 1, NULL, 1),
-(200016, 'Oran Bergstrom', '+1 (517) 218-1270', NULL, NULL, NULL, '64624 Hodkiewicz Green Apt. 061\nSouth Bellland, NY 29772', NULL, NULL, NULL, NULL, NULL, 'felicita44@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'goYmlefYzW', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200017, 'Rosina Daniel', '+1-863-630-5391', NULL, NULL, NULL, '4317 Harber Harbors\nKatrinetown, WY 61448', NULL, NULL, NULL, NULL, NULL, 'mekhi.dooley@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'CLahXknElA', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200018, 'Ben O\'Kon', '770.899.2459', NULL, NULL, NULL, '96923 Erna Throughway\nLake Kaseyside, WY 23738-0425', NULL, NULL, NULL, NULL, NULL, 'stanton.raquel@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'K7VFkDoPfR', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200019, 'Abby Stokes', '+19725924031', NULL, NULL, NULL, '700 Schultz Lock Apt. 853\nNew Jazminland, MN 61123', NULL, NULL, NULL, NULL, NULL, 'alycia.ondricka@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'uo7QDnLiYg', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200020, 'Paul Lynch IV', '989-802-6395', NULL, NULL, NULL, '2739 Witting Drive Apt. 667\nEast Jarrell, WY 84408', NULL, NULL, NULL, NULL, NULL, 'berniece99@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'xuXfSOlaAZ', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200021, 'Ms. Amara Schumm', '1-917-677-0293', NULL, NULL, NULL, '9669 Bernhard Key Suite 113\nRueckerborough, AK 36604', NULL, NULL, NULL, NULL, NULL, 'leuschke.zackery@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'kiQOdTMjcY', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200022, 'Kristopher Ziemann IV', '445-288-5615', NULL, NULL, NULL, '48626 Lysanne Forks Suite 948\nPort Luciemouth, WY 17348', NULL, NULL, NULL, NULL, NULL, 'obotsford@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'ZQ8KKcEFeu', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200023, 'Mr. Elian Emard', '(352) 841-5047', NULL, NULL, NULL, '2243 Cremin Ports Suite 098\nNew Jaquanland, CT 44188-2556', NULL, NULL, NULL, NULL, NULL, 'grace.feeney@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'E0kNAVgwdK', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200024, 'Floyd Wiegand', '443-239-3418', NULL, NULL, NULL, '92743 Alana Ramp Suite 399\nGodfreymouth, DE 29319', NULL, NULL, NULL, NULL, NULL, 'rzemlak@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'fCoedi4IV5', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200025, 'Sophie Gutkowski', '1-920-577-6043', NULL, NULL, NULL, '7427 Powlowski Shore Apt. 982\nWest Merlport, ME 73607-3053', NULL, NULL, NULL, NULL, NULL, 'fermin.dickens@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'KkCtmyW5Lj', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200026, 'Mariah Marks', '+1.215.934.3354', NULL, NULL, NULL, '521 Zakary Forks\nNew Brandi, DC 68161-5195', NULL, NULL, NULL, NULL, NULL, 'rowan.funk@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'gKMfCOavpd', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200027, 'Lazaro Johns', '1-614-672-0198', NULL, NULL, NULL, '436 Alivia Road Apt. 639\nLake Kyra, FL 28626', NULL, NULL, NULL, NULL, NULL, 'ashlee21@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', '1KuZcesgVw', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200028, 'Amie Pagac', '(458) 790-3235', NULL, NULL, NULL, '19000 Cole Inlet Suite 817\nNorth Amariborough, AR 57297', NULL, NULL, NULL, NULL, NULL, 'oceane.wintheiser@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'Pr0VdGFA9z', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200029, 'Nicholaus Schumm', '+14068713546', NULL, NULL, NULL, '5125 Schiller Plaza\nRashadfurt, MI 28444', NULL, NULL, NULL, NULL, NULL, 'hoppe.magali@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'hYSDX9z5gc', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200030, 'Dr. Giuseppe Glover PhD', '(605) 524-4966', NULL, NULL, NULL, '554 Stamm Park\nSammiechester, SD 42556-8597', NULL, NULL, NULL, NULL, NULL, 'olga35@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'oKRgG7i72u', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200031, 'Nora Farrell', '727.201.5384', NULL, NULL, NULL, '41142 Zulauf Prairie Suite 817\nLake Horace, CO 17943', NULL, NULL, NULL, NULL, NULL, 'elsie20@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', '92BdMsHnBk', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200032, 'Mr. Davin Kunde Sr.', '+1 (814) 939-0041', NULL, NULL, NULL, '87544 Mario Bridge\nNorth Enolafurt, MA 75805', NULL, NULL, NULL, NULL, NULL, 'alivia.raynor@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'WVVepSTk7K', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200033, 'Nicole Wintheiser', '760-734-3634', NULL, NULL, NULL, '6771 Tremaine Vista\nWest Fletcherborough, CO 57270-2567', NULL, NULL, NULL, NULL, NULL, 'elvis08@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'QCIhXTsj1k', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
-(200034, 'Mr. Christian Hamill V', '(989) 769-5311', NULL, NULL, NULL, '3249 Johnston Stream Apt. 507\nLake Garrison, MS 46468', NULL, NULL, NULL, NULL, NULL, 'rice.perry@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', '4xnHoIROvp', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
+(200015, 'Griffin Trantow', '+1 (360) 755-3544', '0', '0', '0', '654 Langosh LightNorth Mathew, TN 58910-1440', NULL, 'userfiles/image/language/china_flag.jpg', NULL, NULL, NULL, 'franecki.sylvester@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'MoE1GgJz0F', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200016, 'Oran Bergstrom', '+1 (517) 218-1270', NULL, NULL, NULL, '64624 Hodkiewicz Green Apt. 061\nSouth Bellland, NY 29772', NULL, NULL, NULL, NULL, NULL, 'felicita44@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'goYmlefYzW', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200017, 'Rosina Daniel', '+1-863-630-5391', NULL, NULL, NULL, '4317 Harber Harbors\nKatrinetown, WY 61448', NULL, NULL, NULL, NULL, NULL, 'mekhi.dooley@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'CLahXknElA', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200018, 'Ben O\'Kon', '770.899.2459', NULL, NULL, NULL, '96923 Erna Throughway\nLake Kaseyside, WY 23738-0425', NULL, NULL, NULL, NULL, NULL, 'stanton.raquel@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'K7VFkDoPfR', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200019, 'Abby Stokes', '+19725924031', NULL, NULL, NULL, '700 Schultz Lock Apt. 853\nNew Jazminland, MN 61123', NULL, NULL, NULL, NULL, NULL, 'alycia.ondricka@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'uo7QDnLiYg', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200020, 'Paul Lynch IV', '989-802-6395', NULL, NULL, NULL, '2739 Witting Drive Apt. 667\nEast Jarrell, WY 84408', NULL, NULL, NULL, NULL, NULL, 'berniece99@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'xuXfSOlaAZ', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200021, 'Ms. Amara Schumm', '1-917-677-0293', NULL, NULL, NULL, '9669 Bernhard Key Suite 113\nRueckerborough, AK 36604', NULL, NULL, NULL, NULL, NULL, 'leuschke.zackery@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'kiQOdTMjcY', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200022, 'Kristopher Ziemann IV', '445-288-5615', NULL, NULL, NULL, '48626 Lysanne Forks Suite 948\nPort Luciemouth, WY 17348', NULL, NULL, NULL, NULL, NULL, 'obotsford@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'ZQ8KKcEFeu', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200023, 'Mr. Elian Emard', '(352) 841-5047', NULL, NULL, NULL, '2243 Cremin Ports Suite 098\nNew Jaquanland, CT 44188-2556', NULL, NULL, NULL, NULL, NULL, 'grace.feeney@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'E0kNAVgwdK', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200024, 'Floyd Wiegand', '443-239-3418', NULL, NULL, NULL, '92743 Alana Ramp Suite 399\nGodfreymouth, DE 29319', NULL, NULL, NULL, NULL, NULL, 'rzemlak@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'fCoedi4IV5', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200025, 'Sophie Gutkowski', '1-920-577-6043', NULL, NULL, NULL, '7427 Powlowski Shore Apt. 982\nWest Merlport, ME 73607-3053', NULL, NULL, NULL, NULL, NULL, 'fermin.dickens@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'KkCtmyW5Lj', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200026, 'Mariah Marks', '+1.215.934.3354', NULL, NULL, NULL, '521 Zakary Forks\nNew Brandi, DC 68161-5195', NULL, NULL, NULL, NULL, NULL, 'rowan.funk@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'gKMfCOavpd', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200027, 'Lazaro Johns', '1-614-672-0198', NULL, NULL, NULL, '436 Alivia Road Apt. 639\nLake Kyra, FL 28626', NULL, NULL, NULL, NULL, NULL, 'ashlee21@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', '1KuZcesgVw', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200028, 'Amie Pagac', '(458) 790-3235', NULL, NULL, NULL, '19000 Cole Inlet Suite 817\nNorth Amariborough, AR 57297', NULL, NULL, NULL, NULL, NULL, 'oceane.wintheiser@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'Pr0VdGFA9z', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200029, 'Nicholaus Schumm', '+14068713546', NULL, NULL, NULL, '5125 Schiller Plaza\nRashadfurt, MI 28444', NULL, NULL, NULL, NULL, NULL, 'hoppe.magali@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'hYSDX9z5gc', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200030, 'Dr. Giuseppe Glover PhD', '(605) 524-4966', NULL, NULL, NULL, '554 Stamm Park\nSammiechester, SD 42556-8597', NULL, NULL, NULL, NULL, NULL, 'olga35@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'oKRgG7i72u', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200031, 'Nora Farrell', '727.201.5384', NULL, NULL, NULL, '41142 Zulauf Prairie Suite 817\nLake Horace, CO 17943', NULL, NULL, NULL, NULL, NULL, 'elsie20@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', '92BdMsHnBk', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200032, 'Mr. Davin Kunde Sr.', '+1 (814) 939-0041', NULL, NULL, NULL, '87544 Mario Bridge\nNorth Enolafurt, MA 75805', NULL, NULL, NULL, NULL, NULL, 'alivia.raynor@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'WVVepSTk7K', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200033, 'Nicole Wintheiser', '760-734-3634', NULL, NULL, NULL, '6771 Tremaine Vista\nWest Fletcherborough, CO 57270-2567', NULL, NULL, NULL, NULL, NULL, 'elvis08@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'QCIhXTsj1k', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
+(200034, 'Mr. Christian Hamill V', '(989) 769-5311', NULL, NULL, NULL, '3249 Johnston Stream Apt. 507\nLake Garrison, MS 46468', NULL, NULL, NULL, NULL, NULL, 'rice.perry@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', '4xnHoIROvp', '2024-07-01 08:10:44', '2024-07-04 19:04:42', 1, NULL, 0),
 (200035, 'Vita West I', '254-677-2558', NULL, NULL, NULL, '54684 Mohr Village Apt. 032\nLake Leonardland, PA 97092-7322', NULL, NULL, NULL, NULL, NULL, 'reinger.jarrell@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'aKemyZ9vXz', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
 (200036, 'Mr. Hermann Dooley PhD', '949.865.7159', NULL, NULL, NULL, '4762 Eryn Mountains Suite 898\nPort Lenoreton, IA 69398-9358', NULL, NULL, NULL, NULL, NULL, 'bridget.hagenes@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'ZF0eXVHS8V', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
 (200037, 'Miss Bettye Crist', '+1-818-705-4768', NULL, NULL, NULL, '1056 Evan Springs Suite 423\nLake Anya, FL 65333-2476', NULL, NULL, NULL, NULL, NULL, 'sydnee01@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', '7U3wegdTd1', '2024-07-01 08:10:44', '2024-07-02 00:23:46', 1, NULL, 1),
@@ -2191,7 +2223,8 @@ INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_
 (201012, 'Santa King', '(757) 246-9637', NULL, NULL, NULL, '1579 Metz Port\nArvelview, MN 88318-3535', NULL, NULL, NULL, NULL, NULL, 'herzog.linnea@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'PNfbWoGubb', '2024-07-01 08:10:45', '2024-07-02 00:23:46', 1, NULL, 1),
 (201013, 'Mr. Antwon Hyatt Sr.', '1-757-613-5219', NULL, NULL, NULL, '5188 Maybell Stream\nNew Stephon, OH 15605-5579', NULL, NULL, NULL, NULL, NULL, 'jmohr@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'QRkwIZK3TI', '2024-07-01 08:10:45', '2024-07-02 00:23:46', 1, NULL, 1),
 (201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 14:51:45', 'userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-03 07:51:45', 1, NULL, 1),
-(201015, 'Monkey D Luffy', NULL, '0', '0', '0', '11, đường số 27, Sơn Kỳ, Tân Phú, TP. HCM', '2003-04-09 13:36:08', 'b dbdb', NULL, NULL, NULL, 'luffy@gmail.com', NULL, '$2y$12$y9sM7NeEHZluiyoyVlPIt./IopbsLJmC6ovkWNON60o.d8m32jyWu', NULL, '2024-07-02 06:36:08', '2024-07-02 06:36:44', 1, '2024-07-02 06:36:44', 0);
+(201015, 'Monkey D Luffy', NULL, '0', '0', '0', '11, đường số 27, Sơn Kỳ, Tân Phú, TP. HCM', '2003-04-09 13:36:08', 'b dbdb', NULL, NULL, NULL, 'luffy@gmail.com', NULL, '$2y$12$y9sM7NeEHZluiyoyVlPIt./IopbsLJmC6ovkWNON60o.d8m32jyWu', NULL, '2024-07-02 06:36:08', '2024-07-02 06:36:44', 1, '2024-07-02 06:36:44', 0),
+(201016, 'Test 123', NULL, '83', '832', '28879', NULL, '2003-04-09 01:29:02', '/thuongmaidientu/public/userfiles/image/language/vietnam_flag.jpg', NULL, NULL, NULL, 'test123@gmail.com', NULL, '$2y$12$pD7YwxKqaaddwp.vi/RzpORNdXIOJY3Jbl0TT6VBPd/5wAb510mZW', NULL, '2024-07-04 18:29:02', '2024-07-04 18:29:02', 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -12952,6 +12985,7 @@ ALTER TABLE `post_catalogues`
 -- Chỉ mục cho bảng `post_catalogue_language`
 --
 ALTER TABLE `post_catalogue_language`
+  ADD UNIQUE KEY `post_catalogue_language_canonical_unique` (`canonical`),
   ADD KEY `post_catalogue_language_post_catalogue_id_foreign` (`post_catalogue_id`),
   ADD KEY `post_catalogue_language_language_id_foreign` (`language_id`);
 
@@ -13026,7 +13060,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
@@ -13038,13 +13072,13 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT cho bảng `post_catalogues`
 --
 ALTER TABLE `post_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201016;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201017;
 
 --
 -- AUTO_INCREMENT cho bảng `user_catalogues`

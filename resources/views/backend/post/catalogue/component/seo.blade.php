@@ -5,13 +5,13 @@
     <div class="ibox-content">
         <div class="seo-container">
             <div class="meta-title">
-                Bạn chưa có tiêu đề SEO
+                {{ old('meta_title') ?? 'Bạn chưa có tiêu đề SEO' }}
             </div>
             <div class="canonical">
-                https://duong-dan-cua-ban.html
+                {{ old('canonical') ? config('app.url') . old('canonical') . config('apps.general.suffix') : 'https://duong-dan-cua-ban.html' }}
             </div>
             <div class="meta-description">
-                Bạn chưa có mô tả SEO
+                {{ old('meta_description') ?? 'Bạn chưa có mô tả SEO' }}
             </div>
         </div>
         <div class="seo-wrapper">
@@ -36,8 +36,9 @@
                         <label for="" class="control-label text-left">
                             <span>Từ khóa SEO</span>
                         </label>
-                        <input type="text" name="keyword" value="{{ old('keyword', $postCatalogue->keyword ?? '') }}"
-                            class="form-control" placeholder="" autocomplete="off">
+                        <input type="text" name="meta_keyword"
+                            value="{{ old('meta_keyword', $postCatalogue->meta_keyword ?? '') }}" class="form-control"
+                            placeholder="" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -50,9 +51,7 @@
                                 <span class="count_meta_description">0 ký tự</span>
                             </div>
                         </label>
-                        <textarea type="text" name="meta_description"
-                            value="{{ old('meta_description', $postCatalogue->meta_description ?? '') }}" class="form-control" placeholder=""
-                            autocomplete="off"></textarea>
+                        <textarea type="text" name="meta_description" class="form-control" placeholder="" autocomplete="off">{{ old('meta_description', $postCatalogue->meta_description ?? '') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -61,6 +60,7 @@
                     <div class="form-row">
                         <label for="" class="control-label text-left">
                             <span>Đường dẫn</span>
+                            <span class="text-danger">(*)</span>
                         </label>
                         <div class="input-wrapper">
                             <input type="text" name="canonical"

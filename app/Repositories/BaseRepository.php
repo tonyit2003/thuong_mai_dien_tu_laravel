@@ -53,6 +53,14 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->create($payload)->fresh();
     }
 
+    // thêm một bản ghi mới vào bảng trung gian của mối quan hệ "many-to-many" giữa hai model
+    public function createLanguagesPivot($model, $payload = [])
+    {
+        // languages: phương thức đã được định nghĩa trong model để thiết lập mối quan hệ "many-to-many" giữa model hiện tại và model Language.
+        // attach:  thêm một bản ghi mới vào bảng trung gian (khóa chính của model hiện tại, dữ liệu sẽ được lưu vào các cột trong bảng trung gian - tương ứng với các giá trị trong phương thức withPivot của model.)
+        return $model->languages()->attach($model->id, $payload);
+    }
+
     public function update($id = 0, $payload = [])
     {
         return $this->findById($id)->update($payload);

@@ -21,9 +21,8 @@
                     <label for="" class="control-label text-left">
                         Mô tả ngắn
                     </label>
-                    <textarea id="description" type="text" name="description"
-                        value="{{ old('description', $postCatalogue->description ?? '') }}" class="form-control ck-editor" placeholder=""
-                        autocomplete="off" data-height="150"></textarea>
+                    <textarea id="description" type="text" name="description" class="form-control ck-editor" placeholder=""
+                        autocomplete="off" data-height="150">{{ old('description', $postCatalogue->description ?? '') }}</textarea>
                 </div>
             </div>
         </div>
@@ -33,8 +32,8 @@
                     <label for="" class="control-label text-left">
                         Nội dung
                     </label>
-                    <textarea id="content" type="text" name="content" value="{{ old('content', $postCatalogue->content ?? '') }}"
-                        class="form-control ck-editor" placeholder="" autocomplete="off" data-height="500"></textarea>
+                    <textarea id="content" type="text" name="content" class="form-control ck-editor" placeholder="" autocomplete="off"
+                        data-height="500">{{ old('content', $postCatalogue->content ?? '') }}</textarea>
                 </div>
             </div>
         </div>
