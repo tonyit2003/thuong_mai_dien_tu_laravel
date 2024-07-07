@@ -5,13 +5,13 @@
     <div class="ibox-content">
         <div class="seo-container">
             <div class="meta-title">
-                {{ old('meta_title') ?? 'Bạn chưa có tiêu đề SEO' }}
+                {{ old('meta_title', $postCatalogue->meta_title ?? 'Bạn chưa có tiêu đề SEO') }}
             </div>
             <div class="canonical">
-                {{ old('canonical') ? config('app.url') . old('canonical') . config('apps.general.suffix') : 'https://duong-dan-cua-ban.html' }}
+                {{ config('app.url') . old('canonical', $postCatalogue->canonical ?? 'duong-dan-cua-ban') . config('apps.general.suffix') }}
             </div>
             <div class="meta-description">
-                {{ old('meta_description') ?? 'Bạn chưa có mô tả SEO' }}
+                {{ old('meta_description', $postCatalogue->meta_description ?? 'Bạn chưa có mô tả SEO') }}
             </div>
         </div>
         <div class="seo-wrapper">

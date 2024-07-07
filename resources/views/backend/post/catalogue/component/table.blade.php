@@ -1,15 +1,12 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th class="text-center">
+            <th class="text-center" style="width: 50px">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th style="width: 100px" class="text-center">Ảnh</th>
-            <th class="text-center">Tên ngôn ngữ</th>
-            <th class="text-center">Tên viết tắt</th>
-            <th class="text-center">Mô tả</th>
-            <th class="text-center">Tình trạng</th>
-            <th class="text-center">Thao tác</th>
+            <th class="text-center">Tên nhóm bài viết</th>
+            <th class="text-center" style="width: 100px">Tình trạng</th>
+            <th class="text-center" style="width: 100px">Thao tác</th>
         </tr>
     </thead>
     <tbody>
@@ -20,18 +17,7 @@
                         <input type="checkbox" value="{{ $postCatalogue->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td>
-                        <span class="image img-cover">
-                            <img src="{{ asset($postCatalogue->image) }}" alt="">
-                        </span>
-                    </td>
-                    <td>
-                        {{ $postCatalogue->name }}
-                    </td>
-                    <td class="text-center">
-                        {{ $postCatalogue->canonical }}
-                    </td>
-                    <td>
-                        {{ $postCatalogue->description }}
+                        {{ str_repeat('|----', $postCatalogue->level > 0 ? $postCatalogue->level - 1 : 0) . $postCatalogue->name }}
                     </td>
                     <td class="text-center js-switch-{{ $postCatalogue->id }}">
                         <input type="checkbox" value="{{ $postCatalogue->publish }}" class="js-switch status"

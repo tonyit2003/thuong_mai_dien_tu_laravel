@@ -22,7 +22,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email|unique:users,email, ' . $this->id . '|max:255', // unique:users,email, ' . $this->id . ': duy nhất trong bảng users nhưng không kiểm tra tính duy nhất so với chính nó.
+            'email' => 'required|string|email|unique:users,email, ' . $this->id . '|max:255', // unique:users,email, ' . $this->id . ': duy nhất trong bảng users và bỏ qua kiểm tra duy nhất cho bản ghi hiện tại được xác định bởi $this->id
             'name' => 'required|string',
             'user_catalogue_id' => 'required|integer|gt:0', // gt:0 => value > 0
         ];

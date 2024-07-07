@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Classes\Nestedsetbie;
+use App\Models\PostCatalogue;
 use App\Repositories\PostCatalogueRepository;
 use App\Services\Interfaces\PostCatalogueServiceInterface;
 use Exception;
@@ -17,23 +18,35 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
 {
     protected $postCatalogueRepository;
     protected $nestedset;
+    protected $language;
 
     public function __construct(PostCatalogueRepository $postCatalogueRepository)
     {
+        $this->language = $this->currentLanguage();
         $this->postCatalogueRepository = $postCatalogueRepository;
         $this->nestedset = new Nestedsetbie([
             'table' => 'post_catalogues',
             'foreignkey' => 'post_catalogue_id',
-            'language_id' => $this->currentLanguage()
+            'language_id' => $this->language
         ]);
     }
 
     public function paginate($request)
     {
         $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['where'] = [
+            ['post_catalogue_language.language_id', '=', $this->language]
+        ];
         $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
-        return $this->postCatalogueRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'post/catalogue/index'], []);
+        // kết với bảng post_catalogue_language và điều kiện kết
+        $join = [
+            ['post_catalogue_language', 'post_catalogue_language.post_catalogue_id', '=', 'post_catalogues.id']
+        ];
+        $orderBy = [
+            'post_catalogues.lft', 'ASC'
+        ];
+        return $this->postCatalogueRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'post/catalogue/index'], [], $orderBy);
     }
 
     public function create($request)
@@ -45,9 +58,9 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             $postCatalogue = $this->postCatalogueRepository->create($payload);
             if ($postCatalogue->id > 0) { // lấy id của trường vừa mới thêm vào
                 $payloadLanguage = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
-                $payloadLanguage['language_id'] = $this->currentLanguage();
+                $payloadLanguage['language_id'] = $this->language;
                 $payloadLanguage['post_catalogue_id'] = $postCatalogue->id;
-                $language = $this->postCatalogueRepository->createLanguagesPivot($postCatalogue, $payloadLanguage);
+                $this->postCatalogueRepository->createLanguagesPivot($postCatalogue, $payloadLanguage);
             }
 
             // tính giá trị left, right bằng Nestedsetbie (có sẵn)
@@ -58,8 +71,6 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             DB::commit();
             return true;
         } catch (Exception $e) {
-            echo $e->getMessage();
-            die();
             DB::rollBack();
             return false;
         }
@@ -69,8 +80,28 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
     {
         DB::beginTransaction();
         try {
-            $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
-            $this->postCatalogueRepository->update($id, $payload);
+            // lấy postCatalogue từ csdl (đã có đầy đủ các mối quan hệ)
+            $postCatalogue = $this->postCatalogueRepository->findById($id);
+            $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+            $flag = $this->postCatalogueRepository->update($id, $payload);
+            if ($flag == TRUE) {
+                $payloadLanguage = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+                $payloadLanguage['language_id'] = $this->language;
+                $payloadLanguage['post_catalogue_id'] = $id;
+
+                // gỡ mối quan hệ giữa hai bảng (xóa dữ liệu trên bảng post_catalogue_language)
+                // detach chỉ làm việc dựa trên đối tượng đã được tải đầy đủ từ csdl (có id và đầy đủ thông tin về mối quan hệ)
+                $postCatalogue->languages()->detach($payloadLanguage['language_id'], $id);
+
+                // thêm lại dữ liệu trên bảng post_catalogue_language
+                $this->postCatalogueRepository->createLanguagesPivot($postCatalogue, $payloadLanguage);
+            }
+
+            // tính giá trị left, right bằng Nestedsetbie (có sẵn)
+            $this->nestedset->Get('level ASC, order ASC');
+            $this->nestedset->Recursive(0, $this->nestedset->Set());
+            $this->nestedset->Action();
+
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -145,7 +176,15 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
 
     private function paginateSelect()
     {
-        return ['id', 'name', 'canonical', 'publish', 'description', 'image'];
+        return [
+            'post_catalogues.id',
+            'post_catalogues.publish',
+            'post_catalogues.image',
+            'post_catalogues.level',
+            'post_catalogues.order',
+            'post_catalogue_language.name',
+            'post_catalogue_language.canonical'
+        ];
     }
 
     private function payload()

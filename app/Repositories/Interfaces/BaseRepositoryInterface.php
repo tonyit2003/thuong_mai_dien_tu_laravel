@@ -10,7 +10,7 @@ interface BaseRepositoryInterface
 {
     public function all();
     public function findById($modelId, $column, $relation);
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = []);
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = []);
     public function create($payload = []);
     public function createLanguagesPivot($model, $payload = []);
     public function update($id = 0, $payload = []);

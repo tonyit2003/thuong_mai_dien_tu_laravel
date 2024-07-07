@@ -15,6 +15,7 @@ class PostCatalogueController extends Controller
     protected $postCatalogueService;
     protected $postCatalogueRepository;
     protected $nestedset;
+    protected $language;
 
     public function __construct(PostCatalogueService $postCatalogueService, PostCatalogueRepository $postCatalogueRepository)
     {
@@ -25,6 +26,7 @@ class PostCatalogueController extends Controller
             'foreignkey' => 'post_catalogue_id',
             'language_id' => 1
         ]);
+        $this->language = $this->currentLanguage();
     }
 
     public function index(Request $request)
@@ -69,12 +71,13 @@ class PostCatalogueController extends Controller
 
     public function edit($id)
     {
+        $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
         $config = $this->configData();
-        $postCatalogue = $this->postCatalogueRepository->findById($id);
         $config['seo'] = config('apps.postCatalogue');
         $config['method'] = 'edit';
+        $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.post.catalogue.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'postCatalogue'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'postCatalogue', 'dropdown'));
     }
 
     public function update($id, UpdatePostCatalogueRequest $updatePostCatalogueRequest)

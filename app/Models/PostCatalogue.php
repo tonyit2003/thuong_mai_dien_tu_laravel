@@ -44,4 +44,9 @@ class PostCatalogue extends Model
     {
         return $this->belongsToMany(Language::class, 'post_catalogue_language', 'post_catalogue_id', 'language_id')->withPivot('name', 'canonical', 'mete_title', 'meta_keyword', 'meta_description', 'description', 'content')->withTimestamps();
     }
+
+    public function post_catalogue_language()
+    {
+        return $this->hasMany(PostCatalogueLanguage::class, 'post_catalogue_id', 'id');
+    }
 }

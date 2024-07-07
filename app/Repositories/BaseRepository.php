@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\PostCatalogue;
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,29 +19,43 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [])
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = [])
     {
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
             if (isset($condition['publish']) && $condition['publish'] != -1) {
                 $query->where('publish', '=', $condition['publish']);
             }
 
-            // truy vấn dựa trên dữ liệu đã lọc trước đó
             if (isset($condition['keyword']) && !empty($condition['keyword'])) {
-                $query->where(function ($query) use ($condition) {
-                    $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%');
-                });
+                $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%');
+            }
+
+            if (isset($condition['where']) && !empty($condition['where'])) {
+                foreach ($condition['where'] as $val) {
+                    $query->where($val[0], $val[1], $val[2]);
+                }
             }
         });
 
-        if (!empty($join)) {
-            $query->join(...$join);
-        }
 
         if (isset($relations) && !empty($relations)) {
             foreach ($relations as $relation) {
                 $query->withCount($relation);
             }
+        }
+
+        // kết các bảng lại với nhau
+        if (isset($join) && is_array($join) && count($join)) {
+            foreach ($join as $key => $val) {
+                $query->join($val[0], $val[1], $val[2], $val[3]);
+            }
+        }
+
+        // sắp xếp
+        if (isset($orderBy) && !empty($orderBy)) {
+            // 1. cột cần xét sắp xếp
+            // 2. kiểu sắp sếp (tăng, giảm)
+            $query->orderBy($orderBy[0], $orderBy[1]);
         }
 
         // withQueryString: giữ lại cái điều kiện trên url (perpage=20&user_catalogue_id=0&keyword=Khalil&search=search&page=2)
