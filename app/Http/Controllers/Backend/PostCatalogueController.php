@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Classes\Nestedsetbie;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeletePostCatalogueRequest;
 use App\Http\Requests\StorePostCatalogueRequest;
 use App\Http\Requests\UpdatePostCatalogueRequest;
 use App\Repositories\PostCatalogueRepository;
@@ -92,13 +93,13 @@ class PostCatalogueController extends Controller
 
     public function delete($id)
     {
-        $postCatalogue = $this->postCatalogueRepository->findById($id);
+        $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
         $config['seo'] = config('apps.postCatalogue');
         $template = 'backend.post.catalogue.delete';
         return view('backend.dashboard.layout', compact('template', 'postCatalogue', 'config'));
     }
 
-    public function destroy($id)
+    public function destroy($id, DeletePostCatalogueRequest $deletePostCatalogueRequest)
     {
         if ($this->postCatalogueService->delete($id)) {
             flash()->success('Xóa bản ghi thành công');

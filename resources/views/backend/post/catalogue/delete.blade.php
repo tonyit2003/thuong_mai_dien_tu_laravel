@@ -1,4 +1,13 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo']['delete']['title']])
+@if ($errors->any())
+    <div class="alert alert-danger mt20">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ route('post.catalogue.destroy', $postCatalogue->id) }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -33,10 +42,10 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Tên viết tắt
+                                        Đường dẫn
                                     </label>
                                     <input readonly type="text" name="canonical"
-                                        value="{{ old('canonical', $postCatalogue->canonical ?? '') }}"
+                                        value="{{ config('app.url') . old('canonical', $postCatalogue->canonical ?? 'duong-dan-cua-ban') . config('apps.general.suffix') }}"
                                         class="form-control" placeholder="" autocomplete="off">
                                 </div>
                             </div>

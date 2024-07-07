@@ -91,7 +91,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
 
                 // gỡ mối quan hệ giữa hai bảng (xóa dữ liệu trên bảng post_catalogue_language)
                 // detach chỉ làm việc dựa trên đối tượng đã được tải đầy đủ từ csdl (có id và đầy đủ thông tin về mối quan hệ)
-                $postCatalogue->languages()->detach($payloadLanguage['language_id'], $id);
+                $postCatalogue->languages()->detach($payloadLanguage['language_id']);
 
                 // thêm lại dữ liệu trên bảng post_catalogue_language
                 $this->postCatalogueRepository->createLanguagesPivot($postCatalogue, $payloadLanguage);
@@ -145,6 +145,12 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         DB::beginTransaction();
         try {
             $this->postCatalogueRepository->delete($id);
+
+            // tính giá trị left, right bằng Nestedsetbie (có sẵn)
+            $this->nestedset->Get('level ASC, order ASC');
+            $this->nestedset->Recursive(0, $this->nestedset->Set());
+            $this->nestedset->Action();
+
             DB::commit();
             return true;
         } catch (Exception $e) {
