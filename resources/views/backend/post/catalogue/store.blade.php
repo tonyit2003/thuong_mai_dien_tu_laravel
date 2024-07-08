@@ -25,6 +25,7 @@
         <div class="row">
             <div class="col-lg-9">
                 @include('backend.post.catalogue.component.general')
+                @include('backend.dashboard.component.album')
                 @include('backend.post.catalogue.component.seo')
             </div>
             <div class="col-lg-3">

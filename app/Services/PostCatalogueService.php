@@ -9,6 +9,7 @@ use App\Services\Interfaces\PostCatalogueServiceInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * Class PostCatalogueService
@@ -55,9 +56,11 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         try {
             $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
             $payload['user_id'] = Auth::id(); //lấy id người dùng hiện tại đang đăng nhập
+            $payload['album'] = json_encode($payload['album']); // $payload['album']: mảng các đường dẫn từ input name="album[]"
             $postCatalogue = $this->postCatalogueRepository->create($payload);
             if ($postCatalogue->id > 0) { // lấy id của trường vừa mới thêm vào
                 $payloadLanguage = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+                $payloadLanguage['canonical'] = Str::slug($payloadLanguage['canonical']); //chuyển đổi một chuỗi văn bản thành dạng mà có thể sử dụng được trong URL
                 $payloadLanguage['language_id'] = $this->language;
                 $payloadLanguage['post_catalogue_id'] = $postCatalogue->id;
                 $this->postCatalogueRepository->createLanguagesPivot($postCatalogue, $payloadLanguage);
@@ -83,6 +86,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             // lấy postCatalogue từ csdl (đã có đầy đủ các mối quan hệ)
             $postCatalogue = $this->postCatalogueRepository->findById($id);
             $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+            $payload['album'] = json_encode($payload['album']);
             $flag = $this->postCatalogueRepository->update($id, $payload);
             if ($flag == TRUE) {
                 $payloadLanguage = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
@@ -159,27 +163,6 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         }
     }
 
-    // private function changeUserStatus($post)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $array = [];
-    //         if (isset($post['modelId'])) {
-    //             $array[] = $post['modelId'];
-    //             $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-    //         } else {
-    //             $array = $post['id'];
-    //             $payload[$post['field']] = $post['value'];
-    //         }
-    //         $this->userRepository->updateByWhereIn('user_catalogue_id', $array, $payload);
-    //         DB::commit();
-    //         return true;
-    //     } catch (Exception $e) {
-    //         DB::rollBack();
-    //         return false;
-    //     }
-    // }
-
     private function paginateSelect()
     {
         return [
@@ -195,7 +178,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
 
     private function payload()
     {
-        return ['parent_id', 'follow', 'publish', 'image'];
+        return ['parent_id', 'follow', 'publish', 'image', 'album'];
     }
 
     private function payloadLanguage()

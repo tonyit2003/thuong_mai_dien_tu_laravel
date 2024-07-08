@@ -19,7 +19,7 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = [])
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'])
     {
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
             if (isset($condition['publish']) && $condition['publish'] != -1) {

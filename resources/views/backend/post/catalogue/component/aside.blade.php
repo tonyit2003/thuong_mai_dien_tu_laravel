@@ -1,4 +1,9 @@
 <div class="ibox">
+    <div class="ibox-title">
+        <h5>
+            Chọn danh mục cha
+        </h5>
+    </div>
     <div class="ibox-content">
         <div class="row mb15">
             <div class="col-lg-12">

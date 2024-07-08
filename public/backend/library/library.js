@@ -18,6 +18,11 @@
         }
     };
 
+    HT.sortui = () => {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+    };
+
     HT.changeStatus = () => {
         // kiểm tra xem có tồn tại các phần tử có class là "status" hay không?
         if ($(".status").length) {
@@ -166,5 +171,6 @@
         HT.checkAll();
         HT.checkBoxItem();
         HT.changeStatusAll();
+        HT.sortui();
     });
 })(jQuery);

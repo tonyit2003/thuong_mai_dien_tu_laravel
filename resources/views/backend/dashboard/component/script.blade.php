@@ -5,6 +5,7 @@
 
 <!-- jQuery UI -->
 <script src="{{ asset('backend/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/jquery-ui.js') }}"></script>
 
 @if (isset($config['js']) && is_array($config['js']))
     @foreach ($config['js'] as $val)

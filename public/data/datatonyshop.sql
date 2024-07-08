@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 07, 2024 lúc 05:15 PM
+-- Thời gian đã tạo: Th7 08, 2024 lúc 04:44 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -1016,17 +1016,21 @@ CREATE TABLE `post_catalogues` (
 --
 
 INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `follow`) VALUES
-(24, 0, 2, 7, 1, '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:07:47', '2024-07-07 05:08:00', -1),
-(25, 0, 8, 19, 1, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:08:03', '2024-07-07 05:07:09', -1),
-(26, 25, 13, 18, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:08:54', '2024-07-07 02:19:03', -1),
-(27, 26, 14, 17, 3, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:10:23', '2024-07-07 02:09:43', -1),
-(28, 27, 15, 16, 4, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:12:19', '2024-07-07 02:09:43', -1),
-(29, 24, 3, 4, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:12:52', '2024-07-07 05:13:32', -1),
-(30, 24, 5, 6, 2, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:13:22', '2024-07-07 02:09:43', -1),
-(31, 25, 9, 12, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-07 02:06:07', '2024-07-07 02:19:02', -1),
+(24, 0, 8, 13, 1, '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:07:47', '2024-07-07 05:08:00', -1),
+(25, 0, 14, 27, 1, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:08:03', '2024-07-07 05:07:09', -1),
+(26, 25, 21, 26, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:08:54', '2024-07-07 02:19:03', -1),
+(27, 26, 22, 25, 3, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:10:23', '2024-07-07 02:09:43', -1),
+(28, 27, 23, 24, 4, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:12:19', '2024-07-07 02:09:43', -1),
+(29, 24, 9, 10, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:12:52', '2024-07-07 05:13:32', -1),
+(30, 24, 11, 12, 2, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:13:22', '2024-07-07 02:09:43', -1),
+(31, 25, 15, 20, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-07 02:06:07', '2024-07-07 02:19:02', -1),
 (32, 31, 12, 13, 3, NULL, NULL, NULL, 1, 0, 201014, '2024-07-07 07:47:47', '2024-07-07 02:06:36', '2024-07-07 07:47:47', -1),
-(33, 31, 10, 11, 3, '/thuongmaidientu/public/userfiles/image/language/english_flag.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-07 03:33:00', '2024-07-07 03:33:00', 1),
-(34, 31, 10, 11, 3, '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL, 0, 0, 201014, '2024-07-07 07:37:47', '2024-07-07 04:48:09', '2024-07-07 07:37:47', 1);
+(33, 31, 16, 19, 3, '/thuongmaidientu/public/userfiles/image/language/english_flag.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-07 03:33:00', '2024-07-07 03:33:00', 1),
+(34, 31, 10, 11, 3, '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL, 0, 0, 201014, '2024-07-07 07:37:47', '2024-07-07 04:48:09', '2024-07-07 07:37:47', 1),
+(35, 33, 17, 18, 4, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-08 01:48:11', '2024-07-08 01:48:11', -1),
+(36, 0, 6, 7, 1, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:14:57', '2024-07-08 07:33:52', -1),
+(37, 0, 4, 5, 1, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:19:58', '2024-07-08 07:19:58', -1),
+(38, 0, 2, 3, 1, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:20:17', '2024-07-08 07:20:17', -1);
 
 -- --------------------------------------------------------
 
@@ -1054,11 +1058,15 @@ CREATE TABLE `post_catalogue_language` (
 
 INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
 (34, 1, 'tesst', '<p>1</p>', '<p>1</p>', '123', '123', '123', '123', '2024-07-07 06:24:03', '2024-07-07 06:24:03'),
+(36, 1, 'aaa', NULL, NULL, NULL, NULL, NULL, 'aaa', '2024-07-08 07:33:52', '2024-07-08 07:33:52'),
+(37, 1, 'bbb', NULL, NULL, NULL, NULL, NULL, 'bbb', '2024-07-08 07:19:58', '2024-07-08 07:19:58'),
 (25, 1, 'Bóng đá', NULL, NULL, NULL, NULL, NULL, 'bong-da', '2024-07-07 05:07:09', '2024-07-07 05:07:09'),
 (27, 1, 'Bóng đá Bến Tre', NULL, NULL, NULL, NULL, NULL, 'bong-da-ben-tre', '2024-07-06 07:10:23', '2024-07-06 07:10:23'),
 (28, 1, 'Bóng đá Chợ Lách', NULL, NULL, NULL, NULL, NULL, 'bong-da-cho-lach', '2024-07-06 07:12:19', '2024-07-06 07:12:19'),
+(35, 1, 'Manchester United', NULL, NULL, NULL, NULL, NULL, 'bong-da-manchester-united', '2024-07-08 01:48:11', '2024-07-08 01:48:11'),
 (31, 1, 'Bóng đá quốc tế', NULL, NULL, NULL, NULL, NULL, 'bong-da-quoc-te', '2024-07-07 02:06:07', '2024-07-07 02:06:07'),
 (26, 1, 'Bóng đá trong nước', NULL, NULL, NULL, NULL, NULL, 'bong-da-trong-nuoc', '2024-07-06 07:08:54', '2024-07-06 07:08:54'),
+(38, 1, 'ccc', NULL, NULL, NULL, NULL, NULL, 'ccc', '2024-07-08 07:20:17', '2024-07-08 07:20:17'),
 (33, 1, 'Ngoại hạng Anh', '<h2 id=\"article_sapo\"><strong>Bản tin b&oacute;ng đ&aacute; cập nhật tối 6/7: &quot;Maldini mới&quot;, Riccardo Calafiori chỉ muốn sang Arsenal nếu rời Bologna.</strong></h2>', '<p><strong>HLV Bielsa chỉ l&yacute; do khiến b&oacute;ng đ&aacute; Nam Mỹ thụt l&ugrave;i</strong></p>\r\n\r\n<p>HLV Marcelo Bielsa cho rằng sự xuống cấp tr&igrave;nh độ của c&aacute;c đội tuyển Nam Mỹ đang ng&agrave;y c&agrave;ng đến từ việc c&aacute;c t&agrave;i năng của họ sang ch&acirc;u &Acirc;u thi đấu qu&aacute; sớm. &Ocirc;ng b&igrave;nh luận: &ldquo;Những cậu như Endrick hay Estevao chuyển sang ch&acirc;u &Acirc;u trong khi họ c&ograve;n chưa thấm nhuần những tinh t&uacute;y trong c&aacute;ch chơi b&oacute;ng đặc trưng Nam Mỹ. Họ đ&aacute; theo nhu cầu của CLB b&ecirc;n kia chứ kh&ocirc;ng ph&aacute;t triển bản sắc b&oacute;ng đ&aacute; của c&aacute; nh&acirc;n, v&agrave; khi họ rời khỏi hệ thống của CLB l&agrave; chơi b&oacute;ng một c&aacute;ch thiếu định hướng&rdquo;.</p>\r\n\r\n<p><strong>MU chốt gi&aacute; Neves</strong></p>\r\n\r\n<p>Theo tờ Record (Bồ Đ&agrave;o Nha),&nbsp;<a href=\"https://www.24h.com.vn/manchester-united-c48e1521.html\" title=\"MU\">MU</a>&nbsp;đ&atilde; gửi&nbsp;lời đề nghị chuyển nhượng cuối c&ugrave;ng tới Benfica d&agrave;nh cho tiền vệ Joao Neves.</p>\r\n\r\n<p>Cụ thể, &quot;Quỷ đỏ&quot; chỉ chấp nhận trả tối đa 70 triệu euro (59 triệu bảng) cho tiền vệ ph&ograve;ng ngự 19 tuổi, d&ugrave; vậy con số n&agrave;y vẫn thấp hơn nhiều mức ph&iacute; giải ph&oacute;ng hợp đồng 120 triệu euro (102 triệu bảng Anh)&nbsp;lẫn y&ecirc;u cầu 100 triệu euro (85 triệu bảng) từ đội b&oacute;ng Bồ Đ&agrave;o Nha.&nbsp;Trường hợp kh&ocirc;ng thể thuyết phục Benfica nhả người, MU sẽ chuyển hướng sang&nbsp;Manuel Ugarte (PSG).</p>\r\n\r\n<p align=\"center\"><img alt=\"MU chỉ chấp nhận trả&amp;nbsp;59 triệu bảng cho&amp;nbsp;Joao Neves\" data-original=\"https://icdn.24h.com.vn/upload/3-2024/images/2024-07-06/Tin-moi-nhat-bong-da-sang-6-7-MU-chot-gia-Neves-Real-gay-soc-voi-neves-premium-1700478556-122170-1720235983-83-width740height481.jpg\" data-was-processed=\"true\" onclick=\"show_slide_image_news(1)\" src=\"https://icdn.24h.com.vn/upload/3-2024/images/2024-07-06/Tin-moi-nhat-bong-da-sang-6-7-MU-chot-gia-Neves-Real-gay-soc-voi-neves-premium-1700478556-122170-1720235983-83-width740height481.jpg\" /></p>\r\n\r\n<p align=\"center\">MU chỉ chấp nhận trả&nbsp;59 triệu bảng cho&nbsp;Joao Neves</p>\r\n\r\n<p><strong>Arsenal b&aacute;n Kiwior&nbsp;dọn đường cho&nbsp;&quot;h&agrave;ng hot&quot; EURO</strong></p>\r\n\r\n<p>Theo Football Italia,&nbsp;Arsenal sẵn s&agrave;ng lắng nghe mọi lời đề nghị chuyển nhượng d&agrave;nh cho hậu vệ Jakub Kiwior. Động th&aacute;i n&agrave;y xuất hiện sau khi &quot;Ph&aacute;o thủ&quot; sắp đạt thỏa thuận chi&ecirc;u mộ&nbsp;Riccardo Calafiori (Bologna), hậu vệ thi đấu rất hay trong m&agrave;u &aacute;o ĐT Italia ở EURO. Hiện Juventus, AC Milan đều d&agrave;nh sự quan t&acirc;m cho&nbsp;Kiwior v&agrave; chờ đợi ph&iacute;a Arsenal chốt gi&aacute;.</p>\r\n\r\n<p><strong>Real t&iacute;nh cuỗm Calafiori từ Arsenal</strong></p>\r\n\r\n<p>Tờ AS loan tin,&nbsp;Calafiori bất ngờ lọt v&agrave;o danh s&aacute;ch mục ti&ecirc;u chuyển nhượng tiềm năng của&nbsp;<a href=\"https://www.24h.com.vn/real-madrid-c48e1522.html\" title=\"Real Madrid\">Real Madrid</a>. D&ugrave; vậy, đội chủ s&acirc;n Bernabeu chỉ xem hậu vệ 22 tuổi l&agrave; &quot;phương &aacute;n B&quot; nếu thương vụ chi&ecirc;u mộ Leny Yoro (Lille) thất bại. Hiện&nbsp;Calafiori được định gi&aacute; khoảng 30 triệu euro, trong khi ph&iacute;a&nbsp;Bologna tuy&ecirc;n bố chỉ nhả người nếu nhận được mức ph&iacute; gần với con số 50 triệu euro.</p>\r\n\r\n<p><strong>Palmer sẽ rời Chelsea nếu Man City ngỏ lời</strong></p>\r\n\r\n<p>Nhận định tr&ecirc;n Metro, cựu tiền đạo Michael Owen khẳng định Cole Palmer kh&oacute; c&oacute; khả năng chia tay Chelsea trong tương lai gần, d&ugrave; vậy mọi chuyện c&oacute; thể thay đổi nếu đội b&oacute;ng cũ Man City ngỏ lời chi&ecirc;u mộ lại anh. M&ugrave;a h&egrave; 2023, Palmer gia nhập Chelsea từ Man City theo bản hợp đồng trị gi&aacute; 42,5 triệu bảng v&agrave; tỏa s&aacute;ng rực rỡ với 25 b&agrave;n, 15 kiến tạo sau 46 trận.</p>', 'Ngoại hạng Anh: Lịch thi đấu, Trực tiếp', 'ngoaihanganh', 'Bóng đá Anh - Lịch thi đấu, bảng xếp hạng Ngoại Hạng Anh hôm nay mới nhất. Xem Video clip Bóng Đá Ngoại hạng Anh - NHA đêm qua.', 'ngoai-hang-anh', '2024-07-07 06:34:49', '2024-07-07 06:34:49'),
 (32, 1, 'Serie A', NULL, NULL, NULL, NULL, NULL, 'serie-a', '2024-07-07 02:06:36', '2024-07-07 02:06:36'),
 (24, 1, 'Thời sự', NULL, NULL, '123', '123', '123', 'thoi-su', '2024-07-07 05:08:20', '2024-07-07 05:08:20'),
@@ -1188,7 +1196,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('I9eCM7U5M00Cv1j8abA7XLzHZtAXzcjdhkMHlvUD', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRnVkMlBIc2s2NFBCMXVLUHZLd1libFppUmoySTRCOXNrcnQzN215RyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MDoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Bvc3QvY2F0YWxvZ3VlL2luZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1720363684);
+('zcNnIgbi8UO2l8ylB7laI1ZS7DE9ebr1YmWEXauX', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidHpMcFhWaEhqSGVRUEZiV1ZWWDNOVFhkc3RQVFJFWkpqNkZteDlDSSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Bvc3QvY2F0YWxvZ3VlL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720449416);
 
 -- --------------------------------------------------------
 
@@ -13080,7 +13088,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT cho bảng `post_catalogues`
 --
 ALTER TABLE `post_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
