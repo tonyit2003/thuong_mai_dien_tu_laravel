@@ -36,7 +36,7 @@
                     </div>
                     <a href="{{ route('language.create') }}" class="btn btn-danger">
                         <i class="fa fa-plus mr5"></i>
-                        Thêm mới ngôn ngữ
+                        {{ config('apps.language.create.title') }}
                     </a>
                 </div>
             </div>

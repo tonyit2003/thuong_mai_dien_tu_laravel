@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\LanguageController;
 use App\Http\Controllers\Backend\PostCatalogueController;
+use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Middleware\AuthenticateMiddleware;
@@ -48,13 +49,13 @@ Route::group(['prefix' => 'user/catalogue'], function () {
 
 // POST
 Route::group(['prefix' => 'post'], function () {
-    Route::get('index', [UserController::class, 'index'])->name('post.index')->middleware(AuthenticateMiddleware::class);
-    Route::get('create', [UserController::class, 'create'])->name('post.create')->middleware(AuthenticateMiddleware::class);
-    Route::post('store', [UserController::class, 'store'])->name('post.store')->middleware(AuthenticateMiddleware::class);
-    Route::get('{id}/edit', [UserController::class, 'edit'])->name('post.edit')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
-    Route::post('{id}/update', [UserController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
-    Route::get('{id}/delete', [UserController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
-    Route::post('{id}/destroy', [UserController::class, 'destroy'])->name('post.destroy')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::get('index', [PostController::class, 'index'])->name('post.index')->middleware(AuthenticateMiddleware::class);
+    Route::get('create', [PostController::class, 'create'])->name('post.create')->middleware(AuthenticateMiddleware::class);
+    Route::post('store', [PostController::class, 'store'])->name('post.store')->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/edit', [PostController::class, 'edit'])->name('post.edit')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/update', [PostController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/delete', [PostController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
 });
 
 // POST CATALOGUE

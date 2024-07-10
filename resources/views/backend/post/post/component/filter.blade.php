@@ -1,4 +1,4 @@
-<form method="GET" action="{{ route('user.index') }}">
+<form method="GET" action="{{ route('post.index') }}">
     <div class="filter-wrapper">
         <div class="uk-flex uk-flex-middle uk-flex-space-between">
             <div class="perpage">
@@ -22,12 +22,6 @@
                                 {{ $val }}</option>
                         @endforeach
                     </select>
-                    <select name="user_catalogue_id" class="form-control mr10 setupSelect2" id="">
-                        <option value="0">
-                            Chọn nhóm thành viên
-                        </option>
-                        <option value="1">Quản trị viên</option>
-                    </select>
                     <div class="uk-search uk-flex uk-flex-middle mr10">
                         <div class="input-group">
                             {{-- VT ?: VP => hiển thị VT nếu VT không null, VT null thì hiển thị VP --}}
@@ -40,9 +34,9 @@
                             </span>
                         </div>
                     </div>
-                    <a href="{{ route('user.create') }}" class="btn btn-danger">
+                    <a href="{{ route('post.create') }}" class="btn btn-danger">
                         <i class="fa fa-plus mr5"></i>
-                        {{ config('apps.user.create.title') }}
+                        {{ config('apps.post.create.title') }}
                     </a>
                 </div>
             </div>

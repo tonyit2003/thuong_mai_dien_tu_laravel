@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 08, 2024 lúc 04:44 PM
+-- Thời gian đã tạo: Th7 10, 2024 lúc 12:11 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -909,11 +909,11 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam_flag.jpg', 201014, '2024-07-03 01:42:57', '2024-07-04 09:45:01', NULL, 1, 'Ngôn ngữ tiếng Việt'),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/english_flag.jpg', 201014, '2024-07-03 01:52:50', '2024-07-07 05:26:01', NULL, 0, 'Ngôn ngữ tiếng Anh'),
-(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china_flag.jpg', 201014, '2024-07-03 01:54:07', '2024-07-07 05:26:01', NULL, 0, 'Ngôn ngữ tiếng Trung'),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam_flag.jpg', 201014, '2024-07-03 01:42:57', '2024-07-10 01:34:21', NULL, 0, 'Ngôn ngữ tiếng Việt'),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/english_flag.jpg', 201014, '2024-07-03 01:52:50', '2024-07-10 01:34:21', NULL, 0, 'Ngôn ngữ tiếng Anh'),
+(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china_flag.jpg', 201014, '2024-07-03 01:54:07', '2024-07-10 01:34:19', NULL, 0, 'Ngôn ngữ tiếng Trung'),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test'),
-(5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-04 09:46:17', NULL, 0, '123');
+(5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-10 01:34:22', NULL, 0, '123');
 
 -- --------------------------------------------------------
 
@@ -953,7 +953,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2024_07_03_084921_add_description_at_to_languages', 16),
 (23, '2024_07_06_082538_add_follow_at_to_post_catalogues', 17),
 (24, '2024_07_06_083429_add_canonical_at_post_catalogue_language', 18),
-(25, '2024_07_06_115814_add_timestamps_at_post_catalogue_language', 19);
+(25, '2024_07_06_115814_add_timestamps_at_post_catalogue_language', 19),
+(26, '2024_07_09_205946_crate_post_catalogue_post_table', 20),
+(27, '2024_07_10_051517_add_timestamps_at_post_language', 21);
 
 -- --------------------------------------------------------
 
@@ -981,11 +983,19 @@ CREATE TABLE `posts` (
   `album` text DEFAULT NULL,
   `publish` tinyint(4) NOT NULL DEFAULT 1,
   `order` int(11) NOT NULL DEFAULT 0,
+  `follow` tinyint(4) NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `posts`
+--
+
+INSERT INTO `posts` (`id`, `post_catalogue_id`, `image`, `icon`, `album`, `publish`, `order`, `follow`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(25, 37, NULL, NULL, '', -1, 0, -1, 201014, NULL, '2024-07-10 02:40:58', '2024-07-10 02:40:58');
 
 -- --------------------------------------------------------
 
@@ -1016,21 +1026,24 @@ CREATE TABLE `post_catalogues` (
 --
 
 INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `follow`) VALUES
-(24, 0, 8, 13, 1, '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:07:47', '2024-07-07 05:08:00', -1),
-(25, 0, 14, 27, 1, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:08:03', '2024-07-07 05:07:09', -1),
-(26, 25, 21, 26, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:08:54', '2024-07-07 02:19:03', -1),
-(27, 26, 22, 25, 3, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:10:23', '2024-07-07 02:09:43', -1),
-(28, 27, 23, 24, 4, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:12:19', '2024-07-07 02:09:43', -1),
-(29, 24, 9, 10, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:12:52', '2024-07-07 05:13:32', -1),
-(30, 24, 11, 12, 2, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:13:22', '2024-07-07 02:09:43', -1),
-(31, 25, 15, 20, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-07 02:06:07', '2024-07-07 02:19:02', -1),
+(24, 0, 14, 19, 1, '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:07:47', '2024-07-07 05:08:00', -1),
+(25, 0, 20, 33, 1, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:08:03', '2024-07-07 05:07:09', -1),
+(26, 25, 27, 32, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:08:54', '2024-07-07 02:19:03', -1),
+(27, 26, 28, 31, 3, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:10:23', '2024-07-07 02:09:43', -1),
+(28, 27, 29, 30, 4, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:12:19', '2024-07-07 02:09:43', -1),
+(29, 24, 15, 16, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-06 07:12:52', '2024-07-07 05:13:32', -1),
+(30, 24, 17, 18, 2, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-07-06 07:13:22', '2024-07-07 02:09:43', -1),
+(31, 25, 21, 26, 2, NULL, NULL, NULL, 0, 0, 201014, NULL, '2024-07-07 02:06:07', '2024-07-07 02:19:02', -1),
 (32, 31, 12, 13, 3, NULL, NULL, NULL, 1, 0, 201014, '2024-07-07 07:47:47', '2024-07-07 02:06:36', '2024-07-07 07:47:47', -1),
-(33, 31, 16, 19, 3, '/thuongmaidientu/public/userfiles/image/language/english_flag.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-07 03:33:00', '2024-07-07 03:33:00', 1),
+(33, 31, 22, 25, 3, '/thuongmaidientu/public/userfiles/image/language/english_flag.jpg', NULL, NULL, 1, 0, 201014, NULL, '2024-07-07 03:33:00', '2024-07-07 03:33:00', 1),
 (34, 31, 10, 11, 3, '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL, 0, 0, 201014, '2024-07-07 07:37:47', '2024-07-07 04:48:09', '2024-07-07 07:37:47', 1),
-(35, 33, 17, 18, 4, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-08 01:48:11', '2024-07-08 01:48:11', -1),
-(36, 0, 6, 7, 1, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:14:57', '2024-07-08 07:33:52', -1),
-(37, 0, 4, 5, 1, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:19:58', '2024-07-08 07:19:58', -1),
-(38, 0, 2, 3, 1, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:20:17', '2024-07-08 07:20:17', -1);
+(35, 33, 23, 24, 4, NULL, NULL, NULL, -1, 0, 201014, NULL, '2024-07-08 01:48:11', '2024-07-08 01:48:11', -1),
+(36, 0, 2, 13, 1, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:14:57', '2024-07-08 07:33:52', -1),
+(37, 36, 3, 12, 2, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:19:58', '2024-07-09 22:03:25', -1),
+(38, 37, 4, 11, 3, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\"]', -1, 0, 201014, NULL, '2024-07-08 07:20:17', '2024-07-09 22:03:54', -1),
+(39, 38, 5, 10, 4, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-09 22:03:07', '2024-07-09 22:03:07', -1),
+(40, 39, 6, 9, 5, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/english_flag.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-09 22:04:17', '2024-07-09 22:04:17', -1),
+(41, 40, 7, 8, 6, NULL, NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china_flag.jpg\"]', -1, 0, 201014, NULL, '2024-07-09 22:26:02', '2024-07-09 22:26:12', -1);
 
 -- --------------------------------------------------------
 
@@ -1059,19 +1072,42 @@ CREATE TABLE `post_catalogue_language` (
 INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
 (34, 1, 'tesst', '<p>1</p>', '<p>1</p>', '123', '123', '123', '123', '2024-07-07 06:24:03', '2024-07-07 06:24:03'),
 (36, 1, 'aaa', NULL, NULL, NULL, NULL, NULL, 'aaa', '2024-07-08 07:33:52', '2024-07-08 07:33:52'),
-(37, 1, 'bbb', NULL, NULL, NULL, NULL, NULL, 'bbb', '2024-07-08 07:19:58', '2024-07-08 07:19:58'),
+(37, 1, 'bbb', NULL, NULL, NULL, NULL, NULL, 'bbb', '2024-07-09 22:03:25', '2024-07-09 22:03:25'),
 (25, 1, 'Bóng đá', NULL, NULL, NULL, NULL, NULL, 'bong-da', '2024-07-07 05:07:09', '2024-07-07 05:07:09'),
 (27, 1, 'Bóng đá Bến Tre', NULL, NULL, NULL, NULL, NULL, 'bong-da-ben-tre', '2024-07-06 07:10:23', '2024-07-06 07:10:23'),
 (28, 1, 'Bóng đá Chợ Lách', NULL, NULL, NULL, NULL, NULL, 'bong-da-cho-lach', '2024-07-06 07:12:19', '2024-07-06 07:12:19'),
 (35, 1, 'Manchester United', NULL, NULL, NULL, NULL, NULL, 'bong-da-manchester-united', '2024-07-08 01:48:11', '2024-07-08 01:48:11'),
 (31, 1, 'Bóng đá quốc tế', NULL, NULL, NULL, NULL, NULL, 'bong-da-quoc-te', '2024-07-07 02:06:07', '2024-07-07 02:06:07'),
 (26, 1, 'Bóng đá trong nước', NULL, NULL, NULL, NULL, NULL, 'bong-da-trong-nuoc', '2024-07-06 07:08:54', '2024-07-06 07:08:54'),
-(38, 1, 'ccc', NULL, NULL, NULL, NULL, NULL, 'ccc', '2024-07-08 07:20:17', '2024-07-08 07:20:17'),
+(38, 1, 'ccc', NULL, NULL, NULL, NULL, NULL, 'ccc', '2024-07-09 22:03:54', '2024-07-09 22:03:54'),
+(39, 1, 'ddd', NULL, NULL, NULL, NULL, NULL, 'ddd', '2024-07-09 22:03:07', '2024-07-09 22:03:07'),
+(40, 1, 'eee', NULL, NULL, NULL, NULL, NULL, 'eee', '2024-07-09 22:04:17', '2024-07-09 22:04:17'),
+(41, 1, 'fff', NULL, NULL, NULL, NULL, NULL, 'fff', '2024-07-09 22:26:12', '2024-07-09 22:26:12'),
 (33, 1, 'Ngoại hạng Anh', '<h2 id=\"article_sapo\"><strong>Bản tin b&oacute;ng đ&aacute; cập nhật tối 6/7: &quot;Maldini mới&quot;, Riccardo Calafiori chỉ muốn sang Arsenal nếu rời Bologna.</strong></h2>', '<p><strong>HLV Bielsa chỉ l&yacute; do khiến b&oacute;ng đ&aacute; Nam Mỹ thụt l&ugrave;i</strong></p>\r\n\r\n<p>HLV Marcelo Bielsa cho rằng sự xuống cấp tr&igrave;nh độ của c&aacute;c đội tuyển Nam Mỹ đang ng&agrave;y c&agrave;ng đến từ việc c&aacute;c t&agrave;i năng của họ sang ch&acirc;u &Acirc;u thi đấu qu&aacute; sớm. &Ocirc;ng b&igrave;nh luận: &ldquo;Những cậu như Endrick hay Estevao chuyển sang ch&acirc;u &Acirc;u trong khi họ c&ograve;n chưa thấm nhuần những tinh t&uacute;y trong c&aacute;ch chơi b&oacute;ng đặc trưng Nam Mỹ. Họ đ&aacute; theo nhu cầu của CLB b&ecirc;n kia chứ kh&ocirc;ng ph&aacute;t triển bản sắc b&oacute;ng đ&aacute; của c&aacute; nh&acirc;n, v&agrave; khi họ rời khỏi hệ thống của CLB l&agrave; chơi b&oacute;ng một c&aacute;ch thiếu định hướng&rdquo;.</p>\r\n\r\n<p><strong>MU chốt gi&aacute; Neves</strong></p>\r\n\r\n<p>Theo tờ Record (Bồ Đ&agrave;o Nha),&nbsp;<a href=\"https://www.24h.com.vn/manchester-united-c48e1521.html\" title=\"MU\">MU</a>&nbsp;đ&atilde; gửi&nbsp;lời đề nghị chuyển nhượng cuối c&ugrave;ng tới Benfica d&agrave;nh cho tiền vệ Joao Neves.</p>\r\n\r\n<p>Cụ thể, &quot;Quỷ đỏ&quot; chỉ chấp nhận trả tối đa 70 triệu euro (59 triệu bảng) cho tiền vệ ph&ograve;ng ngự 19 tuổi, d&ugrave; vậy con số n&agrave;y vẫn thấp hơn nhiều mức ph&iacute; giải ph&oacute;ng hợp đồng 120 triệu euro (102 triệu bảng Anh)&nbsp;lẫn y&ecirc;u cầu 100 triệu euro (85 triệu bảng) từ đội b&oacute;ng Bồ Đ&agrave;o Nha.&nbsp;Trường hợp kh&ocirc;ng thể thuyết phục Benfica nhả người, MU sẽ chuyển hướng sang&nbsp;Manuel Ugarte (PSG).</p>\r\n\r\n<p align=\"center\"><img alt=\"MU chỉ chấp nhận trả&amp;nbsp;59 triệu bảng cho&amp;nbsp;Joao Neves\" data-original=\"https://icdn.24h.com.vn/upload/3-2024/images/2024-07-06/Tin-moi-nhat-bong-da-sang-6-7-MU-chot-gia-Neves-Real-gay-soc-voi-neves-premium-1700478556-122170-1720235983-83-width740height481.jpg\" data-was-processed=\"true\" onclick=\"show_slide_image_news(1)\" src=\"https://icdn.24h.com.vn/upload/3-2024/images/2024-07-06/Tin-moi-nhat-bong-da-sang-6-7-MU-chot-gia-Neves-Real-gay-soc-voi-neves-premium-1700478556-122170-1720235983-83-width740height481.jpg\" /></p>\r\n\r\n<p align=\"center\">MU chỉ chấp nhận trả&nbsp;59 triệu bảng cho&nbsp;Joao Neves</p>\r\n\r\n<p><strong>Arsenal b&aacute;n Kiwior&nbsp;dọn đường cho&nbsp;&quot;h&agrave;ng hot&quot; EURO</strong></p>\r\n\r\n<p>Theo Football Italia,&nbsp;Arsenal sẵn s&agrave;ng lắng nghe mọi lời đề nghị chuyển nhượng d&agrave;nh cho hậu vệ Jakub Kiwior. Động th&aacute;i n&agrave;y xuất hiện sau khi &quot;Ph&aacute;o thủ&quot; sắp đạt thỏa thuận chi&ecirc;u mộ&nbsp;Riccardo Calafiori (Bologna), hậu vệ thi đấu rất hay trong m&agrave;u &aacute;o ĐT Italia ở EURO. Hiện Juventus, AC Milan đều d&agrave;nh sự quan t&acirc;m cho&nbsp;Kiwior v&agrave; chờ đợi ph&iacute;a Arsenal chốt gi&aacute;.</p>\r\n\r\n<p><strong>Real t&iacute;nh cuỗm Calafiori từ Arsenal</strong></p>\r\n\r\n<p>Tờ AS loan tin,&nbsp;Calafiori bất ngờ lọt v&agrave;o danh s&aacute;ch mục ti&ecirc;u chuyển nhượng tiềm năng của&nbsp;<a href=\"https://www.24h.com.vn/real-madrid-c48e1522.html\" title=\"Real Madrid\">Real Madrid</a>. D&ugrave; vậy, đội chủ s&acirc;n Bernabeu chỉ xem hậu vệ 22 tuổi l&agrave; &quot;phương &aacute;n B&quot; nếu thương vụ chi&ecirc;u mộ Leny Yoro (Lille) thất bại. Hiện&nbsp;Calafiori được định gi&aacute; khoảng 30 triệu euro, trong khi ph&iacute;a&nbsp;Bologna tuy&ecirc;n bố chỉ nhả người nếu nhận được mức ph&iacute; gần với con số 50 triệu euro.</p>\r\n\r\n<p><strong>Palmer sẽ rời Chelsea nếu Man City ngỏ lời</strong></p>\r\n\r\n<p>Nhận định tr&ecirc;n Metro, cựu tiền đạo Michael Owen khẳng định Cole Palmer kh&oacute; c&oacute; khả năng chia tay Chelsea trong tương lai gần, d&ugrave; vậy mọi chuyện c&oacute; thể thay đổi nếu đội b&oacute;ng cũ Man City ngỏ lời chi&ecirc;u mộ lại anh. M&ugrave;a h&egrave; 2023, Palmer gia nhập Chelsea từ Man City theo bản hợp đồng trị gi&aacute; 42,5 triệu bảng v&agrave; tỏa s&aacute;ng rực rỡ với 25 b&agrave;n, 15 kiến tạo sau 46 trận.</p>', 'Ngoại hạng Anh: Lịch thi đấu, Trực tiếp', 'ngoaihanganh', 'Bóng đá Anh - Lịch thi đấu, bảng xếp hạng Ngoại Hạng Anh hôm nay mới nhất. Xem Video clip Bóng Đá Ngoại hạng Anh - NHA đêm qua.', 'ngoai-hang-anh', '2024-07-07 06:34:49', '2024-07-07 06:34:49'),
 (32, 1, 'Serie A', NULL, NULL, NULL, NULL, NULL, 'serie-a', '2024-07-07 02:06:36', '2024-07-07 02:06:36'),
 (24, 1, 'Thời sự', NULL, NULL, '123', '123', '123', 'thoi-su', '2024-07-07 05:08:20', '2024-07-07 05:08:20'),
 (29, 1, 'Thời sự quốc tế', NULL, NULL, NULL, NULL, NULL, 'thoi-su-quoc-te', '2024-07-06 07:12:52', '2024-07-06 07:12:52'),
 (30, 1, 'Thời sự trong nước', NULL, NULL, NULL, NULL, NULL, 'thoi-su-trong-nuoc', '2024-07-06 07:13:22', '2024-07-06 07:13:22');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `post_catalogue_post`
+--
+
+CREATE TABLE `post_catalogue_post` (
+  `post_catalogue_id` bigint(20) UNSIGNED NOT NULL,
+  `post_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `post_catalogue_post`
+--
+
+INSERT INTO `post_catalogue_post` (`post_catalogue_id`, `post_id`) VALUES
+(37, 25),
+(39, 25),
+(40, 25);
 
 -- --------------------------------------------------------
 
@@ -1082,13 +1118,23 @@ INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name
 CREATE TABLE `post_language` (
   `post_id` bigint(20) UNSIGNED NOT NULL,
   `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `content` longtext NOT NULL,
-  `meta_title` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  `meta_description` text NOT NULL
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `content` longtext DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_keyword` varchar(255) DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `canonical` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `post_language`
+--
+
+INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
+(25, 1, 'aaa', NULL, NULL, NULL, NULL, NULL, 'aaa', '2024-07-10 02:40:58', '2024-07-10 02:40:58');
 
 -- --------------------------------------------------------
 
@@ -1196,7 +1242,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('zcNnIgbi8UO2l8ylB7laI1ZS7DE9ebr1YmWEXauX', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidHpMcFhWaEhqSGVRUEZiV1ZWWDNOVFhkc3RQVFJFWkpqNkZteDlDSSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Bvc3QvY2F0YWxvZ3VlL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720449416);
+('Hkh6zBnzIf4bL3t204ojsQFTabu8xiEytbWlaaEI', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUVdjQXh5U3IxcTFWOUZNQ3FUNllTUTR1bklHb1E4ejZiUFgxcUk2dyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTE6Imh0dHA6Ly9sb2NhbGhvc3QvdGh1b25nbWFpZGllbnR1L3B1YmxpYy9wb3N0L2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MTg6ImZsYXNoZXI6OmVudmVsb3BlcyI7YToyOntpOjA7TzozNToiRmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cRW52ZWxvcGUiOjI6e3M6NDM6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxFbnZlbG9wZQBzdGFtcHMiO2E6Njp7czozMToiRmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcCI7TzozMToiRmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcCI6MTp7czozOToiAEZsYXNoZXJcUHJpbWVcU3RhbXBcUGx1Z2luU3RhbXAAcGx1Z2luIjtzOjc6ImZsYXNoZXIiO31zOjM0OiJGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wIjtPOjM0OiJGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wIjoyOntzOjQ1OiIARmxhc2hlclxQcmltZVxTdGFtcFxDcmVhdGVkQXRTdGFtcABjcmVhdGVkQXQiO086MTc6IkRhdGVUaW1lSW1tdXRhYmxlIjozOntzOjQ6ImRhdGUiO3M6MjY6IjIwMjQtMDctMTAgMDk6MTg6MzkuOTk2NzM0IjtzOjEzOiJ0aW1lem9uZV90eXBlIjtpOjM7czo4OiJ0aW1lem9uZSI7czozOiJVVEMiO31zOjQyOiIARmxhc2hlclxQcmltZVxTdGFtcFxDcmVhdGVkQXRTdGFtcABmb3JtYXQiO3M6MTE6IlktbS1kIEg6aTpzIjt9czoyNzoiRmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wIjtPOjI3OiJGbGFzaGVyXFByaW1lXFN0YW1wXElkU3RhbXAiOjE6e3M6MzE6IgBGbGFzaGVyXFByaW1lXFN0YW1wXElkU3RhbXAAaWQiO3M6MzI6IjlmZDZlOWUxMTUwMDIyMDlhMzIxYTM4NGU3N2RkNDQ0Ijt9czozMDoiRmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wIjtPOjMwOiJGbGFzaGVyXFByaW1lXFN0YW1wXERlbGF5U3RhbXAiOjE6e3M6Mzc6IgBGbGFzaGVyXFByaW1lXFN0YW1wXERlbGF5U3RhbXAAZGVsYXkiO2k6MDt9czoyOToiRmxhc2hlclxQcmltZVxTdGFtcFxIb3BzU3RhbXAiO086Mjk6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wIjoxOntzOjM3OiIARmxhc2hlclxQcmltZVxTdGFtcFxIb3BzU3RhbXAAYW1vdW50IjtpOjE7fXM6MzM6IkZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcCI7TzozMzoiRmxhc2hlclxQcmltZVxTdGFtcFxQcmlvcml0eVN0YW1wIjoxOntzOjQzOiIARmxhc2hlclxQcmltZVxTdGFtcFxQcmlvcml0eVN0YW1wAHByaW9yaXR5IjtpOjA7fX1zOjQ5OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cRW52ZWxvcGUAbm90aWZpY2F0aW9uIjtPOjM5OiJGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24iOjQ6e3M6NDY6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24AdGl0bGUiO3M6MDoiIjtzOjQ4OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAG1lc3NhZ2UiO3M6NDE6IlRow6ptIG3hu5tpIGLhuqNuIGdoaSBraMO0bmcgdGjDoG5oIGPDtG5nIjtzOjQ1OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAHR5cGUiO3M6NToiZXJyb3IiO3M6NDg6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24Ab3B0aW9ucyI7YTowOnt9fX1pOjE7TzozNToiRmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cRW52ZWxvcGUiOjI6e3M6NDM6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxFbnZlbG9wZQBzdGFtcHMiO2E6Njp7czozMToiRmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcCI7TzozMToiRmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcCI6MTp7czozOToiAEZsYXNoZXJcUHJpbWVcU3RhbXBcUGx1Z2luU3RhbXAAcGx1Z2luIjtzOjc6ImZsYXNoZXIiO31zOjM0OiJGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wIjtPOjM0OiJGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wIjoyOntzOjQ1OiIARmxhc2hlclxQcmltZVxTdGFtcFxDcmVhdGVkQXRTdGFtcABjcmVhdGVkQXQiO086MTc6IkRhdGVUaW1lSW1tdXRhYmxlIjozOntzOjQ6ImRhdGUiO3M6MjY6IjIwMjQtMDctMTAgMDk6NDA6NTguMjUyNTQ4IjtzOjEzOiJ0aW1lem9uZV90eXBlIjtpOjM7czo4OiJ0aW1lem9uZSI7czozOiJVVEMiO31zOjQyOiIARmxhc2hlclxQcmltZVxTdGFtcFxDcmVhdGVkQXRTdGFtcABmb3JtYXQiO3M6MTE6IlktbS1kIEg6aTpzIjt9czoyNzoiRmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wIjtPOjI3OiJGbGFzaGVyXFByaW1lXFN0YW1wXElkU3RhbXAiOjE6e3M6MzE6IgBGbGFzaGVyXFByaW1lXFN0YW1wXElkU3RhbXAAaWQiO3M6MzI6ImY3ZGI2OGZiNzQyMjY3YmU4NDMyMzBkYzcyOGNlNzIxIjt9czozMDoiRmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wIjtPOjMwOiJGbGFzaGVyXFByaW1lXFN0YW1wXERlbGF5U3RhbXAiOjE6e3M6Mzc6IgBGbGFzaGVyXFByaW1lXFN0YW1wXERlbGF5U3RhbXAAZGVsYXkiO2k6MDt9czoyOToiRmxhc2hlclxQcmltZVxTdGFtcFxIb3BzU3RhbXAiO086Mjk6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wIjoxOntzOjM3OiIARmxhc2hlclxQcmltZVxTdGFtcFxIb3BzU3RhbXAAYW1vdW50IjtpOjE7fXM6MzM6IkZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcCI7TzozMzoiRmxhc2hlclxQcmltZVxTdGFtcFxQcmlvcml0eVN0YW1wIjoxOntzOjQzOiIARmxhc2hlclxQcmltZVxTdGFtcFxQcmlvcml0eVN0YW1wAHByaW9yaXR5IjtpOjA7fX1zOjQ5OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cRW52ZWxvcGUAbm90aWZpY2F0aW9uIjtPOjM5OiJGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24iOjQ6e3M6NDY6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24AdGl0bGUiO3M6MDoiIjtzOjQ4OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAG1lc3NhZ2UiO3M6MzQ6IlRow6ptIG3hu5tpIGLhuqNuIGdoaSB0aMOgbmggY8O0bmciO3M6NDU6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24AdHlwZSI7czo3OiJzdWNjZXNzIjtzOjQ4OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAG9wdGlvbnMiO2E6MDp7fX19fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1720604459);
 
 -- --------------------------------------------------------
 
@@ -1233,10 +1279,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
-(200015, 'Griffin Trantow', '+1 (360) 755-3544', '0', '0', '0', '654 Langosh LightNorth Mathew, TN 58910-1440', NULL, 'userfiles/image/language/china_flag.jpg', NULL, NULL, NULL, 'franecki.sylvester@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'MoE1GgJz0F', '2024-07-01 08:10:44', '2024-07-07 05:25:46', 1, NULL, 1),
-(200016, 'Oran Bergstrom', '+1 (517) 218-1270', NULL, NULL, NULL, '64624 Hodkiewicz Green Apt. 061\nSouth Bellland, NY 29772', NULL, NULL, NULL, NULL, NULL, 'felicita44@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'goYmlefYzW', '2024-07-01 08:10:44', '2024-07-07 05:25:46', 1, NULL, 1),
-(200017, 'Rosina Daniel', '+1-863-630-5391', NULL, NULL, NULL, '4317 Harber Harbors\nKatrinetown, WY 61448', NULL, NULL, NULL, NULL, NULL, 'mekhi.dooley@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'CLahXknElA', '2024-07-01 08:10:44', '2024-07-07 05:25:46', 1, NULL, 1),
-(200018, 'Ben O\'Kon', '770.899.2459', NULL, NULL, NULL, '96923 Erna Throughway\nLake Kaseyside, WY 23738-0425', NULL, NULL, NULL, NULL, NULL, 'stanton.raquel@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'K7VFkDoPfR', '2024-07-01 08:10:44', '2024-07-07 05:25:46', 1, NULL, 1),
+(200015, 'Griffin Trantow', '+1 (360) 755-3544', '0', '0', '0', '654 Langosh LightNorth Mathew, TN 58910-1440', NULL, 'userfiles/image/language/china_flag.jpg', NULL, NULL, NULL, 'franecki.sylvester@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'MoE1GgJz0F', '2024-07-01 08:10:44', '2024-07-10 01:35:33', 1, NULL, 1),
+(200016, 'Oran Bergstrom', '+1 (517) 218-1270', NULL, NULL, NULL, '64624 Hodkiewicz Green Apt. 061\nSouth Bellland, NY 29772', NULL, NULL, NULL, NULL, NULL, 'felicita44@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'goYmlefYzW', '2024-07-01 08:10:44', '2024-07-10 01:35:37', 1, NULL, 1),
+(200017, 'Rosina Daniel', '+1-863-630-5391', NULL, NULL, NULL, '4317 Harber Harbors\nKatrinetown, WY 61448', NULL, NULL, NULL, NULL, NULL, 'mekhi.dooley@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'CLahXknElA', '2024-07-01 08:10:44', '2024-07-10 01:35:36', 1, NULL, 1),
+(200018, 'Ben O\'Kon', '770.899.2459', NULL, NULL, NULL, '96923 Erna Throughway\nLake Kaseyside, WY 23738-0425', NULL, NULL, NULL, NULL, NULL, 'stanton.raquel@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'K7VFkDoPfR', '2024-07-01 08:10:44', '2024-07-10 01:35:37', 1, NULL, 1),
 (200019, 'Abby Stokes', '+19725924031', NULL, NULL, NULL, '700 Schultz Lock Apt. 853\nNew Jazminland, MN 61123', NULL, NULL, NULL, NULL, NULL, 'alycia.ondricka@example.org', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'uo7QDnLiYg', '2024-07-01 08:10:44', '2024-07-07 05:25:46', 1, NULL, 1),
 (200020, 'Paul Lynch IV', '989-802-6395', NULL, NULL, NULL, '2739 Witting Drive Apt. 667\nEast Jarrell, WY 84408', NULL, NULL, NULL, NULL, NULL, 'berniece99@example.net', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'xuXfSOlaAZ', '2024-07-01 08:10:44', '2024-07-07 05:25:46', 1, NULL, 1),
 (200021, 'Ms. Amara Schumm', '1-917-677-0293', NULL, NULL, NULL, '9669 Bernhard Key Suite 113\nRueckerborough, AK 36604', NULL, NULL, NULL, NULL, NULL, 'leuschke.zackery@example.com', '2024-07-01 08:10:44', '$2y$12$uWJkS.Ms1i75UHNXqYilAOW4SKp.vq8PM4xhDIbj6A.YziPbfUrvS', 'kiQOdTMjcY', '2024-07-01 08:10:44', '2024-07-07 05:25:46', 1, NULL, 1),
@@ -13006,9 +13052,17 @@ ALTER TABLE `post_catalogue_language`
   ADD KEY `post_catalogue_language_language_id_foreign` (`language_id`);
 
 --
+-- Chỉ mục cho bảng `post_catalogue_post`
+--
+ALTER TABLE `post_catalogue_post`
+  ADD KEY `post_catalogue_post_post_catalogue_id_foreign` (`post_catalogue_id`),
+  ADD KEY `post_catalogue_post_post_id_foreign` (`post_id`);
+
+--
 -- Chỉ mục cho bảng `post_language`
 --
 ALTER TABLE `post_language`
+  ADD UNIQUE KEY `canonical` (`canonical`),
   ADD KEY `post_language_post_id_foreign` (`post_id`),
   ADD KEY `post_language_language_id_foreign` (`language_id`);
 
@@ -13076,19 +13130,19 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `post_catalogues`
 --
 ALTER TABLE `post_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
@@ -13137,6 +13191,13 @@ ALTER TABLE `post_catalogues`
 ALTER TABLE `post_catalogue_language`
   ADD CONSTRAINT `post_catalogue_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `post_catalogue_language_post_catalogue_id_foreign` FOREIGN KEY (`post_catalogue_id`) REFERENCES `post_catalogues` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `post_catalogue_post`
+--
+ALTER TABLE `post_catalogue_post`
+  ADD CONSTRAINT `post_catalogue_post_post_catalogue_id_foreign` FOREIGN KEY (`post_catalogue_id`) REFERENCES `post_catalogues` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `post_catalogue_post_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `post_language`

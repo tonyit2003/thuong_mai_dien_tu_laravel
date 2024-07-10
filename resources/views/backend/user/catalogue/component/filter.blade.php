@@ -36,7 +36,7 @@
                     </div>
                     <a href="{{ route('user.catalogue.create') }}" class="btn btn-danger">
                         <i class="fa fa-plus mr5"></i>
-                        Thêm mới nhóm thành viên
+                        {{ config('apps.userCatalogue.create.title') }}
                     </a>
                 </div>
             </div>

@@ -36,7 +36,7 @@
                     </div>
                     <a href="{{ route('post.catalogue.create') }}" class="btn btn-danger">
                         <i class="fa fa-plus mr5"></i>
-                        Thêm mới nhóm bài viết
+                        {{ config('apps.postCatalogue.create.title') }}
                     </a>
                 </div>
             </div>

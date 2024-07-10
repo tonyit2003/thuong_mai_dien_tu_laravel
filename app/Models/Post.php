@@ -5,17 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Validation\Rule;
 
-class PostCatalogue extends Model
+class Post extends Model
 {
     use HasFactory, SoftDeletes; // SoftDeletes: phương thức delete() sẽ xóa mềm (không xóa dữ liệu trong mysql)
 
     protected $fillable = [
-        'parent_id',
-        'lft',
-        'rgt',
-        'level',
+        'post_catalogue_id',
         'image',
         'icon',
         'album',
@@ -27,7 +23,7 @@ class PostCatalogue extends Model
     ];
 
     // Tên bảng tương ứng trong mysql
-    protected $table = 'post_catalogues';
+    protected $table = 'posts';
 
     // mối quan hệ n - n với bảng languages
     /*
@@ -43,28 +39,11 @@ class PostCatalogue extends Model
     */
     public function languages()
     {
-        return $this->belongsToMany(Language::class, 'post_catalogue_language', 'post_catalogue_id', 'language_id')->withPivot('name', 'canonical', 'mete_title', 'meta_keyword', 'meta_description', 'description', 'content')->withTimestamps();
+        return $this->belongsToMany(Language::class, 'post_language', 'post_id', 'language_id')->withPivot('name', 'canonical', 'mete_title', 'meta_keyword', 'meta_description', 'description', 'content')->withTimestamps();
     }
 
-    public function post()
+    public function post_catalogues()
     {
-        return $this->belongsToMany(Post::class, 'post_catalogue_post', 'post_catalogue_id', 'post_id');
-    }
-
-    public function post_catalogue_language()
-    {
-        return $this->hasMany(PostCatalogueLanguage::class, 'post_catalogue_id', 'id');
-    }
-
-    // kiểm tra xem một đối tượng PostCatalogue có con hay không.
-    public static function isNodeCheck($id = 0)
-    {
-        $postCatalogue = PostCatalogue::find($id);
-
-        if ($postCatalogue->rgt - $postCatalogue->lft !== 1) {
-            return false;
-        }
-
-        return true;
+        return $this->belongsToMany(PostCatalogue::class, 'post_catalogue_post', 'post_id', 'post_catalogue_id');
     }
 }
