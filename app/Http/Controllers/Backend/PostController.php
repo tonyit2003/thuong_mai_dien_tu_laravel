@@ -41,7 +41,8 @@ class PostController extends Controller
             'css' => [
                 'backend/css/plugins/switchery/switchery.css',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
-            ]
+            ],
+            'model' => 'Post'
         ];
         $config['seo'] = config('apps.post');
 
@@ -63,10 +64,10 @@ class PostController extends Controller
     {
         if ($this->postService->create($storePostRequest)) {
             flash()->success('Thêm mới bản ghi thành công');
-            return redirect()->route('post.post.index');
+            return redirect()->route('post.index');
         }
         flash()->error('Thêm mới bản ghi không thành công');
-        return redirect()->route('post.post.index');
+        return redirect()->route('post.index');
     }
 
     public function edit($id)
@@ -85,10 +86,10 @@ class PostController extends Controller
     {
         if ($this->postService->update($id, $updatePostRequest)) {
             flash()->success('Cập nhật bản ghi thành công');
-            return redirect()->route('post.post.index');
+            return redirect()->route('post.index');
         }
         flash()->error('Cập nhật bản ghi không thành công');
-        return redirect()->route('post.post.index');
+        return redirect()->route('post.index');
     }
 
     public function delete($id)
@@ -103,10 +104,10 @@ class PostController extends Controller
     {
         if ($this->postService->delete($id)) {
             flash()->success('Xóa bản ghi thành công');
-            return redirect()->route('post.post.index');
+            return redirect()->route('post.index');
         }
         flash()->error('Xóa bản ghi không thành công');
-        return redirect()->route('post.post.index');
+        return redirect()->route('post.index');
     }
 
     private function configData()

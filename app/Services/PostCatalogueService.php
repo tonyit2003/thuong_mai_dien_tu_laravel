@@ -90,6 +90,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             $flag = $this->postCatalogueRepository->update($id, $payload);
             if ($flag == TRUE) {
                 $payloadLanguage = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+                $payloadLanguage['canonical'] = Str::slug($payloadLanguage['canonical']); //chuyển đổi một chuỗi văn bản thành dạng mà có thể sử dụng được trong URL
                 $payloadLanguage['language_id'] = $this->language;
                 $payloadLanguage['post_catalogue_id'] = $id;
 

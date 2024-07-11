@@ -7,13 +7,13 @@
     </a>
     <ul class="dropdown-menu dropdown-user">
         <li>
-            <a class="changeStatusAll" data-field="publish" data-model="{{ $model }}" data-value="1"
+            <a class="changeStatusAll" data-field="publish" data-model="{{ $config['model'] }}" data-value="1"
                 href="#">
                 Mở khóa hàng loạt
             </a>
         </li>
         <li>
-            <a class="changeStatusAll" data-field="publish" data-model="{{ $model }}" data-value="0"
+            <a class="changeStatusAll" data-field="publish" data-model="{{ $config['model'] }}" data-value="0"
                 href="#">
                 Khóa hàng loạt
             </a>

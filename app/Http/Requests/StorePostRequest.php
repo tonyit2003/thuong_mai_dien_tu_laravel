@@ -24,7 +24,7 @@ class StorePostRequest extends FormRequest
         return [
             'name' => 'required',
             'canonical' => 'required|unique:post_language',
-            'parent_id' => 'gt:0',
+            'post_catalogue_id' => 'gt:0',
         ];
     }
 
@@ -34,7 +34,7 @@ class StorePostRequest extends FormRequest
             'name.required' => "Bạn chưa nhập tên tiêu đề.",
             'canonical.required' => "Bạn chưa nhập đường dẫn",
             'canonical.unique' => "Đường dẫn đã tồn tại",
-            'parent_id.gt' => "Bạn chưa chọn danh mục cha",
+            'post_catalogue_id.gt' => "Bạn chưa chọn danh mục cha",
         ];
     }
 }

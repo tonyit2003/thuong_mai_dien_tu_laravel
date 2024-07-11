@@ -39,7 +39,7 @@ class PostService extends BaseService implements PostServiceInterface
         $orderBy = [
             'posts.id', 'DESC'
         ];
-        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'post/index'], [], $orderBy);
+        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'post/index'], ['post_catalogues'], $orderBy);
     }
 
     public function create($request)
@@ -80,7 +80,7 @@ class PostService extends BaseService implements PostServiceInterface
     {
         DB::beginTransaction();
         try {
-            // lấy postCatalogue từ csdl (đã có đầy đủ các mối quan hệ)
+            // lấy post từ csdl (đã có đầy đủ các mối quan hệ)
             $post = $this->postRepository->findById($id);
             $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
             $payload['album'] = (isset($payload['album']) && is_array($payload['album'])) ? json_encode($payload['album']) : ""; // // $payload['album']: mảng các đường dẫn từ input name="album[]"
@@ -96,6 +96,16 @@ class PostService extends BaseService implements PostServiceInterface
 
                 // thêm lại dữ liệu trên bảng post_language
                 $this->postRepository->createPivot($post, $payloadLanguage, 'languages');
+
+                $catalogue = $this->catalogue($request); // mảng chứa các post_catalogue_id
+                /*
+                - đồng bộ dữ liệu trong bảng trung gian từ hàm định nghĩa mối quan hệ
+                - post_id từ $post
+                - post_catalogue_id từ mảng $catalogue
+                - laravel sẽ: + xóa các post_catalogue_id không có trong mảng $catalogue
+                              + thêm các giá trị post_catalogue_id từ mảng $catalogue mà chưa tồn tại trong csdl
+                */
+                $post->post_catalogues()->sync($catalogue);
             }
 
             DB::commit();
@@ -153,7 +163,7 @@ class PostService extends BaseService implements PostServiceInterface
     private function catalogue($request)
     {
         // gộp 2 mảng và loại bỏ phần tử trùng lặp
-        return array_unique(array_merge($request->input('catalogue'), [$request->post_catalogue_id])); // [$request->post_catalogue_id] => tạo mảng chứa một phần tử duy nhất
+        return array_unique(array_merge(($request->input('catalogue') != null && is_array($request->input('catalogue'))) ? $request->input('catalogue') : [], [$request->post_catalogue_id])); // [$request->post_catalogue_id] => tạo mảng chứa một phần tử duy nhất
     }
 
     private function paginateSelect()
@@ -162,7 +172,6 @@ class PostService extends BaseService implements PostServiceInterface
             'posts.id',
             'posts.publish',
             'posts.image',
-            'posts.level',
             'posts.order',
             'post_language.name',
             'post_language.canonical'

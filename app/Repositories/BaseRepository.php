@@ -41,6 +41,7 @@ class BaseRepository implements BaseRepositoryInterface
         if (isset($relations) && !empty($relations)) {
             foreach ($relations as $relation) {
                 $query->withCount($relation);
+                $query->with($relation);
             }
         }
 
@@ -71,7 +72,8 @@ class BaseRepository implements BaseRepositoryInterface
     // thêm một bản ghi mới vào bảng trung gian của mối quan hệ "many-to-many" giữa hai model
     public function createPivot($model, $payload = [], $relation = '')
     {
-        // $relation: phương thức đã được định nghĩa trong model để thiết lập mối quan hệ "many-to-many" giữa model hiện tại và model khác.
+        // $relation: tên phương thức đã được định nghĩa trong model để thiết lập mối quan hệ "many-to-many" giữa model hiện tại và model khác.
+        // {$relation} => sử dụng giá trị của $relation để tham chiếu đến thuộc tính hoặc phương thức tương ứng của $model.
         // attach:  thêm một bản ghi mới vào bảng trung gian (khóa chính của model hiện tại, dữ liệu sẽ được lưu vào các cột trong bảng trung gian)
         return $model->{$relation}()->attach($model->id, $payload);
     }
