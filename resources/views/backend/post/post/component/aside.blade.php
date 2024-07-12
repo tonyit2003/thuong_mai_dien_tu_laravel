@@ -26,7 +26,9 @@
             $catalogue = [];
             if (isset($post)) {
                 foreach ($post->post_catalogues as $key => $val) {
-                    $catalogue[] = $val->id;
+                    if ($val->id != $post->post_catalogue_id) {
+                        $catalogue[] = $val->id;
+                    }
                 }
             }
         @endphp

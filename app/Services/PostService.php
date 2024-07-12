@@ -27,45 +27,36 @@ class PostService extends BaseService implements PostServiceInterface
     public function paginate($request)
     {
         $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
+        $condition['post_catalogue_id'] = $request->input('post_catalogue_id') != null ? $request->integer('post_catalogue_id') : 0;
         $condition['where'] = [
             ['post_language.language_id', '=', $this->language]
         ];
-        $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         // kết với bảng post_language và điều kiện kết
         $join = [
-            ['post_language', 'post_language.post_id', '=', 'posts.id']
+            ['post_language', 'post_language.post_id', '=', 'posts.id'],
+            ['post_catalogue_post', 'post_catalogue_post.post_id', '=', 'posts.id']
         ];
         $orderBy = [
             'posts.id', 'DESC'
         ];
-        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'post/index'], ['post_catalogues'], $orderBy);
+        $extend = [
+            'path' => 'post/index',
+            // có thể select các cột trong group by
+            'groupBy' => $this->paginateSelect()
+        ];
+        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, ['post_catalogues'], $orderBy, $this->whereRaw($request));
     }
 
     public function create($request)
     {
         DB::beginTransaction();
         try {
-            $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
-            $payload['user_id'] = Auth::id(); //lấy id người dùng hiện tại đang đăng nhập
-            $payload['album'] = (isset($payload['album']) && is_array($payload['album'])) ? json_encode($payload['album']) : ""; // // $payload['album']: mảng các đường dẫn từ input name="album[]"
-            $post = $this->postRepository->create($payload);
+            $post = $this->createPost($request);
             if ($post->id > 0) { // lấy id của trường vừa mới thêm vào
-                $payloadLanguage = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
-                $payloadLanguage['canonical'] = Str::slug($payloadLanguage['canonical']); //chuyển đổi một chuỗi văn bản thành dạng mà có thể sử dụng được trong URL
-                $payloadLanguage['language_id'] = $this->language;
-                $payloadLanguage['post_id'] = $post->id;
-                $this->postRepository->createPivot($post, $payloadLanguage, 'languages');
-
-                $catalogue = $this->catalogue($request); // mảng chứa các post_catalogue_id
-                /*
-                - đồng bộ dữ liệu trong bảng trung gian từ hàm định nghĩa mối quan hệ
-                - post_id từ $post
-                - post_catalogue_id từ mảng $catalogue
-                - laravel sẽ: + xóa các post_catalogue_id không có trong mảng $catalogue
-                              + thêm các giá trị post_catalogue_id từ mảng $catalogue mà chưa tồn tại trong csdl
-                */
-                $post->post_catalogues()->sync($catalogue);
+                $this->updateLanguageForPost($post, $request);
+                $this->updateCatalogueForPost($post, $request);
             }
 
             DB::commit();
@@ -82,32 +73,10 @@ class PostService extends BaseService implements PostServiceInterface
         try {
             // lấy post từ csdl (đã có đầy đủ các mối quan hệ)
             $post = $this->postRepository->findById($id);
-            $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
-            $payload['album'] = (isset($payload['album']) && is_array($payload['album'])) ? json_encode($payload['album']) : ""; // // $payload['album']: mảng các đường dẫn từ input name="album[]"
-            $flag = $this->postRepository->update($id, $payload);
-            if ($flag == TRUE) {
-                $payloadLanguage = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
-                $payloadLanguage['language_id'] = $this->language;
-                $payloadLanguage['post_id'] = $id;
-
-                // gỡ mối quan hệ giữa hai bảng (xóa dữ liệu trên bảng post_language)
-                // detach chỉ làm việc dựa trên đối tượng đã được tải đầy đủ từ csdl (có id và đầy đủ thông tin về mối quan hệ)
-                $post->languages()->detach($payloadLanguage['language_id']);
-
-                // thêm lại dữ liệu trên bảng post_language
-                $this->postRepository->createPivot($post, $payloadLanguage, 'languages');
-
-                $catalogue = $this->catalogue($request); // mảng chứa các post_catalogue_id
-                /*
-                - đồng bộ dữ liệu trong bảng trung gian từ hàm định nghĩa mối quan hệ
-                - post_id từ $post
-                - post_catalogue_id từ mảng $catalogue
-                - laravel sẽ: + xóa các post_catalogue_id không có trong mảng $catalogue
-                              + thêm các giá trị post_catalogue_id từ mảng $catalogue mà chưa tồn tại trong csdl
-                */
-                $post->post_catalogues()->sync($catalogue);
+            if ($this->updatePost($post, $request)) {
+                $this->updateLanguageForPost($post, $request);
+                $this->updateCatalogueForPost($post, $request);
             }
-
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -160,10 +129,84 @@ class PostService extends BaseService implements PostServiceInterface
         }
     }
 
+    private function createPost($request)
+    {
+        $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+        $payload['user_id'] = Auth::id(); //lấy id người dùng hiện tại đang đăng nhập
+        $payload['album'] = $this->formatAlbum($payload['album']);
+        return $this->postRepository->create($payload);
+    }
+
+    private function updatePost($post, $request)
+    {
+        $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+        $payload['album'] = $this->formatAlbum($payload['album']);
+        return $this->postRepository->update($post->id, $payload);
+    }
+
+    private function formatAlbum($album)
+    {
+        // $payload['album']: mảng các đường dẫn từ input name="album[]"
+        return (isset($album) && is_array($album)) ? json_encode($album) : "";
+    }
+
+    private function updateLanguageForPost($post, $request)
+    {
+        $payload = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
+        $payload = $this->formatLanguagePayload($payload, $post->id);
+        // gỡ mối quan hệ giữa hai bảng (xóa dữ liệu trên bảng post_language)
+        // detach chỉ làm việc dựa trên đối tượng đã được tải đầy đủ từ csdl (có id và đầy đủ thông tin về mối quan hệ)
+        $post->languages()->detach($payload['language_id']);
+
+        // thêm lại dữ liệu trên bảng post_language
+        return $this->postRepository->createPivot($post, $payload, 'languages');
+    }
+
+    private function formatLanguagePayload($payload, $postId)
+    {
+        $payload['canonical'] = Str::slug($payload['canonical']); //chuyển đổi một chuỗi văn bản thành dạng mà có thể sử dụng được trong URL
+        $payload['language_id'] = $this->language;
+        $payload['post_id'] = $postId;
+        return $payload;
+    }
+
+    private function updateCatalogueForPost($post, $request)
+    {
+        $catalogue = $this->catalogue($request); // mảng chứa các post_catalogue_id
+        /*
+                - đồng bộ dữ liệu trong bảng trung gian từ hàm định nghĩa mối quan hệ
+                - post_id từ $post
+                - post_catalogue_id từ mảng $catalogue
+                - laravel sẽ: + xóa các post_catalogue_id không có trong mảng $catalogue
+                              + thêm các giá trị post_catalogue_id từ mảng $catalogue mà chưa tồn tại trong csdl
+                */
+        $post->post_catalogues()->sync($catalogue);
+    }
+
     private function catalogue($request)
     {
         // gộp 2 mảng và loại bỏ phần tử trùng lặp
         return array_unique(array_merge(($request->input('catalogue') != null && is_array($request->input('catalogue'))) ? $request->input('catalogue') : [], [$request->post_catalogue_id])); // [$request->post_catalogue_id] => tạo mảng chứa một phần tử duy nhất
+    }
+
+    private function whereRaw($request)
+    {
+        $rawCondition = [];
+        $postCatalogueId = $request->input('post_catalogue_id') != null ? $request->integer('post_catalogue_id') : 0;
+        if ($postCatalogueId > 0) {
+            $rawCondition['whereRaw'] = [
+                [
+                    'post_catalogue_post.post_catalogue_id IN (
+                        SELECT id
+                        FROM post_catalogues
+                        WHERE lft >= (SELECT lft FROM post_catalogues WHERE post_catalogues.id = ?)
+                        AND rgt <= (SELECT rgt FROM post_catalogues WHERE post_catalogues.id = ?)
+                    )',
+                    [$postCatalogueId, $postCatalogueId] // truyền giá trị vào ? trong câu truy vấn
+                ]
+            ];
+        }
+        return $rawCondition;
     }
 
     private function paginateSelect()

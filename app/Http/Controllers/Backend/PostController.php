@@ -45,9 +45,9 @@ class PostController extends Controller
             'model' => 'Post'
         ];
         $config['seo'] = config('apps.post');
-
+        $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.post.post.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'posts'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'posts', 'dropdown'));
     }
 
     public function create()

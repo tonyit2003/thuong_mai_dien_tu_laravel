@@ -35,10 +35,10 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
     public function paginate($request)
     {
         $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $condition['where'] = [
             ['post_catalogue_language.language_id', '=', $this->language]
         ];
-        $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         // kết với bảng post_catalogue_language và điều kiện kết
         $join = [

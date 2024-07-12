@@ -16,9 +16,19 @@
             </div>
             <div class="action">
                 <div class="uk-flex uk-flex-middle">
+                    @php
+                        $publish = request('publish') != null ? request('publish') : -1;
+                        $postCatalogueId = request('post_catalogue_id') != null ? request('post_catalogue_id') : 0;
+                    @endphp
                     <select name="publish" class="form-control mr10 setupSelect2" id="">
                         @foreach (config('apps.general.publish') as $key => $val)
-                            <option value="{{ $key }}">
+                            <option {{ $key == $publish ? 'selected' : '' }} value="{{ $key }}">
+                                {{ $val }}</option>
+                        @endforeach
+                    </select>
+                    <select name="post_catalogue_id" class="form-control mr10 setupSelect2" id="">
+                        @foreach ($dropdown as $key => $val)
+                            <option {{ $key == $postCatalogueId ? 'selected' : '' }} value="{{ $key }}">
                                 {{ $val }}</option>
                         @endforeach
                     </select>

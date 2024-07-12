@@ -18,7 +18,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $this->model = $user;
     }
 
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = [])
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])
     {
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
             if (isset($condition['publish']) && $condition['publish'] != -1) {
@@ -46,9 +46,18 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             // user_catalogues: Tên quan hệ trong model
         })->with('user_catalogues');
 
+        // thêm điều kiện truy vấn bằng câu sql
+        if (isset($rawQuery['whereRaw']) && count($rawQuery['whereRaw'])) {
+            foreach ($rawQuery['whereRaw'] as $key => $val) {
+                $query->whereRaw($val[0], $val[1]); // $val[0]: câu truy vấn, $val[1]: giá trị tham số trong câu truy vấn
+            }
+        }
+
+        // truy vấn bằng quan hệ giữa các model
         if (isset($relations) && !empty($relations)) {
             foreach ($relations as $relation) {
                 $query->withCount($relation);
+                $query->with($relation);
             }
         }
 
