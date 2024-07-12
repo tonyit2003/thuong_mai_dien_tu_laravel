@@ -21,59 +21,21 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])
     {
-        $query = $this->model->select($column)->where(function ($query) use ($condition) {
-            if (isset($condition['publish']) && $condition['publish'] != -1) {
-                $query->where('publish', '=', $condition['publish']);
-            }
-
-            if (isset($condition['keyword']) && !empty($condition['keyword'])) {
-                $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%');
-            }
-
-            if (isset($condition['where']) && !empty($condition['where'])) {
-                foreach ($condition['where'] as $val) {
-                    $query->where($val[0], $val[1], $val[2]);
-                }
-            }
-        });
-
-        // thêm điều kiện truy vấn bằng câu sql
-        if (isset($rawQuery['whereRaw']) && count($rawQuery['whereRaw'])) {
-            foreach ($rawQuery['whereRaw'] as $key => $val) {
-                $query->whereRaw($val[0], $val[1]); // $val[0]: câu truy vấn, $val[1]: giá trị tham số trong câu truy vấn
-            }
-        }
-
-        // truy vấn bằng quan hệ giữa các model
-        if (isset($relations) && !empty($relations)) {
-            foreach ($relations as $relation) {
-                $query->withCount($relation);
-                $query->with($relation);
-            }
-        }
-
-        // kết các bảng lại với nhau
-        if (isset($join) && is_array($join) && count($join)) {
-            foreach ($join as $key => $val) {
-                $query->join($val[0], $val[1], $val[2], $val[3]);
-            }
-        }
-
-        // nhóm các kết quả truy vấn
-        if (isset($extend['groupBy']) && !empty($extend['groupBy'])) {
-            $query->groupBy($extend['groupBy']);
-        }
-
-        // sắp xếp
-        if (isset($orderBy) && !empty($orderBy)) {
-            // 1. cột cần xét sắp xếp
-            // 2. kiểu sắp sếp (tăng, giảm)
-            $query->orderBy($orderBy[0], $orderBy[1]);
-        }
-
-        // withQueryString: giữ lại cái điều kiện trên url (perpage=20&user_catalogue_id=0&keyword=Khalil&search=search&page=2)
-        // withPath: đường dẫn đến các điều kiện đó (http://localhost/thuongmaidientu/public/user/index)
-        return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
+        $query = $this->model->select($column);
+        // gọi các scope trong model (được khai báo trong trait) để truy vấn (laravel tự động điền $query vào tham số đầu tiên)
+        return $query->keyword($condition['keyword'] ?? null)
+            ->publish($condition['publish'] ?? -1)
+            ->customWhere($condition['where'] ?? null)
+            ->customWhereRaw($rawQuery['whereRaw'] ?? null)
+            ->relationCount($relations ?? null)
+            ->relation($relations ?? null)
+            ->customJoin($join ?? null)
+            ->customGroupBy($extend['groupBy'] ?? null)
+            ->customOrderBy($orderBy ?? null)
+            // withQueryString: giữ lại cái điều kiện trên url (perpage=20&user_catalogue_id=0&keyword=Khalil&search=search&page=2)
+            // withPath: đường dẫn đến các điều kiện đó (http://localhost/thuongmaidientu/public/user/index)
+            // 2 phương thức trên cần gọi sau khi gọi phương thức paginate() để đảm bảo rằng chúng được áp dụng đúng cách vào đối tượng phân trang
+            ->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }
 
     public function create($payload = [])

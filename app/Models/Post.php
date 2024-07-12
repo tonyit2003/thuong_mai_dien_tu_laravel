@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\QueryScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes; // SoftDeletes: phương thức delete() sẽ xóa mềm (không xóa dữ liệu trong mysql)
+    // QueryScopes: là 1 trait chứa các phương thức scope
+    // trait: được sử dụng để tái sử dụng các phương thức giữa các class mà không cần phải sử dụng kế thừa
+    // trait: không phải là các class => không thể được khởi tạo
+    use HasFactory, SoftDeletes, QueryScopes;
 
     protected $fillable = [
         'post_catalogue_id',
