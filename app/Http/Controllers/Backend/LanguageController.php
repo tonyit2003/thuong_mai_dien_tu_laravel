@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateLanguageRequest;
 use App\Repositories\LanguageRepository;
 use App\Services\LanguageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class LanguageController extends Controller
 {
@@ -106,5 +107,19 @@ class LanguageController extends Controller
                 'backend/library/finder.js'
             ]
         ];
+    }
+
+    public function switchBackendLanguage($id)
+    {
+        $language = $this->languageRepository->findById($id);
+        if ($this->languageService->switch($id)) {
+            // lưu giá trị của ngôn ngữ (canonical language code) vào session với key là app_locale.
+            session(['app_locale' => $language->canonical]);
+            // thiết lập ngôn ngữ cho ứng dụng
+            // chú ý: ngôn ngữ sẽ được reset lại khi chuyển trang => dùng middleware để set ngôn ngữ khi chuyển trang
+            App::setLocale($language->canonical);
+        }
+        // chuyển hướng đến vị trí trước đó
+        return redirect()->back();
     }
 }

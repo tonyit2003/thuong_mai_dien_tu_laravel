@@ -9,7 +9,7 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
-                        <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                        <img alt="image" class="img-circle" src="backend/img/profile_small.jpg" />
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David
@@ -28,7 +28,8 @@
                     IN+
                 </div>
             </li>
-            @foreach (config('apps.module.module') as $key => $val)
+            {{-- __('sidebar.module') => resources/lang/{locale}/sidebar.php (locale trong file app.php) --}}
+            @foreach (__('sidebar.module') as $key => $val)
                 <li class="{{ in_array($segment, $val['name']) ? 'active' : '' }}">
                     <a href="#"><i class="{{ $val['icon'] }}"></i> <span
                             class="nav-label">{{ $val['title'] }}</span>

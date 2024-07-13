@@ -356,3 +356,13 @@ a {
     color: #333;
     margin-right: 1rem;
 }
+
+.language-item {
+    height: 70px;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.language-item.active {
+    background-color: #1ab394;
+}

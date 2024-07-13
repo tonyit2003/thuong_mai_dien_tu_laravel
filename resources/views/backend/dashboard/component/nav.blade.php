@@ -4,14 +4,21 @@
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
             <form role="search" class="navbar-form-custom" action="search_results.html">
                 <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search"
+                    <input type="text" placeholder="Tìm kiếm một thứ gì đó..." class="form-control" name="top-search"
                         id="top-search">
                 </div>
             </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                <div class="uk-flex uk-flex-middle">
+                    @foreach ($language as $key => $val)
+                        <a class="image img-cover language-item {{ $val->current == 1 ? 'active' : '' }}"
+                            href="{{ route('language.switch', $val->id) }}">
+                            <img src="{{ $val->image }}" alt="">
+                        </a>
+                    @endforeach
+                </div>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">

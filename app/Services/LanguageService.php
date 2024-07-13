@@ -103,26 +103,24 @@ class LanguageService implements LanguageServiceInterface
         }
     }
 
-    // private function changeUserStatus($post)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $array = [];
-    //         if (isset($post['modelId'])) {
-    //             $array[] = $post['modelId'];
-    //             $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-    //         } else {
-    //             $array = $post['id'];
-    //             $payload[$post['field']] = $post['value'];
-    //         }
-    //         $this->userRepository->updateByWhereIn('user_catalogue_id', $array, $payload);
-    //         DB::commit();
-    //         return true;
-    //     } catch (Exception $e) {
-    //         DB::rollBack();
-    //         return false;
-    //     }
-    // }
+    public function switch($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->languageRepository->update($id, ['current' => 1]);
+            $where = [
+                ['id', '!=', $id]
+            ];
+            $payload = ['current' => 0];
+            $this->languageRepository->updateByWhere($where, $payload);
+
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
 
     private function paginateSelect()
     {

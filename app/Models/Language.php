@@ -16,7 +16,8 @@ class Language extends Model
         'publish',
         'user_id',
         'image',
-        'description'
+        'description',
+        'current'
     ];
 
     // Tên bảng tương ứng trong mysql

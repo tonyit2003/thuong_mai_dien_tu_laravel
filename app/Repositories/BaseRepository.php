@@ -64,6 +64,19 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->whereIn($whereInField, $whereIn)->update($payload);
     }
 
+    // cập nhật các bản ghi trong cơ sở dữ liệu dựa trên điều kiện được chỉ định
+    public function updateByWhere($condition = [], $payload = [])
+    {
+        // Tạo một instance của query builder cho model tương ứng
+        $query = $this->model->newQuery();
+        // Thêm diều kiện vào câu truy vấn
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
+        }
+        // gọi update trên câu truy vấn có điều kiện để thực hiện cập nhật
+        return $query->update($payload);
+    }
+
     // xóa mềm (thêm cột delete_at trong bảng users và thêm SoftDeletes trong Model\User)
     public function delete($id = 0)
     {
