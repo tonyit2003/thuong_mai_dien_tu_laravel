@@ -23,7 +23,7 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'canonical' => 'required|unique:post_language,canonical,' . $this->id . ',post_id', // giá trị canonical phải là duy nhất trong bảng post_language và bỏ qua kiểm tra duy nhất cho bản ghi hiện tại được xác định bởi $this->id thông qua post_id trong bảng post_language
+            'canonical' => 'required|unique:routers,canonical,' . $this->id . ',module_id',
             'post_catalogue_id' => 'gt:0',
         ];
     }

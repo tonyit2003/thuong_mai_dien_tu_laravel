@@ -1,7 +1,7 @@
 <div class="ibox">
     <div class="ibox-title">
         <h5>
-            Chọn danh mục cha
+            {{ __('messages.parent') }}
         </h5>
     </div>
     <div class="ibox-content">
@@ -9,10 +9,12 @@
             <div class="col-lg-12">
                 <div class="form-row">
                     <label for="" class="control-label text-left">
-                        Chọn danh mục cha
+                        {{ __('messages.parent') }}
                         <span class="text-danger">(*)</span>
                     </label>
-                    <span class="text-danger notice">*Chọn Root nếu không có danh mục cha</span>
+                    <span class="text-danger notice">
+                        {{ __('messages.parentNotice') }}
+                    </span>
                     <select name="parent_id" id="" class="form-control setupSelect2">
                         @foreach ($dropdown as $key => $val)
                             <option
@@ -27,7 +29,9 @@
 </div>
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Chọn ảnh đại diện</h5>
+        <h5>
+            {{ __('messages.image') }}
+        </h5>
     </div>
     <div class="ibox-content">
         <div class="row mb15">
@@ -45,7 +49,9 @@
 </div>
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Cấu hình nâng cao</h5>
+        <h5>
+            {{ __('messages.advance') }}
+        </h5>
     </div>
     <div class="ibox-content">
         <div class="row mb15">

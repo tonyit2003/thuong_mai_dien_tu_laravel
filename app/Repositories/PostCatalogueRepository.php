@@ -16,6 +16,7 @@ class PostCatalogueRepository extends BaseRepository implements PostCatalogueRep
     public function __construct(PostCatalogue $postCatalogue)
     {
         $this->model = $postCatalogue;
+        parent::__construct($this->model); //truyền model lên lớp cha
     }
 
     public function getPostCatalogueById($id = 0, $language_id = 0)

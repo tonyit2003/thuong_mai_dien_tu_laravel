@@ -16,6 +16,7 @@ class LanguageRepository extends BaseRepository implements LanguageRepositoryInt
     public function __construct(Language $language)
     {
         $this->model = $language;
+        parent::__construct($this->model); //truyền model lên lớp cha
     }
 
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])

@@ -16,6 +16,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function __construct(User $user)
     {
         $this->model = $user;
+        parent::__construct($this->model); //truyền model lên lớp cha
     }
 
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])

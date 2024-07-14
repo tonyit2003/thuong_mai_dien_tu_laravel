@@ -4,9 +4,15 @@
             <th class="text-center" style="width: 50px">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th class="text-center">Tên nhóm bài viết</th>
-            <th class="text-center" style="width: 100px">Tình trạng</th>
-            <th class="text-center" style="width: 100px">Thao tác</th>
+            <th class="text-center">
+                {{ __('messages.tableName') }}
+            </th>
+            <th class="text-center" style="width: 100px">
+                {{ __('messages.tableStatus') }}
+            </th>
+            <th class="text-center" style="width: 100px">
+                {{ __('messages.tableAction') }}
+            </th>
         </tr>
     </thead>
     <tbody>

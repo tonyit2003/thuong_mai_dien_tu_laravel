@@ -19,6 +19,11 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
+    public function all()
+    {
+        return $this->model->all();
+    }
+
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])
     {
         $query = $this->model->select($column);
@@ -88,14 +93,24 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->findById($id)->forceDelete();
     }
 
-    public function all()
-    {
-        return $this->model->all();
-    }
-
     // tìm kiếm dựa trên id (id của bảng cần tìm, các cột cần select, các quan hệ: được định nghĩa trong model)
     public function findById($modelId, $column = ['*'], $relation = [])
     {
         return $this->model->select($column)->with($relation)->findOrFail($modelId);
+    }
+
+    // tìm kiếm một bản ghi từ cơ sở dữ liệu dựa trên các điều kiện
+    public function findByCondition($condition = [])
+    {
+        // Khởi tạo một đối tượng truy vấn mới từ model
+        $query = $this->model->newQuery();
+
+        // Thêm điều kiện vào truy vấn
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
+        }
+
+        // Trả về bản ghi đầu tiên tìm được
+        return $query->first();
     }
 }

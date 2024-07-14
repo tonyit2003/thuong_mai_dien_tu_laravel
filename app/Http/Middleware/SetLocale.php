@@ -16,8 +16,8 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // lấy giá trị của app_locale từ session (nếu không có trong session thì sẽ lấy trong app.php)
-        $locale = session('app_locale', config('app_locale'));
+        // lấy giá trị của app_locale từ session (nếu không có trong session thì sẽ lấy giá trị locale trong app.php)
+        $locale = session('app_locale', config('app.locale'));
         // thiết lập ngôn ngữ cho cho route đang gọi Middleware SetLocale (khi chuuển hướng, gía trị locale sẽ được reset)
         App::setLocale($locale);
 

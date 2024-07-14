@@ -16,6 +16,7 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
     public function __construct(District $district)
     {
         $this->model = $district;
+        parent::__construct($this->model); //truyền model lên lớp cha
     }
 
     public function fileDistrictsByProvinceId(int $province_id = 0)

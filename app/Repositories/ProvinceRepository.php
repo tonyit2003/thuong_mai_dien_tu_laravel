@@ -16,5 +16,6 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
     public function __construct(Province $province)
     {
         $this->model = $province;
+        parent::__construct($this->model); //truyền model lên lớp cha
     }
 }

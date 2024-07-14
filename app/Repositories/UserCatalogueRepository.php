@@ -16,6 +16,7 @@ class UserCatalogueRepository extends BaseRepository implements UserCatalogueRep
     public function __construct(UserCatalogue $userCatalogue)
     {
         $this->model = $userCatalogue;
+        parent::__construct($this->model); //truyền model lên lớp cha
     }
 
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])

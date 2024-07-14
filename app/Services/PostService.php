@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\PostRepository;
+use App\Repositories\RouterRepository;
 use App\Services\Interfaces\PostServiceInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -17,22 +18,26 @@ class PostService extends BaseService implements PostServiceInterface
 {
     protected $postRepository;
     protected $language;
+    protected $controllerName = 'PostController';
 
-    public function __construct(PostRepository $postRepository)
+    public function __construct(PostRepository $postRepository, RouterRepository $routerRepository)
     {
         $this->language = $this->currentLanguage();
         $this->postRepository = $postRepository;
+        parent::__construct($routerRepository);
     }
 
     public function paginate($request)
     {
-        $condition['keyword'] = addslashes($request->input('keyword'));
-        $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
-        $condition['post_catalogue_id'] = $request->input('post_catalogue_id') != null ? $request->integer('post_catalogue_id') : 0;
-        $condition['where'] = [
-            ['post_language.language_id', '=', $this->language]
-        ];
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
+        $condition = [
+            'keyword' => addslashes($request->input('keyword')),
+            'publish' => $request->input('publish') != null ? $request->integer('publish') : -1,
+            'post_catalogue_id' => $request->input('post_catalogue_id') != null ? $request->integer('post_catalogue_id') : 0,
+            'where' => [
+                ['post_language.language_id', '=', $this->language]
+            ]
+        ];
         // kết với bảng post_language và điều kiện kết
         $join = [
             ['post_language', 'post_language.post_id', '=', 'posts.id'],
@@ -46,7 +51,8 @@ class PostService extends BaseService implements PostServiceInterface
             // có thể select các cột trong group by
             'groupBy' => $this->paginateSelect()
         ];
-        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, ['post_catalogues'], $orderBy, $this->whereRaw($request));
+        $relations = ['post_catalogues'];
+        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, $relations, $orderBy, $this->whereRaw($request));
     }
 
     public function create($request)
@@ -57,6 +63,7 @@ class PostService extends BaseService implements PostServiceInterface
             if ($post->id > 0) { // lấy id của trường vừa mới thêm vào
                 $this->updateLanguageForPost($post, $request);
                 $this->updateCatalogueForPost($post, $request);
+                $this->createRouter($post, $request, $this->controllerName);
             }
 
             DB::commit();
@@ -76,6 +83,7 @@ class PostService extends BaseService implements PostServiceInterface
             if ($this->updatePost($post, $request)) {
                 $this->updateLanguageForPost($post, $request);
                 $this->updateCatalogueForPost($post, $request);
+                $this->updateRouter($post, $request, $this->controllerName);
             }
             DB::commit();
             return true;
@@ -133,21 +141,15 @@ class PostService extends BaseService implements PostServiceInterface
     {
         $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
         $payload['user_id'] = Auth::id(); //lấy id người dùng hiện tại đang đăng nhập
-        $payload['album'] = $this->formatAlbum($payload['album']);
+        $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
         return $this->postRepository->create($payload);
     }
 
     private function updatePost($post, $request)
     {
         $payload = $request->only($this->payload()); // lấy những trường được liệt kê trong only => trả về dạng mảng
-        $payload['album'] = $this->formatAlbum($payload['album']);
+        $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
         return $this->postRepository->update($post->id, $payload);
-    }
-
-    private function formatAlbum($album)
-    {
-        // $payload['album']: mảng các đường dẫn từ input name="album[]"
-        return (isset($album) && is_array($album)) ? json_encode($album) : "";
     }
 
     private function updateLanguageForPost($post, $request)

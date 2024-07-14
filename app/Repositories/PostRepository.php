@@ -16,6 +16,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     public function __construct(Post $post)
     {
         $this->model = $post;
+        parent::__construct($this->model); //truyền model lên lớp cha
     }
 
     public function getPostById($id = 0, $language_id = 0)
