@@ -4,12 +4,12 @@
             <th class="text-center" style="width: 50px">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th style="width: 100px" class="text-center">Ảnh</th>
-            <th class="text-center">Tên ngôn ngữ</th>
-            <th class="text-center">Tên viết tắt</th>
-            <th class="text-center">Mô tả</th>
-            <th class="text-center" style="width: 100px">Tình trạng</th>
-            <th class="text-center" style="width: 100px">Thao tác</th>
+            <th style="width: 100px" class="text-center">{{ __('table.image') }}</th>
+            <th class="text-center">{{ __('table.language_name') }}</th>
+            <th class="text-center">{{ __('table.language_code') }}</th>
+            <th class="text-center">{{ __('table.description') }}</th>
+            <th class="text-center" style="width: 100px">{{ __('table.status') }}</th>
+            <th class="text-center" style="width: 100px">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -35,8 +35,8 @@
                     </td>
                     <td class="text-center js-switch-{{ $language->id }}">
                         <input type="checkbox" value="{{ $language->publish }}" class="js-switch status"
-                            data-field="publish" data-model="{{ $config['model'] }}" data-modelId="{{ $language->id }}"
-                            {{ $language->publish == 1 ? 'checked' : '' }} />
+                            data-field="publish" data-model="{{ $config['model'] }}"
+                            data-modelId="{{ $language->id }}" {{ $language->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
                         <a href="{{ route('language.edit', $language->id) }}" class="btn btn-success">

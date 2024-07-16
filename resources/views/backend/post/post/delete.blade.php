@@ -15,13 +15,11 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">
-                        Xác nhận xóa nhóm bài viết
+                        {{ __('confirm.delete_post') }}
                     </div>
                     <div class="panel-description">
-                        <p>Bạn đang muốn xóa nhóm bài viết có tên là: <span
-                                class="text-danger">{{ $post->name }}</span> ?
-                        </p>
-                        <p>Lưu ý: Bạn sẽ không thể khôi phục lại nhóm bài viết sau khi xóa.</p>
+                        <p>{!! __('confirm.delete_post_name', ['name' => $post->name]) !!}</p>
+                        <p>{{ __('confirm.cannot_restore') }}</p>
                     </div>
                 </div>
             </div>
@@ -32,7 +30,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Tên nhóm bài viết
+                                        {{ __('form.post_name') }}
                                     </label>
                                     <input readonly type="text" name="name"
                                         value="{{ old('name', $post->name ?? '') }}" class="form-control" placeholder=""
@@ -42,7 +40,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Đường dẫn
+                                        {{ __('form.path') }}
                                     </label>
                                     <input readonly type="text" name="canonical"
                                         value="{{ config('app.url') . old('canonical', $post->canonical ?? 'duong-dan-cua-ban') . config('apps.general.suffix') }}"
@@ -56,7 +54,8 @@
         </div>
 
         <div class="text-right mb15">
-            <input class="btn btn-danger" type="submit" name="send" value="Xóa nhóm bài viết" />
+            <input class="btn btn-danger" type="submit" name="send"
+                value="{{ __('button.delete_post') }}" />
         </div>
     </div>
 </form>

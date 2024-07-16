@@ -66,7 +66,6 @@ class LanguageService implements LanguageServiceInterface
         try {
             $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
             $this->languageRepository->update($post['modelId'], $payload);
-            // $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -81,7 +80,6 @@ class LanguageService implements LanguageServiceInterface
         try {
             $payload[$post['field']] = $post['value'];
             $this->languageRepository->updateByWhereIn('id', $post['id'], $payload);
-            // $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {

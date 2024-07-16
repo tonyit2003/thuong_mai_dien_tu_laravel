@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePostCatalogueRequest;
 use App\Repositories\PostCatalogueRepository;
 use App\Services\PostCatalogueService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostCatalogueController extends Controller
 {
@@ -32,6 +33,11 @@ class PostCatalogueController extends Controller
 
     public function index(Request $request)
     {
+        // kiểm tra quyền của người dùng hiện tại
+        // param 1: tên của Gate trong Gate::define (AppServiceProvider)
+        // param 2: Tên của quyền hoặc hành động cụ thể cần kiểm tra
+        Gate::authorize('modules', 'post.catalogue.index');
+
         $postCatalogues = $this->postCatalogueService->paginate($request);
 
         $config = [
@@ -45,15 +51,16 @@ class PostCatalogueController extends Controller
             ],
             'model' => 'PostCatalogue'
         ];
-        $config['seo'] = __('messages.postCatalogue');
+        $config['seo'] = __('postCatalogue');
         $template = 'backend.post.catalogue.index';
         return view('backend.dashboard.layout', compact('template', 'config', 'postCatalogues'));
     }
 
     public function create()
     {
+        Gate::authorize('modules', 'post.catalogue.create');
         $config = $this->configData();
-        $config['seo'] = config('apps.postCatalogue');
+        $config['seo'] = __('postCatalogue');
         $config['method'] = 'create';
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.post.catalogue.store';
@@ -72,9 +79,10 @@ class PostCatalogueController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('modules', 'post.catalogue.update');
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
         $config = $this->configData();
-        $config['seo'] = config('apps.postCatalogue');
+        $config['seo'] = __('postCatalogue');
         $config['method'] = 'edit';
         $dropdown = $this->nestedset->Dropdown();
         $album = json_decode($postCatalogue->album);
@@ -94,8 +102,9 @@ class PostCatalogueController extends Controller
 
     public function delete($id)
     {
+        Gate::authorize('modules', 'post.catalogue.destroy');
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
-        $config['seo'] = config('apps.postCatalogue');
+        $config['seo'] = __('postCatalogue');
         $template = 'backend.post.catalogue.delete';
         return view('backend.dashboard.layout', compact('template', 'postCatalogue', 'config'));
     }

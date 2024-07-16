@@ -13,5 +13,7 @@ return [
     ],
     'delete' => [
         'title' => 'Xóa thành viên'
-    ]
+    ],
+    'select_user_group' => 'Chọn nhóm thành viên',
+    'admin' => 'Quản trị viên',
 ];

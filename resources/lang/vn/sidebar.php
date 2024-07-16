@@ -20,7 +20,7 @@ return [
         [
             'title' => 'Thành viên',
             'icon' => 'fa fa-th-large',
-            'name' => ['user'],
+            'name' => ['user', 'permission'],
             'subModule' => [
                 [
                     'title' => 'Nhóm thành viên',
@@ -29,7 +29,11 @@ return [
                 [
                     'title' => 'Thành viên',
                     'route' => 'user.index'
-                ]
+                ],
+                [
+                    'title' => 'Quyền',
+                    'route' => 'permission.index'
+                ],
             ]
         ],
         [

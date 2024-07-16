@@ -3,7 +3,7 @@
         <h2>{{ $title }}</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{ route('dashboard.index') }}">Dashboard</a>
+                <a href="{{ route('dashboard.index') }}">{{ __('navigation.dashboard') }}</a>
             </li>
             <li class="active">
                 <strong>{{ $title }}</strong>

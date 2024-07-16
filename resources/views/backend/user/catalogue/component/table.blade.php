@@ -4,11 +4,11 @@
             <th class="text-center" style="width: 50px">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th class="text-center">Tên nhóm thành viên</th>
-            <th class="text-center">Số thành viên</th>
-            <th class="text-center">Mô tả</th>
-            <th class="text-center" style="width: 100px">Tình trạng</th>
-            <th class="text-center" style="width: 100px">Thao tác</th>
+            <th class="text-center">{{ __('table.user_group_name') }}</th>
+            <th class="text-center">{{ __('table.member_count') }}</th>
+            <th class="text-center">{{ __('table.description') }}</th>
+            <th class="text-center" style="width: 100px">{{ __('table.status') }}</th>
+            <th class="text-center" style="width: 100px">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
                     </td>
                     <td class="text-center">
                         {{-- xem thuộc tính bằng dd() --}}
-                        {{ $userCatalogue->users_count }} thành viên
+                        {{ $userCatalogue->users_count }} {{ __('unit.members') }}
                     </td>
                     <td>
                         {{ $userCatalogue->description }}

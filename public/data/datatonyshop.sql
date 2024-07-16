@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 14, 2024 lúc 05:51 PM
+-- Thời gian đã tạo: Th7 16, 2024 lúc 09:25 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -910,12 +910,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-07-14 04:36:11', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-07-14 04:36:11', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
-(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-07-03 01:54:07', '2024-07-14 04:36:11', NULL, 1, 'Ngôn ngữ tiếng Trung', 0),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-07-15 10:59:14', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-07-15 10:59:14', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-07-03 01:54:07', '2024-07-15 10:59:14', NULL, 1, 'Ngôn ngữ tiếng Trung', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
-(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-07-14 04:36:11', NULL, 1, 'Ngôn ngữ tiếng Hàn Quốc', 0);
+(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-07-15 10:59:14', NULL, 1, 'Ngôn ngữ tiếng Hàn Quốc', 0);
 
 -- --------------------------------------------------------
 
@@ -959,7 +959,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2024_07_09_205946_crate_post_catalogue_post_table', 20),
 (27, '2024_07_10_051517_add_timestamps_at_post_language', 21),
 (28, '2024_07_13_112335_add_current_at_languages', 22),
-(29, '2024_07_14_114208_create_routers_table', 23);
+(29, '2024_07_14_114208_create_routers_table', 23),
+(30, '2024_07_15_140118_create_permissions_table', 24),
+(31, '2024_07_16_170519_create_user_catalogue_permission_table', 25);
 
 -- --------------------------------------------------------
 
@@ -972,6 +974,53 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `canonical` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`) VALUES
+(1, 'Xem danh sách nhóm bài viết', 'post.catalogue.index', '2024-07-15 13:19:44', '2024-07-15 13:23:20'),
+(2, 'Tạo mới nhóm bài vết', 'post.catalogue.create', '2024-07-15 13:24:46', '2024-07-15 13:24:46'),
+(3, 'Sửa nhóm bài viết', 'post.catalogue.update', '2024-07-15 13:25:10', '2024-07-15 13:25:10'),
+(4, 'Xóa nhóm bài viết', 'post.catalogue.destroy', '2024-07-15 13:25:50', '2024-07-15 14:00:09'),
+(5, 'Xem toàn bộ danh mục bài viết', 'post.catalogue.all', '2024-07-15 13:26:12', '2024-07-15 13:26:12'),
+(6, 'Xem danh sách bài viết', 'post.index', '2024-07-15 13:33:07', '2024-07-15 13:33:07'),
+(7, 'Thêm mới bài viết', 'post.create', '2024-07-15 13:33:29', '2024-07-15 13:33:29'),
+(8, 'Sửa bài viết', 'post.update', '2024-07-15 13:33:43', '2024-07-15 14:01:11'),
+(9, 'Xem toàn bộ bài viết', 'post.all', '2024-07-15 13:34:02', '2024-07-15 13:34:02'),
+(10, 'Xem ngôn ngữ', 'language.index', '2024-07-15 13:34:26', '2024-07-15 13:34:26'),
+(11, 'Thêm mới ngôn ngữ', 'language.create', '2024-07-15 13:34:47', '2024-07-15 13:34:47'),
+(12, 'Sửa ngôn ngữ', 'language.update', '2024-07-15 13:35:05', '2024-07-15 13:35:05'),
+(13, 'Xóa ngôn ngữ', 'language.destroy', '2024-07-15 13:35:20', '2024-07-15 13:35:20'),
+(14, 'Xem nhóm thành viên', 'user.catalogue.index', '2024-07-15 13:38:49', '2024-07-15 13:38:49'),
+(15, 'Thêm mới nhóm thành viên', 'user.catalogue.create', '2024-07-15 13:39:06', '2024-07-15 13:39:06'),
+(16, 'Sửa nhóm thành viên', 'user.catalogue.update', '2024-07-15 13:39:29', '2024-07-15 13:39:29'),
+(17, 'Xóa nhóm thành viên', 'user.catalogue.destroy', '2024-07-15 13:39:49', '2024-07-15 13:39:49'),
+(18, 'Xem thành viên', 'user.index', '2024-07-15 13:40:17', '2024-07-15 13:40:17'),
+(19, 'Thêm mới thành viên', 'user.create', '2024-07-15 13:40:26', '2024-07-15 13:40:26'),
+(20, 'Sửa thành viên', 'user.update', '2024-07-15 13:40:41', '2024-07-15 13:40:41'),
+(21, 'Xóa thành viên', 'user.destroy', '2024-07-15 13:40:56', '2024-07-15 13:40:56'),
+(22, 'Xem danh sách quyền', 'permission.index', '2024-07-15 13:41:36', '2024-07-15 13:41:36'),
+(23, 'Thêm mới quyền', 'permission.create', '2024-07-15 13:41:48', '2024-07-15 13:41:48'),
+(24, 'Sửa quyền', 'permission.update', '2024-07-15 13:41:58', '2024-07-15 13:41:58'),
+(25, 'Xóa quyền', 'permission.destroy', '2024-07-15 13:42:12', '2024-07-15 13:42:12'),
+(26, 'Xóa bài viết', 'post.destroy', '2024-07-15 14:01:51', '2024-07-15 14:01:51'),
+(27, 'Phân quyền', 'user.catalogue.permission', '2024-07-16 12:19:36', '2024-07-16 12:19:36');
 
 -- --------------------------------------------------------
 
@@ -999,7 +1048,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `post_catalogue_id`, `image`, `icon`, `album`, `publish`, `order`, `follow`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(42, 56, NULL, NULL, '', -1, 0, -1, 201014, NULL, '2024-07-14 08:46:44', '2024-07-14 08:46:44');
+(42, 56, NULL, NULL, '', 0, 0, -1, 201014, NULL, '2024-07-14 08:46:44', '2024-07-15 08:07:59');
 
 -- --------------------------------------------------------
 
@@ -1030,12 +1079,12 @@ CREATE TABLE `post_catalogues` (
 --
 
 INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `follow`) VALUES
-(52, 0, 2, 13, 1, NULL, NULL, '', -1, 0, 201014, NULL, '2024-07-14 08:21:49', '2024-07-14 08:21:49', -1),
-(53, 52, 3, 6, 2, NULL, NULL, '', -1, 0, 201014, NULL, '2024-07-14 08:22:08', '2024-07-14 08:22:08', -1),
-(54, 52, 7, 12, 2, NULL, NULL, '', -1, 0, 201014, NULL, '2024-07-14 08:23:11', '2024-07-14 08:23:11', -1),
-(55, 54, 10, 11, 3, NULL, NULL, '', -1, 0, 201014, NULL, '2024-07-14 08:30:11', '2024-07-14 08:30:11', -1),
-(56, 54, 8, 9, 3, NULL, NULL, '', -1, 0, 201014, NULL, '2024-07-14 08:38:26', '2024-07-14 08:38:26', -1),
-(57, 53, 4, 5, 3, NULL, NULL, '', -1, 0, 201014, NULL, '2024-07-14 08:43:16', '2024-07-14 08:43:16', -1);
+(52, 0, 2, 13, 1, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:21:49', '2024-07-15 08:45:02', -1),
+(53, 52, 3, 6, 2, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:22:08', '2024-07-15 08:45:02', -1),
+(54, 52, 7, 12, 2, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:23:11', '2024-07-15 08:45:02', -1),
+(55, 54, 10, 11, 3, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:30:11', '2024-07-15 08:45:02', -1),
+(56, 54, 8, 9, 3, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:38:26', '2024-07-15 08:45:02', -1),
+(57, 53, 4, 5, 3, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:43:16', '2024-07-15 08:45:02', -1);
 
 -- --------------------------------------------------------
 
@@ -1251,7 +1300,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('4Ra6gJdOmgYHGScFWAa5DpTYc5cwHBRPVkN6lZCz', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoicDY3ZUJXQVJrZThqMFlzZGpyeWtiSmlCbWl0eFpWUW9nUFFnUk5ySSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MDoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Bvc3QvaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7czoxMDoiYXBwX2xvY2FsZSI7czoyOiJ2biI7fQ==', 1720972270);
+('9R16qXfmfGpnnWDS5JOs3U04ndJzKgvfnW9zyan7', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiV204ZmN5cVZnSmFPa1RqbHpmV0p2aVIzb3BleVF6SGxJb2ZYNnJ2eSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MDoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3VzZXIvY2F0YWxvZ3VlL2luZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1721157894);
 
 -- --------------------------------------------------------
 
@@ -1288,8 +1337,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
-(201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 14:51:45', 'userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-11 09:49:17', 1, NULL, 1),
-(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 13:59:51', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-07-14 06:59:58', 1, NULL, 1);
+(201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 14:51:45', 'userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-16 12:04:04', 1, NULL, 1),
+(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 13:59:51', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-07-15 05:22:56', 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1314,7 +1363,57 @@ CREATE TABLE `user_catalogues` (
 INSERT INTO `user_catalogues` (`id`, `name`, `description`, `deleted_at`, `created_at`, `updated_at`, `publish`) VALUES
 (1, 'Quản trị viên', 'Quản lý toàn bộ chức năng', NULL, '2024-07-01 06:12:43', '2024-07-11 09:49:17', 1),
 (2, 'Cộng tác viên', 'Xử lý 1 vài chức năng trong hệ thống', NULL, '2024-07-01 06:19:35', '2024-07-11 09:49:17', 1),
-(3, 'test123', '123456', '2024-07-01 07:14:37', '2024-07-01 07:03:17', '2024-07-01 07:14:37', 0);
+(3, 'test123', '123456', '2024-07-01 07:14:37', '2024-07-01 07:03:17', '2024-07-01 07:14:37', 0),
+(4, 'Writer', NULL, NULL, '2024-07-16 09:01:18', '2024-07-16 09:01:20', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `user_catalogue_permission`
+--
+
+CREATE TABLE `user_catalogue_permission` (
+  `user_catalogue_id` bigint(20) UNSIGNED NOT NULL,
+  `permission_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `user_catalogue_permission`
+--
+
+INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) VALUES
+(1, 4),
+(2, 6),
+(2, 7),
+(2, 8),
+(1, 6),
+(4, 7),
+(1, 5),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+(1, 21),
+(1, 22),
+(1, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(2, 9),
+(2, 26),
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 27);
 
 -- --------------------------------------------------------
 
@@ -12033,6 +12132,13 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Chỉ mục cho bảng `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_canonical_unique` (`canonical`);
+
+--
 -- Chỉ mục cho bảng `posts`
 --
 ALTER TABLE `posts`
@@ -12107,6 +12213,13 @@ ALTER TABLE `user_catalogues`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `user_catalogue_permission`
+--
+ALTER TABLE `user_catalogue_permission`
+  ADD KEY `user_catalogue_permission_user_catalogue_id_foreign` (`user_catalogue_id`),
+  ADD KEY `user_catalogue_permission_permission_id_foreign` (`permission_id`);
+
+--
 -- Chỉ mục cho bảng `wards`
 --
 ALTER TABLE `wards`
@@ -12140,7 +12253,13 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT cho bảng `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
@@ -12170,7 +12289,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `user_catalogues`
 --
 ALTER TABLE `user_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -12234,6 +12353,13 @@ ALTER TABLE `provinces`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_user_catalogue_id_foreign` FOREIGN KEY (`user_catalogue_id`) REFERENCES `user_catalogues` (`id`);
+
+--
+-- Các ràng buộc cho bảng `user_catalogue_permission`
+--
+ALTER TABLE `user_catalogue_permission`
+  ADD CONSTRAINT `user_catalogue_permission_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_catalogue_permission_user_catalogue_id_foreign` FOREIGN KEY (`user_catalogue_id`) REFERENCES `user_catalogues` (`id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `wards`

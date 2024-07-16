@@ -9,13 +9,13 @@
         <li>
             <a class="changeStatusAll" data-field="publish" data-model="{{ $config['model'] }}" data-value="1"
                 href="#">
-                Mở khóa hàng loạt
+                {{ __('button.bulk_unlock') }}
             </a>
         </li>
         <li>
             <a class="changeStatusAll" data-field="publish" data-model="{{ $config['model'] }}" data-value="0"
                 href="#">
-                Khóa hàng loạt
+                {{ __('button.bulk_lock') }}
             </a>
         </li>
     </ul>

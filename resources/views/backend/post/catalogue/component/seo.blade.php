@@ -1,19 +1,19 @@
 <div class="ibox">
     <div class="ibox-title">
         <h5>
-            {{ __('messages.seo') }}
+            {{ __('seo_configuration.title') }}
         </h5>
     </div>
     <div class="ibox-content">
         <div class="seo-container">
             <div class="meta-title">
-                {{ old('meta_title', $postCatalogue->meta_title ?? __('messages.seo')) }}
+                {{ old('meta_title', $postCatalogue->meta_title ?? __('seo_configuration.default_title')) }}
             </div>
             <div class="canonical">
-                {{ config('app.url') . old('canonical', $postCatalogue->canonical ?? __('messages.seoCanonical')) . config('apps.general.suffix') }}
+                {{ config('app.url') . old('canonical', $postCatalogue->canonical ?? __('seo_configuration.canonical')) . config('apps.general.suffix') }}
             </div>
             <div class="meta-description">
-                {{ old('meta_description', $postCatalogue->meta_description ?? __('messages.seoDescription')) }}
+                {{ old('meta_description', $postCatalogue->meta_description ?? __('seo_configuration.default_description')) }}
             </div>
         </div>
         <div class="seo-wrapper">
@@ -23,10 +23,10 @@
                         <label for="" class="control-label text-left">
                             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                                 <span>
-                                    {{ __('messages.seoMetaTitle') }}
+                                    {{ __('form.seo_title') }}
                                 </span>
                                 <span class="count_meta_title">
-                                    0 {{ __('messages.character') }}
+                                    0 {{ __('unit.characters') }}
                                 </span>
                             </div>
                         </label>
@@ -41,7 +41,7 @@
                     <div class="form-row">
                         <label for="" class="control-label text-left">
                             <span>
-                                {{ __('messages.seoMetaKeyword') }}
+                                {{ __('form.seo_keyword') }}
                             </span>
                         </label>
                         <input type="text" name="meta_keyword"
@@ -56,10 +56,10 @@
                         <label for="" class="control-label text-left">
                             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                                 <span>
-                                    {{ __('messages.seoMetaDescription') }}
+                                    {{ __('form.seo_description') }}
                                 </span>
                                 <span class="count_meta_description">
-                                    0 {{ __('messages.character') }}
+                                    0 {{ __('unit.characters') }}
                                 </span>
                             </div>
                         </label>
@@ -72,7 +72,7 @@
                     <div class="form-row">
                         <label for="" class="control-label text-left">
                             <span>
-                                {{ __('messages.seoMetaCanonical') }}
+                                {{ __('form.canonical_url') }}
                             </span>
                             <span class="text-danger">(*)</span>
                         </label>

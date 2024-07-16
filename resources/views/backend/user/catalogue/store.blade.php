@@ -26,11 +26,11 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">
-                        Thông tin chung
+                        {{ __('form.general_info') }}
                     </div>
                     <div class="panel-description">
-                        <p>Nhập thông tin chung của nhóm thành viên</p>
-                        <p>Lưu ý: Những trường đánh dấu <span class="text-danger">(*)</span> là bắt buộc</p>
+                        <p>{{ __('form.enter_general_info', ['model' => 'nhóm thành viên']) }}</p>
+                        <p>{!! __('form.required_fields') !!}</p>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Tên nhóm
+                                        {{ __('form.user_catalogue_name') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" name="name"
@@ -52,7 +52,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Ghi chú
+                                        {{ __('form.note') }}
                                     </label>
                                     <input type="text" name="description"
                                         value="{{ old('description', $userCatalogue->description ?? '') }}"
@@ -66,7 +66,7 @@
         </div>
 
         <div class="text-right mb15">
-            <input class="btn btn-primary" type="submit" name="send" value="Lưu lại" />
+            <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.save') }}" />
         </div>
     </div>
 </form>

@@ -14,4 +14,5 @@ interface LanguageServiceInterface
     public function delete($id);
     public function updateStatus($post = []);
     public function updateStatusAll($post = []);
+    public function switch($id);
 }

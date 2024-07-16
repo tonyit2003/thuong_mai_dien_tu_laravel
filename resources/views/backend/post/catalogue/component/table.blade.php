@@ -5,13 +5,13 @@
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
             <th class="text-center">
-                {{ __('messages.tableName') }}
+                {{ __('table.title') }}
             </th>
             <th class="text-center" style="width: 100px">
-                {{ __('messages.tableStatus') }}
+                {{ __('table.status') }}
             </th>
             <th class="text-center" style="width: 100px">
-                {{ __('messages.tableAction') }}
+                {{ __('table.actions') }}
             </th>
         </tr>
     </thead>

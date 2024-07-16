@@ -6,12 +6,12 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">
-                        Xác nhận xóa thành viên
+                        {{ __('confirm.delete_user') }}
                     </div>
                     <div class="panel-description">
-                        <p>Bạn đang muốn xóa thành viên có email là: <span class="text-danger">{{ $user->email }}</span>
-                            ?</p>
-                        <p>Lưu ý: Bạn sẽ không thể khôi phục lại thành viên sau khi xóa.</p>
+                        {{-- gọi đến file confirm và truyền dữ liệu qua --}}
+                        <p>{!! __('confirm.delete_user_email', ['email' => $user->email]) !!}</p>
+                        <p>{{ __('confirm.cannot_restore') }}</p>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Email
+                                        {{ __('form.email') }}
                                     </label>
                                     <input readonly type="text" name="email"
                                         value="{{ old('email', $user->email ?? '') }}" class="form-control"
@@ -32,7 +32,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Họ tên
+                                        {{ __('form.name') }}
                                     </label>
                                     <input readonly type="text" name="name"
                                         value="{{ old('name', $user->name ?? '') }}" class="form-control" placeholder=""
@@ -46,7 +46,7 @@
         </div>
 
         <div class="text-right mb15">
-            <input class="btn btn-danger" type="submit" name="send" value="Xóa thành viên" />
+            <input class="btn btn-danger" type="submit" name="send" value="{{ __('button.delete_user') }}" />
         </div>
     </div>
 </form>

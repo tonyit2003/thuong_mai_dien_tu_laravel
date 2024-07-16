@@ -4,13 +4,27 @@
             <th class="text-center" style="width: 50px">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th class="text-center">Họ tên</th>
-            <th class="text-center">Email</th>
-            <th class="text-center">Số điện thoại</th>
-            <th class="text-center">Địa chỉ</th>
-            <th class="text-center">Nhóm thành viên</th>
-            <th class="text-center" style="width: 100px">Tình trạng</th>
-            <th class="text-center" style="width: 100px">Thao tác</th>
+            <th class="text-center">
+                {{ __('table.name') }}
+            </th>
+            <th class="text-center">
+                {{ __('table.email') }}
+            </th>
+            <th class="text-center">
+                {{ __('table.phone') }}
+            </th>
+            <th class="text-center">
+                {{ __('table.address') }}
+            </th>
+            <th class="text-center">
+                {{ __('table.user_group') }}
+            </th>
+            <th class="text-center" style="width: 100px">
+                {{ __('table.status') }}
+            </th>
+            <th class="text-center" style="width: 100px">
+                {{ __('table.actions') }}
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -37,8 +51,8 @@
                     </td>
                     <td class="text-center js-switch-{{ $user->id }}">
                         <input type="checkbox" value="{{ $user->publish }}" class="js-switch status"
-                            data-field="publish" data-model="{{ $config['model'] }}" data-modelId="{{ $user->id }}"
-                            {{ $user->publish == 1 ? 'checked' : '' }} />
+                            data-field="publish" data-model="{{ $config['model'] }}"
+                            data-modelId="{{ $user->id }}" {{ $user->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success">

@@ -6,12 +6,11 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">
-                        Xác nhận xóa nhóm thành viên
+                        {{ __('confirm.delete_user_group') }}
                     </div>
                     <div class="panel-description">
-                        <p>Bạn đang muốn xóa nhóm thành viên có tên là: <span
-                                class="text-danger">{{ $userCatalogue->name }}</span> ?</p>
-                        <p>Lưu ý: Bạn sẽ không thể khôi phục lại nhóm thành viên sau khi xóa.</p>
+                        <p>{!! __('confirm.delete_user_group_name', ['name' => $userCatalogue->name]) !!}</p>
+                        <p>{{ __('confirm.cannot_restore') }}</p>
                     </div>
                 </div>
             </div>
@@ -22,7 +21,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Tên nhóm
+                                        {{ __('form.user_catalogue_name') }}
                                     </label>
                                     <input readonly type="text" name="name"
                                         value="{{ old('name', $userCatalogue->name ?? '') }}" class="form-control"
@@ -32,7 +31,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Mô tả
+                                        {{ __('form.description') }}
                                     </label>
                                     <input readonly type="text" name="description"
                                         value="{{ old('description', $userCatalogue->description ?? '') }}"
@@ -46,7 +45,7 @@
         </div>
 
         <div class="text-right mb15">
-            <input class="btn btn-danger" type="submit" name="send" value="Xóa nhóm thành viên" />
+            <input class="btn btn-danger" type="submit" name="send" value="{{ __('button.delete_user_group') }}" />
         </div>
     </div>
 </form>

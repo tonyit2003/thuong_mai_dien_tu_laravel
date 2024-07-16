@@ -34,7 +34,7 @@
         </div>
 
         <div class="text-right mb15 button-fix">
-            <input class="btn btn-primary" type="submit" name="send" value="Lưu lại" />
+            <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.save') }}" />
         </div>
     </div>
 </form>

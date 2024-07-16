@@ -9,6 +9,7 @@ use App\Repositories\ProvinceRepository;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -25,6 +26,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'user.index');
         $users = $this->userService->paginate($request);
 
         $config = [
@@ -38,7 +40,7 @@ class UserController extends Controller
             ],
             'model' => 'User'
         ];
-        $config['seo'] = config('apps.user');
+        $config['seo'] = __('user');
 
         $template = 'backend.user.user.index';
         return view('backend.dashboard.layout', compact('template', 'config', 'users'));
@@ -46,9 +48,10 @@ class UserController extends Controller
 
     public function create()
     {
+        Gate::authorize('modules', 'user.create');
         $provinces = $this->provinceRepository->all();
         $config = $this->configData();
-        $config['seo'] = config('apps.user');
+        $config['seo'] = __('user');
         $config['method'] = 'create';
         $template = 'backend.user.user.store';
         return view('backend.dashboard.layout', compact('template', 'config', 'provinces'));
@@ -66,10 +69,11 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('modules', 'user.update');
         $user = $this->userRepository->findById($id);
         $provinces = $this->provinceRepository->all();
         $config = $this->configData();
-        $config['seo'] = config('apps.user');
+        $config['seo'] = __('user');
         $config['method'] = 'edit';
         $template = 'backend.user.user.store';
         return view('backend.dashboard.layout', compact('template', 'config', 'provinces', 'user'));
@@ -87,8 +91,9 @@ class UserController extends Controller
 
     public function delete($id)
     {
+        Gate::authorize('modules', 'user.destroy');
         $user = $this->userRepository->findById($id);
-        $config['seo'] = config('apps.user');
+        $config['seo'] = __('user');
         $template = 'backend.user.user.delete';
         return view('backend.dashboard.layout', compact('template', 'user', 'config'));
     }

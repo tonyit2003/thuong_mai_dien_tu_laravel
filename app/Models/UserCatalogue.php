@@ -35,4 +35,9 @@ class UserCatalogue extends Authenticatable
         // quan hệ 1 --- n: (class thiết lập mối quan hệ, khóa ngoại trong bảng users, khóa chính trong bảng user_catalogues)
         return $this->hasMany(User::class, 'user_catalogue_id', 'id');
     }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'user_catalogue_permission', 'user_catalogue_id', 'permission_id');
+    }
 }

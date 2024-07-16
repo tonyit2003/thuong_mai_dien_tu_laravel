@@ -5,23 +5,28 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserCatalogueRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Repositories\PermissionRepository;
 use App\Repositories\UserCatalogueRepository;
 use App\Services\UserCatalogueService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserCatalogueController extends Controller
 {
     protected $userCatalogueService;
     protected $userCatalogueRepository;
+    protected $permissionRepository;
 
-    public function __construct(UserCatalogueService $userCatalogueService, UserCatalogueRepository $userCatalogueRepository)
+    public function __construct(UserCatalogueService $userCatalogueService, UserCatalogueRepository $userCatalogueRepository, PermissionRepository $permissionRepository)
     {
         $this->userCatalogueService = $userCatalogueService;
         $this->userCatalogueRepository = $userCatalogueRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'user.catalogue.index');
         $userCatalogues = $this->userCatalogueService->paginate($request);
 
         $config = [
@@ -35,7 +40,7 @@ class UserCatalogueController extends Controller
             ],
             'model' => 'UserCatalogue'
         ];
-        $config['seo'] = config('apps.userCatalogue');
+        $config['seo'] = __('userCatalogue');
 
         $template = 'backend.user.catalogue.index';
         return view('backend.dashboard.layout', compact('template', 'config', 'userCatalogues'));
@@ -43,7 +48,8 @@ class UserCatalogueController extends Controller
 
     public function create()
     {
-        $config['seo'] = config('apps.userCatalogue');
+        Gate::authorize('modules', 'user.catalogue.create');
+        $config['seo'] = __('userCatalogue');
         $config['method'] = 'create';
         $template = 'backend.user.catalogue.store';
         return view('backend.dashboard.layout', compact('template', 'config'));
@@ -61,8 +67,9 @@ class UserCatalogueController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('modules', 'user.catalogue.update');
         $userCatalogue = $this->userCatalogueRepository->findById($id);
-        $config['seo'] = config('apps.userCatalogue');
+        $config['seo'] = __('userCatalogue');
         $config['method'] = 'edit';
         $template = 'backend.user.catalogue.store';
         return view('backend.dashboard.layout', compact('template', 'config', 'userCatalogue'));
@@ -80,8 +87,9 @@ class UserCatalogueController extends Controller
 
     public function delete($id)
     {
+        Gate::authorize('modules', 'user.catalogue.destroy');
         $userCatalogue = $this->userCatalogueRepository->findById($id);
-        $config['seo'] = config('apps.userCatalogue');
+        $config['seo'] = __('userCatalogue');
         $template = 'backend.user.catalogue.delete';
         return view('backend.dashboard.layout', compact('template', 'userCatalogue', 'config'));
     }
@@ -93,6 +101,27 @@ class UserCatalogueController extends Controller
             return redirect()->route('user.catalogue.index');
         }
         flash()->error('Xóa bản ghi không thành công');
+        return redirect()->route('user.catalogue.index');
+    }
+
+    public function permission()
+    {
+        Gate::authorize('modules', 'user.catalogue.permission');
+        // lấy thông tin tất cả các nhóm thành viêm && mỗi nhóm có thông tin các quyền
+        $userCatalogues = $this->userCatalogueRepository->all(['permissions']);
+        $permissions = $this->permissionRepository->all();
+        $template = 'backend.user.catalogue.permission';
+        $config['seo'] = __('userCatalogue');
+        return view('backend.dashboard.layout', compact('template', 'userCatalogues', 'permissions', 'config'));
+    }
+
+    public function updatePermission(Request $request)
+    {
+        if ($this->userCatalogueService->setPermission($request)) {
+            flash()->success('Cập nhật quyền thành công');
+            return redirect()->route('user.catalogue.index');
+        }
+        flash()->error('Cập nhật quyền không thành công');
         return redirect()->route('user.catalogue.index');
     }
 }

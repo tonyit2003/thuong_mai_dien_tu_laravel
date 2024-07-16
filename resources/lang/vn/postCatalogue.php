@@ -13,5 +13,5 @@ return [
     ],
     'delete' => [
         'title' => 'Xóa nhóm bài viết'
-    ]
+    ],
 ];

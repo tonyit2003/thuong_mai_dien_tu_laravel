@@ -70,4 +70,11 @@ class User extends Authenticatable
         // quan hệ n --- 1: (class thiết lập mối quan hệ, khóa ngoại trong bảng users, khóa chính trong bảng user_catalogues)
         return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id', 'id');
     }
+
+    public function hasPermission($permissionCanonical)
+    {
+        // từ user => lấy được nhóm user => lấy được danh sách các quyền => kiểm tra $permissionCanonical có tồn tại trong các canonical từ danh sách các quyền đó không
+        // truy vấn => không dùng hàm => không dùng user_catalogues(), permissions()
+        return $this->user_catalogues->permissions->contains('canonical', $permissionCanonical);
+    }
 }

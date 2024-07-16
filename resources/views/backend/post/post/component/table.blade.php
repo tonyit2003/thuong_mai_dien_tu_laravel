@@ -4,10 +4,10 @@
             <th class="text-center" style="width: 50px">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th class="text-center">Tiêu đề</th>
-            <th class="text-center" style="width: 8rem">Vị trí</th>
-            <th class="text-center" style="width: 100px">Tình trạng</th>
-            <th class="text-center" style="width: 100px">Thao tác</th>
+            <th class="text-center">{{ __('table.title') }}</th>
+            <th class="text-center" style="width: 8rem">{{ __('table.index') }}</th>
+            <th class="text-center" style="width: 100px">{{ __('table.status') }}</th>
+            <th class="text-center" style="width: 100px">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
                                     <span class="maintitle">{{ $post->name }}</span>
                                 </div>
                                 <div class="catalogue">
-                                    <span class="text-danger">Nhóm hiển thị: </span>
+                                    <span class="text-danger">{{ __('table.display_group') }}: </span>
                                     @foreach ($post->post_catalogues as $val)
                                         {{-- trong mỗi post-catalogue có khai báo quan hệ post_catalogue_language nên có thể truy vấn được --}}
                                         @foreach ($val->post_catalogue_language as $cat)

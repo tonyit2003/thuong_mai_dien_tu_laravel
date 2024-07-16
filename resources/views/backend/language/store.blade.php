@@ -4,6 +4,7 @@
         ? ['title' => $config['seo']['create']['title']]
         : ['title' => $config['seo']['edit']['title']]
 )
+
 @if ($errors->any())
     <div class="alert alert-danger mt20">
         <ul>
@@ -13,9 +14,11 @@
         </ul>
     </div>
 @endif
+
 @php
     $url = $config['method'] == 'create' ? route('language.store') : route('language.update', $language->id);
 @endphp
+
 <form action="{{ $url }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -23,11 +26,11 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">
-                        Thông tin chung
+                        {{ __('form.general_info') }}
                     </div>
                     <div class="panel-description">
-                        <p>Nhập thông tin chung của ngôn ngữ</p>
-                        <p>Lưu ý: Những trường đánh dấu <span class="text-danger">(*)</span> là bắt buộc</p>
+                        <p>{{ __('form.enter_general_info', ['model' => 'ngôn ngữ']) }}</p>
+                        <p>{!! __('form.required_fields') !!}</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +41,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Tên ngôn ngữ
+                                        {{ __('form.language_name') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" name="name"
@@ -49,7 +52,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Tên viết tắt
+                                        {{ __('form.language_code') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" name="canonical"
@@ -62,9 +65,9 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Ảnh đại diện
+                                        {{ __('form.image') }}
                                     </label>
-                                    <input placeholder="Click vào đây để chọn ảnh" readonly type="text"
+                                    <input placeholder="{{ __('form.select_image') }}" readonly type="text"
                                         name="image" value="{{ old('image', $language->image ?? '') }}"
                                         class="form-control upload-image" placeholder="" autocomplete="off"
                                         data-type="Images">
@@ -73,7 +76,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Mô tả
+                                        {{ __('form.description') }}
                                     </label>
                                     <input type="text" name="description"
                                         value="{{ old('description', $language->description ?? '') }}"
@@ -87,7 +90,7 @@
         </div>
 
         <div class="text-right mb15">
-            <input class="btn btn-primary" type="submit" name="send" value="Lưu lại" />
+            <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.save') }}" />
         </div>
     </div>
 </form>

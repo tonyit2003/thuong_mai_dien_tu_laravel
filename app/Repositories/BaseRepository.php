@@ -19,9 +19,9 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function all()
+    public function all($relation = [])
     {
-        return $this->model->all();
+        return $this->model->with($relation)->get();
     }
 
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])

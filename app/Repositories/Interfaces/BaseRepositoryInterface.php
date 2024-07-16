@@ -8,7 +8,7 @@ namespace App\Repositories\Interfaces;
  */
 interface BaseRepositoryInterface
 {
-    public function all();
+    public function all($relation = []);
     public function findById($modelId, $column, $relation);
     public function findByCondition($condition = []);
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = []);

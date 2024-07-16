@@ -9,6 +9,7 @@ use App\Repositories\LanguageRepository;
 use App\Services\LanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 class LanguageController extends Controller
 {
@@ -23,6 +24,7 @@ class LanguageController extends Controller
 
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'language.index');
         $languages = $this->languageService->paginate($request);
 
         $config = [
@@ -36,7 +38,7 @@ class LanguageController extends Controller
             ],
             'model' => 'Language'
         ];
-        $config['seo'] = config('apps.language');
+        $config['seo'] = __('language');
 
         $template = 'backend.language.index';
         return view('backend.dashboard.layout', compact('template', 'config', 'languages'));
@@ -44,8 +46,9 @@ class LanguageController extends Controller
 
     public function create()
     {
+        Gate::authorize('modules', 'language.create');
         $config = $this->configData();
-        $config['seo'] = config('apps.language');
+        $config['seo'] = __('language');
         $config['method'] = 'create';
         $template = 'backend.language.store';
         return view('backend.dashboard.layout', compact('template', 'config'));
@@ -63,9 +66,10 @@ class LanguageController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('modules', 'language.update');
         $config = $this->configData();
         $language = $this->languageRepository->findById($id);
-        $config['seo'] = config('apps.language');
+        $config['seo'] = __('language');
         $config['method'] = 'edit';
         $template = 'backend.language.store';
         return view('backend.dashboard.layout', compact('template', 'config', 'language'));
@@ -83,8 +87,9 @@ class LanguageController extends Controller
 
     public function delete($id)
     {
+        Gate::authorize('modules', 'language.destroy');
         $language = $this->languageRepository->findById($id);
-        $config['seo'] = config('apps.language');
+        $config['seo'] = __('language');
         $template = 'backend.language.delete';
         return view('backend.dashboard.layout', compact('template', 'language', 'config'));
     }

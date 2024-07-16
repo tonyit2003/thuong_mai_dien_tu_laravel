@@ -4,6 +4,7 @@
         ? ['title' => $config['seo']['create']['title']]
         : ['title' => $config['seo']['edit']['title']]
 )
+
 @if ($errors->any())
     <div class="alert alert-danger mt20">
         <ul>
@@ -13,9 +14,11 @@
         </ul>
     </div>
 @endif
+
 @php
     $url = $config['method'] == 'create' ? route('user.store') : route('user.update', $user->id);
 @endphp
+
 <form action="{{ $url }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -23,11 +26,11 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">
-                        Thông tin chung
+                        {{ __('form.general_info') }}
                     </div>
                     <div class="panel-description">
-                        <p>Nhập thông tin chung của thành viên</p>
-                        <p>Lưu ý: Những trường đánh dấu <span class="text-danger">(*)</span> là bắt buộc</p>
+                        <p>{{ __('form.enter_general_info', ['model' => 'thành viên']) }}</p>
+                        <p>{!! __('form.required_fields') !!}</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +41,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Email
+                                        {{ __('form.email') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" name="email" value="{{ old('email', $user->email ?? '') }}"
@@ -48,7 +51,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Họ tên
+                                        {{ __('form.name') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" name="name" value="{{ old('name', $user->name ?? '') }}"
@@ -68,7 +71,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Nhóm thành viên
+                                        {{ __('form.user_catalogue') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <select name="user_catalogue_id" id="" class="form-control setupSelect2">
@@ -83,7 +86,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Ngày sinh
+                                        {{ __('form.birthday') }}
                                     </label>
                                     <input type="date" name="birthday"
                                         value="{{ old('birthday', isset($user->birthday) ? date('Y-m-d', strtotime($user->birthday)) : '') }}"
@@ -96,7 +99,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-row">
                                         <label for="" class="control-label text-left">
-                                            Mật khẩu
+                                            {{ __('form.password') }}
                                             <span class="text-danger">(*)</span>
                                         </label>
                                         <input type="password" name="password" value="" class="form-control"
@@ -106,7 +109,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-row">
                                         <label for="" class="control-label text-left">
-                                            Nhập lại mật khẩu
+                                            {{ __('form.re_password') }}
                                             <span class="text-danger">(*)</span>
                                         </label>
                                         <input type="password" name="re_password" value="" class="form-control"
@@ -119,12 +122,12 @@
                             <div class="col-lg-12">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Ảnh đại diện
+                                        {{ __('form.avatar') }}
                                     </label>
-                                    <input placeholder="Click vào đây để chọn ảnh" readonly type="text"
+                                    <input placeholder="{{ __('form.select_image') }}" readonly type="text"
                                         name="image" value="{{ old('image', $user->image ?? '') }}"
                                         class="form-control input-image upload-image" placeholder="" autocomplete="off"
-                                        data-upload = "Images">
+                                        data-upload="Images">
                                 </div>
                             </div>
                         </div>
@@ -139,10 +142,10 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">
-                        Thông tin liên hệ
+                        {{ __('form.contact_info') }}
                     </div>
                     <div class="panel-description">
-                        <p>Nhập thông tin liên hệ của thành viên</p>
+                        <p>{{ __('form.enter_contact_info') }}</p>
                     </div>
                 </div>
             </div>
@@ -153,11 +156,11 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Thành phố/Tỉnh
+                                        {{ __('form.province') }}
                                     </label>
                                     <select name="province_id" class="form-control setupSelect2 province location"
                                         data-target="district">
-                                        <option value="0">[Chọn thành phố/tỉnh]</option>
+                                        <option value="0">{{ __('form.select_province') }}</option>
                                         @if (isset($provinces))
                                             @foreach ($provinces as $province)
                                                 <option @if (old('province_id') == $province->code) selected @endif
@@ -172,11 +175,11 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Quận/Huyện
+                                        {{ __('form.district') }}
                                     </label>
                                     <select name="district_id" class="form-control setupSelect2 district location"
                                         data-target="ward">
-                                        <option value="0">[Chọn quận/huyện]</option>
+                                        <option value="0">{{ __('form.select_district') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -185,17 +188,17 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Phường/Xã
+                                        {{ __('form.ward') }}
                                     </label>
                                     <select name="ward_id" class="form-control setupSelect2 ward">
-                                        <option value="0">[Chọn phường/xã]</option>
+                                        <option value="0">{{ __('form.select_ward') }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Địa chỉ
+                                        {{ __('form.address') }}
                                     </label>
                                     <input type="text" name="address"
                                         value="{{ old('address', $user->address ?? '') }}" class="form-control"
@@ -207,7 +210,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Số điện thoại
+                                        {{ __('form.phone') }}
                                     </label>
                                     <input type="text" name="phone"
                                         value="{{ old('phone', $user->phone ?? '') }}" class="form-control"
@@ -217,7 +220,7 @@
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Ghi chú
+                                        {{ __('form.note') }}
                                     </label>
                                     <input type="text" name="description"
                                         value="{{ old('description', $user->description ?? '') }}"
@@ -231,13 +234,13 @@
         </div>
 
         <div class="text-right mb15">
-            <input class="btn btn-primary" type="submit" name="send" value="Lưu lại" />
+            <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.save') }}" />
         </div>
     </div>
 </form>
 
 <script>
-    var province_id = '{{ isset($user->province_id) ? $user->province_id : old('province_id') }}'
-    var district_id = '{{ isset($user->district_id) ? $user->district_id : old('district_id') }}'
-    var ward_id = '{{ isset($user->ward_id) ? $user->ward_id : old('ward_id') }}'
+    var province_id = '{{ isset($user->province_id) ? $user->province_id : old('province_id') }}';
+    var district_id = '{{ isset($user->district_id) ? $user->district_id : old('district_id') }}';
+    var ward_id = '{{ isset($user->ward_id) ? $user->ward_id : old('ward_id') }}';
 </script>

@@ -9,6 +9,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Repositories\PostRepository;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -31,6 +32,7 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'post.index');
         $posts = $this->postService->paginate($request);
 
         $config = [
@@ -44,7 +46,7 @@ class PostController extends Controller
             ],
             'model' => 'Post'
         ];
-        $config['seo'] = config('apps.post');
+        $config['seo'] = __('post');
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.post.post.index';
         return view('backend.dashboard.layout', compact('template', 'config', 'posts', 'dropdown'));
@@ -52,8 +54,9 @@ class PostController extends Controller
 
     public function create()
     {
+        Gate::authorize('modules', 'post.create');
         $config = $this->configData();
-        $config['seo'] = config('apps.post');
+        $config['seo'] = __('post');
         $config['method'] = 'create';
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.post.post.store';
@@ -72,9 +75,10 @@ class PostController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('modules', 'post.update');
         $post = $this->postRepository->getPostById($id, $this->language);
         $config = $this->configData();
-        $config['seo'] = config('apps.post');
+        $config['seo'] = __('post');
         $config['method'] = 'edit';
         $album = json_decode($post->album);
         $dropdown = $this->nestedset->Dropdown();
@@ -94,8 +98,9 @@ class PostController extends Controller
 
     public function delete($id)
     {
+        Gate::authorize('modules', 'post.destroy');
         $post = $this->postRepository->getPostById($id, $this->language);
-        $config['seo'] = config('apps.post');
+        $config['seo'] = __('post');
         $template = 'backend.post.post.delete';
         return view('backend.dashboard.layout', compact('template', 'post', 'config'));
     }

@@ -1,7 +1,7 @@
 <div class="ibox">
     <div class="ibox-title">
         <h5>
-            {{ __('messages.parent') }}
+            {{ __('form.select_parent_category') }}
         </h5>
     </div>
     <div class="ibox-content">
@@ -9,11 +9,11 @@
             <div class="col-lg-12">
                 <div class="form-row">
                     <label for="" class="control-label text-left">
-                        {{ __('messages.parent') }}
+                        {{ __('form.select_parent_category') }}
                         <span class="text-danger">(*)</span>
                     </label>
                     <span class="text-danger notice">
-                        {{ __('messages.parentNotice') }}
+                        *{{ __('form.select_root_if_no_parent') }}
                     </span>
                     <select name="parent_id" id="" class="form-control setupSelect2">
                         @foreach ($dropdown as $key => $val)
@@ -30,7 +30,7 @@
 <div class="ibox">
     <div class="ibox-title">
         <h5>
-            {{ __('messages.image') }}
+            {{ __('form.select_thumbnail') }}
         </h5>
     </div>
     <div class="ibox-content">
@@ -50,7 +50,7 @@
 <div class="ibox">
     <div class="ibox-title">
         <h5>
-            {{ __('messages.advance') }}
+            {{ __('form.advanced_settings') }}
         </h5>
     </div>
     <div class="ibox-content">
@@ -59,7 +59,7 @@
                 <div class="form-row">
                     <div class="mb15">
                         <select name="publish" id="" class="form-control setupSelect2 mb15">
-                            @foreach (config('apps.general.publish') as $key => $val)
+                            @foreach (__('publish') as $key => $val)
                                 <option
                                     {{ $key == old('publish', isset($postCatalogue->publish) ? $postCatalogue->publish : '') ? 'selected' : '' }}
                                     value="{{ $key }}">{{ $val }}</option>
@@ -67,7 +67,7 @@
                         </select>
                     </div>
                     <select name="follow" id="" class="form-control setupSelect2 mb15">
-                        @foreach (config('apps.general.follow') as $key => $val)
+                        @foreach (__('follow') as $key => $val)
                             <option
                                 {{ $key == old('follow', isset($postCatalogue->follow) ? $postCatalogue->follow : '') ? 'selected' : '' }}
                                 value="{{ $key }}">{{ $val }}</option>
