@@ -15,4 +15,5 @@ interface LanguageServiceInterface
     public function updateStatus($post = []);
     public function updateStatusAll($post = []);
     public function switch($id);
+    public function saveTranslate($storeTranslate);
 }

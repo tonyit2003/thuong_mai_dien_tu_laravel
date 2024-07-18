@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeletePostCatalogueRequest;
 use App\Http\Requests\StorePostCatalogueRequest;
 use App\Http\Requests\UpdatePostCatalogueRequest;
+use App\Models\Language;
 use App\Repositories\PostCatalogueRepository;
 use App\Services\PostCatalogueService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 
 class PostCatalogueController extends Controller
@@ -21,14 +23,15 @@ class PostCatalogueController extends Controller
 
     public function __construct(PostCatalogueService $postCatalogueService, PostCatalogueRepository $postCatalogueRepository)
     {
+        $this->middleware(function ($request, $next) {
+            $locale = App::getLocale();
+            $language = Language::where('canonical', $locale)->first();
+            $this->language = $language->id;
+            $this->initialize();
+            return $next($request);
+        });
         $this->postCatalogueService = $postCatalogueService;
         $this->postCatalogueRepository = $postCatalogueRepository;
-        $this->nestedset = new Nestedsetbie([
-            'table' => 'post_catalogues',
-            'foreignkey' => 'post_catalogue_id',
-            'language_id' => 1
-        ]);
-        $this->language = $this->currentLanguage();
     }
 
     public function index(Request $request)
@@ -38,7 +41,7 @@ class PostCatalogueController extends Controller
         // param 2: Tên của quyền hoặc hành động cụ thể cần kiểm tra
         Gate::authorize('modules', 'post.catalogue.index');
 
-        $postCatalogues = $this->postCatalogueService->paginate($request);
+        $postCatalogues = $this->postCatalogueService->paginate($request, $this->language);
 
         $config = [
             'js' => [
@@ -69,7 +72,7 @@ class PostCatalogueController extends Controller
 
     public function store(StorePostCatalogueRequest $storePostCatalogueRequest)
     {
-        if ($this->postCatalogueService->create($storePostCatalogueRequest)) {
+        if ($this->postCatalogueService->create($storePostCatalogueRequest, $this->language)) {
             flash()->success('Thêm mới bản ghi thành công');
             return redirect()->route('post.catalogue.index');
         }
@@ -92,7 +95,7 @@ class PostCatalogueController extends Controller
 
     public function update($id, UpdatePostCatalogueRequest $updatePostCatalogueRequest)
     {
-        if ($this->postCatalogueService->update($id, $updatePostCatalogueRequest)) {
+        if ($this->postCatalogueService->update($id, $updatePostCatalogueRequest, $this->language)) {
             flash()->success('Cập nhật bản ghi thành công');
             return redirect()->route('post.catalogue.index');
         }
@@ -118,6 +121,16 @@ class PostCatalogueController extends Controller
         flash()->error('Xóa bản ghi không thành công');
         return redirect()->route('post.catalogue.index');
     }
+
+    private function initialize()
+    {
+        $this->nestedset = new Nestedsetbie([
+            'table' => 'post_catalogues',
+            'foreignkey' => 'post_catalogue_id',
+            'language_id' => $this->language
+        ]);
+    }
+
 
     private function configData()
     {

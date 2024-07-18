@@ -17,17 +17,15 @@ use Illuminate\Support\Str;
 class PostService extends BaseService implements PostServiceInterface
 {
     protected $postRepository;
-    protected $language;
     protected $controllerName = 'PostController';
 
     public function __construct(PostRepository $postRepository, RouterRepository $routerRepository)
     {
-        $this->language = $this->currentLanguage();
         $this->postRepository = $postRepository;
         parent::__construct($routerRepository);
     }
 
-    public function paginate($request)
+    public function paginate($request, $languageId)
     {
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         $condition = [
@@ -35,7 +33,7 @@ class PostService extends BaseService implements PostServiceInterface
             'publish' => $request->input('publish') != null ? $request->integer('publish') : -1,
             'post_catalogue_id' => $request->input('post_catalogue_id') != null ? $request->integer('post_catalogue_id') : 0,
             'where' => [
-                ['post_language.language_id', '=', $this->language]
+                ['post_language.language_id', '=', $languageId]
             ]
         ];
         // kết với bảng post_language và điều kiện kết
@@ -52,16 +50,16 @@ class PostService extends BaseService implements PostServiceInterface
             'groupBy' => $this->paginateSelect()
         ];
         $relations = ['post_catalogues'];
-        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, $relations, $orderBy, $this->whereRaw($request));
+        return $this->postRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, $relations, $orderBy, $this->whereRaw($request, $languageId));
     }
 
-    public function create($request)
+    public function create($request, $languageId)
     {
         DB::beginTransaction();
         try {
             $post = $this->createPost($request);
             if ($post->id > 0) { // lấy id của trường vừa mới thêm vào
-                $this->updateLanguageForPost($post, $request);
+                $this->updateLanguageForPost($post, $request, $languageId);
                 $this->updateCatalogueForPost($post, $request);
                 $this->createRouter($post, $request, $this->controllerName);
             }
@@ -74,14 +72,14 @@ class PostService extends BaseService implements PostServiceInterface
         }
     }
 
-    public function update($id, $request)
+    public function update($id, $request, $languageId)
     {
         DB::beginTransaction();
         try {
             // lấy post từ csdl (đã có đầy đủ các mối quan hệ)
             $post = $this->postRepository->findById($id);
             if ($this->updatePost($post, $request)) {
-                $this->updateLanguageForPost($post, $request);
+                $this->updateLanguageForPost($post, $request, $languageId);
                 $this->updateCatalogueForPost($post, $request);
                 $this->updateRouter($post, $request, $this->controllerName);
             }
@@ -152,10 +150,10 @@ class PostService extends BaseService implements PostServiceInterface
         return $this->postRepository->update($post->id, $payload);
     }
 
-    private function updateLanguageForPost($post, $request)
+    private function updateLanguageForPost($post, $request, $languageId)
     {
         $payload = $request->only($this->payloadLanguage()); // lấy những trường được liệt kê trong only => trả về dạng mảng
-        $payload = $this->formatLanguagePayload($payload, $post->id);
+        $payload = $this->formatLanguagePayload($payload, $post->id, $languageId);
         // gỡ mối quan hệ giữa hai bảng (xóa dữ liệu trên bảng post_language)
         // detach chỉ làm việc dựa trên đối tượng đã được tải đầy đủ từ csdl (có id và đầy đủ thông tin về mối quan hệ)
         $post->languages()->detach($payload['language_id']);
@@ -164,10 +162,10 @@ class PostService extends BaseService implements PostServiceInterface
         return $this->postRepository->createPivot($post, $payload, 'languages');
     }
 
-    private function formatLanguagePayload($payload, $postId)
+    private function formatLanguagePayload($payload, $postId, $languageId)
     {
         $payload['canonical'] = Str::slug($payload['canonical']); //chuyển đổi một chuỗi văn bản thành dạng mà có thể sử dụng được trong URL
-        $payload['language_id'] = $this->language;
+        $payload['language_id'] = $languageId;
         $payload['post_id'] = $postId;
         return $payload;
     }
@@ -191,7 +189,7 @@ class PostService extends BaseService implements PostServiceInterface
         return array_unique(array_merge(($request->input('catalogue') != null && is_array($request->input('catalogue'))) ? $request->input('catalogue') : [], [$request->post_catalogue_id])); // [$request->post_catalogue_id] => tạo mảng chứa một phần tử duy nhất
     }
 
-    private function whereRaw($request)
+    private function whereRaw($request, $languageId)
     {
         $rawCondition = [];
         $postCatalogueId = $request->input('post_catalogue_id') != null ? $request->integer('post_catalogue_id') : 0;
@@ -201,10 +199,12 @@ class PostService extends BaseService implements PostServiceInterface
                     'post_catalogue_post.post_catalogue_id IN (
                         SELECT id
                         FROM post_catalogues
+                        JOIN post_catalogue_language ON post_catalogues.id = post_catalogue_language.post_catalogue_id
                         WHERE lft >= (SELECT lft FROM post_catalogues WHERE post_catalogues.id = ?)
                         AND rgt <= (SELECT rgt FROM post_catalogues WHERE post_catalogues.id = ?)
+                        AND post_catalogue_language.language_id = ?
                     )',
-                    [$postCatalogueId, $postCatalogueId] // truyền giá trị vào ? trong câu truy vấn
+                    [$postCatalogueId, $postCatalogueId, $languageId] // truyền giá trị vào ? trong câu truy vấn
                 ]
             ];
         }

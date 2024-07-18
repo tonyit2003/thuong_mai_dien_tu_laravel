@@ -19,4 +19,6 @@ return [
     'language_code' => 'Tên viết tắt',
     'permission_name' => 'Tên quyền',
     'permission_canonical' => 'Canonical',
+    'not_yet_translated' => 'Chưa dịch',
+    'translated' => 'Đã dịch',
 ];

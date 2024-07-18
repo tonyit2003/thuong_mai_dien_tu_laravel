@@ -13,5 +13,8 @@ return [
     ],
     'delete' => [
         'title' => 'Xóa ngôn ngữ'
-    ]
+    ],
+    'translate' => [
+        'title' => 'Tạo bản dịch'
+    ],
 ];

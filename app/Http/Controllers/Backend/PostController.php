@@ -6,9 +6,11 @@ use App\Classes\Nestedsetbie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Language;
 use App\Repositories\PostRepository;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
@@ -20,20 +22,22 @@ class PostController extends Controller
 
     public function __construct(PostService $postService, PostRepository $postRepository)
     {
+        $this->middleware(function ($request, $next) {
+            $locale = App::getLocale();
+            $language = Language::where('canonical', $locale)->first();
+            $this->language = $language->id;
+            $this->initialize();
+            return $next($request);
+        });
         $this->postService = $postService;
         $this->postRepository = $postRepository;
-        $this->nestedset = new Nestedsetbie([
-            'table' => 'post_catalogues',
-            'foreignkey' => 'post_catalogue_id',
-            'language_id' => 1
-        ]);
-        $this->language = $this->currentLanguage();
+        $this->initialize();
     }
 
     public function index(Request $request)
     {
         Gate::authorize('modules', 'post.index');
-        $posts = $this->postService->paginate($request);
+        $posts = $this->postService->paginate($request, $this->language);
 
         $config = [
             'js' => [
@@ -65,7 +69,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $storePostRequest)
     {
-        if ($this->postService->create($storePostRequest)) {
+        if ($this->postService->create($storePostRequest, $this->language)) {
             flash()->success('Thêm mới bản ghi thành công');
             return redirect()->route('post.index');
         }
@@ -88,7 +92,7 @@ class PostController extends Controller
 
     public function update($id, UpdatePostRequest $updatePostRequest)
     {
-        if ($this->postService->update($id, $updatePostRequest)) {
+        if ($this->postService->update($id, $updatePostRequest, $this->language)) {
             flash()->success('Cập nhật bản ghi thành công');
             return redirect()->route('post.index');
         }
@@ -113,6 +117,15 @@ class PostController extends Controller
         }
         flash()->error('Xóa bản ghi không thành công');
         return redirect()->route('post.index');
+    }
+
+    private function initialize()
+    {
+        $this->nestedset = new Nestedsetbie([
+            'table' => 'post_catalogues',
+            'foreignkey' => 'post_catalogue_id',
+            'language_id' => $this->language
+        ]);
     }
 
     private function configData()

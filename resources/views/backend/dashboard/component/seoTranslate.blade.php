@@ -7,13 +7,13 @@
     <div class="ibox-content">
         <div class="seo-container">
             <div class="meta-title">
-                {{ old('meta_title', $post->meta_title ?? __('seo_configuration.default_title')) }}
+                {{ old('translate_meta_title', $model->meta_title ?? __('seo_configuration.default_title')) }}
             </div>
             <div class="canonical">
-                {{ config('app.url') . old('canonical', $post->canonical ?? __('seo_configuration.canonical')) . config('apps.general.suffix') }}
+                {{ config('app.url') . old('translate_canonical', $model->canonical ?? __('seo_configuration.canonical')) . config('apps.general.suffix') }}
             </div>
             <div class="meta-description">
-                {{ old('meta_description', $post->meta_description ?? __('seo_configuration.default_description')) }}
+                {{ old('translate_meta_description', $model->meta_description ?? __('seo_configuration.default_description')) }}
             </div>
         </div>
         <div class="seo-wrapper">
@@ -25,11 +25,14 @@
                                 <span>
                                     {{ __('form.seo_title') }}
                                 </span>
-                                <span class="count_meta_title">0 {{ __('unit.characters') }}</span>
+                                <span class="count_meta_title">
+                                    0 {{ __('unit.characters') }}
+                                </span>
                             </div>
                         </label>
-                        <input type="text" name="meta_title" value="{{ old('meta_title', $post->meta_title ?? '') }}"
-                            class="form-control" placeholder="" autocomplete="off">
+                        <input type="text" name="translate_meta_title"
+                            value="{{ old('translate_meta_title', $model->meta_title ?? '') }}" class="form-control"
+                            placeholder="" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -41,8 +44,8 @@
                                 {{ __('form.seo_keyword') }}
                             </span>
                         </label>
-                        <input type="text" name="meta_keyword"
-                            value="{{ old('meta_keyword', $post->meta_keyword ?? '') }}" class="form-control"
+                        <input type="text" name="translate_meta_keyword"
+                            value="{{ old('translate_meta_keyword', $model->meta_keyword ?? '') }}" class="form-control"
                             placeholder="" autocomplete="off">
                     </div>
                 </div>
@@ -55,10 +58,12 @@
                                 <span>
                                     {{ __('form.seo_description') }}
                                 </span>
-                                <span class="count_meta_description">0 {{ __('unit.characters') }}</span>
+                                <span class="count_meta_description">
+                                    0 {{ __('unit.characters') }}
+                                </span>
                             </div>
                         </label>
-                        <textarea type="text" name="meta_description" class="form-control" placeholder="" autocomplete="off">{{ old('meta_description', $post->meta_description ?? '') }}</textarea>
+                        <textarea type="text" name="translate_meta_description" class="form-control" placeholder="" autocomplete="off">{{ old('translate_meta_description', $model->meta_description ?? '') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -72,9 +77,9 @@
                             <span class="text-danger">(*)</span>
                         </label>
                         <div class="input-wrapper">
-                            <input type="text" name="canonical"
-                                value="{{ old('canonical', $post->canonical ?? '') }}" class="form-control"
-                                placeholder="" autocomplete="off">
+                            <input type="text" name="translate_canonical"
+                                value="{{ old('translate_canonical', $model->canonical ?? '') }}"
+                                class="form-control seo_canonical" placeholder="" autocomplete="off">
                             <span class="baseUrl">{{ config('app.url') }}</span>
                         </div>
                     </div>

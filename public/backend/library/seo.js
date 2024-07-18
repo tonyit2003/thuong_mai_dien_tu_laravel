@@ -15,9 +15,12 @@
             }
         });
 
-        $("input[name=canonical").css({
-            // outerWidth: lấy chiều rộng
-            "padding-left": parseInt($(".baseUrl").outerWidth()) + 10,
+        $(".seo_canonical").each(function () {
+            let _this = $(this);
+            _this.css({
+                // outerWidth: lấy chiều rộng
+                "padding-left": parseInt($(".baseUrl").outerWidth()) + 10,
+            });
         });
 
         $("input[name=canonical").on("keyup", function () {

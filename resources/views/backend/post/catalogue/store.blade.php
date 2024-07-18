@@ -24,9 +24,9 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-9">
-                @include('backend.post.catalogue.component.general')
+                @include('backend.dashboard.component.content', ['model' => $postCatalogue ?? null])
                 @include('backend.dashboard.component.album')
-                @include('backend.post.catalogue.component.seo')
+                @include('backend.dashboard.component.seo', ['model' => $postCatalogue ?? null])
             </div>
             <div class="col-lg-3">
                 @include('backend.post.catalogue.component.aside')

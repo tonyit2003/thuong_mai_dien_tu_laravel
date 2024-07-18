@@ -43,7 +43,7 @@ class Post extends Model
     */
     public function languages()
     {
-        return $this->belongsToMany(Language::class, 'post_language', 'post_id', 'language_id')->withPivot('name', 'canonical', 'mete_title', 'meta_keyword', 'meta_description', 'description', 'content')->withTimestamps();
+        return $this->belongsToMany(Language::class, 'post_language', 'post_id', 'language_id');
     }
 
     public function post_catalogues()

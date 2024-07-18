@@ -36,6 +36,6 @@ class PostCatalogueRepository extends BaseRepository implements PostCatalogueRep
             'post_catalogue_language.meta_keyword',
             'post_catalogue_language.meta_description',
             'post_catalogue_language.canonical'
-        ])->join('post_catalogue_language', 'post_catalogue_language.post_catalogue_id', '=', 'post_catalogues.id')->where('post_catalogue_language.language_id', '=', $language_id)->findOrFail($id);
+        ])->join('post_catalogue_language', 'post_catalogue_language.post_catalogue_id', '=', 'post_catalogues.id')->where('post_catalogue_language.language_id', '=', $language_id)->find($id);
     }
 }

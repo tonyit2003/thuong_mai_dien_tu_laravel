@@ -36,6 +36,6 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
             'post_language.meta_keyword',
             'post_language.meta_description',
             'post_language.canonical'
-        ])->join('post_language', 'post_language.post_id', '=', 'posts.id')->with('post_catalogues')->where('post_language.language_id', '=', $language_id)->findOrFail($id);
+        ])->join('post_language', 'post_language.post_id', '=', 'posts.id')->with('post_catalogues')->where('post_language.language_id', '=', $language_id)->find($id);
     }
 }

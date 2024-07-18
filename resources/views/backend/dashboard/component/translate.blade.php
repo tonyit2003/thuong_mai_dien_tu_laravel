@@ -12,7 +12,7 @@
                         {{ __('form.title') }}
                         <span class="text-danger">(*)</span>
                     </label>
-                    <input type="text" name="name" value="{{ old('name', $post->name ?? '') }}"
+                    <input type="text" name="translate_name" value="{{ old('translate_name', $model->name ?? '') }}"
                         class="form-control" placeholder="" autocomplete="off">
                 </div>
             </div>
@@ -23,8 +23,8 @@
                     <label for="" class="control-label text-left">
                         {{ __('form.short_description') }}
                     </label>
-                    <textarea id="description" type="text" name="description" class="form-control ck-editor" placeholder=""
-                        autocomplete="off" data-height="150">{{ old('description', $post->description ?? '') }}</textarea>
+                    <textarea id="description_1" type="text" name="translate_description" class="form-control ck-editor" placeholder=""
+                        autocomplete="off" data-height="150">{{ old('translate_description', $model->description ?? '') }}</textarea>
                 </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                             {{ __('form.upload_multiple_images') }}
                         </a>
                     </div>
-                    <textarea id="ckContent" type="text" name="content" class="form-control ck-editor" placeholder="" autocomplete="off"
-                        data-height="500">{{ old('content', $post->content ?? '') }}</textarea>
+                    <textarea id="ckContent_1" type="text" name="translate_content" class="form-control ck-editor" placeholder=""
+                        autocomplete="off" data-height="500">{{ old('translate_content', $model->content ?? '') }}</textarea>
                 </div>
             </div>
         </div>
