@@ -56,10 +56,10 @@ class PermissionController extends Controller
     public function store(StorePermissionRequest $storePermissionRequest)
     {
         if ($this->permissionService->create($storePermissionRequest)) {
-            flash()->success('Thêm mới bản ghi thành công');
+            flash()->success(__('toast.store_success'));
             return redirect()->route('permission.index');
         }
-        flash()->error('Thêm mới bản ghi không thành công');
+        flash()->error(__('toast.store_failed'));
         return redirect()->route('permission.index');
     }
 
@@ -77,10 +77,10 @@ class PermissionController extends Controller
     public function update($id, UpdatePermissionRequest $updatePermissionRequest)
     {
         if ($this->permissionService->update($id, $updatePermissionRequest)) {
-            flash()->success('Cập nhật bản ghi thành công');
+            flash()->success(__('toast.update_success'));
             return redirect()->route('permission.index');
         }
-        flash()->error('Cập nhật bản ghi không thành công');
+        flash()->error(__('toast.update_failed'));
         return redirect()->route('permission.index');
     }
 
@@ -96,10 +96,10 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         if ($this->permissionService->delete($id)) {
-            flash()->success('Xóa bản ghi thành công');
+            flash()->success(__('toast.destroy_success'));
             return redirect()->route('permission.index');
         }
-        flash()->error('Xóa bản ghi không thành công');
+        flash()->error(__('toast.destroy_failed'));
         return redirect()->route('permission.index');
     }
 

@@ -1,4 +1,4 @@
-@foreach ($languages as $language)
+@foreach ($allLanguages as $language)
     @if ($currentCanonical == $language->canonical)
         @continue;
     @endif

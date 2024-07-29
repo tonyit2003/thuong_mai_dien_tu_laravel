@@ -4,15 +4,7 @@
         ? ['title' => $config['seo']['create']['title']]
         : ['title' => $config['seo']['edit']['title']]
 )
-@if ($errors->any())
-    <div class="alert alert-danger mt20">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@include('backend.dashboard.component.formError')
 @php
     $url =
         $config['method'] == 'create'

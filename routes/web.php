@@ -4,6 +4,7 @@ use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\GenerateController;
 use App\Http\Controllers\Backend\LanguageController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PostCatalogueController;
@@ -14,6 +15,9 @@ use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\ProductCatalogueController;
+use App\Http\Controllers\Backend\ProductController;
+// @@use-controller@@
 
 Route::get('/', function () {
     return view('welcome');
@@ -94,6 +98,41 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::get('{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete')->where(['id' => '[0-9]+']);
         Route::post('{id}/destroy', [PermissionController::class, 'destroy'])->name('permission.destroy')->where(['id' => '[0-9]+']);
     });
+
+    // GENERATE
+    Route::group(['prefix' => 'generate'], function () {
+        Route::get('index', [GenerateController::class, 'index'])->name('generate.index');
+        Route::get('create', [GenerateController::class, 'create'])->name('generate.create');
+        Route::post('store', [GenerateController::class, 'store'])->name('generate.store');
+        Route::get('{id}/edit', [GenerateController::class, 'edit'])->name('generate.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [GenerateController::class, 'update'])->name('generate.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [GenerateController::class, 'delete'])->name('generate.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [GenerateController::class, 'destroy'])->name('generate.destroy')->where(['id' => '[0-9]+']);
+    });
+
+    // PRODUCT CATALOGUE
+    Route::group(['prefix' => 'product/catalogue'], function () {
+        Route::get('index', [ProductCatalogueController::class, 'index'])->name('product.catalogue.index');
+        Route::get('create', [ProductCatalogueController::class, 'create'])->name('product.catalogue.create');
+        Route::post('store', [ProductCatalogueController::class, 'store'])->name('product.catalogue.store');
+        Route::get('{id}/edit', [ProductCatalogueController::class, 'edit'])->name('product.catalogue.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [ProductCatalogueController::class, 'update'])->name('product.catalogue.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [ProductCatalogueController::class, 'delete'])->name('product.catalogue.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [ProductCatalogueController::class, 'destroy'])->name('product.catalogue.destroy')->where(['id' => '[0-9]+']);
+    });
+
+    // PRODUCT
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('index', [ProductController::class, 'index'])->name('product.index');
+        Route::get('create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('{id}/edit', [ProductController::class, 'edit'])->name('product.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [ProductController::class, 'update'])->name('product.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [ProductController::class, 'delete'])->name('product.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [ProductController::class, 'destroy'])->name('product.destroy')->where(['id' => '[0-9]+']);
+    });
+
+    // @@new-module@@
 
     // AJAX
     Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');

@@ -1,13 +1,5 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo']['delete']['title']])
-@if ($errors->any())
-    <div class="alert alert-danger mt20">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@include('backend.dashboard.component.formError')
 <form action="{{ route('post.destroy', $post->id) }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -54,8 +46,7 @@
         </div>
 
         <div class="text-right mb15">
-            <input class="btn btn-danger" type="submit" name="send"
-                value="{{ __('button.delete_post') }}" />
+            <input class="btn btn-danger" type="submit" name="send" value="{{ __('button.delete_post') }}" />
         </div>
     </div>
 </form>

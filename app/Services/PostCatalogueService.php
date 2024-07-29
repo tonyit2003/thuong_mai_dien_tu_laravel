@@ -25,11 +25,6 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
     public function __construct(PostCatalogueRepository $postCatalogueRepository, RouterRepository $routerRepository)
     {
         $this->postCatalogueRepository = $postCatalogueRepository;
-        // $this->nestedset = new Nestedsetbie([
-        //     'table' => 'post_catalogues',
-        //     'foreignkey' => 'post_catalogue_id',
-        //     'language_id' => $this->language
-        // ]);
         parent::__construct($routerRepository);
     }
 
@@ -111,7 +106,6 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         try {
             $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
             $this->postCatalogueRepository->update($post['modelId'], $payload);
-            // $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -126,7 +120,6 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         try {
             $payload[$post['field']] = $post['value'];
             $this->postCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
-            // $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -135,16 +128,18 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         }
     }
 
-    public function delete($id)
+    public function delete($id, $languageId)
     {
         DB::beginTransaction();
         try {
             $this->postCatalogueRepository->delete($id);
 
-            // tính giá trị left, right bằng Nestedsetbie (có sẵn)
-            $this->nestedset->Get('level ASC, order ASC');
-            $this->nestedset->Recursive(0, $this->nestedset->Set());
-            $this->nestedset->Action();
+            $this->nestedset = new Nestedsetbie([
+                'table' => 'post_catalogues',
+                'foreignkey' => 'post_catalogue_id',
+                'language_id' =>  $languageId,
+            ]);
+            $this->nestedset($this->nestedset);
 
             DB::commit();
             return true;

@@ -14,4 +14,6 @@ return [
     'delete_language_name' => 'Bạn đang muốn xóa ngôn ngữ có tên là: <span class="text-danger">:name</span> ?',
     'delete_permission' => 'Xác nhận xóa quyền',
     'delete_permission_name' => 'Bạn đang muốn xóa quyền có tên là: <span class="text-danger">:name</span> ?',
+    'delete_generate' => 'Xác nhận xóa bản ghi',
+    'delete_generate_name' => 'Bạn đang muốn xóa bản ghi có tên là: <span class="text-danger">:name</span> ?',
 ];

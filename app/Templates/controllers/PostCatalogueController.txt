@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use App\Classes\Nestedsetbie;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Delete{$class}CatalogueRequest;
+use App\Http\Requests\Store{$class}CatalogueRequest;
+use App\Http\Requests\Update{$class}CatalogueRequest;
+use App\Models\Language;
+use App\Repositories\{$class}CatalogueRepository;
+use App\Services\{$class}CatalogueService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
+
+class {$class}CatalogueController extends Controller
+{
+    protected ${$module}CatalogueService;
+    protected ${$module}CatalogueRepository;
+    protected $nestedset;
+    protected $language;
+
+    public function __construct({$class}CatalogueService ${$module}CatalogueService, {$class}CatalogueRepository ${$module}CatalogueRepository)
+    {
+        $this->middleware(function ($request, $next) {
+            $locale = App::getLocale();
+            $language = Language::where('canonical', $locale)->first();
+            $this->language = $language->id;
+            $this->initialize();
+            return $next($request);
+        });
+        $this->{$module}CatalogueService = ${$module}CatalogueService;
+        $this->{$module}CatalogueRepository = ${$module}CatalogueRepository;
+    }
+
+    public function index(Request $request)
+    {
+        Gate::authorize('modules', '{$module}.catalogue.index');
+
+        ${$module}Catalogues = $this->{$module}CatalogueService->paginate($request, $this->language);
+
+        $config = [
+            'js' => [
+                'backend/js/plugins/switchery/switchery.js',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+            ],
+            'css' => [
+                'backend/css/plugins/switchery/switchery.css',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+            ],
+            'model' => '{$class}Catalogue'
+        ];
+        $config['seo'] = __('{$module}Catalogue');
+        $template = 'backend.{$module}.catalogue.index';
+        return view('backend.dashboard.layout', compact('template', 'config', '{$module}Catalogues'));
+    }
+
+    public function create()
+    {
+        Gate::authorize('modules', '{$module}.catalogue.create');
+        $config = $this->configData();
+        $config['seo'] = __('{$module}Catalogue');
+        $config['method'] = 'create';
+        $dropdown = $this->nestedset->Dropdown();
+        $template = 'backend.{$module}.catalogue.store';
+        return view('backend.dashboard.layout', compact('template', 'config', 'dropdown'));
+    }
+
+    public function store(Store{$class}CatalogueRequest $store{$class}CatalogueRequest)
+    {
+        if ($this->{$module}CatalogueService->create($store{$class}CatalogueRequest, $this->language)) {
+            flash()->success(__('toast.store_success'));
+            return redirect()->route('{$module}.catalogue.index');
+        }
+        flash()->error(__('toast.store_failed'));
+        return redirect()->route('{$module}.catalogue.index');
+    }
+
+    public function edit($id)
+    {
+        Gate::authorize('modules', '{$module}.catalogue.update');
+        ${$module}Catalogue = $this->{$module}CatalogueRepository->get{$class}CatalogueById($id, $this->language);
+        $config = $this->configData();
+        $config['seo'] = __('{$module}Catalogue');
+        $config['method'] = 'edit';
+        $dropdown = $this->nestedset->Dropdown();
+        $album = json_decode(${$module}Catalogue->album);
+        $template = 'backend.{$module}.catalogue.store';
+        return view('backend.dashboard.layout', compact('template', 'config', '{$module}Catalogue', 'dropdown', 'album'));
+    }
+
+    public function update($id, Update{$class}CatalogueRequest $update{$class}CatalogueRequest)
+    {
+        if ($this->{$module}CatalogueService->update($id, $update{$class}CatalogueRequest, $this->language)) {
+            flash()->success(__('toast.update_success'));
+            return redirect()->route('{$module}.catalogue.index');
+        }
+        flash()->error(__('toast.update_failed'));
+        return redirect()->route('{$module}.catalogue.index');
+    }
+
+    public function delete($id)
+    {
+        Gate::authorize('modules', '{$module}.catalogue.destroy');
+        ${$module}Catalogue = $this->{$module}CatalogueRepository->get{$class}CatalogueById($id, $this->language);
+        $config['seo'] = __('{$module}Catalogue');
+        $template = 'backend.{$module}.catalogue.delete';
+        return view('backend.dashboard.layout', compact('template', '{$module}Catalogue', 'config'));
+    }
+
+    public function destroy($id, Delete{$class}CatalogueRequest $delete{$class}CatalogueRequest)
+    {
+        if ($this->{$module}CatalogueService->delete($id, $this->language)) {
+            flash()->success(__('toast.destroy_success'));
+            return redirect()->route('{$module}.catalogue.index');
+        }
+        flash()->error(__('toast.destroy_failed'));
+        return redirect()->route('{$module}.catalogue.index');
+    }
+
+    private function initialize()
+    {
+        $this->nestedset = new Nestedsetbie([
+            'table' => '{$module}_catalogues',
+            'foreignkey' => '{$module}_catalogue_id',
+            'language_id' => $this->language
+        ]);
+    }
+
+
+    private function configData()
+    {
+        return [
+            'js' => [
+                'backend/plugins/ckeditor/ckeditor.js',
+                'backend/plugins/ckfinder_2/ckfinder.js',
+                'backend/library/finder.js',
+                'backend/library/seo.js',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+            ],
+            'css' => [
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+            ]
+        ];
+    }
+}

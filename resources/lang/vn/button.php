@@ -13,4 +13,5 @@ return [
     'bulk_lock' => 'Khóa hàng loạt',
     'delete_permission' => 'Xóa quyền',
     'permission' => 'Phân quyền',
+    'delete_generate' => 'Xóa module',
 ];

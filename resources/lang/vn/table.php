@@ -21,4 +21,5 @@ return [
     'permission_canonical' => 'Canonical',
     'not_yet_translated' => 'Chưa dịch',
     'translated' => 'Đã dịch',
+    'module_name' => 'Tên module',
 ];

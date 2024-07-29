@@ -1,13 +1,5 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo']['delete']['title']])
-@if ($errors->any())
-    <div class="alert alert-danger mt20">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@include('backend.dashboard.component.formError')
 <form action="{{ route('post.catalogue.destroy', $postCatalogue->id) }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">

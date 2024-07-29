@@ -59,10 +59,10 @@ class LanguageController extends Controller
     public function store(StoreLanguageRequest $storeLanguageRequest)
     {
         if ($this->languageService->create($storeLanguageRequest)) {
-            flash()->success('Thêm mới bản ghi thành công');
+            flash()->success(__('toast.store_success'));
             return redirect()->route('language.index');
         }
-        flash()->error('Thêm mới bản ghi không thành công');
+        flash()->error(__('toast.store_failed'));
         return redirect()->route('language.index');
     }
 
@@ -80,10 +80,10 @@ class LanguageController extends Controller
     public function update($id, UpdateLanguageRequest $updateLanguageRequest)
     {
         if ($this->languageService->update($id, $updateLanguageRequest)) {
-            flash()->success('Cập nhật bản ghi thành công');
+            flash()->success(__('toast.update_success'));
             return redirect()->route('language.index');
         }
-        flash()->error('Cập nhật bản ghi không thành công');
+        flash()->error(__('toast.update_failed'));
         return redirect()->route('language.index');
     }
 
@@ -99,10 +99,10 @@ class LanguageController extends Controller
     public function destroy($id)
     {
         if ($this->languageService->delete($id)) {
-            flash()->success('Xóa bản ghi thành công');
+            flash()->success(__('toast.destroy_success'));
             return redirect()->route('language.index');
         }
-        flash()->error('Xóa bản ghi không thành công');
+        flash()->error(__('toast.destroy_failed'));
         return redirect()->route('language.index');
     }
 
@@ -118,14 +118,7 @@ class LanguageController extends Controller
 
     public function switchBackendLanguage($id)
     {
-        $language = $this->languageRepository->findById($id);
-        if ($this->languageService->switch($id)) {
-            // lưu giá trị của ngôn ngữ (canonical language code) vào session với key là app_locale.
-            session(['app_locale' => $language->canonical]);
-            // thiết lập ngôn ngữ cho ứng dụng
-            // chú ý: ngôn ngữ sẽ được reset lại khi chuyển trang => dùng middleware để set ngôn ngữ khi chuyển trang
-            App::setLocale($language->canonical);
-        }
+        $this->languageService->switch($id);
         // chuyển hướng đến vị trí trước đó
         return redirect()->back();
     }
@@ -165,10 +158,10 @@ class LanguageController extends Controller
     public function storeTranslate(TranslateRequest $translateRequest)
     {
         if ($this->languageService->saveTranslate($translateRequest)) {
-            flash()->success('Cập nhật bản ghi thành công');
+            flash()->success(__('toast.update_success'));
             return redirect()->back();
         }
-        flash()->error('Cập nhật bản ghi không thành công');
+        flash()->success(__('toast.update_failed'));
         return redirect()->back();
     }
 

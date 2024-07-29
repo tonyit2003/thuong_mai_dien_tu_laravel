@@ -60,10 +60,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $storeUserRequest)
     {
         if ($this->userService->create($storeUserRequest)) {
-            flash()->success('Thêm mới bản ghi thành công');
+            flash()->success(__('toast.store_success'));
             return redirect()->route('user.index');
         }
-        flash()->error('Thêm mới bản ghi không thành công');
+        flash()->error(__('toast.store_failed'));
         return redirect()->route('user.index');
     }
 
@@ -82,10 +82,10 @@ class UserController extends Controller
     public function update($id, UpdateUserRequest $updateUserRequest)
     {
         if ($this->userService->update($id, $updateUserRequest)) {
-            flash()->success('Cập nhật bản ghi thành công');
+            flash()->success(__('toast.update_success'));
             return redirect()->route('user.index');
         }
-        flash()->error('Cập nhật bản ghi không thành công');
+        flash()->error(__('toast.update_failed'));
         return redirect()->route('user.index');
     }
 
@@ -101,10 +101,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         if ($this->userService->delete($id)) {
-            flash()->success('Xóa bản ghi thành công');
+            flash()->success(__('toast.destroy_success'));
             return redirect()->route('user.index');
         }
-        flash()->error('Xóa bản ghi không thành công');
+        flash()->error(__('toast.destroy_failed'));
         return redirect()->route('user.index');
     }
 

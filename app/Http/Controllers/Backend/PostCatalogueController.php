@@ -73,10 +73,10 @@ class PostCatalogueController extends Controller
     public function store(StorePostCatalogueRequest $storePostCatalogueRequest)
     {
         if ($this->postCatalogueService->create($storePostCatalogueRequest, $this->language)) {
-            flash()->success('Thêm mới bản ghi thành công');
+            flash()->success(__('toast.store_success'));
             return redirect()->route('post.catalogue.index');
         }
-        flash()->error('Thêm mới bản ghi không thành công');
+        flash()->error(__('toast.store_failed'));
         return redirect()->route('post.catalogue.index');
     }
 
@@ -96,10 +96,10 @@ class PostCatalogueController extends Controller
     public function update($id, UpdatePostCatalogueRequest $updatePostCatalogueRequest)
     {
         if ($this->postCatalogueService->update($id, $updatePostCatalogueRequest, $this->language)) {
-            flash()->success('Cập nhật bản ghi thành công');
+            flash()->success(__('toast.update_success'));
             return redirect()->route('post.catalogue.index');
         }
-        flash()->error('Cập nhật bản ghi không thành công');
+        flash()->error(__('toast.update_failed'));
         return redirect()->route('post.catalogue.index');
     }
 
@@ -114,11 +114,11 @@ class PostCatalogueController extends Controller
 
     public function destroy($id, DeletePostCatalogueRequest $deletePostCatalogueRequest)
     {
-        if ($this->postCatalogueService->delete($id)) {
-            flash()->success('Xóa bản ghi thành công');
+        if ($this->postCatalogueService->delete($id, $this->language)) {
+            flash()->success(__('toast.destroy_success'));
             return redirect()->route('post.catalogue.index');
         }
-        flash()->error('Xóa bản ghi không thành công');
+        flash()->error(__('toast.destroy_failed'));
         return redirect()->route('post.catalogue.index');
     }
 

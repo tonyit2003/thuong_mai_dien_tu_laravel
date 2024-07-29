@@ -70,10 +70,10 @@ class PostController extends Controller
     public function store(StorePostRequest $storePostRequest)
     {
         if ($this->postService->create($storePostRequest, $this->language)) {
-            flash()->success('Thêm mới bản ghi thành công');
+            flash()->success(__('toast.store_success'));
             return redirect()->route('post.index');
         }
-        flash()->error('Thêm mới bản ghi không thành công');
+        flash()->error(__('toast.store_failed'));
         return redirect()->route('post.index');
     }
 
@@ -93,10 +93,10 @@ class PostController extends Controller
     public function update($id, UpdatePostRequest $updatePostRequest)
     {
         if ($this->postService->update($id, $updatePostRequest, $this->language)) {
-            flash()->success('Cập nhật bản ghi thành công');
+            flash()->success(__('toast.update_success'));
             return redirect()->route('post.index');
         }
-        flash()->error('Cập nhật bản ghi không thành công');
+        flash()->error(__('toast.update_failed'));
         return redirect()->route('post.index');
     }
 
@@ -112,10 +112,10 @@ class PostController extends Controller
     public function destroy($id)
     {
         if ($this->postService->delete($id)) {
-            flash()->success('Xóa bản ghi thành công');
+            flash()->success(__('toast.destroy_success'));
             return redirect()->route('post.index');
         }
-        flash()->error('Xóa bản ghi không thành công');
+        flash()->error(__('toast.destroy_failed'));
         return redirect()->route('post.index');
     }
 

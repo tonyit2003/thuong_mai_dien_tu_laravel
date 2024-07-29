@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Repositories\Interfaces;
+
+/**
+ * Interface {$class}CatalogueRepositoryInterface
+ * @package App\Repositories\Interfaces
+ */
+interface {$class}CatalogueRepositoryInterface
+{
+}

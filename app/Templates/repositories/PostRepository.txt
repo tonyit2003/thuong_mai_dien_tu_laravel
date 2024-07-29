@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\{$class};
+use App\Repositories\Interfaces\{$class}RepositoryInterface;
+
+/**
+ * Class {$class}sRepository
+ * @package App\Repositories
+ */
+class {$class}Repository extends BaseRepository implements {$class}RepositoryInterface
+{
+    protected $model;
+
+    public function __construct({$class} ${$module})
+    {
+        $this->model = ${$module};
+        parent::__construct($this->model); //truyền model lên lớp cha
+    }
+
+    public function get{$class}ById($id = 0, $language_id = 0)
+    {
+        return $this->model->select([
+            '{$module}s.id',
+            '{$module}s.{$module}_catalogue_id',
+            '{$module}s.image',
+            '{$module}s.icon',
+            '{$module}s.album',
+            '{$module}s.publish',
+            '{$module}s.follow',
+            '{$module}_language.name',
+            '{$module}_language.description',
+            '{$module}_language.content',
+            '{$module}_language.meta_title',
+            '{$module}_language.meta_keyword',
+            '{$module}_language.meta_description',
+            '{$module}_language.canonical'
+        ])->join('{$module}_language', '{$module}_language.{$module}_id', '=', '{$module}s.id')->with('{$module}_catalogues')->where('{$module}_language.language_id', '=', $language_id)->find($id);
+    }
+}

@@ -1,0 +1,203 @@
+<?php
+
+namespace App\Services;
+
+use App\Classes\Nestedsetbie;
+use App\Models\{$class}Catalogue;
+use App\Repositories\{$class}CatalogueRepository;
+use App\Repositories\RouterRepository;
+use App\Services\Interfaces\{$class}CatalogueServiceInterface;
+use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+/**
+ * Class {$class}CatalogueService
+ * @package App\Services
+ */
+class {$class}CatalogueService extends BaseService implements {$class}CatalogueServiceInterface
+{
+    protected ${$module}CatalogueRepository;
+    protected $nestedset;
+    protected $controllerName = '{$class}CatalogueController';
+
+    public function __construct({$class}CatalogueRepository ${$module}CatalogueRepository, RouterRepository $routerRepository)
+    {
+        $this->{$module}CatalogueRepository = ${$module}CatalogueRepository;
+        parent::__construct($routerRepository);
+    }
+
+    public function paginate($request, $languageId)
+    {
+        $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
+        $condition = [
+            'keyword' => addslashes($request->input('keyword')),
+            'publish' => $request->input('publish') != null ? $request->integer('publish') : -1,
+            'where' => [
+                ['{$module}_catalogue_language.language_id', '=', $languageId]
+            ],
+        ];
+        $join = [
+            ['{$module}_catalogue_language', '{$module}_catalogue_language.{$module}_catalogue_id', '=', '{$module}_catalogues.id']
+        ];
+        $orderBy = [
+            '{$module}_catalogues.lft', 'ASC'
+        ];
+        $extend = ['path' => '{$module}/catalogue/index'];
+        return $this->{$module}CatalogueRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, [], $orderBy);
+    }
+
+    public function create($request, $languageId)
+    {
+        DB::beginTransaction();
+        try {
+            ${$module}Catalogue = $this->create{$class}Catalogue($request);
+            if (${$module}Catalogue->id > 0) {
+                $this->updateLanguageFor{$class}Catalogue(${$module}Catalogue, $request, $languageId);
+                $this->createRouter(${$module}Catalogue, $request, $this->controllerName);
+            }
+
+            $this->nestedset = new Nestedsetbie([
+                'table' => '{$module}_catalogues',
+                'foreignkey' => '{$module}_catalogue_id',
+                'language_id' =>  $languageId,
+            ]);
+            $this->nestedset($this->nestedset);
+
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function update($id, $request, $languageId)
+    {
+        DB::beginTransaction();
+        try {
+            ${$module}Catalogue = $this->{$module}CatalogueRepository->findById($id);
+            if ($this->update{$class}Catalogue(${$module}Catalogue, $request)) {
+                $this->updateLanguageFor{$class}Catalogue(${$module}Catalogue, $request, $languageId);
+                $this->updateRouter(${$module}Catalogue, $request, $this->controllerName);
+            }
+
+            $this->nestedset = new Nestedsetbie([
+                'table' => '{$module}_catalogues',
+                'foreignkey' => '{$module}_catalogue_id',
+                'language_id' =>  $languageId,
+            ]);
+            $this->nestedset($this->nestedset);
+
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function updateStatus($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
+            $this->{$module}CatalogueRepository->update($post['modelId'], $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function updateStatusAll($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $payload[$post['field']] = $post['value'];
+            $this->{$module}CatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function delete($id, $languageId)
+    {
+        DB::beginTransaction();
+        try {
+            $this->{$module}CatalogueRepository->delete($id);
+
+            $this->nestedset = new Nestedsetbie([
+                'table' => '{$module}_catalogues',
+                'foreignkey' => '{$module}_catalogue_id',
+                'language_id' =>  $languageId,
+            ]);
+            $this->nestedset($this->nestedset);
+
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    private function create{$class}Catalogue($request)
+    {
+        $payload = $request->only($this->payload());
+        $payload['user_id'] = Auth::id();
+        $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
+        return $this->{$module}CatalogueRepository->create($payload);
+    }
+
+    private function update{$class}Catalogue(${$module}Catalogue, $request)
+    {
+        $payload = $request->only($this->payload());
+        $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
+        return $this->{$module}CatalogueRepository->update(${$module}Catalogue->id, $payload);
+    }
+
+    private function updateLanguageFor{$class}Catalogue(${$module}Catalogue, $request, $languageId)
+    {
+        $payload = $request->only($this->payloadLanguage());
+        $payload = $this->formatLanguagePayload($payload, ${$module}Catalogue, $languageId);
+        ${$module}Catalogue->languages()->detach($payload['language_id']);
+        return $this->{$module}CatalogueRepository->createPivot(${$module}Catalogue, $payload, 'languages');
+    }
+
+    private function formatLanguagePayload($payload, ${$module}Catalogue, $languageId)
+    {
+        $payload['canonical'] = Str::slug($payload['canonical']);
+        $payload['language_id'] = $languageId;
+        $payload['{$module}_catalogue_id'] = ${$module}Catalogue->id;
+        return $payload;
+    }
+
+    private function paginateSelect()
+    {
+        return [
+            '{$module}_catalogues.id',
+            '{$module}_catalogues.publish',
+            '{$module}_catalogues.image',
+            '{$module}_catalogues.level',
+            '{$module}_catalogues.order',
+            '{$module}_catalogue_language.name',
+            '{$module}_catalogue_language.canonical'
+        ];
+    }
+
+    private function payload()
+    {
+        return ['parent_id', 'follow', 'publish', 'image', 'album'];
+    }
+
+    private function payloadLanguage()
+    {
+        return ['name', 'description', 'content', 'meta_title', 'meta_keyword', 'meta_description', 'canonical'];
+    }
+}

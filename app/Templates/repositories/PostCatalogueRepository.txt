@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\{$class}Catalogue;
+use App\Repositories\Interfaces\{$class}CatalogueRepositoryInterface;
+
+/**
+ * Class {$class}CatalogueRepository
+ * @package App\Repositories
+ */
+class {$class}CatalogueRepository extends BaseRepository implements {$class}CatalogueRepositoryInterface
+{
+    protected $model;
+
+    public function __construct({$class}Catalogue ${$module}Catalogue)
+    {
+        $this->model = ${$module}Catalogue;
+        parent::__construct($this->model); //truyền model lên lớp cha
+    }
+
+    public function get{$class}CatalogueById($id = 0, $language_id = 0)
+    {
+        return $this->model->select([
+            '{$module}_catalogues.id',
+            '{$module}_catalogues.parent_id',
+            '{$module}_catalogues.image',
+            '{$module}_catalogues.icon',
+            '{$module}_catalogues.album',
+            '{$module}_catalogues.publish',
+            '{$module}_catalogues.follow',
+            '{$module}_catalogue_language.name',
+            '{$module}_catalogue_language.description',
+            '{$module}_catalogue_language.content',
+            '{$module}_catalogue_language.meta_title',
+            '{$module}_catalogue_language.meta_keyword',
+            '{$module}_catalogue_language.meta_description',
+            '{$module}_catalogue_language.canonical'
+        ])->join('{$module}_catalogue_language', '{$module}_catalogue_language.{$module}_catalogue_id', '=', '{$module}_catalogues.id')->where('{$module}_catalogue_language.language_id', '=', $language_id)->find($id);
+    }
+}

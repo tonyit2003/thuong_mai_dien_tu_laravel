@@ -27,13 +27,14 @@ class AuthController extends Controller
 
         // Kiểm tra đăng nhập thành công
         if (Auth::attempt($credentials)) {
-            flash()->success('Đăng nhập thành công');
+            flash()->success(__('toast.login_success'));
             return redirect()->route('dashboard.index');
         }
 
-        flash()->error('Email hoặc mật khẩu không chính xác');
+        flash()->error(__('toast.login_failed'));
         return redirect()->route('auth.admin');
     }
+
 
     public function logout(Request $request)
     {

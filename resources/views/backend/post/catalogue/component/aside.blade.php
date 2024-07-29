@@ -41,7 +41,8 @@
                         <img src="{{ old('image', $postCatalogue->image ?? 'backend/img/no-photo.png') }}"
                             alt="">
                     </span>
-                    <input type="hidden" name="image" value="{{ old('image', $postCatalogue->image ?? '') }}">
+                    <input type="hidden" name="image"
+                        value="{{ old('image', $postCatalogue->image ?? 'backend/img/no-photo.png') }}">
                 </div>
             </div>
         </div>

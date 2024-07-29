@@ -39,12 +39,12 @@ class PostCatalogue extends Model
         tên của cột trong bảng trung gian trỏ đến khóa chính của model hiện tại,
         tên của cột trong bảng trung gian trỏ đến khóa chính của model Language
     )
-    withPivot() => các cột trong bảng trung gian để lấy khi truy vấn mối quan hệ này
-    withTimestamps() => tự động thêm các cột created_at và updated_at vào bảng trung gian
+    withPivot() => các cột trong bảng trung gian để lấy khi truy vấn mối quan hệ này (chỉ có thể truy vấn các cột trong withPivot, nếu không có withPivot => chỉ truy vấn được 2 khóa ngoại)
+    withTimestamps() => tự động điền hoặc cập nhật các giá trị trong các cột created_at và updated_at.
     */
     public function languages()
     {
-        return $this->belongsToMany(Language::class, 'post_catalogue_language', 'post_catalogue_id', 'language_id');
+        return $this->belongsToMany(Language::class, 'post_catalogue_language', 'post_catalogue_id', 'language_id')->withPivot('post_catalogue_id', 'language_id', 'name', 'canonical', 'meta_title', 'meta_keyword', 'meta_description', 'description', 'content')->withTimestamps();
     }
 
     public function posts()

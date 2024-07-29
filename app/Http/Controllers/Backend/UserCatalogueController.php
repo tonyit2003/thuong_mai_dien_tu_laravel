@@ -58,10 +58,10 @@ class UserCatalogueController extends Controller
     public function store(StoreUserCatalogueRequest $storeUserCatalogueRequest)
     {
         if ($this->userCatalogueService->create($storeUserCatalogueRequest)) {
-            flash()->success('Thêm mới bản ghi thành công');
+            flash()->success(__('toast.store_success'));
             return redirect()->route('user.catalogue.index');
         }
-        flash()->error('Thêm mới bản ghi không thành công');
+        flash()->error(__('toast.store_failed'));
         return redirect()->route('user.catalogue.index');
     }
 
@@ -78,10 +78,10 @@ class UserCatalogueController extends Controller
     public function update($id, StoreUserCatalogueRequest $storeUserCatalogueRequest)
     {
         if ($this->userCatalogueService->update($id, $storeUserCatalogueRequest)) {
-            flash()->success('Cập nhật bản ghi thành công');
+            flash()->success(__('toast.update_success'));
             return redirect()->route('user.catalogue.index');
         }
-        flash()->error('Cập nhật bản ghi không thành công');
+        flash()->error(__('toast.update_failed'));
         return redirect()->route('user.catalogue.index');
     }
 
@@ -97,10 +97,10 @@ class UserCatalogueController extends Controller
     public function destroy($id)
     {
         if ($this->userCatalogueService->delete($id)) {
-            flash()->success('Xóa bản ghi thành công');
+            flash()->success(__('toast.destroy_success'));
             return redirect()->route('user.catalogue.index');
         }
-        flash()->error('Xóa bản ghi không thành công');
+        flash()->error(__('toast.destroy_failed'));
         return redirect()->route('user.catalogue.index');
     }
 
@@ -118,10 +118,10 @@ class UserCatalogueController extends Controller
     public function updatePermission(Request $request)
     {
         if ($this->userCatalogueService->setPermission($request)) {
-            flash()->success('Cập nhật quyền thành công');
+            flash()->success(__('toast.permission_update_success'));
             return redirect()->route('user.catalogue.index');
         }
-        flash()->error('Cập nhật quyền không thành công');
+        flash()->error(__('toast.permission_update_failed'));
         return redirect()->route('user.catalogue.index');
     }
 }

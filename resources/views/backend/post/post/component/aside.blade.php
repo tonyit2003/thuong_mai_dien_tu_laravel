@@ -63,7 +63,8 @@
                     <span class="image img-cover img-target">
                         <img src="{{ old('image', $post->image ?? 'backend/img/no-photo.png') }}" alt="">
                     </span>
-                    <input type="hidden" name="image" value="{{ old('image', $post->image ?? '') }}">
+                    <input type="hidden" name="image"
+                        value="{{ old('image', $post->image ?? 'backend/img/no-photo.png') }}">
                 </div>
             </div>
         </div>

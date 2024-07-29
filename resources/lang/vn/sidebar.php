@@ -3,6 +3,21 @@
 return [
     'module' => [
         [
+            'title' => 'Sản phẩm',
+            'icon' => 'fa fa-cube',
+            'name' => ['product'],
+            'subModule' => [
+                [
+                    'title' => 'Nhóm sản phẩm',
+                    'route' => 'product.catalogue.index'
+                ],
+                [
+                    'title' => 'Sản phẩm',
+                    'route' => 'product.index'
+                ],
+            ]
+        ],
+        [
             'title' => 'Bài viết',
             'icon' => 'fa fa-file',
             'name' => ['post'],
@@ -39,11 +54,15 @@ return [
         [
             'title' => 'Cấu hình chung',
             'icon' => 'fa fa-file',
-            'name' => ['language'],
+            'name' => ['language', 'generate'],
             'subModule' => [
                 [
                     'title' => 'Ngôn ngữ',
                     'route' => 'language.index'
+                ],
+                [
+                    'title' => 'Module',
+                    'route' => 'generate.index'
                 ]
             ]
         ]

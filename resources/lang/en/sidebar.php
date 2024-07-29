@@ -8,7 +8,7 @@ return [
             'name' => ['post'],
             'subModule' => [
                 [
-                    'title' => 'Post Groups',
+                    'title' => 'Post Catalogue',
                     'route' => 'post.catalogue.index'
                 ],
                 [
@@ -20,20 +20,24 @@ return [
         [
             'title' => 'Members',
             'icon' => 'fa fa-th-large',
-            'name' => ['user'],
+            'name' => ['user', 'permission'],
             'subModule' => [
                 [
-                    'title' => 'Member Groups',
+                    'title' => 'User Groups',
                     'route' => 'user.catalogue.index'
                 ],
                 [
                     'title' => 'Members',
                     'route' => 'user.index'
-                ]
+                ],
+                [
+                    'title' => 'Permissions',
+                    'route' => 'permission.index'
+                ],
             ]
         ],
         [
-            'title' => 'General Configuration',
+            'title' => 'General Settings',
             'icon' => 'fa fa-file',
             'name' => ['language'],
             'subModule' => [
