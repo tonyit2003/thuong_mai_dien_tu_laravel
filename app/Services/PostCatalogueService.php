@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Classes\Nestedsetbie;
 use App\Models\PostCatalogue;
+use App\Models\PostCatalogueLanguage;
 use App\Repositories\PostCatalogueRepository;
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\PostCatalogueServiceInterface;
@@ -56,7 +57,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             $postCatalogue = $this->createPostCatalogue($request);
             if ($postCatalogue->id > 0) { // lấy id của trường vừa mới thêm vào
                 $this->updateLanguageForPostCatalogue($postCatalogue, $request, $languageId);
-                $this->createRouter($postCatalogue, $request, $this->controllerName);
+                $this->createRouter($postCatalogue, $request, $this->controllerName, $languageId);
             }
 
             $this->nestedset = new Nestedsetbie([
@@ -82,7 +83,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             $postCatalogue = $this->postCatalogueRepository->findById($id);
             if ($this->updatePostCatalogue($postCatalogue, $request)) {
                 $this->updateLanguageForPostCatalogue($postCatalogue, $request, $languageId);
-                $this->updateRouter($postCatalogue, $request, $this->controllerName);
+                $this->updateRouter($postCatalogue, $request, $this->controllerName, $languageId);
             }
 
             $this->nestedset = new Nestedsetbie([
@@ -133,6 +134,10 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         DB::beginTransaction();
         try {
             $this->postCatalogueRepository->delete($id);
+            $this->routerRepository->forceDeleteByCondition([
+                ['module_id', '=', $id],
+                ['controllers', '=', 'App\Http\Controllers\Frontend\\' . $this->controllerName . '']
+            ]);
 
             $this->nestedset = new Nestedsetbie([
                 'table' => 'post_catalogues',

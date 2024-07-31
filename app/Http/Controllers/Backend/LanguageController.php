@@ -161,7 +161,7 @@ class LanguageController extends Controller
             flash()->success(__('toast.update_success'));
             return redirect()->back();
         }
-        flash()->success(__('toast.update_failed'));
+        flash()->error(__('toast.update_failed'));
         return redirect()->back();
     }
 

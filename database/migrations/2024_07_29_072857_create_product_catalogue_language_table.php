@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('meta_keyword')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('canonical')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

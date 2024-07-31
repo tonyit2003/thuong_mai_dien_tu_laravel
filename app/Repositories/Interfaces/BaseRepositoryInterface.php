@@ -19,4 +19,5 @@ interface BaseRepositoryInterface
     public function updateByWhere($condition = [], $payload = []);
     public function delete($id = 0);
     public function forceDelete($id = 0);
+    public function forceDeleteByCondition($condition = []);
 }

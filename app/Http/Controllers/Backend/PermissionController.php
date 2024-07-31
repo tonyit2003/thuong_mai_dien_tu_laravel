@@ -57,7 +57,7 @@ class PermissionController extends Controller
     {
         if ($this->permissionService->create($storePermissionRequest)) {
             flash()->success(__('toast.store_success'));
-            return redirect()->route('permission.index');
+            return redirect()->route('permission.create');
         }
         flash()->error(__('toast.store_failed'));
         return redirect()->route('permission.index');

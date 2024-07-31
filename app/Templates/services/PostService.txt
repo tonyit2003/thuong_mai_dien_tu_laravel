@@ -59,7 +59,7 @@ class {$class}Service extends BaseService implements {$class}ServiceInterface
             if (${$module}->id > 0) {
                 $this->updateLanguageFor{$class}(${$module}, $request, $languageId);
                 $this->updateCatalogueFor{$class}(${$module}, $request);
-                $this->createRouter(${$module}, $request, $this->controllerName);
+                $this->createRouter(${$module}, $request, $this->controllerName, $languageId);
             }
 
             DB::commit();
@@ -78,7 +78,7 @@ class {$class}Service extends BaseService implements {$class}ServiceInterface
             if ($this->update{$class}(${$module}, $request)) {
                 $this->updateLanguageFor{$class}(${$module}, $request, $languageId);
                 $this->updateCatalogueFor{$class}(${$module}, $request);
-                $this->updateRouter(${$module}, $request, $this->controllerName);
+                $this->updateRouter(${$module}, $request, $this->controllerName, $languageId);
             }
             DB::commit();
             return true;
@@ -121,6 +121,10 @@ class {$class}Service extends BaseService implements {$class}ServiceInterface
         DB::beginTransaction();
         try {
             $this->{$module}Repository->delete($id);
+            $this->routerRepository->forceDeleteByCondition([
+                ['module_id', '=', $id],
+                ['controllers', '=', 'App\Http\Controllers\Frontend\\' . $this->controllerName . '']
+            ]);
 
             DB::commit();
             return true;

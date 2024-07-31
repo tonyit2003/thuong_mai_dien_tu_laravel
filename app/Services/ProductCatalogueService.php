@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Classes\Nestedsetbie;
 use App\Models\ProductCatalogue;
+use App\Models\ProductCatalogueLanguage;
 use App\Repositories\ProductCatalogueRepository;
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\ProductCatalogueServiceInterface;
@@ -55,7 +56,7 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
             $productCatalogue = $this->createProductCatalogue($request);
             if ($productCatalogue->id > 0) {
                 $this->updateLanguageForProductCatalogue($productCatalogue, $request, $languageId);
-                $this->createRouter($productCatalogue, $request, $this->controllerName);
+                $this->createRouter($productCatalogue, $request, $this->controllerName, $languageId);
             }
 
             $this->nestedset = new Nestedsetbie([
@@ -80,7 +81,7 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
             $productCatalogue = $this->productCatalogueRepository->findById($id);
             if ($this->updateProductCatalogue($productCatalogue, $request)) {
                 $this->updateLanguageForProductCatalogue($productCatalogue, $request, $languageId);
-                $this->updateRouter($productCatalogue, $request, $this->controllerName);
+                $this->updateRouter($productCatalogue, $request, $this->controllerName, $languageId);
             }
 
             $this->nestedset = new Nestedsetbie([
@@ -131,6 +132,10 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
         DB::beginTransaction();
         try {
             $this->productCatalogueRepository->delete($id);
+            $this->routerRepository->forceDeleteByCondition([
+                ['module_id', '=', $id],
+                ['controllers', '=', 'App\Http\Controllers\Frontend\\' . $this->controllerName . '']
+            ]);
 
             $this->nestedset = new Nestedsetbie([
                 'table' => 'product_catalogues',

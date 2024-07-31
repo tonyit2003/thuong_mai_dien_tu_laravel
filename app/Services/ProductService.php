@@ -59,7 +59,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             if ($product->id > 0) {
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $this->updateCatalogueForProduct($product, $request);
-                $this->createRouter($product, $request, $this->controllerName);
+                $this->createRouter($product, $request, $this->controllerName, $languageId);
             }
 
             DB::commit();
@@ -78,7 +78,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             if ($this->updateProduct($product, $request)) {
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $this->updateCatalogueForProduct($product, $request);
-                $this->updateRouter($product, $request, $this->controllerName);
+                $this->updateRouter($product, $request, $this->controllerName, $languageId);
             }
             DB::commit();
             return true;
@@ -121,6 +121,10 @@ class ProductService extends BaseService implements ProductServiceInterface
         DB::beginTransaction();
         try {
             $this->productRepository->delete($id);
+            $this->routerRepository->forceDeleteByCondition([
+                ['module_id', '=', $id],
+                ['controllers', '=', 'App\Http\Controllers\Frontend\\' . $this->controllerName . '']
+            ]);
 
             DB::commit();
             return true;

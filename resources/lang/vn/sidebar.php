@@ -5,7 +5,7 @@ return [
         [
             'title' => 'Sản phẩm',
             'icon' => 'fa fa-cube',
-            'name' => ['product'],
+            'name' => ['product', 'attribute'],
             'subModule' => [
                 [
                     'title' => 'Nhóm sản phẩm',
@@ -14,6 +14,14 @@ return [
                 [
                     'title' => 'Sản phẩm',
                     'route' => 'product.index'
+                ],
+                [
+                    'title' => 'Loại thuộc tính',
+                    'route' => 'attribute.catalogue.index'
+                ],
+                [
+                    'title' => 'Thuộc tính',
+                    'route' => 'attribute.index'
                 ],
             ]
         ],

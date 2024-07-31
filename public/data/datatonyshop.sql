@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 29, 2024 lúc 12:27 PM
+-- Thời gian đã tạo: Th7 31, 2024 lúc 03:27 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -80,6 +80,145 @@ INSERT INTO `administrative_units` (`id`, `full_name`, `full_name_en`, `short_na
 (8, 'Phường', 'Ward', 'Phường', 'Ward', 'phuong', 'ward'),
 (9, 'Thị trấn', 'Commune-level town', 'Thị trấn', 'Township', 'thi_tran', 'commune_level_town'),
 (10, 'Xã', 'Commune', 'Xã', 'Commune', 'xa', 'commune');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `attributes`
+--
+
+CREATE TABLE `attributes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `attribute_catalogue_id` int(11) NOT NULL DEFAULT 0,
+  `image` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `album` text DEFAULT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 1,
+  `follow` tinyint(4) NOT NULL DEFAULT 1,
+  `order` int(11) NOT NULL DEFAULT 0,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `attributes`
+--
+
+INSERT INTO `attributes` (`id`, `attribute_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, '2024-07-31 06:21:47', '2024-07-31 05:54:16', '2024-07-31 06:21:47'),
+(2, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-07-31 05:55:24', '2024-07-31 05:55:24');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `attribute_catalogues`
+--
+
+CREATE TABLE `attribute_catalogues` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
+  `lft` int(11) NOT NULL DEFAULT 0,
+  `rgt` int(11) NOT NULL DEFAULT 0,
+  `level` int(11) NOT NULL DEFAULT 0,
+  `image` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `album` text DEFAULT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 1,
+  `follow` tinyint(4) NOT NULL DEFAULT 1,
+  `order` int(11) NOT NULL DEFAULT 0,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `attribute_catalogues`
+--
+
+INSERT INTO `attribute_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-07-29 05:53:43', '2024-07-29 05:53:43'),
+(2, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-07-31 06:21:09', '2024-07-29 05:54:18', '2024-07-31 06:21:09');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `attribute_catalogue_attribute`
+--
+
+CREATE TABLE `attribute_catalogue_attribute` (
+  `attribute_catalogue_id` bigint(20) UNSIGNED NOT NULL,
+  `attribute_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `attribute_catalogue_attribute`
+--
+
+INSERT INTO `attribute_catalogue_attribute` (`attribute_catalogue_id`, `attribute_id`) VALUES
+(1, 1),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `attribute_catalogue_language`
+--
+
+CREATE TABLE `attribute_catalogue_language` (
+  `attribute_catalogue_id` bigint(20) UNSIGNED NOT NULL,
+  `language_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `content` longtext DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_keyword` varchar(255) DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `canonical` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `attribute_catalogue_language`
+--
+
+INSERT INTO `attribute_catalogue_language` (`attribute_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Màu sắc', NULL, NULL, NULL, NULL, NULL, 'mau-sac', '2024-07-29 05:53:43', '2024-07-29 05:53:43'),
+(2, 1, 'Chất liệu', NULL, NULL, NULL, NULL, NULL, 'chat-lieu', '2024-07-29 05:54:18', '2024-07-29 05:54:18'),
+(1, 2, 'Color', NULL, NULL, NULL, NULL, NULL, 'color', '2024-07-31 04:24:47', '2024-07-31 04:24:47'),
+(2, 3, '材料', NULL, NULL, NULL, NULL, NULL, 'chat-lieu-cn', '2024-07-31 04:35:28', '2024-07-31 04:35:28'),
+(2, 2, 'Material', NULL, NULL, NULL, NULL, NULL, 'material-en', '2024-07-31 05:00:15', '2024-07-31 05:00:15');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `attribute_language`
+--
+
+CREATE TABLE `attribute_language` (
+  `attribute_id` bigint(20) UNSIGNED NOT NULL,
+  `language_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `content` longtext DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_keyword` varchar(255) DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `canonical` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `attribute_language`
+--
+
+INSERT INTO `attribute_language` (`attribute_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Màu đỏ', NULL, NULL, NULL, NULL, NULL, 'mau-do', '2024-07-31 05:54:16', '2024-07-31 05:54:16'),
+(2, 1, 'Màu xanh', NULL, NULL, NULL, NULL, NULL, 'mau-xanh', '2024-07-31 05:55:24', '2024-07-31 05:55:24');
 
 -- --------------------------------------------------------
 
@@ -924,12 +1063,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-07-29 00:07:39', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-07-29 00:07:39', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
-(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-07-03 01:54:07', '2024-07-29 00:07:39', NULL, 1, 'Ngôn ngữ tiếng Trung', 0),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-07-03 01:54:07', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Trung', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
-(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-07-29 00:07:39', NULL, 1, 'Ngôn ngữ tiếng Hàn Quốc', 0);
+(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Hàn Quốc', 0);
 
 -- --------------------------------------------------------
 
@@ -994,7 +1133,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (49, '2024_07_29_072857_create_product_catalogue_language_table', 33),
 (50, '2024_07_29_072952_create_products_table', 34),
 (51, '2024_07_29_073002_create_product_catalogue_product_table', 34),
-(52, '2024_07_29_073002_create_product_language_table', 34);
+(52, '2024_07_29_073002_create_product_language_table', 34),
+(53, '2024_07_29_122626_create_attribute_catalogues_table', 35),
+(54, '2024_07_29_122636_create_attribute_catalogue_language_table', 35),
+(55, '2024_07_31_011546_add_language_id_at_routers_table', 36),
+(56, '2024_07_31_120359_create_attributes_table', 37),
+(57, '2024_07_31_120409_create_attribute_catalogue_attribute_table', 37),
+(58, '2024_07_31_120409_create_attribute_language_table', 37);
 
 -- --------------------------------------------------------
 
@@ -1066,7 +1211,15 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 (37, 'Xem danh sách sản phẩm', 'product.index', '2024-07-28 23:55:48', '2024-07-28 23:55:48'),
 (38, 'Thêm sản phẩm', 'product.create', '2024-07-28 23:56:01', '2024-07-28 23:56:01'),
 (39, 'Sửa sản phẩm', 'product.update', '2024-07-28 23:56:17', '2024-07-28 23:56:17'),
-(40, 'Xóa sản phẩm', 'product.destroy', '2024-07-28 23:56:32', '2024-07-28 23:56:32');
+(40, 'Xóa sản phẩm', 'product.destroy', '2024-07-28 23:56:32', '2024-07-28 23:56:32'),
+(41, 'Xem danh sách loại thuộc tính', 'attribute.catalogue.index', '2024-07-29 05:34:12', '2024-07-29 05:34:12'),
+(42, 'Thêm mới loại thuộc tính', 'attribute.catalogue.create', '2024-07-29 05:34:32', '2024-07-29 05:34:32'),
+(43, 'Sửa loại thuộc tính', 'attribute.catalogue.update', '2024-07-29 05:34:47', '2024-07-29 05:34:47'),
+(44, 'Xóa loại thuộc tính', 'attribute.catalogue.destroy', '2024-07-29 05:35:09', '2024-07-29 05:35:09'),
+(45, 'Xem dách sách thuộc tính', 'attribute.index', '2024-07-31 05:05:23', '2024-07-31 05:05:23'),
+(46, 'Thêm mới thuộc tính', 'attribute.create', '2024-07-31 05:12:42', '2024-07-31 05:12:42'),
+(47, 'Sửa thuộc tính', 'attribute.update', '2024-07-31 05:12:53', '2024-07-31 05:12:53'),
+(48, 'Xóa thuộc tính', 'attribute.destroy', '2024-07-31 05:50:55', '2024-07-31 05:50:55');
 
 -- --------------------------------------------------------
 
@@ -1165,9 +1318,10 @@ INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name
 (53, 1, 'Bóng đá trong nước', NULL, NULL, NULL, NULL, NULL, 'bong-da-trong-nuoc', '2024-07-14 08:22:46', '2024-07-14 08:22:46', NULL),
 (55, 1, 'Champion league', NULL, NULL, NULL, NULL, NULL, 'champion-league', '2024-07-14 08:30:58', '2024-07-14 08:30:58', NULL),
 (58, 1, 'Công nghệ', NULL, NULL, NULL, NULL, NULL, 'cong-nghe', '2024-07-18 12:28:06', '2024-07-18 12:28:06', NULL),
-(52, 2, 'Football', '<p>Football</p>', '<p>Football</p>', 'Football', 'Football', 'Football', 'football', '2024-07-18 09:08:48', '2024-07-18 09:08:48', NULL),
 (56, 1, 'Premier League', NULL, NULL, NULL, NULL, NULL, 'premier-league', '2024-07-14 08:38:26', '2024-07-14 08:38:26', NULL),
-(57, 1, 'V League 1', NULL, NULL, NULL, NULL, NULL, 'v-league-1', '2024-07-14 08:43:16', '2024-07-14 08:43:16', NULL);
+(57, 1, 'V League 1', NULL, NULL, NULL, NULL, NULL, 'v-league-1', '2024-07-14 08:43:16', '2024-07-14 08:43:16', NULL),
+(52, 2, 'Football', '<p>Football</p>', '<p>Football</p>', 'Football', 'Football', 'Football', 'football', '2024-07-30 20:09:52', '2024-07-30 20:09:52', NULL),
+(58, 2, 'Technology123', '<p>Technology</p>', '<p>Technology</p>', 'Technology', 'Technology', 'Technology', 'technology123', '2024-07-31 04:26:42', '2024-07-31 04:26:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -1207,16 +1361,17 @@ CREATE TABLE `post_language` (
   `meta_description` text DEFAULT NULL,
   `canonical` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `post_language`
 --
 
-INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
-(43, 2, 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', '<p>The duo of Galaxy Z Fold 6 along with Z Flip 6 made an impressive debut at the recent Unpacked event.</p>', '<p>Những cải tiến tr&ecirc;n Galaxy Z Fold6 v&agrave; Z Flip6 đ&atilde; mở ra một xu hướng mới cho&nbsp;<a href=\"https://cellphones.com.vn/mobile.html\" target=\"_blank\">điện thoại</a>&nbsp;gập Galaxy - xu hướng mỏng nhẹ nhằm n&acirc;ng cao trải nghiệm người d&ugrave;ng ngay từ những cảm gi&aacute;c cầm nắm đầu ti&ecirc;n.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.JPG\" /></p>\r\n\r\n<p><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\">1.&nbsp;Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#thiet-ke-tinh-te-mau-sac-an-tuong\">2.&nbsp;Thiết kế tinh tế, m&agrave;u sắc ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-flip6-thu-hut-moi-goc-nhin\">3.&nbsp;Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ben-bi-manh-me-va-an-tuong\">4.&nbsp;Bền bỉ, mạnh mẽ v&agrave; ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ket-luan\">5.&nbsp;Kết luận</a></p>\r\n\r\n<h2 id=\"galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\"><strong>Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</strong></h2>\r\n\r\n<p>Galaxy Fold mỏng nhẹ nhất, bền bỉ nhất từ chất liệu đến chuẩn IP48<br />\r\nNhững cải tiến mạnh mẽ ở cả ngoại h&igrave;nh lẫn t&iacute;nh năng đ&atilde; khiến Galaxy Z Fold6 trở th&agrave;nh t&acirc;m điểm của cả thế giới trong sự kiện Unpacked vừa rồi.<br />\r\nVới trọng lượng chỉ 239gram, v&agrave; độ mỏng chỉ 12.1mm khi gập lại v&agrave; 5.6mm khi mở ra đ&atilde; khiến chiếc m&aacute;y n&agrave;y trở th&agrave;nh chiếc Galaxy Fold mỏng nhẹ nhất mọi thời đại. Th&ecirc;m v&agrave;o đ&oacute;,&nbsp;<a href=\"https://cellphones.com.vn/mobile/samsung.html\" target=\"_blank\">Samsung</a>&nbsp;đ&atilde; cải tiến bản lề v&agrave; nếp gấp một c&aacute;ch đ&aacute;ng kể so với đời trước, từ đ&oacute; mang đến sự liền mạch cho người d&ugrave;ng, kh&ocirc;ng bị kh&oacute; chịu bởi nếp gấp nữa.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.JPG\" /></p>\r\n\r\n<p>Điều n&agrave;y đ&atilde; tạo n&ecirc;n một trải nghiệm cầm nắm đ&atilde; tay hơn bao giờ hết. Giờ đ&acirc;y, người d&ugrave;ng c&oacute; thể sử dụng m&aacute;y trong nhiều giờ liền m&agrave; kh&ocirc;ng sợ mỏi tay hay khi sử dụng&nbsp;<a href=\"https://cellphones.com.vn/man-hinh.html\" target=\"_blank\">m&agrave;n h&igrave;nh</a>&nbsp;lớn cũng dễ d&agrave;ng hơn chỉ với 1 tay.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.JPG\" /></p>\r\n\r\n<h2 id=\"thiet-ke-tinh-te-mau-sac-an-tuong\"><strong>Thiết kế tinh tế, m&agrave;u sắc ấn tượng</strong></h2>\r\n\r\n<p>Những đường v&aacute;t phẳng vu&ocirc;ng vức, khung viền&nbsp;<a href=\"https://cellphones.com.vn/phu-kien/camera.html\" target=\"_blank\">camera</a>&nbsp;mới độc đ&aacute;o kết hợp c&ugrave;ng với bộ m&agrave;u sắc mới đ&atilde; g&oacute;p phần tạo n&ecirc;n sự ấn tượng cho Galaxy Z Fold6.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.JPG\" /></p>\r\n\r\n<p>Đặc biệt l&agrave; những m&agrave;u sắc thời thượng như X&aacute;m Metal, Xanh Navy hay Hồng Rose ch&iacute;nh l&agrave; thứ gi&uacute;p người d&ugrave;ng khẳng định phong c&aacute;ch, c&aacute; t&iacute;nh của bản th&acirc;n.</p>\r\n\r\n<h2 id=\"galaxy-z-flip6-thu-hut-moi-goc-nhin\"><strong>Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</strong></h2>\r\n\r\n<p>C&oacute; thể n&oacute;i, chiếc m&aacute;y n&agrave;y được sinh ra l&agrave; d&agrave;nh cho những trendsetter v&agrave; những người th&iacute;ch bắt kịp những trend mới của x&atilde; hội. Minh chứng l&agrave; thiết kế độc bản đầy ấn tượng với viền camera đồng m&agrave;u với th&acirc;n m&aacute;y đầy sự độc đ&aacute;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.JPG\" /></p>\r\n\r\n<p>Đặc biệt, m&agrave;u sắc l&agrave; yếu tố kh&ocirc;ng thể thiếu khi nhắc tới 2 chữ &ldquo;xu hướng&rdquo;. Xanh Mayar, V&agrave;ng Solar, Xanh Mint, X&aacute;m Metal l&agrave; bộ 4 m&agrave;u sắc tạo n&ecirc;n vẻ ấn tượng cho Galaxy Z Flip6 cũng l&agrave; bộ m&agrave;u độc đ&aacute;o cho lựa chọn sở th&iacute;ch của người d&ugrave;ng.</p>\r\n\r\n<h2 id=\"ben-bi-manh-me-va-an-tuong\"><strong>Bền bỉ, mạnh mẽ v&agrave; ấn tượng</strong></h2>\r\n\r\n<p>Đi theo tr&agrave;o lưu nhưng kh&ocirc;ng hề dễ phai nhạt. Galaxy Z Fold6 v&agrave; Z Flip6 c&ograve;n l&agrave; minh chứng cho sự bền bỉ theo năm th&aacute;ng với khả năng tăng cường chống chịu v&agrave; v&agrave; đập ấn tượng. Khung viền nh&ocirc;m cao cấp vừa sang trọng, vừa cứng c&aacute;p, 2 mặt k&iacute;nh Gorilla Glass Victus 2 gi&uacute;p người d&ugrave;ng an t&acirc;m sử dụng hơn, chống va đập, trầy xước tốt hơn.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.JPG\" /></p>\r\n\r\n<p>Kh&ocirc;ng thể kh&ocirc;ng kể đến chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP48 đầu ti&ecirc;n trong giới điện thoại gập. Đ&acirc;y l&agrave; một nỗ lực rất lớn của Samsung bởi nh&igrave;n v&agrave;o cơ chế gập, người d&ugrave;ng cũng c&oacute; thể thấy, việc thiết kế kh&aacute;ng bụi tr&ecirc;n điện thoại gập l&agrave; kh&ocirc;ng dễ d&agrave;ng ch&uacute;t n&agrave;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.JPG\" /></p>\r\n\r\n<h2 id=\"ket-luan\"><strong>Kết luận</strong></h2>\r\n\r\n<p>Ngay từ ngoại h&igrave;nh v&agrave; thiết kế, bộ đ&ocirc;i Galaxy Z Fold6, Z Flip6 đ&atilde; mang đến những ấn tượng lớn cho người d&ugrave;ng. Kh&ocirc;ng chỉ c&oacute; vậy, 2 chiếc m&aacute;y n&agrave;y c&ograve;n mang đến những n&acirc;ng cấp lớn trong phần mềm c&ugrave;ng Galaxy AI đầy quyền năng b&ecirc;n trong m&aacute;y.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.JPG\" /></p>\r\n\r\n<p>C&ugrave;ng với những ưu đ&atilde;i hấp dẫn trong chương tr&igrave;nh đặt h&agrave;ng trước, bộ đ&ocirc;i n&agrave;y trở th&agrave;nh chiếc smartphone rất đ&aacute;ng để sở hữu.<br />\r\nGalaxy Z Fold6 sẽ mở đặt cọc tại hệ thống cửa h&agrave;ng&nbsp;<a href=\"https://cellphones.com.vn/\" target=\"_blank\">CellphoneS</a>&nbsp;từ 20h ng&agrave;y 10/7 với mức gi&aacute; 43,990,000đ cho phi&ecirc;n bản 12GB/256GB. Người d&ugrave;ng sẽ nhận th&ecirc;m c&aacute;c ưu đ&atilde;i khi đặt trước như sau:</p>\r\n\r\n<ul>\r\n	<li>Giảm 1,000,000 khi đặt k&yacute; nhận tin từ 1/7 đến 10/7</li>\r\n	<li>Giảm thẳng 2,000,000đ</li>\r\n	<li><a href=\"https://cellphones.com.vn/thu-cu-doi-moi\" target=\"_blank\">Thu cũ đổi mới</a>&nbsp;giảm 1,000,000đ (model cũ kh&aacute;c), giảm 2,000,000đ (model cũ l&agrave; điện thoại gập)</li>\r\n	<li>Ưu đ&atilde;i ng&acirc;n h&agrave;ng l&ecirc;n tới 1 triệu đồng (HSCB Bank/ VNPAY)</li>\r\n	<li>Tặng bộ qu&agrave; trị gi&aacute; 12 triệu bao gồm:\r\n	<ul>\r\n		<li>Tặng g&oacute;i Samsung Care+ 1 năm v&agrave; Bảo h&agrave;nh Samsung 2 năm</li>\r\n		<li>Tặng 6 th&aacute;ng g&oacute;i&nbsp;<a href=\"https://cellphones.com.vn/phan-mem-microsoft-office-365-personal.html\" target=\"_blank\">Microsoft Office</a>&nbsp;365</li>\r\n		<li>Tặng 2 lần d&aacute;n m&agrave;n h&igrave;nh VIP</li>\r\n		<li>Tặng ốp lưng (chỉ d&agrave;nh cho kh&aacute;ch đặt v&agrave; nhận h&agrave;ng đến 31/7, số lượng c&oacute; hạn)</li>\r\n	</ul>\r\n	</li>\r\n	<li>Cơ hội tr&uacute;ng vi&ecirc;n Kim cương Doji 5mm trị gi&aacute; 56 triệu đồng</li>\r\n</ul>\r\n\r\n<p>Sản phẩm dự kiến sẽ trả h&agrave;ng từ ng&agrave;y 26/07 sắp tới. Như vậy, người d&ugrave;ng sẽ c&oacute; hơn 2 tuần để đặt trước v&agrave; nhận m&aacute;y. Chi tiết ưu đ&atilde;i, c&aacute;c bạn c&oacute; thể bấm v&agrave;o khung b&ecirc;n dưới để xem th&ecirc;m nh&eacute;!</p>', 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', 'samsung tech galaxyzfold6', 'The duo of Galaxy Z Fold 6 along with Z Flip 6 made an impressive debut at the recent Unpacked event.', 'impressions-of-galaxy-z-fold6-and-z-flip6-attract-attention-right-from-the-impressive-durable-design-trendy-color-set-and-many-attractive-incentives', '2024-07-18 12:42:17', '2024-07-18 12:42:17'),
-(43, 1, 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', '<p><strong>Bộ đ&ocirc;i&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-z-fold-6.html\">Galaxy Z Fold 6</a>&nbsp;c&ugrave;ng với&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-z-flip-6.html\">Z Flip 6</a>&nbsp;đ&atilde; ch&agrave;o s&acirc;n một c&aacute;ch ấn tượng trong sự kiện Unpacked vừa rồi.</strong></p>', '<p>Những cải tiến tr&ecirc;n Galaxy Z Fold6 v&agrave; Z Flip6 đ&atilde; mở ra một xu hướng mới cho&nbsp;<a href=\"https://cellphones.com.vn/mobile.html\" target=\"_blank\">điện thoại</a>&nbsp;gập Galaxy - xu hướng mỏng nhẹ nhằm n&acirc;ng cao trải nghiệm người d&ugrave;ng ngay từ những cảm gi&aacute;c cầm nắm đầu ti&ecirc;n.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.JPG\" /></p>\r\n\r\n<p><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\">1.&nbsp;Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#thiet-ke-tinh-te-mau-sac-an-tuong\">2.&nbsp;Thiết kế tinh tế, m&agrave;u sắc ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-flip6-thu-hut-moi-goc-nhin\">3.&nbsp;Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ben-bi-manh-me-va-an-tuong\">4.&nbsp;Bền bỉ, mạnh mẽ v&agrave; ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ket-luan\">5.&nbsp;Kết luận</a></p>\r\n\r\n<h2 id=\"galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\"><strong>Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</strong></h2>\r\n\r\n<p>Galaxy Fold mỏng nhẹ nhất, bền bỉ nhất từ chất liệu đến chuẩn IP48<br />\r\nNhững cải tiến mạnh mẽ ở cả ngoại h&igrave;nh lẫn t&iacute;nh năng đ&atilde; khiến Galaxy Z Fold6 trở th&agrave;nh t&acirc;m điểm của cả thế giới trong sự kiện Unpacked vừa rồi.<br />\r\nVới trọng lượng chỉ 239gram, v&agrave; độ mỏng chỉ 12.1mm khi gập lại v&agrave; 5.6mm khi mở ra đ&atilde; khiến chiếc m&aacute;y n&agrave;y trở th&agrave;nh chiếc Galaxy Fold mỏng nhẹ nhất mọi thời đại. Th&ecirc;m v&agrave;o đ&oacute;,&nbsp;<a href=\"https://cellphones.com.vn/mobile/samsung.html\" target=\"_blank\">Samsung</a>&nbsp;đ&atilde; cải tiến bản lề v&agrave; nếp gấp một c&aacute;ch đ&aacute;ng kể so với đời trước, từ đ&oacute; mang đến sự liền mạch cho người d&ugrave;ng, kh&ocirc;ng bị kh&oacute; chịu bởi nếp gấp nữa.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.JPG\" /></p>\r\n\r\n<p>Điều n&agrave;y đ&atilde; tạo n&ecirc;n một trải nghiệm cầm nắm đ&atilde; tay hơn bao giờ hết. Giờ đ&acirc;y, người d&ugrave;ng c&oacute; thể sử dụng m&aacute;y trong nhiều giờ liền m&agrave; kh&ocirc;ng sợ mỏi tay hay khi sử dụng&nbsp;<a href=\"https://cellphones.com.vn/man-hinh.html\" target=\"_blank\">m&agrave;n h&igrave;nh</a>&nbsp;lớn cũng dễ d&agrave;ng hơn chỉ với 1 tay.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.JPG\" /></p>\r\n\r\n<h2 id=\"thiet-ke-tinh-te-mau-sac-an-tuong\"><strong>Thiết kế tinh tế, m&agrave;u sắc ấn tượng</strong></h2>\r\n\r\n<p>Những đường v&aacute;t phẳng vu&ocirc;ng vức, khung viền&nbsp;<a href=\"https://cellphones.com.vn/phu-kien/camera.html\" target=\"_blank\">camera</a>&nbsp;mới độc đ&aacute;o kết hợp c&ugrave;ng với bộ m&agrave;u sắc mới đ&atilde; g&oacute;p phần tạo n&ecirc;n sự ấn tượng cho Galaxy Z Fold6.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.JPG\" /></p>\r\n\r\n<p>Đặc biệt l&agrave; những m&agrave;u sắc thời thượng như X&aacute;m Metal, Xanh Navy hay Hồng Rose ch&iacute;nh l&agrave; thứ gi&uacute;p người d&ugrave;ng khẳng định phong c&aacute;ch, c&aacute; t&iacute;nh của bản th&acirc;n.</p>\r\n\r\n<h2 id=\"galaxy-z-flip6-thu-hut-moi-goc-nhin\"><strong>Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</strong></h2>\r\n\r\n<p>C&oacute; thể n&oacute;i, chiếc m&aacute;y n&agrave;y được sinh ra l&agrave; d&agrave;nh cho những trendsetter v&agrave; những người th&iacute;ch bắt kịp những trend mới của x&atilde; hội. Minh chứng l&agrave; thiết kế độc bản đầy ấn tượng với viền camera đồng m&agrave;u với th&acirc;n m&aacute;y đầy sự độc đ&aacute;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.JPG\" /></p>\r\n\r\n<p>Đặc biệt, m&agrave;u sắc l&agrave; yếu tố kh&ocirc;ng thể thiếu khi nhắc tới 2 chữ &ldquo;xu hướng&rdquo;. Xanh Mayar, V&agrave;ng Solar, Xanh Mint, X&aacute;m Metal l&agrave; bộ 4 m&agrave;u sắc tạo n&ecirc;n vẻ ấn tượng cho Galaxy Z Flip6 cũng l&agrave; bộ m&agrave;u độc đ&aacute;o cho lựa chọn sở th&iacute;ch của người d&ugrave;ng.</p>\r\n\r\n<h2 id=\"ben-bi-manh-me-va-an-tuong\"><strong>Bền bỉ, mạnh mẽ v&agrave; ấn tượng</strong></h2>\r\n\r\n<p>Đi theo tr&agrave;o lưu nhưng kh&ocirc;ng hề dễ phai nhạt. Galaxy Z Fold6 v&agrave; Z Flip6 c&ograve;n l&agrave; minh chứng cho sự bền bỉ theo năm th&aacute;ng với khả năng tăng cường chống chịu v&agrave; v&agrave; đập ấn tượng. Khung viền nh&ocirc;m cao cấp vừa sang trọng, vừa cứng c&aacute;p, 2 mặt k&iacute;nh Gorilla Glass Victus 2 gi&uacute;p người d&ugrave;ng an t&acirc;m sử dụng hơn, chống va đập, trầy xước tốt hơn.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.JPG\" /></p>\r\n\r\n<p>Kh&ocirc;ng thể kh&ocirc;ng kể đến chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP48 đầu ti&ecirc;n trong giới điện thoại gập. Đ&acirc;y l&agrave; một nỗ lực rất lớn của Samsung bởi nh&igrave;n v&agrave;o cơ chế gập, người d&ugrave;ng cũng c&oacute; thể thấy, việc thiết kế kh&aacute;ng bụi tr&ecirc;n điện thoại gập l&agrave; kh&ocirc;ng dễ d&agrave;ng ch&uacute;t n&agrave;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.JPG\" /></p>\r\n\r\n<h2 id=\"ket-luan\"><strong>Kết luận</strong></h2>\r\n\r\n<p>Ngay từ ngoại h&igrave;nh v&agrave; thiết kế, bộ đ&ocirc;i Galaxy Z Fold6, Z Flip6 đ&atilde; mang đến những ấn tượng lớn cho người d&ugrave;ng. Kh&ocirc;ng chỉ c&oacute; vậy, 2 chiếc m&aacute;y n&agrave;y c&ograve;n mang đến những n&acirc;ng cấp lớn trong phần mềm c&ugrave;ng Galaxy AI đầy quyền năng b&ecirc;n trong m&aacute;y.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.JPG\" /></p>\r\n\r\n<p>C&ugrave;ng với những ưu đ&atilde;i hấp dẫn trong chương tr&igrave;nh đặt h&agrave;ng trước, bộ đ&ocirc;i n&agrave;y trở th&agrave;nh chiếc smartphone rất đ&aacute;ng để sở hữu.<br />\r\nGalaxy Z Fold6 sẽ mở đặt cọc tại hệ thống cửa h&agrave;ng&nbsp;<a href=\"https://cellphones.com.vn/\" target=\"_blank\">CellphoneS</a>&nbsp;từ 20h ng&agrave;y 10/7 với mức gi&aacute; 43,990,000đ cho phi&ecirc;n bản 12GB/256GB. Người d&ugrave;ng sẽ nhận th&ecirc;m c&aacute;c ưu đ&atilde;i khi đặt trước như sau:</p>\r\n\r\n<ul>\r\n	<li>Giảm 1,000,000 khi đặt k&yacute; nhận tin từ 1/7 đến 10/7</li>\r\n	<li>Giảm thẳng 2,000,000đ</li>\r\n	<li><a href=\"https://cellphones.com.vn/thu-cu-doi-moi\" target=\"_blank\">Thu cũ đổi mới</a>&nbsp;giảm 1,000,000đ (model cũ kh&aacute;c), giảm 2,000,000đ (model cũ l&agrave; điện thoại gập)</li>\r\n	<li>Ưu đ&atilde;i ng&acirc;n h&agrave;ng l&ecirc;n tới 1 triệu đồng (HSCB Bank/ VNPAY)</li>\r\n	<li>Tặng bộ qu&agrave; trị gi&aacute; 12 triệu bao gồm:\r\n	<ul>\r\n		<li>Tặng g&oacute;i Samsung Care+ 1 năm v&agrave; Bảo h&agrave;nh Samsung 2 năm</li>\r\n		<li>Tặng 6 th&aacute;ng g&oacute;i&nbsp;<a href=\"https://cellphones.com.vn/phan-mem-microsoft-office-365-personal.html\" target=\"_blank\">Microsoft Office</a>&nbsp;365</li>\r\n		<li>Tặng 2 lần d&aacute;n m&agrave;n h&igrave;nh VIP</li>\r\n		<li>Tặng ốp lưng (chỉ d&agrave;nh cho kh&aacute;ch đặt v&agrave; nhận h&agrave;ng đến 31/7, số lượng c&oacute; hạn)</li>\r\n	</ul>\r\n	</li>\r\n	<li>Cơ hội tr&uacute;ng vi&ecirc;n Kim cương Doji 5mm trị gi&aacute; 56 triệu đồng</li>\r\n</ul>\r\n\r\n<p>Sản phẩm dự kiến sẽ trả h&agrave;ng từ ng&agrave;y 26/07 sắp tới. Như vậy, người d&ugrave;ng sẽ c&oacute; hơn 2 tuần để đặt trước v&agrave; nhận m&aacute;y. Chi tiết ưu đ&atilde;i, c&aacute;c bạn c&oacute; thể bấm v&agrave;o khung b&ecirc;n dưới để xem th&ecirc;m nh&eacute;!</p>', 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', 'samsung congnghe galaxyzfold6', 'Bộ đôi Galaxy Z Fold 6 cùng với Z Flip 6 đã chào sân một cách ấn tượng trong sự kiện Unpacked vừa rồi.', 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', '2024-07-18 12:33:34', '2024-07-18 12:33:34');
+INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(43, 2, 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', '<p>The duo of Galaxy Z Fold 6 along with Z Flip 6 made an impressive debut at the recent Unpacked event.</p>', '<p>Những cải tiến tr&ecirc;n Galaxy Z Fold6 v&agrave; Z Flip6 đ&atilde; mở ra một xu hướng mới cho&nbsp;<a href=\"https://cellphones.com.vn/mobile.html\" target=\"_blank\">điện thoại</a>&nbsp;gập Galaxy - xu hướng mỏng nhẹ nhằm n&acirc;ng cao trải nghiệm người d&ugrave;ng ngay từ những cảm gi&aacute;c cầm nắm đầu ti&ecirc;n.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.JPG\" /></p>\r\n\r\n<p><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\">1.&nbsp;Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#thiet-ke-tinh-te-mau-sac-an-tuong\">2.&nbsp;Thiết kế tinh tế, m&agrave;u sắc ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-flip6-thu-hut-moi-goc-nhin\">3.&nbsp;Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ben-bi-manh-me-va-an-tuong\">4.&nbsp;Bền bỉ, mạnh mẽ v&agrave; ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ket-luan\">5.&nbsp;Kết luận</a></p>\r\n\r\n<h2 id=\"galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\"><strong>Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</strong></h2>\r\n\r\n<p>Galaxy Fold mỏng nhẹ nhất, bền bỉ nhất từ chất liệu đến chuẩn IP48<br />\r\nNhững cải tiến mạnh mẽ ở cả ngoại h&igrave;nh lẫn t&iacute;nh năng đ&atilde; khiến Galaxy Z Fold6 trở th&agrave;nh t&acirc;m điểm của cả thế giới trong sự kiện Unpacked vừa rồi.<br />\r\nVới trọng lượng chỉ 239gram, v&agrave; độ mỏng chỉ 12.1mm khi gập lại v&agrave; 5.6mm khi mở ra đ&atilde; khiến chiếc m&aacute;y n&agrave;y trở th&agrave;nh chiếc Galaxy Fold mỏng nhẹ nhất mọi thời đại. Th&ecirc;m v&agrave;o đ&oacute;,&nbsp;<a href=\"https://cellphones.com.vn/mobile/samsung.html\" target=\"_blank\">Samsung</a>&nbsp;đ&atilde; cải tiến bản lề v&agrave; nếp gấp một c&aacute;ch đ&aacute;ng kể so với đời trước, từ đ&oacute; mang đến sự liền mạch cho người d&ugrave;ng, kh&ocirc;ng bị kh&oacute; chịu bởi nếp gấp nữa.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.JPG\" /></p>\r\n\r\n<p>Điều n&agrave;y đ&atilde; tạo n&ecirc;n một trải nghiệm cầm nắm đ&atilde; tay hơn bao giờ hết. Giờ đ&acirc;y, người d&ugrave;ng c&oacute; thể sử dụng m&aacute;y trong nhiều giờ liền m&agrave; kh&ocirc;ng sợ mỏi tay hay khi sử dụng&nbsp;<a href=\"https://cellphones.com.vn/man-hinh.html\" target=\"_blank\">m&agrave;n h&igrave;nh</a>&nbsp;lớn cũng dễ d&agrave;ng hơn chỉ với 1 tay.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.JPG\" /></p>\r\n\r\n<h2 id=\"thiet-ke-tinh-te-mau-sac-an-tuong\"><strong>Thiết kế tinh tế, m&agrave;u sắc ấn tượng</strong></h2>\r\n\r\n<p>Những đường v&aacute;t phẳng vu&ocirc;ng vức, khung viền&nbsp;<a href=\"https://cellphones.com.vn/phu-kien/camera.html\" target=\"_blank\">camera</a>&nbsp;mới độc đ&aacute;o kết hợp c&ugrave;ng với bộ m&agrave;u sắc mới đ&atilde; g&oacute;p phần tạo n&ecirc;n sự ấn tượng cho Galaxy Z Fold6.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.JPG\" /></p>\r\n\r\n<p>Đặc biệt l&agrave; những m&agrave;u sắc thời thượng như X&aacute;m Metal, Xanh Navy hay Hồng Rose ch&iacute;nh l&agrave; thứ gi&uacute;p người d&ugrave;ng khẳng định phong c&aacute;ch, c&aacute; t&iacute;nh của bản th&acirc;n.</p>\r\n\r\n<h2 id=\"galaxy-z-flip6-thu-hut-moi-goc-nhin\"><strong>Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</strong></h2>\r\n\r\n<p>C&oacute; thể n&oacute;i, chiếc m&aacute;y n&agrave;y được sinh ra l&agrave; d&agrave;nh cho những trendsetter v&agrave; những người th&iacute;ch bắt kịp những trend mới của x&atilde; hội. Minh chứng l&agrave; thiết kế độc bản đầy ấn tượng với viền camera đồng m&agrave;u với th&acirc;n m&aacute;y đầy sự độc đ&aacute;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.JPG\" /></p>\r\n\r\n<p>Đặc biệt, m&agrave;u sắc l&agrave; yếu tố kh&ocirc;ng thể thiếu khi nhắc tới 2 chữ &ldquo;xu hướng&rdquo;. Xanh Mayar, V&agrave;ng Solar, Xanh Mint, X&aacute;m Metal l&agrave; bộ 4 m&agrave;u sắc tạo n&ecirc;n vẻ ấn tượng cho Galaxy Z Flip6 cũng l&agrave; bộ m&agrave;u độc đ&aacute;o cho lựa chọn sở th&iacute;ch của người d&ugrave;ng.</p>\r\n\r\n<h2 id=\"ben-bi-manh-me-va-an-tuong\"><strong>Bền bỉ, mạnh mẽ v&agrave; ấn tượng</strong></h2>\r\n\r\n<p>Đi theo tr&agrave;o lưu nhưng kh&ocirc;ng hề dễ phai nhạt. Galaxy Z Fold6 v&agrave; Z Flip6 c&ograve;n l&agrave; minh chứng cho sự bền bỉ theo năm th&aacute;ng với khả năng tăng cường chống chịu v&agrave; v&agrave; đập ấn tượng. Khung viền nh&ocirc;m cao cấp vừa sang trọng, vừa cứng c&aacute;p, 2 mặt k&iacute;nh Gorilla Glass Victus 2 gi&uacute;p người d&ugrave;ng an t&acirc;m sử dụng hơn, chống va đập, trầy xước tốt hơn.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.JPG\" /></p>\r\n\r\n<p>Kh&ocirc;ng thể kh&ocirc;ng kể đến chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP48 đầu ti&ecirc;n trong giới điện thoại gập. Đ&acirc;y l&agrave; một nỗ lực rất lớn của Samsung bởi nh&igrave;n v&agrave;o cơ chế gập, người d&ugrave;ng cũng c&oacute; thể thấy, việc thiết kế kh&aacute;ng bụi tr&ecirc;n điện thoại gập l&agrave; kh&ocirc;ng dễ d&agrave;ng ch&uacute;t n&agrave;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.JPG\" /></p>\r\n\r\n<h2 id=\"ket-luan\"><strong>Kết luận</strong></h2>\r\n\r\n<p>Ngay từ ngoại h&igrave;nh v&agrave; thiết kế, bộ đ&ocirc;i Galaxy Z Fold6, Z Flip6 đ&atilde; mang đến những ấn tượng lớn cho người d&ugrave;ng. Kh&ocirc;ng chỉ c&oacute; vậy, 2 chiếc m&aacute;y n&agrave;y c&ograve;n mang đến những n&acirc;ng cấp lớn trong phần mềm c&ugrave;ng Galaxy AI đầy quyền năng b&ecirc;n trong m&aacute;y.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.JPG\" /></p>\r\n\r\n<p>C&ugrave;ng với những ưu đ&atilde;i hấp dẫn trong chương tr&igrave;nh đặt h&agrave;ng trước, bộ đ&ocirc;i n&agrave;y trở th&agrave;nh chiếc smartphone rất đ&aacute;ng để sở hữu.<br />\r\nGalaxy Z Fold6 sẽ mở đặt cọc tại hệ thống cửa h&agrave;ng&nbsp;<a href=\"https://cellphones.com.vn/\" target=\"_blank\">CellphoneS</a>&nbsp;từ 20h ng&agrave;y 10/7 với mức gi&aacute; 43,990,000đ cho phi&ecirc;n bản 12GB/256GB. Người d&ugrave;ng sẽ nhận th&ecirc;m c&aacute;c ưu đ&atilde;i khi đặt trước như sau:</p>\r\n\r\n<ul>\r\n	<li>Giảm 1,000,000 khi đặt k&yacute; nhận tin từ 1/7 đến 10/7</li>\r\n	<li>Giảm thẳng 2,000,000đ</li>\r\n	<li><a href=\"https://cellphones.com.vn/thu-cu-doi-moi\" target=\"_blank\">Thu cũ đổi mới</a>&nbsp;giảm 1,000,000đ (model cũ kh&aacute;c), giảm 2,000,000đ (model cũ l&agrave; điện thoại gập)</li>\r\n	<li>Ưu đ&atilde;i ng&acirc;n h&agrave;ng l&ecirc;n tới 1 triệu đồng (HSCB Bank/ VNPAY)</li>\r\n	<li>Tặng bộ qu&agrave; trị gi&aacute; 12 triệu bao gồm:\r\n	<ul>\r\n		<li>Tặng g&oacute;i Samsung Care+ 1 năm v&agrave; Bảo h&agrave;nh Samsung 2 năm</li>\r\n		<li>Tặng 6 th&aacute;ng g&oacute;i&nbsp;<a href=\"https://cellphones.com.vn/phan-mem-microsoft-office-365-personal.html\" target=\"_blank\">Microsoft Office</a>&nbsp;365</li>\r\n		<li>Tặng 2 lần d&aacute;n m&agrave;n h&igrave;nh VIP</li>\r\n		<li>Tặng ốp lưng (chỉ d&agrave;nh cho kh&aacute;ch đặt v&agrave; nhận h&agrave;ng đến 31/7, số lượng c&oacute; hạn)</li>\r\n	</ul>\r\n	</li>\r\n	<li>Cơ hội tr&uacute;ng vi&ecirc;n Kim cương Doji 5mm trị gi&aacute; 56 triệu đồng</li>\r\n</ul>\r\n\r\n<p>Sản phẩm dự kiến sẽ trả h&agrave;ng từ ng&agrave;y 26/07 sắp tới. Như vậy, người d&ugrave;ng sẽ c&oacute; hơn 2 tuần để đặt trước v&agrave; nhận m&aacute;y. Chi tiết ưu đ&atilde;i, c&aacute;c bạn c&oacute; thể bấm v&agrave;o khung b&ecirc;n dưới để xem th&ecirc;m nh&eacute;!</p>', 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', 'samsung tech galaxyzfold6', 'The duo of Galaxy Z Fold 6 along with Z Flip 6 made an impressive debut at the recent Unpacked event.', 'impressions-of-galaxy-z-fold6-and-z-flip6-attract-attention-right-from-the-impressive-durable-design-trendy-color-set-and-many-attractive-incentives', '2024-07-18 12:42:17', '2024-07-18 12:42:17', NULL),
+(43, 1, 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', '<p><strong>Bộ đ&ocirc;i&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-z-fold-6.html\">Galaxy Z Fold 6</a>&nbsp;c&ugrave;ng với&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-z-flip-6.html\">Z Flip 6</a>&nbsp;đ&atilde; ch&agrave;o s&acirc;n một c&aacute;ch ấn tượng trong sự kiện Unpacked vừa rồi.</strong></p>', '<p>Những cải tiến tr&ecirc;n Galaxy Z Fold6 v&agrave; Z Flip6 đ&atilde; mở ra một xu hướng mới cho&nbsp;<a href=\"https://cellphones.com.vn/mobile.html\" target=\"_blank\">điện thoại</a>&nbsp;gập Galaxy - xu hướng mỏng nhẹ nhằm n&acirc;ng cao trải nghiệm người d&ugrave;ng ngay từ những cảm gi&aacute;c cầm nắm đầu ti&ecirc;n.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.JPG\" /></p>\r\n\r\n<p><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\">1.&nbsp;Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#thiet-ke-tinh-te-mau-sac-an-tuong\">2.&nbsp;Thiết kế tinh tế, m&agrave;u sắc ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-flip6-thu-hut-moi-goc-nhin\">3.&nbsp;Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ben-bi-manh-me-va-an-tuong\">4.&nbsp;Bền bỉ, mạnh mẽ v&agrave; ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ket-luan\">5.&nbsp;Kết luận</a></p>\r\n\r\n<h2 id=\"galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\"><strong>Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</strong></h2>\r\n\r\n<p>Galaxy Fold mỏng nhẹ nhất, bền bỉ nhất từ chất liệu đến chuẩn IP48<br />\r\nNhững cải tiến mạnh mẽ ở cả ngoại h&igrave;nh lẫn t&iacute;nh năng đ&atilde; khiến Galaxy Z Fold6 trở th&agrave;nh t&acirc;m điểm của cả thế giới trong sự kiện Unpacked vừa rồi.<br />\r\nVới trọng lượng chỉ 239gram, v&agrave; độ mỏng chỉ 12.1mm khi gập lại v&agrave; 5.6mm khi mở ra đ&atilde; khiến chiếc m&aacute;y n&agrave;y trở th&agrave;nh chiếc Galaxy Fold mỏng nhẹ nhất mọi thời đại. Th&ecirc;m v&agrave;o đ&oacute;,&nbsp;<a href=\"https://cellphones.com.vn/mobile/samsung.html\" target=\"_blank\">Samsung</a>&nbsp;đ&atilde; cải tiến bản lề v&agrave; nếp gấp một c&aacute;ch đ&aacute;ng kể so với đời trước, từ đ&oacute; mang đến sự liền mạch cho người d&ugrave;ng, kh&ocirc;ng bị kh&oacute; chịu bởi nếp gấp nữa.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.JPG\" /></p>\r\n\r\n<p>Điều n&agrave;y đ&atilde; tạo n&ecirc;n một trải nghiệm cầm nắm đ&atilde; tay hơn bao giờ hết. Giờ đ&acirc;y, người d&ugrave;ng c&oacute; thể sử dụng m&aacute;y trong nhiều giờ liền m&agrave; kh&ocirc;ng sợ mỏi tay hay khi sử dụng&nbsp;<a href=\"https://cellphones.com.vn/man-hinh.html\" target=\"_blank\">m&agrave;n h&igrave;nh</a>&nbsp;lớn cũng dễ d&agrave;ng hơn chỉ với 1 tay.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.JPG\" /></p>\r\n\r\n<h2 id=\"thiet-ke-tinh-te-mau-sac-an-tuong\"><strong>Thiết kế tinh tế, m&agrave;u sắc ấn tượng</strong></h2>\r\n\r\n<p>Những đường v&aacute;t phẳng vu&ocirc;ng vức, khung viền&nbsp;<a href=\"https://cellphones.com.vn/phu-kien/camera.html\" target=\"_blank\">camera</a>&nbsp;mới độc đ&aacute;o kết hợp c&ugrave;ng với bộ m&agrave;u sắc mới đ&atilde; g&oacute;p phần tạo n&ecirc;n sự ấn tượng cho Galaxy Z Fold6.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.JPG\" /></p>\r\n\r\n<p>Đặc biệt l&agrave; những m&agrave;u sắc thời thượng như X&aacute;m Metal, Xanh Navy hay Hồng Rose ch&iacute;nh l&agrave; thứ gi&uacute;p người d&ugrave;ng khẳng định phong c&aacute;ch, c&aacute; t&iacute;nh của bản th&acirc;n.</p>\r\n\r\n<h2 id=\"galaxy-z-flip6-thu-hut-moi-goc-nhin\"><strong>Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</strong></h2>\r\n\r\n<p>C&oacute; thể n&oacute;i, chiếc m&aacute;y n&agrave;y được sinh ra l&agrave; d&agrave;nh cho những trendsetter v&agrave; những người th&iacute;ch bắt kịp những trend mới của x&atilde; hội. Minh chứng l&agrave; thiết kế độc bản đầy ấn tượng với viền camera đồng m&agrave;u với th&acirc;n m&aacute;y đầy sự độc đ&aacute;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.JPG\" /></p>\r\n\r\n<p>Đặc biệt, m&agrave;u sắc l&agrave; yếu tố kh&ocirc;ng thể thiếu khi nhắc tới 2 chữ &ldquo;xu hướng&rdquo;. Xanh Mayar, V&agrave;ng Solar, Xanh Mint, X&aacute;m Metal l&agrave; bộ 4 m&agrave;u sắc tạo n&ecirc;n vẻ ấn tượng cho Galaxy Z Flip6 cũng l&agrave; bộ m&agrave;u độc đ&aacute;o cho lựa chọn sở th&iacute;ch của người d&ugrave;ng.</p>\r\n\r\n<h2 id=\"ben-bi-manh-me-va-an-tuong\"><strong>Bền bỉ, mạnh mẽ v&agrave; ấn tượng</strong></h2>\r\n\r\n<p>Đi theo tr&agrave;o lưu nhưng kh&ocirc;ng hề dễ phai nhạt. Galaxy Z Fold6 v&agrave; Z Flip6 c&ograve;n l&agrave; minh chứng cho sự bền bỉ theo năm th&aacute;ng với khả năng tăng cường chống chịu v&agrave; v&agrave; đập ấn tượng. Khung viền nh&ocirc;m cao cấp vừa sang trọng, vừa cứng c&aacute;p, 2 mặt k&iacute;nh Gorilla Glass Victus 2 gi&uacute;p người d&ugrave;ng an t&acirc;m sử dụng hơn, chống va đập, trầy xước tốt hơn.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.JPG\" /></p>\r\n\r\n<p>Kh&ocirc;ng thể kh&ocirc;ng kể đến chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP48 đầu ti&ecirc;n trong giới điện thoại gập. Đ&acirc;y l&agrave; một nỗ lực rất lớn của Samsung bởi nh&igrave;n v&agrave;o cơ chế gập, người d&ugrave;ng cũng c&oacute; thể thấy, việc thiết kế kh&aacute;ng bụi tr&ecirc;n điện thoại gập l&agrave; kh&ocirc;ng dễ d&agrave;ng ch&uacute;t n&agrave;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.JPG\" /></p>\r\n\r\n<h2 id=\"ket-luan\"><strong>Kết luận</strong></h2>\r\n\r\n<p>Ngay từ ngoại h&igrave;nh v&agrave; thiết kế, bộ đ&ocirc;i Galaxy Z Fold6, Z Flip6 đ&atilde; mang đến những ấn tượng lớn cho người d&ugrave;ng. Kh&ocirc;ng chỉ c&oacute; vậy, 2 chiếc m&aacute;y n&agrave;y c&ograve;n mang đến những n&acirc;ng cấp lớn trong phần mềm c&ugrave;ng Galaxy AI đầy quyền năng b&ecirc;n trong m&aacute;y.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.JPG\" /></p>\r\n\r\n<p>C&ugrave;ng với những ưu đ&atilde;i hấp dẫn trong chương tr&igrave;nh đặt h&agrave;ng trước, bộ đ&ocirc;i n&agrave;y trở th&agrave;nh chiếc smartphone rất đ&aacute;ng để sở hữu.<br />\r\nGalaxy Z Fold6 sẽ mở đặt cọc tại hệ thống cửa h&agrave;ng&nbsp;<a href=\"https://cellphones.com.vn/\" target=\"_blank\">CellphoneS</a>&nbsp;từ 20h ng&agrave;y 10/7 với mức gi&aacute; 43,990,000đ cho phi&ecirc;n bản 12GB/256GB. Người d&ugrave;ng sẽ nhận th&ecirc;m c&aacute;c ưu đ&atilde;i khi đặt trước như sau:</p>\r\n\r\n<ul>\r\n	<li>Giảm 1,000,000 khi đặt k&yacute; nhận tin từ 1/7 đến 10/7</li>\r\n	<li>Giảm thẳng 2,000,000đ</li>\r\n	<li><a href=\"https://cellphones.com.vn/thu-cu-doi-moi\" target=\"_blank\">Thu cũ đổi mới</a>&nbsp;giảm 1,000,000đ (model cũ kh&aacute;c), giảm 2,000,000đ (model cũ l&agrave; điện thoại gập)</li>\r\n	<li>Ưu đ&atilde;i ng&acirc;n h&agrave;ng l&ecirc;n tới 1 triệu đồng (HSCB Bank/ VNPAY)</li>\r\n	<li>Tặng bộ qu&agrave; trị gi&aacute; 12 triệu bao gồm:\r\n	<ul>\r\n		<li>Tặng g&oacute;i Samsung Care+ 1 năm v&agrave; Bảo h&agrave;nh Samsung 2 năm</li>\r\n		<li>Tặng 6 th&aacute;ng g&oacute;i&nbsp;<a href=\"https://cellphones.com.vn/phan-mem-microsoft-office-365-personal.html\" target=\"_blank\">Microsoft Office</a>&nbsp;365</li>\r\n		<li>Tặng 2 lần d&aacute;n m&agrave;n h&igrave;nh VIP</li>\r\n		<li>Tặng ốp lưng (chỉ d&agrave;nh cho kh&aacute;ch đặt v&agrave; nhận h&agrave;ng đến 31/7, số lượng c&oacute; hạn)</li>\r\n	</ul>\r\n	</li>\r\n	<li>Cơ hội tr&uacute;ng vi&ecirc;n Kim cương Doji 5mm trị gi&aacute; 56 triệu đồng</li>\r\n</ul>\r\n\r\n<p>Sản phẩm dự kiến sẽ trả h&agrave;ng từ ng&agrave;y 26/07 sắp tới. Như vậy, người d&ugrave;ng sẽ c&oacute; hơn 2 tuần để đặt trước v&agrave; nhận m&aacute;y. Chi tiết ưu đ&atilde;i, c&aacute;c bạn c&oacute; thể bấm v&agrave;o khung b&ecirc;n dưới để xem th&ecirc;m nh&eacute;!</p>', 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', 'samsung congnghe galaxyzfold6', 'Bộ đôi Galaxy Z Fold 6 cùng với Z Flip 6 đã chào sân một cách ấn tượng trong sự kiện Unpacked vừa rồi.', 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', '2024-07-18 12:33:34', '2024-07-18 12:33:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -1280,7 +1435,8 @@ CREATE TABLE `product_catalogue_language` (
   `meta_description` text DEFAULT NULL,
   `canonical` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1311,7 +1467,8 @@ CREATE TABLE `product_language` (
   `meta_description` text DEFAULT NULL,
   `canonical` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1412,22 +1569,28 @@ CREATE TABLE `routers` (
   `module_id` bigint(20) UNSIGNED NOT NULL,
   `controllers` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `language_id` bigint(20) UNSIGNED DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `routers`
 --
 
-INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_at`, `updated_at`) VALUES
-(7, 'bong-da', 52, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:21:49', '2024-07-14 08:21:49'),
-(8, 'bong-da-trong-nuoc', 53, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:22:08', '2024-07-14 08:22:46'),
-(9, 'bong-da-quoc-te', 54, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:23:11', '2024-07-14 08:23:11'),
-(10, 'champion-league', 55, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:30:11', '2024-07-14 08:30:58'),
-(11, 'premier-league', 56, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:38:26', '2024-07-14 08:38:26'),
-(12, 'v-league-1', 57, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:43:16', '2024-07-14 08:43:16'),
-(14, 'cong-nghe', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-18 12:28:06', '2024-07-18 12:28:06'),
-(15, 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', 43, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-07-18 12:33:34', '2024-07-18 12:33:34');
+INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_at`, `updated_at`, `language_id`) VALUES
+(7, 'bong-da', 52, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:21:49', '2024-07-14 08:21:49', 1),
+(8, 'bong-da-trong-nuoc', 53, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:22:08', '2024-07-14 08:22:46', 1),
+(9, 'bong-da-quoc-te', 54, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:23:11', '2024-07-14 08:23:11', 1),
+(10, 'champion-league', 55, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:30:11', '2024-07-14 08:30:58', 1),
+(11, 'premier-league', 56, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:38:26', '2024-07-14 08:38:26', 1),
+(12, 'v-league-1', 57, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-14 08:43:16', '2024-07-14 08:43:16', 1),
+(14, 'cong-nghe', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-18 12:28:06', '2024-07-18 12:28:06', 1),
+(15, 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', 43, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-07-18 12:33:34', '2024-07-18 12:33:34', 1),
+(27, 'mau-sac', 1, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-07-29 05:53:43', '2024-07-29 05:53:43', 1),
+(30, 'football', 52, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-30 20:09:52', '2024-07-30 20:09:52', 2),
+(38, 'color', 1, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-07-31 04:24:47', '2024-07-31 04:24:47', 2),
+(41, 'technology123', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-31 04:26:42', '2024-07-31 04:26:42', 2),
+(59, 'mau-xanh', 2, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-07-31 05:55:24', '2024-07-31 05:55:24', 1);
 
 -- --------------------------------------------------------
 
@@ -1449,7 +1612,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('9kG3cCGFjMLdIL9ubmXTLj1GM5b1GdSS1OuZJs07', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRmwxdGMxVnhVN0hlb1Z1YWs4UFA0dnBHRURqWmh6bDhNQW9aOTZacyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MzoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Byb2R1Y3QvY2F0YWxvZ3VlL2luZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1722238418);
+('iUKK7Myop8nef988txBDhDhlxoLN1rE3L2X7Gs6a', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiV0FGaWV5cVQ0REV5ejY4VWx6QWNINE9ETEFHOWxFRG9FSWhTRmd5cSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1NToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL2F0dHJpYnV0ZS9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1722432108);
 
 -- --------------------------------------------------------
 
@@ -1575,7 +1738,15 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 37),
 (1, 38),
 (1, 39),
-(1, 40);
+(1, 40),
+(1, 41),
+(1, 42),
+(1, 43),
+(1, 44),
+(1, 45),
+(1, 46),
+(1, 47),
+(1, 48);
 
 -- --------------------------------------------------------
 
@@ -12234,6 +12405,41 @@ ALTER TABLE `administrative_units`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `attributes`
+--
+ALTER TABLE `attributes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `attributes_user_id_foreign` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `attribute_catalogues`
+--
+ALTER TABLE `attribute_catalogues`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `attribute_catalogues_user_id_foreign` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `attribute_catalogue_attribute`
+--
+ALTER TABLE `attribute_catalogue_attribute`
+  ADD KEY `attribute_catalogue_attribute_attribute_catalogue_id_foreign` (`attribute_catalogue_id`),
+  ADD KEY `attribute_catalogue_attribute_attribute_id_foreign` (`attribute_id`);
+
+--
+-- Chỉ mục cho bảng `attribute_catalogue_language`
+--
+ALTER TABLE `attribute_catalogue_language`
+  ADD KEY `attribute_catalogue_language_attribute_catalogue_id_foreign` (`attribute_catalogue_id`),
+  ADD KEY `attribute_catalogue_language_language_id_foreign` (`language_id`);
+
+--
+-- Chỉ mục cho bảng `attribute_language`
+--
+ALTER TABLE `attribute_language`
+  ADD KEY `attribute_language_attribute_id_foreign` (`attribute_id`),
+  ADD KEY `attribute_language_language_id_foreign` (`language_id`);
+
+--
 -- Chỉ mục cho bảng `cache`
 --
 ALTER TABLE `cache`
@@ -12324,7 +12530,6 @@ ALTER TABLE `post_catalogues`
 -- Chỉ mục cho bảng `post_catalogue_language`
 --
 ALTER TABLE `post_catalogue_language`
-  ADD UNIQUE KEY `post_catalogue_language_canonical_unique` (`canonical`),
   ADD KEY `post_catalogue_language_post_catalogue_id_foreign` (`post_catalogue_id`),
   ADD KEY `post_catalogue_language_language_id_foreign` (`language_id`);
 
@@ -12339,7 +12544,6 @@ ALTER TABLE `post_catalogue_post`
 -- Chỉ mục cho bảng `post_language`
 --
 ALTER TABLE `post_language`
-  ADD UNIQUE KEY `canonical` (`canonical`),
   ADD KEY `post_language_post_id_foreign` (`post_id`),
   ADD KEY `post_language_language_id_foreign` (`language_id`);
 
@@ -12435,6 +12639,18 @@ ALTER TABLE `wards`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `attributes`
+--
+ALTER TABLE `attributes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `attribute_catalogues`
+--
+ALTER TABLE `attribute_catalogues`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT cho bảng `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -12462,13 +12678,13 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
@@ -12498,7 +12714,7 @@ ALTER TABLE `product_catalogues`
 -- AUTO_INCREMENT cho bảng `routers`
 --
 ALTER TABLE `routers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
@@ -12515,6 +12731,39 @@ ALTER TABLE `user_catalogues`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `attributes`
+--
+ALTER TABLE `attributes`
+  ADD CONSTRAINT `attributes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `attribute_catalogues`
+--
+ALTER TABLE `attribute_catalogues`
+  ADD CONSTRAINT `attribute_catalogues_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `attribute_catalogue_attribute`
+--
+ALTER TABLE `attribute_catalogue_attribute`
+  ADD CONSTRAINT `attribute_catalogue_attribute_attribute_catalogue_id_foreign` FOREIGN KEY (`attribute_catalogue_id`) REFERENCES `attribute_catalogues` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `attribute_catalogue_attribute_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `attribute_catalogue_language`
+--
+ALTER TABLE `attribute_catalogue_language`
+  ADD CONSTRAINT `attribute_catalogue_language_attribute_catalogue_id_foreign` FOREIGN KEY (`attribute_catalogue_id`) REFERENCES `attribute_catalogues` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `attribute_catalogue_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `attribute_language`
+--
+ALTER TABLE `attribute_language`
+  ADD CONSTRAINT `attribute_language_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `attribute_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `districts`

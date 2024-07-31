@@ -88,9 +88,24 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->findById($id)->delete();
     }
 
+    // Xóa dữ liệu khỏi csdl
     public function forceDelete($id = 0)
     {
         return $this->findById($id)->forceDelete();
+    }
+
+    // Xóa dữ liệu khỏi csdl theo điểu kiện
+    public function forceDeleteByCondition($condition = [])
+    {
+        // Khởi tạo một đối tượng truy vấn mới từ model
+        $query = $this->model->newQuery();
+
+        // Thêm điều kiện vào truy vấn
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
+        }
+
+        return $query->forceDelete();
     }
 
     // tìm kiếm dựa trên id (id của bảng cần tìm, các cột cần select, các quan hệ: được định nghĩa trong model)

@@ -14,4 +14,8 @@ return [
     'delete_permission' => 'Xóa quyền',
     'permission' => 'Phân quyền',
     'delete_generate' => 'Xóa module',
+    'delete_attribute_catalogue' => 'Xóa loại thuộc tính',
+    'delete_attribute' => 'Xóa thuộc tính',
+    'delete_product_catalogue' => 'Xóa nhóm sản phẩm',
+    'delete_product' => 'Xóa sản phẩm',
 ];

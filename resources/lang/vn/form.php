@@ -59,4 +59,8 @@ return [
     'other_module' => 'Module khác',
     'function_name' => 'Tên chức năng',
     'general_schema' => 'Thông tin schema',
+    'attribute_catalogue_name' => 'Tên loại thuộc tính',
+    'attribute_name' => 'Tên thuộc tính',
+    'product_catalogue_name' => 'Tên nhóm sản phẩm',
+    'product_name' => 'Tên sản phẩm',
 ];

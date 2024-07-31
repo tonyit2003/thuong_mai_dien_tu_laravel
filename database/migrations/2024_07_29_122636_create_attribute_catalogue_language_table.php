@@ -8,10 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('product_language', function (Blueprint $table) {
-            $table->unsignedBigInteger('product_id');
+        Schema::create('attribute_catalogue_language', function (Blueprint $table) {
+            $table->unsignedBigInteger('attribute_catalogue_id');
             $table->unsignedBigInteger('language_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('attribute_catalogue_id')->references('id')->on('attribute_catalogues')->onDelete('cascade');
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
@@ -27,6 +27,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('product_language');
+        Schema::dropIfExists('attribute_catalogue_language');
     }
 };

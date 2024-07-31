@@ -8,10 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('product_language', function (Blueprint $table) {
-            $table->unsignedBigInteger('product_id');
+        Schema::create('attribute_language', function (Blueprint $table) {
+            $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('language_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
@@ -20,13 +20,12 @@ return new class extends Migration
             $table->string('meta_keyword')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('canonical')->nullable();
-            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('product_language');
+        Schema::dropIfExists('attribute_language');
     }
 };
