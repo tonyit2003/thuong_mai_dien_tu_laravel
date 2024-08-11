@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 31, 2024 lúc 03:27 PM
+-- Thời gian đã tạo: Th8 11, 2024 lúc 05:41 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -108,7 +108,16 @@ CREATE TABLE `attributes` (
 
 INSERT INTO `attributes` (`id`, `attribute_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, '2024-07-31 06:21:47', '2024-07-31 05:54:16', '2024-07-31 06:21:47'),
-(2, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-07-31 05:55:24', '2024-07-31 05:55:24');
+(2, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-07-31 05:55:24', '2024-07-31 05:55:24'),
+(3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 09:22:29', '2024-08-02 22:20:04'),
+(4, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:20:00', '2024-08-02 22:20:05'),
+(5, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:21:56', '2024-08-02 22:22:01'),
+(7, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:22:20', '2024-08-02 22:22:24'),
+(8, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:22:59', '2024-08-02 22:23:02'),
+(9, 3, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-02 22:23:18', '2024-08-02 22:23:18'),
+(10, 4, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-02 22:43:18', '2024-08-02 22:43:18'),
+(11, 4, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-02 22:43:30', '2024-08-02 22:43:30'),
+(12, 7, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:31:03', '2024-08-10 21:31:03');
 
 -- --------------------------------------------------------
 
@@ -139,8 +148,13 @@ CREATE TABLE `attribute_catalogues` (
 --
 
 INSERT INTO `attribute_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-07-29 05:53:43', '2024-07-29 05:53:43'),
-(2, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-07-31 06:21:09', '2024-07-29 05:54:18', '2024-07-31 06:21:09');
+(1, 0, 12, 13, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-07-29 05:53:43', '2024-08-02 22:21:16'),
+(2, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-07-31 06:21:09', '2024-07-29 05:54:18', '2024-07-31 06:21:09'),
+(3, 0, 10, 11, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 01:03:27', '2024-08-02 22:21:15'),
+(4, 0, 8, 9, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 01:03:38', '2024-08-02 22:21:15'),
+(5, 0, 6, 7, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:21:31', '2024-08-02 22:21:34'),
+(6, 0, 2, 5, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:28:10', '2024-08-10 21:28:10'),
+(7, 6, 3, 4, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:30:15', '2024-08-10 21:30:15');
 
 -- --------------------------------------------------------
 
@@ -159,7 +173,16 @@ CREATE TABLE `attribute_catalogue_attribute` (
 
 INSERT INTO `attribute_catalogue_attribute` (`attribute_catalogue_id`, `attribute_id`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(1, 3),
+(1, 4),
+(5, 5),
+(5, 7),
+(3, 8),
+(3, 9),
+(4, 10),
+(4, 11),
+(7, 12);
 
 -- --------------------------------------------------------
 
@@ -190,7 +213,12 @@ INSERT INTO `attribute_catalogue_language` (`attribute_catalogue_id`, `language_
 (2, 1, 'Chất liệu', NULL, NULL, NULL, NULL, NULL, 'chat-lieu', '2024-07-29 05:54:18', '2024-07-29 05:54:18'),
 (1, 2, 'Color', NULL, NULL, NULL, NULL, NULL, 'color', '2024-07-31 04:24:47', '2024-07-31 04:24:47'),
 (2, 3, '材料', NULL, NULL, NULL, NULL, NULL, 'chat-lieu-cn', '2024-07-31 04:35:28', '2024-07-31 04:35:28'),
-(2, 2, 'Material', NULL, NULL, NULL, NULL, NULL, 'material-en', '2024-07-31 05:00:15', '2024-07-31 05:00:15');
+(2, 2, 'Material', NULL, NULL, NULL, NULL, NULL, 'material-en', '2024-07-31 05:00:15', '2024-07-31 05:00:15'),
+(3, 1, 'Chất liệu', NULL, NULL, NULL, NULL, NULL, 'chat-lieu', '2024-08-02 01:03:27', '2024-08-02 01:03:27'),
+(4, 1, 'Kích thước', NULL, NULL, NULL, NULL, NULL, 'kich-thuoc', '2024-08-02 01:03:38', '2024-08-02 01:03:38'),
+(5, 1, 'Dung lượng', NULL, NULL, NULL, NULL, NULL, 'dung-luong', '2024-08-02 22:21:31', '2024-08-02 22:21:31'),
+(6, 1, 'Màn hình', NULL, NULL, NULL, NULL, NULL, 'man-hinh', '2024-08-10 21:28:10', '2024-08-10 21:28:10'),
+(7, 1, 'Kích cỡ màn hình', NULL, NULL, NULL, NULL, NULL, 'kich-co-man-hinh', '2024-08-10 21:30:15', '2024-08-10 21:30:15');
 
 -- --------------------------------------------------------
 
@@ -218,7 +246,16 @@ CREATE TABLE `attribute_language` (
 
 INSERT INTO `attribute_language` (`attribute_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Màu đỏ', NULL, NULL, NULL, NULL, NULL, 'mau-do', '2024-07-31 05:54:16', '2024-07-31 05:54:16'),
-(2, 1, 'Màu xanh', NULL, NULL, NULL, NULL, NULL, 'mau-xanh', '2024-07-31 05:55:24', '2024-07-31 05:55:24');
+(2, 1, 'Màu xanh', NULL, NULL, NULL, NULL, NULL, 'mau-xanh', '2024-07-31 05:55:24', '2024-07-31 05:55:24'),
+(3, 1, 'Màu đỏ', NULL, NULL, NULL, NULL, NULL, 'mau-do', '2024-08-02 09:22:29', '2024-08-02 09:22:29'),
+(4, 1, 'Màu đen', NULL, NULL, NULL, NULL, NULL, 'mau-den', '2024-08-02 22:20:00', '2024-08-02 22:20:00'),
+(5, 1, '512GB', NULL, NULL, NULL, NULL, NULL, '512gb', '2024-08-02 22:21:56', '2024-08-02 22:21:56'),
+(7, 1, '256GB', NULL, NULL, NULL, NULL, NULL, '256gb', '2024-08-02 22:22:20', '2024-08-02 22:22:20'),
+(8, 1, 'Titan', NULL, NULL, NULL, NULL, NULL, 'titan', '2024-08-02 22:22:59', '2024-08-02 22:22:59'),
+(9, 1, 'Bạc', NULL, NULL, NULL, NULL, NULL, 'bac', '2024-08-02 22:23:18', '2024-08-02 22:23:18'),
+(10, 1, '14 inch', NULL, NULL, NULL, NULL, NULL, '14-inch', '2024-08-02 22:43:18', '2024-08-02 22:43:18'),
+(11, 1, '16 inch', NULL, NULL, NULL, NULL, NULL, '16-inch', '2024-08-02 22:43:30', '2024-08-02 22:43:30'),
+(12, 1, '11.6 inch', NULL, NULL, NULL, NULL, NULL, '116-inch', '2024-08-10 21:31:03', '2024-08-10 21:31:03');
 
 -- --------------------------------------------------------
 
@@ -1063,12 +1100,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
-(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-07-03 01:54:07', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Trung', 0),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-08-06 02:04:27', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-08-06 02:04:27', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-07-03 01:54:07', '2024-08-01 23:06:14', '2024-08-01 23:06:14', 1, 'Ngôn ngữ tiếng Trung', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
-(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-07-31 06:19:54', NULL, 1, 'Ngôn ngữ tiếng Hàn Quốc', 0);
+(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0);
 
 -- --------------------------------------------------------
 
@@ -1139,7 +1176,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (55, '2024_07_31_011546_add_language_id_at_routers_table', 36),
 (56, '2024_07_31_120359_create_attributes_table', 37),
 (57, '2024_07_31_120409_create_attribute_catalogue_attribute_table', 37),
-(58, '2024_07_31_120409_create_attribute_language_table', 37);
+(58, '2024_07_31_120409_create_attribute_language_table', 37),
+(59, '2024_08_09_054427_create_product_variants_table', 38),
+(60, '2024_08_09_060016_create_product_variant_language_table', 39),
+(61, '2024_08_09_144605_create_product_variant_attribute_table', 40),
+(62, '2024_08_11_124203_add_variant_to_product_table', 41),
+(63, '2024_08_11_135808_add_code_made_in_price_to_products_table', 42),
+(64, '2024_08_11_142029_add_attribute_value_to_product_table', 43),
+(65, '2024_08_11_143853_add_variant_to_product_table', 44);
 
 -- --------------------------------------------------------
 
@@ -1391,8 +1435,21 @@ CREATE TABLE `products` (
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `attributeCatalogue` text DEFAULT NULL,
+  `code` varchar(255) NOT NULL DEFAULT '0',
+  `made_in` varchar(255) DEFAULT NULL,
+  `price` double NOT NULL DEFAULT 0,
+  `attribute` text DEFAULT NULL,
+  `variant` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `products`
+--
+
+INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attributeCatalogue`, `code`, `made_in`, `price`, `attribute`, `variant`) VALUES
+(20, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-11 07:49:34', '2024-08-11 08:19:59', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}');
 
 -- --------------------------------------------------------
 
@@ -1418,6 +1475,13 @@ CREATE TABLE `product_catalogues` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `product_catalogues`
+--
+
+INSERT INTO `product_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-08-09 08:00:56');
+
 -- --------------------------------------------------------
 
 --
@@ -1439,6 +1503,13 @@ CREATE TABLE `product_catalogue_language` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `product_catalogue_language`
+--
+
+INSERT INTO `product_catalogue_language` (`product_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'Điện thoại', NULL, NULL, NULL, NULL, NULL, 'dien-thoai', '2024-08-09 08:00:57', '2024-08-09 08:00:57', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -1449,6 +1520,13 @@ CREATE TABLE `product_catalogue_product` (
   `product_catalogue_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_catalogue_product`
+--
+
+INSERT INTO `product_catalogue_product` (`product_catalogue_id`, `product_id`) VALUES
+(1, 20);
 
 -- --------------------------------------------------------
 
@@ -1470,6 +1548,107 @@ CREATE TABLE `product_language` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_language`
+--
+
+INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(20, 1, 'SP-TEST', NULL, NULL, NULL, NULL, NULL, 'sp-test', '2024-08-11 08:19:59', '2024-08-11 08:19:59', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `product_variants`
+--
+
+CREATE TABLE `product_variants` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 0,
+  `sku` varchar(255) DEFAULT NULL,
+  `price` double NOT NULL DEFAULT 0,
+  `barcode` varchar(255) DEFAULT NULL,
+  `file_name` varchar(255) DEFAULT NULL,
+  `file_url` varchar(255) DEFAULT NULL,
+  `album` text DEFAULT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 1,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_variants`
+--
+
+INSERT INTO `product_variants` (`id`, `product_id`, `code`, `quantity`, `sku`, `price`, `barcode`, `file_name`, `file_url`, `album`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(79, 20, '2, 8', 100, '1723387586-2-8', 20000000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
+(80, 20, '3, 8', 100, '1723387586-2-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
+(81, 20, '4, 8', 100, '1723387586-4-8', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
+(82, 20, '2, 9', 100, '1723387586-4-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
+(83, 20, '3, 9', 100, '1723387586-3-8', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
+(84, 20, '4, 9', 100, '1723387586-3-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `product_variant_attribute`
+--
+
+CREATE TABLE `product_variant_attribute` (
+  `product_variant_id` bigint(20) UNSIGNED NOT NULL,
+  `attribute_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_variant_attribute`
+--
+
+INSERT INTO `product_variant_attribute` (`product_variant_id`, `attribute_id`, `created_at`, `updated_at`) VALUES
+(79, 2, NULL, NULL),
+(79, 8, NULL, NULL),
+(80, 2, NULL, NULL),
+(80, 9, NULL, NULL),
+(81, 3, NULL, NULL),
+(81, 8, NULL, NULL),
+(82, 3, NULL, NULL),
+(82, 9, NULL, NULL),
+(83, 4, NULL, NULL),
+(83, 8, NULL, NULL),
+(84, 4, NULL, NULL),
+(84, 9, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `product_variant_language`
+--
+
+CREATE TABLE `product_variant_language` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_variant_id` bigint(20) UNSIGNED NOT NULL,
+  `language_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_variant_language`
+--
+
+INSERT INTO `product_variant_language` (`id`, `product_variant_id`, `language_id`, `name`, `created_at`, `updated_at`) VALUES
+(27, 79, 1, 'Màu xanh, Titan', NULL, NULL),
+(28, 80, 1, 'Màu đỏ, Titan', NULL, NULL),
+(29, 81, 1, 'Màu đen, Titan', NULL, NULL),
+(30, 82, 1, 'Màu xanh, Bạc', NULL, NULL),
+(31, 83, 1, 'Màu đỏ, Bạc', NULL, NULL),
+(32, 84, 1, 'Màu đen, Bạc', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1590,7 +1769,23 @@ INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_a
 (30, 'football', 52, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-30 20:09:52', '2024-07-30 20:09:52', 2),
 (38, 'color', 1, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-07-31 04:24:47', '2024-07-31 04:24:47', 2),
 (41, 'technology123', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-31 04:26:42', '2024-07-31 04:26:42', 2),
-(59, 'mau-xanh', 2, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-07-31 05:55:24', '2024-07-31 05:55:24', 1);
+(59, 'mau-xanh', 2, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-07-31 05:55:24', '2024-07-31 05:55:24', 1),
+(60, 'chat-lieu', 3, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-02 01:03:27', '2024-08-02 01:03:27', 1),
+(61, 'kich-thuoc', 4, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-02 01:03:38', '2024-08-02 01:03:38', 1),
+(62, 'mau-do', 3, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 09:22:29', '2024-08-02 09:22:29', 1),
+(63, 'mau-den', 4, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:20:00', '2024-08-02 22:20:00', 1),
+(64, 'dung-luong', 5, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-02 22:21:31', '2024-08-02 22:21:31', 1),
+(65, '512gb', 5, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:21:56', '2024-08-02 22:21:56', 1),
+(66, '256gb', 7, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:22:20', '2024-08-02 22:22:20', 1),
+(67, 'titan', 8, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:22:59', '2024-08-02 22:22:59', 1),
+(68, 'bac', 9, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:23:18', '2024-08-02 22:23:18', 1),
+(69, '14-inch', 10, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:43:18', '2024-08-02 22:43:18', 1),
+(70, '16-inch', 11, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:43:30', '2024-08-02 22:43:30', 1),
+(71, 'dien-thoai', 1, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-08-09 08:00:57', '2024-08-09 08:00:57', 1),
+(83, 'man-hinh', 6, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-10 21:28:10', '2024-08-10 21:28:10', 1),
+(84, 'kich-co-man-hinh', 7, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-10 21:30:15', '2024-08-10 21:30:15', 1),
+(85, '116-inch', 12, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-10 21:31:03', '2024-08-10 21:31:03', 1),
+(98, 'sp-test', 20, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-08-11 07:49:34', '2024-08-11 07:49:34', 1);
 
 -- --------------------------------------------------------
 
@@ -1612,7 +1807,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('iUKK7Myop8nef988txBDhDhlxoLN1rE3L2X7Gs6a', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiV0FGaWV5cVQ0REV5ejY4VWx6QWNINE9ETEFHOWxFRG9FSWhTRmd5cSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1NToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL2F0dHJpYnV0ZS9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1722432108);
+('qjaAj6LxvPJAjhWVgsZ7iTYwglLIoAgUw9FrQAC8', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRFNoNzV2aFRXN1RqTWVKOEtwNEtGbmZmaVU2QmR2QkllMEpZQVBNdSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MzoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Byb2R1Y3QvaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1723389599);
 
 -- --------------------------------------------------------
 
@@ -1650,7 +1845,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
 (201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 14:51:45', 'userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-16 12:04:04', 1, NULL, 1),
-(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 13:59:51', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-07-15 05:22:56', 1, NULL, 1);
+(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 13:59:51', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-08-06 01:39:29', 1, NULL, 1),
+(201018, 'Test', '456', '01', '004', '00127', '123', '2003-04-09 08:40:05', '/thuongmaidientu/public/userfiles/image/bong-da/gsj6vjkaaaedb3g-1720771505-172-6000-6526-1720772015.jpg', '789', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$stkbs.mmtNHaeLuWNjs2LuMm8D3Q9uhORT3nMWng3d9WHKjRc/0fW', NULL, '2024-08-06 01:40:05', '2024-08-06 02:36:40', 4, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -12583,6 +12779,29 @@ ALTER TABLE `product_language`
   ADD KEY `product_language_language_id_foreign` (`language_id`);
 
 --
+-- Chỉ mục cho bảng `product_variants`
+--
+ALTER TABLE `product_variants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_variants_product_id_foreign` (`product_id`),
+  ADD KEY `product_variants_user_id_foreign` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `product_variant_attribute`
+--
+ALTER TABLE `product_variant_attribute`
+  ADD KEY `product_variant_attribute_product_variant_id_foreign` (`product_variant_id`),
+  ADD KEY `product_variant_attribute_attribute_id_foreign` (`attribute_id`);
+
+--
+-- Chỉ mục cho bảng `product_variant_language`
+--
+ALTER TABLE `product_variant_language`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_variant_language_product_variant_id_foreign` (`product_variant_id`),
+  ADD KEY `product_variant_language_language_id_foreign` (`language_id`);
+
+--
 -- Chỉ mục cho bảng `provinces`
 --
 ALTER TABLE `provinces`
@@ -12642,13 +12861,13 @@ ALTER TABLE `wards`
 -- AUTO_INCREMENT cho bảng `attributes`
 --
 ALTER TABLE `attributes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `attribute_catalogues`
 --
 ALTER TABLE `attribute_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `failed_jobs`
@@ -12678,7 +12897,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -12702,25 +12921,37 @@ ALTER TABLE `post_catalogues`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `product_catalogues`
 --
 ALTER TABLE `product_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `product_variants`
+--
+ALTER TABLE `product_variants`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+
+--
+-- AUTO_INCREMENT cho bảng `product_variant_language`
+--
+ALTER TABLE `product_variant_language`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `routers`
 --
 ALTER TABLE `routers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201018;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201019;
 
 --
 -- AUTO_INCREMENT cho bảng `user_catalogues`
@@ -12843,6 +13074,27 @@ ALTER TABLE `product_catalogue_product`
 ALTER TABLE `product_language`
   ADD CONSTRAINT `product_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_language_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `product_variants`
+--
+ALTER TABLE `product_variants`
+  ADD CONSTRAINT `product_variants_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_variants_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `product_variant_attribute`
+--
+ALTER TABLE `product_variant_attribute`
+  ADD CONSTRAINT `product_variant_attribute_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_variant_attribute_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `product_variant_language`
+--
+ALTER TABLE `product_variant_language`
+  ADD CONSTRAINT `product_variant_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_variant_language_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `provinces`

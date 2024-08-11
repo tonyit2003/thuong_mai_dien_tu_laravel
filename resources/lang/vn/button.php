@@ -18,4 +18,6 @@ return [
     'delete_attribute' => 'Xóa thuộc tính',
     'delete_product_catalogue' => 'Xóa nhóm sản phẩm',
     'delete_product' => 'Xóa sản phẩm',
+    'add_variant' => 'Thêm phiên bản mới',
+    'cancel' => 'Hủy bỏ',
 ];

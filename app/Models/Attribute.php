@@ -42,4 +42,14 @@ class Attribute extends Model
     {
         return $this->belongsToMany(AttributeCatalogue::class, 'attribute_catalogue_attribute', 'attribute_id', 'attribute_catalogue_id');
     }
+
+    public function attribute_language()
+    {
+        return $this->hasMany(AttributeLanguage::class, 'attribute_id', 'id');
+    }
+
+    public function product_variants()
+    {
+        return $this->belongsToMany(ProductVariant::class, 'product_variant_attribute', 'attribute_id', 'product_variant_id')->withTimestamps();
+    }
 }

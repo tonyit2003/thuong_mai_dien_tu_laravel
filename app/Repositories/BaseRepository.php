@@ -45,7 +45,15 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function create($payload = [])
     {
+        // create => chèn một bản ghi trực tiếp vào cơ sở dữ liệu
+        // fresh() => tải lại đối tượng model từ cơ sở dữ liệu sau khi nó đã được tạo hoặc cập nhật => đảm bảo rằng đối tượng model đang làm việc có chứa dữ liệu mới nhất từ cơ sở dữ liệu
         return $this->model->create($payload)->fresh();
+    }
+
+    public function createBatch($payload = [])
+    {
+        // insert: chèn một hoặc nhiều bản ghi trực tiếp vào cơ sở dữ liệu
+        return $this->model->insert($payload);
     }
 
     // thêm một bản ghi mới vào bảng trung gian của mối quan hệ "many-to-many" giữa hai model

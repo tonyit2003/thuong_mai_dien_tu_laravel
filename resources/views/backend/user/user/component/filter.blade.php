@@ -26,13 +26,17 @@
                             </option>
                         @endforeach
                     </select>
+                    @php
+                        $userCatalogueSelected = old('user_catalogue_id') ?? request('user_catalogue_id');
+                    @endphp
                     <select name="user_catalogue_id" class="form-control mr10 setupSelect2" id="">
                         <option value="0">
-                            {{ __('user.select_user_group') }}
+                            {{ __('form.select_user_catalogue') }}
                         </option>
-                        <option value="1">
-                            {{ __('user.admin') }}
-                        </option>
+                        @foreach ($userCatalogues as $value)
+                            <option value="{{ $value->id }}" @if ($userCatalogueSelected == $value->id) selected @endif>
+                                {{ $value->name }}</option>
+                        @endforeach
                     </select>
                     <div class="uk-search uk-flex uk-flex-middle mr10">
                         <div class="input-group">

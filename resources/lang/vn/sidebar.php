@@ -61,7 +61,7 @@ return [
         ],
         [
             'title' => 'Cấu hình chung',
-            'icon' => 'fa fa-file',
+            'icon' => 'fa fa-cog',
             'name' => ['language', 'generate'],
             'subModule' => [
                 [

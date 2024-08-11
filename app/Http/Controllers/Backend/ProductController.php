@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Language;
+use App\Repositories\AttributeCatalogueRepository;
 use App\Repositories\ProductRepository;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -19,8 +20,9 @@ class ProductController extends Controller
     protected $productRepository;
     protected $nestedset;
     protected $language;
+    protected $attributeCatalogueRepository;
 
-    public function __construct(ProductService $productService, ProductRepository $productRepository)
+    public function __construct(ProductService $productService, ProductRepository $productRepository, AttributeCatalogueRepository $attributeCatalogueRepository)
     {
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
@@ -31,6 +33,7 @@ class ProductController extends Controller
         });
         $this->productService = $productService;
         $this->productRepository = $productRepository;
+        $this->attributeCatalogueRepository = $attributeCatalogueRepository;
         $this->initialize();
     }
 
@@ -59,12 +62,13 @@ class ProductController extends Controller
     public function create()
     {
         Gate::authorize('modules', 'product.create');
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language);
         $config = $this->configData();
         $config['seo'] = __('product');
         $config['method'] = 'create';
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.product.product.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'dropdown'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'dropdown', 'attributeCatalogues'));
     }
 
     public function store(StoreProductRequest $storeProductRequest)
@@ -81,13 +85,14 @@ class ProductController extends Controller
     {
         Gate::authorize('modules', 'product.update');
         $product = $this->productRepository->getProductById($id, $this->language);
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language);
         $config = $this->configData();
         $config['seo'] = __('product');
         $config['method'] = 'edit';
         $album = json_decode($product->album);
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.product.product.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'product', 'album', 'dropdown'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'product', 'album', 'dropdown', 'attributeCatalogues'));
     }
 
     public function update($id, UpdateProductRequest $updateProductRequest)
@@ -132,14 +137,19 @@ class ProductController extends Controller
     {
         return [
             'js' => [
+                'backend/js/plugins/switchery/switchery.js',
                 'backend/plugins/ckeditor/ckeditor.js',
                 'backend/plugins/ckfinder_2/ckfinder.js',
                 'backend/library/finder.js',
                 'backend/library/seo.js',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+                'backend/library/variant.js',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/plugins/nice-select/js/jquery.nice-select.min.js',
             ],
             'css' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+                'backend/css/plugins/switchery/switchery.css',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
+                'backend/plugins/nice-select/css/nice-select.css',
             ]
         ];
     }

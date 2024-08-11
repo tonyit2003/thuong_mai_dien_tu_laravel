@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\ProvinceRepository;
+use App\Repositories\UserCatalogueRepository;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -16,18 +17,21 @@ class UserController extends Controller
     protected $userService;
     protected $provinceRepository;
     protected $userRepository;
+    protected $userCatalogueRepository;
 
-    public function __construct(UserService $userService, ProvinceRepository $provinceRepository, UserRepository $userRepository)
+    public function __construct(UserService $userService, ProvinceRepository $provinceRepository, UserRepository $userRepository, UserCatalogueRepository $userCatalogueRepository)
     {
         $this->userService = $userService;
         $this->provinceRepository = $provinceRepository;
         $this->userRepository = $userRepository;
+        $this->userCatalogueRepository = $userCatalogueRepository;
     }
 
     public function index(Request $request)
     {
         Gate::authorize('modules', 'user.index');
         $users = $this->userService->paginate($request);
+        $userCatalogues = $this->userCatalogueRepository->all();
 
         $config = [
             'js' => [
@@ -43,18 +47,19 @@ class UserController extends Controller
         $config['seo'] = __('user');
 
         $template = 'backend.user.user.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'users'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'users', 'userCatalogues'));
     }
 
     public function create()
     {
         Gate::authorize('modules', 'user.create');
         $provinces = $this->provinceRepository->all();
+        $userCatalogues = $this->userCatalogueRepository->all();
         $config = $this->configData();
         $config['seo'] = __('user');
         $config['method'] = 'create';
         $template = 'backend.user.user.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'provinces'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'provinces', 'userCatalogues'));
     }
 
     public function store(StoreUserRequest $storeUserRequest)
@@ -72,11 +77,12 @@ class UserController extends Controller
         Gate::authorize('modules', 'user.update');
         $user = $this->userRepository->findById($id);
         $provinces = $this->provinceRepository->all();
+        $userCatalogues = $this->userCatalogueRepository->all();
         $config = $this->configData();
         $config['seo'] = __('user');
         $config['method'] = 'edit';
         $template = 'backend.user.user.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'provinces', 'user'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'provinces', 'user', 'userCatalogues'));
     }
 
     public function update($id, UpdateUserRequest $updateUserRequest)

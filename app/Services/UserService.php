@@ -25,6 +25,7 @@ class UserService implements UserServiceInterface
     public function paginate($request)
     {
         $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['user_catalogue_id'] = $request->input('user_catalogue_id') != null ? $request->input('user_catalogue_id') : 0;
         // $request->input('publish') => trả về giá trị, không phải dạng mảng
         $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;

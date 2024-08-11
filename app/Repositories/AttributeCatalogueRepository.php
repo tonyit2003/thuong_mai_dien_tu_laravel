@@ -38,4 +38,12 @@ class AttributeCatalogueRepository extends BaseRepository implements AttributeCa
             'attribute_catalogue_language.canonical'
         ])->join('attribute_catalogue_language', 'attribute_catalogue_language.attribute_catalogue_id', '=', 'attribute_catalogues.id')->where('attribute_catalogue_language.language_id', '=', $language_id)->find($id);
     }
+
+    public function getAll($languageId = 0)
+    {
+        // => function ($query) use ($languageId): áp dụng một điều kiện
+        return $this->model->with(['attribute_catalogue_language' => function ($query) use ($languageId) {
+            $query->where('language_id', $languageId);
+        }])->get();
+    }
 }

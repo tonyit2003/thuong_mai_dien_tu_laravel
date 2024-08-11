@@ -14,7 +14,7 @@ return [
     'title' => 'Tiêu đề',
     'index' => 'Vị trí',
     'display_group' => 'Nhóm hiển thị',
-    'image' => 'Ảnh',
+    'image' => 'Hình ảnh',
     'language_name' => 'Tên ngôn ngữ',
     'language_code' => 'Tên viết tắt',
     'permission_name' => 'Tên quyền',
@@ -22,4 +22,7 @@ return [
     'not_yet_translated' => 'Chưa dịch',
     'translated' => 'Đã dịch',
     'module_name' => 'Tên module',
+    'quantity' => 'Số lượng',
+    'price' => 'Giá tiền',
+    'sku' => 'SKU',
 ];

@@ -13,6 +13,7 @@ interface BaseRepositoryInterface
     public function findByCondition($condition = []);
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = []);
     public function create($payload = []);
+    public function createBatch($payload = []);
     public function createPivot($model, $payload = [], $relation = '');
     public function update($id = 0, $payload = []);
     public function updateByWhereIn($whereInField = '', $whereIn = [], $payload = []);

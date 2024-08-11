@@ -26,6 +26,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                 $query->where('publish', '=', $condition['publish']);
             }
 
+            if (isset($condition['user_catalogue_id']) && $condition['user_catalogue_id'] != 0) {
+                $query->where('user_catalogue_id', '=', $condition['user_catalogue_id']);
+            }
+
             // nhóm các điều kiến orWhere và where lại với nhau trong $query->where(function ($query) use ($condition) {} () => tạo câu truy vấn đúng
             // SELECT * FROM users
             // WHERE publish = 1

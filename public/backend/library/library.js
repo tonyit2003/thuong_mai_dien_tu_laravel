@@ -164,6 +164,56 @@
         $("#checkAll").prop("checked", allChecked);
     };
 
+    HT.int = () => {
+        // gán các sự kiện cho các trường nhập liệu có class .int.
+        $(document).on("change keyup blur", ".int", function () {
+            let _this = $(this);
+            let value = _this.val();
+            if (value === "") {
+                $(this).val("0");
+            }
+            // Loại bỏ tất cả các dấu chấm trong giá trị hiện tại
+            value = value.replace(/\./gi, "");
+            // Định dạng lại giá trị với dấu chấm để phân cách hàng nghìn
+            _this.val(HT.addCommas(value));
+            // Kiểm tra nếu giá trị không phải là số (isNaN), đặt lại giá trị là 0
+            if (isNaN(value)) {
+                _this.val("0");
+            }
+        });
+
+        $(document).on("keydown", ".int", function (e) {
+            let _this = $(this);
+            let data = _this.val();
+            // Nếu giá trị hiện tại là 0, kiểm tra phím nhấn:
+            if (data == 0) {
+                let unicode = e.keyCode || e.which;
+                // Nếu phím nhấn không phải là phím dấu chấm (keycode 190), đặt lại giá trị trường nhập liệu là rỗng
+                if (unicode != 190) {
+                    _this.val("");
+                }
+            }
+        });
+    };
+
+    // định dạng một chuỗi số với dấu chấm để phân cách hàng nghìn.
+    HT.addCommas = (nStr) => {
+        // Chuyển đổi giá trị đầu vào thành chuỗi
+        nStr = String(nStr);
+        // loại bỏ các dấu chấm hiện có
+        nStr = nStr.replace(/\./gi, "");
+        let str = "";
+        // Duyệt qua chuỗi số từ phải sang trái, chèn dấu chấm sau mỗi ba chữ số
+        for (let i = nStr.length; i > 0; i -= 3) {
+            let a = i - 3 < 0 ? 0 : i - 3;
+            // slice: trích xuất một phần của mảng or chuỗi
+            str = nStr.slice(a, i) + "." + str;
+        }
+        // Loại bỏ dấu chấm cuối cùng và trả về chuỗi đã định dạng
+        str = str.slice(0, str.length - 1);
+        return str;
+    };
+
     $(document).ready(function () {
         HT.switchery();
         HT.select2();
@@ -172,5 +222,6 @@
         HT.checkBoxItem();
         HT.changeStatusAll();
         HT.sortui();
+        HT.int();
     });
 })(jQuery);

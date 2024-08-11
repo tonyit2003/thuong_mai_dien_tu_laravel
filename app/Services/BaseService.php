@@ -65,4 +65,9 @@ class BaseService implements BaseServiceInterface
             'language_id' => $languageId,
         ];
     }
+
+    public function formatJson($request, $inputName)
+    {
+        return $request->input($inputName) && !empty($request->input($inputName)) ? json_encode($request->input($inputName)) : '';
+    }
 }

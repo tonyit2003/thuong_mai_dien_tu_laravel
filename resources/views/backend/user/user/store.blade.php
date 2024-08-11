@@ -53,7 +53,6 @@
                         </div>
 
                         @php
-                            $userCatalogue = ['[Chọn nhóm thành viên]', 'Quản trị viên', 'Cộng tác viên'];
                             $userCatalogueSelected = isset($user->user_catalogue_id)
                                 ? $user->user_catalogue_id
                                 : old('user_catalogue_id');
@@ -67,10 +66,11 @@
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <select name="user_catalogue_id" id="" class="form-control setupSelect2">
-                                        @foreach ($userCatalogue as $key => $item)
-                                            <option value="{{ $key }}"
-                                                @if ($userCatalogueSelected == $key) selected @endif>
-                                                {{ $item }}</option>
+                                        <option value="0">{{ __('form.select_user_catalogue') }}</option>
+                                        @foreach ($userCatalogues as $value)
+                                            <option value="{{ $value->id }}"
+                                                @if ($userCatalogueSelected == $value->id) selected @endif>
+                                                {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -120,6 +120,12 @@
                                         name="image" value="{{ old('image', $user->image ?? '') }}"
                                         class="form-control input-image upload-image" placeholder="" autocomplete="off"
                                         data-upload="Images">
+                                    {{-- <span class="image img-cover img-target">
+                                        <img src="{{ old('image', $user->image ?? 'backend/img/no-photo.png') }}"
+                                            alt="">
+                                    </span>
+                                    <input type="hidden" name="image"
+                                        value="{{ old('image', $user->image ?? 'backend/img/no-photo.png') }}"> --}}
                                 </div>
                             </div>
                         </div>
