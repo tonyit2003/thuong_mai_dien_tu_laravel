@@ -13,9 +13,4 @@ abstract class Controller extends BaseController
     {
         $this->language = App::getLocale();
     }
-
-    public function currentLanguage()
-    {
-        return 1;
-    }
 }

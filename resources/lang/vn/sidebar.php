@@ -62,7 +62,7 @@ return [
         [
             'title' => 'Cấu hình chung',
             'icon' => 'fa fa-cog',
-            'name' => ['language', 'generate'],
+            'name' => ['language', 'generate', 'system'],
             'subModule' => [
                 [
                     'title' => 'Ngôn ngữ',
@@ -71,7 +71,11 @@ return [
                 [
                     'title' => 'Module',
                     'route' => 'generate.index'
-                ]
+                ],
+                [
+                    'title' => 'Cấu hình hệ thống',
+                    'route' => 'system.index'
+                ],
             ]
         ]
     ]

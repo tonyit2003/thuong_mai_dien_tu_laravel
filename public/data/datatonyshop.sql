@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 11, 2024 lúc 05:41 PM
+-- Thời gian đã tạo: Th8 16, 2024 lúc 05:31 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -212,7 +212,6 @@ INSERT INTO `attribute_catalogue_language` (`attribute_catalogue_id`, `language_
 (1, 1, 'Màu sắc', NULL, NULL, NULL, NULL, NULL, 'mau-sac', '2024-07-29 05:53:43', '2024-07-29 05:53:43'),
 (2, 1, 'Chất liệu', NULL, NULL, NULL, NULL, NULL, 'chat-lieu', '2024-07-29 05:54:18', '2024-07-29 05:54:18'),
 (1, 2, 'Color', NULL, NULL, NULL, NULL, NULL, 'color', '2024-07-31 04:24:47', '2024-07-31 04:24:47'),
-(2, 3, '材料', NULL, NULL, NULL, NULL, NULL, 'chat-lieu-cn', '2024-07-31 04:35:28', '2024-07-31 04:35:28'),
 (2, 2, 'Material', NULL, NULL, NULL, NULL, NULL, 'material-en', '2024-07-31 05:00:15', '2024-07-31 05:00:15'),
 (3, 1, 'Chất liệu', NULL, NULL, NULL, NULL, NULL, 'chat-lieu', '2024-08-02 01:03:27', '2024-08-02 01:03:27'),
 (4, 1, 'Kích thước', NULL, NULL, NULL, NULL, NULL, 'kich-thuoc', '2024-08-02 01:03:38', '2024-08-02 01:03:38'),
@@ -1100,12 +1099,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-08-06 02:04:27', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-08-06 02:04:27', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
-(3, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-07-03 01:54:07', '2024-08-01 23:06:14', '2024-08-01 23:06:14', 1, 'Ngôn ngữ tiếng Trung', 0),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-08-16 08:11:24', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-08-16 08:11:24', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
-(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0);
+(6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0),
+(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/china.png', 201014, '2024-08-16 07:28:53', '2024-08-16 08:11:24', NULL, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1183,7 +1182,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (62, '2024_08_11_124203_add_variant_to_product_table', 41),
 (63, '2024_08_11_135808_add_code_made_in_price_to_products_table', 42),
 (64, '2024_08_11_142029_add_attribute_value_to_product_table', 43),
-(65, '2024_08_11_143853_add_variant_to_product_table', 44);
+(65, '2024_08_11_143853_add_variant_to_product_table', 44),
+(66, '2024_08_14_145659_create_system_table', 45),
+(67, '2024_08_14_161451_create_systems_table', 46);
 
 -- --------------------------------------------------------
 
@@ -1807,7 +1808,98 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('qjaAj6LxvPJAjhWVgsZ7iTYwglLIoAgUw9FrQAC8', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRFNoNzV2aFRXN1RqTWVKOEtwNEtGbmZmaVU2QmR2QkllMEpZQVBNdSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MzoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3Byb2R1Y3QvaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1723389599);
+('MYg1t3IwsA3lYZKl3GWXFrNpJNh6yDKkMdjjmqGv', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSVY4alRyanNtTUpEaVRHcG1NeFV2cklGYUJCYWYyU2RBZW9tT3I4ViI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MjoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3N5c3RlbS9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1723822234);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `systems`
+--
+
+CREATE TABLE `systems` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `language_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `keyword` varchar(50) NOT NULL,
+  `content` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `systems`
+--
+
+INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `created_at`, `updated_at`) VALUES
+(1, 1, 201014, 'homepage_company', 'Tony Company', NULL, NULL),
+(2, 1, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
+(3, 1, 201014, 'homepage_slogan', 'Tony Company', NULL, NULL),
+(4, 1, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/luffy_circle.png', NULL, NULL),
+(5, 1, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL),
+(6, 1, 201014, 'homepage_copyright', 'Tony Company', NULL, NULL),
+(7, 1, 201014, 'homepage_website', 'open', NULL, NULL),
+(8, 1, 201014, 'contact_office', '11 Đường số 27, Sơn Kỳ, Tân Phú, Hồ Chí Minh, Việt Nam', NULL, NULL),
+(9, 1, 201014, 'contact_address', '11 Đường số 27, Sơn Kỳ, Tân Phú, Hồ Chí Minh, Việt Nam', NULL, NULL),
+(10, 1, 201014, 'contact_hotline', '0123456789', NULL, NULL),
+(11, 1, 201014, 'contact_technical_phone', '0123456789', NULL, NULL),
+(12, 1, 201014, 'contact_sell_phone', '0123456789', NULL, NULL),
+(13, 1, 201014, 'contact_phone', '0123456789', NULL, NULL),
+(14, 1, 201014, 'contact_fax', '943', NULL, NULL),
+(15, 1, 201014, 'contact_email', 'tonycompany@gmail.com', NULL, NULL),
+(16, 1, 201014, 'contact_tax', '943', NULL, NULL),
+(17, 1, 201014, 'contact_website', 'tonyshop.vn', NULL, NULL),
+(18, 1, 201014, 'contact_map', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4648.830339913121!2d106.6262624757035!3d10.803509158692233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bfd56e5e211%3A0xc0c7a099415a25f5!2zMTEgxJDGsOG7nW5nIHPhu5EgMjcsIFPGoW4gS-G7sywgVMOibiBQaMO6LCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e1!3m2!1svi!2s!4v1723706582173!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', NULL, NULL),
+(19, 1, 201014, 'seo_meta_title', 'Tony Company', NULL, NULL),
+(20, 1, 201014, 'seo_meta_keyword', 'Tony Company', NULL, NULL),
+(21, 1, 201014, 'seo_meta_description', 'Tony Company', NULL, NULL),
+(22, 1, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL),
+(23, 1, 201014, 'homepage_short', '<p>VietNam</p>\r\n\r\n<p><img alt=\"\" src=\"/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png\" style=\"width: 512px; height: 512px;\" /></p>\r\n<ddict-div></ddict-div>', NULL, NULL),
+(24, 2, 201014, 'homepage_company', 'Tony Company', NULL, NULL),
+(25, 2, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
+(26, 2, 201014, 'homepage_slogan', 'Tony Company', NULL, NULL),
+(27, 2, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/thoi-su/united-kingdom.png', NULL, NULL),
+(28, 2, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png', NULL, NULL),
+(29, 2, 201014, 'homepage_copyright', 'Tony Company', NULL, NULL),
+(30, 2, 201014, 'homepage_website', 'open', NULL, NULL),
+(31, 2, 201014, 'homepage_short', '<p>english infomation</p>\r\n<ddict-div></ddict-div>', NULL, NULL),
+(32, 2, 201014, 'contact_office', 'TanPhu, HoChiMinh City', NULL, NULL),
+(33, 2, 201014, 'contact_address', 'TanPhu, HoChiMinh City', NULL, NULL),
+(34, 2, 201014, 'contact_hotline', '0123456789', NULL, NULL),
+(35, 2, 201014, 'contact_technical_phone', '0123456789', NULL, NULL),
+(36, 2, 201014, 'contact_sell_phone', '0123456789', NULL, NULL),
+(37, 2, 201014, 'contact_phone', '0123456789', NULL, NULL),
+(38, 2, 201014, 'contact_fax', '943', NULL, NULL),
+(39, 2, 201014, 'contact_email', 'tonycompany@gmail.com', NULL, NULL),
+(40, 2, 201014, 'contact_tax', '943', NULL, NULL),
+(41, 2, 201014, 'contact_website', 'tonyshop.vn', NULL, NULL),
+(42, 2, 201014, 'contact_map', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4648.830339913121!2d106.6262624757035!3d10.803509158692233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bfd56e5e211%3A0xc0c7a099415a25f5!2zMTEgxJDGsOG7nW5nIHPhu5EgMjcsIFPGoW4gS-G7sywgVMOibiBQaMO6LCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e1!3m2!1svi!2s!4v1723706582173!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', NULL, NULL),
+(43, 2, 201014, 'seo_meta_title', 'Tony Company', NULL, NULL),
+(44, 2, 201014, 'seo_meta_keyword', 'Tony Company', NULL, NULL),
+(45, 2, 201014, 'seo_meta_description', 'Tony Company', NULL, NULL),
+(46, 2, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png', NULL, NULL),
+(47, 7, 201014, 'homepage_company', '托尼公司', NULL, NULL),
+(48, 7, 201014, 'homepage_brand', '托尼公司', NULL, NULL),
+(49, 7, 201014, 'homepage_slogan', '托尼公司', NULL, NULL),
+(50, 7, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL),
+(51, 7, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/luffy_circle.png', NULL, NULL),
+(52, 7, 201014, 'homepage_copyright', '托尼公司', NULL, NULL),
+(53, 7, 201014, 'homepage_website', 'open', NULL, NULL),
+(54, 7, 201014, 'homepage_short', '<p>托尼公司托尼公司托尼公司托尼公司托尼公司托尼公司</p>\r\n<ddict-div></ddict-div><ddict-div></ddict-div>', NULL, NULL),
+(55, 7, 201014, 'contact_office', '托尼公司', NULL, NULL),
+(56, 7, 201014, 'contact_address', '托尼公司', NULL, NULL),
+(57, 7, 201014, 'contact_hotline', '0123456789', NULL, NULL),
+(58, 7, 201014, 'contact_technical_phone', '0123456789', NULL, NULL),
+(59, 7, 201014, 'contact_sell_phone', '0123456789', NULL, NULL),
+(60, 7, 201014, 'contact_phone', '0123456789', NULL, NULL),
+(61, 7, 201014, 'contact_fax', '943', NULL, NULL),
+(62, 7, 201014, 'contact_email', '托尼公司', NULL, NULL),
+(63, 7, 201014, 'contact_tax', '943', NULL, NULL),
+(64, 7, 201014, 'contact_website', '托尼公司', NULL, NULL),
+(65, 7, 201014, 'contact_map', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4648.830339913121!2d106.6262624757035!3d10.803509158692233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bfd56e5e211%3A0xc0c7a099415a25f5!2zMTEgxJDGsOG7nW5nIHPhu5EgMjcsIFPGoW4gS-G7sywgVMOibiBQaMO6LCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e1!3m2!1svi!2s!4v1723706582173!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', NULL, NULL),
+(66, 7, 201014, 'seo_meta_title', '托尼公司', NULL, NULL),
+(67, 7, 201014, 'seo_meta_keyword', '托尼公司', NULL, NULL),
+(68, 7, 201014, 'seo_meta_description', '托尼公司', NULL, NULL),
+(69, 7, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12825,6 +12917,14 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
+-- Chỉ mục cho bảng `systems`
+--
+ALTER TABLE `systems`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `systems_language_id_foreign` (`language_id`),
+  ADD KEY `systems_user_id_foreign` (`user_id`);
+
+--
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
@@ -12891,13 +12991,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT cho bảng `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -12946,6 +13046,12 @@ ALTER TABLE `product_variant_language`
 --
 ALTER TABLE `routers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+
+--
+-- AUTO_INCREMENT cho bảng `systems`
+--
+ALTER TABLE `systems`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
@@ -13102,6 +13208,13 @@ ALTER TABLE `product_variant_language`
 ALTER TABLE `provinces`
   ADD CONSTRAINT `provinces_administrative_region_id_fkey` FOREIGN KEY (`administrative_region_id`) REFERENCES `administrative_regions` (`id`),
   ADD CONSTRAINT `provinces_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`);
+
+--
+-- Các ràng buộc cho bảng `systems`
+--
+ALTER TABLE `systems`
+  ADD CONSTRAINT `systems_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `systems_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `users`

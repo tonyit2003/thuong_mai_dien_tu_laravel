@@ -88,10 +88,10 @@ class ProductService extends BaseService implements ProductServiceInterface
                 $this->updateRouter($product, $request, $this->controllerName, $languageId);
                 // lặp qua từng ProductVariant liên quan đến $product. (1 Product có nhiều ProductVariant)
                 $product->product_variants()->each(function ($query) {
-                    // detach() => xóa các bản ghi trong bảng pivot
+                    // detach() => xóa các bản ghi trong bảng pivot liên quan đến $product
                     $query->languages()->detach();
                     $query->attributes()->detach();
-                    // delete() => xóa các bản ghi trên bảng đang chỉ định
+                    // delete() => xóa các bản ghi trên bảng đang chỉ định liên quan đến $product
                     $query->delete();
                 });
                 $this->createVariant($product, $request, $languageId);

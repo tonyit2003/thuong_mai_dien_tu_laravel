@@ -509,3 +509,26 @@ a {
 .updateVariant .image {
     height: 150px;
 }
+
+.system-link {
+    font-weight: normal;
+    color: #1ab394;
+    font-style: italic;
+}
+
+.system-title {
+    font-weight: normal;
+    color: red;
+    font-style: italic;
+}
+
+.system-textarea {
+    height: 100px !important;
+}
+
+.system-flag {
+    padding-bottom: 10px;
+    width: 35px;
+    height: 33px;
+    margin-right: 10px;
+}

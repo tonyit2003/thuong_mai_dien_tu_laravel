@@ -3,7 +3,7 @@
 namespace App\Repositories\Interfaces;
 
 /**
- * Interface RouterRepositoryInterface
+ * Interface SystemRepositoryInterface
  * @package App\Repositories\Interfaces
  */
-interface RouterRepositoryInterface {}
+interface SystemRepositoryInterface {}

@@ -10,7 +10,7 @@ interface BaseRepositoryInterface
 {
     public function all($relation = []);
     public function findById($modelId, $column, $relation);
-    public function findByCondition($condition = []);
+    public function findByCondition($condition = [], $flag = false);
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = []);
     public function create($payload = []);
     public function createBatch($payload = []);
@@ -18,6 +18,7 @@ interface BaseRepositoryInterface
     public function update($id = 0, $payload = []);
     public function updateByWhereIn($whereInField = '', $whereIn = [], $payload = []);
     public function updateByWhere($condition = [], $payload = []);
+    public function updateOrInsert($payload = [], $condition = []);
     public function delete($id = 0);
     public function forceDelete($id = 0);
     public function forceDeleteByCondition($condition = []);

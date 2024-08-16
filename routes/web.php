@@ -20,6 +20,8 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\AttributeCatalogueController;
 use App\Http\Controllers\Backend\AttributeController;
+use App\Http\Controllers\Backend\SystemController;
+
 // @@use-controller@@
 
 Route::get('/', function () {
@@ -111,6 +113,14 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/update', [GenerateController::class, 'update'])->name('generate.update')->where(['id' => '[0-9]+']);
         Route::get('{id}/delete', [GenerateController::class, 'delete'])->name('generate.delete')->where(['id' => '[0-9]+']);
         Route::post('{id}/destroy', [GenerateController::class, 'destroy'])->name('generate.destroy')->where(['id' => '[0-9]+']);
+    });
+
+    // SYSTEM
+    Route::group(['prefix' => 'system'], function () {
+        Route::get('index', [SystemController::class, 'index'])->name('system.index');
+        Route::post('store', [SystemController::class, 'store'])->name('system.store');
+        Route::get('{languageId}/translate', [SystemController::class, 'translate'])->name('system.translate')->where(['languageId' => '[0-9]+']);
+        Route::post('{languageId}/saveTranslate', [SystemController::class, 'saveTranslate'])->name('system.save.translate')->where(['languageId' => '[0-9]+']);
     });
 
     // PRODUCT CATALOGUE

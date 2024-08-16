@@ -90,6 +90,15 @@ class BaseRepository implements BaseRepositoryInterface
         return $query->update($payload);
     }
 
+    public function updateOrInsert($payload = [], $condition = [])
+    {
+        // updateOrInsert() => kiểm tra xem bản ghi có tồn tại trong cơ sở dữ liệu hay không ($condition). Nếu có, nó sẽ cập nhật bản ghi đó; nếu không, nó sẽ chèn một bản ghi mới.
+        // $condition => Điều kiện tìm kiếm
+        // $payload => Giá trị để cập nhật hoặc chèn
+        // Chỉ có thể chèn hoặc cập nhật một bản ghi duy nhất.
+        return $this->model->updateOrInsert($condition, $payload);
+    }
+
     // xóa mềm (thêm cột delete_at trong bảng users và thêm SoftDeletes trong Model\User)
     public function delete($id = 0)
     {
@@ -123,7 +132,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     // tìm kiếm một bản ghi từ cơ sở dữ liệu dựa trên các điều kiện
-    public function findByCondition($condition = [])
+    public function findByCondition($condition = [], $flag = false)
     {
         // Khởi tạo một đối tượng truy vấn mới từ model
         $query = $this->model->newQuery();
@@ -134,6 +143,6 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         // Trả về bản ghi đầu tiên tìm được
-        return $query->first();
+        return $flag == false ? $query->first() : $query->get();
     }
 }
