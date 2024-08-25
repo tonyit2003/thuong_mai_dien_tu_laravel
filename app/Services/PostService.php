@@ -42,7 +42,8 @@ class PostService extends BaseService implements PostServiceInterface
             ['post_catalogue_post', 'post_catalogue_post.post_id', '=', 'posts.id']
         ];
         $orderBy = [
-            'posts.id', 'DESC'
+            'posts.id',
+            'DESC'
         ];
         $extend = [
             'path' => 'post/index',
@@ -83,36 +84,6 @@ class PostService extends BaseService implements PostServiceInterface
                 $this->updateCatalogueForPost($post, $request);
                 $this->updateRouter($post, $request, $this->controllerName, $languageId);
             }
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatus($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-            $this->postRepository->update($post['modelId'], $payload);
-            // $this->changeUserStatus($post);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatusAll($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = $post['value'];
-            $this->postRepository->updateByWhereIn('id', $post['id'], $payload);
-            // $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {

@@ -44,7 +44,8 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             ['post_catalogue_language', 'post_catalogue_language.post_catalogue_id', '=', 'post_catalogues.id']
         ];
         $orderBy = [
-            'post_catalogues.lft', 'ASC'
+            'post_catalogues.lft',
+            'ASC'
         ];
         $extend = ['path' => 'post/catalogue/index'];
         return $this->postCatalogueRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, [], $orderBy);
@@ -93,34 +94,6 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             ]);
             $this->nestedset($this->nestedset);
 
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatus($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-            $this->postCatalogueRepository->update($post['modelId'], $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatusAll($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = $post['value'];
-            $this->postCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {

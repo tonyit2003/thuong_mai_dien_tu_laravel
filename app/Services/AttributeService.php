@@ -88,34 +88,6 @@ class AttributeService extends BaseService implements AttributeServiceInterface
         }
     }
 
-    public function updateStatus($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-            $this->attributeRepository->update($post['modelId'], $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatusAll($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = $post['value'];
-            $this->attributeRepository->updateByWhereIn('id', $post['id'], $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
     public function delete($id)
     {
         DB::beginTransaction();

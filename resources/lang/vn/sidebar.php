@@ -60,6 +60,17 @@ return [
             ]
         ],
         [
+            'title' => 'Menu',
+            'icon' => 'fa fa-bars',
+            'name' => ['menu'],
+            'subModule' => [
+                [
+                    'title' => 'Cài đặt menu',
+                    'route' => 'menu.index'
+                ],
+            ]
+        ],
+        [
             'title' => 'Cấu hình chung',
             'icon' => 'fa fa-cog',
             'name' => ['language', 'generate', 'system'],

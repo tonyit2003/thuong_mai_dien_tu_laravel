@@ -81,3 +81,49 @@ if (!function_exists('renderSystemSelect')) {
         ';
     }
 }
+
+if (!function_exists('recursive')) {
+    function recursive($data = [], $parentId = 0)
+    {
+        $temp = [];
+        if (!is_null($data) && count($data)) {
+            foreach ($data as $key => $val) {
+                if ($val->parent_id == $parentId) {
+                    $temp[] = [
+                        'item' => $val,
+                        'children' => recursive($data, $val->id)
+                    ];
+                }
+            }
+        }
+        return $temp;
+    }
+}
+
+if (!function_exists('recursive_menu')) {
+    function recursive_menu($data = [])
+    {
+        $html = "";
+        if (count($data)) {
+            foreach ($data as $key => $val) {
+                $itemId = $val['item']->id;
+                $itemName = $val['item']->languages->first()->pivot->name;
+                $itemUrl = route('menu.children', $itemId);
+                $title = __('form.submenu_management');
+
+                $html .= "<li class='dd-item' data-id='$itemId'>";
+                $html .= "<div class='dd-handle'>";
+                $html .= "<span class='label label-info'><i class='fa fa-arrows'></i></span> $itemName";
+                $html .= "</div>";
+                $html .= "<a class='create-children-menu' href='$itemUrl'> $title </a>";
+                if (count($val['children'])) {
+                    $html .= "<ol class='dd-list'>";
+                    $html .= recursive_menu($val['children']);
+                    $html .= "</ol>";
+                }
+                $html .= "</li>";
+            }
+        }
+        return $html;
+    }
+}

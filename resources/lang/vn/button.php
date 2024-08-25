@@ -20,4 +20,6 @@ return [
     'delete_product' => 'Xóa sản phẩm',
     'add_variant' => 'Thêm phiên bản mới',
     'cancel' => 'Hủy bỏ',
+    'create_menu_location' => 'Tạo vị trí hiển thị',
+    'close' => 'Đóng',
 ];

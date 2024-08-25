@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
  * Class UserCatalogueService
  * @package App\Services
  */
-class UserCatalogueService implements UserCatalogueServiceInterface
+class UserCatalogueService extends BaseService implements UserCatalogueServiceInterface
 {
     protected $userCatalogueRepository;
     protected $userRepository;
@@ -55,36 +55,6 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         try {
             $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
             $this->userCatalogueRepository->update($id, $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatus($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-            $this->userCatalogueRepository->update($post['modelId'], $payload);
-            $this->changeUserStatus($post);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatusAll($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = $post['value'];
-            $this->userCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
-            $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {

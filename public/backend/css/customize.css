@@ -532,3 +532,85 @@ a {
     height: 33px;
     margin-right: 10px;
 }
+
+.menuContainer .select2-container {
+    width: 100% !important;
+}
+
+.mb10 {
+    margin-bottom: 10px !important;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.modal label {
+    font-size: 1.2rem;
+}
+
+#accordion {
+    margin-bottom: 0 !important;
+}
+
+#accordion .panel-title {
+    font-size: 1.3rem;
+    margin: 0 !important;
+}
+
+#accordion .panel-title a {
+    display: block;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.error {
+    font-style: italic;
+    margin-top: 5px;
+    color: red;
+    font-size: 1.1rem;
+}
+
+.form-error {
+    font-size: 1.3rem;
+}
+
+.m0 {
+    margin: 0 !important;
+}
+
+.m-item label {
+    margin: 0;
+    font-weight: normal;
+    color: blue;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.m-item {
+    margin-bottom: 10px;
+}
+
+.menu-list .pagina tion {
+    margin-bottom: 0 !important;
+}
+
+.none {
+    display: none;
+}
+
+.dd-handle {
+    position: relative;
+    padding-right: 125px !important;
+}
+
+.create-children-menu {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    z-index: 100;
+}
+
+#nestable2 .dd-item > button {
+    z-index: 9999;
+}

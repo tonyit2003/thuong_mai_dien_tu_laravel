@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\BaseServiceInterface;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
@@ -69,5 +71,37 @@ class BaseService implements BaseServiceInterface
     public function formatJson($request, $inputName)
     {
         return $request->input($inputName) && !empty($request->input($inputName)) ? json_encode($request->input($inputName)) : '';
+    }
+
+    public function updateStatus($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $model = lcfirst($post['model']);
+            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
+            $this->{$model . "Repository"}->update($post['modelId'], $payload);
+            // $this->changeUserStatus($post);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function updateStatusAll($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $model = lcfirst($post['model']);
+            $payload[$post['field']] = $post['value'];
+            $this->{$model . "Repository"}->updateByWhereIn('id', $post['id'], $payload);
+            // $this->changeUserStatus($post);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 }

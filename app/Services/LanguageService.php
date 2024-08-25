@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
  * Class LanguageService
  * @package App\Services
  */
-class LanguageService implements LanguageServiceInterface
+class LanguageService extends BaseService implements LanguageServiceInterface
 {
     protected $languageRepository;
     protected $routerRepository;
@@ -56,34 +56,6 @@ class LanguageService implements LanguageServiceInterface
         try {
             $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
             $this->languageRepository->update($id, $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatus($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-            $this->languageRepository->update($post['modelId'], $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatusAll($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = $post['value'];
-            $this->languageRepository->updateByWhereIn('id', $post['id'], $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {

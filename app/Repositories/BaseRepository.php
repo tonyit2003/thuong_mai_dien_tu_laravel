@@ -67,7 +67,12 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function update($id = 0, $payload = [])
     {
-        return $this->findById($id)->update($payload);
+        // fill() =>  gán các giá trị từ mảng $payload vào các thuộc tính của bản ghi tìm thấy
+        // save() => thực hiện câu lệnh UPDATE để cập nhật các trường đã được gán trong bước fill.
+        $model = $this->findById($id);
+        $model->fill($payload);
+        $model->save();
+        return $model;
     }
 
     public function updateByWhereIn($whereInField = '', $whereIn = [], $payload = [])
@@ -132,7 +137,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     // tìm kiếm một bản ghi từ cơ sở dữ liệu dựa trên các điều kiện
-    public function findByCondition($condition = [], $flag = false)
+    public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC'])
     {
         // Khởi tạo một đối tượng truy vấn mới từ model
         $query = $this->model->newQuery();
@@ -141,6 +146,9 @@ class BaseRepository implements BaseRepositoryInterface
         foreach ($condition as $key => $val) {
             $query->where($val[0], $val[1], $val[2]);
         }
+
+        $query->with($relation);
+        $query->orderBy($orderBy[0], $orderBy[1]);
 
         // Trả về bản ghi đầu tiên tìm được
         return $flag == false ? $query->first() : $query->get();

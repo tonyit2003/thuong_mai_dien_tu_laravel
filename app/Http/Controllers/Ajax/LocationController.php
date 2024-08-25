@@ -26,12 +26,12 @@ class LocationController extends Controller
             // Lấy province theo code và các district theo province
             $provinces = $this->provinceRepository->findById($get['data']['location_id'], ['code', 'name'], ['districts']);
             $districts = $provinces->districts;
-            $html = $this->renderHtml($districts, '[Chọn quận/huyện]');
+            $html = $this->renderHtml($districts, __('form.select_district'));
         } else if ($get['target'] == 'ward') {
             // Lấy district theo code và các ward theo district
             $districts = $this->districtRepository->findById($get['data']['location_id'], ['code', 'name'], ['wards']);
             $wards = $districts->wards;
-            $html = $this->renderHtml($wards, '[Chọn phường/xã]');
+            $html = $this->renderHtml($wards, __('form.select_ward'));
         }
 
         // Cách khác để lấy danh sách district

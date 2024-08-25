@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
  * Class UserService
  * @package App\Services
  */
-class UserService implements UserServiceInterface
+class UserService extends BaseService implements UserServiceInterface
 {
     protected $userRepository;
 
@@ -58,34 +58,6 @@ class UserService implements UserServiceInterface
             $payload = $request->except('_token', 'send'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
             $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
             $this->userRepository->update($id, $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatus($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
-            $this->userRepository->update($post['modelId'], $payload);
-            DB::commit();
-            return true;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-    public function updateStatusAll($post = [])
-    {
-        DB::beginTransaction();
-        try {
-            $payload[$post['field']] = $post['value'];
-            $this->userRepository->updateByWhereIn('id', $post['id'], $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {

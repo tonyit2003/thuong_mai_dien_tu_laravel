@@ -25,4 +25,8 @@ return [
     'quantity' => 'Số lượng',
     'price' => 'Giá tiền',
     'sku' => 'SKU',
+    'menu_name' => 'Tên menu',
+    'keyword' => 'Từ khóa',
+    'creation_date' => 'Ngày tạo',
+    'creation_user' => 'Người tạo',
 ];

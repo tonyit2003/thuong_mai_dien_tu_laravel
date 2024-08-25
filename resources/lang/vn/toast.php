@@ -11,4 +11,6 @@ return [
     'destroy_failed' => 'Xóa bản ghi không thành công',
     'permission_update_success' => 'Cập nhật quyền thành công',
     'permission_update_failed' => 'Cập nhật quyền không thành công',
+    'create_menu_catalogue_success' => 'Tạo nhóm menu thành công.',
+    'create_menu_catalogue_failed' => 'Có vấn đề xảy ra, Hãy thử lại.',
 ];

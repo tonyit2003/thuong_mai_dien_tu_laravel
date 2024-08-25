@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 16, 2024 lúc 05:31 PM
+-- Thời gian đã tạo: Th8 21, 2024 lúc 01:33 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -1109,6 +1109,30 @@ INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `menu_catalogues`
+--
+
+CREATE TABLE `menu_catalogues` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `keyword` varchar(255) NOT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 1,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `menu_catalogues`
+--
+
+INSERT INTO `menu_catalogues` (`id`, `name`, `keyword`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Menu chính', 'main-menu', 1, NULL, '2024-08-19 01:55:02', '2024-08-19 01:55:02'),
+(2, 'Menu chân trang', 'footer-menu', 1, NULL, '2024-08-19 01:55:28', '2024-08-19 01:55:28');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `migrations`
 --
 
@@ -1184,7 +1208,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (64, '2024_08_11_142029_add_attribute_value_to_product_table', 43),
 (65, '2024_08_11_143853_add_variant_to_product_table', 44),
 (66, '2024_08_14_145659_create_system_table', 45),
-(67, '2024_08_14_161451_create_systems_table', 46);
+(67, '2024_08_14_161451_create_systems_table', 46),
+(68, '2024_08_19_055752_create_menu_catalogue_table', 47),
+(69, '2024_08_19_060314_create_menu_catalogues_table', 48);
 
 -- --------------------------------------------------------
 
@@ -1264,7 +1290,11 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 (45, 'Xem dách sách thuộc tính', 'attribute.index', '2024-07-31 05:05:23', '2024-07-31 05:05:23'),
 (46, 'Thêm mới thuộc tính', 'attribute.create', '2024-07-31 05:12:42', '2024-07-31 05:12:42'),
 (47, 'Sửa thuộc tính', 'attribute.update', '2024-07-31 05:12:53', '2024-07-31 05:12:53'),
-(48, 'Xóa thuộc tính', 'attribute.destroy', '2024-07-31 05:50:55', '2024-07-31 05:50:55');
+(48, 'Xóa thuộc tính', 'attribute.destroy', '2024-07-31 05:50:55', '2024-07-31 05:50:55'),
+(49, 'Hiển thị danh sách menu', 'menu.index', '2024-08-17 21:33:31', '2024-08-17 21:33:31'),
+(50, 'Thêm mới menu', 'menu.create', '2024-08-17 21:33:46', '2024-08-17 21:33:46'),
+(51, 'Sửa menu', 'menu.update', '2024-08-17 21:33:59', '2024-08-17 21:33:59'),
+(52, 'Xóa menu', 'menu.destroy', '2024-08-17 21:34:13', '2024-08-17 21:34:13');
 
 -- --------------------------------------------------------
 
@@ -1450,7 +1480,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attributeCatalogue`, `code`, `made_in`, `price`, `attribute`, `variant`) VALUES
-(20, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-11 07:49:34', '2024-08-11 08:19:59', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}');
+(20, 1, 'backend/img/no-photo.png', NULL, '', 0, -1, 0, 201014, NULL, '2024-08-11 07:49:34', '2024-08-17 22:10:41', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}');
 
 -- --------------------------------------------------------
 
@@ -1808,7 +1838,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('MYg1t3IwsA3lYZKl3GWXFrNpJNh6yDKkMdjjmqGv', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSVY4alRyanNtTUpEaVRHcG1NeFV2cklGYUJCYWYyU2RBZW9tT3I4ViI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MjoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL3N5c3RlbS9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1723822234);
+('BMYudVCvha5YKmDoPvoHHqPdVYIr2wBZjUxPXx33', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUFR2RG5ZVDFvcHhxamRNQUhuaUUxdUJMNVBsQ0lUUDhlTkhXcGJuUiI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL21lbnUvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1724239711);
 
 -- --------------------------------------------------------
 
@@ -2034,7 +2064,11 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 45),
 (1, 46),
 (1, 47),
-(1, 48);
+(1, 48),
+(1, 49),
+(1, 50),
+(1, 51),
+(1, 52);
 
 -- --------------------------------------------------------
 
@@ -12782,6 +12816,13 @@ ALTER TABLE `languages`
   ADD KEY `languages_user_id_foreign` (`user_id`);
 
 --
+-- Chỉ mục cho bảng `menu_catalogues`
+--
+ALTER TABLE `menu_catalogues`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `menu_catalogues_keyword_unique` (`keyword`);
+
+--
 -- Chỉ mục cho bảng `migrations`
 --
 ALTER TABLE `migrations`
@@ -12994,16 +13035,22 @@ ALTER TABLE `languages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT cho bảng `menu_catalogues`
+--
+ALTER TABLE `menu_catalogues`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
