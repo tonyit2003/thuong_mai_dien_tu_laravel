@@ -140,6 +140,11 @@ return [
     'menu_list_description_3' => 'Dễ dàng khởi tạo menu con bằng cách ấn vào nút <span class="text-success">Quản lý menu con</span>',
     'menu_list_description_4' => '<span class="text-danger">Hỗ trợ tới danh mục con cấp 5</span>',
     'main_menu' => 'Menu chính',
-    'update_menu' => 'Cập nhật menu',
+    'update_menu' => 'Cập nhật menu cấp 1',
     'submenu_management' => 'Quản lý menu con',
+    'menu_translate_description_1' => 'Hệ thống tự lấy ra bản dịch của các menu <span class="text-success">nếu có</span>.',
+    'menu_translate_description_2' => 'Cập nhật các thông tin về bản dịch cho các menu của bạn phía bên phải.',
+    'menu_translate_description_3' => '<span class="text-success">Lưu ý:</span> Cập nhật đầy đủ thông tin.',
+    'translate_list' => 'Danh sách bản dịch',
+    'translate_input' => 'Nhập vào bản dịch của bạn...',
 ];

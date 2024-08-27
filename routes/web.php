@@ -93,6 +93,8 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/destroy', [MenuController::class, 'destroy'])->name('menu.destroy')->where(['id' => '[0-9]+']);
         Route::get('{id}/children', [MenuController::class, 'children'])->name('menu.children')->where(['id' => '[0-9]+']);
         Route::post('{id}/saveChildren', [MenuController::class, 'saveChildren'])->name('menu.save.children')->where(['id' => '[0-9]+']);
+        Route::get('{languageId}/{id}/translate', [MenuController::class, 'translate'])->name('menu.translate')->where(['languageId' => '[0-9]+', 'id' => '[0-9]+']);
+        Route::post('{languageId}/saveTranslate', [MenuController::class, 'saveTranslate'])->name('menu.translate.save')->where(['languageId' => '[0-9]+']);
     });
 
     // LANGUAGE

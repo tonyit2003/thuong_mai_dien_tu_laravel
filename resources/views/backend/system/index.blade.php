@@ -9,15 +9,20 @@
 <form action="{{ $url }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
-
         <div class="uk-flex uk-flex-middle">
             @php
                 $selectLanguage =
                     isset($config['method']) && $config['method'] == 'translate' ? $languageId : $languageCurrent;
             @endphp
             @foreach ($allLanguages as $language)
+                @php
+                    $url =
+                        $language->id == $languageCurrent
+                            ? route('system.index')
+                            : route('system.translate', ['languageId' => $language->id]);
+                @endphp
                 <a class="image img-cover system-flag language-item {{ $language->id == $selectLanguage ? 'active' : '' }}"
-                    href="{{ route('system.translate', ['languageId' => $language->id]) }}">
+                    href="{{ $url }}">
                     <img src="{{ $language->image }}" alt="">
                 </a>
             @endforeach

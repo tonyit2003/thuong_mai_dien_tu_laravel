@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 21, 2024 lúc 01:33 PM
+-- Thời gian đã tạo: Th8 27, 2024 lúc 05:16 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -1109,6 +1109,53 @@ INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `menus`
+--
+
+CREATE TABLE `menus` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
+  `menu_catalogue_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `lft` int(11) NOT NULL DEFAULT 0,
+  `rgt` int(11) NOT NULL DEFAULT 0,
+  `level` int(11) NOT NULL DEFAULT 0,
+  `type` varchar(50) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `album` text DEFAULT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 1,
+  `order` int(11) NOT NULL DEFAULT 0,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `menus`
+--
+
+INSERT INTO `menus` (`id`, `parent_id`, `menu_catalogue_id`, `lft`, `rgt`, `level`, `type`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 0, 1, 12, 21, 1, 'dropdown-menu', NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-08-24 05:00:01', '2024-08-26 01:44:55'),
+(2, 6, 1, 24, 31, 3, 'dropdown-menu', NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:01', '2024-08-25 10:05:34'),
+(3, 5, 1, 28, 29, 5, 'dropdown-menu', NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:01', '2024-08-25 10:05:34'),
+(4, 5, 1, 26, 27, 5, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-08-24 05:00:33', '2024-08-25 10:05:34'),
+(5, 2, 1, 25, 30, 4, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:33', '2024-08-26 01:44:48'),
+(6, 7, 1, 23, 32, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:33', '2024-08-26 01:44:48'),
+(7, 0, 1, 22, 33, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-08-24 05:00:33', '2024-08-26 01:44:55'),
+(8, 1, 1, 13, 20, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:52:41', '2024-08-25 10:05:34'),
+(9, 8, 1, 14, 19, 3, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:52:41', '2024-08-26 01:44:52'),
+(10, 9, 1, 15, 18, 4, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:56:33', '2024-08-26 01:44:52'),
+(11, 10, 1, 16, 17, 5, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:58:59', '2024-08-26 01:44:52'),
+(12, 0, 1, 6, 11, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-25 09:29:16', '2024-08-26 01:44:55'),
+(13, 12, 1, 7, 8, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-08-25 09:29:16', '2024-08-26 01:44:56'),
+(14, 12, 1, 9, 10, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-25 09:57:01', '2024-08-26 01:44:56'),
+(22, 0, 2, 2, 3, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-08-27 08:01:20', '2024-08-27 08:01:20'),
+(23, 0, 2, 4, 5, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-08-27 08:01:20', '2024-08-27 08:01:20');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `menu_catalogues`
 --
 
@@ -1127,8 +1174,62 @@ CREATE TABLE `menu_catalogues` (
 --
 
 INSERT INTO `menu_catalogues` (`id`, `name`, `keyword`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Menu chính', 'main-menu', 1, NULL, '2024-08-19 01:55:02', '2024-08-19 01:55:02'),
-(2, 'Menu chân trang', 'footer-menu', 1, NULL, '2024-08-19 01:55:28', '2024-08-19 01:55:28');
+(1, 'Menu chính', 'main-menu', 1, NULL, '2024-08-19 01:55:02', '2024-08-23 08:23:18'),
+(2, 'Menu chân trang', 'footer-menu', 1, NULL, '2024-08-19 01:55:28', '2024-08-23 08:23:17');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `menu_language`
+--
+
+CREATE TABLE `menu_language` (
+  `menu_id` bigint(20) UNSIGNED NOT NULL,
+  `language_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `canonical` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `menu_language`
+--
+
+INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `created_at`, `updated_at`) VALUES
+(2, 1, 'V League 1', 'v-league-1', '2024-08-24 05:00:01', '2024-08-24 05:00:01'),
+(3, 1, 'Premier League', 'premier-league', '2024-08-24 05:00:01', '2024-08-24 05:00:01'),
+(4, 1, 'Champion league', 'champion-league', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
+(5, 1, 'Bóng đá quốc tế', 'bong-da-quoc-te', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
+(6, 1, 'Bóng đá trong nước', 'bong-da-trong-nuoc', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
+(8, 1, 'Điện thoại', 'dien-thoai', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
+(9, 1, 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
+(10, 1, 'SP-TEST 123', 'sp-test', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
+(11, 1, 'Tony', 'https://www.facebook.com/tonyit2003', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
+(14, 1, 'Trang chủ', 'index', '2024-08-25 09:57:01', '2024-08-25 09:57:01'),
+(7, 1, 'Bóng đá', 'bong-da', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
+(1, 1, 'Công nghệ', 'cong-nghe', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
+(12, 1, 'SP-TEST 123', 'sp-test', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
+(13, 1, 'Điện thoại', 'dien-thoai', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
+(12, 2, 'SP-TEST 123 tiếng anh', 'sp-test-en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(13, 2, 'phone', 'phone', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(14, 2, 'home', 'home', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(1, 2, 'Technology123', 'technology123', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(8, 2, 'phone', 'phone', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(9, 2, 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', 'impressions-of-galaxy-z-fold6-and-z-flip6-attract-attention-right-from-the-impressive-durable-design-trendy-color-set-and-many-attractive-incentives', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(10, 2, 'SP-TEST 123 EN', 'sp-test-en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(11, 2, 'Tony en', 'https://www.facebook.com/tonyit2003', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(7, 2, 'Football', 'football', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(6, 2, 'Football en', 'Football en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(2, 2, 'V League 1 en', 'V League 1 en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(5, 2, 'Global football en', 'Global football en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(4, 2, 'Champion league en', 'Champion league en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(3, 2, 'Premier League en', 'Premier League en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
+(22, 1, 'SP-TEST 123', 'sp-test', '2024-08-27 08:01:20', '2024-08-27 08:01:20'),
+(23, 1, 'Sạc Iphone', 'sac-iphone', '2024-08-27 08:01:20', '2024-08-27 08:01:20'),
+(22, 2, 'SP-TEST 123 EN', 'sp-test-en', '2024-08-27 08:01:48', '2024-08-27 08:01:48'),
+(23, 2, 'Sạc Iphone-en', 'sac-iphone-en', '2024-08-27 08:01:48', '2024-08-27 08:01:48'),
+(12, 7, 'SP-TEST 123 cn', 'sp-test-cn', '2024-08-27 08:07:39', '2024-08-27 08:07:39');
 
 -- --------------------------------------------------------
 
@@ -1210,7 +1311,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (66, '2024_08_14_145659_create_system_table', 45),
 (67, '2024_08_14_161451_create_systems_table', 46),
 (68, '2024_08_19_055752_create_menu_catalogue_table', 47),
-(69, '2024_08_19_060314_create_menu_catalogues_table', 48);
+(69, '2024_08_19_060314_create_menu_catalogues_table', 48),
+(70, '2024_08_21_161212_create_menus_table', 49),
+(71, '2024_08_21_162833_create_menu_language_table', 50);
 
 -- --------------------------------------------------------
 
@@ -1354,13 +1457,13 @@ CREATE TABLE `post_catalogues` (
 --
 
 INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `follow`) VALUES
-(52, 0, 4, 15, 1, NULL, NULL, '', 0, 0, 201014, NULL, '2024-07-14 08:21:49', '2024-07-17 10:42:29', -1),
+(52, 0, 4, 15, 1, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:21:49', '2024-08-24 07:53:11', -1),
 (53, 52, 5, 8, 2, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:22:08', '2024-07-15 08:45:02', -1),
 (54, 52, 9, 14, 2, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:23:11', '2024-07-15 08:45:02', -1),
 (55, 54, 12, 13, 3, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:30:11', '2024-07-15 08:45:02', -1),
 (56, 54, 10, 11, 3, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:38:26', '2024-07-15 08:45:02', -1),
 (57, 53, 6, 7, 3, NULL, NULL, '', 1, 0, 201014, NULL, '2024-07-14 08:43:16', '2024-07-15 08:45:02', -1),
-(58, 0, 2, 3, 1, NULL, NULL, '', 0, 0, 201014, NULL, '2024-07-18 12:28:06', '2024-07-19 20:07:13', -1);
+(58, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-07-18 12:28:06', '2024-08-24 07:53:18', -1);
 
 -- --------------------------------------------------------
 
@@ -1392,11 +1495,11 @@ INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name
 (54, 1, 'Bóng đá quốc tế', NULL, NULL, NULL, NULL, NULL, 'bong-da-quoc-te', '2024-07-14 08:23:11', '2024-07-14 08:23:11', NULL),
 (53, 1, 'Bóng đá trong nước', NULL, NULL, NULL, NULL, NULL, 'bong-da-trong-nuoc', '2024-07-14 08:22:46', '2024-07-14 08:22:46', NULL),
 (55, 1, 'Champion league', NULL, NULL, NULL, NULL, NULL, 'champion-league', '2024-07-14 08:30:58', '2024-07-14 08:30:58', NULL),
-(58, 1, 'Công nghệ', NULL, NULL, NULL, NULL, NULL, 'cong-nghe', '2024-07-18 12:28:06', '2024-07-18 12:28:06', NULL),
 (56, 1, 'Premier League', NULL, NULL, NULL, NULL, NULL, 'premier-league', '2024-07-14 08:38:26', '2024-07-14 08:38:26', NULL),
 (57, 1, 'V League 1', NULL, NULL, NULL, NULL, NULL, 'v-league-1', '2024-07-14 08:43:16', '2024-07-14 08:43:16', NULL),
 (52, 2, 'Football', '<p>Football</p>', '<p>Football</p>', 'Football', 'Football', 'Football', 'football', '2024-07-30 20:09:52', '2024-07-30 20:09:52', NULL),
-(58, 2, 'Technology123', '<p>Technology</p>', '<p>Technology</p>', 'Technology', 'Technology', 'Technology', 'technology123', '2024-07-31 04:26:42', '2024-07-31 04:26:42', NULL);
+(58, 2, 'Technology123', '<p>Technology</p>', '<p>Technology</p>', 'Technology', 'Technology', 'Technology', 'technology123', '2024-07-31 04:26:42', '2024-07-31 04:26:42', NULL),
+(58, 1, 'Công nghệ', NULL, NULL, NULL, NULL, NULL, 'cong-nghe', '2024-08-24 07:53:18', '2024-08-24 07:53:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -1480,7 +1583,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attributeCatalogue`, `code`, `made_in`, `price`, `attribute`, `variant`) VALUES
-(20, 1, 'backend/img/no-photo.png', NULL, '', 0, -1, 0, 201014, NULL, '2024-08-11 07:49:34', '2024-08-17 22:10:41', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}');
+(20, 1, 'backend/img/no-photo.png', NULL, '', 0, -1, 0, 201014, NULL, '2024-08-11 07:49:34', '2024-08-24 07:53:59', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}'),
+(26, 2, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-26 19:31:31', '2024-08-26 19:31:31', '[\"1\",\"3\",\"4\"]', 'SacIphone', 'Hàn Quốc', 500000, '{\"1\":[\"2\",\"3\"],\"3\":[\"8\"],\"4\":[\"11\",\"10\"]}', '{\"quantity\":[null,null,null,null],\"sku\":[\"SacIphone-2-8-11\",\"SacIphone-2-8-10\",\"SacIphone-3-8-11\",\"SacIphone-3-8-10\"],\"price\":[\"500.000\",\"400.000\",\"500.000\",\"500.000\"],\"barcode\":[\"bbb\",\"ccc\",null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/united-kingdom.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/Shaw-1720749348.jpg\",null,null]}');
 
 -- --------------------------------------------------------
 
@@ -1511,7 +1615,8 @@ CREATE TABLE `product_catalogues` (
 --
 
 INSERT INTO `product_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-08-09 08:00:56');
+(1, 0, 4, 5, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-08-09 08:00:56'),
+(2, 0, 2, 3, 1, '/thuongmaidientu/public/userfiles/image/cong-nghe/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.jpg', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12(2).jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12(1).jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cover-cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-15.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/D%E1%BA%A6U%20TU%20CUNG%20MINH.png\"]', 1, 1, 0, 201014, NULL, '2024-08-26 19:19:29', '2024-08-26 19:19:29');
 
 -- --------------------------------------------------------
 
@@ -1539,7 +1644,8 @@ CREATE TABLE `product_catalogue_language` (
 --
 
 INSERT INTO `product_catalogue_language` (`product_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Điện thoại', NULL, NULL, NULL, NULL, NULL, 'dien-thoai', '2024-08-09 08:00:57', '2024-08-09 08:00:57', NULL);
+(1, 1, 'Điện thoại', NULL, NULL, NULL, NULL, NULL, 'dien-thoai', '2024-08-09 08:00:57', '2024-08-09 08:00:57', NULL),
+(2, 1, 'Sạc điện thoại', '<ul>\r\n	<li>C&ocirc;ng nghệ PD sạc cho c&aacute;c sản phẩm Apple nhanh ch&oacute;ng</li>\r\n	<li>Cổng Type-C c&ocirc;ng suất 20W gi&uacute;p tiết kiệm nhiều thời gian</li>\r\n	<li>Thiết kế chuẩn thương hiệu Apple nhỏ gọn v&agrave; sang trọng</li>\r\n	<li>Bảo vệ qu&aacute; d&ograve;ng, tr&aacute;nh hiện tượng chập mạch, qu&aacute; nhiệt</li>\r\n</ul>', '<h2><strong>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tiết kiệm tối đa thời gian sạc điện thoại</strong></h2>\r\n\r\n<p>Nhanh ch&oacute;ng, tiết kiệm tối đa thời gian l&agrave; những g&igrave; m&agrave; người d&ugrave;ng iPhone mong đợi ở chiếc sạc pin của m&igrave;nh. Để c&oacute; thể l&agrave;m được điều đ&oacute; th&igrave; việc sử dụng củ sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng l&agrave; điều cần thiết m&agrave; bạn kh&ocirc;ng n&ecirc;n bỏ qua.</p>\r\n\r\n<h3><strong>Thiết kế nhỏ gọn, an to&agrave;n d&ograve;ng điện</strong></h3>\r\n\r\n<p><a href=\"https://cellphones.com.vn/phu-kien/sac-dien-thoai/sac/sac-nhanh-power-delivery.html\" target=\"_blank\" title=\"Củ sạc nhanh\">Củ sạc nhanh</a>&nbsp;Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng được thiết kế si&ecirc;u nhỏ gọn, tinh tế gi&uacute;p bạn c&oacute; thể mang đến bất cứ nơi đ&acirc;u. Chất liệu cao cấp c&ugrave;ng m&agrave;u trắng nổi bật mang đến sự sang trọng v&agrave; độ bền bỉ c&ugrave;ng với thời gian.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-1.jpg\" /></p>\r\n\r\n<p>Củ sạc c&ograve;n c&oacute; khả năng bảo vệ sản phẩm tr&aacute;nh qu&aacute; d&ograve;ng, qu&aacute; điện &aacute;p hay hiện tượng mạch điện bị chập v&agrave; qu&aacute; nhiệt trong qu&aacute; tr&igrave;nh sạc. Sản phẩm được kiểm định khắt khe v&agrave; được cấp chứng chỉ an to&agrave;n ch&aacute;y nổ: ROSH, CE, FCC gi&uacute;p đảm đảm an to&agrave;n cho người sử dụng.</p>\r\n\r\n<p><em>&gt;&gt;&gt;&nbsp;<strong>Xem th&ecirc;m</strong>:&nbsp;<a href=\"https://cellphones.com.vn/de-sac-doi-apple-magsafe-mhxf3.html\" target=\"_blank\">Sạc đ&ocirc;i Apple MagSafe Duo</a>&nbsp;| Ch&iacute;nh h&atilde;ng Apple Việt Nam mang đến một thiết kế sang trọng, vượt trội</em></p>\r\n\r\n<h3><strong>C&ocirc;ng suất sạc nhanh, v&ocirc; c&ugrave;ng tiện &iacute;ch</strong></h3>\r\n\r\n<p>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng c&oacute; c&ocirc;ng suất l&ecirc;n đến 20W. C&ocirc;ng nghệ sạc nhanh Power Delivery (PD) n&agrave;y gi&uacute;p người d&ugrave;ng c&oacute; thể tiết kiệm được nhiều thời gian d&agrave;nh cho việc chờ đợi pin đầy.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-2.jpg\" /></p>\r\n\r\n<p>Ngo&agrave;i ra, sạc c&ograve;n được trang bị cổng Type-C mang đến sự thuận tiện khi sử dụng. C&ocirc;ng nghệ Power Delivery (PD) c&oacute; thể sạc tr&ecirc;n c&aacute;c thiết bị như iPhone 12, iPhone 12 Mini, iPhone 12 Pro, iPhone 12 Pro max hay c&aacute;c d&ograve;ng điện thoại iPhone 11 Series,&hellip;</p>\r\n\r\n<h2><strong>Mua ngay sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tại CellphoneS</strong></h2>\r\n\r\n<p>Để mua sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng với chất lượng đảm bảo, chế độ bảo h&agrave;nh tốt nhất v&agrave; gi&aacute; cả cạnh tranh bạn h&atilde;y đến ngay hệ thống cửa h&agrave;ng của CellphoneS. Để c&oacute; thể tư vấn th&ecirc;m về sản phẩm cũng như h&igrave;nh thức mua h&agrave;ng, bạn h&atilde;y li&ecirc;n hệ tới số hotline hoặc tham khảo th&ecirc;m th&ocirc;ng tin tại website của CellphoneS nh&eacute;. Khi mua sạc&nbsp;&nbsp;iPhone 20W Type-C PD MHJE3ZA tại CellphoneS, kh&aacute;ch h&agrave;ng c&oacute; thể mua trả g&oacute;p với l&atilde;i suất từ 0% c&ugrave;ng với đ&oacute;, sản phẩm sẽ được bảo h&agrave;nh h&iacute;nh h&atilde;ng 12 th&aacute;ng tại trung t&acirc;m bảo h&agrave;nh ủy quyền Cares.vn</p>', NULL, NULL, NULL, 'sac-dien-thoai', '2024-08-26 19:19:29', '2024-08-26 19:19:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -1557,7 +1663,8 @@ CREATE TABLE `product_catalogue_product` (
 --
 
 INSERT INTO `product_catalogue_product` (`product_catalogue_id`, `product_id`) VALUES
-(1, 20);
+(1, 20),
+(2, 26);
 
 -- --------------------------------------------------------
 
@@ -1585,7 +1692,9 @@ CREATE TABLE `product_language` (
 --
 
 INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(20, 1, 'SP-TEST', NULL, NULL, NULL, NULL, NULL, 'sp-test', '2024-08-11 08:19:59', '2024-08-11 08:19:59', NULL);
+(20, 1, 'SP-TEST 123', NULL, NULL, NULL, NULL, NULL, 'sp-test', '2024-08-24 07:53:59', '2024-08-24 07:53:59', NULL),
+(20, 2, 'SP-TEST 123 EN', NULL, NULL, NULL, NULL, NULL, 'sp-test-en', '2024-08-26 09:04:07', '2024-08-26 09:04:07', NULL),
+(26, 1, 'Sạc Iphone', NULL, NULL, NULL, NULL, NULL, 'sac-iphone', '2024-08-26 19:31:31', '2024-08-26 19:31:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -1616,12 +1725,16 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `code`, `quantity`, `sku`, `price`, `barcode`, `file_name`, `file_url`, `album`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(79, 20, '2, 8', 100, '1723387586-2-8', 20000000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
-(80, 20, '3, 8', 100, '1723387586-2-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
-(81, 20, '4, 8', 100, '1723387586-4-8', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
-(82, 20, '2, 9', 100, '1723387586-4-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
-(83, 20, '3, 9', 100, '1723387586-3-8', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59'),
-(84, 20, '4, 9', 100, '1723387586-3-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-11 08:19:59', '2024-08-11 08:19:59');
+(85, 20, '2, 8', 100, '1723387586-2-8', 20000000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
+(86, 20, '3, 8', 100, '1723387586-2-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
+(87, 20, '4, 8', 100, '1723387586-4-8', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
+(88, 20, '2, 9', 100, '1723387586-4-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
+(89, 20, '3, 9', 100, '1723387586-3-8', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
+(90, 20, '4, 9', 100, '1723387586-3-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
+(91, 26, '2, 8, 11', 0, 'SacIphone-2-8-11', 500000, 'bbb', '', '', '/thuongmaidientu/public/userfiles/image/language/china.png,/thuongmaidientu/public/userfiles/image/language/united-kingdom.png,/thuongmaidientu/public/userfiles/image/language/vietnam.png,/thuongmaidientu/public/userfiles/image/language/south-korea.png', 1, 201014, NULL, '2024-08-26 19:31:31', '2024-08-26 19:31:31'),
+(92, 26, '2, 8, 10', 0, 'SacIphone-2-8-10', 400000, 'ccc', '', '', '/thuongmaidientu/public/userfiles/image/thoi-su/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg,/thuongmaidientu/public/userfiles/image/thoi-su/south-korea.png,/thuongmaidientu/public/userfiles/image/thoi-su/Shaw-1720749348.jpg', 1, 201014, NULL, '2024-08-26 19:31:31', '2024-08-26 19:31:31'),
+(93, 26, '3, 8, 11', 0, 'SacIphone-3-8-11', 500000, '', '', '', '', 1, 201014, NULL, '2024-08-26 19:31:31', '2024-08-26 19:31:31'),
+(94, 26, '3, 8, 10', 0, 'SacIphone-3-8-10', 500000, '', '', '', '', 1, 201014, NULL, '2024-08-26 19:31:31', '2024-08-26 19:31:31');
 
 -- --------------------------------------------------------
 
@@ -1641,18 +1754,30 @@ CREATE TABLE `product_variant_attribute` (
 --
 
 INSERT INTO `product_variant_attribute` (`product_variant_id`, `attribute_id`, `created_at`, `updated_at`) VALUES
-(79, 2, NULL, NULL),
-(79, 8, NULL, NULL),
-(80, 2, NULL, NULL),
-(80, 9, NULL, NULL),
-(81, 3, NULL, NULL),
-(81, 8, NULL, NULL),
-(82, 3, NULL, NULL),
-(82, 9, NULL, NULL),
-(83, 4, NULL, NULL),
-(83, 8, NULL, NULL),
-(84, 4, NULL, NULL),
-(84, 9, NULL, NULL);
+(85, 2, NULL, NULL),
+(85, 8, NULL, NULL),
+(86, 2, NULL, NULL),
+(86, 9, NULL, NULL),
+(87, 3, NULL, NULL),
+(87, 8, NULL, NULL),
+(88, 3, NULL, NULL),
+(88, 9, NULL, NULL),
+(89, 4, NULL, NULL),
+(89, 8, NULL, NULL),
+(90, 4, NULL, NULL),
+(90, 9, NULL, NULL),
+(91, 2, NULL, NULL),
+(91, 8, NULL, NULL),
+(91, 11, NULL, NULL),
+(92, 2, NULL, NULL),
+(92, 8, NULL, NULL),
+(92, 10, NULL, NULL),
+(93, 3, NULL, NULL),
+(93, 8, NULL, NULL),
+(93, 11, NULL, NULL),
+(94, 3, NULL, NULL),
+(94, 8, NULL, NULL),
+(94, 10, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1674,12 +1799,16 @@ CREATE TABLE `product_variant_language` (
 --
 
 INSERT INTO `product_variant_language` (`id`, `product_variant_id`, `language_id`, `name`, `created_at`, `updated_at`) VALUES
-(27, 79, 1, 'Màu xanh, Titan', NULL, NULL),
-(28, 80, 1, 'Màu đỏ, Titan', NULL, NULL),
-(29, 81, 1, 'Màu đen, Titan', NULL, NULL),
-(30, 82, 1, 'Màu xanh, Bạc', NULL, NULL),
-(31, 83, 1, 'Màu đỏ, Bạc', NULL, NULL),
-(32, 84, 1, 'Màu đen, Bạc', NULL, NULL);
+(33, 85, 1, 'Màu xanh, Titan', NULL, NULL),
+(34, 86, 1, 'Màu đỏ, Titan', NULL, NULL),
+(35, 87, 1, 'Màu đen, Titan', NULL, NULL),
+(36, 88, 1, 'Màu xanh, Bạc', NULL, NULL),
+(37, 89, 1, 'Màu đỏ, Bạc', NULL, NULL),
+(38, 90, 1, 'Màu đen, Bạc', NULL, NULL),
+(39, 91, 1, 'Màu xanh, Titan, 16 inch', NULL, NULL),
+(40, 92, 1, 'Màu xanh, Titan, 14 inch', NULL, NULL),
+(41, 93, 1, 'Màu đỏ, Titan, 16 inch', NULL, NULL),
+(42, 94, 1, 'Màu đỏ, Titan, 14 inch', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1816,7 +1945,10 @@ INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_a
 (83, 'man-hinh', 6, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-10 21:28:10', '2024-08-10 21:28:10', 1),
 (84, 'kich-co-man-hinh', 7, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-10 21:30:15', '2024-08-10 21:30:15', 1),
 (85, '116-inch', 12, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-10 21:31:03', '2024-08-10 21:31:03', 1),
-(98, 'sp-test', 20, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-08-11 07:49:34', '2024-08-11 07:49:34', 1);
+(98, 'sp-test', 20, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-08-11 07:49:34', '2024-08-11 07:49:34', 1),
+(104, 'sp-test-en', 20, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-08-26 09:04:07', '2024-08-26 09:04:07', 2),
+(105, 'sac-dien-thoai', 2, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-08-26 19:19:29', '2024-08-26 19:19:29', 1),
+(106, 'sac-iphone', 26, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-08-26 19:31:31', '2024-08-26 19:31:31', 1);
 
 -- --------------------------------------------------------
 
@@ -1838,7 +1970,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('BMYudVCvha5YKmDoPvoHHqPdVYIr2wBZjUxPXx33', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUFR2RG5ZVDFvcHhxamRNQUhuaUUxdUJMNVBsQ0lUUDhlTkhXcGJuUiI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MToiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL21lbnUvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1724239711);
+('kJ2WqmiS0weXVh84x6M1v0j8Wn7dnl3rAqjYTNdj', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWFg3QU1LOERBSVNERGUydU9kenpqSTJCT2NHNnFycG54RmhyTVlCdCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MDoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL21lbnUvaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1724726554),
+('OApCYtZWMhE0V09LaiOgPYBZjcXeec5lZi3SNxU0', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiOFFpdzkwakpwYVVpUkQ5SmhGbDJnaDFHekl6RlQzSEx3QnJsZjR3YSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1ODoiaHR0cDovL2xvY2FsaG9zdC90aHVvbmdtYWlkaWVudHUvcHVibGljL21lbnUvNy8xL3RyYW5zbGF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1724771265);
 
 -- --------------------------------------------------------
 
@@ -1907,7 +2040,7 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 (44, 2, 201014, 'seo_meta_keyword', 'Tony Company', NULL, NULL),
 (45, 2, 201014, 'seo_meta_description', 'Tony Company', NULL, NULL),
 (46, 2, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png', NULL, NULL),
-(47, 7, 201014, 'homepage_company', '托尼公司', NULL, NULL),
+(47, 7, 201014, 'homepage_company', '托尼公司 123', NULL, NULL),
 (48, 7, 201014, 'homepage_brand', '托尼公司', NULL, NULL),
 (49, 7, 201014, 'homepage_slogan', '托尼公司', NULL, NULL),
 (50, 7, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL),
@@ -1968,7 +2101,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
 (201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 14:51:45', 'userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-16 12:04:04', 1, NULL, 1),
 (201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 13:59:51', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-08-06 01:39:29', 1, NULL, 1),
-(201018, 'Test', '456', '01', '004', '00127', '123', '2003-04-09 08:40:05', '/thuongmaidientu/public/userfiles/image/bong-da/gsj6vjkaaaedb3g-1720771505-172-6000-6526-1720772015.jpg', '789', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$stkbs.mmtNHaeLuWNjs2LuMm8D3Q9uhORT3nMWng3d9WHKjRc/0fW', NULL, '2024-08-06 01:40:05', '2024-08-06 02:36:40', 4, NULL, 1);
+(201018, 'Test', '456', '01', '004', '00127', '123', '2003-04-09 17:51:57', '/thuongmaidientu/public/userfiles/image/bong-da/gsj6vjkaaaedb3g-1720771505-172-6000-6526-1720772015.jpg', '789', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$stkbs.mmtNHaeLuWNjs2LuMm8D3Q9uhORT3nMWng3d9WHKjRc/0fW', NULL, '2024-08-06 01:40:05', '2024-08-24 10:51:57', 4, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -2066,9 +2199,9 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 47),
 (1, 48),
 (1, 49),
-(1, 50),
 (1, 51),
-(1, 52);
+(1, 52),
+(1, 50);
 
 -- --------------------------------------------------------
 
@@ -12816,11 +12949,26 @@ ALTER TABLE `languages`
   ADD KEY `languages_user_id_foreign` (`user_id`);
 
 --
+-- Chỉ mục cho bảng `menus`
+--
+ALTER TABLE `menus`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `menus_menu_catalogue_id_foreign` (`menu_catalogue_id`),
+  ADD KEY `menus_user_id_foreign` (`user_id`);
+
+--
 -- Chỉ mục cho bảng `menu_catalogues`
 --
 ALTER TABLE `menu_catalogues`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `menu_catalogues_keyword_unique` (`keyword`);
+
+--
+-- Chỉ mục cho bảng `menu_language`
+--
+ALTER TABLE `menu_language`
+  ADD KEY `menu_language_menu_id_foreign` (`menu_id`),
+  ADD KEY `menu_language_language_id_foreign` (`language_id`);
 
 --
 -- Chỉ mục cho bảng `migrations`
@@ -13035,16 +13183,22 @@ ALTER TABLE `languages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT cho bảng `menus`
+--
+ALTER TABLE `menus`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
 -- AUTO_INCREMENT cho bảng `menu_catalogues`
 --
 ALTER TABLE `menu_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -13068,31 +13222,31 @@ ALTER TABLE `post_catalogues`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `product_catalogues`
 --
 ALTER TABLE `product_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT cho bảng `product_variant_language`
 --
 ALTER TABLE `product_variant_language`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT cho bảng `routers`
 --
 ALTER TABLE `routers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT cho bảng `systems`
@@ -13161,6 +13315,20 @@ ALTER TABLE `districts`
 --
 ALTER TABLE `languages`
   ADD CONSTRAINT `languages_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `menus`
+--
+ALTER TABLE `menus`
+  ADD CONSTRAINT `menus_menu_catalogue_id_foreign` FOREIGN KEY (`menu_catalogue_id`) REFERENCES `menu_catalogues` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `menus_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `menu_language`
+--
+ALTER TABLE `menu_language`
+  ADD CONSTRAINT `menu_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `menu_language_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `posts`

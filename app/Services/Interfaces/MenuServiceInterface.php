@@ -8,9 +8,11 @@ namespace App\Services\Interfaces;
  */
 interface MenuServiceInterface
 {
-    public function paginate($request, $languageId);
-    public function create($request, $languageId);
+    public function getAndConvertMenu($menu = null, $languageId = 1);
+    public function findMenuItemTranslate($menus, $currentLanguage, $languageId);
+    public function save($request, $languageId);
     public function saveChildren($request, $languageId, $menu);
-    public function update($id, $request, $languageId);
-    public function delete($id, $languageId);
+    public function saveTranslateMenu($request, $languageId);
+    public function dragUpdate($json = [], $menuCatalogueId = 0, $languageId = 1, $parentId = 0);
+    public function delete($id);
 }

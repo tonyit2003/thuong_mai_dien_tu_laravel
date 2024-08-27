@@ -15,4 +15,10 @@ return [
     'update' => [
         'title' => 'Cập nhật menu'
     ],
+    'delete' => [
+        'title' => 'Xóa menu'
+    ],
+    'translate' => [
+        'title' => 'Tạo bản dịch :language cho :menu'
+    ],
 ];

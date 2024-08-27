@@ -60,11 +60,12 @@ class SystemController extends Controller
             ['language_id', '=', $languageId]
         ];
         $systems = convert_array($this->systemRepository->findByCondition($condition, true), "keyword", "content");
+        $languageCurrent = $this->language;
         $config = $this->config();
         $config['seo'] = __('system');
         $config['method'] = 'translate';
         $template = 'backend.system.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'systemConfig', 'systems', 'languageId'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'systemConfig', 'systems', 'languageId', 'languageCurrent'));
     }
 
     public function saveTranslate(Request $request, $languageId)

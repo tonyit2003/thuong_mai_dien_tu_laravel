@@ -11,6 +11,7 @@ interface BaseRepositoryInterface
     public function all($relation = []);
     public function findById($modelId, $column, $relation);
     public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC']);
+    public function findByWhereHas($condition = [], $relation = '', $alias = '');
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = []);
     public function create($payload = []);
     public function createBatch($payload = []);

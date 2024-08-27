@@ -24,4 +24,6 @@ return [
     'delete_product_catalogue_name' => 'Bạn đang muốn xóa nhóm sản phẩm có tên là: <span class="text-danger">:name</span> ?',
     'delete_product' => 'Xác nhận xóa sản phẩm',
     'delete_product_name' => 'Bạn đang muốn xóa sản phẩm có tên là: <span class="text-danger">:name</span> ?',
+    'delete_menu_catalogue' => 'Xác nhận xóa vị trí menu',
+    'delete_menu_catalogue_name' => 'Bạn đang muốn xóa vị trí có tên là: <span class="text-danger">:name</span> ?',
 ];

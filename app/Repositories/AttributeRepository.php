@@ -41,7 +41,6 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
 
     public function searchAttributes($keyword = '', $option = [], $languageId)
     {
-        // whereHas tương tự như with, with thường không kèm điều kiện, whereHas thì có
         return $this->model->whereHas('attribute_catalogues', function ($query) use ($option) {
             $query->where('attribute_catalogue_id', $option['attributeCatalogueId']);
         })->whereHas('attribute_language', function ($query) use ($keyword, $languageId) {

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreMenuChildrenRequest;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
 use App\Models\Language;
+use App\Repositories\LanguageRepository;
 use App\Repositories\MenuCatalogueRepository;
 use App\Repositories\MenuRepository;
 use App\Services\MenuCatalogueService;
@@ -21,13 +22,15 @@ class MenuController extends Controller
     protected $menuCatalogueRepository;
     protected $menuRepository;
     protected $menuService;
+    protected $languageRepository;
 
-    public function __construct(MenuCatalogueService $menuCatalogueService, MenuRepository $menuRepository, MenuCatalogueRepository $menuCatalogueRepository, MenuService $menuService)
+    public function __construct(MenuCatalogueService $menuCatalogueService, MenuRepository $menuRepository, MenuCatalogueRepository $menuCatalogueRepository, MenuService $menuService, LanguageRepository $languageRepository)
     {
         $this->menuCatalogueService = $menuCatalogueService;
         $this->menuCatalogueRepository = $menuCatalogueRepository;
         $this->menuRepository = $menuRepository;
         $this->menuService = $menuService;
+        $this->languageRepository = $languageRepository;
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -40,7 +43,6 @@ class MenuController extends Controller
     {
         Gate::authorize('modules', 'menu.index');
         $menuCatalogues = $this->menuCatalogueService->paginate($request);
-
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -53,11 +55,11 @@ class MenuController extends Controller
             'model' => 'MenuCatalogue'
         ];
         $config['seo'] = __('menu');
-
         $template = 'backend.menu.menu.index';
         return view('backend.dashboard.layout', compact('template', 'config', 'menuCatalogues'));
     }
 
+    // Tạo mới các menu cấp 1
     public function create()
     {
         Gate::authorize('modules', 'menu.create');
@@ -69,16 +71,7 @@ class MenuController extends Controller
         return view('backend.dashboard.layout', compact('template', 'config', 'menuCatalogues'));
     }
 
-    public function store(StoreMenuRequest $storeMenuRequest)
-    {
-        if ($this->menuService->create($storeMenuRequest, $this->language)) {
-            flash()->success(__('toast.store_success'));
-            return redirect()->route('menu.index');
-        }
-        flash()->error(__('toast.store_failed'));
-        return redirect()->route('menu.index');
-    }
-
+    // Sửa vị trí các menu cấp 1
     public function edit($id)
     {
         Gate::authorize('modules', 'menu.update');
@@ -91,12 +84,15 @@ class MenuController extends Controller
         }];
         $orderBy = ['order', 'DESC'];
         $menus = $this->menuRepository->findByCondition($condition, true, $relation, $orderBy);
+        $menuCatalogue = $this->menuCatalogueRepository->findById($id, ['*']);
+        $languageCurrent = $this->language;
         $config = $this->configData();
         $config['seo'] = __('menu');
         $template = 'backend.menu.menu.show';
-        return view('backend.dashboard.layout', compact('template', 'config', 'menus', 'id'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'menus', 'id', 'menuCatalogue', 'languageCurrent'));
     }
 
+    // Sửa or tạo mới menu cấp 1
     public function editMenu($id)
     {
         Gate::authorize('modules', 'menu.update');
@@ -117,38 +113,21 @@ class MenuController extends Controller
         $config['method'] = 'update';
         $config['seo'] = __('menu');
         $template = 'backend.menu.menu.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'menuList', 'menuCatalogues', 'menuCatalogue'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'menuList', 'menuCatalogues', 'menuCatalogue', 'id'));
     }
 
-    public function update($id, UpdateMenuRequest $updateMenuRequest)
+    public function store(StoreMenuRequest $storeMenuRequest)
     {
-        if ($this->menuService->update($id, $updateMenuRequest, $this->language)) {
+        if ($this->menuService->save($storeMenuRequest, $this->language)) {
+            $menuCatalogueId = $storeMenuRequest->input('menu_catalogue_id');
             flash()->success(__('toast.update_success'));
-            return redirect()->route('menu.index');
+            return redirect()->route('menu.edit', ['id' => $menuCatalogueId]);
         }
         flash()->error(__('toast.update_failed'));
         return redirect()->route('menu.index');
     }
 
-    public function delete($id)
-    {
-        Gate::authorize('modules', 'menu.destroy');
-        $menu = $this->menuRepository->findById($id);
-        $config['seo'] = __('menu');
-        $template = 'backend.menu.menu.delete';
-        return view('backend.dashboard.layout', compact('template', 'menu', 'config'));
-    }
-
-    public function destroy($id)
-    {
-        if ($this->menuService->delete($id, $this->language)) {
-            flash()->success(__('toast.destroy_success'));
-            return redirect()->route('menu.index');
-        }
-        flash()->error(__('toast.destroy_failed'));
-        return redirect()->route('menu.index');
-    }
-
+    // Thêm mới or sửa menu con của menu bất kỳ
     public function children($id)
     {
         Gate::authorize('modules', 'menu.create');
@@ -174,6 +153,55 @@ class MenuController extends Controller
         }
         flash()->error(__('toast.store_failed'));
         return redirect()->route('menu.edit', $menu->menu_catalogue_id);
+    }
+
+    public function delete($id)
+    {
+        Gate::authorize('modules', 'menu.destroy');
+        $menuCatalogue = $this->menuCatalogueRepository->findById($id);
+        $config['seo'] = __('menu');
+        $template = 'backend.menu.menu.delete';
+        return view('backend.dashboard.layout', compact('template', 'menuCatalogue', 'config'));
+    }
+
+    public function destroy($id)
+    {
+        if ($this->menuService->delete($id)) {
+            flash()->success(__('toast.destroy_success'));
+            return redirect()->route('menu.index');
+        }
+        flash()->error(__('toast.destroy_failed'));
+        return redirect()->route('menu.index');
+    }
+
+    public function translate($languageId, $id)
+    {
+        $language = $this->languageRepository->findById($languageId);
+        $menuCatalogue = $this->menuCatalogueRepository->findById($id);
+        $condition = [
+            ['menu_catalogue_id', '=', $id]
+        ];
+        $currentLanguage = $this->language;
+        $relation = ['languages' => function ($query) use ($currentLanguage) {
+            $query->where('language_id', $currentLanguage);
+        }];
+        $orderBy = ['lft', 'ASC'];
+        $menus = buildMenu($this->menuService->findMenuItemTranslate($this->menuRepository->findByCondition($condition, true, $relation, $orderBy), $currentLanguage, $languageId));
+        $config = $this->configData();
+        $config['seo'] = __('menu', ['language' => lcfirst($language->name), 'menu' => lcfirst($menuCatalogue->name)]);
+        $config['method'] = 'translate';
+        $template = 'backend.menu.menu.translate';
+        return view('backend.dashboard.layout', compact('template', 'config', 'menuCatalogue', 'menus', 'languageId'));
+    }
+
+    public function saveTranslate(Request $request, $languageId)
+    {
+        if ($this->menuService->saveTranslateMenu($request, $languageId)) {
+            flash()->success(__('toast.update_success'));
+            return redirect()->route('menu.index');
+        }
+        flash()->error(__('toast.update_failed'));
+        return redirect()->route('menu.index');
     }
 
     private function configData()

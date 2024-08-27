@@ -127,3 +127,22 @@ if (!function_exists('recursive_menu')) {
         return $html;
     }
 }
+
+if (!function_exists('buildMenu')) {
+    function buildMenu($menus = null, $parent_id = 0, $prefix = '')
+    {
+        $output = [];
+        $count = 1;
+        if (count($menus)) {
+            foreach ($menus as $key => $val) {
+                if ($val->parent_id == $parent_id) {
+                    $val->position = $prefix . $count;
+                    $output[] = $val;
+                    $output = array_merge($output, buildMenu($menus, $val->id, $val->position . '.'));
+                    $count++;
+                }
+            }
+        }
+        return $output;
+    }
+}
