@@ -15,19 +15,9 @@ class Slide extends Model
         'name',
         'description',
         'keyword',
-        'image',
-        'icon',
-        'album',
-        'publish',
-        'order',
-        'user_id',
+        'item',
         'deleted_at',
     ];
 
     protected $table = 'slides';
-
-    public function languages()
-    {
-        return $this->belongsToMany(Language::class, 'menu_language', 'menu_id', 'language_id')->withPivot('menu_id', 'language_id', 'name', 'canonical')->withTimestamps();
-    }
 }

@@ -30,23 +30,23 @@
 function CheckAuthentication()
 {
 
-	// $cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
+    // $cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
 
-	//  if ( !isset($_COOKIE[AUTH.'Backend']) || empty($cookieAuth)) return false;
-
-
-	// WARNING : DO NOT simply return "true". By doing so, you are allowing
-	// "anyone" to upload and list the files in your server. You must implement
-	// some kind of session validation here. Even something very simple as...
-
-	// return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
-
-	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
-	// user logs in your system. To be able to use session variables don't
-	// forget to add session_start() at the top of this file.
+    //  if ( !isset($_COOKIE[AUTH.'Backend']) || empty($cookieAuth)) return false;
 
 
-	return true;
+    // WARNING : DO NOT simply return "true". By doing so, you are allowing
+    // "anyone" to upload and list the files in your server. You must implement
+    // some kind of session validation here. Even something very simple as...
+
+    // return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
+
+    // ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
+    // user logs in your system. To be able to use session variables don't
+    // forget to add session_start() at the top of this file.
+
+
+    return true;
 }
 // $cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
 // $cookieAuth = json_decode($cookieAuth, true);
@@ -122,14 +122,14 @@ Thumbnails : thumbnails settings. All thumbnails will end up in the same
 directory, no matter the resource type.
 */
 $config['Thumbnails'] = array(
-	'url' => $baseUrl . 'thumb',
-	'directory' => $baseDir . 'thumb',
-	'enabled' => true,
-	'directAccess' => false,
-	'maxWidth' => 150,
-	'maxHeight' => 150,
-	'bmpSupported' => false,
-	'quality' => 100
+    'url' => $baseUrl . 'thumb',
+    'directory' => $baseDir . 'thumb',
+    'enabled' => true,
+    'directAccess' => false,
+    'maxWidth' => 150,
+    'maxHeight' => 150,
+    'bmpSupported' => false,
+    'quality' => 100
 );
 
 /*
@@ -137,9 +137,9 @@ Set the maximum size of uploaded images. If an uploaded image is larger, it
 gets scaled down proportionally. Set to 0 to disable this feature.
 */
 $config['Images'] = array(
-	'maxWidth' => 2000,
-	'maxHeight' => 2000,
-	'quality' => 100
+    'maxWidth' => 2000,
+    'maxHeight' => 2000,
+    'quality' => 100
 );
 
 /*
@@ -166,27 +166,27 @@ Subfolders inherit their default settings from their parents' definitions.
 */
 
 $config['AccessControl'][] = array(
-	'role' => '*',
-	'resourceType' => '*',
-	'folder' => '/',
-	'folderView' => true,
-	'folderCreate' => true,
-	'folderRename' => true,
-	'folderDelete' => true,
-	'fileView' =>  true,
-	'fileUpload' =>  true,
-	'fileRename' =>  true,
-	'fileDelete' =>  true,
+    'role' => '*',
+    'resourceType' => '*',
+    'folder' => '/',
+    'folderView' => true,
+    'folderCreate' => true,
+    'folderRename' => true,
+    'folderDelete' => true,
+    'fileView' =>  true,
+    'fileUpload' =>  true,
+    'fileRename' =>  true,
+    'fileDelete' =>  true,
 
-	// 'folderView' => (in_array('folderView', $permission))? true : false,
-	// 'folderCreate' => (in_array('folderCreate', $permission))? true : false,
-	// 'folderRename' => (in_array('folderRename', $permission))? true : false,
-	// 'folderDelete' => (in_array('folderDelete', $permission))? true : false,
-	// 'fileView' =>  (in_array('fileView', $permission))?  true : false,
-	// 'fileUpload' =>  (in_array('fileUpload', $permission))? true : false,
-	// 'fileRename' =>  (in_array('fileRename', $permission))? true : false,
-	// 'fileDelete' =>  (in_array('fileDelete', $permission))? true : false,
-	// );
+    // 'folderView' => (in_array('folderView', $permission))? true : false,
+    // 'folderCreate' => (in_array('folderCreate', $permission))? true : false,
+    // 'folderRename' => (in_array('folderRename', $permission))? true : false,
+    // 'folderDelete' => (in_array('folderDelete', $permission))? true : false,
+    // 'fileView' =>  (in_array('fileView', $permission))?  true : false,
+    // 'fileUpload' =>  (in_array('fileUpload', $permission))? true : false,
+    // 'fileRename' =>  (in_array('fileRename', $permission))? true : false,
+    // 'fileDelete' =>  (in_array('fileDelete', $permission))? true : false,
+    // );
 
 );
 
@@ -237,30 +237,30 @@ to upload `.swf` files only if you understand and can accept this risk.
 $config['DefaultResourceTypes'] = '';
 
 $config['ResourceType'][] = array(
-	'name' => 'Files',				// Single quotes not allowed
-	'url' => $baseUrl . 'file',
-	'directory' => $baseDir . 'file',
-	'maxSize' => '1G',
-	'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
-	'deniedExtensions' => ''
+    'name' => 'Files',                // Single quotes not allowed
+    'url' => $baseUrl . 'file',
+    'directory' => $baseDir . 'file',
+    'maxSize' => '1G',
+    'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+    'deniedExtensions' => ''
 );
 
 $config['ResourceType'][] = array(
-	'name' => 'Images',
-	'url' => $baseUrl . 'image',
-	'directory' => $baseDir . 'image',
-	'maxSize' => 0,
-	'allowedExtensions' => 'bmp,gif,jpeg,jpg,png, webp, mp4',
-	'deniedExtensions' => ''
+    'name' => 'Images',
+    'url' => $baseUrl . 'image',
+    'directory' => $baseDir . 'image',
+    'maxSize' => 0,
+    'allowedExtensions' => 'bmp,gif,jpeg,jpg,png, webp, mp4',
+    'deniedExtensions' => ''
 );
 
 $config['ResourceType'][] = array(
-	'name' => 'Flash',
-	'url' => $baseUrl . 'flash',
-	'directory' => $baseDir . 'flash',
-	'maxSize' => 0,
-	'allowedExtensions' => 'swf,flv',
-	'deniedExtensions' => ''
+    'name' => 'Flash',
+    'url' => $baseUrl . 'flash',
+    'directory' => $baseDir . 'flash',
+    'maxSize' => 0,
+    'allowedExtensions' => 'swf,flv',
+    'deniedExtensions' => ''
 );
 
 /*

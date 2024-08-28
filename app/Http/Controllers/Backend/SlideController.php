@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\SlideRepository;
+use App\Services\SlideService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -106,9 +108,8 @@ class SlideController extends Controller
             ],
             'js' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                'backend/library/location.js',
                 'backend/plugins/ckfinder_2/ckfinder.js',
-                'backend/library/finder.js'
+                'backend/library/slide.js',
             ]
         ];
     }
