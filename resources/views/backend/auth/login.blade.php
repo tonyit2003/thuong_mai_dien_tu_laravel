@@ -65,14 +65,14 @@
 
                         <div class="form-group">
                             <input name="email" type="text" class="form-control" placeholder="Email"
-                                value="{{ old('email') }}">
+                                value="{{ old('email') ?? 'lehuutai090403@gmail.com' }}">
                             @if ($errors->has('email'))
                                 <span class="error-message">* {{ $errors->first('email') }} </span>
                             @endif
                         </div>
 
                         <div class="form-group">
-                            <input name="password" type="password" class="form-control" placeholder="Mật khẩu">
+                            <input name="password" type="password" class="form-control" placeholder="Mật khẩu" value="123456">
                             @if ($errors->has('password'))
                                 <span class="error-message">* {{ $errors->first('password') }} </span>
                             @endif
