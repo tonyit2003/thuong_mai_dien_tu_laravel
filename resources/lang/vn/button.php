@@ -23,4 +23,5 @@ return [
     'create_menu_location' => 'Tạo vị trí hiển thị',
     'close' => 'Đóng',
     'delete_menu_catalogue' => 'Xóa vị trí',
+    'delete_slide' => 'Xóa slide',
 ];

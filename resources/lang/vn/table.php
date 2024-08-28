@@ -29,4 +29,6 @@ return [
     'keyword' => 'Từ khóa',
     'creation_date' => 'Ngày tạo',
     'creation_user' => 'Người tạo',
+    'catalogue_name' => 'Tên nhóm',
+    'image_list' => 'Danh sách hình ảnh',
 ];
