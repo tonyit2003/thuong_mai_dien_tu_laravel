@@ -60,6 +60,17 @@ return [
             ]
         ],
         [
+            'title' => 'Banner & Slide',
+            'icon' => 'fa fa-picture-o',
+            'name' => ['slide'],
+            'subModule' => [
+                [
+                    'title' => 'Cài đặt slide',
+                    'route' => 'slide.index'
+                ],
+            ]
+        ],
+        [
             'title' => 'Menu',
             'icon' => 'fa fa-bars',
             'name' => ['menu'],

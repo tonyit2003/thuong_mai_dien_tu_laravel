@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\AttributeCatalogueController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\SlideController;
 use App\Http\Controllers\Backend\SystemController;
 
 // @@use-controller@@
@@ -120,6 +121,17 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/update', [PermissionController::class, 'update'])->name('permission.update')->where(['id' => '[0-9]+']);
         Route::get('{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete')->where(['id' => '[0-9]+']);
         Route::post('{id}/destroy', [PermissionController::class, 'destroy'])->name('permission.destroy')->where(['id' => '[0-9]+']);
+    });
+
+    // SLIDE
+    Route::group(['prefix' => 'slide'], function () {
+        Route::get('index', [SlideController::class, 'index'])->name('slide.index');
+        Route::get('create', [SlideController::class, 'create'])->name('slide.create');
+        Route::post('store', [SlideController::class, 'store'])->name('slide.store');
+        Route::get('{id}/edit', [SlideController::class, 'edit'])->name('slide.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [SlideController::class, 'update'])->name('slide.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [SlideController::class, 'delete'])->name('slide.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [SlideController::class, 'destroy'])->name('slide.destroy')->where(['id' => '[0-9]+']);
     });
 
     // GENERATE
