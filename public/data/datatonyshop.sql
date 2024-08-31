@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 28, 2024 lúc 07:49 PM
+-- Thời gian đã tạo: Th8 31, 2024 lúc 04:06 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -1099,12 +1099,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-08-16 08:11:24', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-08-16 08:11:24', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-08-31 04:56:05', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-08-31 04:56:05', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
 (6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0),
-(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/china.png', 201014, '2024-08-16 07:28:53', '2024-08-16 08:11:24', NULL, 0, NULL, 0);
+(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/china.png', 201014, '2024-08-16 07:28:53', '2024-08-31 04:56:05', NULL, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1316,7 +1316,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (71, '2024_08_21_162833_create_menu_language_table', 50),
 (72, '2024_08_28_073535_create_product_receipts_table', 51),
 (73, '2024_08_28_074823_create_product_receipt_detail_table', 51),
-(74, '2024_08_28_083504_create_slides_table', 52);
+(77, '2024_08_28_083504_create_slides_table', 52);
 
 -- --------------------------------------------------------
 
@@ -1591,7 +1591,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attributeCatalogue`, `code`, `made_in`, `price`, `attribute`, `variant`) VALUES
 (20, 1, 'backend/img/no-photo.png', NULL, '', 0, -1, 0, 201014, NULL, '2024-08-11 07:49:34', '2024-08-24 07:53:59', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}'),
-(26, 2, '/thuongmaidientu/public/userfiles/image/thoi-su/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-26 19:31:31', '2024-08-28 00:10:38', '[\"1\",\"3\",\"4\"]', 'SacIphone', 'Hàn Quốc', 500000, '{\"1\":[\"2\",\"3\"],\"3\":[\"8\"],\"4\":[\"11\"]}', '{\"quantity\":[null,null],\"sku\":[\"SacIphone-3-8-11\",\"SacIphone-3-8-10\"],\"price\":[\"500.000\",\"500.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[null,null]}');
+(26, 2, '/thuongmaidientu/public/userfiles/image/thoi-su/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg', NULL, '', -1, -1, 0, 201014, NULL, '2024-08-26 19:31:31', '2024-08-29 02:48:36', '[\"1\",\"3\",\"4\"]', 'SacIphone', 'Hàn Quốc', 500000, '{\"1\":[\"2\",\"3\"],\"3\":[\"8\"],\"4\":[\"11\"]}', '{\"quantity\":[\"100\",\"1\"],\"sku\":[\"SacIphone-3-8-11\",\"SacIphone-3-8-10\"],\"price\":[\"500.000\",\"500.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[null,null]}');
 
 -- --------------------------------------------------------
 
@@ -1701,7 +1701,7 @@ CREATE TABLE `product_language` (
 INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (20, 1, 'SP-TEST 123', NULL, NULL, NULL, NULL, NULL, 'sp-test', '2024-08-24 07:53:59', '2024-08-24 07:53:59', NULL),
 (20, 2, 'SP-TEST 123 EN', NULL, NULL, NULL, NULL, NULL, 'sp-test-en', '2024-08-26 09:04:07', '2024-08-26 09:04:07', NULL),
-(26, 1, 'Sạc Iphone', NULL, NULL, NULL, NULL, NULL, 'sac-iphone', '2024-08-28 00:10:38', '2024-08-28 00:10:38', NULL);
+(26, 1, 'Sạc Iphone', NULL, NULL, NULL, NULL, NULL, 'sac-iphone', '2024-08-29 02:48:36', '2024-08-29 02:48:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -1771,8 +1771,8 @@ INSERT INTO `product_variants` (`id`, `product_id`, `code`, `quantity`, `sku`, `
 (88, 20, '2, 9', 100, '1723387586-4-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
 (89, 20, '3, 9', 100, '1723387586-3-8', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
 (90, 20, '4, 9', 100, '1723387586-3-9', 200000, '', '', '', '', 1, 201014, NULL, '2024-08-24 07:53:59', '2024-08-24 07:53:59'),
-(99, 26, '2, 8, 11', 0, 'SacIphone-3-8-11', 500000, '', '', '', '', 1, 201014, NULL, '2024-08-28 00:10:38', '2024-08-28 00:10:38'),
-(100, 26, '3, 8, 11', 0, 'SacIphone-3-8-10', 500000, '', '', '', '', 1, 201014, NULL, '2024-08-28 00:10:38', '2024-08-28 00:10:38');
+(105, 26, '2, 8, 11', 100, 'SacIphone-3-8-11', 500000, '', '', '', '', 1, 201014, NULL, '2024-08-29 02:48:36', '2024-08-29 02:48:36'),
+(106, 26, '3, 8, 11', 1, 'SacIphone-3-8-10', 500000, '', '', '', '', 1, 201014, NULL, '2024-08-29 02:48:36', '2024-08-29 02:48:36');
 
 -- --------------------------------------------------------
 
@@ -1804,12 +1804,12 @@ INSERT INTO `product_variant_attribute` (`product_variant_id`, `attribute_id`, `
 (89, 8, NULL, NULL),
 (90, 4, NULL, NULL),
 (90, 9, NULL, NULL),
-(99, 2, NULL, NULL),
-(99, 8, NULL, NULL),
-(99, 11, NULL, NULL),
-(100, 3, NULL, NULL),
-(100, 8, NULL, NULL),
-(100, 11, NULL, NULL);
+(105, 2, NULL, NULL),
+(105, 8, NULL, NULL),
+(105, 11, NULL, NULL),
+(106, 3, NULL, NULL),
+(106, 8, NULL, NULL),
+(106, 11, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1837,8 +1837,8 @@ INSERT INTO `product_variant_language` (`id`, `product_variant_id`, `language_id
 (36, 88, 1, 'Màu xanh, Bạc', NULL, NULL),
 (37, 89, 1, 'Màu đỏ, Bạc', NULL, NULL),
 (38, 90, 1, 'Màu đen, Bạc', NULL, NULL),
-(47, 99, 1, 'Màu xanh, Titan, 16 inch', NULL, NULL),
-(48, 100, 1, 'Màu đỏ, Titan, 16 inch', NULL, NULL);
+(53, 105, 1, 'Màu xanh, Titan, 16 inch', NULL, NULL),
+(54, 106, 1, 'Màu đỏ, Titan, 16 inch', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2000,7 +2000,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('CeTHmVs6rshc7StYJnQSChPCd9kOKek7eWntwPzE', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQ3NZODZMTUl6ajRPWHdtdzl6Q0tTRnlDY2Q4VDJpRHZoRzY3YUt4UyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1NzoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMvc2xpZGUvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1724867318);
+('BU5ZEjFQjtZ74dWaITPwfnlCuOv5pBlbaXa2fkGX', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMmloa2RCUTFNdU1IbHdJN2ptR1owUHJJekpobEhEOFBONnVyQ2c2RCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1NzoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMvc2xpZGUvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1725113099);
 
 -- --------------------------------------------------------
 
@@ -2010,14 +2010,28 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `slides` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
   `keyword` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
-  `item` longtext DEFAULT NULL,
+  `item` longtext NOT NULL,
+  `setting` longtext NOT NULL,
+  `short_code` varchar(255) NOT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 0,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `slides`
+--
+
+INSERT INTO `slides` (`id`, `name`, `keyword`, `description`, `item`, `setting`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, '13', '14', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":\"1\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"3\",\"alt\":\"4\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"description\":\"5\",\"canonical\":\"6\",\"window\":\"_blank\",\"name\":\"7\",\"alt\":\"8\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":\"9\",\"canonical\":\"10\",\"window\":\"\",\"name\":\"11\",\"alt\":\"12\"}]}', '{\"width\":\"15\",\"height\":\"16\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"17\",\"animationSpeed\":\"18\"}', '[19]', 0, 201014, '2024-08-31 04:55:59', '2024-08-29 10:04:09', '2024-08-31 04:55:59'),
+(2, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Laporte-1720749150.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Shaw-1720749348.jpg\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/stones-1720749121.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Kounde-1720748873.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/GSNGPOzWIAA0N4H-1720749684.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.920\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"hide\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"1.000\",\"animationSpeed\":\"2.000\"}', '[menu id=\"main-slide\"]', 1, 201014, NULL, '2024-08-31 02:50:50', '2024-08-31 07:02:29'),
+(3, 'Slide phụ', 'second-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/united-kingdom.png\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.990\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"9.999\",\"animationSpeed\":\"9.999\"}', '[second-slide]', 1, 201014, NULL, '2024-08-31 05:54:34', '2024-08-31 05:59:27'),
+(4, 'Slide Test', 'test-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Shaw-1720749348.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.000\",\"height\":\"500\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"animationDelay\":\"5.555\",\"animationSpeed\":\"4.444\"}', '[slide-test]', 0, 201014, NULL, '2024-08-31 07:04:10', '2024-08-31 07:04:47');
 
 -- --------------------------------------------------------
 
@@ -2040,11 +2054,11 @@ CREATE TABLE `systems` (
 --
 
 INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `created_at`, `updated_at`) VALUES
-(1, 1, 201014, 'homepage_company', 'Tony Company', NULL, NULL),
+(1, 1, 201014, 'homepage_company', 'Tony Company 943', NULL, NULL),
 (2, 1, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
 (3, 1, 201014, 'homepage_slogan', 'Tony Company', NULL, NULL),
-(4, 1, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/luffy_circle.png', NULL, NULL),
-(5, 1, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL),
+(4, 1, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL),
+(5, 1, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/language/china.png', NULL, NULL),
 (6, 1, 201014, 'homepage_copyright', 'Tony Company', NULL, NULL),
 (7, 1, 201014, 'homepage_website', 'open', NULL, NULL),
 (8, 1, 201014, 'contact_office', '11 Đường số 27, Sơn Kỳ, Tân Phú, Hồ Chí Minh, Việt Nam', NULL, NULL),
@@ -2061,7 +2075,7 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 (19, 1, 201014, 'seo_meta_title', 'Tony Company', NULL, NULL),
 (20, 1, 201014, 'seo_meta_keyword', 'Tony Company', NULL, NULL),
 (21, 1, 201014, 'seo_meta_description', 'Tony Company', NULL, NULL),
-(22, 1, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL),
+(22, 1, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', NULL, NULL),
 (23, 1, 201014, 'homepage_short', '<p>VietNam</p>\r\n\r\n<p><img alt=\"\" src=\"/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png\" style=\"width: 512px; height: 512px;\" /></p>\r\n<ddict-div></ddict-div>', NULL, NULL),
 (24, 2, 201014, 'homepage_company', 'Tony Company', NULL, NULL),
 (25, 2, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
@@ -2145,8 +2159,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
-(201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 14:51:45', 'userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-07-16 12:04:04', 1, NULL, 1),
-(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 13:59:51', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-08-06 01:39:29', 1, NULL, 1),
+(201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 07:32:10', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-08-29 00:32:10', 1, NULL, 1),
+(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 07:32:38', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-08-29 00:32:38', 1, NULL, 1),
 (201018, 'Test', '456', '01', '004', '00127', '123', '2003-04-09 17:51:57', '/thuongmaidientu/public/userfiles/image/bong-da/gsj6vjkaaaedb3g-1720771505-172-6000-6526-1720772015.jpg', '789', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$stkbs.mmtNHaeLuWNjs2LuMm8D3Q9uhORT3nMWng3d9WHKjRc/0fW', NULL, '2024-08-06 01:40:05', '2024-08-24 10:51:57', 4, NULL, 1);
 
 -- --------------------------------------------------------
@@ -13175,7 +13189,8 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `slides`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `slides_keyword_unique` (`keyword`);
+  ADD UNIQUE KEY `slides_keyword_unique` (`keyword`),
+  ADD KEY `slides_user_id_foreign` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `systems`
@@ -13270,7 +13285,7 @@ ALTER TABLE `menu_catalogues`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -13318,13 +13333,13 @@ ALTER TABLE `product_receipt_detail`
 -- AUTO_INCREMENT cho bảng `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT cho bảng `product_variant_language`
 --
 ALTER TABLE `product_variant_language`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT cho bảng `routers`
@@ -13336,7 +13351,7 @@ ALTER TABLE `routers`
 -- AUTO_INCREMENT cho bảng `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `systems`
@@ -13526,6 +13541,12 @@ ALTER TABLE `product_variant_language`
 ALTER TABLE `provinces`
   ADD CONSTRAINT `provinces_administrative_region_id_fkey` FOREIGN KEY (`administrative_region_id`) REFERENCES `administrative_regions` (`id`),
   ADD CONSTRAINT `provinces_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`);
+
+--
+-- Các ràng buộc cho bảng `slides`
+--
+ALTER TABLE `slides`
+  ADD CONSTRAINT `slides_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `systems`

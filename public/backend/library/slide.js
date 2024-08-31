@@ -25,8 +25,8 @@
     };
 
     HT.renderSlideItemHtml = (image) => {
-        let tab_1 = "tab-" + counter;
-        let tab_2 = "tab-" + (counter + 1);
+        let tab_1 = "tab_" + counter;
+        let tab_2 = "tab_" + (counter + 1);
         counter += 2;
         return `
         <div class="col-lg-12 ui-state-default">
@@ -35,8 +35,11 @@
                     <div class="col-lg-3 mb10">
                         <span class="slide-image img-cover">
                             <img src="${image}" alt="">
-                            <input type="hidden" name="slide[title][]" value="${image}">
-                            <span class="deleteSlide btn btn-danger"><i class="fa fa-trash"></i></span>
+                            <div class="change-img text-center">
+                                ${changeImage}
+                            </div>
+                            <input type="hidden" name="slide[image][]" value="${image}">
+                            <button class="deleteSlide"><i class="fa fa-trash"></i></button>
                         </span>
                     </div>
                     <div class="col-lg-9">
@@ -57,12 +60,15 @@
                                             <textarea name="slide[description][]" class="form-control"></textarea>
                                         </div>
                                         <div class="form-row form-row-url">
-                                            <input type="text" name="slide[url][]" class="form-control"
+                                            <input type="text" name="slide[canonical][]" class="form-control"
                                                 placeholder="${url}">
                                             <div class="overlay">
                                                 <div class="uk-flex uk-flex-middle">
                                                     <label for="input_${tab_1}">${openInNewTab}</label>
-                                                    <input type="checkbox" name="slide[window][]" value="_blank" id="input_${tab_1}">
+                                                    <input type="hidden" name="slide[window][]"
+                                                        value="none">
+                                                    <input type="checkbox" class="slide-window"
+                                                        id="input_${tab_1}">
                                                 </div>
                                             </div>
                                         </div>
@@ -95,6 +101,27 @@
         `;
     };
 
+    HT.changeSlideImage = () => {
+        $(document).on("click", ".change-img", function () {
+            let input = $(this);
+            let type = "Images";
+            HT.browseServerSlideImage(input, type);
+        });
+    };
+
+    HT.browseServerSlideImage = (object, type) => {
+        if (typeof type == "undefined") {
+            type = "Images";
+        }
+        var finder = new CKFinder();
+        finder.resourceType = type;
+        finder.selectActionFunction = function (fileUrl, data) {
+            object.siblings("img").attr("src", fileUrl);
+            object.siblings("input[type=hidden]").val(fileUrl);
+        };
+        finder.popup();
+    };
+
     HT.deleteSlide = () => {
         $(document).on("click", ".deleteSlide", function () {
             let _this = $(this);
@@ -112,8 +139,22 @@
         }
     };
 
+    HT.checkWindow = () => {
+        $(document).on("click", ".slide-window", function () {
+            let _this = $(this);
+            if (_this.is(":checked")) {
+                _this.siblings('input[name="slide[window][]"]').val("_blank");
+            } else {
+                _this.siblings('input[name="slide[window][]"]').val("none");
+            }
+        });
+    };
+
     $(document).ready(function () {
         HT.addSlide();
         HT.deleteSlide();
+        HT.checkSlideNotification();
+        HT.changeSlideImage();
+        HT.checkWindow();
     });
 })(jQuery);

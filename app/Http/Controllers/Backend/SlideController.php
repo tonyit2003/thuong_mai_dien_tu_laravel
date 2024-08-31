@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSlideRequest;
+use App\Http\Requests\UpdateSlideRequest;
+use App\Models\Language;
 use App\Repositories\SlideRepository;
 use App\Services\SlideService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 
 class SlideController extends Controller
@@ -17,12 +21,19 @@ class SlideController extends Controller
     {
         $this->slideService = $slideService;
         $this->slideRepository = $slideRepository;
+        $this->middleware(function ($request, $next) {
+            $locale = App::getLocale();
+            $language = Language::where('canonical', $locale)->first();
+            $this->language = $language->id;
+            return $next($request);
+        });
     }
 
     public function index(Request $request)
     {
         Gate::authorize('modules', 'slide.index');
         $slides = $this->slideService->paginate($request);
+        $currentLanguage = $this->language;
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -37,7 +48,7 @@ class SlideController extends Controller
         $config['seo'] = __('slide');
 
         $template = 'backend.slide.slide.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'slides'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'slides', 'currentLanguage'));
     }
 
     public function create()
@@ -52,7 +63,7 @@ class SlideController extends Controller
 
     public function store(StoreSlideRequest $storeSlideRequest)
     {
-        if ($this->slideService->create($storeSlideRequest)) {
+        if ($this->slideService->create($storeSlideRequest, $this->language)) {
             flash()->success(__('toast.store_success'));
             return redirect()->route('slide.index');
         }
@@ -64,16 +75,17 @@ class SlideController extends Controller
     {
         Gate::authorize('modules', 'slide.update');
         $slide = $this->slideRepository->findById($id);
+        $slideItem = $this->slideService->convertSlideArray($slide->item[$this->language]);
         $config = $this->configData();
         $config['seo'] = __('slide');
         $config['method'] = 'edit';
         $template = 'backend.slide.slide.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'slide'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'slide', 'slideItem'));
     }
 
     public function update($id, UpdateSlideRequest $updateSlideRequest)
     {
-        if ($this->slideService->update($id, $updateSlideRequest)) {
+        if ($this->slideService->update($id, $updateSlideRequest, $this->language)) {
             flash()->success(__('toast.update_success'));
             return redirect()->route('slide.index');
         }
@@ -92,7 +104,7 @@ class SlideController extends Controller
 
     public function destroy($id)
     {
-        if ($this->slideService->delete($id)) {
+        if ($this->slideService->delete($id, $this->language)) {
             flash()->success(__('toast.destroy_success'));
             return redirect()->route('slide.index');
         }

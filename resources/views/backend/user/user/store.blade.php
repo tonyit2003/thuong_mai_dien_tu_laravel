@@ -113,19 +113,21 @@
                         <div class="row mb15">
                             <div class="col-lg-12">
                                 <div class="form-row">
-                                    <label for="" class="control-label text-left">
-                                        {{ __('form.avatar') }}
+                                    <label for="" class="uk-flex uk-flex-space-between">
+                                        <span>{{ __('form.avatar') }}</span>
+                                        <span class="system-title">{{ __('form.click_to_add_avatar') }}</span>
                                     </label>
-                                    <input placeholder="{{ __('form.select_image') }}" readonly type="text"
-                                        name="image" value="{{ old('image', $user->image ?? '') }}"
-                                        class="form-control input-image upload-image" placeholder="" autocomplete="off"
-                                        data-upload="Images">
-                                    {{-- <span class="image img-cover img-target">
-                                        <img src="{{ old('image', $user->image ?? 'backend/img/no-photo.png') }}"
-                                            alt="">
-                                    </span>
-                                    <input type="hidden" name="image"
-                                        value="{{ old('image', $user->image ?? 'backend/img/no-photo.png') }}"> --}}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <span class="image img-cover img-target img-avatar">
+                                                <img src="{{ old('image', $user->image ?? 'backend/img/no-photo.png') }}"
+                                                    alt="">
+                                            </span>
+                                            <input type="hidden" name="image"
+                                                value="{{ old('image', $user->image ?? 'backend/img/no-photo.png') }}"
+                                                class="form-control input-image upload-image" data-upload="Images">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

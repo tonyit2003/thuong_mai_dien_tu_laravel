@@ -6,13 +6,13 @@
     </div>
     <div class="ibox-content">
         <div class="seo-container">
-            <div class="meta-title">
+            <div class="translate-meta-title">
                 {{ old('translate_meta_title', $model->meta_title ?? __('seo_configuration.default_title')) }}
             </div>
-            <div class="canonical">
+            <div class="translate-canonical">
                 {{ config('app.url') . old('translate_canonical', $model->canonical ?? __('seo_configuration.canonical')) . config('apps.general.suffix') }}
             </div>
-            <div class="meta-description">
+            <div class="translate-meta-description">
                 {{ old('translate_meta_description', $model->meta_description ?? __('seo_configuration.default_description')) }}
             </div>
         </div>
@@ -31,7 +31,7 @@
                             </div>
                         </label>
                         <input type="text" name="translate_meta_title"
-                            value="{{ old('translate_meta_title', $model->meta_title ?? '') }}" class="form-control"
+                            value="{{ old('translate_meta_title', $model->meta_title ?? '') }}" class="form-control count-keyword"
                             placeholder="" autocomplete="off">
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                                 </span>
                             </div>
                         </label>
-                        <textarea type="text" name="translate_meta_description" class="form-control" placeholder="" autocomplete="off">{{ old('translate_meta_description', $model->meta_description ?? '') }}</textarea>
+                        <textarea type="text" name="translate_meta_description" class="form-control count-keyword" placeholder="" autocomplete="off">{{ old('translate_meta_description', $model->meta_description ?? '') }}</textarea>
                     </div>
                 </div>
             </div>

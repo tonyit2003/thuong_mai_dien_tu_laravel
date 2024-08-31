@@ -22,4 +22,8 @@
 <script>
     var BASE_URL = "{{ config('app.url') }}"
     var SUFFIX = "{{ config('apps.general.suffix') }}"
+    var doNotSeoDescription = "{{ __('form.do_not_seo_description') }}"
+    var doNotSeoTitle = "{{ __('form.do_not_seo_title') }}"
+    var yourPathUrl = "{{ __('form.your_path_url') }}"
+    var unitCharacter = "{{ __('unit.characters') }}"
 </script>

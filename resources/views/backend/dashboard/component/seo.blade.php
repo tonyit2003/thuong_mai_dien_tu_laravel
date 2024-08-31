@@ -31,7 +31,7 @@
                             </div>
                         </label>
                         <input {{ isset($disabled) ? 'disabled' : '' }} type="text" name="meta_title"
-                            value="{{ old('meta_title', $model->meta_title ?? '') }}" class="form-control"
+                            value="{{ old('meta_title', $model->meta_title ?? '') }}" class="form-control count-keyword"
                             placeholder="" autocomplete="off">
                     </div>
                 </div>
@@ -63,8 +63,8 @@
                                 </span>
                             </div>
                         </label>
-                        <textarea {{ isset($disabled) ? 'disabled' : '' }} type="text" name="meta_description" class="form-control"
-                            placeholder="" autocomplete="off">{{ old('meta_description', $model->meta_description ?? '') }}</textarea>
+                        <textarea {{ isset($disabled) ? 'disabled' : '' }} type="text" name="meta_description"
+                            class="form-control count-keyword" placeholder="" autocomplete="off">{{ old('meta_description', $model->meta_description ?? '') }}</textarea>
                     </div>
                 </div>
             </div>
