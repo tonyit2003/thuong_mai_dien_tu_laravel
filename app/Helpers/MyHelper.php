@@ -35,7 +35,17 @@ if (!function_exists('renderSystemInput')) {
 if (!function_exists('renderSystemImages')) {
     function renderSystemImages(string $name = '', $systems = null)
     {
-        return '<input type="text" name="config[' . $name . ']" value="' . old($name, $systems[$name] ?? "") . '" class="form-control upload-image" placeholder="" autocomplete="off">';
+        return '<div class="row">
+            <div class="col-lg-6">
+                <span class="image img-cover img-target img-avatar">
+                    <img src="' . old($name, $systems[$name] ?? "backend/img/no-photo.png") . '"
+                        alt="">
+                </span>
+                <input type="hidden" name="config[' . $name . ']"
+                    value="' . old($name, $systems[$name] ?? "backend/img/no-photo.png") . '"
+                    class="form-control upload-image" data-upload="Images">
+            </div>
+        </div>';
     }
 }
 

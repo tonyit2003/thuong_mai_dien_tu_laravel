@@ -80,7 +80,6 @@ class BaseService implements BaseServiceInterface
             $model = lcfirst($post['model']);
             $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
             $this->{$model . "Repository"}->update($post['modelId'], $payload);
-            // $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -96,7 +95,6 @@ class BaseService implements BaseServiceInterface
             $model = lcfirst($post['model']);
             $payload[$post['field']] = $post['value'];
             $this->{$model . "Repository"}->updateByWhereIn('id', $post['id'], $payload);
-            // $this->changeUserStatus($post);
             DB::commit();
             return true;
         } catch (Exception $e) {

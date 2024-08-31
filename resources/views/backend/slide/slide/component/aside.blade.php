@@ -32,7 +32,8 @@
                         <div class="uk-flex uk-flex-middle">
                             <span class="setting-text">{{ __('form.width') }}</span>
                             <div class="setting-value">
-                                <input type="text" name="setting[width]" class="form-control" value="0">
+                                <input type="text" name="setting[width]" class="form-control int"
+                                    value="{{ old('setting.width', $slide->setting['width'] ?? 0) }}">
                                 <span class="px">{{ __('unit.px') }}</span>
                             </div>
                         </div>
@@ -41,7 +42,8 @@
                         <div class="uk-flex uk-flex-middle">
                             <span class="setting-text">{{ __('form.height') }}</span>
                             <div class="setting-value">
-                                <input type="text" name="setting[height]" class="form-control" value="0">
+                                <input type="text" name="setting[height]" class="form-control int"
+                                    value="{{ old('setting.height', $slide->setting['height'] ?? 0) }}">
                                 <span class="px">{{ __('unit.px') }}</span>
                             </div>
                         </div>
@@ -52,17 +54,27 @@
                             <div class="setting-value">
                                 <select name="setting[animation]" id="" class="form-control setupSelect2">
                                     @foreach (__('module.effect') as $key => $val)
-                                        <option value="{{ $key }}">{{ $val }}</option>
+                                        <option
+                                            {{ $key == old('setting.animation', $slide->setting['animation'] ?? null) ? 'selected' : '' }}
+                                            value="{{ $key }}">{{ $val }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
+                    @php
+                        if ($config['method'] == 'create' && !old()) {
+                            $arrow = 'accept';
+                        } else {
+                            $arrow = old('setting.arrow', $slide->setting['arrow'] ?? '');
+                        }
+                    @endphp
                     <div class="setting-item">
                         <div class="uk-flex uk-flex-middle">
                             <span class="setting-text">{{ __('form.arrow') }}</span>
                             <div class="setting-value">
-                                <input type="checkbox" name="setting[arrow]" value="accept" checked>
+                                <input type="checkbox" name="setting[arrow]" value="accept"
+                                    @if ($arrow == 'accept') checked="checked" @endif>
                             </div>
                         </div>
                     </div>
@@ -74,7 +86,7 @@
                                     <div class="nav-setting-item uk-flex uk-flex-middle">
                                         <input type="radio" name="setting[navigate]" value="{{ $key }}"
                                             id="navigate_{{ $key }}"
-                                            {{ $key === old('setting.navigate', 'dots') ? 'checked' : '' }}>
+                                            {{ old('setting.navigate', $slide->setting['navigate'] ?? 'dots') === $key ? 'checked' : '' }}>
                                         <label for="navigate_{{ $key }}">{{ $val }}</label>
                                     </div>
                                 @endforeach
@@ -96,20 +108,36 @@
         </div>
 
     </div>
+    @php
+        if ($config['method'] == 'create' && !old()) {
+            $autoplay = 'accept';
+        } else {
+            $autoplay = old('setting.autoplay', $slide->setting['autoplay'] ?? '');
+        }
+    @endphp
     <div class="ibox-content">
         <div class="setting-item">
             <div class="uk-flex uk-flex-middle">
                 <span class="setting-text">{{ __('form.auto_play') }}</span>
                 <div class="setting-value">
-                    <input type="checkbox" name="setting[autoplay]" value="accept">
+                    <input type="checkbox" name="setting[autoplay]" value="accept"
+                        @if ($autoplay == 'accept') checked = "checked" @endif>
                 </div>
             </div>
         </div>
+        @php
+            if ($config['method'] == 'create' && !old()) {
+                $pauseHover = 'accept';
+            } else {
+                $pauseHover = old('setting.pauseHover', $slide->setting['pauseHover'] ?? '');
+            }
+        @endphp
         <div class="setting-item">
             <div class="uk-flex uk-flex-middle">
                 <span class="setting-text">{{ __('form.hover_pause') }}</span>
                 <div class="setting-value">
-                    <input type="checkbox" name="setting[pauseHover]" value="accept">
+                    <input type="checkbox" name="setting[pauseHover]" value="accept"
+                        @if ($pauseHover == 'accept') checked = "checked" @endif>
                 </div>
             </div>
         </div>
@@ -117,7 +145,9 @@
             <div class="uk-flex uk-flex-middle">
                 <span class="setting-text">{{ __('form.photo_transfer_time') }}</span>
                 <div class="setting-value">
-                    <input type="text" name="setting[animationDelay]" class="form-control">
+                    <input type="text" name="setting[animationDelay]"
+                        value="{{ old('setting.animationDelay', $slide->setting['animationDelay'] ?? 0) }}"
+                        class="form-control int">
                     <span class="px">{{ __('unit.ms') }}</span>
                 </div>
             </div>
@@ -126,7 +156,9 @@
             <div class="uk-flex uk-flex-middle">
                 <span class="setting-text">{{ __('form.effect_speed') }}</span>
                 <div class="setting-value">
-                    <input type="text" name="setting[animationSpeed]" class="form-control">
+                    <input type="text" name="setting[animationSpeed]"
+                        value="{{ old('setting.animationSpeed', $slide->setting['animationSpeed'] ?? 0) }}"
+                        class="form-control int">
                     <span class="px">{{ __('unit.ms') }}</span>
                 </div>
             </div>
@@ -138,6 +170,6 @@
         <h5>{{ __('form.short_code') }}</h5>
     </div>
     <div class="ibox-content">
-        <textarea name="short_code" id="" class="textarea form-control"></textarea>
+        <textarea name="short_code" id="" class="textarea form-control">{{ old('short_code', $slide->short_code ?? '') }}</textarea>
     </div>
 </div>

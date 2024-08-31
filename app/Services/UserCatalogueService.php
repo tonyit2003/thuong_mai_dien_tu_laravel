@@ -76,6 +76,38 @@ class UserCatalogueService extends BaseService implements UserCatalogueServiceIn
         }
     }
 
+    public function updateStatus($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $model = lcfirst($post['model']);
+            $payload[$post['field']] = (($post['value'] == 1) ? 0 : 1);
+            $this->{$model . "Repository"}->update($post['modelId'], $payload);
+            $this->changeUserStatus($post);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function updateStatusAll($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $model = lcfirst($post['model']);
+            $payload[$post['field']] = $post['value'];
+            $this->{$model . "Repository"}->updateByWhereIn('id', $post['id'], $payload);
+            $this->changeUserStatus($post);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
     private function changeUserStatus($post)
     {
         DB::beginTransaction();

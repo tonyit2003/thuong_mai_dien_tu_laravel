@@ -8,10 +8,21 @@
             let input = $(this);
             let value = input.val();
             if (value == "") {
-                $(".meta-title").html("Bạn chưa có tiêu đề SEO");
+                $(".meta-title").html(doNotSeoTitle);
             } else {
                 //  thiết lập nội dung HTML bằng giá trị của biến value.
                 $(".meta-title").html(value);
+            }
+        });
+
+        $("input[name=translate_meta_title]").on("keyup", function () {
+            let input = $(this);
+            let value = input.val();
+            if (value == "") {
+                $(".translate-meta-title").html(doNotSeoTitle);
+            } else {
+                //  thiết lập nội dung HTML bằng giá trị của biến value.
+                $(".translate-meta-title").html(value);
             }
         });
 
@@ -27,10 +38,21 @@
             let input = $(this);
             let value = HT.removeUtf8(input.val());
             if (value == "") {
-                $(".canonical").html(BASE_URL + "duong-dan-cua-ban" + SUFFIX);
+                $(".canonical").html(BASE_URL + yourPathUrl + SUFFIX);
             } else {
                 //  thiết lập nội dung HTML bằng giá trị của biến value.
                 $(".canonical").html(BASE_URL + value + SUFFIX); // BASE_URL, SUFFIX: biến được khai báo mở thẻ script trong file header
+            }
+        });
+
+        $("input[name=translate_canonical").on("keyup", function () {
+            let input = $(this);
+            let value = HT.removeUtf8(input.val());
+            if (value == "") {
+                $(".translate-canonical").html(BASE_URL + yourPathUrl + SUFFIX);
+            } else {
+                //  thiết lập nội dung HTML bằng giá trị của biến value.
+                $(".translate-canonical").html(BASE_URL + value + SUFFIX); // BASE_URL, SUFFIX: biến được khai báo mở thẻ script trong file header
             }
         });
 
@@ -38,11 +60,27 @@
             let input = $(this);
             let value = input.val();
             if (value == "") {
-                $(".meta-description").html("Bạn chưa có mô tả SEO");
+                $(".meta-description").html(doNotSeoDescription);
             } else {
                 //  thiết lập nội dung HTML bằng giá trị của biến value.
                 $(".meta-description").html(value);
             }
+        });
+
+        $("textarea[name=translate_meta_description").on("keyup", function () {
+            let input = $(this);
+            let value = input.val();
+            if (value == "") {
+                $(".translate-meta-description").html(doNotSeoDescription);
+            } else {
+                //  thiết lập nội dung HTML bằng giá trị của biến value.
+                $(".translate-meta-description").html(value);
+            }
+        });
+
+        $(".count-keyword").on("keyup", function () {
+            let input = $(this);
+            HT.countKeyword(input);
         });
     };
 
@@ -64,7 +102,26 @@
         return str;
     };
 
+    HT.countKeywordInput = () => {
+        if ($(".count-keyword").length) {
+            $(".count-keyword").each(function () {
+                let input = $(this);
+                HT.countKeyword(input);
+            });
+        }
+    };
+
+    HT.countKeyword = (input) => {
+        let value = input.val();
+        let length = value.length;
+        input
+            .prev()
+            .find("span[class^=count_meta]")
+            .text(length + " " + unitCharacter);
+    };
+
     $(document).ready(function () {
         HT.seoPreview();
+        HT.countKeywordInput();
     });
 })(jQuery);

@@ -9,7 +9,6 @@
                         {{ __('confirm.delete_slide') }}
                     </div>
                     <div class="panel-description">
-                        {{-- gọi đến file confirm và truyền dữ liệu qua --}}
                         <p>{!! __('confirm.delete_slide_name', ['name' => $slide->name]) !!}</p>
                         <p>{{ __('confirm.cannot_restore') }}</p>
                     </div>
@@ -26,6 +25,16 @@
                                     </label>
                                     <input readonly type="text" name="name"
                                         value="{{ old('name', $slide->name ?? '') }}" class="form-control"
+                                        placeholder="" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-row">
+                                    <label for="" class="control-label text-left">
+                                        {{ __('form.keyword') }}
+                                    </label>
+                                    <input readonly type="text" name="keyword"
+                                        value="{{ old('keyword', $slide->keyword ?? '') }}" class="form-control"
                                         placeholder="" autocomplete="off">
                                 </div>
                             </div>
