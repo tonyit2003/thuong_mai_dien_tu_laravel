@@ -177,4 +177,11 @@ return [
     'do_not_seo_title' => 'Bạn chưa có tiêu đề SEO',
     'your_path_url' => 'duong-dan-cua-ban',
     'change_image' => 'Thay đổi ảnh',
+    'widget_name' => 'Tên widget',
+    'model' => 'Model',
+    'widget_infomation' => 'Thông tin widget',
+    'configure_widget_content' => 'Cấu hình nội dung widget',
+    'choose_module' => 'Chọn module',
+    'enter_id_and_price' => 'Bạn phải nhập Mã sản phẩm và Giá sản phẩm để sử dụng chức năng này.',
+    'choose_module_message' => 'Bạn chưa chọn module.',
 ];

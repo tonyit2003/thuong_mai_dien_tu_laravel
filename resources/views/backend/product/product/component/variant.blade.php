@@ -139,4 +139,5 @@
     var barcodeTitle = "{{ __('form.barcode') }}";
     var fileNameTitle = "{{ __('form.file_name') }}";
     var pathTitle = "{{ __('form.path') }}";
+    var enterIdAndPrice = "{{ __('form.enter_id_and_price') }}";
 </script>

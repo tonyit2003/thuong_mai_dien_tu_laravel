@@ -9,9 +9,7 @@
                 let price = $("input[name=price]").val();
                 let code = $("input[name=code]").val();
                 if (price == "" || code == "") {
-                    alert(
-                        "Bạn phải nhập Mã sản phẩm và Giá sản phẩm để sử dụng chức năng này."
-                    );
+                    alert(enterIdAndPrice);
                     $(".variantInputCheckbox").prop("checked", false);
                     code == ""
                         ? $("input[name=code]").focus()

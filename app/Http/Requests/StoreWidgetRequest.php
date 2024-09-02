@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSlideRequest extends FormRequest
+class StoreWidgetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,20 +23,18 @@ class UpdateSlideRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'keyword' => 'required|unique:slides,keyword, ' . $this->id . '',
-            'short_code' => 'unique:slides,short_code, ' . $this->id . '',
-            'slide.image' => 'required',
+            'keyword' => 'required|unique:widgets',
+            'short_code' => 'unique:widgets',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên slide.",
-            'keyword.required' => "Bạn chưa nhập từ khóa slide.",
-            'keyword.unique' => "Từ khóa slide đã tồn tại.",
-            'short_code.unique' => "Short code slide đã tồn tại.",
-            'slide.image.required' => "Bạn chưa chọn slide nào.",
+            'name.required' => "Bạn chưa nhập tên widget.",
+            'keyword.required' => "Bạn chưa nhập từ khóa widget.",
+            'keyword.unique' => "Từ khóa widget đã tồn tại.",
+            'short_code.unique' => "Short code widget đã tồn tại.",
         ];
     }
 }

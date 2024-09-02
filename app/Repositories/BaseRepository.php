@@ -137,7 +137,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     // tìm kiếm một bản ghi từ cơ sở dữ liệu dựa trên các điều kiện
-    public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC'])
+    public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC'], $param = [])
     {
         // Khởi tạo một đối tượng truy vấn mới từ model
         $query = $this->model->newQuery();
@@ -145,6 +145,10 @@ class BaseRepository implements BaseRepositoryInterface
         // Thêm điều kiện vào truy vấn
         foreach ($condition as $key => $val) {
             $query->where($val[0], $val[1], $val[2]);
+        }
+
+        if (isset($param['whereIn'])) {
+            $query->whereIn($param['whereInField'], $param['whereIn']);
         }
 
         $query->with($relation);
@@ -161,5 +165,18 @@ class BaseRepository implements BaseRepositoryInterface
                 $query->where($alias . '.' . $key, $val);
             }
         })->first();
+    }
+
+    public function findByWhereHasAndWith($condition = [], $relationWhereHas = '', $alias = '', $relationWith = [])
+    {
+        // cần gán lại đối tượng truy vấn ($query) sau mỗi bước truy vấn
+        $query = $this->model;
+        $query = $query->whereHas($relationWhereHas, function ($query) use ($condition, $alias) {
+            foreach ($condition as $key => $val) {
+                $query->where($alias . '.' . $val[0], $val[1], $val[2]);
+            }
+        });
+        $query = $query->with($relationWith);
+        return $query->get();
     }
 }

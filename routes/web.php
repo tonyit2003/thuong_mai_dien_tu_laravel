@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\SlideController;
 use App\Http\Controllers\Backend\SystemController;
+use App\Http\Controllers\Backend\WidgetController;
 
 // @@use-controller@@
 
@@ -134,6 +135,19 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/destroy', [SlideController::class, 'destroy'])->name('slide.destroy')->where(['id' => '[0-9]+']);
     });
 
+    // WIDGET
+    Route::group(['prefix' => 'widget'], function () {
+        Route::get('index', [WidgetController::class, 'index'])->name('widget.index');
+        Route::get('create', [WidgetController::class, 'create'])->name('widget.create');
+        Route::post('store', [WidgetController::class, 'store'])->name('widget.store');
+        Route::get('{id}/edit', [WidgetController::class, 'edit'])->name('widget.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [WidgetController::class, 'update'])->name('widget.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [WidgetController::class, 'delete'])->name('widget.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [WidgetController::class, 'destroy'])->name('widget.destroy')->where(['id' => '[0-9]+']);
+        Route::get('{languageId}/{id}/translate', [WidgetController::class, 'translate'])->name('widget.translate')->where(['languageId' => '[0-9]+', 'id' => '[0-9]+']);
+        Route::post('saveTranslate', [WidgetController::class, 'saveTranslate'])->name('widget.saveTranslate');
+    });
+
     // GENERATE
     Route::group(['prefix' => 'generate'], function () {
         Route::get('index', [GenerateController::class, 'index'])->name('generate.index');
@@ -204,6 +218,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::post('ajax/dashboard/changeStatus', [AjaxDashboardController::class, 'changeStatus'])->name('ajax.dashboard.changeStatus');
     Route::post('ajax/dashboard/changeStatusAll', [AjaxDashboardController::class, 'changeStatusAll'])->name('ajax.dashboard.changeStatusAll');
     Route::get('ajax/dashboard/getMenu', [AjaxDashboardController::class, 'getMenu'])->name('ajax.dashboard.getMenu');
+    Route::get('ajax/dashboard/findModelObject', [AjaxDashboardController::class, 'findModelObject'])->name('ajax.dashboard.findModelObject');
     Route::get('ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
     Route::get('ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
     Route::post('ajax/menu/createCatalogue', [AjaxMenuController::class, 'createCatalogue'])->name('ajax.menu.createCatalogue');
