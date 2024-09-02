@@ -156,3 +156,37 @@ if (!function_exists('buildMenu')) {
         return $output;
     }
 }
+
+if (!function_exists('loadClass')) {
+    function loadClass($model = '', $folder = 'Repositories', $interface = 'Repository')
+    {
+        $repositoryNamespace = '\App\\' . $folder . '\\' . ucfirst($model) . $interface;
+        if (class_exists($repositoryNamespace)) {
+            $repositoryInstance = app($repositoryNamespace);
+            return $repositoryInstance;
+        }
+        return null;
+    }
+}
+
+if (!function_exists('convertArrayByKey')) {
+    function convertArrayByKey($object = null, $fields = [])
+    {
+        $temp = [];
+        foreach ($object as $item) {
+            foreach ($fields as $field) {
+                if (is_array($object)) {
+                    $temp[$field][] = $item[$field];
+                } else {
+                    $extract = explode('.', $field);
+                    if (count($extract) == 2) {
+                        $temp[$extract[0]][] = $item->{$extract[1]}->first()->pivot->{$extract[0]};
+                    } else {
+                        $temp[$field][] = $item->{$field};
+                    }
+                }
+            }
+        }
+        return $temp;
+    }
+}

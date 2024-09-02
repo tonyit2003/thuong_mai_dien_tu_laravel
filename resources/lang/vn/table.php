@@ -31,4 +31,7 @@ return [
     'creation_user' => 'Người tạo',
     'catalogue_name' => 'Tên nhóm',
     'image_list' => 'Danh sách hình ảnh',
+    'widget_name' => 'Tên widget',
+    'model' => 'Model',
+    'short_code' => 'Short code',
 ];

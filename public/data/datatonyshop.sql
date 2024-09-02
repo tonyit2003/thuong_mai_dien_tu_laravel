@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 31, 2024 lúc 04:06 PM
+-- Thời gian đã tạo: Th9 02, 2024 lúc 08:07 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -1099,12 +1099,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-08-31 04:56:05', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-08-31 04:56:05', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-09-01 08:33:20', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-09-01 08:33:20', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
 (6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0),
-(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/china.png', 201014, '2024-08-16 07:28:53', '2024-08-31 04:56:05', NULL, 0, NULL, 0);
+(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/china.png', 201014, '2024-08-16 07:28:53', '2024-09-01 08:33:20', NULL, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1316,7 +1316,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (71, '2024_08_21_162833_create_menu_language_table', 50),
 (72, '2024_08_28_073535_create_product_receipts_table', 51),
 (73, '2024_08_28_074823_create_product_receipt_detail_table', 51),
-(77, '2024_08_28_083504_create_slides_table', 52);
+(77, '2024_08_28_083504_create_slides_table', 52),
+(78, '2024_09_01_030204_create_widgets_table', 53);
 
 -- --------------------------------------------------------
 
@@ -1404,7 +1405,11 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 (53, 'Xem slide', 'slide.index', '2024-08-28 02:07:11', '2024-08-28 02:07:11'),
 (54, 'Thêm mới slide', 'slide.create', '2024-08-28 02:07:23', '2024-08-28 02:07:23'),
 (55, 'Sửa slide', 'slide.update', '2024-08-28 02:07:42', '2024-08-28 02:08:11'),
-(56, 'Xóa slide', 'slide.destroy', '2024-08-28 02:07:53', '2024-08-28 02:07:53');
+(56, 'Xóa slide', 'slide.destroy', '2024-08-28 02:07:53', '2024-08-28 02:07:53'),
+(57, 'Thêm mới widget', 'widget.create', '2024-08-31 07:41:49', '2024-08-31 07:41:49'),
+(58, 'Xem danh sách widget', 'widget.index', '2024-08-31 07:43:23', '2024-08-31 07:43:23'),
+(59, 'Sửa widget', 'widget.update', '2024-08-31 07:43:35', '2024-08-31 07:43:35'),
+(60, 'Xóa widget', 'widget.destroy', '2024-08-31 07:43:50', '2024-08-31 07:43:50');
 
 -- --------------------------------------------------------
 
@@ -2000,7 +2005,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('BU5ZEjFQjtZ74dWaITPwfnlCuOv5pBlbaXa2fkGX', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMmloa2RCUTFNdU1IbHdJN2ptR1owUHJJekpobEhEOFBONnVyQ2c2RCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1NzoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMvc2xpZGUvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1725113099);
+('pNGgZQxNbVlJj0p5ETgp60q91ccgKt7yoNtvAXU4', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSldab1R4VkNKU2prNXdEQ0c5N1M4U1pJVFNEWkk5a0R0d2daMXhtSyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMvd2lkZ2V0LzIvMi90cmFuc2xhdGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1725300426);
 
 -- --------------------------------------------------------
 
@@ -2031,7 +2036,8 @@ INSERT INTO `slides` (`id`, `name`, `keyword`, `description`, `item`, `setting`,
 (1, '13', '14', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":\"1\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"3\",\"alt\":\"4\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"description\":\"5\",\"canonical\":\"6\",\"window\":\"_blank\",\"name\":\"7\",\"alt\":\"8\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":\"9\",\"canonical\":\"10\",\"window\":\"\",\"name\":\"11\",\"alt\":\"12\"}]}', '{\"width\":\"15\",\"height\":\"16\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"17\",\"animationSpeed\":\"18\"}', '[19]', 0, 201014, '2024-08-31 04:55:59', '2024-08-29 10:04:09', '2024-08-31 04:55:59'),
 (2, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Laporte-1720749150.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Shaw-1720749348.jpg\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/stones-1720749121.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Kounde-1720748873.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/GSNGPOzWIAA0N4H-1720749684.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.920\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"hide\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"1.000\",\"animationSpeed\":\"2.000\"}', '[menu id=\"main-slide\"]', 1, 201014, NULL, '2024-08-31 02:50:50', '2024-08-31 07:02:29'),
 (3, 'Slide phụ', 'second-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/united-kingdom.png\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.990\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"9.999\",\"animationSpeed\":\"9.999\"}', '[second-slide]', 1, 201014, NULL, '2024-08-31 05:54:34', '2024-08-31 05:59:27'),
-(4, 'Slide Test', 'test-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Shaw-1720749348.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.000\",\"height\":\"500\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"animationDelay\":\"5.555\",\"animationSpeed\":\"4.444\"}', '[slide-test]', 0, 201014, NULL, '2024-08-31 07:04:10', '2024-08-31 07:04:47');
+(4, 'Slide Test', 'test-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.000\",\"height\":\"500\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"animationDelay\":\"5.555\",\"animationSpeed\":\"4.444\"}', '[slide-test]', 1, 201014, '2024-08-31 07:09:56', '2024-08-31 07:04:10', '2024-08-31 07:09:56'),
+(5, 'Test', 'test', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/vietnam.png\",\"description\":\"1\",\"canonical\":\"1\",\"window\":\"none\",\"name\":\"1\",\"alt\":\"1\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":\"2\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"2\",\"alt\":\"2\"}]}', '{\"width\":\"1\",\"height\":\"1\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"pauseHover\":\"accept\",\"animationDelay\":\"1\",\"animationSpeed\":\"1\"}', 'test', 1, 201014, '2024-09-02 10:49:46', '2024-09-02 10:49:23', '2024-09-02 10:49:46');
 
 -- --------------------------------------------------------
 
@@ -2265,7 +2271,11 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 53),
 (1, 54),
 (1, 55),
-(1, 56);
+(1, 56),
+(1, 57),
+(1, 58),
+(1, 59),
+(1, 60);
 
 -- --------------------------------------------------------
 
@@ -12907,6 +12917,36 @@ INSERT INTO `wards` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `co
 ('32245', 'Tân Ân', 'Tan An', 'Xã Tân Ân', 'Tan An Commune', 'tan_an', '973', 10),
 ('32248', 'Đất Mũi', 'Dat Mui', 'Xã Đất Mũi', 'Dat Mui Commune', 'dat_mui', '973', 10);
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `widgets`
+--
+
+CREATE TABLE `widgets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `keyword` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `album` longtext DEFAULT NULL,
+  `model_id` longtext DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `short_code` varchar(255) DEFAULT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 0,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `widgets`
+--
+
+INSERT INTO `widgets` (`id`, `name`, `keyword`, `description`, `album`, `model_id`, `model`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(2, 'Test 1', 'test-1', '{\"1\":\"<p>Test 1<\\/p>\",\"2\":\"<p>b kdjbd&nbsp;<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/united-kingdom.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/vietnam.png\"]', '[\"1\",\"2\"]', 'ProductCatalogue', 'test-1', 0, 201014, NULL, '2024-09-02 07:11:36', '2024-09-02 11:07:04'),
+(4, 'Test ne', 'test ne', '{\"1\":\"<p>haha VN<\\/p>\",\"2\":\"<p>haha EN 123<\\/p>\",\"7\":\"<p>\\u54c8\\u54c8<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\"]', '[\"2\",\"1\"]', 'ProductCatalogue', 'test ne', 0, 201014, NULL, '2024-09-02 10:16:00', '2024-09-02 10:59:40');
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
@@ -13230,6 +13270,14 @@ ALTER TABLE `wards`
   ADD KEY `idx_wards_unit` (`administrative_unit_id`);
 
 --
+-- Chỉ mục cho bảng `widgets`
+--
+ALTER TABLE `widgets`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `widgets_keyword_unique` (`keyword`),
+  ADD KEY `widgets_user_id_foreign` (`user_id`);
+
+--
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
 
@@ -13285,13 +13333,13 @@ ALTER TABLE `menu_catalogues`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
@@ -13351,7 +13399,7 @@ ALTER TABLE `routers`
 -- AUTO_INCREMENT cho bảng `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `systems`
@@ -13369,6 +13417,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `user_catalogues`
 --
 ALTER TABLE `user_catalogues`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `widgets`
+--
+ALTER TABLE `widgets`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
@@ -13574,6 +13628,12 @@ ALTER TABLE `user_catalogue_permission`
 ALTER TABLE `wards`
   ADD CONSTRAINT `wards_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`),
   ADD CONSTRAINT `wards_district_code_fkey` FOREIGN KEY (`district_code`) REFERENCES `districts` (`code`);
+
+--
+-- Các ràng buộc cho bảng `widgets`
+--
+ALTER TABLE `widgets`
+  ADD CONSTRAINT `widgets_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

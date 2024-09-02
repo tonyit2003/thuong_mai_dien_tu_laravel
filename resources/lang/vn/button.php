@@ -24,4 +24,5 @@ return [
     'close' => 'Đóng',
     'delete_menu_catalogue' => 'Xóa vị trí',
     'delete_slide' => 'Xóa slide',
+    'delete_widget' => 'Xóa widget',
 ];

@@ -61,6 +61,32 @@ class DashboardController extends Controller
         return response()->json($object);
     }
 
+    public function findModelObject(Request $request)
+    {
+        $get = $request->input();
+        $languageTable = Str::snake($get['model']) . '_language';
+        $language = $this->language;
+        $class = $this->loadRepository($get['model']);
+        $relationWith = ['languages' => function ($query) use ($language) {
+            $query->where('language_id', $language);
+        }];
+        $condition = [
+            ['name', 'LIKE', '%' . $get['keyword'] . '%'],
+            ['language_id', '=', $language],
+        ];
+        $object = $class->findByWhereHasAndWith($condition, 'languages', $languageTable, $relationWith);
+        return response()->json($object);
+    }
+
+    private function loadRepository($model = '')
+    {
+        $repositoryNamespace = '\App\Repositories\\' . ucfirst($model) . 'Repository';
+        if (class_exists($repositoryNamespace)) {
+            $repositoryInstance = app($repositoryNamespace);
+        }
+        return $repositoryInstance;
+    }
+
     private function paginationArgument($model, $keyword = '')
     {
         // các từ trong chuỗi được nối với nhau bằng dấu gạch dưới (_), và tất cả các chữ cái đều được chuyển thành chữ thường.

@@ -84,7 +84,7 @@ return [
         [
             'title' => 'Cấu hình chung',
             'icon' => 'fa fa-cog',
-            'name' => ['language', 'generate', 'system'],
+            'name' => ['language', 'generate', 'system', 'widget'],
             'subModule' => [
                 [
                     'title' => 'Ngôn ngữ',
@@ -97,6 +97,10 @@ return [
                 [
                     'title' => 'Cấu hình hệ thống',
                     'route' => 'system.index'
+                ],
+                [
+                    'title' => 'Quản lý widget',
+                    'route' => 'widget.index'
                 ],
             ]
         ]
