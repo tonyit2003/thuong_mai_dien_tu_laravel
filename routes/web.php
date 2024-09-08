@@ -4,6 +4,7 @@ use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
+use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\GenerateController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\AttributeCatalogueController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\ProductReceiptController;
 use App\Http\Controllers\Backend\SlideController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
@@ -189,6 +191,22 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/destroy', [ProductController::class, 'destroy'])->name('product.destroy')->where(['id' => '[0-9]+']);
     });
 
+    // PRODUCT RECEIPTS
+    Route::group(['prefix' => 'receipt'], function () {
+        Route::get('index', [ProductReceiptController::class, 'index'])->name('receipt.index');
+        Route::get('create', [ProductReceiptController::class, 'create'])->name('receipt.create');
+        Route::post('store', [ProductReceiptController::class, 'store'])->name('receipt.store');
+        Route::get('{id}/edit', [ProductReceiptController::class, 'edit'])->name('receipt.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [ProductReceiptController::class, 'update'])->name('receipt.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [ProductReceiptController::class, 'delete'])->name('receipt.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [ProductReceiptController::class, 'destroy'])->name('receipt.destroy')->where(['id' => '[0-9]+']);
+        Route::get('{id}/detail', [ProductReceiptController::class, 'detail'])->name('receipt.detail')->where(['id' => '[0-9]+']);
+        Route::get('{id}/browse', [ProductReceiptController::class, 'browse'])->name('receipt.browse')->where(['id' => '[0-9]+']);
+        Route::post('{id}/approve', [ProductReceiptController::class, 'approve'])->name('receipt.approve')->where(['id' => '[0-9]+']);
+        Route::get('{id}/instock', [ProductReceiptController::class, 'instock'])->name('receipt.instock')->where(['id' => '[0-9]+']);
+        Route::post('{id}/delivere', [ProductReceiptController::class, 'delivere'])->name('receipt.delivere')->where(['id' => '[0-9]+']);
+    });
+
     // ATTRIBUTE CATALOGUE
     Route::group(['prefix' => 'attribute/catalogue'], function () {
         Route::get('index', [AttributeCatalogueController::class, 'index'])->name('attribute.catalogue.index');
@@ -223,6 +241,8 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::get('ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
     Route::post('ajax/menu/createCatalogue', [AjaxMenuController::class, 'createCatalogue'])->name('ajax.menu.createCatalogue');
     Route::post('ajax/menu/drag', [AjaxMenuController::class, 'drag'])->name('ajax.menu.drag');
+    Route::get('ajax/product/getProduct', [AjaxProductController::class, 'getProduct'])->name('ajax.product.getProduct');
+    Route::get('ajax/product/{id}', [AjaxProductController::class, 'getReceiptById'])->name('ajax.product.getReceiptById');
 });
 
 // LOGIN - LOGOUT DASHBOARD

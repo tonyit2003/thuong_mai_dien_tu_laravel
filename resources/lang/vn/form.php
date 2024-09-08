@@ -3,6 +3,7 @@
 return [
     'enter_keyword' => 'Nhập từ khóa...',
     'general_info' => 'Thông tin chung',
+    'general_info_inventory' => 'Thông tin tồn kho',
     'enter_general_info' => 'Nhập thông tin chung của :model',
     'required_fields' => 'Lưu ý: Những trường đánh dấu <span class="text-danger">(*)</span> là bắt buộc',
     'email' => 'Email',
@@ -184,4 +185,9 @@ return [
     'choose_module' => 'Chọn module',
     'enter_id_and_price' => 'Bạn phải nhập Mã sản phẩm và Giá sản phẩm để sử dụng chức năng này.',
     'choose_module_message' => 'Bạn chưa chọn module.',
+    'enter_inventory_quantity' => 'Nhập lượng tồn...',
+    'enter_price' => 'Nhập giá...',
+    'warehouse_receipt' => 'Phiếu nhập kho hàng',
+    'product_receipt_name' => 'Thông tin phiếu nhập',
+    'exit' => 'Quay lại'
 ];

@@ -190,3 +190,10 @@ if (!function_exists('convertArrayByKey')) {
         return $temp;
     }
 }
+
+if (!function_exists('formatCurrency')) {
+    function formatCurrency($amount)
+    {
+        return number_format($amount, 0, ',', '.') . ' VND';
+    }
+}

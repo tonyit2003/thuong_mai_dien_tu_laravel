@@ -58,6 +58,56 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $this->productRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, $relations, $orderBy, $this->whereRaw($request, $languageId));
     }
 
+    public function paginateProduct($request, $languageId)
+    {
+        $id = $request->input('product_id') != null ? $request->integer('product_id') : 0;
+        $quantity = $request->input('quantity') != null ? $request->integer('quantity') : -1;
+        $keyword = addslashes($request->input('keyword')) != null ? addslashes($request->input('keyword')) : NULL;
+        $condition = [
+            'where' => [
+                ['product_language.language_id', '=', $languageId],
+                ['products.id', '=', $id]
+            ]
+        ];
+
+        if ($keyword != null) {
+            $condition = [
+                'where' => [
+                    ['product_language.language_id', '=', $languageId],
+                    ['products.id', '=', $id],
+                    ['product_variants.quantity', '<=', $quantity],
+                    ['product_language.name', 'LIKE',  "%{$keyword}%"],
+                ]
+            ];
+        }
+
+        $join = [
+            ['product_language', 'product_language.product_id', '=', 'products.id'],
+            ['product_catalogue_product', 'product_catalogue_product.product_id', '=', 'products.id'],
+            ['product_variants', 'product_variants.product_id', '=', 'products.id'],
+            ['product_variant_language', 'product_variant_language.product_variant_id', '=', 'product_variants.id'],
+        ];
+
+        $extend = [
+            'path' => 'ajax/product/getProduct',
+            'groupBy' => $this->paginateSelectReceipt()
+        ];
+
+        $relations = [
+            'product_catalogues',
+            'product_variant_language',
+            [
+                'product_variants' => function ($query) use ($quantity) {
+                    if ($quantity != -1) {
+                        $query->where('product_variants.quantity', '<=', $quantity);
+                    }
+                }
+            ]
+        ];
+
+        return $this->productRepository->getProductForReceipt($this->paginateSelectReceipt(), $condition, $join, $extend, $relations);
+    }
+
     public function create($request, $languageId)
     {
         DB::beginTransaction();
@@ -282,6 +332,18 @@ class ProductService extends BaseService implements ProductServiceInterface
     }
 
     private function paginateSelect()
+    {
+        return [
+            'products.id',
+            'products.publish',
+            'products.image',
+            'products.order',
+            'product_language.name',
+            'product_language.canonical'
+        ];
+    }
+
+    private function paginateSelectReceipt()
     {
         return [
             'products.id',
