@@ -78,6 +78,34 @@ class DashboardController extends Controller
         return response()->json($object);
     }
 
+    public function findPromotionObject(Request $request)
+    {
+        $get = $request->input();
+        $model = $get['option']['model'];
+        $keyword = $get['search'];
+        $languageTable = Str::snake($model) . '_language';
+        $language = $this->language;
+        $class = loadClass($model);
+        $relationWith = ['languages' => function ($query) use ($language) {
+            $query->where('language_id', $language);
+        }];
+        $condition = [
+            ['name', 'LIKE', '%' . $keyword . '%'],
+            ['language_id', '=', $language],
+        ];
+        $object = $class->findByWhereHasAndWith($condition, 'languages', $languageTable, $relationWith);
+        $temp = [];
+        if (count($object)) {
+            foreach ($object as $key => $val) {
+                $temp[] = [
+                    'id' => $val->id,
+                    'text' => $val->languages->first()->pivot->name
+                ];
+            }
+        }
+        return response()->json(array('items' => $temp));
+    }
+
     private function loadRepository($model = '')
     {
         $repositoryNamespace = '\App\Repositories\\' . ucfirst($model) . 'Repository';

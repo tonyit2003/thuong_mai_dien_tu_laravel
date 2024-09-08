@@ -26,6 +26,21 @@ return [
             ]
         ],
         [
+            'title' => 'Marketing',
+            'icon' => 'fa fa-money',
+            'name' => ['promotion'],
+            'subModule' => [
+                [
+                    'title' => 'Khuyến mãi',
+                    'route' => 'promotion.index'
+                ],
+                // [
+                //     'title' => 'Mã giảm giá',
+                //     'route' => 'coupon.index'
+                // ],
+            ]
+        ],
+        [
             'title' => 'Bài viết',
             'icon' => 'fa fa-file',
             'name' => ['post'],

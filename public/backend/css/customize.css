@@ -152,6 +152,7 @@ table strong {
     );
     background: linear-gradient(to bottom, #fff, #f9fafb);
     background-color: #c4cdd5;
+    border-radius: 5px;
 }
 
 .select2-container--default
@@ -302,12 +303,14 @@ table strong {
     background: #fafbfc;
 }
 
+.img-scaledown,
 .image-scaledown {
     display: block;
     width: 100%;
     height: 100%;
 }
 
+.img-scaledown img,
 .image-scaledown img {
     display: block;
     width: 100%;
@@ -860,5 +863,260 @@ input[type="checkbox"] {
 
 .ajax-search-result button:hover {
     background-color: #eff9fd;
+}
+
+.form-date {
+    position: relative;
+}
+
+.form-date input {
+    padding-right: 30px;
+}
+
+.form-date span {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}
+
+/* Chọn tất cả các phần tử con trực tiếp của phần tử span nằm trong .form-date. */
+.form-date span > * {
+    color: #777;
+}
+
+.fix-label {
+    font-weight: normal;
+    margin: 0;
+    cursor: pointer;
+}
+
+.ml5 {
+    margin-left: 5px;
+}
+
+.promotion-wrapper input[type="radio"] {
+    margin: 0;
+}
+
+.promotion-wrapper input[type="checkbox"],
+.promotion-wrapper input[type="radio"] {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+}
+
+.promotion-wrapper .select2-container--default {
+    width: 100% !important;
+    /* height: 40px !important; */
+}
+
+div.fix-label {
+    margin-bottom: 5px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.wrapperConditionItem {
+    padding-top: 10px;
+    border-top: 1px solid #eaeaea;
+}
+
+.wrapper-condition {
+    margin-top: 20px;
+}
+
+.conditionLabel {
+    color: blue;
+}
+
+.discountType .select2-container {
+    width: 60px !important;
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.delete-some-item {
+    cursor: pointer;
+}
+
+.btn-custom {
+    border-radius: 4px;
+}
+
+.btn-success {
+    background-color: #0088ff;
+}
+
+.errorLine td input {
+    border: 1px solid red;
+}
+
+.product-quantity {
+    border: 1px solid #c4cdd5;
+    background-color: #fff;
+    padding: 9px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    min-height: 31px;
+}
+
+.product-quantity p {
+    margin: 0;
+}
+
+.product-quantity .boxSearchIcon .fa {
+    width: 24px;
+    text-align: center;
+}
+
+.goods-item {
+    background: rgb(217, 237, 255);
+    border: 1px solid transparent;
+    margin-bottom: 8px;
+    text-align: center;
+    position: relative;
+    border-radius: 100px;
+    padding: 4px 10px;
+}
+
+.goods-item span {
+    font-size: 1.3rem;
+    /* hiển thị dấu ba chấm (...) khi nội dung văn bản vượt quá kích thước của một phần tử */
+    text-overflow: ellipsis;
+    /* văn bản hiển thị trên một dòng */
+    white-space: nowrap;
+    /* Ẩn phần văn bản vượt quá chiều rộng */
+    overflow: hidden;
+    display: block;
+    /* Xác định độ rộng cố định của phần tử */
+    width: 90%;
+}
+
+.goods-item button {
+    background: transparent;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    border: 0;
+}
+
+.goods-item button img {
+    width: 12px;
+    height: 12px;
+}
+
+.boxWrapper .col-lg-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.boxWrapper p {
+    font-size: 1.3rem;
+}
+
+.fixGrid6 {
+    max-width: 50%;
+    /* phần tử sẽ không mở rộng để lấp đầy không gian trống, kích thước của nó sẽ cố định theo flex-basis hoặc width */
+    flex-grow: 0;
+    /* Phần tử chiếm 50% chiều rộng của container */
+    flex-basis: 50%;
+    padding: 0 6px;
+}
+
+.boxWrapper {
+    display: flex;
+    width: 100%;
+    /* Các phần tử con sẽ được phân bố trên nhiều dòng nếu không đủ không gian trong một dòng duy nhất. Các phần tử mới sẽ tự động xuống dòng bên dưới. */
+    flex-wrap: wrap;
+}
+
+.modal-title {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.modal-body .search-model-box {
+    margin-top: 0;
+}
+
+.modal-body .search-model-box i {
+    font-size: 1.2rem;
+}
+
+.search-object-item {
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e3e9ed;
+}
+
+.search-object-item .image {
+    width: 52px;
+    height: 52px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.object-name .name {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.object-name .jscode {
+    color: blue;
+    font-size: 1.2rem;
+}
+
+.object-extra-info {
+    text-align: right;
+}
+
+.object-extra-info .price {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.object-extra-info .slash {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.object-extra-info .text-value {
+    font-size: 1.4rem;
+    color: blue;
+}
+
+.object-extra-info .text-1 {
+    font-size: 1.4rem;
+    color: #888;
+}
+
+.search-list {
+    /* xuất hiện thanh cuộn khi nội dung bị tràn */
+    overflow: auto;
+    /* Đặt chiều cao của phần tử dựa vào nội dung bên trong. */
+    height: auto;
+    max-height: calc(100vh - 300px);
+    padding-right: 20px;
+}
+
+.search-list::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 10px;
+}
+
+.search-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.search-list::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.search-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 /* end */
