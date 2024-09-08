@@ -146,3 +146,10 @@ if (!function_exists('buildMenu')) {
         return $output;
     }
 }
+
+if (!function_exists('formatCurrency')) {
+    function formatCurrency($amount)
+    {
+        return number_format($amount, 0, ',', '.') . ' VND';
+    }
+}

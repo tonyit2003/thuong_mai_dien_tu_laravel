@@ -53,4 +53,16 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariant::class, 'product_id', 'id');
     }
+
+    public function product_variant_language()
+    {
+        return $this->hasManyThrough(
+            ProductVariantLanguage::class, // Model đích là ProductVariantLanguage
+            ProductVariant::class,         // Model trung gian là ProductVariant
+            'product_id',                  // Khóa ngoại trong bảng ProductVariant trỏ đến bảng hiện tại (Product)
+            'product_variant_id',          // Khóa ngoại trong bảng ProductVariantLanguage trỏ đến bảng ProductVariant
+            'id',                          // Khóa chính của bảng hiện tại (Product)
+            'id'                           // Khóa chính của bảng trung gian (ProductVariant)
+        );
+    }
 }

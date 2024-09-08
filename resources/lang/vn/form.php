@@ -3,6 +3,7 @@
 return [
     'enter_keyword' => 'Nhập từ khóa...',
     'general_info' => 'Thông tin chung',
+    'general_info_inventory' => 'Thông tin tồn kho',
     'enter_general_info' => 'Nhập thông tin chung của :model',
     'required_fields' => 'Lưu ý: Những trường đánh dấu <span class="text-danger">(*)</span> là bắt buộc',
     'email' => 'Email',
@@ -147,4 +148,9 @@ return [
     'menu_translate_description_3' => '<span class="text-success">Lưu ý:</span> Cập nhật đầy đủ thông tin.',
     'translate_list' => 'Danh sách bản dịch',
     'translate_input' => 'Nhập vào bản dịch của bạn...',
+    'enter_inventory_quantity' => 'Nhập lượng tồn...',
+    'enter_price' => 'Nhập giá...',
+    'warehouse_receipt' => 'Phiếu nhập kho hàng',
+    'product_receipt_name' => 'Thông tin phiếu nhập',
+    'exit' => 'Quay lại'
 ];

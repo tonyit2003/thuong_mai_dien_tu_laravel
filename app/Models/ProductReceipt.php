@@ -15,7 +15,7 @@ class ProductReceipt extends Model
         'date_created',
         'publish',
         'user_id',
-        'supplier_infomation',
+        'supplier_id',
         'total'
     ];
 
@@ -27,5 +27,20 @@ class ProductReceipt extends Model
             'quantity',
             'price'
         )->withTimestamps();;
+    }
+
+    public function details()
+    {
+        return $this->hasMany(ProductReceiptDetail::class, 'product_receipt_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
 }

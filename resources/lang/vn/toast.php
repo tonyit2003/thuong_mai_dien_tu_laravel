@@ -13,4 +13,6 @@ return [
     'permission_update_failed' => 'Cập nhật quyền không thành công',
     'create_menu_catalogue_success' => 'Tạo nhóm menu thành công.',
     'create_menu_catalogue_failed' => 'Có vấn đề xảy ra, Hãy thử lại.',
+    'approve_success' => 'Duyệt phiếu nhập kho thành công',
+    'approve_failed' => 'Duyệt phiếu nhập kho không thành công',
 ];

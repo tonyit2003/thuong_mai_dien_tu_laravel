@@ -40,4 +40,9 @@ class ProductVariant extends Model
     {
         return $this->belongsToMany(Attribute::class, 'product_variant_attribute', 'product_variant_id', 'attribute_id')->withTimestamps();
     }
+
+    public function product_variant_language()
+    {
+        return $this->hasMany(ProductVariantLanguage::class, 'product_variant_id', 'id');
+    }
 }
