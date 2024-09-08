@@ -56,6 +56,17 @@ return [
             ]
         ],
         [
+            'title' => 'Nhập kho',
+            'icon' => 'fa fa-edit',
+            'name' => ['receipt'],
+            'subModule' => [
+                [
+                    'title' => 'Nhập kho',
+                    'route' => 'receipt.index'
+                ]
+            ]
+        ],
+        [
             'title' => 'Thành viên',
             'icon' => 'fa fa-th-large',
             'name' => ['user', 'permission'],

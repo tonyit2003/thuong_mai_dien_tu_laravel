@@ -19,7 +19,7 @@
                     <td>
                         {{ $permission->name }}
                     </td>
-                    <td class="text-center">
+                    <td>
                         {{ $permission->canonical }}
                     </td>
                     <td class="text-center">

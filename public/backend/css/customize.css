@@ -176,6 +176,12 @@ table strong {
     height: 15px;
 }
 
+#checkAllReceipt,
+.checkBoxItemReceipt {
+    width: 15px;
+    height: 15px;
+}
+
 .switchery-small {
     border-radius: 20px;
     height: 20px;
@@ -1120,3 +1126,7 @@ div.fix-label {
     background: #555;
 }
 /* end */
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}

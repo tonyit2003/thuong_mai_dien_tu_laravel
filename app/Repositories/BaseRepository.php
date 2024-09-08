@@ -43,6 +43,21 @@ class BaseRepository implements BaseRepositoryInterface
             ->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }
 
+    public function getProductForReceipt($column = ['*'], $condition = [], $join = [], $extend = [], $relations = [])
+    {
+        $query = $this->model
+            ->distinct()
+            ->select($column)
+            ->keyword($condition['keyword'] ?? null)
+            ->customWhere($condition['where'] ?? null)
+            ->relationCount($relations ?? null)
+            ->relation($relations ?? null)
+            ->customJoin($join ?? null)
+            ->customGroupBy($extend['groupBy'] ?? null);
+        $paginator = $query->paginate();
+        return $paginator->withQueryString()->withPath(env('APP_URL') . $extend['path']);
+    }
+
     public function create($payload = [])
     {
         // create => chèn một bản ghi trực tiếp vào cơ sở dữ liệu
@@ -63,6 +78,12 @@ class BaseRepository implements BaseRepositoryInterface
         // {$relation} => sử dụng giá trị của $relation để tham chiếu đến thuộc tính hoặc phương thức tương ứng của $model.
         // attach:  thêm một bản ghi mới vào bảng trung gian (khóa chính của model hiện tại, dữ liệu sẽ được lưu vào các cột trong bảng trung gian)
         return $model->{$relation}()->attach($model->id, $payload);
+    }
+
+    public function createPivotReceipt($model, $payload = [])
+    {
+        // Use the correct relationship method defined in your model
+        return $model->productReceiptDetails()->attach($payload);
     }
 
     public function update($id = 0, $payload = [])

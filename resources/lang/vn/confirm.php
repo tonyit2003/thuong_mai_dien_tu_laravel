@@ -30,4 +30,6 @@ return [
     'delete_slide_name' => 'Bạn đang muốn xóa slide có tên là: <span class="text-danger">:name</span> ?',
     'delete_widget' => 'Xác nhận xóa widget',
     'delete_widget_name' => 'Bạn đang muốn xóa widget có tên là: <span class="text-danger">:name</span> ?',
+    'delete_product_receipt' => 'Xác nhận xóa phiếu nhập',
+    'delete_product_receipt_name' => 'Bạn đang muốn xóa phiếu nhập có tên là: <span class="text-danger">:name</span> ?',
 ];
