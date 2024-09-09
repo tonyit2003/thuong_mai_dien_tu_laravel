@@ -52,6 +52,7 @@ class BaseService implements BaseServiceInterface
         $payload = $this->formatRouterPayload($model, $request, $controllerName, $languageId);
         $condition = [
             ['module_id', '=', $model->id],
+            ['language_id', '=', $languageId],
             ['controllers', '=', 'App\Http\Controllers\Frontend\\' . $controllerName . '']
         ];
         $router = $this->routerRepository->findByCondition($condition);

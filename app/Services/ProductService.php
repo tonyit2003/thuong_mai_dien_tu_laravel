@@ -117,7 +117,9 @@ class ProductService extends BaseService implements ProductServiceInterface
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $this->updateCatalogueForProduct($product, $request);
                 $this->createRouter($product, $request, $this->controllerName, $languageId);
-                $this->createVariant($product, $request, $languageId);
+                if ($request->input('attribute')) {
+                    $this->createVariant($product, $request, $languageId);
+                }
             }
             DB::commit();
             return true;
@@ -144,7 +146,9 @@ class ProductService extends BaseService implements ProductServiceInterface
                     // delete() => xóa các bản ghi trên bảng đang chỉ định liên quan đến $product
                     $query->delete();
                 });
-                $this->createVariant($product, $request, $languageId);
+                if ($request->input('attribute')) {
+                    $this->createVariant($product, $request, $languageId);
+                }
             }
             DB::commit();
             return true;
@@ -178,7 +182,7 @@ class ProductService extends BaseService implements ProductServiceInterface
         $payload['user_id'] = Auth::id();
         $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
         // convert_price() từ MyHelper.php
-        $payload['price'] = convert_price($payload['price']);
+        $payload['price'] = convert_price($payload['price']) ?? 0;
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
         $payload['attribute'] = $this->formatJson($request, 'attribute');
         $payload['variant'] = $this->formatJson($request, 'variant');

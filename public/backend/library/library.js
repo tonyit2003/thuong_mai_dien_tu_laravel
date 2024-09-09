@@ -508,14 +508,16 @@
     };
 
     HT.setupDatepicker = () => {
-        $(".datepicker").datetimepicker({
-            // minDate: "-1970/01/2",
-            // maxDate: "+1970/01/2",
-            timepicker: true,
-            format: "d/m/Y H:i",
-            value: new Date(),
-            minDate: new Date(),
-        });
+        if ($(".datepicker").length) {
+            $(".datepicker").datetimepicker({
+                // minDate: "-1970/01/2",
+                // maxDate: "+1970/01/2",
+                timepicker: true,
+                format: "d/m/Y H:i",
+                value: new Date(),
+                minDate: new Date(),
+            });
+        }
     };
 
     $(document).ready(function () {

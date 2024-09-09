@@ -24,7 +24,7 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->with($relation)->get();
     }
 
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'ASC'], $rawQuery = [])
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])
     {
         $query = $this->model->select($column);
         // gọi các scope trong model (được khai báo trong trait) để truy vấn (laravel tự động điền $query vào tham số đầu tiên)

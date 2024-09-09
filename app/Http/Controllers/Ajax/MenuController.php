@@ -50,6 +50,6 @@ class MenuController extends Controller
     {
         $json = json_decode($request->string('json'), true);
         $menuCatalogueId = $request->integer('menu_catalogue_id');
-        $flag = $this->menuService->dragUpdate($json, $menuCatalogueId, $this->language, 0);
+        $this->menuService->dragUpdate($json, $menuCatalogueId, $this->language, 0);
     }
 }

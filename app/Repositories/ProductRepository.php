@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ProductsRepository
@@ -51,5 +52,31 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 }]);
             }
         ])->where('product_language.language_id', '=', $language_id)->find($id);
+    }
+
+    public function findProductForPromotion($condition = [], $relation = [])
+    {
+        $query = $this->model->newQuery();
+        $query->select([
+            'products.id',
+            'products.image',
+            'product_language.name',
+            'product_variants.id as product_variant_id',
+            // DB::raw: truyền một đoạn SQL trực tiếp vào truy vấn mà không qua Eloquent để Laravel không xử lý hay thoát chuỗi SQL này.
+            // CONCAT: nối chuỗi các cột lại với nhau.
+            // COALESCE: trả về giá trị của cột product_variant_language.name nếu nó không phải NULL. Nếu cột này là NULL, nó sẽ trả về "default".
+            DB::raw('CONCAT(product_language.name, " - ", COALESCE(product_variant_language.name, "Default")) as variant_name')
+        ]);
+        $query->join('product_language', 'products.id', '=', 'product_language.product_id');
+        $query->leftJoin('product_variants', 'products.id', '=', 'product_variants.product_id');
+        $query->leftJoin('product_variant_language', 'product_variants.id', '=', 'product_variant_language.product_variant_id');
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
+        }
+        if (count($relation)) {
+            $query->with($relation);
+        }
+        $query->orderBy('id', 'DESC');
+        return $query->get();
     }
 }

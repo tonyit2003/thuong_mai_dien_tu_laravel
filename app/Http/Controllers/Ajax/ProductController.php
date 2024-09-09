@@ -51,4 +51,17 @@ class ProductController extends Controller
 
         return response()->json(['data' => $formattedDetails]);
     }
+
+    public function loadProductPromotion(Request $request)
+    {
+        $get = $request->input();
+        $condition = [
+            ['product_language.language_id', '=', $this->language]
+        ];
+        $objects = $this->productRepository->findProductForPromotion($condition);
+        return response()->json([
+            'model' => 'Product',
+            'objects' => $objects
+        ]);
+    }
 }
