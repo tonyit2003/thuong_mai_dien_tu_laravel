@@ -554,6 +554,41 @@
         });
     };
 
+    HT.productQuantityListProduct = () => {
+        $(document).on("click", ".product-quantity", function (e) {
+            e.preventDefault();
+            let option = {};
+            HT.loadProduct(option);
+        });
+    };
+
+    HT.loadProduct = (option) => {
+        $.ajax({
+            url: "ajax/product/loadProductPromotion",
+            type: "GET",
+            data: option,
+            dataType: "json",
+            success: function (res) {
+                HT.fillToObjectList(res.objects);
+            },
+        });
+    };
+
+    HT.fillToObjectList = (data) => {
+        switch (data.model) {
+            case "Product":
+                HT.fillProductToList(data.objects);
+                break;
+            case "ProductCatalogue":
+                HT.fillProductCatalogueToList(data.objects);
+                break;
+        }
+    };
+
+    HT.fillProductToList = (objects) => {
+        
+    };
+
     $(document).ready(function () {
         HT.promotionNeverEnd();
         HT.promotionSource();
@@ -565,5 +600,6 @@
         HT.deleteAmountRangeCondition();
         HT.renderOrderRangeConditionContainer();
         // HT.setupAjaxSearch();
+        HT.productQuantityListProduct();
     });
 })(jQuery);

@@ -256,6 +256,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::post('ajax/menu/drag', [AjaxMenuController::class, 'drag'])->name('ajax.menu.drag');
     Route::get('ajax/product/getProduct', [AjaxProductController::class, 'getProduct'])->name('ajax.product.getProduct');
     Route::get('ajax/{id}/product', [AjaxProductController::class, 'getReceiptById'])->name('ajax.product.getReceiptById')->where(['id' => '[0-9]+']);
+    Route::get('ajax/product/loadProductPromotion', [AjaxProductController::class, 'loadProductPromotion'])->name('ajax.loadProductPromotion');
 });
 
 // LOGIN - LOGOUT DASHBOARD
