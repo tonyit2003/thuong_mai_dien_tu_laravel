@@ -81,5 +81,5 @@
 <script>
     var no_product = "{{ __('table.no_product') }}";
     var price = "{{ __('form.enter_price') }}";
-    var productReceiptId = "{{ $productReceipt->id ?? '' }}";
+    var productReceiptId = "{{ $productReceipt->id ?? 0 }}";
 </script>

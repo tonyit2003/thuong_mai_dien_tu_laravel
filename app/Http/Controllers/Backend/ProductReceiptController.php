@@ -43,7 +43,7 @@ class ProductReceiptController extends Controller
     {
         Gate::authorize('modules', 'receipt.index');
         $productReceipts = $this->productReceiptService->paginate($request, $this->language);
-        
+
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -133,17 +133,10 @@ class ProductReceiptController extends Controller
     {
         if ($this->productReceiptService->delete($id)) {
             flash()->success(__('toast.destroy_success'));
-            return response()->json([
-                'success' => true,
-                'message' => __('toast.destroy_success'),
-                'redirect_url' => route('receipt.index')
-            ]);
+            return redirect()->route('receipt.index');
         }
         flash()->error(__('toast.destroy_failed'));
-        return response()->json([
-            'success' => false,
-            'message' => __('toast.destroy_failed')
-        ]);
+        return redirect()->route('receipt.index');
     }
 
     public function detail($id, Request $request)
@@ -223,6 +216,7 @@ class ProductReceiptController extends Controller
                 'backend/library/finder.js',
                 'backend/library/seo.js',
                 'backend/library/variant.js',
+                'backend/library/receipt.js',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
                 'backend/plugins/nice-select/js/jquery.nice-select.min.js',
             ],

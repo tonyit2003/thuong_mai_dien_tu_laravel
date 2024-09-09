@@ -38,7 +38,7 @@ class PostController extends Controller
     {
         Gate::authorize('modules', 'post.index');
         $posts = $this->postService->paginate($request, $this->language);
-
+        $languageId = $this->language;
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -53,7 +53,7 @@ class PostController extends Controller
         $config['seo'] = __('post');
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.post.post.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'posts', 'dropdown'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'posts', 'dropdown', 'languageId'));
     }
 
     public function create()

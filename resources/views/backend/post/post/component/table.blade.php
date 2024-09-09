@@ -32,11 +32,16 @@
                                 <div class="catalogue">
                                     <span class="text-danger">{{ __('table.display_group') }}: </span>
                                     @foreach ($post->post_catalogues as $val)
-                                        {{-- trong mỗi post-catalogue có khai báo quan hệ post_catalogue_language nên có thể truy vấn được --}}
-                                        @foreach ($val->post_catalogue_language as $cat)
-                                            <a
-                                                href="{{ route('post.index', ['post_catalogue_id' => $val->id]) }}">{{ $cat->name }}</a>
+                                        @foreach ($val->post_catalogue_language->where('language_id', $languageId) as $item)
+                                            <a href="{{ route('post.index', ['post_catalogue_id' => $val->id]) }}"
+                                                title="">{{ $item->name }}</a>
+                                            @if (!$loop->last)
+                                                |
+                                            @endif
                                         @endforeach
+                                        @if (!$loop->last)
+                                            |
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
@@ -47,14 +52,12 @@
                         'modeling' => 'Post',
                     ])
                     <td>
-                        <input type="text" name="order" class="form-control sort-order text-right"
-                            data-id="{{ $post->id }}" data-model="{{ $config['model'] }}"
-                            value="{{ $post->order }}">
+                        <input type="text" name="order" class="form-control sort-order text-right" data-id="{{ $post->id }}"
+                            data-model="{{ $config['model'] }}" value="{{ $post->order }}">
                     </td>
                     <td class="text-center js-switch-{{ $post->id }}">
-                        <input type="checkbox" value="{{ $post->publish }}" class="js-switch status"
-                            data-field="publish" data-model="{{ $config['model'] }}"
-                            data-modelId="{{ $post->id }}" {{ $post->publish == 1 ? 'checked' : '' }} />
+                        <input type="checkbox" value="{{ $post->publish }}" class="js-switch status" data-field="publish"
+                            data-model="{{ $config['model'] }}" data-modelId="{{ $post->id }}" {{ $post->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
                         <a href="{{ route('post.edit', $post->id) }}" class="btn btn-success">
