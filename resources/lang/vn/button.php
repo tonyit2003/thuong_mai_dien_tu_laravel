@@ -27,4 +27,5 @@ return [
     'delete_widget' => 'Xóa widget',
     'confirm' => 'Xác nhận',
     'delete_product_receipt' => 'Xóa phiếu nhập',
+    'delete_source' => 'Xóa nguồn khách',
 ];

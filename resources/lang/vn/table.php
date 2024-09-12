@@ -52,4 +52,5 @@ return [
     'view' => 'Xem chi tiết',
     'update' => 'Chỉnh sửa',
     'delete' => 'Xóa',
+    'source_name' => 'Tên nguồn khách',
 ];

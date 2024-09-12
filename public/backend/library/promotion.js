@@ -3,6 +3,10 @@
 
     var HT = {};
     var ranges = [];
+    var objectChoose = [];
+    var _token = $('meta[name="csrf-token"]').attr("content");
+    var typingTimer;
+    const donTypingInterval = 500;
 
     // $.fn là cách để thêm một hàm mới vào đối tượng jQuery => thêm một hàm mới gọi là elExist.
     $.fn.elExist = function () {
@@ -39,9 +43,11 @@
                         name: "Shoppe",
                     },
                 ];
-                let sourceHtml = HT.renderPromotionSource(sourceData);
-                _this.parents(".ibox-content").append(sourceHtml);
-                HT.promotionMultipleSelect2();
+                if (!$(".source-wrapper").length) {
+                    let sourceHtml = HT.renderPromotionSource(sourceData);
+                    _this.parents(".ibox-content").append(sourceHtml);
+                    HT.promotionMultipleSelect2();
+                }
             }
         });
     };
@@ -89,9 +95,11 @@
                         name: customerBirthday,
                     },
                 ];
-                let applyHtml = HT.renderApplyCondition(applyConditionData);
-                _this.parents(".ibox-content").append(applyHtml);
-                HT.promotionMultipleSelect2();
+                if (!$(".apply-wrapper").length) {
+                    let applyHtml = HT.renderApplyCondition(applyConditionData);
+                    _this.parents(".ibox-content").append(applyHtml);
+                    HT.promotionMultipleSelect2();
+                }
             }
         });
     };
@@ -478,7 +486,7 @@
                             <th class="text-right" style="width: 400px">
                                 ${purchasedProduct}
                             </th>
-                            <th class="text-right" style="width: 80px">
+                            <th class="text-right">
                                 ${minimumQuantity}
                             </th>
                             <th class="text-right">
@@ -491,10 +499,18 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="order_amount_range_from td-range">
-                                <select name="amountFrom[]" id=""
-                                    class="form-control multipleSelect2" data-model="Product"
-                                    multiple></select>
+                            <td class="chooseProductPromotionTd">
+                                <div data-toggle="modal" data-target="#findProduct"
+                                    class="product-quantity">
+                                    <div class="boxWrapper">
+                                        <div class="boxSearchIcon">
+                                            <i class="fa fa-search"></i>
+                                        </div>
+                                        <div class="boxSearchInput fixGrid6">
+                                            <p>${searchByNameProductCode}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                             <td class="order_amount_range_to td-range">
                                 <input type="text" name="amountTo[]" id=""
@@ -557,8 +573,39 @@
     HT.productQuantityListProduct = () => {
         $(document).on("click", ".product-quantity", function (e) {
             e.preventDefault();
-            let option = {};
+            let option = {
+                model: $(".select-product-and-quantity").val(),
+            };
             HT.loadProduct(option);
+        });
+    };
+
+    HT.getPaginationMenu = () => {
+        $(document).on("click", ".page-link", function (e) {
+            e.preventDefault();
+            let _this = $(this);
+            let option = {
+                model: $(".select-product-and-quantity").val(),
+                // laravel sẽ tự lấy biến page trên thanh url hoặc url ajax để lấy data theo số trang
+                page: _this.text(),
+                keyword: $(".search-model").val(),
+            };
+            HT.loadProduct(option);
+        });
+    };
+
+    HT.searchObject = () => {
+        $(document).on("keyup", ".search-model", function (e) {
+            let _this = $(this);
+            let keyword = _this.val();
+            let option = {
+                model: $(".select-product-and-quantity").val(),
+                keyword: keyword,
+            };
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(() => {
+                HT.loadProduct(option);
+            }, donTypingInterval);
         });
     };
 
@@ -569,7 +616,7 @@
             data: option,
             dataType: "json",
             success: function (res) {
-                HT.fillToObjectList(res.objects);
+                HT.fillToObjectList(res);
             },
         });
     };
@@ -586,7 +633,232 @@
     };
 
     HT.fillProductToList = (objects) => {
-        
+        let html = "";
+        if (objects.data.length) {
+            let model = $(".select-product-and-quantity").val();
+            for (let i = 0; i < objects.data.length; i++) {
+                let image = objects.data[i].image;
+                let name = objects.data[i].variant_name;
+                let product_variant_id = objects.data[i].product_variant_id;
+                let product_id = objects.data[i].id;
+                let sku = objects.data[i].sku;
+                let price = objects.data[i].price;
+                let inventory =
+                    typeof objects.data[i].inventory != "undefined"
+                        ? objects.data[i].inventory
+                        : 0;
+                let couldSell =
+                    typeof objects.data[i].couldSell != "undefined"
+                        ? objects.data[i].couldSell
+                        : 0;
+                let classBox =
+                    model + "_" + product_id + "_" + product_variant_id;
+                let isChecked = $(`.boxWrapper .${classBox}`).length
+                    ? "checked"
+                    : "";
+                html += `
+                    <div class="search-object-item" data-productid="${product_id}" data-variant_id="${product_variant_id}" data-name="${name}">
+                        <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                            <div class="object-info">
+                                <div class="uk-flex uk-flex-middle">
+                                    <input type="checkbox" name="" value="${product_id}_${product_variant_id}" class="input-checkbox" ${isChecked}>
+                                    <span class="image img-scaledown">
+                                        <img src="${image}"
+                                            alt="">
+                                    </span>
+                                    <div class="object-name">
+                                        <div class="name">
+                                            ${name}
+                                        </div>
+                                        <div class="jscode">${sku}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="object-extra-info">
+                                <div class="price">${addCommas(price)}</div>
+                                <div class="object-inventory">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <span class="text-1">${inventoryTitle}:</span>
+                                        <span class="text-value"> ${addCommas(
+                                            inventory
+                                        )}</span>
+                                        <span class="text-1 slash">|</span>
+                                        <span class="text-1">${canBeSold}:</span>
+                                        <span class="text-value"> ${addCommas(
+                                            couldSell
+                                        )}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        html = html + HT.paginationLink(objects.links).prop("outerHTML");
+        $(".search-list").html(html);
+    };
+
+    HT.fillProductCatalogueToList = (objects) => {
+        let html = "";
+        if (objects.data.length) {
+            let model = $(".select-product-and-quantity").val();
+            for (let i = 0; i < objects.data.length; i++) {
+                let name = objects.data[i].name;
+                let id = objects.data[i].id;
+                let classBox = model + "_" + id;
+                let isChecked = $(`.boxWrapper .${classBox}`).length
+                    ? "checked"
+                    : "";
+                html += `
+                    <div class="search-object-item" data-productid="${id}" data-name="${name}">
+                        <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                            <div class="object-info">
+                                <div class="uk-flex uk-flex-middle">
+                                    <input type="checkbox" name="" value="${id}" class="input-checkbox" ${isChecked}>
+                                    <div class="object-name">
+                                        <div class="name" style="margin: 0 0 0 5px">
+                                            ${name}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        html = html + HT.paginationLink(objects.links).prop("outerHTML");
+        $(".search-list").html(html);
+    };
+
+    HT.paginationLink = (links) => {
+        let nav = $("<nav>");
+        if (links.length > 3) {
+            let paginationUl = $("<ul>").addClass("pagination");
+            $.each(links, function (index, link) {
+                let liClass = "page-item";
+                if (link.active) {
+                    liClass += " active disabled";
+                } else if (!link.url) {
+                    liClass += " disabled";
+                }
+                let li = $("<li>").addClass(liClass);
+                if (link.label == "pagination.previous") {
+                    let a = $("<a>")
+                        .addClass("page-link")
+                        .attr("aria-hidden", true)
+                        .html("‹");
+                    li.append(a);
+                } else if (link.label == "pagination.next") {
+                    let a = $("<a>")
+                        .addClass("page-link")
+                        .attr("aria-hidden", true)
+                        .html("›");
+                    li.append(a);
+                } else if (link.url) {
+                    let a = $("<a>")
+                        .addClass("page-link")
+                        .text(link.label)
+                        .attr("href", link.url);
+                    li.append(a);
+                }
+                paginationUl.append(li);
+            });
+            nav.append(paginationUl);
+        }
+        return nav;
+    };
+
+    HT.chooseProductPromotion = () => {
+        $(document).on("click", ".search-object-item", function (e) {
+            e.preventDefault();
+            let _this = $(this);
+            let isChecked = _this.find("input[type=checkbox]").prop("checked");
+            let objectItem = {
+                product_id: _this.attr("data-productid"),
+                product_variant_id: _this.attr("data-variant_id"),
+                name: _this.attr("data-name"),
+            };
+            if (isChecked) {
+                objectChoose = objectChoose.filter(
+                    (item) => item.product_id !== objectItem.product_id
+                );
+                _this.find("input[type=checkbox]").prop("checked", false);
+            } else {
+                objectChoose.push(objectItem);
+                _this.find("input[type=checkbox]").prop("checked", true);
+            }
+        });
+    };
+
+    HT.confirmProductPromotion = () => {
+        $(document).on("click", ".confirm-product-promotion", function (e) {
+            let html = "";
+            let model = $(".select-product-and-quantity").val();
+            if (objectChoose.length) {
+                for (let i = 0; i < objectChoose.length; i++) {
+                    let product_id = objectChoose[i].product_id;
+                    let product_variant_id = objectChoose[i].product_variant_id;
+                    let name = objectChoose[i].name;
+                    let classBox =
+                        model + "_" + product_id + "_" + product_variant_id;
+                    if (!$(`.boxWrapper .${classBox}`).length) {
+                        html += `
+                            <div class="fixGrid6 ${classBox}">
+                                <div class="goods-item" >
+                                    <a class="goods-item-name" title="${name}">${name}</a>
+                                    <button class="delete-goods-item">
+                                        <img src="backend/img/remove.png">
+                                    </button>
+                                </div>
+                                <div class="hidden">
+                                    <input name="object[id][]" value="${product_id}">
+                                    <input name="object[product_variant_id][]" value="${product_variant_id}">
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            }
+            HT.checkFixGrid(html);
+            // ẩn (đóng) một modal Bootstrap có ID là findProduct.
+            $("#findProduct").modal("hide");
+        });
+    };
+
+    HT.checkFixGrid = (html) => {
+        if ($(".fixGrid6").elExist) {
+            $(".boxSearchIcon").remove();
+            // chèn nội dung HTML, văn bản hoặc các phần tử vào bên trong phần tử mục tiêu, nhưng đặt ở vị trí đầu tiên của phần tử đó.
+            $(".boxWrapper").prepend(html);
+        } else {
+            $(".fixGrid6").remove();
+            $(".boxWrapper").prepend(HT.boxSearchIcon());
+        }
+    };
+
+    HT.boxSearchIcon = () => {
+        return `
+            <div class="boxSearchIcon">
+                <i class="fa fa-search"></i>
+            </div>
+        `;
+    };
+
+    HT.deleteGoodsItem = () => {
+        $(document).on("click", ".delete-goods-item", function (e) {
+            e.stopPropagation();
+            let _button = $(this);
+            _button.parents(".fixGrid6").remove();
+        });
+    };
+
+    HT.changePromotionMethod = () => {
+        $(document).on("change", ".select-product-and-quantity", function () {
+            $(".fixGrid6").remove();
+            objectChoose = [];
+        });
     };
 
     $(document).ready(function () {
@@ -601,5 +873,11 @@
         HT.renderOrderRangeConditionContainer();
         // HT.setupAjaxSearch();
         HT.productQuantityListProduct();
+        HT.getPaginationMenu();
+        HT.searchObject();
+        HT.chooseProductPromotion();
+        HT.confirmProductPromotion();
+        HT.deleteGoodsItem();
+        HT.changePromotionMethod();
     });
 })(jQuery);

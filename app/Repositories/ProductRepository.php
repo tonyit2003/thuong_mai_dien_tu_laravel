@@ -65,7 +65,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             // DB::raw: truyền một đoạn SQL trực tiếp vào truy vấn mà không qua Eloquent để Laravel không xử lý hay thoát chuỗi SQL này.
             // CONCAT: nối chuỗi các cột lại với nhau.
             // COALESCE: trả về giá trị của cột product_variant_language.name nếu nó không phải NULL. Nếu cột này là NULL, nó sẽ trả về "default".
-            DB::raw('CONCAT(product_language.name, " - ", COALESCE(product_variant_language.name, "Default")) as variant_name')
+            DB::raw('CONCAT(product_language.name, " - ", COALESCE(product_variant_language.name, "Default")) as variant_name'),
+            DB::raw('COALESCE(product_variants.sku, products.code) as sku'),
+            DB::raw('COALESCE(product_variants.price, products.price) as price'),
         ]);
         $query->join('product_language', 'products.id', '=', 'product_language.product_id');
         $query->leftJoin('product_variants', 'products.id', '=', 'product_variants.product_id');
@@ -77,6 +79,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $query->with($relation);
         }
         $query->orderBy('id', 'DESC');
-        return $query->get();
+        return $query->paginate(10);
     }
 }

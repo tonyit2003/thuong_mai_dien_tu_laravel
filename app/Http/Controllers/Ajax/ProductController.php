@@ -55,12 +55,30 @@ class ProductController extends Controller
     public function loadProductPromotion(Request $request)
     {
         $get = $request->input();
-        $condition = [
-            ['product_language.language_id', '=', $this->language]
-        ];
-        $objects = $this->productRepository->findProductForPromotion($condition);
+        $loadClass = loadClass($get['model']);
+        if ($get['model'] == 'Product') {
+            $condition = [
+                ['product_language.language_id', '=', $this->language]
+            ];
+            if (isset($get['keyword']) && $get['keyword'] != '') {
+                $keywordCondition = ['product_language.name', 'LIKE', '%' . $get['keyword'] . '%'];
+                array_push($condition, $keywordCondition);
+            }
+            $objects = $loadClass->findProductForPromotion($condition);
+        } else if ($get['model'] == 'ProductCatalogue') {
+            if (isset($get['keyword']) && $get['keyword'] != '') {
+                $condition['keyword'] = $get['keyword'];
+            }
+            $condition['where'] = [
+                ['product_catalogue_language.language_id', '=', $this->language]
+            ];
+            $join = [
+                ['product_catalogue_language', 'product_catalogue_language.product_catalogue_id', '=', 'product_catalogues.id']
+            ];
+            $objects = $loadClass->pagination(['product_catalogues.id', 'product_catalogue_language.name'], $condition, $join, 10, ['path' => 'product.catalogue.index'], ['languages']);
+        }
         return response()->json([
-            'model' => 'Product',
+            'model' => $get['model'] ?? 'Product',
             'objects' => $objects
         ]);
     }

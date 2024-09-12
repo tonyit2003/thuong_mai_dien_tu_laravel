@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePromotionRequest;
 use App\Http\Requests\UpdatePromotionRequest;
 use App\Models\Language;
+use App\Models\Promotion;
 use App\Repositories\LanguageRepository;
 use App\Repositories\PromotionRepository;
 use App\Services\PromotionService;
@@ -78,6 +79,9 @@ class PromotionController extends Controller
         Gate::authorize('modules', 'promotion.update');
         $promotion = $this->promotionRepository->findById($id);
         $promotion->description = $promotion->description[$this->language];
+        /**
+         * @var Promotion $promotion
+         */
         $modelClass = loadClass($promotion->model);
         $fields = ['id', 'name.languages', 'image'];
         $promotionItem = $modelClass->findByCondition(...array_values($this->menuItemArgument($promotion->model_id)));

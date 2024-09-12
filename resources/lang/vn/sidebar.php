@@ -28,16 +28,16 @@ return [
         [
             'title' => 'Marketing',
             'icon' => 'fa fa-money',
-            'name' => ['promotion'],
+            'name' => ['promotion', 'source'],
             'subModule' => [
                 [
                     'title' => 'Khuyến mãi',
                     'route' => 'promotion.index'
                 ],
-                // [
-                //     'title' => 'Mã giảm giá',
-                //     'route' => 'coupon.index'
-                // ],
+                [
+                    'title' => 'Nguồn khách',
+                    'route' => 'source.index'
+                ],
             ]
         ],
         [

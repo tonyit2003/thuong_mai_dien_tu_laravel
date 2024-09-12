@@ -986,7 +986,7 @@ div.fix-label {
     padding: 4px 10px;
 }
 
-.goods-item span {
+.goods-item a {
     font-size: 1.3rem;
     /* hiển thị dấu ba chấm (...) khi nội dung văn bản vượt quá kích thước của một phần tử */
     text-overflow: ellipsis;
@@ -997,6 +997,7 @@ div.fix-label {
     display: block;
     /* Xác định độ rộng cố định của phần tử */
     width: 90%;
+    color: #000;
 }
 
 .goods-item button {
@@ -1108,24 +1109,50 @@ div.fix-label {
     padding-right: 20px;
 }
 
+.chooseProductPromotionTd .product-quantity::-webkit-scrollbar,
 .search-list::-webkit-scrollbar {
     width: 7px;
     border-radius: 10px;
 }
 
+.chooseProductPromotionTd .product-quantity::-webkit-scrollbar-track,
 .search-list::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
+.chooseProductPromotionTd .product-quantity::-webkit-scrollbar-thumb,
 .search-list::-webkit-scrollbar-thumb {
     background: #888;
 }
 
+.chooseProductPromotionTd .product-quantity::-webkit-scrollbar-thumb:hover,
 .search-list::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-/* end */
+
 .disabled {
     pointer-events: none;
     opacity: 0.6;
 }
+
+.search-list .pagination {
+    font-size: 1.2rem;
+}
+
+.chooseProductPromotionTd {
+    width: 400px;
+    max-width: 400px;
+    min-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chooseProductPromotionTd .product-quantity {
+    /* xuất hiện thanh cuộn khi nội dung bị tràn */
+    overflow: auto;
+    /* Đặt chiều cao của phần tử dựa vào nội dung bên trong. */
+    height: auto;
+    max-height: 150px;
+}
+/* end */

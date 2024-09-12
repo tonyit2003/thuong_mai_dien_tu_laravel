@@ -26,6 +26,7 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\PromotionController;
 use App\Http\Controllers\Backend\ProductReceiptController;
 use App\Http\Controllers\Backend\SlideController;
+use App\Http\Controllers\Backend\SourceController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
 
@@ -149,6 +150,17 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/destroy', [WidgetController::class, 'destroy'])->name('widget.destroy')->where(['id' => '[0-9]+']);
         Route::get('{languageId}/{id}/translate', [WidgetController::class, 'translate'])->name('widget.translate')->where(['languageId' => '[0-9]+', 'id' => '[0-9]+']);
         Route::post('saveTranslate', [WidgetController::class, 'saveTranslate'])->name('widget.saveTranslate');
+    });
+
+    // WIDGET
+    Route::group(['prefix' => 'source'], function () {
+        Route::get('index', [SourceController::class, 'index'])->name('source.index');
+        Route::get('create', [SourceController::class, 'create'])->name('source.create');
+        Route::post('store', [SourceController::class, 'store'])->name('source.store');
+        Route::get('{id}/edit', [SourceController::class, 'edit'])->name('source.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [SourceController::class, 'update'])->name('source.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [SourceController::class, 'delete'])->name('source.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [SourceController::class, 'destroy'])->name('source.destroy')->where(['id' => '[0-9]+']);
     });
 
     // PROMOTION

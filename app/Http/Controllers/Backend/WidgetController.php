@@ -78,6 +78,9 @@ class WidgetController extends Controller
         Gate::authorize('modules', 'widget.update');
         $widget = $this->widgetRepository->findById($id);
         $widget->description = $widget->description[$this->language];
+        /**
+         * @var Widget $widget
+         */
         $modelClass = loadClass($widget->model);
         $fields = ['id', 'name.languages', 'image'];
         $widgetItem = $modelClass->findByCondition(...array_values($this->menuItemArgument($widget->model_id)));

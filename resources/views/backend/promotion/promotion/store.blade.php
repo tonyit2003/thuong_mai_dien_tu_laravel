@@ -71,73 +71,7 @@
                             </select>
                         </div>
                         <div class="promotion-container">
-                            <table class="table table-striped mt20">
-                                <thead>
-                                    <tr>
-                                        <th class="text-right" style="width: 400px">
-                                            ${purchasedProduct}
-                                        </th>
-                                        <th class="text-right" style="width: 50px">
-                                            ${minimumQuantity}
-                                        </th>
-                                        <th class="text-right">
-                                            ${promotionalLimit}
-                                        </th>
-                                        <th class="text-right">
-                                            ${discount} (%)
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="order_amount_range_from td-range">
-                                            <div data-toggle="modal" data-target="#findProduct"
-                                                class="product-quantity">
-                                                <div class="boxWrapper">
-                                                    <div class="boxSearchIcon">
-                                                        <i class="fa fa-search"></i>
-                                                    </div>
-                                                    @for ($i = 0; $i < 9; $i++)
-                                                        <div class="fixGrid6 hidden">
-                                                            <div class="goods-item">
-                                                                <span class="goods-item-name">Macbook thế hệ mới
-                                                                    ra
-                                                                    mắt
-                                                                    năm
-                                                                    2023</span>
-                                                                <button class="delete-goods-item">
-                                                                    <img src="backend/img/remove.png">
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    @endfor
-                                                    <div class="boxSearchInput fixGrid6">
-                                                        <p>{{ __('form.search_by_name_product_code') }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="order_amount_range_to td-range">
-                                            <input type="text" name="amountTo[]" id=""
-                                                class="form-control int" value="1">
-                                        </td>
-                                        <td class="order_amount_range_to td-range">
-                                            <input type="text" name="amountTo[]" id=""
-                                                class="form-control int" placeholder="0" value="0">
-                                        </td>
-                                        <td class="discountType">
-                                            <div class="uk-flex uk-flex-middle">
-                                                <input type="text" name="amountValue[]" id=""
-                                                    class="form-control int" placeholder="0" value="0">
-                                                <select name="amountType[]" class="multipleSelect2" id="">
-                                                    <option value="cash">${cash}</option>
-                                                    <option value="percent">%</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
                         </div>
                     </div>
                 </div>
@@ -168,8 +102,7 @@
                         </div>
                         <div class="form-row">
                             <div class="uk-flex uk-flex-middle">
-                                <input type="checkbox" name="neverEnd" value="accept" class=""
-                                    id="neverEnd">
+                                <input type="checkbox" name="neverEnd" value="accept" class="" id="neverEnd">
                                 <label for="neverEnd" class="fix-label ml5">{{ __('form.never_end') }}</label>
                             </div>
                         </div>
@@ -182,8 +115,8 @@
                     <div class="ibox-content">
                         <div class="setting-value">
                             <div class="nav-setting-item uk-flex uk-flex-middle">
-                                <input type="radio" name="source" value="all" id="allSource"
-                                    class="chooseSource" checked>
+                                <input type="radio" name="source" value="all" id="allSource" class="chooseSource"
+                                    checked>
                                 <label for="allSource"
                                     class="fix-label ml5">{{ __('form.applicable_to_all_customer_source') }}</label>
                             </div>
@@ -247,4 +180,5 @@
     var minimumQuantity = "{{ __('form.minimum_quantity') }}"
     var promotionalLimit = "{{ __('form.promotional_limit') }}"
     var applicableProduct = "{{ __('form.applicable_product') }}"
+    var searchByNameProductCode = "{{ __('form.search_by_name_product_code') }}"
 </script>
