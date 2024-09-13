@@ -53,4 +53,7 @@ return [
     'update' => 'Chỉnh sửa',
     'delete' => 'Xóa',
     'source_name' => 'Tên nguồn khách',
+    'customer_group_name' => 'Tên nhóm khách hàng',
+    'customer_group' => 'Nhóm khách hàng',
+    'source' => 'Nguồn khách',
 ];

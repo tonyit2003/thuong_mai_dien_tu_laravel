@@ -26,6 +26,21 @@ return [
             ]
         ],
         [
+            'title' => 'Khách hàng',
+            'icon' => 'fa fa-user',
+            'name' => ['customer'],
+            'subModule' => [
+                [
+                    'title' => 'Nhóm khách hàng',
+                    'route' => 'customer.catalogue.index'
+                ],
+                [
+                    'title' => 'Khách hàng',
+                    'route' => 'customer.index'
+                ],
+            ]
+        ],
+        [
             'title' => 'Marketing',
             'icon' => 'fa fa-money',
             'name' => ['promotion', 'source'],

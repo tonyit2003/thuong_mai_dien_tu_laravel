@@ -31,6 +31,9 @@ class UserCatalogue extends Authenticatable
     protected $primaryKey = 'id';
     // khóa chính không tự động tăng
     public $incrementing = true;
+    protected $attributes = [
+        'publish' => 1
+    ];
 
     public function users()
     {

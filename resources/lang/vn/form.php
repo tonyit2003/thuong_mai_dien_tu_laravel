@@ -232,4 +232,9 @@ return [
     'loading' => 'Loading...',
     'source_infomation' => 'Thông tin nguồn khách',
     'source_name' => 'Tên nguồn khách',
+    'customer_catalogue_name' => 'Tên nhóm khách hàng',
+    'customer_catalogue' => 'Nhóm khách hàng',
+    'select_customer_catalogue' => 'Chọn nhóm khách hàng',
+    'source' => 'Nguồn khách',
+    'select_source' => 'Chọn nguồn khách',
 ];

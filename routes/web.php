@@ -22,6 +22,8 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\AttributeCatalogueController;
 use App\Http\Controllers\Backend\AttributeController;
+use App\Http\Controllers\Backend\CustomerCatalogueController;
+use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\PromotionController;
 use App\Http\Controllers\Backend\ProductReceiptController;
@@ -63,6 +65,30 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/destroy', [UserCatalogueController::class, 'destroy'])->name('user.catalogue.destroy')->where(['id' => '[0-9]+']);
         Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
         Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission');
+    });
+
+    // CUSTOMER
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('index', [CustomerController::class, 'index'])->name('customer.index');
+        Route::get('create', [CustomerController::class, 'create'])->name('customer.create');
+        Route::post('store', [CustomerController::class, 'store'])->name('customer.store');
+        Route::get('{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [CustomerController::class, 'update'])->name('customer.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [CustomerController::class, 'destroy'])->name('customer.destroy')->where(['id' => '[0-9]+']);
+    });
+
+    // CUSTOMER CATALOGUE
+    Route::group(['prefix' => 'customer/catalogue'], function () {
+        Route::get('index', [CustomerCatalogueController::class, 'index'])->name('customer.catalogue.index');
+        Route::get('create', [CustomerCatalogueController::class, 'create'])->name('customer.catalogue.create');
+        Route::post('store', [CustomerCatalogueController::class, 'store'])->name('customer.catalogue.store');
+        Route::get('{id}/edit', [CustomerCatalogueController::class, 'edit'])->name('customer.catalogue.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [CustomerCatalogueController::class, 'update'])->name('customer.catalogue.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [CustomerCatalogueController::class, 'delete'])->name('customer.catalogue.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [CustomerCatalogueController::class, 'destroy'])->name('customer.catalogue.destroy')->where(['id' => '[0-9]+']);
+        Route::get('permission', [CustomerCatalogueController::class, 'permission'])->name('customer.catalogue.permission');
+        Route::post('updatePermission', [CustomerCatalogueController::class, 'updatePermission'])->name('customer.catalogue.updatePermission');
     });
 
     // POST
@@ -152,7 +178,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('saveTranslate', [WidgetController::class, 'saveTranslate'])->name('widget.saveTranslate');
     });
 
-    // WIDGET
+    // SOURCE
     Route::group(['prefix' => 'source'], function () {
         Route::get('index', [SourceController::class, 'index'])->name('source.index');
         Route::get('create', [SourceController::class, 'create'])->name('source.create');

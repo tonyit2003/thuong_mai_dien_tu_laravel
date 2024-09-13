@@ -1155,4 +1155,8 @@ div.fix-label {
     height: auto;
     max-height: 150px;
 }
+
+.mt15 {
+    margin-top: 15px;
+}
 /* end */

@@ -34,4 +34,8 @@ return [
     'delete_product_receipt_name' => 'Bạn đang muốn xóa phiếu nhập có tên là: <span class="text-danger">:name</span> ?',
     'delete_source' => 'Xác nhận xóa nguồn khách',
     'delete_source_name' => 'Bạn đang muốn xóa nguồn khách có tên là: <span class="text-danger">:name</span> ?',
+    'delete_customer_group' => 'Xác nhận xóa nhóm khách hàng',
+    'delete_customer_group_name' => 'Bạn đang muốn xóa nhóm khách hàng có tên là: <span class="text-danger">:name</span> ?',
+    'delete_customer' => 'Xác nhận xóa khách hàng',
+    'delete_customer_email' => 'Bạn đang muốn xóa khách hàng có email là: <span class="text-danger">:email</span>?',
 ];

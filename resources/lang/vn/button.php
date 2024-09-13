@@ -28,4 +28,6 @@ return [
     'confirm' => 'Xác nhận',
     'delete_product_receipt' => 'Xóa phiếu nhập',
     'delete_source' => 'Xóa nguồn khách',
+    'delete_customer_group' => 'Xóa nhóm khách hàng',
+    'delete_customer' => 'Xóa khách hàng',
 ];
