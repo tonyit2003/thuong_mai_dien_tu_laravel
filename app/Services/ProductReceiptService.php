@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Classes\Nestedsetbie;
 use App\Repositories\ProductReceiptRepository;
+use App\Repositories\ProductVariantRepository;
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\ProductReceiptServiceInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,12 +20,14 @@ use Illuminate\Support\Str;
 class ProductReceiptService extends BaseService implements ProductReceiptServiceInterface
 {
     protected $productReceiptRepository;
+    protected $productVariantRepository;
     protected $nestedset;
     protected $controllerName = 'ProductReceiptController';
 
-    public function __construct(ProductReceiptRepository $productReceiptRepository, RouterRepository $routerRepository)
+    public function __construct(ProductReceiptRepository $productReceiptRepository, ProductVariantRepository $productVariantRepository, RouterRepository $routerRepository)
     {
         $this->productReceiptRepository = $productReceiptRepository;
+        $this->productVariantRepository = $productVariantRepository;
         parent::__construct($routerRepository);
     }
 
@@ -136,7 +140,37 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
         DB::beginTransaction();
         try {
             $payload['publish'] = 1;
+            $payload['date_of_receipt'] = now();
             $this->productReceiptRepository->update($id, $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function delivere($id, $request)
+    {
+        DB::beginTransaction();
+        try {
+            $productReceipt = $this->productReceiptRepository->findById($id);
+            $payload['publish'] = 3;
+
+            if ($request->input('date_approved')) {
+                $payload['date_approved'] = Carbon::createFromFormat('d/m/Y H:i', $request->input('date_approved'))->format('Y-m-d H:i:s');
+            } else {
+                $payload['date_approved'] = null;
+            }
+
+            // Cập nhật trạng thái phiếu nhập hàng
+            $this->productReceiptRepository->update($id, $payload);
+
+            $receiptDetails = $productReceipt->details;
+
+            // Cập nhật số lượng tồn kho cho từng variant
+            $this->productVariantRepository->updateProductVariantDetails($receiptDetails);
+
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -167,7 +201,10 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
             'product_receipts.user_id',
             'product_receipts.supplier_id',
             'product_receipts.total',
-            'product_receipts.date_created'
+            'product_receipts.date_created',
+            'product_receipts.date_of_receipt',
+            'product_receipts.date_of_booking',
+            'product_receipts.date_approved',
         ];
     }
 }

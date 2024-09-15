@@ -237,4 +237,6 @@ return [
     'select_customer_catalogue' => 'Chọn nhóm khách hàng',
     'source' => 'Nguồn khách',
     'select_source' => 'Chọn nguồn khách',
+    'date_approved' => 'Ngày giao',
+    'select_product' => 'Chọn sản phẩm'
 ];

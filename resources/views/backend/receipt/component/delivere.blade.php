@@ -23,9 +23,7 @@
                                     {{ __('table.approved') }}
                                 @elseif ($productReceipt->publish == 1)
                                     {{ __('table.unapproved') }}
-                                @elseif ($productReceipt->publish == 2)
-                                    {{ __('table.booking') }}
-                                @elseif ($productReceipt->publish == 3)
+                                @else
                                     {{ __('table.delivered') }}
                                 @endif
                             </td>
@@ -41,6 +39,20 @@
     <div class="ibox">
         <div class="ibox-title">{{ __('table.receipt_detail') }}</div>
         <div class="ibox-content">
+
+            <div class="filter-wrapper">
+                <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                    <div class="uk-flex uk-flex-middle" style="margin-left: auto;" id="keywordInput">
+                        <label for="" class="control-label text-left mr5">{{ __('form.date_approved') }}</label>
+                        <div class="form-date">
+                            <input type="text" name="date_approved" value="{{ old('date_approved', $productReceipt->date_approved ?? '') }}"
+                                class="form-control datepicker" placeholder="" autocomplete="off">
+                            <span><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <table class="table table-striped table-bordered" id="productTable">
                 <thead>
                     <tr>
@@ -64,3 +76,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    var no_product = "{{ __('table.no_product') }}";
+    var price = "{{ __('form.enter_price') }}";
+    var productReceiptId = "{{ $productReceipt->id ?? 0 }}";
+</script>

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\ProductVariant;
 use App\Repositories\Interfaces\ProductVariantRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ProductsRepository
@@ -17,5 +18,17 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
     {
         $this->model = $productVariant;
         parent::__construct($this->model); //truyền model lên lớp cha
+    }
+
+    public function updateProductVariantDetails($receiptDetails)
+    {
+        foreach ($receiptDetails as $detail) {
+            $this->model
+                ->where('id', $detail->product_variant_id)
+                ->update([
+                    'quantity' => DB::raw('quantity + ' . $detail->quantity), 
+                    'price' => $detail->price 
+                ]);
+        }
     }
 }

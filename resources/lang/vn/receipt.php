@@ -6,7 +6,7 @@ return [
         'table' => 'Danh sách phiếu nhập kho'
     ],
     'create' => [
-        'title' => 'Thêm mới phiếu nhập kho'
+        'title' => 'Lập đề xuất nhập hàng'
     ],
     'edit' => [
         'title' => 'Cập nhật phiếu nhập kho'
@@ -21,6 +21,6 @@ return [
         'title' => 'Duyệt phiếu nhập kho'
     ],
     'instock' => [
-        'title' => 'Nhập hàng'
-    ],
+        'title' => 'Xác nhận giao hàng'
+    ]
 ];

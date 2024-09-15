@@ -13,6 +13,9 @@ class ProductReceipt extends Model
 
     protected $fillable = [
         'date_created',
+        'date_of_receipt',
+        'date_of_booking',
+        'date_approved',
         'publish',
         'user_id',
         'supplier_id',

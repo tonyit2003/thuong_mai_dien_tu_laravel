@@ -29,6 +29,11 @@ class ProductCatalogue extends Model
 
     protected $table = 'product_catalogues';
 
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class, 'product_catalogue_supplier', 'product_catalogue_id', 'supplier_id');
+    }
+
     public function languages()
     {
         return $this->belongsToMany(Language::class, 'product_catalogue_language', 'product_catalogue_id', 'language_id')->withPivot('product_catalogue_id', 'language_id', 'name', 'canonical', 'meta_title', 'meta_keyword', 'meta_description', 'description', 'content')->withTimestamps();

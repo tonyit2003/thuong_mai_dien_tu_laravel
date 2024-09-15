@@ -5,7 +5,7 @@
         @include('backend.receipt.component.view')
     </div>
 
-    <div class="text-right mb15 button-fix">
+    {{-- <div class="text-right mb15 button-fix">
         <a href="{{ route('receipt.index') }}" class="btn btn-primary">{{ __('form.exit') }}</a>
-    </div>
+    </div> --}}
 </div>

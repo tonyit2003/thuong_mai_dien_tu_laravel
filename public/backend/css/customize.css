@@ -164,6 +164,7 @@ table strong {
 
 .form-control {
     height: 31px;
+    border-radius: 0 !important;
 }
 
 .active-bg {

@@ -76,8 +76,12 @@ return [
             'name' => ['receipt'],
             'subModule' => [
                 [
-                    'title' => 'Nhập kho',
+                    'title' => 'Quản lý phiếu nhập',
                     'route' => 'receipt.index'
+                ],
+                [
+                    'title' => 'Giám sát phiếu nhập',
+                    'route' => 'receipt.monitor'
                 ]
             ]
         ],

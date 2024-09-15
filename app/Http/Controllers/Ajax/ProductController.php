@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use App\Models\Language;
+use App\Models\Supplier;
 use App\Repositories\ProductReceiptRepository;
 use App\Repositories\ProductRepository;
 use App\Services\ProductService;
@@ -51,6 +52,31 @@ class ProductController extends Controller
 
         return response()->json(['data' => $formattedDetails]);
     }
+    public function getProductCatalogueBySupplierId($id)
+    {
+        $languageId = $this->language;
+        // Fetch supplier with product catalogues and related products including language filtering
+        $supplier = Supplier::with(['product_catalogues.products' => function ($query) use ($languageId) {
+            // Eager load the language that matches the specified language_id
+            $query->with(['languages' => function ($q) use ($languageId) {
+                $q->where('language_id', $languageId);
+            }]);
+        }])->findOrFail($id);
+
+        // Format product data based on supplier's product catalogues
+        $products = $supplier->product_catalogues->flatMap(function ($catalogue) {
+            return $catalogue->products->map(function ($product) {
+                $productLanguage = $product->languages->first(); // Get the first matching language
+                return [
+                    'product_id' => $product->id,
+                    'product_name' => $productLanguage ? $productLanguage->pivot->name : 'N/A',
+                ];
+            });
+        });
+        // Return formatted product data as JSON
+        return response()->json(['data' => $products]);
+    }
+
 
     public function loadProductPromotion(Request $request)
     {
