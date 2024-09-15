@@ -213,10 +213,12 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::get('{id}/delete', [ProductReceiptController::class, 'delete'])->name('receipt.delete')->where(['id' => '[0-9]+']);
         Route::post('{id}/destroy', [ProductReceiptController::class, 'destroy'])->name('receipt.destroy')->where(['id' => '[0-9]+']);
         Route::get('{id}/detail', [ProductReceiptController::class, 'detail'])->name('receipt.detail')->where(['id' => '[0-9]+']);
-        Route::get('{id}/browse', [ProductReceiptController::class, 'browse'])->name('receipt.browse')->where(['id' => '[0-9]+']);
-        Route::post('{id}/approve', [ProductReceiptController::class, 'approve'])->name('receipt.approve')->where(['id' => '[0-9]+']);
         Route::get('{id}/instock', [ProductReceiptController::class, 'instock'])->name('receipt.instock')->where(['id' => '[0-9]+']);
         Route::post('{id}/delivere', [ProductReceiptController::class, 'delivere'])->name('receipt.delivere')->where(['id' => '[0-9]+']);
+
+        Route::get('monitor', [ProductReceiptController::class, 'monitor'])->name('receipt.monitor');
+        Route::get('{id}/browse', [ProductReceiptController::class, 'browse'])->name('receipt.browse')->where(['id' => '[0-9]+']);
+        Route::post('{id}/approve', [ProductReceiptController::class, 'approve'])->name('receipt.approve')->where(['id' => '[0-9]+']);
     });
 
     // ATTRIBUTE CATALOGUE
@@ -256,6 +258,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::post('ajax/menu/drag', [AjaxMenuController::class, 'drag'])->name('ajax.menu.drag');
     Route::get('ajax/product/getProduct', [AjaxProductController::class, 'getProduct'])->name('ajax.product.getProduct');
     Route::get('ajax/{id}/product', [AjaxProductController::class, 'getReceiptById'])->name('ajax.product.getReceiptById')->where(['id' => '[0-9]+']);
+    Route::get('ajax/{id}/getProductCatalogueBySupplier', [AjaxProductController::class, 'getProductCatalogueBySupplierId'])->name('ajax.product.getProductCatalogueBySupplierId')->where(['id' => '[0-9]+']);
     Route::get('ajax/product/loadProductPromotion', [AjaxProductController::class, 'loadProductPromotion'])->name('ajax.loadProductPromotion');
 });
 

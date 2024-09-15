@@ -15,4 +15,6 @@ return [
     'create_menu_catalogue_failed' => 'Có vấn đề xảy ra, Hãy thử lại.',
     'approve_success' => 'Duyệt phiếu nhập kho thành công',
     'approve_failed' => 'Duyệt phiếu nhập kho không thành công',
+    'delivere_success' => 'Xác nhận nhập kho thành công',
+    'delivere_failed' => 'Xác nhận nhập kho không thành công',
 ];

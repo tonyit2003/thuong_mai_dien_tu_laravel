@@ -47,28 +47,15 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        @if ($productReceipt->publish != 3 && $productReceipt->publish == 1)
-                            <a href="{{ route('receipt.instock', $productReceipt->id) }}" class="btn btn-warning"
-                                title="{{ __('table.check_approved') }}">
-                                <i class="fa fa-gears"></i>
+                        @if ($productReceipt->publish == 0)
+                            <a href="{{ route('receipt.browse', $productReceipt->id) }}" class="btn btn-warning" title="{{ __('table.browse') }}">
+                                <i class="fa fa-check"></i>
                             </a>
                         @else
-                            <a href="javascript:void(0);" class="btn btn-warning disabled" title="{{ __('table.check_approved') }}">
-                                <i class="fa fa-gears"></i>
+                            <a href="javascript:void(0);" class="btn btn-warning disabled" title="{{ __('table.browse') }}">
+                                <i class="fa fa-check"></i>
                             </a>
                         @endif
-                        @if ($productReceipt->publish != 1 && $productReceipt->publish != 3)
-                            <a href="{{ route('receipt.edit', $productReceipt->id) }}" class="btn btn-success" title="{{ __('table.update') }}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        @else
-                            <a href="javascript:void(0);" class="btn btn-success disabled" title="{{ __('table.update') }}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        @endif
-                        <a href="{{ route('receipt.delete', $productReceipt->id) }}" class="btn btn-danger" title="{{ __('table.delete') }}">
-                            <i class="fa fa-trash"></i>
-                        </a>
                         <a href="{{ route('receipt.detail', $productReceipt->id) }}" class="btn btn-primary" title="{{ __('table.view') }}">
                             <i class="fa fa-eye"></i>
                         </a>

@@ -1,4 +1,4 @@
-<form method="GET" action="{{ route('receipt.index') }}">
+<form method="GET" action="{{ route('receipt.monitor') }}">
     <div class="filter-wrapper">
         <div class="uk-flex uk-flex-middle uk-flex-space-between">
             @include('backend.dashboard.component.perPage')
@@ -10,11 +10,6 @@
                     @endphp
 
                     @include('backend.dashboard.component.keyword')
-
-                    <a href="{{ route('receipt.create') }}" class="btn btn-danger">
-                        <i class="fa fa-plus mr5"></i>
-                        {{ __('receipt.create.title') }}
-                    </a>
                 </div>
             </div>
         </div>

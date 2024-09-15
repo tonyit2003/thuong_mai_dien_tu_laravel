@@ -228,5 +228,7 @@ return [
     'enter_price' => 'Nhập giá...',
     'warehouse_receipt' => 'Phiếu nhập kho hàng',
     'product_receipt_name' => 'Thông tin phiếu nhập',
-    'exit' => 'Quay lại'
+    'exit' => 'Quay lại',
+    'date_approved' => 'Ngày giao',
+    'select_product' => 'Chọn sản phẩm'
 ];

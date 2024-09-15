@@ -186,6 +186,58 @@
         );
     };
 
+    HT.getProductCatalogueBySupplierId = () => {
+        $('select[name="supplier_id"]').on("change", function () {
+            var supplierId = $(this).val(); // Get the selected supplier ID
+            if (supplierId) {
+                // AJAX request to fetch product catalogues based on supplier_id
+                $.ajax({
+                    url:
+                        "ajax/" + supplierId + "/getProductCatalogueBySupplier",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        const $productSelect = $('select[name="product_id"]');
+                        $productSelect.empty(); // Clear the current options
+                        $productSelect.append(
+                            `<option value="">${productname}</option>`
+                        ); // Add default option
+
+                        if (response.data.length > 0) {
+                            // Populate the select dropdown with new product options
+                            $.each(response.data, function (index, product) {
+                                $productSelect.append(
+                                    '<option value="' +
+                                        product.product_id +
+                                        '">' +
+                                        product.product_name +
+                                        "</option>"
+                                );
+                            });
+                        } else {
+                            $productSelect.append(
+                                '<option value="">No products available</option>'
+                            );
+                        }
+
+                        // Reinitialize Select2 (if you're using Select2 for styling)
+                        if ($(".setupSelect2").length) {
+                            $(".setupSelect2").select2();
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error:", xhr.responseText);
+                    },
+                });
+            } else {
+                // Clear the product select if no supplier is selected
+                $('select[name="product_id"]')
+                    .empty()
+                    .append(`<option value="">${productname}</option>`);
+            }
+        });
+    };
+
     HT.addDataToReceipt = (checkbox) => {
         let row = checkbox.closest("tr");
         let productName = row.find("td").eq(1).text();
@@ -284,7 +336,7 @@
         $(document).ready(function () {
             const receiptId = productReceiptId;
             if (receiptId == 0) {
-                return; 
+                return;
             }
             $.ajax({
                 url: "ajax/" + receiptId + "/product",
@@ -383,5 +435,6 @@
         HT.requestReceipt();
         HT.removeRowReceipt();
         HT.getDataUpdateProductReceipt();
+        HT.getProductCatalogueBySupplierId();
     });
 })(jQuery);

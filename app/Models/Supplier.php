@@ -18,4 +18,9 @@ class Supplier extends Model
     ];
 
     protected $table = 'suppliers';
+
+    public function product_catalogues()
+    {
+        return $this->belongsToMany(ProductCatalogue::class, 'product_catalogue_supplier', 'supplier_id', 'product_catalogue_id');
+    }
 }

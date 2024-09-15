@@ -7,11 +7,8 @@
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
                     <div class="uk-flex uk-flex-middle" style="margin-left: auto;" id="keywordInput">
                         <select name="product_id" class="form-control mr10 setupSelect2" id="productSelect" style="max-width: none;">
-                            @foreach ($products as $key => $val)
-                                <option value="{{ $val->id }}" {{ $key == old('product_id') ? 'selected' : '' }}>
-                                    {{ $val->name }}
-                                </option>
-                            @endforeach
+                            <option value="">{{ __('form.select_product') }}</option>
+                            <!-- Product options will be populated here via AJAX -->
                         </select>
                         <input value="{{ request('num') ?: old('num') }}" type="number" name="num" id="quantityInput"
                             placeholder="{{ __('form.enter_inventory_quantity') }}" class="form-control mr10" style="width: 155px; border-radius: 0;">
@@ -82,4 +79,5 @@
     var no_product = "{{ __('table.no_product') }}";
     var price = "{{ __('form.enter_price') }}";
     var productReceiptId = "{{ $productReceipt->id ?? 0 }}";
+    var productname = "{{ __('form.select_product') }}";
 </script>

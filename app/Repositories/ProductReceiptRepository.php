@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\ProductReceipt;
 use App\Repositories\Interfaces\ProductReceiptRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class PostsRepository
@@ -40,6 +41,9 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
             ->select([
                 'product_receipts.id',
                 'product_receipts.date_created',
+                'product_receipts.date_of_receipt',
+                'product_receipts.date_of_booking',
+                'product_receipts.date_approved',
                 'product_receipts.publish',
                 'product_receipts.user_id',
                 'product_receipts.total',
