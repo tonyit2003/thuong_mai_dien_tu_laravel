@@ -63,4 +63,13 @@ return [
     'customer_group_name' => 'Tên nhóm khách hàng',
     'customer_group' => 'Nhóm khách hàng',
     'source' => 'Nguồn khách',
+    'promotion_code' => 'Mã khuyến mãi',
+    'promotion_name' => 'Tên chương trình',
+    'promotion_type' => 'Loại khuyến mãi',
+    'start_date' => 'Ngày bắt đầu',
+    'end_date' => 'Ngày kết thúc',
+    'unlimited' => 'Không giới hạn',
+    'information' => 'Thông tin',
+    'discount' => 'Chiết khấu',
+    'expired' => 'Hết hạn',
 ];

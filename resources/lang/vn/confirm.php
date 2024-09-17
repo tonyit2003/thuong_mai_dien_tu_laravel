@@ -38,4 +38,6 @@ return [
     'delete_customer_group_name' => 'Bạn đang muốn xóa nhóm khách hàng có tên là: <span class="text-danger">:name</span> ?',
     'delete_customer' => 'Xác nhận xóa khách hàng',
     'delete_customer_email' => 'Bạn đang muốn xóa khách hàng có email là: <span class="text-danger">:email</span>?',
+    'delete_promotion' => 'Xác nhận xóa khuyến mãi',
+    'delete_promotion_name' => 'Bạn đang muốn xóa khuyến mãi có tên là: <span class="text-danger">:name</span>?',
 ];

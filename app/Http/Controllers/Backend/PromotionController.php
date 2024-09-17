@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePromotionRequest;
-use App\Http\Requests\UpdatePromotionRequest;
+use App\Http\Requests\Promotion\StorePromotionRequest;
+use App\Http\Requests\Promotion\UpdatePromotionRequest;
 use App\Models\Language;
 use App\Models\Promotion;
 use App\Repositories\LanguageRepository;
 use App\Repositories\PromotionRepository;
+use App\Repositories\SourceRepository;
 use App\Services\PromotionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -19,12 +20,14 @@ class PromotionController extends Controller
     protected $promotionService;
     protected $promotionRepository;
     protected $languageRepository;
+    protected $sourceRepository;
 
-    public function __construct(PromotionService $promotionService, PromotionRepository $promotionRepository, LanguageRepository $languageRepository)
+    public function __construct(PromotionService $promotionService, PromotionRepository $promotionRepository, LanguageRepository $languageRepository, SourceRepository $sourceRepository)
     {
         $this->promotionService = $promotionService;
         $this->promotionRepository = $promotionRepository;
         $this->languageRepository = $languageRepository;
+        $this->sourceRepository = $sourceRepository;
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -57,16 +60,17 @@ class PromotionController extends Controller
     public function create()
     {
         Gate::authorize('modules', 'promotion.create');
+        $sources = $this->sourceRepository->all();
         $config = $this->configData();
         $config['seo'] = __('promotion');
         $config['method'] = 'create';
         $template = 'backend.promotion.promotion.store';
-        return view('backend.dashboard.layout', compact('template', 'config'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'sources'));
     }
 
     public function store(StorePromotionRequest $storePromotionRequest)
     {
-        if ($this->promotionService->create($storePromotionRequest, $this->language)) {
+        if ($this->promotionService->create($storePromotionRequest)) {
             flash()->success(__('toast.store_success'));
             return redirect()->route('promotion.index');
         }
@@ -77,26 +81,18 @@ class PromotionController extends Controller
     public function edit($id)
     {
         Gate::authorize('modules', 'promotion.update');
+        $sources = $this->sourceRepository->all();
         $promotion = $this->promotionRepository->findById($id);
-        $promotion->description = $promotion->description[$this->language];
-        /**
-         * @var Promotion $promotion
-         */
-        $modelClass = loadClass($promotion->model);
-        $fields = ['id', 'name.languages', 'image'];
-        $promotionItem = $modelClass->findByCondition(...array_values($this->menuItemArgument($promotion->model_id)));
-        $modelItem = convertArrayByKey($promotionItem, $fields);
-        $album = $promotion->album;
         $config = $this->configData();
         $config['seo'] = __('promotion');
         $config['method'] = 'edit';
         $template = 'backend.promotion.promotion.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'promotion', 'album', 'modelItem'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'promotion', 'sources'));
     }
 
     public function update($id, UpdatePromotionRequest $updatePromotionRequest)
     {
-        if ($this->promotionService->update($id, $updatePromotionRequest, $this->language)) {
+        if ($this->promotionService->update($id, $updatePromotionRequest)) {
             flash()->success(__('toast.update_success'));
             return redirect()->route('promotion.index');
         }
@@ -121,47 +117,6 @@ class PromotionController extends Controller
         }
         flash()->error(__('toast.destroy_failed'));
         return redirect()->route('promotion.index');
-    }
-
-    public function translate($languageId, $promotionId)
-    {
-        $translate = $this->languageRepository->findById($languageId);
-        $promotion = $this->promotionRepository->findById($promotionId);
-        $promotionDescription = $promotion->description;
-        $promotion->description = $promotionDescription[$this->language];
-        $promotion->translateDescription = $promotionDescription[$languageId] ?? null;
-        $config = $this->configData();
-        $config['seo'] = __('promotion', ['language' => lcfirst($translate->name)]);
-        $config['method'] = 'translate';
-        $template = 'backend.promotion.promotion.translate';
-        return view('backend.dashboard.layout', compact('template', 'config', 'promotion', 'translate'));
-    }
-
-    public function saveTranslate(Request $request)
-    {
-        if ($this->promotionService->saveTranslate($request)) {
-            flash()->success(__('toast.update_success'));
-            return redirect()->route('promotion.index');
-        }
-        flash()->error(__('toast.update_failed'));
-        return redirect()->route('promotion.index');
-    }
-
-    private function menuItemArgument($whereIn = [])
-    {
-        $language = $this->language;
-        return [
-            'condition' => [],
-            'flag' => true,
-            'relation' => ['languages' => function ($query) use ($language) {
-                $query->where('language_id', $language);
-            }],
-            'orderBy' => ['id', 'DESC'],
-            'param' => [
-                'whereIn' => $whereIn,
-                'whereInField' => 'id'
-            ]
-        ];
     }
 
     private function configData()

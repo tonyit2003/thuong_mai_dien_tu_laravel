@@ -30,4 +30,5 @@ return [
     'delete_source' => 'Xóa nguồn khách',
     'delete_customer_group' => 'Xóa nhóm khách hàng',
     'delete_customer' => 'Xóa khách hàng',
+    'delete_promotion' => 'Xóa khuyến mãi',
 ];

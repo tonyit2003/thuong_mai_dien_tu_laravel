@@ -1160,4 +1160,9 @@ div.fix-label {
 .mt15 {
     margin-top: 15px;
 }
+
+.text-small {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
 /* end */

@@ -65,4 +65,12 @@ class Product extends Model
             'id'                           // Khóa chính của bảng trung gian (ProductVariant)
         );
     }
+
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class, 'promotion_product_variant', 'product_id', 'promotion_id')->withPivot(
+            'product_variant_id',
+            'model',
+        )->withTimestamps();;
+    }
 }

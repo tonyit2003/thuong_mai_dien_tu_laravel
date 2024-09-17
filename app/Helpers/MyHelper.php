@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\PromotionEnum;
+use Carbon\Carbon;
+
 if (!function_exists('convert_price')) {
     function convert_price(string $price = '')
     {
@@ -195,5 +198,27 @@ if (!function_exists('formatCurrency')) {
     function formatCurrency($amount)
     {
         return number_format($amount, 0, ',', '.') . ' VND';
+    }
+}
+
+if (!function_exists('convertDateTime')) {
+    function convertDateTime($date = '', $format = 'd/m/Y H:i')
+    {
+        // tạo một đối tượng ngày từ định dạng Y-m-d H:i:s.
+        $carbonDate = Carbon::createFromFormat('Y-m-d H:i:s', $date);
+        // Trả về chuỗi ngày tháng đã chuyển đổi sang định dạng mong muốn.
+        return $carbonDate->format($format);
+    }
+}
+
+if (!function_exists('renderDiscountInformation')) {
+    function renderDiscountInformation($promotion)
+    {
+        if ($promotion->method === PromotionEnum::PRODUCT_AND_QUANTITY) {
+            $discountValue = $promotion->discountInformation['info']['discountValue'];
+            $discountType = $promotion->discountInformation['info']['discountType'] == 'percent' ? '%' : __('form.cash');
+            return '<span class="label label-primary">' . $discountValue . ' ' . $discountType . '</span>';
+        }
+        return '<div><a href="' . route('promotion.edit', $promotion->id) . '">' . __('table.view') . '</a></div>';
     }
 }

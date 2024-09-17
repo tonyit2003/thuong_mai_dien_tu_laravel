@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use App\Models\Language;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
@@ -104,6 +105,51 @@ class DashboardController extends Controller
             }
         }
         return response()->json(array('items' => $temp));
+    }
+
+    public function getPromotionConditionValue(Request $request)
+    {
+        try {
+            $get = $request->input();
+            switch ($get['value']) {
+                case 'staff_take_care_customer': {
+                        $class = loadClass('User');
+                        $object = $class->all()->toArray();
+                        break;
+                    }
+                case 'customer_group': {
+                        $class = loadClass('CustomerCatalogue');
+                        $object = $class->all()->toArray();
+                        break;
+                    }
+                case 'customer_gender': {
+                        $object = __('module.gender');
+                        break;
+                    }
+                case 'customer_birthday': {
+                        $object = __('module.day');
+                        break;
+                    }
+            }
+            $temp = [];
+            if (!is_null($object) && count($object)) {
+                foreach ($object as $key => $val) {
+                    $temp[] = [
+                        'id' => $val['id'],
+                        'text' => $val['name']
+                    ];
+                }
+            }
+            return response()->json([
+                'data' => $temp,
+                'error' => false,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => true,
+                'messages' => $e->getMessage(),
+            ]);
+        }
     }
 
     private function loadRepository($model = '')
