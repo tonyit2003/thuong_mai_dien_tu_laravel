@@ -33,21 +33,20 @@
             if (flag) {
                 _this.parents(".ibox-content").find(".source-wrapper").remove();
             } else {
-                let sourceData = [
-                    {
-                        id: 1,
-                        name: "Tiktok",
+                $.ajax({
+                    url: "ajax/source/getAllSource",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (res) {
+                        let sourceData = res.data;
+                        if (!$(".source-wrapper").length) {
+                            let sourceHtml =
+                                HT.renderPromotionSource(sourceData);
+                            _this.parents(".ibox-content").append(sourceHtml);
+                            HT.promotionMultipleSelect2();
+                        }
                     },
-                    {
-                        id: 2,
-                        name: "Shoppe",
-                    },
-                ];
-                if (!$(".source-wrapper").length) {
-                    let sourceHtml = HT.renderPromotionSource(sourceData);
-                    _this.parents(".ibox-content").append(sourceHtml);
-                    HT.promotionMultipleSelect2();
-                }
+                });
             }
         });
     };
@@ -57,7 +56,7 @@
         if (sourceData.length) {
             let select = $("<select>")
                 .addClass("multipleSelect2")
-                .attr("name", "source")
+                .attr("name", "sourceValue[]")
                 .attr("multiple", true);
             for (let i = 0; i < sourceData.length; i++) {
                 let option = $("<option>")
@@ -77,24 +76,9 @@
             if (flag) {
                 _this.parents(".ibox-content").find(".apply-wrapper").remove();
             } else {
-                let applyConditionData = [
-                    {
-                        id: "staff_take_care_customer",
-                        name: staffTakeCareCustomer,
-                    },
-                    {
-                        id: "customer_group",
-                        name: customerGroup,
-                    },
-                    {
-                        id: "customer_gender",
-                        name: customerGender,
-                    },
-                    {
-                        id: "customer_birthday",
-                        name: customerBirthday,
-                    },
-                ];
+                let applyConditionData = JSON.parse(
+                    $(".applyStatusList").val()
+                );
                 if (!$(".apply-wrapper").length) {
                     let applyHtml = HT.renderApplyCondition(applyConditionData);
                     _this.parents(".ibox-content").append(applyHtml);
@@ -110,7 +94,7 @@
         if (applyConditionData.length) {
             let select = $("<select>")
                 .addClass("multipleSelect2 conditionItem")
-                .attr("name", "applyObject")
+                .attr("name", "applyValue[]")
                 .attr("multiple", true);
             for (let i = 0; i < applyConditionData.length; i++) {
                 let option = $("<option>")
@@ -150,37 +134,45 @@
     };
 
     HT.createConditionItem = (value, label) => {
-        let optionData = [
-            {
-                id: 1,
-                name: "Khách VIP",
-            },
-            {
-                id: 2,
-                name: "Khách bán buôn",
-            },
-        ];
-        let conditionItem = $("<div>").addClass(
-            `wrapperConditionItem mt10 ${value}`
-        );
-        let select = $("<select>")
-            .addClass("multipleSelect2 objectItem")
-            .attr("name", "customerGroup")
-            .attr("multiple", true);
-        for (let i = 0; i < optionData.length; i++) {
-            let option = $("<option>")
-                .attr("value", optionData[i].id)
-                .text(optionData[i].name);
-            select.append(option);
+        if (!$(".wrapper-condition").find(`.${value}`).elExist()) {
+            $.ajax({
+                url: "ajax/dashboard/getPromotionConditionValue",
+                data: {
+                    value: value,
+                },
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    let optionData = res.data;
+                    let conditionItem = $("<div>").addClass(
+                        `wrapperConditionItem mt10 ${value}`
+                    );
+                    let conditionHiddenInput = $(".condition_input_" + value);
+                    let conditionHiddenInputValue = [];
+                    if (conditionHiddenInput.length) {
+                        conditionHiddenInputValue = JSON.parse(
+                            conditionHiddenInput.val()
+                        );
+                    }
+                    let select = $("<select>")
+                        .addClass("multipleSelect2 objectItem")
+                        .attr("name", value + "[]")
+                        .attr("multiple", true);
+                    for (let i = 0; i < optionData.length; i++) {
+                        let option = $("<option>")
+                            .attr("value", optionData[i].id)
+                            .text(optionData[i].text);
+                        select.append(option);
+                    }
+                    select.val(conditionHiddenInputValue);
+                    let conditionLabel = HT.createConditionLabel(label, value);
+                    conditionItem.append(conditionLabel);
+                    conditionItem.append(select);
+                    $(".wrapper-condition").append(conditionItem);
+                    HT.promotionMultipleSelect2();
+                },
+            });
         }
-        let conditionLabel = HT.createConditionLabel(label, value);
-        conditionItem.append(conditionLabel);
-        conditionItem.append(select);
-        if ($(".wrapper-condition").find(`.${value}`).elExist()) {
-            return;
-        }
-        $(".wrapper-condition").append(conditionItem);
-        HT.promotionMultipleSelect2();
     };
 
     HT.createConditionLabel = (label, value) => {
@@ -247,12 +239,12 @@
             let tdList = [
                 {
                     class: "order_amount_range_from td-range",
-                    name: "amountFrom[]",
+                    name: "promotion_order_amount_range[amountFrom][]",
                     value: addCommas(parseFloat(newTo) + 1),
                 },
                 {
                     class: "order_amount_range_to td-range",
-                    name: "amountTo[]",
+                    name: "promotion_order_amount_range[amountTo][]",
                     value: 0,
                 },
             ];
@@ -272,7 +264,7 @@
                     .append(
                         $("<input>", {
                             type: "text",
-                            name: "amountValue[]",
+                            name: "promotion_order_amount_range[amountValue][]",
                             class: "form-control int",
                             placeholder: 0,
                             value: 0,
@@ -280,7 +272,7 @@
                     )
                     .append(
                         $("<select>", {
-                            name: "amountType[]",
+                            name: "promotion_order_amount_range[amountType][]",
                             class: "multipleSelect2",
                         })
                             .append(
@@ -371,9 +363,66 @@
                     break;
             }
         });
+        let method = $(".preload_promotionMethod").val();
+        if (method.length && typeof method != "undefined") {
+            $(".promotionMethod").val(method).trigger("change");
+        }
     };
 
     HT.renderOrderAmountRange = () => {
+        let tr = "";
+        let order_amount_range = JSON.parse(
+            $(".input_order_amount_range").val()
+        );
+
+        if (order_amount_range.length === 0) {
+            order_amount_range = {
+                amountFrom: ["0"],
+                amountTo: ["0"],
+                amountValue: ["0"],
+                amountType: ["cash"],
+            };
+        }
+        for (let i = 0; i < order_amount_range.amountFrom.length; i++) {
+            let amountFrom = order_amount_range.amountFrom[i];
+            let amountTo = order_amount_range.amountTo[i];
+            let amountValue = order_amount_range.amountValue[i];
+            let amountType = order_amount_range.amountType[i];
+            tr += `
+                <tr>
+                    <td class="order_amount_range_from td-range">
+                        <input type="text" name="promotion_order_amount_range[amountFrom][]" id=""
+                            class="form-control int" placeholder="0" value="${amountFrom}">
+                    </td>
+                    <td class="order_amount_range_to td-range">
+                        <input type="text" name="promotion_order_amount_range[amountTo][]" id=""
+                            class="form-control int" placeholder="0" value="${amountTo}">
+                    </td>
+                    <td class="discountType">
+                        <div class="uk-flex uk-flex-middle">
+                            <input type="text" name="promotion_order_amount_range[amountValue][]" id=""
+                                class="form-control int" placeholder="0" value="${amountValue}">
+                            <select name="promotion_order_amount_range[amountType][]" class="multipleSelect2" id="">
+                                <option ${
+                                    amountType == "cash" ? "selected" : ""
+                                } value="cash">${cash}</option>
+                                <option ${
+                                    amountType == "percent" ? "selected" : ""
+                                } value="percent">%</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="delete-some-item delete-order-amount-range-condition">
+                            <svg data-icon="TrashSolidLarge" aria-hidden="true" focusable="false" width="15" height="16" viewBox="0 0 15 16" class="bem-svg" style="display: block">
+                                <path fill="currentColor" d="M2 14a1 1 0 001 1h9a1 1 0 001-1V6H2v8zM13 2h-3a1 1 0 01-1-1H6a1 1 0 01-1 1H1v2h13V2h-1z">
+                                </path>
+                            </svg>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
         let html = `
             <div class="order_amount_range">
                 <table class="table table-striped">
@@ -394,29 +443,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="order_amount_range_from td-range">
-                                <input type="text" name="amountFrom[]" id=""
-                                    class="form-control int" placeholder="0" value="0">
-                            </td>
-                            <td class="order_amount_range_to td-range">
-                                <input type="text" name="amountTo[]" id=""
-                                    class="form-control int" placeholder="0" value="0">
-                            </td>
-                            <td class="discountType">
-                                <div class="uk-flex uk-flex-middle">
-                                    <input type="text" name="amountValue[]" id=""
-                                        class="form-control int" placeholder="0" value="0">
-                                    <select name="amountType[]" class="multipleSelect2" id="">
-                                        <option value="cash">${cash}</option>
-                                        <option value="percent">%</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
+                        ${tr}
                     </tbody>
                 </table>
                 <button class="btn btn-success btn-custom btn-js-100" value=""
@@ -467,15 +494,31 @@
     HT.renderProductAndQuantity = () => {
         let selectData = JSON.parse($(".input-product-and-quantity").val());
         let selectHtml = "";
+        let moduleType = $(".preload_select-product-and-quantity").val();
         for (let key in selectData) {
-            selectHtml += `<option value="${key}">${selectData[key]}</option>`;
+            selectHtml += `<option ${
+                moduleType.length &&
+                typeof moduleType !== "undefined" &&
+                key === moduleType
+                    ? "selected"
+                    : ""
+            } value="${key}">${selectData[key]}</option>`;
+        }
+        let preloadData = JSON.parse($(".input_product_and_quantity").val());
+        if (preloadData.length === 0) {
+            preloadData = {
+                quantity: ["1"],
+                maxDiscountValue: ["0"],
+                discountValue: ["0"],
+                discountType: ["cash"],
+            };
         }
         let html = `
             <div class="product_and_quantity">
                 <div class="choose-module mt20">
                     <div class="fix-label" style="color: blue">${applicableProduct}
                     </div>
-                    <select name="" id=""
+                    <select name="module_type" id=""
                         class="multipleSelect2 select-product-and-quantity">
                         ${selectHtml}
                     </select>
@@ -512,21 +555,36 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="order_amount_range_to td-range">
-                                <input type="text" name="amountTo[]" id=""
-                                    class="form-control int" value="1">
+                           <td class="order_amount_range_from td-range">
+                                <input type="text" name="product_and_quantity[quantity]" id=""
+                                    class="form-control int" placeholder="0" value="${
+                                        preloadData.quantity
+                                    }">
                             </td>
                             <td class="order_amount_range_to td-range">
-                                <input type="text" name="amountTo[]" id=""
-                                    class="form-control int" placeholder="0" value="0">
+                                <input type="text" name="product_and_quantity[maxDiscountValue]" id=""
+                                    class="form-control int" placeholder="0" value="${
+                                        preloadData.maxDiscountValue
+                                    }">
                             </td>
                             <td class="discountType">
                                 <div class="uk-flex uk-flex-middle">
-                                    <input type="text" name="amountValue[]" id=""
-                                        class="form-control int" placeholder="0" value="0">
-                                    <select name="amountType[]" class="multipleSelect2" id="">
-                                        <option value="cash">${cash}</option>
-                                        <option value="percent">%</option>
+                                    <input type="text" name="product_and_quantity[discountValue]" id=""
+                                        class="form-control int" placeholder="0" value="${
+                                            preloadData.discountValue
+                                        }">
+                                    <select name="product_and_quantity[discountType]" class="multipleSelect2" id="">
+                                        <option ${
+                                            preloadData.discountType == "cash"
+                                                ? "selected"
+                                                : ""
+                                        } value="cash">${cash}</option>
+                                        <option ${
+                                            preloadData.discountType ==
+                                            "percent"
+                                                ? "selected"
+                                                : ""
+                                        } value="percent">%</option>
                                     </select>
                                 </div>
                             </td>
@@ -535,6 +593,7 @@
                 </table>
             </div>
         `;
+
         HT.renderPromotionContainer(html);
     };
 
@@ -793,38 +852,60 @@
     };
 
     HT.confirmProductPromotion = () => {
+        let preloadObject = JSON.parse($(".input_object").val());
+        if (preloadObject.length === 0) {
+            preloadObject = {
+                id: [],
+                product_variant_id: [],
+                name: [],
+            };
+        }
+        // tạo ra mảng mới với mỗi phần tử là 1 đối tượng
+        let objectArray = preloadObject.id.map((id, index) => ({
+            product_id: id,
+            product_variant_id:
+                preloadObject.product_variant_id[index] || "null", // <=> (condition) ? value1 : value2
+            name: preloadObject.name[index],
+        }));
+        if (objectArray.length && typeof objectArray !== "undefined") {
+            let preloadHtml = HT.renderBoxWrapper(objectArray);
+            HT.checkFixGrid(preloadHtml);
+        }
         $(document).on("click", ".confirm-product-promotion", function (e) {
-            let html = "";
-            let model = $(".select-product-and-quantity").val();
-            if (objectChoose.length) {
-                for (let i = 0; i < objectChoose.length; i++) {
-                    let product_id = objectChoose[i].product_id;
-                    let product_variant_id = objectChoose[i].product_variant_id;
-                    let name = objectChoose[i].name;
-                    let classBox =
-                        model + "_" + product_id + "_" + product_variant_id;
-                    if (!$(`.boxWrapper .${classBox}`).length) {
-                        html += `
-                            <div class="fixGrid6 ${classBox}">
-                                <div class="goods-item" >
-                                    <a class="goods-item-name" title="${name}">${name}</a>
-                                    <button class="delete-goods-item">
-                                        <img src="backend/img/remove.png">
-                                    </button>
-                                </div>
-                                <div class="hidden">
-                                    <input name="object[id][]" value="${product_id}">
-                                    <input name="object[product_variant_id][]" value="${product_variant_id}">
-                                </div>
-                            </div>
-                        `;
-                    }
-                }
-            }
+            let html = HT.renderBoxWrapper(objectChoose);
             HT.checkFixGrid(html);
             // ẩn (đóng) một modal Bootstrap có ID là findProduct.
             $("#findProduct").modal("hide");
         });
+    };
+
+    HT.renderBoxWrapper = (objectData) => {
+        let html = "";
+        let model = $(".select-product-and-quantity").val();
+        if (objectData.length) {
+            for (let i = 0; i < objectData.length; i++) {
+                let { product_id, product_variant_id, name } = objectData[i];
+                let classBox = `${model}_${product_id}_${product_variant_id}`;
+                if (!$(`.boxWrapper .${classBox}`).length) {
+                    html += `
+                        <div class="fixGrid6 ${classBox}">
+                            <div class="goods-item" >
+                                <a class="goods-item-name" title="${name}">${name}</a>
+                                <button class="delete-goods-item">
+                                    <img src="backend/img/remove.png">
+                                </button>
+                            </div>
+                            <div class="hidden">
+                                <input name="object[id][]" value="${product_id}">
+                                <input name="object[product_variant_id][]" value="${product_variant_id}">
+                                <input name="object[name][]" value="${name}">
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+        return html;
     };
 
     HT.checkFixGrid = (html) => {
@@ -861,6 +942,16 @@
         });
     };
 
+    HT.checkConditionItemSet = () => {
+        let checkedValue = $(".conditionItemSelected").val();
+        if (checkedValue.length && $(".conditionItem").length) {
+            checkedValue = JSON.parse(checkedValue);
+            console.log(checkedValue);
+            // set giá trị cho một thẻ select có thuộc tính multiple, cần đưa vào một mảng các giá trị.
+            $(".conditionItem").val(checkedValue).trigger("change");
+        }
+    };
+
     $(document).ready(function () {
         HT.promotionNeverEnd();
         HT.promotionSource();
@@ -879,5 +970,6 @@
         HT.confirmProductPromotion();
         HT.deleteGoodsItem();
         HT.changePromotionMethod();
+        HT.checkConditionItemSet();
     });
 })(jQuery);

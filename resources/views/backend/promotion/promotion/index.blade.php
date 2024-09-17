@@ -7,8 +7,8 @@
                 @include('backend.dashboard.component.toolbox')
             </div>
             <div class="ibox-content">
-                @include('backend.poromotion.promotion.component.filter')
-                @include('backend.poromotion.promotion.component.table')
+                @include('backend.promotion.promotion.component.filter')
+                @include('backend.promotion.promotion.component.table')
             </div>
         </div>
     </div>

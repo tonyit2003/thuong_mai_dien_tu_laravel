@@ -5,15 +5,20 @@
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
             <th class="text-center">
-                {{ __('table.widget_name') }}
+                {{ __('table.promotion_name') }}
             </th>
             <th class="text-center">
-                {{ __('table.keyword') }}
+                {{ __('table.discount') }}
             </th>
             <th class="text-center">
-                {{ __('table.short_code') }}
+                {{ __('table.information') }}
             </th>
-            @include('backend.dashboard.component.languageTh')
+            <th class="text-center">
+                {{ __('table.start_date') }}
+            </th>
+            <th class="text-center">
+                {{ __('table.end_date') }}
+            </th>
             <th class="text-center" style="width: 100px">
                 {{ __('table.status') }}
             </th>
@@ -23,45 +28,53 @@
         </tr>
     </thead>
     <tbody>
-        @if (isset($widgets) && is_object($widgets))
-            @foreach ($widgets as $widget)
+        @if (isset($promotions) && is_object($promotions))
+            @foreach ($promotions as $promotion)
+                @php
+                    $status = '';
+                    $currentDate = \Carbon\Carbon::now();
+                    if ($promotion->endDate !== null) {
+                        // phân tích một chuỗi ngày giờ thành một đối tượng Carbon
+                        $startDate = \Carbon\Carbon::parse($promotion->startDate);
+                        $endDate = \Carbon\Carbon::parse($promotion->endDate);
+                        if ($endDate->lessThanOrEqualTo($startDate) || $endDate->lessThan($currentDate)) {
+                            $status = '<span class="text-danger text-small"> (' . __('table.expired') . ')</span>';
+                        }
+                    }
+                @endphp
                 <tr>
                     <td class="text-center">
-                        <input type="checkbox" value="{{ $widget->id }}" class="input-checkbox checkBoxItem" />
+                        <input type="checkbox" value="{{ $promotion->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td>
-                        {{ $widget->name }}
+                        {{ $promotion->name }} {!! $status !!}
+                        <div class="text-small text-success">{{ __('table.promotion_code') }}: {{ $promotion->code }}
+                        </div>
                     </td>
                     <td>
-                        {{ $widget->keyword }}
+                        <div class="discount-information text-center">
+                            {!! renderDiscountInformation($promotion) !!}
+                        </div>
                     </td>
                     <td>
-                        {{ $widget->short_code }}
+                        <div>{{ __('module.promotion')[$promotion->method] }}</div>
                     </td>
-                    @foreach ($allLanguages as $language)
-                        @if ($currentCanonical == $language->canonical)
-                            @continue;
-                        @endif
-                        @php
-                            $translated = isset($widget->description[$language->id]) ? 1 : 0;
-                        @endphp
-                        <td class="text-center">
-                            <a class="{{ $translated == 1 ? '' : 'text-danger' }}"
-                                href="{{ route('widget.translate', ['languageId' => $language->id, 'id' => $widget->id]) }}">
-                                {{ $translated == 1 ? __('table.translated') : __('table.not_yet_translated') }}
-                            </a>
-                        </td>
-                    @endforeach
-                    <td class="text-center js-switch-{{ $widget->id }}">
-                        <input type="checkbox" value="{{ $widget->publish }}" class="js-switch status"
+                    <td>
+                        {{ convertDateTime($promotion->startDate) }}
+                    </td>
+                    <td>
+                        {{ $promotion->neverEndDate === 'accept' ? __('table.unlimited') : convertDateTime($promotion->endDate) }}
+                    </td>
+                    <td class="text-center js-switch-{{ $promotion->id }}">
+                        <input type="checkbox" value="{{ $promotion->publish }}" class="js-switch status"
                             data-field="publish" data-model="{{ $config['model'] }}"
-                            data-modelId="{{ $widget->id }}" {{ $widget->publish == 1 ? 'checked' : '' }} />
+                            data-modelId="{{ $promotion->id }}" {{ $promotion->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('widget.edit', $widget->id) }}" class="btn btn-success">
+                        <a href="{{ route('promotion.edit', $promotion->id) }}" class="btn btn-success">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{ route('widget.delete', $widget->id) }}" class="btn btn-danger">
+                        <a href="{{ route('promotion.delete', $promotion->id) }}" class="btn btn-danger">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
@@ -71,4 +84,4 @@
     </tbody>
 </table>
 
-{{ $widgets->links('pagination::bootstrap-4') }}
+{{ $promotions->links('pagination::bootstrap-4') }}
