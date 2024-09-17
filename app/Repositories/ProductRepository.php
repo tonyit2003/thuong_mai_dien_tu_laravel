@@ -62,6 +62,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             'products.image',
             'product_language.name',
             'product_variants.id as product_variant_id',
+            'product_variants.uuid',
             // DB::raw: truyền một đoạn SQL trực tiếp vào truy vấn mà không qua Eloquent để Laravel không xử lý hay thoát chuỗi SQL này.
             // CONCAT: nối chuỗi các cột lại với nhau.
             // COALESCE: trả về giá trị của cột product_variant_language.name nếu nó không phải NULL. Nếu cột này là NULL, nó sẽ trả về "default".

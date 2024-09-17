@@ -43,7 +43,7 @@ class PromotionService extends BaseService implements PromotionServiceInterface
             DB::commit();
             return true;
         } catch (Exception $e) {
-            dd($e->getLine());
+            dd($e->getMessage());
             DB::rollBack();
             return false;
         }
@@ -61,7 +61,6 @@ class PromotionService extends BaseService implements PromotionServiceInterface
             DB::commit();
             return true;
         } catch (Exception $e) {
-            dd($e->getMessage());
             DB::rollBack();
             return false;
         }
@@ -141,7 +140,8 @@ class PromotionService extends BaseService implements PromotionServiceInterface
             foreach ($object['id'] as $key => $val) {
                 $payload[] = [
                     'product_id' => $val,
-                    'product_variant_id' => $object['product_variant_id'][$key] !== 'null' ? $object['product_variant_id'][$key] : 0,
+                    // 'product_variant_id' => $object['product_variant_id'][$key] !== 'null' ? $object['product_variant_id'][$key] : 0,
+                    'variant_uuid' => $object['variant_uuid'][$key],
                     'model' => $request->input(PromotionEnum::MODULE_TYPE)
                 ];
             }

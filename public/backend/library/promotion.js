@@ -702,6 +702,7 @@
                 let product_id = objects.data[i].id;
                 let sku = objects.data[i].sku;
                 let price = objects.data[i].price;
+                let uuid = objects.data[i].uuid;
                 let inventory =
                     typeof objects.data[i].inventory != "undefined"
                         ? objects.data[i].inventory
@@ -716,7 +717,7 @@
                     ? "checked"
                     : "";
                 html += `
-                    <div class="search-object-item" data-productid="${product_id}" data-variant_id="${product_variant_id}" data-name="${name}">
+                    <div class="search-object-item" data-productid="${product_id}" data-variant_id="${product_variant_id}" data-name="${name}" data-uuid="${uuid}">
                         <div class="uk-flex uk-flex-middle uk-flex-space-between">
                             <div class="object-info">
                                 <div class="uk-flex uk-flex-middle">
@@ -838,6 +839,7 @@
                 product_id: _this.attr("data-productid"),
                 product_variant_id: _this.attr("data-variant_id"),
                 name: _this.attr("data-name"),
+                uuid: _this.attr("data-uuid"),
             };
             if (isChecked) {
                 objectChoose = objectChoose.filter(
@@ -853,11 +855,13 @@
 
     HT.confirmProductPromotion = () => {
         let preloadObject = JSON.parse($(".input_object").val());
+
         if (preloadObject.length === 0) {
             preloadObject = {
                 id: [],
                 product_variant_id: [],
                 name: [],
+                variant_uuid: [],
             };
         }
         // tạo ra mảng mới với mỗi phần tử là 1 đối tượng
@@ -866,6 +870,7 @@
             product_variant_id:
                 preloadObject.product_variant_id[index] || "null", // <=> (condition) ? value1 : value2
             name: preloadObject.name[index],
+            uuid: preloadObject.variant_uuid[index] || "null",
         }));
         if (objectArray.length && typeof objectArray !== "undefined") {
             let preloadHtml = HT.renderBoxWrapper(objectArray);
@@ -884,7 +889,8 @@
         let model = $(".select-product-and-quantity").val();
         if (objectData.length) {
             for (let i = 0; i < objectData.length; i++) {
-                let { product_id, product_variant_id, name } = objectData[i];
+                let { product_id, product_variant_id, name, uuid } =
+                    objectData[i];
                 let classBox = `${model}_${product_id}_${product_variant_id}`;
                 if (!$(`.boxWrapper .${classBox}`).length) {
                     html += `
@@ -898,6 +904,7 @@
                             <div class="hidden">
                                 <input name="object[id][]" value="${product_id}">
                                 <input name="object[product_variant_id][]" value="${product_variant_id}">
+                                <input name="object[variant_uuid][]" value="${uuid}">
                                 <input name="object[name][]" value="${name}">
                             </div>
                         </div>
@@ -946,7 +953,6 @@
         let checkedValue = $(".conditionItemSelected").val();
         if (checkedValue.length && $(".conditionItem").length) {
             checkedValue = JSON.parse(checkedValue);
-            console.log(checkedValue);
             // set giá trị cho một thẻ select có thuộc tính multiple, cần đưa vào một mảng các giá trị.
             $(".conditionItem").val(checkedValue).trigger("change");
         }

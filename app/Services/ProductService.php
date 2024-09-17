@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class ProductCatalogueService
@@ -222,7 +223,7 @@ class ProductService extends BaseService implements ProductServiceInterface
     private function createVariant($product, $request, $languageId)
     {
         $payload = $request->only(['variant', 'productVariant', 'attribute']);
-        $variant = $this->createVariantArray($payload);
+        $variant = $this->createVariantArray($payload, $product);
         // tạo nhiều bản ghi mới trong bảng product_variants với dữ liệu từ mảng $variant và trả về collection các đối tượng mới được tạo ra
         // (create($payload) => chỉ tạo ra 1 bản ghi (1 hàng trong csdl))
         $variants = $product->product_variants()->createMany($variant);
@@ -253,13 +254,15 @@ class ProductService extends BaseService implements ProductServiceInterface
         $this->productVariantAttributeRepository->createBatch($productVariantAttribute);
     }
 
-    private function createVariantArray($payload = []): array
+    private function createVariantArray($payload = [], $product): array
     {
-
         $variant = [];
         if (isset($payload['variant']['sku']) && count($payload['variant']['sku'])) {
             foreach ($payload['variant']['sku'] as $key => $val) {
+                // tạo một UUID duy nhất, sử dụng hàm băm SHA-1 và dựa trên không gian tên cùng với một chuỗi đầu vào duy nhất.
+                $uuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, $product->id . ', ' . $payload['productVariant']['id'][$key]);
                 $variant[] = [
+                    'uuid' => $uuid,
                     'code' => $payload['productVariant']['id'][$key] ?? '',
                     'quantity' => $payload['variant']['quantity'][$key] ?? 0,
                     'sku' => $val,
