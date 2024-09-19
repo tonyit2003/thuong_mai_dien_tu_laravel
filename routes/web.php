@@ -29,6 +29,7 @@ use App\Http\Controllers\Backend\PromotionController;
 use App\Http\Controllers\Backend\ProductReceiptController;
 use App\Http\Controllers\Backend\SlideController;
 use App\Http\Controllers\Backend\SourceController;
+use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
 
@@ -65,6 +66,17 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/destroy', [UserCatalogueController::class, 'destroy'])->name('user.catalogue.destroy')->where(['id' => '[0-9]+']);
         Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
         Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission');
+    });
+
+    // SUPPLIERS
+    Route::group(['prefix' => 'supplier'], function () {
+        Route::get('index', [SupplierController::class, 'index'])->name('supplier.index');
+        Route::get('create', [SupplierController::class, 'create'])->name('supplier.create');
+        Route::post('store', [SupplierController::class, 'store'])->name('supplier.store');
+        Route::get('{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit')->where(['id' => '[0-9]+']);
+        Route::post('{id}/update', [SupplierController::class, 'update'])->name('supplier.update')->where(['id' => '[0-9]+']);
+        Route::get('{id}/delete', [SupplierController::class, 'delete'])->name('supplier.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [SupplierController::class, 'destroy'])->name('supplier.destroy')->where(['id' => '[0-9]+']);
     });
 
     // CUSTOMER

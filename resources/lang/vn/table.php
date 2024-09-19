@@ -63,4 +63,6 @@ return [
     'customer_group_name' => 'Tên nhóm khách hàng',
     'customer_group' => 'Nhóm khách hàng',
     'source' => 'Nguồn khách',
+    'fax' => 'Số fax',
+    'product_catalogue' => 'Loại sản phẩm'
 ];

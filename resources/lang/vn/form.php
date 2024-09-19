@@ -238,5 +238,6 @@ return [
     'source' => 'Nguồn khách',
     'select_source' => 'Chọn nguồn khách',
     'date_approved' => 'Ngày giao',
-    'select_product' => 'Chọn sản phẩm'
+    'select_product' => 'Chọn sản phẩm',
+    'product_catalogue' => 'Nhóm sản phẩm',
 ];
