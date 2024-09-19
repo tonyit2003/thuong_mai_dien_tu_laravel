@@ -16,12 +16,13 @@ class UpdateProductReceiptRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        // Dùng hàm convert_price để chuyển đổi giá trị của price trước khi validate
         $prices = array_map(function ($price) {
-            return convert_price($price); // Gọi hàm convert_price để xử lý giá
+            if ($price !== null) {
+                return convert_price($price);
+            }
+            return $price;
         }, $this->price ?? []);
 
-        // Cập nhật lại giá trị price sau khi đã chuyển đổi
         $this->merge([
             'price' => $prices,
         ]);
@@ -36,7 +37,7 @@ class UpdateProductReceiptRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'product_id' => 'required',
             'quantityReceipt.*' => 'required|gt:0',
             'price.*' => 'required|gt:0'
         ];
@@ -45,6 +46,7 @@ class UpdateProductReceiptRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'product_id.required' => "Vui lòng chọn sản phẩm cần nhập.",
             'quantityReceipt.*.required' => "Bạn chưa nhập số lượng nhập.",
             'quantityReceipt.*.gt' => "Số lượng nhập sản phẩm phải lớn hơn 0.",
             'price.*.required' => "Bạn chưa nhập giá nhập.",

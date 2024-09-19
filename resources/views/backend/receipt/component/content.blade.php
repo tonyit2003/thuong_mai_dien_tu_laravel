@@ -45,7 +45,7 @@
             <div class="filter-wrapper">
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
                     <div class="uk-flex uk-flex-middle" style="margin-left: auto;" id="keywordInput">
-                        <label for="productSelect" class="mr10">{{ __('table.supplier') }}</label>
+                        <label for="productSelect" class="mr10">{{ __('table.supplier') }} <span class="text-danger">(*)</span></label>
                         <select name="supplier_id" class="form-control mr10 setupSelect2" id="">
                             @foreach ($suppliers as $key => $val)
                                 <option value="{{ $val->id }}" {{ $key == old('supplier_id') ? 'selected' : '' }}>

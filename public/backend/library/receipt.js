@@ -307,15 +307,22 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         if (response.success) {
+                            toastr.success(response.message, "Success", {
+                                timeOut: 3000,
+                            });
                             window.location.href = response.redirect_url;
                         } else {
-                            alert(response.message);
+                            toastr.error(response.message, "Error", {
+                                timeOut: 3000,
+                            });
                         }
                     },
                     error: function (xhr) {
                         let errors = xhr.responseJSON.errors;
                         $.each(errors, function (key, value) {
-                            alert(value);
+                            toastr.error(value, "Error", {
+                                timeOut: 3000,
+                            });
                         });
                     },
                 });
