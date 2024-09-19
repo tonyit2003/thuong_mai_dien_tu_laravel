@@ -72,4 +72,6 @@ return [
     'information' => 'Thông tin',
     'discount' => 'Chiết khấu',
     'expired' => 'Hết hạn',
+    'fax' => 'Số fax',
+    'product_catalogue' => 'Loại sản phẩm'
 ];

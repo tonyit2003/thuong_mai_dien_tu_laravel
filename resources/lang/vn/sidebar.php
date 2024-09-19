@@ -105,6 +105,17 @@ return [
             ]
         ],
         [
+            'title' => 'Nhà cung cấp',
+            'icon' => 'fa fa-vcard',
+            'name' => ['supplier'],
+            'subModule' => [
+                [
+                    'title' => 'Nhà cung cấp',
+                    'route' => 'supplier.index'
+                ]
+            ]
+        ],
+        [
             'title' => 'Banner & Slide',
             'icon' => 'fa fa-picture-o',
             'name' => ['slide'],
