@@ -222,3 +222,42 @@ if (!function_exists('renderDiscountInformation')) {
         return '<div><a href="' . route('promotion.edit', $promotion->id) . '">' . __('table.view') . '</a></div>';
     }
 }
+
+if (!function_exists('frontend_recursive_menu')) {
+    function frontend_recursive_menu($data = [], $parentId = 0, $count = 1, $type = 'html')
+    {
+        if (isset($data) && count($data)) {
+            if ($type === 'html') {
+                $html = '';
+                foreach ($data as $key => $val) {
+                    $name = $val['item']->languages->first()->pivot->name;
+                    $canonical = write_url($val['item']->languages->first()->pivot->canonical, true, true);
+                    $ulClass = $count >= 1 ? 'menu-level__' . ($count + 1) : '';
+                    $html .= '<li class=' . ($count == 1 ? "children" : "") . '>';
+                    $html .= "<a href='$canonical' title='$name'>$name</a>";
+                    if (count($val['children'])) {
+                        $html .= '<div class="dropdown-menu">';
+                        $html .= "<ul class='uk-clearfix uk-list $ulClass menu-style'>";
+                        $html .= frontend_recursive_menu($val['children'], $val['item']->parent_id, $count + 1, $type);
+                        $html .= '</ul>';
+                        $html .= '</div>';
+                    }
+                    $html .= '</li>';
+                }
+                return $html;
+            }
+        }
+        return $data;
+    }
+}
+
+if (!function_exists('write_url')) {
+    function write_url($canonical = '', $fullDomain = true, $suffix = false)
+    {
+        if (strpos($canonical, 'http') !== false) {
+            return $canonical;
+        }
+        $fullUrl = ($fullDomain === true ? config('app.url') : '') . $canonical . ($suffix === true ? config('apps.general.suffix') : '');
+        return $fullUrl;
+    }
+}

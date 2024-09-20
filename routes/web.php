@@ -33,12 +33,15 @@ use App\Http\Controllers\Backend\SourceController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
+use App\Http\Controllers\Frontend\HomeController;
 
 // @@use-controller@@
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/* FRONTEND ROUTES */
+
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+/* BACKEND ROUTES */
 
 // middleware: xử lý các request trước khi chuyển đến các route hoặc controller.
 Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]], function () {
