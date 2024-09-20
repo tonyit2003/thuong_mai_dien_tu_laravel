@@ -3,6 +3,6 @@
         10GB of <strong>250GB</strong> Free.
     </div>
     <div>
-        <strong>Copyright</strong> Tony Company &copy; 2024-2030
+        <strong>Copyright</strong> {{ $system['homepage_company'] }}&copy; 2024-2030
     </div>
 </div>

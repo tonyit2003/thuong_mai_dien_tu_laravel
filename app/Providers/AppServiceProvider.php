@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\LanguageComposer;
+use App\Http\ViewComposers\MenuComposer;
+use App\Http\ViewComposers\SystemComposer;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Gate;
@@ -56,5 +59,11 @@ class AppServiceProvider extends ServiceProvider
             $endDate = Carbon::createFromFormat('d/m/Y H:i', $value);
             return $endDate->greaterThan($startDate) !== false;
         });
+
+        // đăng ký composer => chia sẽ dữ liệu cho view cụ thể từ composer đăng ký
+        view()->composer('frontend.homepage.layout', SystemComposer::class);
+        view()->composer('backend.dashboard.layout', SystemComposer::class);
+        view()->composer('frontend.homepage.layout', MenuComposer::class);
+        view()->composer('frontend.homepage.layout', LanguageComposer::class);
     }
 }

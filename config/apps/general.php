@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'suffix' => '.html'
+    'suffix' => '.html',
+    'defaultPublish' => ['publish', '=', 1],
 ];

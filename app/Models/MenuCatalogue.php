@@ -19,4 +19,9 @@ class MenuCatalogue extends Model
     ];
 
     protected $table = 'menu_catalogues';
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class, 'menu_catalogue_id', 'id');
+    }
 }

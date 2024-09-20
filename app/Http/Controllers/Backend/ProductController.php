@@ -41,7 +41,6 @@ class ProductController extends Controller
     {
         Gate::authorize('modules', 'product.index');
         $products = $this->productService->paginate($request, $this->language);
-
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
