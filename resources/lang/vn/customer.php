@@ -6,7 +6,8 @@ return [
         'table' => 'Danh sách khách hàng'
     ],
     'create' => [
-        'title' => 'Thêm mới khách hàng'
+        'title' => 'Thêm mới khách hàng',
+        'model' => 'khách hàng'
     ],
     'edit' => [
         'title' => 'Cập nhật khách hàng'

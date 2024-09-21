@@ -6,7 +6,8 @@ return [
         'table' => 'Danh sách ngôn ngữ'
     ],
     'create' => [
-        'title' => 'Thêm mới ngôn ngữ'
+        'title' => 'Thêm mới ngôn ngữ',
+        'model' => 'ngôn ngữ'
     ],
     'edit' => [
         'title' => 'Cập nhật ngôn ngữ'

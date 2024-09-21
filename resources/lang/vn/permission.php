@@ -6,7 +6,8 @@ return [
         'table' => 'Danh sách quyền'
     ],
     'create' => [
-        'title' => 'Thêm mới quyền'
+        'title' => 'Thêm mới quyền',
+        'model' => 'quyền'
     ],
     'edit' => [
         'title' => 'Cập nhật quyền'

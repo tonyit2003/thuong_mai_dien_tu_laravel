@@ -1,15 +1,10 @@
 @include(
     'backend.dashboard.component.breadcrumb',
-    $config['method'] == 'create'
-        ? ['title' => $config['seo']['create']['title']]
-        : ['title' => $config['seo']['edit']['title']]
+    $config['method'] == 'create' ? ['title' => $config['seo']['create']['title']] : ['title' => $config['seo']['edit']['title']]
 )
 @include('backend.dashboard.component.formError')
 @php
-    $url =
-        $config['method'] == 'create'
-            ? route('user.catalogue.store')
-            : route('user.catalogue.update', $userCatalogue->id);
+    $url = $config['method'] == 'create' ? route('user.catalogue.store') : route('user.catalogue.update', $userCatalogue->id);
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf
@@ -21,7 +16,7 @@
                         {{ __('form.general_info') }}
                     </div>
                     <div class="panel-description">
-                        <p>{{ __('form.enter_general_info', ['model' => 'nhóm thành viên']) }}</p>
+                        <p>{{ __('form.enter_general_info', ['model' => $config['seo']['create']['model']]) }}</p>
                         <p>{!! __('form.required_fields') !!}</p>
                     </div>
                 </div>
@@ -36,8 +31,7 @@
                                         {{ __('form.user_catalogue_name') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input type="text" name="name"
-                                        value="{{ old('name', $userCatalogue->name ?? '') }}" class="form-control"
+                                    <input type="text" name="name" value="{{ old('name', $userCatalogue->name ?? '') }}" class="form-control"
                                         placeholder="" autocomplete="off">
                                 </div>
                             </div>
@@ -46,8 +40,7 @@
                                     <label for="" class="control-label text-left">
                                         {{ __('form.note') }}
                                     </label>
-                                    <input type="text" name="description"
-                                        value="{{ old('description', $userCatalogue->description ?? '') }}"
+                                    <input type="text" name="description" value="{{ old('description', $userCatalogue->description ?? '') }}"
                                         class="form-control" placeholder="" autocomplete="off">
                                 </div>
                             </div>

@@ -6,7 +6,8 @@ return [
         'table' => 'Danh sách thành viên'
     ],
     'create' => [
-        'title' => 'Thêm mới thành viên'
+        'title' => 'Thêm mới thành viên',
+        'model' => 'thành viên'
     ],
     'edit' => [
         'title' => 'Cập nhật thành viên'

@@ -6,7 +6,8 @@ return [
         'table' => 'Danh sách nhà cung cấp'
     ],
     'create' => [
-        'title' => 'Thêm nhà cung cấp'
+        'title' => 'Thêm nhà cung cấp',
+        'model' => 'nhà cung cấp'
     ],
     'edit' => [
         'title' => 'Cập nhật nhà cung cấp'

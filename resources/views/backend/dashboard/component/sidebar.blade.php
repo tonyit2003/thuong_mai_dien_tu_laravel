@@ -9,7 +9,8 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
-                        <img alt="image" class="img-circle" src="{{ Auth::user()->image }}" width="60px" height="60px" />
+                        <a href="{{ route('dashboard.index') }}"><img alt="image" class="img-circle" src="{{ Auth::user()->image }}" width="60px"
+                                height="60px" /></a>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
@@ -24,7 +25,7 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    TC+
                 </div>
             </li>
             {{-- __('sidebar.module') => resources/lang/{locale}/sidebar.php (locale trong file app.php) --}}

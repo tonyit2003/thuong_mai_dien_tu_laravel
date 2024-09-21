@@ -1,8 +1,6 @@
 @include(
     'backend.dashboard.component.breadcrumb',
-    $config['method'] == 'create'
-        ? ['title' => $config['seo']['create']['title']]
-        : ['title' => $config['seo']['edit']['title']]
+    $config['method'] == 'create' ? ['title' => $config['seo']['create']['title']] : ['title' => $config['seo']['edit']['title']]
 )
 
 @include('backend.dashboard.component.formError')
@@ -21,7 +19,7 @@
                         {{ __('form.general_info') }}
                     </div>
                     <div class="panel-description">
-                        <p>{{ __('form.enter_general_info', ['model' => 'quyền']) }}</p>
+                        <p>{{ __('form.enter_general_info', ['model' => $config['seo']['create']['model']]) }}</p>
                         <p>{!! __('form.required_fields') !!}</p>
                     </div>
                 </div>
@@ -36,8 +34,7 @@
                                         {{ __('form.permission_name') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input type="text" name="name"
-                                        value="{{ old('name', $permission->name ?? '') }}" class="form-control"
+                                    <input type="text" name="name" value="{{ old('name', $permission->name ?? '') }}" class="form-control"
                                         placeholder="" autocomplete="off">
                                 </div>
                             </div>
@@ -47,8 +44,7 @@
                                         {{ __('form.language_code') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input type="text" name="canonical"
-                                        value="{{ old('canonical', $permission->canonical ?? '') }}"
+                                    <input type="text" name="canonical" value="{{ old('canonical', $permission->canonical ?? '') }}"
                                         class="form-control" placeholder="" autocomplete="off">
                                 </div>
                             </div>

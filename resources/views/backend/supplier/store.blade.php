@@ -19,7 +19,7 @@
                         {{ __('form.general_info') }}
                     </div>
                     <div class="panel-description">
-                        <p>{{ __('form.enter_general_info', ['model' => 'thành viên']) }}</p>
+                        <p>{{ __('form.enter_general_info', ['model' => $config['seo']['create']['model']]) }}</p>
                         <p>{!! __('form.required_fields') !!}</p>
                     </div>
                 </div>
