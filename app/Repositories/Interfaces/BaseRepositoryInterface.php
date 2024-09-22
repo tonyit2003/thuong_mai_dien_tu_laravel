@@ -10,7 +10,7 @@ interface BaseRepositoryInterface
 {
     public function all($relation = []);
     public function findById($modelId, $column, $relation);
-    public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC']);
+    public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC'], $param = [], $withCount = []);
     public function findByWhereHas($condition = [], $relation = '', $alias = '');
     public function findByWhereHasAndWith($condition = [], $relationWhereHas = '', $alias = '', $relationWith = []);
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = []);

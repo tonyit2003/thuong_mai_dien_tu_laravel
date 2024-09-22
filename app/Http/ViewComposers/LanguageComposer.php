@@ -16,7 +16,7 @@ class LanguageComposer
 
     public function compose(View $view)
     {
-        $languages = $this->languageRepository->findByCondition([config('apps.general.defaultPublish')], true, [], ['current', 'DESC']);
+        $languages = $this->languageRepository->findByCondition([config('apps.general.publish')], true, [], ['current', 'DESC']);
         $view->with('languages', $languages);
     }
 }

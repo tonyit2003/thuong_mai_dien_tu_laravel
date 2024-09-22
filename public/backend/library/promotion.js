@@ -597,6 +597,14 @@
         HT.renderPromotionContainer(html);
     };
 
+    /*
+    <option ${
+        preloadData.discountType == "cash"
+            ? "selected"
+            : ""
+    } value="cash">${cash}</option>
+    */
+
     HT.renderPromotionContainer = (html) => {
         $(".promotion-container").html(html);
         HT.promotionMultipleSelect2();

@@ -2,5 +2,5 @@
 
 return [
     'suffix' => '.html',
-    'defaultPublish' => ['publish', '=', 1],
+    'publish' => ['publish', '=', 1],
 ];

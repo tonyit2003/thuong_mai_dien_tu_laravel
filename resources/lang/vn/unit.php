@@ -6,4 +6,5 @@ return [
     'members'       => 'thành viên',
     'px'            => 'px',
     'ms'            => 'ms',
+    'product'       => 'sản phẩm',
 ];

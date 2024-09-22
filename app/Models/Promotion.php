@@ -24,6 +24,9 @@ class Promotion extends Model
         'publish',
         'order',
         'deleted_at',
+        'discountValue',
+        'maxDiscountValue',
+        'discountType',
     ];
 
     protected $casts = [

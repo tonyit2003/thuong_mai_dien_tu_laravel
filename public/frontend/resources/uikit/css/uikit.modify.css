@@ -7179,3 +7179,7 @@ html[dir=rtl] .uk-slider>* {
     border-bottom-color: transparent;
     border-right-color: #333
 }
+
+.footer [class*="uk-width-large"] + a {
+    padding: 0;
+}

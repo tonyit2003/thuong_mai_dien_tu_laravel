@@ -18,23 +18,38 @@
                 </div>
                 <div class="uk-width-large-3-5">
                     <div class="footer-menu">
-                        <div class="uk-grid uk-grid-medium">
-                            <?php for($i = 0; $i<=3; $i++){  ?>
-                            <div class="uk-width-large-1-4">
-                                <div class="ft-menu">
-                                    <div class="heading">Company</div>
-                                    <ul class="uk-list uk-clearfix">
-                                        <li><a href="">About Us</a></li>
-                                        <li><a href="">Delivery Information</a></li>
-                                        <li><a href="">Privacy Policy</a></li>
-                                        <li><a href="">Term & Conditions</a></li>
-                                        <li><a href="">Contact us</a></li>
-                                        <li><a href="">Support Center</a></li>
-                                    </ul>
-                                </div>
+                        @if (isset($menus[App\Enums\MenuEnum::FOOTER_MENU]))
+                            <div class="uk-grid uk-grid-medium">
+                                @php
+                                    $classFooterItem =
+                                        'uk-width-large-1-' . count($menus[App\Enums\MenuEnum::FOOTER_MENU]);
+                                @endphp
+                                @foreach ($menus[App\Enums\MenuEnum::FOOTER_MENU] as $key => $val)
+                                    <div class="footer-menu-item {{ $classFooterItem }}">
+                                        <div class="ft-menu">
+                                            <div class="heading">{{ $val['item']->languages->first()->pivot->name }}
+                                            </div>
+                                            <ul class="uk-list uk-clearfix">
+                                                @foreach ($val['children'] as $keyChildren => $valChildren)
+                                                    @php
+                                                        $name = $valChildren['item']->languages->first()->pivot->name;
+                                                        $canonical = write_url(
+                                                            $valChildren['item']->languages->first()->pivot
+                                                                ->canonical ?? '',
+                                                            true,
+                                                            true,
+                                                        );
+                                                    @endphp
+                                                    <li>
+                                                        <a href="{{ $canonical }}">{{ $name }}<a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                            <?php }  ?>
-                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="uk-width-large-1-5">
@@ -42,11 +57,13 @@
                         <div class="ft-menu">
                             <div class="heading">Fanpage Facebook</div>
                             <div class="fanpage">
-                                <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs=""
+                                <div class="fb-page" data-href="https://www.facebook.com/tonyit2003" data-tabs=""
                                     data-width="" data-height="" data-small-header="false"
                                     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                                    <blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore">
-                                        <a href="https://www.facebook.com/facebook">Facebook</a></blockquote>
+                                    <blockquote cite="https://www.facebook.com/tonyit2003"
+                                        class="fb-xfbml-parse-ignore">
+                                        <a href="https://www.facebook.com/tonyit2003">Facebook</a>
+                                    </blockquote>
                                 </div>
                             </div>
                         </div>

@@ -30,6 +30,7 @@
 <div class="ibox short-code">
     <div class="ibox-title ">
         <h5>{{ __('form.short_code') }}</h5>
+        <span class="text-danger">(*)</span>
     </div>
     <div class="ibox-content">
         <textarea name="short_code" id="" class="textarea form-control">{{ old('short_code', $widget->short_code ?? '') }}</textarea>
