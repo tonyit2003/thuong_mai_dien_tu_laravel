@@ -29,6 +29,10 @@ class Menu extends Model
 
     protected $table = 'menus';
 
+    protected $attributes = [
+        'order' => 0
+    ];
+
     public function languages()
     {
         return $this->belongsToMany(Language::class, 'menu_language', 'menu_id', 'language_id')->withPivot('menu_id', 'language_id', 'name', 'canonical')->withTimestamps();

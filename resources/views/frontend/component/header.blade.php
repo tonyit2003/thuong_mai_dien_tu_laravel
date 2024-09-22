@@ -3,13 +3,13 @@
         <div class="uk-container uk-container-center">
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <div class="sitelink">
-                    @if (isset($menus['site-link']))
+                    @if (isset($menus[App\Enums\MenuEnum::SITE_LINK_MENU]))
                         <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
-                            @foreach ($menus['site-link'] as $key => $val)
+                            @foreach ($menus[App\Enums\MenuEnum::SITE_LINK_MENU] as $key => $val)
                                 @php
                                     $name = $val['item']->languages->first()->pivot->name;
                                     $canonical = write_url(
-                                        $val['item']->languages->first()->pivot->canonical,
+                                        $val['item']->languages->first()->pivot->canonical ?? '',
                                         true,
                                         true,
                                     );
@@ -62,8 +62,7 @@
                 <div class="uk-flex uk-flex-middle">
                     <div class="logo">
                         <a href="" class="logo-image">
-                            <img src="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/02/logo.png"
-                                alt="">
+                            <img src="{{ $system['homepage_logo'] }}" alt="">
                         </a>
                     </div>
                     <div class="header-form">

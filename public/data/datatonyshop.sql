@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 17, 2024 lúc 09:57 PM
+-- Thời gian đã tạo: Th9 22, 2024 lúc 08:21 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -1188,12 +1188,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-09-09 06:13:36', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-09-09 06:13:36', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-09-20 12:03:23', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-09-20 12:03:23', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
 (6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0),
-(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-08-16 07:28:53', '2024-09-09 06:13:36', NULL, 0, NULL, 0);
+(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-08-16 07:28:53', '2024-09-20 12:03:23', NULL, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1213,7 +1213,7 @@ CREATE TABLE `menus` (
   `icon` varchar(255) DEFAULT NULL,
   `album` text DEFAULT NULL,
   `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) NOT NULL DEFAULT 0,
+  `order` int(11) DEFAULT 0,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1225,22 +1225,30 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `parent_id`, `menu_catalogue_id`, `lft`, `rgt`, `level`, `type`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 0, 1, 12, 21, 1, 'dropdown-menu', NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-08-24 05:00:01', '2024-08-26 01:44:55'),
-(2, 6, 1, 24, 31, 3, 'dropdown-menu', NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:01', '2024-08-25 10:05:34'),
-(3, 5, 1, 28, 29, 5, 'dropdown-menu', NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:01', '2024-08-25 10:05:34'),
-(4, 5, 1, 26, 27, 5, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-08-24 05:00:33', '2024-08-25 10:05:34'),
-(5, 2, 1, 25, 30, 4, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:33', '2024-08-26 01:44:48'),
-(6, 7, 1, 23, 32, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 05:00:33', '2024-08-26 01:44:48'),
-(7, 0, 1, 22, 33, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-08-24 05:00:33', '2024-08-26 01:44:55'),
-(8, 1, 1, 13, 20, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:52:41', '2024-08-25 10:05:34'),
-(9, 8, 1, 14, 19, 3, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:52:41', '2024-08-26 01:44:52'),
-(10, 9, 1, 15, 18, 4, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:56:33', '2024-08-26 01:44:52'),
-(11, 10, 1, 16, 17, 5, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-24 07:58:59', '2024-08-26 01:44:52'),
-(12, 0, 1, 6, 11, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-25 09:29:16', '2024-08-26 01:44:55'),
-(13, 12, 1, 7, 8, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-08-25 09:29:16', '2024-08-26 01:44:56'),
-(14, 12, 1, 9, 10, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-08-25 09:57:01', '2024-08-26 01:44:56'),
-(22, 0, 2, 2, 3, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-08-27 08:01:20', '2024-08-27 08:01:20'),
-(23, 0, 2, 4, 5, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-08-27 08:01:20', '2024-08-27 08:01:20');
+(70, 0, 7, 40, 49, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 08:56:35', '2024-09-21 09:44:43'),
+(71, 0, 7, 28, 39, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 08:56:35', '2024-09-21 09:44:43'),
+(72, 70, 7, 43, 44, 2, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
+(73, 70, 7, 45, 46, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
+(74, 70, 7, 47, 48, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
+(75, 70, 7, 41, 42, 2, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
+(76, 71, 7, 31, 32, 2, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
+(77, 71, 7, 33, 34, 2, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
+(78, 71, 7, 35, 36, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
+(79, 71, 7, 37, 38, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
+(80, 71, 7, 29, 30, 2, NULL, NULL, NULL, NULL, 1, 5, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
+(81, 0, 8, 14, 19, 1, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-21 09:49:04', '2024-09-22 08:36:27'),
+(82, 0, 8, 10, 13, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 09:49:04', '2024-09-21 09:49:21'),
+(83, 0, 8, 20, 25, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-21 09:49:04', '2024-09-22 08:36:27'),
+(84, 0, 8, 26, 27, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:04', '2024-09-21 09:49:21'),
+(85, 81, 8, 15, 18, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:21'),
+(86, 85, 8, 16, 17, 3, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:27'),
+(87, 83, 8, 23, 24, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:02'),
+(88, 83, 8, 21, 22, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:02'),
+(89, 82, 8, 11, 12, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:50:04', '2024-09-22 08:36:02'),
+(90, 0, 9, 2, 3, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
+(91, 0, 9, 4, 5, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
+(92, 0, 9, 6, 7, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
+(93, 0, 9, 8, 9, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13');
 
 -- --------------------------------------------------------
 
@@ -1263,8 +1271,9 @@ CREATE TABLE `menu_catalogues` (
 --
 
 INSERT INTO `menu_catalogues` (`id`, `name`, `keyword`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Menu chính', 'main-menu', 1, NULL, '2024-08-19 01:55:02', '2024-08-23 08:23:18'),
-(2, 'Menu chân trang', 'footer-menu', 1, NULL, '2024-08-19 01:55:28', '2024-08-23 08:23:17');
+(7, 'Menu chân trang', 'footer-menu', 1, NULL, '2024-09-21 08:56:03', '2024-09-21 08:56:03'),
+(8, 'Menu chính', 'main-menu', 1, NULL, '2024-09-21 09:48:13', '2024-09-21 09:48:13'),
+(9, 'Menu site link', 'site-link-menu', 1, NULL, '2024-09-21 16:00:52', '2024-09-21 16:00:52');
 
 -- --------------------------------------------------------
 
@@ -1286,39 +1295,30 @@ CREATE TABLE `menu_language` (
 --
 
 INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `created_at`, `updated_at`) VALUES
-(2, 1, 'V League 1', 'v-league-1', '2024-08-24 05:00:01', '2024-08-24 05:00:01'),
-(3, 1, 'Premier League', 'premier-league', '2024-08-24 05:00:01', '2024-08-24 05:00:01'),
-(4, 1, 'Champion league', 'champion-league', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
-(5, 1, 'Bóng đá quốc tế', 'bong-da-quoc-te', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
-(6, 1, 'Bóng đá trong nước', 'bong-da-trong-nuoc', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
-(8, 1, 'Điện thoại', 'dien-thoai', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
-(9, 1, 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
-(10, 1, 'SP-TEST 123', 'sp-test', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
-(11, 1, 'Tony', 'https://www.facebook.com/tonyit2003', '2024-08-24 07:58:59', '2024-08-24 07:58:59'),
-(14, 1, 'Trang chủ', 'index', '2024-08-25 09:57:01', '2024-08-25 09:57:01'),
-(7, 1, 'Bóng đá', 'bong-da', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
-(1, 1, 'Công nghệ', 'cong-nghe', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
-(12, 1, 'SP-TEST 123', 'sp-test', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
-(13, 1, 'Điện thoại', 'dien-thoai', '2024-08-25 10:05:34', '2024-08-25 10:05:34'),
-(12, 2, 'SP-TEST 123 tiếng anh', 'sp-test-en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(13, 2, 'phone', 'phone', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(14, 2, 'home', 'home', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(1, 2, 'Technology123', 'technology123', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(8, 2, 'phone', 'phone', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(9, 2, 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', 'impressions-of-galaxy-z-fold6-and-z-flip6-attract-attention-right-from-the-impressive-durable-design-trendy-color-set-and-many-attractive-incentives', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(10, 2, 'SP-TEST 123 EN', 'sp-test-en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(11, 2, 'Tony en', 'https://www.facebook.com/tonyit2003', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(7, 2, 'Football', 'football', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(6, 2, 'Football en', 'Football en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(2, 2, 'V League 1 en', 'V League 1 en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(5, 2, 'Global football en', 'Global football en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(4, 2, 'Champion league en', 'Champion league en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(3, 2, 'Premier League en', 'Premier League en', '2024-08-27 07:58:31', '2024-08-27 07:58:31'),
-(22, 1, 'SP-TEST 123', 'sp-test', '2024-08-27 08:01:20', '2024-08-27 08:01:20'),
-(23, 1, 'Sạc Iphone', 'sac-iphone', '2024-08-27 08:01:20', '2024-08-27 08:01:20'),
-(22, 2, 'SP-TEST 123 EN', 'sp-test-en', '2024-08-27 08:01:48', '2024-08-27 08:01:48'),
-(23, 2, 'Sạc Iphone-en', 'sac-iphone-en', '2024-08-27 08:01:48', '2024-08-27 08:01:48'),
-(12, 7, 'SP-TEST 123 cn', 'sp-test-cn', '2024-08-27 08:07:39', '2024-08-27 08:07:39');
+(70, 1, 'Thông tin và chính sách', '#', '2024-09-21 08:56:35', '2024-09-21 08:56:35'),
+(71, 1, 'Dịch vụ và thông tin khác', '#', '2024-09-21 08:56:35', '2024-09-21 08:56:35'),
+(72, 1, 'Mua hàng và thánh toán', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
+(73, 1, 'Xem ưu đãi', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
+(74, 1, 'Thông tin bảo hành', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
+(75, 1, 'Tra cứu hóa đơn', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
+(76, 1, 'Khách hàng doanh nghiệp', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
+(77, 1, 'Chính sách bảo mật thông tin', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
+(78, 1, 'Quy chế hoạt động', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
+(79, 1, 'Liên hệ hợp tác kinh doanh', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
+(80, 1, 'Tuyển dụng', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
+(81, 1, 'Trang chủ', 'http://localhost:8081/thuongmaidientu/public/', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
+(82, 1, 'Sạc điện thoại', 'sac-dien-thoai', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
+(83, 1, 'Điện thoại', 'dien-thoai', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
+(84, 1, 'Thông tin', '#', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
+(85, 1, 'iPhone 13 128GB | Chính hãng VN/A', 'iphone-13-128gb-chinh-hang-vna', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
+(86, 1, 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iphone-15-pro-max-256gb-chinh-hang-vna', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
+(87, 1, 'Samsung Galaxy S24 Ultra 12GB 1TB', 'samsung-galaxy-s24-ultra-12gb-1tb', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
+(88, 1, 'Samsung Galaxy Z Fold6', 'samsung-galaxy-z-fold6', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
+(89, 1, 'Test product', 'test-product', '2024-09-21 09:50:04', '2024-09-21 09:50:04'),
+(90, 1, 'Facebook', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
+(91, 1, 'Zalo', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
+(92, 1, 'Tiktok', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
+(93, 1, 'Youtube', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13');
 
 -- --------------------------------------------------------
 
@@ -1426,7 +1426,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (100, '2024_09_15_103116_create_product_catalogue_supplier_table', 63),
 (101, '2024_09_18_013821_add_uuid_to_product_variants_table', 63),
 (102, '2024_09_18_015228_rename_product_variant_id_column_in_promotion_product_variant_table', 64),
-(104, '2024_09_18_015716_change_column_type_in_promotion_product_variant_table', 65);
+(104, '2024_09_18_015716_change_column_type_in_promotion_product_variant_table', 65),
+(105, '2024_09_16_223210_add_deleted_at_at_to_supplier', 66),
+(106, '2024_09_17_104255_add_address_to_supplier', 66),
+(107, '2024_09_21_151613_modify_order__nullable_in_menus', 67),
+(108, '2024_09_21_203348_add_discount_field_to_promotions_table', 68);
 
 -- --------------------------------------------------------
 
@@ -1543,7 +1547,10 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 (82, 'Xóa khách hàng', 'customer.destroy', '2024-09-12 18:07:53', '2024-09-12 18:07:53'),
 (83, 'Xác nhận giao hàng nhập kho', 'receipt.instock', '2024-09-17 18:33:08', '2024-09-17 18:33:08'),
 (84, 'Giám sát phiếu nhập kho', 'monitor.receipt', '2024-09-17 18:33:41', '2024-09-17 18:33:41'),
-(85, 'Xem danh sách nhà cung cấp', 'supplier.index', '2024-09-17 18:34:18', '2024-09-17 18:34:18');
+(85, 'Xem danh sách nhà cung cấp', 'supplier.index', '2024-09-17 18:34:18', '2024-09-17 18:34:18'),
+(86, 'Thêm nhà cung cấp', 'supplier.create', '2024-09-20 12:02:13', '2024-09-20 12:02:13'),
+(87, 'Sửa nhà cung cấp', 'supplier.update', '2024-09-20 12:02:27', '2024-09-20 12:02:27'),
+(88, 'Xóa nhà cung cấp', 'supplier.destroy', '2024-09-20 12:02:37', '2024-09-20 12:02:37');
 
 -- --------------------------------------------------------
 
@@ -1766,8 +1773,8 @@ CREATE TABLE `product_catalogues` (
 --
 
 INSERT INTO `product_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 0, 4, 5, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-08-09 08:00:56'),
-(2, 0, 2, 3, 1, '/thuongmaidientu/public/userfiles/image/cong-nghe/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.jpg', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12(2).jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12(1).jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cover-cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-15.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/D%E1%BA%A6U%20TU%20CUNG%20MINH.png\"]', 1, 1, 0, 201014, NULL, '2024-08-26 19:19:29', '2024-08-26 19:19:29');
+(1, 0, 4, 5, 1, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-09-20 15:22:58'),
+(2, 0, 2, 3, 1, '/thuongmaidientu/public/userfiles/image/sac-dien-thoai/cu-sac-nhanh-iphone-20w-pd-type.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-26 19:19:29', '2024-09-20 15:22:46');
 
 -- --------------------------------------------------------
 
@@ -1795,8 +1802,8 @@ CREATE TABLE `product_catalogue_language` (
 --
 
 INSERT INTO `product_catalogue_language` (`product_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Điện thoại', NULL, NULL, NULL, NULL, NULL, 'dien-thoai', '2024-08-09 08:00:57', '2024-08-09 08:00:57', NULL),
-(2, 1, 'Sạc điện thoại', '<ul>\r\n	<li>C&ocirc;ng nghệ PD sạc cho c&aacute;c sản phẩm Apple nhanh ch&oacute;ng</li>\r\n	<li>Cổng Type-C c&ocirc;ng suất 20W gi&uacute;p tiết kiệm nhiều thời gian</li>\r\n	<li>Thiết kế chuẩn thương hiệu Apple nhỏ gọn v&agrave; sang trọng</li>\r\n	<li>Bảo vệ qu&aacute; d&ograve;ng, tr&aacute;nh hiện tượng chập mạch, qu&aacute; nhiệt</li>\r\n</ul>', '<h2><strong>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tiết kiệm tối đa thời gian sạc điện thoại</strong></h2>\r\n\r\n<p>Nhanh ch&oacute;ng, tiết kiệm tối đa thời gian l&agrave; những g&igrave; m&agrave; người d&ugrave;ng iPhone mong đợi ở chiếc sạc pin của m&igrave;nh. Để c&oacute; thể l&agrave;m được điều đ&oacute; th&igrave; việc sử dụng củ sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng l&agrave; điều cần thiết m&agrave; bạn kh&ocirc;ng n&ecirc;n bỏ qua.</p>\r\n\r\n<h3><strong>Thiết kế nhỏ gọn, an to&agrave;n d&ograve;ng điện</strong></h3>\r\n\r\n<p><a href=\"https://cellphones.com.vn/phu-kien/sac-dien-thoai/sac/sac-nhanh-power-delivery.html\" target=\"_blank\" title=\"Củ sạc nhanh\">Củ sạc nhanh</a>&nbsp;Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng được thiết kế si&ecirc;u nhỏ gọn, tinh tế gi&uacute;p bạn c&oacute; thể mang đến bất cứ nơi đ&acirc;u. Chất liệu cao cấp c&ugrave;ng m&agrave;u trắng nổi bật mang đến sự sang trọng v&agrave; độ bền bỉ c&ugrave;ng với thời gian.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-1.jpg\" /></p>\r\n\r\n<p>Củ sạc c&ograve;n c&oacute; khả năng bảo vệ sản phẩm tr&aacute;nh qu&aacute; d&ograve;ng, qu&aacute; điện &aacute;p hay hiện tượng mạch điện bị chập v&agrave; qu&aacute; nhiệt trong qu&aacute; tr&igrave;nh sạc. Sản phẩm được kiểm định khắt khe v&agrave; được cấp chứng chỉ an to&agrave;n ch&aacute;y nổ: ROSH, CE, FCC gi&uacute;p đảm đảm an to&agrave;n cho người sử dụng.</p>\r\n\r\n<p><em>&gt;&gt;&gt;&nbsp;<strong>Xem th&ecirc;m</strong>:&nbsp;<a href=\"https://cellphones.com.vn/de-sac-doi-apple-magsafe-mhxf3.html\" target=\"_blank\">Sạc đ&ocirc;i Apple MagSafe Duo</a>&nbsp;| Ch&iacute;nh h&atilde;ng Apple Việt Nam mang đến một thiết kế sang trọng, vượt trội</em></p>\r\n\r\n<h3><strong>C&ocirc;ng suất sạc nhanh, v&ocirc; c&ugrave;ng tiện &iacute;ch</strong></h3>\r\n\r\n<p>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng c&oacute; c&ocirc;ng suất l&ecirc;n đến 20W. C&ocirc;ng nghệ sạc nhanh Power Delivery (PD) n&agrave;y gi&uacute;p người d&ugrave;ng c&oacute; thể tiết kiệm được nhiều thời gian d&agrave;nh cho việc chờ đợi pin đầy.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-2.jpg\" /></p>\r\n\r\n<p>Ngo&agrave;i ra, sạc c&ograve;n được trang bị cổng Type-C mang đến sự thuận tiện khi sử dụng. C&ocirc;ng nghệ Power Delivery (PD) c&oacute; thể sạc tr&ecirc;n c&aacute;c thiết bị như iPhone 12, iPhone 12 Mini, iPhone 12 Pro, iPhone 12 Pro max hay c&aacute;c d&ograve;ng điện thoại iPhone 11 Series,&hellip;</p>\r\n\r\n<h2><strong>Mua ngay sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tại CellphoneS</strong></h2>\r\n\r\n<p>Để mua sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng với chất lượng đảm bảo, chế độ bảo h&agrave;nh tốt nhất v&agrave; gi&aacute; cả cạnh tranh bạn h&atilde;y đến ngay hệ thống cửa h&agrave;ng của CellphoneS. Để c&oacute; thể tư vấn th&ecirc;m về sản phẩm cũng như h&igrave;nh thức mua h&agrave;ng, bạn h&atilde;y li&ecirc;n hệ tới số hotline hoặc tham khảo th&ecirc;m th&ocirc;ng tin tại website của CellphoneS nh&eacute;. Khi mua sạc&nbsp;&nbsp;iPhone 20W Type-C PD MHJE3ZA tại CellphoneS, kh&aacute;ch h&agrave;ng c&oacute; thể mua trả g&oacute;p với l&atilde;i suất từ 0% c&ugrave;ng với đ&oacute;, sản phẩm sẽ được bảo h&agrave;nh h&iacute;nh h&atilde;ng 12 th&aacute;ng tại trung t&acirc;m bảo h&agrave;nh ủy quyền Cares.vn</p>', NULL, NULL, NULL, 'sac-dien-thoai', '2024-08-26 19:19:29', '2024-08-26 19:19:29', NULL);
+(2, 1, 'Sạc điện thoại', '<ul>\r\n	<li>C&ocirc;ng nghệ PD sạc cho c&aacute;c sản phẩm Apple nhanh ch&oacute;ng</li>\r\n	<li>Cổng Type-C c&ocirc;ng suất 20W gi&uacute;p tiết kiệm nhiều thời gian</li>\r\n	<li>Thiết kế chuẩn thương hiệu Apple nhỏ gọn v&agrave; sang trọng</li>\r\n	<li>Bảo vệ qu&aacute; d&ograve;ng, tr&aacute;nh hiện tượng chập mạch, qu&aacute; nhiệt</li>\r\n</ul>', '<h2><strong>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tiết kiệm tối đa thời gian sạc điện thoại</strong></h2>\r\n\r\n<p>Nhanh ch&oacute;ng, tiết kiệm tối đa thời gian l&agrave; những g&igrave; m&agrave; người d&ugrave;ng iPhone mong đợi ở chiếc sạc pin của m&igrave;nh. Để c&oacute; thể l&agrave;m được điều đ&oacute; th&igrave; việc sử dụng củ sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng l&agrave; điều cần thiết m&agrave; bạn kh&ocirc;ng n&ecirc;n bỏ qua.</p>\r\n\r\n<h3><strong>Thiết kế nhỏ gọn, an to&agrave;n d&ograve;ng điện</strong></h3>\r\n\r\n<p><a href=\"https://cellphones.com.vn/phu-kien/sac-dien-thoai/sac/sac-nhanh-power-delivery.html\" target=\"_blank\" title=\"Củ sạc nhanh\">Củ sạc nhanh</a>&nbsp;Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng được thiết kế si&ecirc;u nhỏ gọn, tinh tế gi&uacute;p bạn c&oacute; thể mang đến bất cứ nơi đ&acirc;u. Chất liệu cao cấp c&ugrave;ng m&agrave;u trắng nổi bật mang đến sự sang trọng v&agrave; độ bền bỉ c&ugrave;ng với thời gian.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-1.jpg\" /></p>\r\n\r\n<p>Củ sạc c&ograve;n c&oacute; khả năng bảo vệ sản phẩm tr&aacute;nh qu&aacute; d&ograve;ng, qu&aacute; điện &aacute;p hay hiện tượng mạch điện bị chập v&agrave; qu&aacute; nhiệt trong qu&aacute; tr&igrave;nh sạc. Sản phẩm được kiểm định khắt khe v&agrave; được cấp chứng chỉ an to&agrave;n ch&aacute;y nổ: ROSH, CE, FCC gi&uacute;p đảm đảm an to&agrave;n cho người sử dụng.</p>\r\n\r\n<p><em>&gt;&gt;&gt;&nbsp;<strong>Xem th&ecirc;m</strong>:&nbsp;<a href=\"https://cellphones.com.vn/de-sac-doi-apple-magsafe-mhxf3.html\" target=\"_blank\">Sạc đ&ocirc;i Apple MagSafe Duo</a>&nbsp;| Ch&iacute;nh h&atilde;ng Apple Việt Nam mang đến một thiết kế sang trọng, vượt trội</em></p>\r\n\r\n<h3><strong>C&ocirc;ng suất sạc nhanh, v&ocirc; c&ugrave;ng tiện &iacute;ch</strong></h3>\r\n\r\n<p>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng c&oacute; c&ocirc;ng suất l&ecirc;n đến 20W. C&ocirc;ng nghệ sạc nhanh Power Delivery (PD) n&agrave;y gi&uacute;p người d&ugrave;ng c&oacute; thể tiết kiệm được nhiều thời gian d&agrave;nh cho việc chờ đợi pin đầy.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-2.jpg\" /></p>\r\n\r\n<p>Ngo&agrave;i ra, sạc c&ograve;n được trang bị cổng Type-C mang đến sự thuận tiện khi sử dụng. C&ocirc;ng nghệ Power Delivery (PD) c&oacute; thể sạc tr&ecirc;n c&aacute;c thiết bị như iPhone 12, iPhone 12 Mini, iPhone 12 Pro, iPhone 12 Pro max hay c&aacute;c d&ograve;ng điện thoại iPhone 11 Series,&hellip;</p>\r\n\r\n<h2><strong>Mua ngay sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tại CellphoneS</strong></h2>\r\n\r\n<p>Để mua sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng với chất lượng đảm bảo, chế độ bảo h&agrave;nh tốt nhất v&agrave; gi&aacute; cả cạnh tranh bạn h&atilde;y đến ngay hệ thống cửa h&agrave;ng của CellphoneS. Để c&oacute; thể tư vấn th&ecirc;m về sản phẩm cũng như h&igrave;nh thức mua h&agrave;ng, bạn h&atilde;y li&ecirc;n hệ tới số hotline hoặc tham khảo th&ecirc;m th&ocirc;ng tin tại website của CellphoneS nh&eacute;. Khi mua sạc&nbsp;&nbsp;iPhone 20W Type-C PD MHJE3ZA tại CellphoneS, kh&aacute;ch h&agrave;ng c&oacute; thể mua trả g&oacute;p với l&atilde;i suất từ 0% c&ugrave;ng với đ&oacute;, sản phẩm sẽ được bảo h&agrave;nh h&iacute;nh h&atilde;ng 12 th&aacute;ng tại trung t&acirc;m bảo h&agrave;nh ủy quyền Cares.vn</p>', NULL, NULL, NULL, 'sac-dien-thoai', '2024-09-20 15:22:46', '2024-09-20 15:22:46', NULL),
+(1, 1, 'Điện thoại', NULL, NULL, NULL, NULL, NULL, 'dien-thoai', '2024-09-20 15:22:58', '2024-09-20 15:22:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -2024,17 +2031,20 @@ CREATE TABLE `promotions` (
   `order` int(11) NOT NULL DEFAULT 0,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `discountValue` int(11) DEFAULT 0,
+  `discountType` varchar(10) DEFAULT NULL,
+  `maxDiscountValue` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `promotions`
 --
 
-INSERT INTO `promotions` (`id`, `name`, `code`, `description`, `method`, `discountInformation`, `neverEndDate`, `startDate`, `endDate`, `publish`, `order`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(6, 'Test1', 'test-1', '123', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"500.000\",\"discountType\":\"cash\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"30\",\"30\",\"30\",\"30\",\"30\"],\"product_variant_id\":[\"null\",\"134\",\"135\",\"136\",\"137\",\"138\"],\"variant_uuid\":[\"null\",\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\"],\"name\":[\"Test product - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"1\",\"3\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"staff_take_care_customer\",\"customer_group\",\"customer_gender\",\"customer_birthday\"],\"condition\":{\"staff_take_care_customer\":[\"201014\"],\"customer_group\":[\"1\"],\"customer_gender\":[\"1\"],\"customer_birthday\":[\"5\"]}}}', NULL, '2024-09-17 19:40:00', '2024-09-20 19:40:00', 1, 0, '2024-09-17 19:53:07', '2024-09-17 19:41:56', '2024-09-17 19:53:07'),
-(7, 'Test 2', 'test-2', '123', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"1.000.000\",\"discountType\":\"cash\",\"model\":\"Product\",\"object\":{\"id\":[\"29\",\"28\",\"27\",\"30\",\"30\",\"30\",\"30\",\"30\"],\"product_variant_id\":[\"null\",\"null\",\"null\",\"134\",\"135\",\"136\",\"137\",\"138\"],\"variant_uuid\":[\"null\",\"null\",\"null\",\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\"],\"name\":[\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\",\"Samsung Galaxy Z Fold6 - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"1\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"customer_gender\"],\"condition\":{\"customer_gender\":[\"1\",\"2\"]}}}', 'accept', '2024-09-18 19:50:00', NULL, 1, 0, NULL, '2024-09-17 19:50:29', '2024-09-17 19:54:14'),
-(8, 'Test 3', 'test-3', '123', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"6.666.666\",\"discountType\":\"cash\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"30\",\"29\",\"28\"],\"product_variant_id\":[\"134\",\"135\",\"136\",\"137\",\"138\",\"null\",\"null\"],\"variant_uuid\":[\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\",\"null\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"2\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"customer_group\",\"customer_birthday\"],\"condition\":{\"customer_group\":[\"1\"],\"customer_birthday\":[\"5\",\"6\"]}}}', NULL, '2024-09-17 19:54:00', '2024-09-20 19:54:00', 1, 0, NULL, '2024-09-17 19:55:08', '2024-09-17 19:55:08');
+INSERT INTO `promotions` (`id`, `name`, `code`, `description`, `method`, `discountInformation`, `neverEndDate`, `startDate`, `endDate`, `publish`, `order`, `deleted_at`, `created_at`, `updated_at`, `discountValue`, `discountType`, `maxDiscountValue`) VALUES
+(1, 'Chương trình khuyến mãi tháng 10', 'KMTHANG10', 'Chương trình khuyến mãi tháng 10', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"500.000\",\"discountValue\":\"15\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"30\",\"30\",\"30\",\"30\",\"30\",\"29\",\"27\",\"28\"],\"product_variant_id\":[\"null\",\"134\",\"135\",\"136\",\"137\",\"138\",\"null\",\"null\",\"null\"],\"variant_uuid\":[\"null\",\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\",\"null\",\"null\"],\"name\":[\"Test product - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy Z Fold6 - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"1\",\"3\",\"7\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"staff_take_care_customer\",\"customer_group\",\"customer_gender\",\"customer_birthday\"],\"condition\":{\"staff_take_care_customer\":[\"201017\"],\"customer_group\":[\"1\",\"2\"],\"customer_gender\":[\"1\"],\"customer_birthday\":[\"8\",\"18\"]}}}', NULL, '2024-10-01 14:00:00', '2024-10-31 14:01:00', 1, 0, NULL, '2024-09-21 14:02:25', '2024-09-21 14:54:13', 15, 'percent', 500000),
+(2, 'Khuyến mãi 20/10', 'TRIANTHAYCO', 'Khuyến mãi 20/10', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"1.000.000\",\"discountValue\":\"10\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"30\",\"30\",\"30\",\"30\",\"30\",\"29\",\"27\",\"28\"],\"product_variant_id\":[\"null\",\"134\",\"135\",\"136\",\"137\",\"138\",\"null\",\"null\",\"null\"],\"variant_uuid\":[\"null\",\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\",\"null\",\"null\"],\"name\":[\"Test product - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy Z Fold6 - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"3\",\"8\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"staff_take_care_customer\",\"customer_group\",\"customer_gender\"],\"condition\":{\"staff_take_care_customer\":[\"201014\"],\"customer_group\":[\"1\"],\"customer_gender\":[\"1\",\"2\"]}}}', NULL, '2024-10-01 14:05:00', '2024-10-31 14:05:00', 1, 0, NULL, '2024-09-21 14:06:40', '2024-09-21 14:52:48', 10, 'percent', 1000000),
+(3, 'Khuyến mãi dẹp tiệm', 'GOODBYE', 'Khuyến mãi dẹp tiệm', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"5.000.000\",\"discountValue\":\"5\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"30\",\"30\",\"30\",\"30\",\"29\",\"28\",\"30\",\"27\"],\"product_variant_id\":[\"null\",\"134\",\"135\",\"136\",\"137\",\"null\",\"null\",\"138\",\"null\"],\"variant_uuid\":[\"null\",\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"null\",\"null\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\"],\"name\":[\"Test product - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"Samsung Galaxy Z Fold6 - Default\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-09-21 15:10:00', '2025-01-01 15:10:00', 1, 0, NULL, '2024-09-21 15:10:55', '2024-09-22 10:24:08', 5, 'percent', 5000000);
 
 -- --------------------------------------------------------
 
@@ -2072,27 +2082,33 @@ CREATE TABLE `promotion_product_variant` (
 --
 
 INSERT INTO `promotion_product_variant` (`id`, `promotion_id`, `product_id`, `variant_uuid`, `model`, `created_at`, `updated_at`) VALUES
-(110, 6, 31, '0', 'Product', '2024-09-17 19:49:35', '2024-09-17 19:49:35'),
-(111, 6, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-09-17 19:49:35', '2024-09-17 19:49:35'),
-(112, 6, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-17 19:49:35', '2024-09-17 19:49:35'),
-(113, 6, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-17 19:49:35', '2024-09-17 19:49:35'),
-(114, 6, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-17 19:49:35', '2024-09-17 19:49:35'),
-(115, 6, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-17 19:49:35', '2024-09-17 19:49:35'),
-(134, 7, 29, 'null', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(135, 7, 28, 'null', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(136, 7, 27, 'null', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(137, 7, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(138, 7, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(139, 7, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(140, 7, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(141, 7, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-17 19:54:14', '2024-09-17 19:54:14'),
-(142, 8, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-09-17 19:55:08', '2024-09-17 19:55:08'),
-(143, 8, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-17 19:55:08', '2024-09-17 19:55:08'),
-(144, 8, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-17 19:55:08', '2024-09-17 19:55:08'),
-(145, 8, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-17 19:55:08', '2024-09-17 19:55:08'),
-(146, 8, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-17 19:55:08', '2024-09-17 19:55:08'),
-(147, 8, 29, 'null', 'Product', '2024-09-17 19:55:08', '2024-09-17 19:55:08'),
-(148, 8, 28, 'null', 'Product', '2024-09-17 19:55:08', '2024-09-17 19:55:08');
+(10, 2, 31, 'null', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(11, 2, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(12, 2, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(13, 2, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(14, 2, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(15, 2, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(16, 2, 29, 'null', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(17, 2, 27, 'null', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(18, 2, 28, 'null', 'Product', '2024-09-21 14:06:40', '2024-09-21 14:06:40'),
+(19, 1, 31, 'null', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(20, 1, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(21, 1, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(22, 1, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(23, 1, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(24, 1, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(25, 1, 29, 'null', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(26, 1, 27, 'null', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(27, 1, 28, 'null', 'Product', '2024-09-21 14:54:13', '2024-09-21 14:54:13'),
+(73, 3, 31, 'null', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(74, 3, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(75, 3, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(76, 3, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(77, 3, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(78, 3, 29, 'null', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(79, 3, 28, 'null', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(80, 3, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08'),
+(81, 3, 27, 'null', 'Product', '2024-09-22 10:24:08', '2024-09-22 10:24:08');
 
 -- --------------------------------------------------------
 
@@ -2264,7 +2280,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('yVdl2WujHN34VXfm2aOgZpAVj0ehRIpcJVFxBC7v', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoic2Y4Y1pHWDk2c05ISHRQdVhUUFVwNHhuM21iOVQzbGNRb1dESnd4VyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2MToiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMvcHJvbW90aW9uLzgvZWRpdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1726602921);
+('ahXA7ugzYvQyy0lz1FKoZwrKgQuVU4yf1dQthpSX', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUUJydWk2U1VtZVZwRzcwSERRYzZSSWdsZXJnVTJnS3FQdHVTM1N2NCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1NToiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMvbWVudS9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1727029209);
 
 -- --------------------------------------------------------
 
@@ -2293,10 +2309,11 @@ CREATE TABLE `slides` (
 
 INSERT INTO `slides` (`id`, `name`, `keyword`, `description`, `item`, `setting`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, '13', '14', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":\"1\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"3\",\"alt\":\"4\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"description\":\"5\",\"canonical\":\"6\",\"window\":\"_blank\",\"name\":\"7\",\"alt\":\"8\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":\"9\",\"canonical\":\"10\",\"window\":\"\",\"name\":\"11\",\"alt\":\"12\"}]}', '{\"width\":\"15\",\"height\":\"16\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"17\",\"animationSpeed\":\"18\"}', '[19]', 0, 201014, '2024-08-31 04:55:59', '2024-08-29 10:04:09', '2024-08-31 04:55:59'),
-(2, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Laporte-1720749150.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Shaw-1720749348.jpg\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/stones-1720749121.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Kounde-1720748873.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/GSNGPOzWIAA0N4H-1720749684.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.920\",\"height\":\"600\",\"animation\":\"coverflow\",\"navigate\":\"thumbnails\",\"animationDelay\":\"1.000\",\"animationSpeed\":\"2.000\"}', '[menu id=\"main-slide\"]', 1, 201014, NULL, '2024-08-31 02:50:50', '2024-09-04 10:04:27'),
-(3, 'Slide phụ', 'second-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/united-kingdom.png\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.990\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"9.999\",\"animationSpeed\":\"9.999\"}', '[second-slide]', 1, 201014, NULL, '2024-08-31 05:54:34', '2024-08-31 05:59:27'),
+(2, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/2.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/3.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/4.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/5.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"6.000\",\"height\":\"679\",\"animation\":\"cube\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"1.000\",\"animationSpeed\":\"2.000\"}', '[menu id=\"main-slide\"]', 1, 201014, NULL, '2024-08-31 02:50:50', '2024-09-22 14:57:13'),
+(3, 'Slide phụ', 'second-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/united-kingdom.png\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.990\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"9.999\",\"animationSpeed\":\"9.999\"}', '[second-slide]', 1, 201014, '2024-09-20 12:11:01', '2024-08-31 05:54:34', '2024-09-20 12:11:01'),
 (4, 'Slide Test', 'test-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.000\",\"height\":\"500\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"animationDelay\":\"5.555\",\"animationSpeed\":\"4.444\"}', '[slide-test]', 1, 201014, '2024-08-31 07:09:56', '2024-08-31 07:04:10', '2024-08-31 07:09:56'),
-(5, 'Test', 'test', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/vietnam.png\",\"description\":\"1\",\"canonical\":\"1\",\"window\":\"none\",\"name\":\"1\",\"alt\":\"1\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":\"2\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"2\",\"alt\":\"2\"}]}', '{\"width\":\"1\",\"height\":\"1\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"pauseHover\":\"accept\",\"animationDelay\":\"1\",\"animationSpeed\":\"1\"}', 'test', 1, 201014, '2024-09-02 10:49:46', '2024-09-02 10:49:23', '2024-09-02 10:49:46');
+(5, 'Test', 'test', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/vietnam.png\",\"description\":\"1\",\"canonical\":\"1\",\"window\":\"none\",\"name\":\"1\",\"alt\":\"1\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":\"2\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"2\",\"alt\":\"2\"}]}', '{\"width\":\"1\",\"height\":\"1\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"pauseHover\":\"accept\",\"animationDelay\":\"1\",\"animationSpeed\":\"1\"}', 'test', 1, 201014, '2024-09-02 10:49:46', '2024-09-02 10:49:23', '2024-09-02 10:49:46'),
+(6, 'Banner thân trang', 'banner', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/banner-1.png\",\"description\":\"Nh\\u1ecf g\\u1ecdn, ti\\u1ec7n l\\u1ee3i\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/banner-2.png\",\"description\":\"Ph\\u00f9 h\\u1ee3p m\\u1ecdi \\u0111\\u1ed1i t\\u01b0\\u1ee3ng\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/banner-3.png\",\"description\":\"H\\u00ecnh \\u1ea3nh s\\u1eafc n\\u00e9t\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner', 1, 201014, NULL, '2024-09-22 14:22:57', '2024-09-22 14:36:14');
 
 -- --------------------------------------------------------
 
@@ -2342,15 +2359,20 @@ CREATE TABLE `suppliers` (
   `phone` varchar(255) DEFAULT NULL,
   `fax` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(4) NOT NULL DEFAULT 0,
+  `province_id` varchar(10) DEFAULT NULL,
+  `district_id` varchar(10) DEFAULT NULL,
+  `ward_id` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `suppliers`
 --
 
-INSERT INTO `suppliers` (`id`, `name`, `address`, `email`, `phone`, `fax`, `created_at`, `updated_at`) VALUES
-(1, 'Lê Hữu Tài', 'Không có', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `suppliers` (`id`, `name`, `address`, `email`, `phone`, `fax`, `created_at`, `updated_at`, `deleted_at`, `publish`, `province_id`, `district_id`, `ward_id`) VALUES
+(1, 'Lê Hữu Tài', 'Không có', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2373,11 +2395,11 @@ CREATE TABLE `systems` (
 --
 
 INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `created_at`, `updated_at`) VALUES
-(1, 1, 201014, 'homepage_company', 'Tony Company 943', NULL, NULL),
-(2, 1, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
-(3, 1, 201014, 'homepage_slogan', 'Tony Company', NULL, NULL),
-(4, 1, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', NULL, NULL),
-(5, 1, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/language/china.png', NULL, NULL),
+(1, 1, 201014, 'homepage_company', 'TC Shop', NULL, NULL),
+(2, 1, 201014, 'homepage_brand', 'TC Company', NULL, NULL),
+(3, 1, 201014, 'homepage_slogan', 'TCShop - Chất lượng đặt lên hàng đầu', NULL, NULL),
+(4, 1, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/logo/logo-tcshop.png', NULL, NULL),
+(5, 1, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/temp/bug.png', NULL, NULL),
 (6, 1, 201014, 'homepage_copyright', 'Tony Company', NULL, NULL),
 (7, 1, 201014, 'homepage_website', 'open', NULL, NULL),
 (8, 1, 201014, 'contact_office', '11 Đường số 27, Sơn Kỳ, Tân Phú, Hồ Chí Minh, Việt Nam', NULL, NULL),
@@ -2389,13 +2411,13 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 (14, 1, 201014, 'contact_fax', '943', NULL, NULL),
 (15, 1, 201014, 'contact_email', 'tonycompany@gmail.com', NULL, NULL),
 (16, 1, 201014, 'contact_tax', '943', NULL, NULL),
-(17, 1, 201014, 'contact_website', 'tonyshop.vn', NULL, NULL),
+(17, 1, 201014, 'contact_website', 'tcshop.id.vn', NULL, NULL),
 (18, 1, 201014, 'contact_map', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4648.830339913121!2d106.6262624757035!3d10.803509158692233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bfd56e5e211%3A0xc0c7a099415a25f5!2zMTEgxJDGsOG7nW5nIHPhu5EgMjcsIFPGoW4gS-G7sywgVMOibiBQaMO6LCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e1!3m2!1svi!2s!4v1723706582173!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', NULL, NULL),
-(19, 1, 201014, 'seo_meta_title', 'Tony Company', NULL, NULL),
-(20, 1, 201014, 'seo_meta_keyword', 'Tony Company', NULL, NULL),
-(21, 1, 201014, 'seo_meta_description', 'Tony Company', NULL, NULL),
-(22, 1, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', NULL, NULL),
-(23, 1, 201014, 'homepage_short', '<p>VietNam</p>\r\n\r\n<p><img alt=\"\" src=\"/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png\" style=\"width: 512px; height: 512px;\" /></p>\r\n<ddict-div></ddict-div>', NULL, NULL),
+(19, 1, 201014, 'seo_meta_title', 'TC Shop', NULL, NULL),
+(20, 1, 201014, 'seo_meta_keyword', 'tsshop tscompany dienthoai maytinh phukien', NULL, NULL),
+(21, 1, 201014, 'seo_meta_description', 'TCShop - Chất lượng đặt lên hàng đầu', NULL, NULL),
+(22, 1, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/temp/bug.png', NULL, NULL),
+(23, 1, 201014, 'homepage_short', '<p>&nbsp;</p>\r\n<ddict-div></ddict-div>', NULL, NULL),
 (24, 2, 201014, 'homepage_company', 'Tony Company', NULL, NULL),
 (25, 2, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
 (26, 2, 201014, 'homepage_slogan', 'Tony Company', NULL, NULL),
@@ -2614,7 +2636,10 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 82),
 (1, 83),
 (1, 84),
-(1, 85);
+(1, 85),
+(1, 86),
+(1, 87),
+(1, 88);
 
 -- --------------------------------------------------------
 
@@ -13283,8 +13308,10 @@ CREATE TABLE `widgets` (
 --
 
 INSERT INTO `widgets` (`id`, `name`, `keyword`, `description`, `album`, `model_id`, `model`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(2, 'Test 1', 'test-1', '{\"2\":\"<p>b kdjbd&nbsp;<\\/p>\",\"1\":\"<p>Test 1<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/united-kingdom.png\"]', '[\"2\",\"1\"]', 'ProductCatalogue', 'test-1', 0, 201014, NULL, '2024-09-02 07:11:36', '2024-09-11 15:56:28'),
-(4, 'Test ne', 'test ne', '{\"2\":\"<p>haha EN 123<\\/p>\",\"7\":\"<p>\\u54c8\\u54c8<\\/p>\",\"1\":\"<p>haha VN<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"]', '[\"1\"]', 'ProductCatalogue', 'test ne', 0, 201014, NULL, '2024-09-02 10:16:00', '2024-09-11 15:49:26');
+(2, 'Test 1', 'test-1', '{\"2\":\"<p>b kdjbd&nbsp;<\\/p>\",\"1\":\"<p>Test 1<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/united-kingdom.png\"]', '[\"2\",\"1\"]', 'ProductCatalogue', 'test-1', 0, 201014, '2024-09-20 13:28:03', '2024-09-02 07:11:36', '2024-09-20 13:28:03'),
+(4, 'Test ne', 'test ne', '{\"2\":\"<p>haha EN 123<\\/p>\",\"7\":\"<p>\\u54c8\\u54c8<\\/p>\",\"1\":\"<p>haha VN<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"]', '[\"1\"]', 'ProductCatalogue', 'test ne', 0, 201014, '2024-09-20 13:28:01', '2024-09-02 10:16:00', '2024-09-20 13:28:01'),
+(5, 'Sản phẩm nổi bật', 'featured-product', '{\"1\":null}', NULL, '[\"31\",\"29\",\"30\",\"27\",\"28\"]', 'Product', NULL, 1, 201014, NULL, '2024-09-20 13:34:21', '2024-09-20 14:24:07'),
+(6, 'Danh mục sản phẩm', 'category', '{\"1\":null}', NULL, '[\"2\",\"1\"]', 'ProductCatalogue', 'category', 1, 201014, NULL, '2024-09-20 14:28:56', '2024-09-20 15:29:25');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -13730,25 +13757,25 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT cho bảng `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT cho bảng `menu_catalogues`
 --
 ALTER TABLE `menu_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
@@ -13802,7 +13829,7 @@ ALTER TABLE `product_variant_language`
 -- AUTO_INCREMENT cho bảng `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `promotion_conditionable`
@@ -13814,7 +13841,7 @@ ALTER TABLE `promotion_conditionable`
 -- AUTO_INCREMENT cho bảng `promotion_product_variant`
 --
 ALTER TABLE `promotion_product_variant`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT cho bảng `routers`
@@ -13826,7 +13853,7 @@ ALTER TABLE `routers`
 -- AUTO_INCREMENT cho bảng `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `sources`
@@ -13862,7 +13889,7 @@ ALTER TABLE `user_catalogues`
 -- AUTO_INCREMENT cho bảng `widgets`
 --
 ALTER TABLE `widgets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

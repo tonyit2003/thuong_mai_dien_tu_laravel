@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantAttributeRepository;
 use App\Repositories\ProductVariantLanguageRepository;
+use App\Repositories\PromotionRepository;
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\ProductServiceInterface;
 use Exception;
@@ -22,13 +23,15 @@ class ProductService extends BaseService implements ProductServiceInterface
     protected $productRepository;
     protected $productVariantLanguageRepository;
     protected $productVariantAttributeRepository;
+    protected $promotionRepository;
     protected $controllerName = 'ProductController';
 
-    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository)
+    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository, PromotionRepository $promotionRepository)
     {
         $this->productRepository = $productRepository;
         $this->productVariantLanguageRepository = $productVariantLanguageRepository;
         $this->productVariantAttributeRepository = $productVariantAttributeRepository;
+        $this->promotionRepository = $promotionRepository;
         parent::__construct($routerRepository);
     }
 
@@ -175,6 +178,21 @@ class ProductService extends BaseService implements ProductServiceInterface
             DB::rollBack();
             return false;
         }
+    }
+
+    public function combineProductAndPromotion($productIds, $products)
+    {
+        $promotions = $this->promotionRepository->findByProduct($productIds);
+        if ($promotions) {
+            foreach ($products as $keyProduct => $valProduct) {
+                foreach ($promotions as $keyPromotion => $valPromotion) {
+                    if ($valPromotion->product_id === $valProduct->id) {
+                        $products[$keyProduct]->promotions = $valPromotion;
+                    }
+                }
+            }
+        }
+        return $products;
     }
 
     private function createProduct($request)

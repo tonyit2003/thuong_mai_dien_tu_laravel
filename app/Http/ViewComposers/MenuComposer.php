@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Enums\MenuEnum;
 use App\Models\Language;
 use App\Repositories\MenuCatalogueRepository;
 use Illuminate\Support\Facades\App;
@@ -24,7 +25,7 @@ class MenuComposer
     {
         $language = $this->language;
         $condition = [
-            config('apps.general.defaultPublish')
+            config('apps.general.publish')
         ];
         // khi lấy dữ liệu của menus, nó sẽ đồng thời lấy dữ liệu liên quan từ bảng languages.
         $relation = [
@@ -39,7 +40,7 @@ class MenuComposer
         ];
         $menuCatalogues = $this->menuCatalogueRepository->findByCondition($condition, true, $relation);
         $menus = [];
-        $htmlType = ['main-menu'];
+        $htmlType = [MenuEnum::MAIN_MENU];
         if (count($menuCatalogues)) {
             foreach ($menuCatalogues as $key => $val) {
                 $type = in_array($val->keyword, $htmlType) ? 'html' : 'array';

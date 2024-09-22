@@ -254,6 +254,7 @@ if (!function_exists('frontend_recursive_menu')) {
 if (!function_exists('write_url')) {
     function write_url($canonical = '', $fullDomain = true, $suffix = false)
     {
+        $canonical = is_null($canonical) ? '' : $canonical;
         if (strpos($canonical, 'http') !== false) {
             return $canonical;
         }

@@ -158,7 +158,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     // tìm kiếm một bản ghi từ cơ sở dữ liệu dựa trên các điều kiện
-    public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC'], $param = [])
+    public function findByCondition($condition = [], $flag = false, $relation = [], $orderBy = ['id', 'DESC'], $param = [], $withCount = [])
     {
         // Khởi tạo một đối tượng truy vấn mới từ model
         $query = $this->model->newQuery();
@@ -173,6 +173,7 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         $query->with($relation);
+        $query->withCount($withCount);
         $query->orderBy($orderBy[0], $orderBy[1]);
 
         // Trả về bản ghi đầu tiên tìm được

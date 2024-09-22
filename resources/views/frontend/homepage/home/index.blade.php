@@ -1,66 +1,102 @@
 @extends('frontend.homepage.layout')
 
 @section('content')
-    CONTENT
-    {{-- <div id="homepage" class="homepage">
+    <div id="homepage" class="homepage">
         @include('frontend.component.slide')
         <div class="panel-category page-setup">
             <div class="uk-container uk-container-center">
-                <div class="panel-head">
-                    <div class="uk-flex uk-flex-middle">
-                        <h2 class="heading-1"><span>Danh mục sản phẩm</span></h2>
-                        <div class="category-children">
-                            <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
-                                <li class=""><a href="" title="">Bánh & Sữa</a></li>
-                                <li class=""><a href="" title="">Cà phê & Trà</a></li>
-                                <li class=""><a href="" title="">Thức ăn cho vật nuôi</a></li>
-                                <li class=""><a href="" title="">Rau củ</a></li>
-                                <li class=""><a href="" title="">Hoa Quả</a></li>
-                            </ul>
+                @if (isset($widgets[App\Enums\WidgetEnum::CATEGORY_MENU]))
+                    <div class="panel-head">
+                        <div class="uk-flex uk-flex-middle">
+                            <h2 class="heading-1"><span>{{ __('homePage.product_category') }}</span></h2>
+                            <div class="category-children">
+                                <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
+                                    @foreach ($widgets[App\Enums\WidgetEnum::CATEGORY_MENU] as $key => $val)
+                                        @php
+                                            $name = $val->languages->first()->pivot->name;
+                                            $canonical = write_url(
+                                                $val->languages->first()->pivot->canonical ?? '',
+                                                true,
+                                                true,
+                                            );
+                                        @endphp
+                                        <li class="">
+                                            <a href="{{ $canonical }}"
+                                                title="{{ $name }}">{{ $name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel-body">
-                    <?php $category = ['Cake & Milk', 'Oganic Kiwi', 'Peach', 'Read Apple', 'Snacks', 'Vegetables', 'Strawbery', 'Black plum', 'Custard apple', 'Coffe & Tea', 'Headphone', 'Kiwi', 'Iphone']; ?>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <?php for($i = 0; $i < count($category); $i++){  ?>
-                            <div class="swiper-slide">
-                                <div class="category-item bg-<?php echo rand(1, 7); ?>">
-                                    <a href="" class="image img-scaledown img-zoomin"><img
-                                            src="resources/img/cat-<?php echo $i + 1; ?>.png" alt=""></a>
-                                    <div class="title"><a href="" title=""><?php echo $category[$i]; ?></a></div>
-                                    <div class="total-product"><?php echo rand(0, 100); ?> sản phẩm</div>
-                                </div>
+                @endif
+                @if (isset($widgets[App\Enums\WidgetEnum::CATEGORY]))
+                    <div class="panel-body">
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                @foreach ($widgets[App\Enums\WidgetEnum::CATEGORY] as $key => $val)
+                                    @php
+                                        $name = $val->languages->first()->pivot->name;
+                                        $canonical = write_url(
+                                            $val->languages->first()->pivot->canonical ?? '',
+                                            true,
+                                            true,
+                                        );
+                                        $image = $val->image;
+                                        $productCount = $val->products_count;
+                                    @endphp
+                                    <div class="swiper-slide">
+                                        <div class="category-item bg-<?php echo rand(1, 7); ?>">
+                                            <a href="{{ $canonical }}" class="image img-scaledown img-zoomin">
+                                                <img src="{{ $image }}" alt="{{ $name }}">
+                                            </a>
+                                            <div class="title">
+                                                <a href="{{ $canonical }}"
+                                                    title="{{ $name }}">{{ $name }}</a>
+                                            </div>
+                                            <div class="total-product">{{ $productCount }} {{ __('unit.product') }}</div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                            <?php }  ?>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+        @if (isset($slides[App\Enums\SlideEnum::BANNER]['item']))
+            <div class="panel-banner">
+                <div class="uk-container uk-container-center">
+                    <div class="panel-body">
+                        <div class="uk-grid uk-grid-medium">
+                            @foreach ($slides[App\Enums\SlideEnum::BANNER]['item'] as $key => $val)
+                                @php
+                                    $name = $val['name'];
+                                    $description = $val['description'];
+                                    $image = $val['image'];
+                                    $canonical = write_url($val['canonical'] ?? '', true, true);
+                                @endphp
+                                <div class="uk-width-large-1-3">
+                                    <div class="banner-item">
+                                        <span class="image">
+                                            <img src="{{ $image }}" alt="{{ $name }}">
+                                        </span>
+                                        <div class="banner-overlay">
+                                            <div class="banner-title">{!! $description !!}</div>
+                                            <a class="btn-shop" href="{{ $canonical }}"
+                                                title="{{ $name }}">{{ __('homePage.buy_now') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel-banner">
-            <div class="uk-container uk-container-center">
-                <div class="panel-body">
-                    <div class="uk-grid uk-grid-medium">
-                        <?php for($i = 1; $i<= 3; $i++){  ?>
-                        <div class="uk-width-large-1-3">
-                            <div class="banner-item">
-                                <span class="image"><img src="resources/img/banner-<?php echo $i; ?>.png"
-                                        alt=""></span>
-                                <div class="banner-overlay">
-                                    <div class="banner-title">Make your Breakfast healthy and Easy</div>
-                                    <a class="btn-shop" title="">Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <?php }  ?>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
+        {{--
         <div class="panel-popular">
             <div class="uk-container uk-container-center">
                 <div class="panel-head">
@@ -222,5 +258,6 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+        --}}
+    </div>
 @endsection

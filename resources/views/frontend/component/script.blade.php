@@ -1,5 +1,6 @@
 @php
     $coreScript = [
+        'frontend/resources/library/js/jquery.js',
         'frontend/resources/plugins/wow/dist/wow.min.js',
         'frontend/resources/uikit/js/uikit.min.js',
         'frontend/resources/uikit/js/components/sticky.min.js',
