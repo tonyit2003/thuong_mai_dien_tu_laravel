@@ -82,4 +82,19 @@ class User extends Authenticatable
         // truy vấn => không dùng hàm => không dùng user_catalogues(), permissions()
         return $this->user_catalogues->permissions->contains('canonical', $permissionCanonical);
     }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'code');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'code');
+    }
+
+    public function ward()
+    {
+        return $this->belongsTo(Ward::class, 'ward_id', 'code');
+    }
 }

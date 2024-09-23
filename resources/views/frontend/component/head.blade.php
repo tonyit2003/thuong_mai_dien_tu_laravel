@@ -7,7 +7,7 @@
 <meta http-equiv="refresh" content="1800">
 <link rel="icon" href="" type="image/png" sizes="30x30">
 {{-- GOOGLE --}}
-<title></title>
+<title>TC Shop</title>
 <meta name="description" content="">
 <link rel="canonical" href="">
 <meta property="og:locale" content="vi_VN">
@@ -24,6 +24,8 @@
 <meta name="twitter:title" content="">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="">
+
+<link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
 @php
     $coreCss = [
         'frontend/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css',

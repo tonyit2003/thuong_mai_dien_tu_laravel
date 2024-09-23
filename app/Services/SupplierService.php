@@ -30,7 +30,10 @@ class SupplierService extends BaseService implements SupplierServiceInterface
         $join = [
             ['product_catalogue_supplier', 'product_catalogue_supplier.supplier_id', '=', 'suppliers.id'],
             ['product_catalogues', 'product_catalogues.id', '=', 'product_catalogue_supplier.product_catalogue_id'],
-            ['product_catalogue_language', 'product_catalogue_language.product_catalogue_id', '=', 'product_catalogues.id']
+            ['product_catalogue_language', 'product_catalogue_language.product_catalogue_id', '=', 'product_catalogues.id'],
+            ['provinces', 'provinces.code', '=', 'suppliers.province_id'], // Join với bảng provinces
+            ['districts', 'districts.code', '=', 'suppliers.district_id'], // Join với bảng districts
+            ['wards', 'wards.code', '=', 'suppliers.ward_id'] // Join với bảng wards
         ];
 
         $orderBy = [
@@ -113,6 +116,9 @@ class SupplierService extends BaseService implements SupplierServiceInterface
             'suppliers.phone',
             'suppliers.address',
             'suppliers.fax',
+            'suppliers.province_id',
+            'suppliers.district_id',
+            'suppliers.ward_id',
             'suppliers.publish',
             'product_catalogue_language.name as product_type_name'
         ];

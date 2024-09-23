@@ -42,7 +42,12 @@
                         <td>{{ $supplier->name }}</td>
                         <td>{{ $supplier->email }}</td>
                         <td>{{ $supplier->phone }}</td>
-                        <td>{{ $supplier->address }}</td>
+                        <td>
+                            {{ $supplier->address }},
+                            {{ optional($supplier->ward)->full_name }},
+                            {{ optional($supplier->district)->full_name }},
+                            {{ optional($supplier->province)->full_name }}
+                        </td>
                         <td class="text-center">{{ $supplier->fax }}</td>
                         <td>
                             {{ $supplier->product_type_name ?? __('No Product Types') }}

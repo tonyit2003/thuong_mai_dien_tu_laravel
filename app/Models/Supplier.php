@@ -36,4 +36,19 @@ class Supplier extends Model
     {
         return $this->belongsToMany(ProductCatalogue::class, 'product_catalogue_supplier', 'supplier_id', 'product_catalogue_id');
     }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'code');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'code');
+    }
+
+    public function ward()
+    {
+        return $this->belongsTo(Ward::class, 'ward_id', 'code');
+    }
 }

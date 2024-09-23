@@ -28,8 +28,13 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         $condition['customer_catalogue_id'] = $request->input('customer_catalogue_id') != null ? $request->input('customer_catalogue_id') : 0;
         $condition['source_id'] = $request->input('source_id') != null ? $request->input('source_id') : 0;
         $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
+        $join = [
+            ['provinces', 'provinces.code', '=', 'customers.province_id'], // Join với bảng provinces
+            ['districts', 'districts.code', '=', 'customers.district_id'], // Join với bảng districts
+            ['wards', 'wards.code', '=', 'customers.ward_id'] // Join với bảng wards
+        ];
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
-        return $this->customerRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'customer/index']);
+        return $this->customerRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'customer/index']);
     }
 
     public function create($request)
@@ -88,6 +93,18 @@ class CustomerService extends BaseService implements CustomerServiceInterface
 
     private function paginateSelect()
     {
-        return ['id', 'name', 'email', 'phone', 'address', 'publish', 'customer_catalogue_id', 'source_id'];
+        return [
+            'customers.id',
+            'customers.name',
+            'customers.email',
+            'customers.phone',
+            'customers.address',
+            'customers.publish',
+            'customers.province_id',
+            'customers.district_id',
+            'customers.ward_id',
+            'customers.customer_catalogue_id',
+            'customers.source_id'
+        ];
     }
 }

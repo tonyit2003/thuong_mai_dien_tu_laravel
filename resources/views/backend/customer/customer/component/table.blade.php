@@ -47,7 +47,10 @@
                         {{ $customer->phone }}
                     </td>
                     <td>
-                        {{ $customer->address }}
+                        {{ $customer->address }},
+                        {{ optional($customer->ward)->full_name }},
+                        {{ optional($customer->district)->full_name }},
+                        {{ optional($customer->province)->full_name }}
                     </td>
                     <td class="text-center">
                         {{ $customer->customer_catalogues->name }}
@@ -56,9 +59,9 @@
                         {{ $customer->sources->name }}
                     </td>
                     <td class="text-center js-switch-{{ $customer->id }}">
-                        <input type="checkbox" value="{{ $customer->publish }}" class="js-switch status"
-                            data-field="publish" data-model="{{ $config['model'] }}"
-                            data-modelId="{{ $customer->id }}" {{ $customer->publish == 1 ? 'checked' : '' }} />
+                        <input type="checkbox" value="{{ $customer->publish }}" class="js-switch status" data-field="publish"
+                            data-model="{{ $config['model'] }}" data-modelId="{{ $customer->id }}"
+                            {{ $customer->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
                         <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-success">

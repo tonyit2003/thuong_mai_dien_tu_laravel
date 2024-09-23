@@ -13,7 +13,7 @@
 @endif
 @endforeach
 
-<link rel="icon" type="image/png" href="/thuongmaidientu/public/userfiles/image/temp/bug.png">
+<link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
 
 <base href="{{ config('app.url') }}">
 <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet">
