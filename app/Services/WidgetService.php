@@ -37,42 +37,67 @@ class WidgetService extends BaseService implements WidgetServiceInterface
         return $this->widgetRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'widget/index']);
     }
 
-    public function findWidgetByKeyword($keyword, $language, $param = [])
+    public function getWidgets($params = [], $language = 1)
     {
-        $widget = $this->widgetRepository->findByCondition(
-            [
-                ['keyword', '=', $keyword],
-                config('apps.general.publish')
-            ]
-        );
-        if (isset($widget)) {
-            /**
-             * @var Widget $widget
-             */
-            $class = loadClass($widget->model);
-            $object = $class->findByCondition(...$this->widgetArgument($widget, $language, $param));
-            $model = lcfirst(str_replace('Catalogue', '', $widget->model));
-            if ($model === 'product' && isset($param['object']) && $param['object'] == true) {
-                if (count($object)) {
-                    foreach ($object as $keyObject => $valObject) {
-                        if ($valObject->id == 2) continue;
-                        // lấy một tập hợp các giá trị của một cột duy nhất từ cơ sở dữ liệu hoặc từ một collection
-                        $productIds = $valObject->products->pluck('id')->toArray();
-                        $valObject->products = $this->productService->combineProductAndPromotion($productIds, $valObject->products);
-                    }
-                }
+        $whereIn = [];
+        $whereInField = 'keyword';
+        if (count($params)) {
+            foreach ($params as $key => $val) {
+                $whereIn[] = $val['keyword'];
             }
-            if (isset($param['children']) && $param['children'] == true) {
-                foreach ($object as $keyObject => $valObject) {
-                    $valObject->children = $this->productCatalogueRepository->findByCondition([
-                        ['lft', '>', $valObject->lft],
-                        ['rgt', '<', $valObject->rgt],
-                        config('apps.general.publish')
-                    ], true);
-                }
-            }
-            return $object;
         }
+        $widgets = $this->widgetRepository->getWidgetByWhereIn($whereIn, $whereInField);
+        if (!is_null($widgets)) {
+            $temp = [];
+            foreach ($widgets as $keyWidget => $valWidget) {
+                /**
+                 * @var Widget $valWidget
+                 */
+                $class = loadClass($valWidget->model);
+                // Lấy các đối tượng trong widget
+                $object = $class->findByCondition(...$this->widgetArgument($valWidget, $language, $params[$keyWidget]));
+                $model = lcfirst(str_replace('Catalogue', '', $valWidget->model));
+                $replace = $model . 's';
+                $service = $model . 'Service';
+                if (count($object) && strpos($valWidget->model, 'Catalogue')) {
+                    foreach ($object as $keyObject => $valObject) {
+                        // lấy các đối tượng con của của danh mục cha
+                        if (isset($params[$keyWidget]['children']) && $params[$keyWidget]['children'] == true) {
+                            $valObject->children = $class->findByCondition(...$this->childrenArgument([$valObject->id], $language));
+                        }
+                        /* LẤY ALL SẢN PHẨM TỪ CÁC DANH MỤC CHA + CON */
+                        if (strpos($valWidget->model, 'Catalogue')) {
+                            // gộp các phần tử của mảng thành 1 chuỗi với ký tự phân cách là ','
+                            // $parameters = implode(',', $objectIds);
+                            $childrenId = $class->recursiveCategory([$valObject->id], $model); // lấy các id catalogue con
+                            $ids = [];
+                            foreach ($childrenId as $childId) {
+                                $ids[] = $childId->id;
+                            }
+                            $classRepo = loadClass(ucfirst($model));
+                            if ($valObject->rgt - $valObject->lft > 1) {
+                                $valObject->{$replace} = $classRepo->findObjectByCategoryIds($ids, $model, $language);
+                            }
+                        }
+                        // lấy khuyến mãi cho sản phẩm
+                        if ($model === 'product' && isset($params[$keyWidget]['promotion']) && $params[$keyWidget]['promotion'] == true) {
+                            // lấy một tập hợp các giá trị của một cột duy nhất từ cơ sở dữ liệu hoặc từ một collection
+                            $productIds = $valObject->{$replace}->pluck('id')->toArray();
+                            $valObject->{$replace} = $this->{$service}->combineProductAndPromotion($productIds, $valObject->{$replace});
+                        }
+                        $widgets[$keyWidget]->object = $object;
+                    }
+                } else {
+                    if ($model === 'product' && isset($params[$keyWidget]['promotion']) && $params[$keyWidget]['promotion'] == true) {
+                        $productIds = $object->pluck('id')->toArray();
+                        $object = $this->{$service}->combineProductAndPromotion($productIds, $object);
+                    }
+                    $widgets[$keyWidget]->object = $object;
+                }
+                $temp[$valWidget->keyword] = $widgets[$keyWidget];
+            }
+        }
+        return $temp;
     }
 
     public function create($request, $languageId)
@@ -164,18 +189,52 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             }
         ];
         $withCount = [];
-        if (strpos($widget->model, 'Catalogue') && isset($param['object'])) {
-            $model = lcfirst(str_replace('Catalogue', '', $widget->model)) . 's';
-            $relation[$model] = function ($query) use ($param, $language) {
+        if (strpos($widget->model, 'Catalogue')) {
+            $model = lcfirst(str_replace('Catalogue', '', $widget->model));
+            if (isset($param['promotion']) && $param['promotion'] == true) {
+                $relation[$model . 's'] = function ($query) use ($param, $language, $model) {
+                    $query->with([
+                        'languages' =>
+                        function ($query) use ($language) {
+                            $query->where('language_id', $language);
+                        },
+                    ]);
+                    $query->with([
+                        $model . '_catalogues' =>
+                        function ($query) use ($language) {
+                            $query->with(['languages' => function ($query) use ($language) {
+                                $query->where('language_id', $language);
+                            }]);
+                        }
+                    ]);
+                    if ($model === 'product') {
+                        $query->with(['product_variants' => function ($query) use ($language) {
+                            $query->with(['languages' => function ($query) use ($language) {
+                                $query->where('language_id', $language);
+                            }]);
+                        }]);
+                    }
+                    $query->take($param['limit'] ?? 8);
+                    $query->where('publish', 1);
+                    $query->orderBy('order', 'DESC');
+                };
+            }
+            if (isset($param['countObject'])) {
+                $withCount[] = $model . 's';
+            }
+        } else {
+            $model = lcfirst($widget->model) . '_catalogues';
+            $relation[$model] = function ($query) use ($language) {
                 $query->with('languages', function ($query) use ($language) {
                     $query->where('language_id', $language);
                 });
-                $query->take($param['limit'] ?? 8);
-                $query->where('publish', 1);
-                $query->orderBy('order', 'DESC');
             };
-            if (isset($param['countObject'])) {
-                $withCount[] = $model;
+            if ($widget->model === 'Product') {
+                $relation['product_variants'] = function ($query) use ($language) {
+                    $query->with(['languages' => function ($query) use ($language) {
+                        $query->where('language_id', $language);
+                    }]);
+                };
             }
         }
         return [
@@ -189,6 +248,25 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                 'whereInField' => 'id'
             ],
             'withCount' => $withCount,
+        ];
+    }
+
+    private function childrenArgument($objectIds, $language)
+    {
+        return [
+            'condition' => [
+                config('apps.general.publish')
+            ],
+            'flag' => true,
+            'relation' => [
+                'languages' => function ($query) use ($language) {
+                    $query->where('language_id', $language);
+                },
+            ],
+            'param' => [
+                'whereIn' => $objectIds,
+                'whereInField' => 'parent_id'
+            ]
         ];
     }
 }

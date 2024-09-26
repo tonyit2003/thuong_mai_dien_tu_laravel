@@ -46,7 +46,7 @@ class Product extends Model
 
     public function product_catalogues()
     {
-        return $this->belongsToMany(ProductCatalogue::class, 'product_catalogue_product', 'product_id', 'product_catalogue_id');
+        return $this->belongsToMany(ProductCatalogue::class, 'product_catalogue_product', 'product_id', 'product_catalogue_id')->withPivot('product_catalogue_id', 'product_id');
     }
 
     public function product_variants()
@@ -71,6 +71,6 @@ class Product extends Model
         return $this->belongsToMany(Promotion::class, 'promotion_product_variant', 'product_id', 'promotion_id')->withPivot(
             'variant_uuid',
             'model',
-        )->withTimestamps();;
+        )->withTimestamps();
     }
 }

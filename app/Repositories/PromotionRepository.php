@@ -23,7 +23,7 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
     public function findByProduct($productIds = [])
     {
         return $this->model->selectRaw("
-            products.id,
+            products.id as product_id,
             MAX(
                 IF(
                     promotions.maxDiscountValue != 0,
