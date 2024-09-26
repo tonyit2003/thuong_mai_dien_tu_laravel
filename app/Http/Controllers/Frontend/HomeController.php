@@ -27,12 +27,18 @@ class HomeController extends FrontendController
     public function index()
     {
         $slides = $this->slideService->getSlides([SlideEnum::MAIN_SLIDE, SlideEnum::BANNER], $this->language);
-        $widgets = [
-            WidgetEnum::CATEGORY => $this->widgetService->findWidgetByKeyword(WidgetEnum::CATEGORY, $this->language, ['children' => true, 'object' => true, 'countObject' => true]),
-            WidgetEnum::CATEGORY_MENU => $this->widgetService->findWidgetByKeyword(WidgetEnum::CATEGORY, $this->language),
-        ];
+        // children => lấy các danh mục con của các danh mục trong widget
+        // promotion => lấy ra các sản phẩm + khuyến mãi của danh mục product catalogue
+        // countObject => đếm các sản phẩm của danh mục
+        $widgets = $this->widgetService->getWidgets([
+            ['keyword' => WidgetEnum::CATEGORY, 'children' => true, 'promotion' => true, 'countObject' => true],
+            ['keyword' => WidgetEnum::CATEGORY_MENU],
+            ['keyword' => WidgetEnum::CATEGORY_HOME, 'children' => true, 'promotion' => true, 'countObject' => true],
+            ['keyword' => WidgetEnum::BESTSELLER, 'promotion' => true],
+        ], $this->language);
         $config = $this->config();
-        return view('frontend.homepage.home.index', compact('config', 'slides', 'widgets'));
+        $language = $this->language;
+        return view('frontend.homepage.home.index', compact('config', 'slides', 'widgets', 'language'));
     }
 
     private function config()

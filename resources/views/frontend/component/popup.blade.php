@@ -1,16 +1,8 @@
 <div id="popup" class="uk-modal popupProduct">
     <div class="uk-modal-dialog modal-width-1138">
         <a class="uk-modal-close uk-close"></a>
-        <?php   
-            $colorImage = [
-                'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-2.jpg',
-                'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-1.jpg',
-                'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-3.jpg',
-                'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-4.jpg',
-                'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-5.jpg',
-                'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-6.jpg',
-                'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-7.jpg',
-            ]
+        <?php
+        $colorImage = ['https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-2.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-1.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-3.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-4.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-5.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-6.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-7.jpg'];
         ?>
         <div class="popup-container">
             <div class="panel-body">
@@ -23,7 +15,8 @@
                                 <div class="swiper-wrapper big-pic">
                                     <?php foreach($colorImage as $key => $val){  ?>
                                     <div class="swiper-slide" data-swiper-autoplay="2000">
-                                        <a href="<?php echo $val ?>" class="image img-cover"><img src="<?php echo $val?>" alt="<?php echo $val ?>"></a>
+                                        <a href="<?php echo $val; ?>" class="image img-cover"><img
+                                                src="<?php echo $val; ?>" alt="<?php echo $val; ?>"></a>
                                     </div>
                                     <?php }  ?>
                                 </div>
@@ -33,7 +26,8 @@
                                 <div class="swiper-wrapper pic-list">
                                     <?php foreach($colorImage as $key => $val){  ?>
                                     <div class="swiper-slide">
-                                        <span  class="image img-cover"><img src="<?php echo $val?>" alt="<?php echo $val ?>"></span>
+                                        <span class="image img-cover"><img src="<?php echo $val; ?>"
+                                                alt="<?php echo $val; ?>"></span>
                                     </div>
                                     <?php }  ?>
                                 </div>
@@ -43,7 +37,8 @@
                     <div class="uk-width-large-1-2">
                         <div class="popup-product">
                             <h2 class="title"><span>Category:Smartphones Tags:Blue,Smartphone
-                                SAMSUNG Galaxy S22 Ultra, 8K Camera & Video, Brightest Display Screen, S Pen Pro</span>
+                                    SAMSUNG Galaxy S22 Ultra, 8K Camera & Video, Brightest Display Screen, S Pen
+                                    Pro</span>
                             </h2>
                             <div class="rating">
                                 <div class="uk-flex uk-flex-middle">
@@ -76,12 +71,13 @@
                                     <div class="uk-grid uk-grid-small">
                                         <?php foreach($colorImage as $key => $val){  ?>
                                         <div class="uk-width-large-1-10">
-                                            <div class="color-item <?php if($key == 1){
-                                                    echo 'outstock';
-                                                }else if($key == 4){
-                                                        echo 'active';
-                                                }  ?>">
-                                                <span class="image"><img src="<?php echo $val; ?>" alt=""></span>
+                                            <div class="color-item <?php if ($key == 1) {
+                                                echo 'outstock';
+                                            } elseif ($key == 4) {
+                                                echo 'active';
+                                            } ?>">
+                                                <span class="image"><img src="<?php echo $val; ?>"
+                                                        alt=""></span>
                                             </div>
                                         </div>
                                         <?php }  ?>
@@ -110,12 +106,15 @@
                                 <div class="text">Quantity</div>
                                 <div class="uk-flex uk-flex-middle">
                                     <div class="quantitybox uk-flex uk-flex-middle">
-                                        <div class="minus quantity-button"><img src="resources/img/minus.svg" alt=""></div>
+                                        <div class="minus quantity-button"><img src="resources/img/minus.svg"
+                                                alt=""></div>
                                         <input type="text" name="" value="1" class="quantity-text">
-                                        <div class="plus quantity-button"><img src="resources/img/plus.svg" alt=""></div>
+                                        <div class="plus quantity-button"><img src="resources/img/plus.svg"
+                                                alt=""></div>
                                     </div>
                                     <div class="btn-group uk-flex uk-flex-middle">
-                                        <div class="btn-item btn-1"><a href="" title="">Add To Cart</a></div>
+                                        <div class="btn-item btn-1"><a href="" title="">Add To Cart</a>
+                                        </div>
                                         <div class="btn-item btn-2"><a href="" title="">Buy Now</a></div>
                                     </div>
                                 </div>

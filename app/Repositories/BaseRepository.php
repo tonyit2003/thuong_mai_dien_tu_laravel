@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\PostCatalogue;
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class BaseRepository
@@ -199,6 +200,53 @@ class BaseRepository implements BaseRepositoryInterface
             }
         });
         $query = $query->with($relationWith);
+        return $query->get();
+    }
+
+    // lấy các id con từ các id cha
+    public function recursiveCategory($parameter = [], $table = '')
+    {
+        $table = $table . '_catalogues';
+        // Tạo ra dạng "?, ?" cho IN, ví dụ $parameter = [1, 2] => IN (?, ?) => khi truyền $parameter vào $query thì IN sẽ nhận đầy đủ 2 giá trị
+        $placeholders = implode(',', array_fill(0, count($parameter), '?'));
+        $query = "
+            WITH RECURSIVE category_tree AS (
+                SELECT id, parent_id, deleted_at
+                FROM $table
+                WHERE id IN ($placeholders)
+                UNION ALL
+                SELECT c.id, c.parent_id, c.deleted_at
+                FROM $table as c
+                JOIN category_tree as ct ON ct.id = c.parent_id
+            )
+            SELECT id FROM category_tree WHERE deleted_at IS NULL
+        ";
+        $results = DB::select($query, $parameter);
+        return $results;
+    }
+
+    public function findObjectByCategoryIds($catIds = [], $model, $language)
+    {
+        $query = $this->model->select($model . 's.*')
+            ->where([config('apps.general.publish')])
+            ->with(['languages' => function ($query) use ($language) {
+                $query->where('language_id', $language);
+            }])
+            ->with([$model . '_catalogues' => function ($query) use ($language) {
+                $query->with(['languages' => function ($query) use ($language) {
+                    $query->where('language_id', $language);
+                }]);
+            }])
+            ->join($model . '_catalogue_' . $model . ' as tb2', 'tb2.' . $model . '_id', '=', $model . 's.id')
+            ->whereIn('tb2.' . $model . '_catalogue_id', $catIds)
+            ->orderBy('order', 'DESC');
+        if ($model === 'product') {
+            $query->with(['product_variants' => function ($query) use ($language) {
+                $query->with(['languages' => function ($query) use ($language) {
+                    $query->where('language_id', $language);
+                }]);
+            }]);
+        }
         return $query->get();
     }
 }

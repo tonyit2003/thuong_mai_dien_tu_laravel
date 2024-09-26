@@ -575,11 +575,6 @@
                                         }">
                                     <select name="product_and_quantity[discountType]" class="multipleSelect2" id="">
                                         <option ${
-                                            preloadData.discountType == "cash"
-                                                ? "selected"
-                                                : ""
-                                        } value="cash">${cash}</option>
-                                        <option ${
                                             preloadData.discountType ==
                                             "percent"
                                                 ? "selected"

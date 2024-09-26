@@ -5,38 +5,23 @@
         @include('frontend.component.slide')
         <div class="panel-category page-setup">
             <div class="uk-container uk-container-center">
-                @if (isset($widgets[App\Enums\WidgetEnum::CATEGORY_MENU]))
+                @if (isset($widgets[App\Enums\WidgetEnum::CATEGORY_MENU]->object))
                     <div class="panel-head">
                         <div class="uk-flex uk-flex-middle">
                             <h2 class="heading-1"><span>{{ __('homePage.product_category') }}</span></h2>
-                            <div class="category-children">
-                                <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
-                                    @foreach ($widgets[App\Enums\WidgetEnum::CATEGORY_MENU] as $key => $val)
-                                        @php
-                                            $name = $val->languages->first()->pivot->name;
-                                            $canonical = write_url(
-                                                $val->languages->first()->pivot->canonical ?? '',
-                                                true,
-                                                true,
-                                            );
-                                        @endphp
-                                        <li class="">
-                                            <a href="{{ $canonical }}"
-                                                title="{{ $name }}">{{ $name }}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                            @include('frontend.component.catalogue', [
+                                'category' => $widgets[App\Enums\WidgetEnum::CATEGORY_MENU],
+                            ])
                         </div>
                     </div>
                 @endif
-                @if (isset($widgets[App\Enums\WidgetEnum::CATEGORY]))
+                @if (isset($widgets[App\Enums\WidgetEnum::CATEGORY]->object))
                     <div class="panel-body">
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                @foreach ($widgets[App\Enums\WidgetEnum::CATEGORY] as $key => $val)
+                                @foreach ($widgets[App\Enums\WidgetEnum::CATEGORY]->object as $key => $val)
                                     @php
                                         $name = $val->languages->first()->pivot->name;
                                         $canonical = write_url(
@@ -56,7 +41,7 @@
                                                 <a href="{{ $canonical }}"
                                                     title="{{ $name }}">{{ $name }}</a>
                                             </div>
-                                            <div class="total-product">{{ $productCount }} {{ __('unit.product') }}</div>
+                                            {{-- <div class="total-product">{{ $productCount }} {{ __('unit.product') }}</div> --}}
                                         </div>
                                     </div>
                                 @endforeach
@@ -96,80 +81,110 @@
                 </div>
             </div>
         @endif
-        {{--
-        <div class="panel-popular">
-            <div class="uk-container uk-container-center">
-                <div class="panel-head">
-                    <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        <h2 class="heading-1"><span>Sản phẩm nổi bật</span></h2>
-                        <div class="category-children">
-                            <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
-                                <li class=""><a href="" title="">Tất cả</a></li>
-                                <li class=""><a href="" title="">Bánh & Sữa</a></li>
-                                <li class=""><a href="" title="">Cà phê & Trà</a></li>
-                                <li class=""><a href="" title="">Thức ăn cho vật nuôi</a></li>
-                                <li class=""><a href="" title="">Rau củ</a></li>
-                                <li class=""><a href="" title="">Hoa Quả</a></li>
-                            </ul>
+        @if (isset($widgets[App\Enums\WidgetEnum::CATEGORY_HOME]->object))
+            @foreach ($widgets[App\Enums\WidgetEnum::CATEGORY_HOME]->object as $category)
+                @php
+                    $categoryName = $category->languages->first()->pivot->name;
+                    $categoryCanonical = write_url($category->languages->first()->pivot->canonical, true, true);
+                    $children = $category->children ?? null;
+                @endphp
+                <div class="panel-popular">
+                    <div class="uk-container uk-container-center">
+                        <div class="panel-head">
+                            <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                                <h2 class="heading-1">
+                                    <a href="{{ $categoryCanonical }}"
+                                        title="{{ $categoryName }}">{{ $categoryName }}</a>
+                                </h2>
+                                @if (isset($children))
+                                    <div class="category-children">
+                                        <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
+                                            <li class="">
+                                                <a href="{{ $categoryCanonical }}"
+                                                    title="{{ $categoryName }}">{{ __('homePage.all') }}</a>
+                                            </li>
+                                            @foreach ($children as $child)
+                                                @php
+                                                    $childName = $child->languages->first()->pivot->name;
+                                                    $childCanonical = write_url(
+                                                        $child->languages->first()->pivot->canonical,
+                                                        true,
+                                                        true,
+                                                    );
+                                                @endphp
+                                                <li class="">
+                                                    <a href="{{ $childCanonical }}"
+                                                        title="{{ $childName }}">{{ $childName }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
+                        @if (isset($category->products) && count($category->products))
+                            <div class="panel-body">
+                                <div class="uk-grid uk-grid-medium">
+                                    @foreach ($category->products as $product)
+                                        <div class="uk-width-large-1-5 mb20">
+                                            @include('frontend.component.product-item', [
+                                                'product' => $product,
+                                            ])
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="uk-grid uk-grid-medium">
-                        <?php for($i = 0; $i<=14; $i++){  ?>
-                        <div class="uk-width-large-1-5 mb20">
-                            @include('frontend.component.product-item')
-                        </div>
-                        <?php }  ?>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @endforeach
+        @endif
         <div class="panel-bestseller">
             <div class="uk-container uk-container-center">
                 <div class="panel-head">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        <h2 class="heading-1"><span>Sản phẩm bán chạy</span></h2>
-                        <div class="category-children">
-                            <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
-                                <li class=""><a href="" title="">Tất cả</a></li>
-                                <li class=""><a href="" title="">Bánh & Sữa</a></li>
-                                <li class=""><a href="" title="">Cà phê & Trà</a></li>
-                                <li class=""><a href="" title="">Thức ăn cho vật nuôi</a></li>
-                                <li class=""><a href="" title="">Rau củ</a></li>
-                                <li class=""><a href="" title="">Hoa Quả</a></li>
-                            </ul>
-                        </div>
+                        <h2 class="heading-1"><span>{{ __('homePage.bestseller') }}</span></h2>
+                        @include('frontend.component.catalogue', [
+                            'category' => $widgets[App\Enums\WidgetEnum::CATEGORY_MENU],
+                        ])
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="uk-grid uk-grid-medium">
                         <div class="uk-width-large-1-4">
                             <div class="best-seller-banner">
-                                <a href="" class="image img-cover"><img src="resources/img/bestseller.png"
-                                        alt=""></a>
-                                <div class="banner-title">Bring Natural<br> Into Your<br> Home</div>
+                                <a href="#" class="image img-cover"><img
+                                        src="{{ $widgets[App\Enums\WidgetEnum::BESTSELLER]->album[0] ?? '' }}"
+                                        alt="{{ $widgets[App\Enums\WidgetEnum::BESTSELLER]->album[0] ?? '' }}"></a>
+                                <div class="banner-title">
+                                    {!! $widgets[App\Enums\WidgetEnum::BESTSELLER]->description[$language] ?? '' !!}
+                                </div>
                             </div>
                         </div>
                         <div class="uk-width-large-3-4">
-                            <div class="product-wrapper">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                                <div class="swiper-container">
-                                    <div class="swiper-wrapper">
-                                        <?php for($i = 0; $i < count($category); $i++){  ?>
-                                        <div class="swiper-slide">
-                                            @include('frontend.component.product-item')
+                            @if (isset($widgets[App\Enums\WidgetEnum::BESTSELLER]->object))
+                                <div class="product-wrapper">
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper">
+                                            @foreach ($widgets[App\Enums\WidgetEnum::BESTSELLER]->object as $key => $val)
+                                                <div class="swiper-slide">
+                                                    @include('frontend.component.product-item', [
+                                                        'product' => $val,
+                                                    ])
+                                                </div>
+                                            @endforeach
                                         </div>
-                                        <?php }  ?>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {{--
         <div class="panel-deal page-setup">
             <div class="uk-container uk-container-center">
                 <div class="panel-head">
