@@ -187,10 +187,10 @@
     };
 
     HT.getProductCatalogueBySupplierId = () => {
-        $('select[name="supplier_id"]').on("change", function () {
-            var supplierId = $(this).val(); // Get the selected supplier ID
+        // Hàm dùng chung để lấy danh mục sản phẩm dựa trên supplier_id
+        const fetchProductCatalogue = (supplierId) => {
             if (supplierId) {
-                // AJAX request to fetch product catalogues based on supplier_id
+                // Gửi yêu cầu AJAX để lấy danh mục sản phẩm dựa trên supplier_id
                 $.ajax({
                     url:
                         "ajax/" + supplierId + "/getProductCatalogueBySupplier",
@@ -198,13 +198,13 @@
                     dataType: "json",
                     success: function (response) {
                         const $productSelect = $('select[name="product_id"]');
-                        $productSelect.empty(); // Clear the current options
+                        $productSelect.empty(); // Xóa các tùy chọn hiện tại
                         $productSelect.append(
                             `<option value="">${productname}</option>`
-                        ); // Add default option
+                        ); // Thêm tùy chọn mặc định
 
                         if (response.data.length > 0) {
-                            // Populate the select dropdown with new product options
+                            // Duyệt qua các sản phẩm và thêm vào dropdown
                             $.each(response.data, function (index, product) {
                                 $productSelect.append(
                                     '<option value="' +
@@ -220,7 +220,7 @@
                             );
                         }
 
-                        // Reinitialize Select2 (if you're using Select2 for styling)
+                        // Khởi tạo lại Select2 nếu đang sử dụng
                         if ($(".setupSelect2").length) {
                             $(".setupSelect2").select2();
                         }
@@ -230,12 +230,27 @@
                     },
                 });
             } else {
-                // Clear the product select if no supplier is selected
+                // Xóa các tùy chọn sản phẩm nếu không có nhà cung cấp nào được chọn
                 $('select[name="product_id"]')
                     .empty()
                     .append(`<option value="">${productname}</option>`);
             }
+        };
+
+        // Sự kiện khi thay đổi nhà cung cấp trong dropdown
+        $('select[name="supplier_id"]').on("change", function () {
+            var supplierId = $(this).val(); // Lấy ID của nhà cung cấp đã chọn
+            fetchProductCatalogue(supplierId); // Gọi hàm lấy danh mục sản phẩm
         });
+
+        // Tự động thực hiện AJAX nếu đang ở chế độ edit
+        const isEditMode =
+            $('input[name="supplier_id"]').length > 0 &&
+            $('input[name="supplier_id"]').val();
+        if (isEditMode) {
+            const supplierId = $('input[name="supplier_id"]').val(); // Lấy ID của nhà cung cấp từ input hidden
+            fetchProductCatalogue(supplierId); // Gọi hàm lấy danh mục sản phẩm
+        }
     };
 
     HT.addDataToReceipt = (checkbox) => {
