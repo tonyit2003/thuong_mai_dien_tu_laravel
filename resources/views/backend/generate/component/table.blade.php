@@ -5,7 +5,7 @@
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
             <th class="text-center">{{ __('table.module_name') }}</th>
-            <th class="text-center" style="width: 100px">{{ __('table.actions') }}</th>
+            <th class="text-center" style="width: 50px">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -19,12 +19,23 @@
                         {{ $generate->name }}
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('generate.edit', $generate->id) }}" class="btn btn-success">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a href="{{ route('generate.delete', $generate->id) }}" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        <div class="ibox-tools-button">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                <strong style="min-width: 0px">...</strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                <li>
+                                    <a href="{{ route('generate.edit', $generate->id) }}">
+                                        {{ __('table.update') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('generate.delete', $generate->id) }}">
+                                        {{ __('table.delete') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

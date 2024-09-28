@@ -4078,6 +4078,13 @@ table.table-mail tr td {
     padding: 0;
     text-align: right;
 }
+.ibox-tools-button {
+    display: block;
+    float: none;
+    margin-top: 0;
+    position: relative;
+    padding: 0;
+}
 .ibox-tools a {
     cursor: pointer;
     margin-left: 5px;

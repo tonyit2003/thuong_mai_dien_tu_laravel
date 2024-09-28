@@ -26,8 +26,8 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
             $this->model
                 ->where('id', $detail->product_variant_id)
                 ->update([
-                    'quantity' => DB::raw('quantity + ' . $detail->quantity), 
-                    'price' => $detail->price 
+                    'quantity' => DB::raw('quantity + ' . $detail->actual_quantity),
+                    'price' => $detail->price
                 ]);
         }
     }

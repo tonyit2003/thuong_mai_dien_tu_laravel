@@ -10,9 +10,10 @@
             <th class="text-center" style="width: 7%">{{ __('table.date_approved') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_booking') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_delivered') }}</th>
-            <th class="text-center" style="width: 10%">{{ __('table.total') }}</th>
-            <th class="text-center" style="width: 5%">{{ __('table.status') }}</th>
-            <th class="text-center" style="width: 14%">{{ __('table.actions') }}</th>
+            <th class="text-center" style="width: 10%">{{ __('table.total_receipt') }}</th>
+            <th class="text-center" style="width: 10%">{{ __('table.actual_total') }}</th>
+            <th class="text-center" style="width: 7%">{{ __('table.status') }}</th>
+            <th class="text-center" style="width: 5%">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,11 @@
                         {{ isset($productReceipt->date_approved) ? \Carbon\Carbon::parse($productReceipt->date_approved)->format('d/m/Y') : __('table.undelivered') }}
                     </td>
                     <td class="text-right">{{ formatCurrency($productReceipt->total) }}</td>
+                    <td class="text-right text-danger">
+                        <strong>
+                            {{ isset($productReceipt->actual_total) && $productReceipt->publish == 3 ? formatCurrency($productReceipt->actual_total) : __('table.undelivered') }}
+                        </strong>
+                    </td>
                     <td class="text-center" style="color: red">
                         @if ($productReceipt->publish == 0)
                             {{ __('table.approved') }}
@@ -47,18 +53,29 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        @if ($productReceipt->publish == 0)
-                            <a href="{{ route('receipt.browse', $productReceipt->id) }}" class="btn btn-warning" title="{{ __('table.browse') }}">
-                                <i class="fa fa-check"></i>
+                        <div class="ibox-tools-button">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                <strong style="min-width: 0px">...</strong>
                             </a>
-                        @else
-                            <a href="javascript:void(0);" class="btn btn-warning disabled" title="{{ __('table.browse') }}">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        @endif
-                        <a href="{{ route('receipt.detail', $productReceipt->id) }}" class="btn btn-primary" title="{{ __('table.view') }}">
-                            <i class="fa fa-eye"></i>
-                        </a>
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                <li>
+                                    @if ($productReceipt->publish == 0)
+                                        <a href="{{ route('receipt.browse', $productReceipt->id) }}">
+                                            {{ __('table.browse') }}
+                                        </a>
+                                    @else
+                                        <a href="javascript:void(0);" class="disabled">
+                                            {{ __('table.browse') }}
+                                        </a>
+                                    @endif
+                                </li>
+                                <li>
+                                    <a href="{{ route('receipt.detail', $productReceipt->id) }}">
+                                        {{ __('table.view') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

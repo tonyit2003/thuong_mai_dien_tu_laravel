@@ -11,7 +11,7 @@
             <th class="text-center">{{ __('table.fax') }}</th>
             <th class="text-center">{{ __('table.product_catalogue') }}</th>
             <th class="text-center" style="width: 100px">{{ __('table.status') }}</th>
-            <th class="text-center" style="width: 100px">{{ __('table.actions') }}</th>
+            <th class="text-center" style="width: 50px">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -58,12 +58,23 @@
                                 {{ $supplier->publish == 1 ? 'checked' : '' }} />
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('supplier.edit', $supplier->id) }}" class="btn btn-success">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a href="{{ route('supplier.delete', $supplier->id) }}" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </a>
+                            <div class="ibox-tools-button">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                    <strong style="min-width: 0px">...</strong>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                    <li>
+                                        <a href="{{ route('supplier.edit', $supplier->id) }}">
+                                            {{ __('table.update') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('supplier.delete', $supplier->id) }}">
+                                            {{ __('table.delete') }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @endif

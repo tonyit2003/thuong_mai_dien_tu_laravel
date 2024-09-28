@@ -8,7 +8,7 @@
             @include('backend.dashboard.component.languageTh')
             <th class="text-center" style="width: 8rem">{{ __('table.index') }}</th>
             <th class="text-center" style="width: 100px">{{ __('table.status') }}</th>
-            <th class="text-center" style="width: 100px">{{ __('table.actions') }}</th>
+            <th class="text-center" style="width: 50px">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -33,8 +33,7 @@
                                     <span class="text-danger">{{ __('table.display_group') }}: </span>
                                     @foreach ($product->product_catalogues as $val)
                                         @foreach ($val->product_catalogue_language as $cat)
-                                            <a
-                                                href="{{ route('product.index', ['product_catalogue_id' => $val->id]) }}">{{ $cat->name }}</a>
+                                            <a href="{{ route('product.index', ['product_catalogue_id' => $val->id]) }}">{{ $cat->name }}</a>
                                         @endforeach
                                     @endforeach
                                 </div>
@@ -46,22 +45,31 @@
                         'modeling' => 'Product',
                     ])
                     <td>
-                        <input type="text" name="order" class="form-control sort-order text-right"
-                            data-id="{{ $product->id }}" data-model="{{ $config['model'] }}"
-                            value="{{ $product->order }}">
+                        <input type="text" name="order" class="form-control sort-order text-right" data-id="{{ $product->id }}"
+                            data-model="{{ $config['model'] }}" value="{{ $product->order }}">
                     </td>
                     <td class="text-center js-switch-{{ $product->id }}">
-                        <input type="checkbox" value="{{ $product->publish }}" class="js-switch status"
-                            data-field="publish" data-model="{{ $config['model'] }}"
-                            data-modelId="{{ $product->id }}" {{ $product->publish == 1 ? 'checked' : '' }} />
+                        <input type="checkbox" value="{{ $product->publish }}" class="js-switch status" data-field="publish"
+                            data-model="{{ $config['model'] }}" data-modelId="{{ $product->id }}" {{ $product->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('product.edit', $product->id) }}" class="btn btn-success">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a href="{{ route('product.delete', $product->id) }}" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        <div class="ibox-tools-button">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                <strong style="min-width: 0px">...</strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                <li>
+                                    <a href="{{ route('product.edit', $product->id) }}">
+                                        {{ __('table.update') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('product.delete', $product->id) }}">
+                                        {{ __('table.delete') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

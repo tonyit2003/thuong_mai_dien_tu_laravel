@@ -6,7 +6,7 @@
             </th>
             <th class="text-center">{{ __('table.permission_name') }}</th>
             <th class="text-center">{{ __('table.permission_canonical') }}</th>
-            <th class="text-center" style="width: 100px">{{ __('table.actions') }}</th>
+            <th class="text-center" style="width: 50px">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -23,12 +23,23 @@
                         {{ $permission->canonical }}
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('permission.edit', $permission->id) }}" class="btn btn-success">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a href="{{ route('permission.delete', $permission->id) }}" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        <div class="ibox-tools-button">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                <strong style="min-width: 0px">...</strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                <li>
+                                    <a href="{{ route('permission.edit', $permission->id) }}">
+                                        {{ __('table.update') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('permission.delete', $permission->id) }}">
+                                        {{ __('table.delete') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

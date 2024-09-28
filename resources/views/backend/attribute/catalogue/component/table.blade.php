@@ -11,7 +11,7 @@
             <th class="text-center" style="width: 100px">
                 {{ __('table.status') }}
             </th>
-            <th class="text-center" style="width: 100px">
+            <th class="text-center" style="width: 50px">
                 {{ __('table.actions') }}
             </th>
         </tr>
@@ -31,18 +31,28 @@
                         'modeling' => 'AttributeCatalogue',
                     ])
                     <td class="text-center js-switch-{{ $attributeCatalogue->id }}">
-                        <input type="checkbox" value="{{ $attributeCatalogue->publish }}" class="js-switch status"
-                            data-field="publish" data-model="{{ $config['model'] }}"
-                            data-modelId="{{ $attributeCatalogue->id }}"
+                        <input type="checkbox" value="{{ $attributeCatalogue->publish }}" class="js-switch status" data-field="publish"
+                            data-model="{{ $config['model'] }}" data-modelId="{{ $attributeCatalogue->id }}"
                             {{ $attributeCatalogue->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('attribute.catalogue.edit', $attributeCatalogue->id) }}" class="btn btn-success">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a href="{{ route('attribute.catalogue.delete', $attributeCatalogue->id) }}" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        <div class="ibox-tools-button">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                <strong style="min-width: 0px">...</strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                <li>
+                                    <a href="{{ route('attribute.catalogue.edit', $attributeCatalogue->id) }}">
+                                        {{ __('table.update') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('attribute.catalogue.delete', $attributeCatalogue->id) }}">
+                                        {{ __('table.delete') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

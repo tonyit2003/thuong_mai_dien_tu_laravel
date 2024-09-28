@@ -4,16 +4,16 @@
             <th class="text-center" style="width: 3%">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th class="text-center" style="width: 15%">{{ __('table.user') }}</th>
-            <th class="text-center" style="width: 15%">{{ __('table.supplier_information') }}</th>
+            <th class="text-center" style="width: 20%">{{ __('table.user') }}</th>
+            <th class="text-center" style="width: 20%">{{ __('table.supplier_information') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_created') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_approved') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_booking') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_delivered') }}</th>
             <th class="text-center" style="width: 10%">{{ __('table.total_receipt') }}</th>
             <th class="text-center" style="width: 10%">{{ __('table.actual_total') }}</th>
-            <th class="text-center" style="width: 5%">{{ __('table.status') }}</th>
-            <th class="text-center" style="width: 14%">{{ __('table.actions') }}</th>
+            <th class="text-center" style="width: 7%">{{ __('table.status') }}</th>
+            <th class="text-center" style="width: 5%">{{ __('table.actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -53,31 +53,45 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        @if ($productReceipt->publish != 3 && $productReceipt->publish == 1)
-                            <a href="{{ route('receipt.instock', $productReceipt->id) }}" class="btn btn-warning"
-                                title="{{ __('table.check_approved') }}">
-                                <i class="fa fa-gears"></i>
+                        <div class="ibox-tools-button">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                <strong style="min-width: 0px">...</strong>
                             </a>
-                        @else
-                            <a href="javascript:void(0);" class="btn btn-warning disabled" title="{{ __('table.check_approved') }}">
-                                <i class="fa fa-gears"></i>
-                            </a>
-                        @endif
-                        @if ($productReceipt->publish != 1 && $productReceipt->publish != 3)
-                            <a href="{{ route('receipt.edit', $productReceipt->id) }}" class="btn btn-success" title="{{ __('table.update') }}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        @else
-                            <a href="javascript:void(0);" class="btn btn-success disabled" title="{{ __('table.update') }}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        @endif
-                        <a href="{{ route('receipt.delete', $productReceipt->id) }}" class="btn btn-danger" title="{{ __('table.delete') }}">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                        <a href="{{ route('receipt.detail', $productReceipt->id) }}" class="btn btn-primary" title="{{ __('table.view') }}">
-                            <i class="fa fa-eye"></i>
-                        </a>
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -185px">
+                                <li>
+                                    @if ($productReceipt->publish != 3 && $productReceipt->publish == 1)
+                                        <a href="{{ route('receipt.instock', $productReceipt->id) }}">
+                                            {{ __('table.check_approved') }}
+                                        </a>
+                                    @else
+                                        <a href="javascript:void(0);" class="disabled">
+                                            {{ __('table.check_approved') }}
+                                        </a>
+                                    @endif
+                                </li>
+                                <li>
+                                    @if ($productReceipt->publish != 1 && $productReceipt->publish != 3)
+                                        <a href="{{ route('receipt.edit', $productReceipt->id) }}">
+                                            {{ __('table.update') }}
+                                        </a>
+                                    @else
+                                        <a href="javascript:void(0);" class="disabled">
+                                            {{ __('table.update') }}
+                                        </a>
+                                    @endif
+                                </li>
+                                <li>
+                                    <a href="{{ route('receipt.delete', $productReceipt->id) }}">
+                                        {{ __('table.delete') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('receipt.detail', $productReceipt->id) }}">
+                                        {{ __('table.view') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

@@ -22,7 +22,7 @@
             <th class="text-center" style="width: 100px">
                 {{ __('table.status') }}
             </th>
-            <th class="text-center" style="width: 100px">
+            <th class="text-center" style="width: 50px">
                 {{ __('table.actions') }}
             </th>
         </tr>
@@ -66,17 +66,28 @@
                         {{ $promotion->neverEndDate === 'accept' ? __('table.unlimited') : convertDateTime($promotion->endDate) }}
                     </td>
                     <td class="text-center js-switch-{{ $promotion->id }}">
-                        <input type="checkbox" value="{{ $promotion->publish }}" class="js-switch status"
-                            data-field="publish" data-model="{{ $config['model'] }}"
-                            data-modelId="{{ $promotion->id }}" {{ $promotion->publish == 1 ? 'checked' : '' }} />
+                        <input type="checkbox" value="{{ $promotion->publish }}" class="js-switch status" data-field="publish"
+                            data-model="{{ $config['model'] }}" data-modelId="{{ $promotion->id }}"
+                            {{ $promotion->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('promotion.edit', $promotion->id) }}" class="btn btn-success">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <a href="{{ route('promotion.delete', $promotion->id) }}" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        <div class="ibox-tools-button">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
+                                <strong style="min-width: 0px">...</strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                <li>
+                                    <a href="{{ route('promotion.edit', $promotion->id) }}">
+                                        {{ __('table.update') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('promotion.delete', $promotion->id) }}">
+                                        {{ __('table.delete') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach
