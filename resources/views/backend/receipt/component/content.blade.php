@@ -46,13 +46,24 @@
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
                     <div class="uk-flex uk-flex-middle" style="margin-left: auto;" id="keywordInput">
                         <label for="productSelect" class="mr10">{{ __('table.supplier') }} <span class="text-danger">(*)</span></label>
-                        <select name="supplier_id" class="form-control mr10 setupSelect2" id="">
-                            @foreach ($suppliers as $key => $val)
-                                <option value="{{ $val->id }}" {{ $key == old('supplier_id') ? 'selected' : '' }}>
-                                    {{ $val->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        @if ($config['method'] == 'edit')
+                            <select name="supplier_id" class="form-control mr10 setupSelect2" disabled>
+                                @foreach ($suppliers as $key => $val)
+                                    <option value="{{ $val->id }}" {{ $val->id == $productReceipt->supplier_id ? 'selected' : '' }}>
+                                        {{ $val->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <input type="hidden" name="supplier_id" value="{{ $productReceipt->supplier_id }}">
+                        @else
+                            <select name="supplier_id" class="form-control mr10 setupSelect2">
+                                @foreach ($suppliers as $key => $val)
+                                    <option value="{{ $val->id }}" {{ old('supplier_id') == $val->id ? 'selected' : '' }}>
+                                        {{ $val->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @endif
                     </div>
                 </div>
             </div>

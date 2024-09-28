@@ -9,7 +9,10 @@
         </div>
 
         <div class="text-right mb15 button-fix">
-            <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.save') }}" />
+            <a href="{{ route('receipt.monitor') }}" class="btn btn-danger">
+                {{ __('button.cancel') }}
+            </a>
+            <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.browse') }}" />
         </div>
     </div>
 </form>
