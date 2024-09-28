@@ -19,7 +19,8 @@ class ProductReceipt extends Model
         'publish',
         'user_id',
         'supplier_id',
-        'total'
+        'total',
+        'actual_total'
     ];
 
     protected $table = 'product_receipts';

@@ -150,23 +150,57 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
         }
     }
 
+    private function calculateActualTotal($payload)
+    {
+        $total = 0;
+        if (isset($payload['actual_quantity']) && isset($payload['price'])) {
+            for ($i = 0; $i < count($payload['actual_quantity']); $i++) {
+                $quantity = (float)$payload['actual_quantity'][$i];
+                $price = (float)$payload['price'][$i];
+                $total += $quantity * $price;
+            }
+        }
+
+        return $total;
+    }
+
     public function delivere($id, $request)
     {
         DB::beginTransaction();
         try {
+            // Tìm phiếu nhập hàng theo ID
+            $payload = $request->except('_token', 'send');
             $productReceipt = $this->productReceiptRepository->findById($id);
             $payload['publish'] = 3;
 
+            // Xử lý ngày phê duyệt
             if ($request->input('date_approved')) {
                 $payload['date_approved'] = Carbon::createFromFormat('d/m/Y H:i', $request->input('date_approved'))->format('Y-m-d H:i:s');
             } else {
                 $payload['date_approved'] = null;
             }
 
+            // Lưu số lượng thực nhập
+            $actualQuantities = $request->input('actualQuantity', []);
+            $prices = $request->input('price', []); // Lấy giá từ request để tính tổng
+            // Tính tổng giá trị thực nhập
+            $payload['actual_total'] = $this->calculateActualTotal([
+                'actual_quantity' => $actualQuantities,
+                'price' => $prices
+            ]);
             // Cập nhật trạng thái phiếu nhập hàng
             $this->productReceiptRepository->update($id, $payload);
 
+            // Cập nhật số lượng thực nhập cho từng chi tiết
             $receiptDetails = $productReceipt->details;
+
+            foreach ($receiptDetails as $index => $details) {
+                // Kiểm tra nếu có số lượng thực nhập cho chi tiết này
+                if (isset($actualQuantities[$index])) {
+                    $details->actual_quantity = (int) $actualQuantities[$index]; // Gán số lượng thực nhập
+                    $details->save(); // Lưu cập nhật vào cơ sở dữ liệu
+                }
+            }
 
             // Cập nhật số lượng tồn kho cho từng variant
             $this->productVariantRepository->updateProductVariantDetails($receiptDetails);
@@ -201,6 +235,7 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
             'product_receipts.user_id',
             'product_receipts.supplier_id',
             'product_receipts.total',
+            'product_receipts.actual_total',
             'product_receipts.date_created',
             'product_receipts.date_of_receipt',
             'product_receipts.date_of_booking',

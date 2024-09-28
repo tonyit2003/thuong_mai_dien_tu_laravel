@@ -47,6 +47,7 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
                 'product_receipts.publish',
                 'product_receipts.user_id',
                 'product_receipts.total',
+                'product_receipts.actual_total',
                 'product_receipts.supplier_id'
             ])
             ->where('product_receipts.id', $id)

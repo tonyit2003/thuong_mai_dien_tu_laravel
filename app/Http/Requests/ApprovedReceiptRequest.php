@@ -23,13 +23,16 @@ class ApprovedReceiptRequest extends FormRequest
     {
         return [
             'date_approved' => 'required',
+            'actualQuantity.*' => 'required|gt:0'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'date_approved.required' => "Bạn không được để trống ngày xác nhận.",
+            'date_approved.required' => "Bạn không được để trống ngày giao.",
+            'actualQuantity.*.required' => "Bạn không được để trống số lượng thực nhập.",
+            'actualQuantity.*.gt' => "Số lượng thực nhập phải lớn hơn 0.",
         ];
     }
 }

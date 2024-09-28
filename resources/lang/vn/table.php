@@ -73,5 +73,8 @@ return [
     'discount'                          => 'Chiết khấu',
     'expired'                           => 'Hết hạn',
     'fax'                               => 'Số fax',
-    'product_catalogue'                 => 'Loại sản phẩm'
+    'product_catalogue'                 => 'Loại sản phẩm',
+    'actual_quantity_imported'          => 'Số lượng thực nhập',
+    'actual_total'                      => 'Tổng tiền thực nhập',
+    'total_receipt'                      => 'Tổng tiền phiếu nhập',
 ];

@@ -6,8 +6,9 @@
                 <thead>
                     <th class="text-center" style="width: 20%">{{ __('table.user') }}</th>
                     <th class="text-center" style="width: 10%">{{ __('table.date_created') }}</th>
-                    <th class="text-center" style="width: 30%">{{ __('table.supplier_information') }}</th>
-                    <th class="text-center" style="width: 25%">{{ __('table.total') }}</th>
+                    <th class="text-center" style="width: 20%">{{ __('table.supplier_information') }}</th>
+                    <th class="text-center" style="width: 20%">{{ __('table.total_receipt') }}</th>
+                    <th class="text-center" style="width: 20%">{{ __('table.actual_total') }}</th>
                     <th class="text-center" style="width: 15%">{{ __('table.status') }}</th>
                     </tr>
                 </thead>
@@ -18,6 +19,11 @@
                             <td class="text-center">{{ \Carbon\Carbon::parse($productReceipt->date_created)->format('d/m/Y') }}</td>
                             <td>{{ $productReceipt->suppliers ? $productReceipt->suppliers->name : 'N/A' }}</td>
                             <td class="text-right">{{ formatCurrency($productReceipt->total) }}</td>
+                            <td class="text-right text-danger">
+                                <strong>
+                                    {{ isset($productReceipt->actual_total) && $productReceipt->publish == 3 ? formatCurrency($productReceipt->actual_total) : __('table.undelivered') }}
+                                </strong>
+                            </td>
                             <td class="text-center" style="color: red">
                                 @if ($productReceipt->publish == 0)
                                     {{ __('table.approved') }}
@@ -45,9 +51,10 @@
                 <thead>
                     <tr>
                         <th class="text-center" style="width: 25%">{{ __('table.product_name') }}</th>
-                        <th class="text-center" style="width: 43%">{{ __('table.version') }}</th>
+                        <th class="text-center" style="width: 35%">{{ __('table.version') }}</th>
                         <th class="text-center" style="width: 10%">{{ __('table.quantity_imported') }}</th>
-                        <th class="text-center" style="width: 17%">{{ __('table.price') }}</th>
+                        <th class="text-center" style="width: 10%">{{ __('table.actual_quantity_imported') }}</th>
+                        <th class="text-center" style="width: 20%">{{ __('table.price') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +63,11 @@
                             <td>{{ $formattedDetail['product_name'] }}</td>
                             <td>{{ $formattedDetail['variant_name'] }}</td>
                             <td class="text-center">{{ $formattedDetail['quantity'] }}</td>
+                            <td class="text-center text-danger">
+                                <strong>
+                                    {{ isset($productReceipt->actual_total) && $productReceipt->publish == 3 ? $formattedDetail['actual_quantity'] : __('table.undelivered') }}
+                                </strong>
+                            </td>
                             <td class="text-right">{{ formatCurrency($formattedDetail['price']) }}</td>
                         </tr>
                     @endforeach

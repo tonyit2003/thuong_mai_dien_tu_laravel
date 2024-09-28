@@ -4,13 +4,14 @@
             <th class="text-center" style="width: 3%">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th class="text-center" style="width: 20%">{{ __('table.user') }}</th>
-            <th class="text-center" style="width: 20%">{{ __('table.supplier_information') }}</th>
+            <th class="text-center" style="width: 15%">{{ __('table.user') }}</th>
+            <th class="text-center" style="width: 15%">{{ __('table.supplier_information') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_created') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_approved') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_booking') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_delivered') }}</th>
-            <th class="text-center" style="width: 10%">{{ __('table.total') }}</th>
+            <th class="text-center" style="width: 10%">{{ __('table.total_receipt') }}</th>
+            <th class="text-center" style="width: 10%">{{ __('table.actual_total') }}</th>
             <th class="text-center" style="width: 5%">{{ __('table.status') }}</th>
             <th class="text-center" style="width: 14%">{{ __('table.actions') }}</th>
         </tr>
@@ -35,6 +36,11 @@
                         {{ isset($productReceipt->date_approved) ? \Carbon\Carbon::parse($productReceipt->date_approved)->format('d/m/Y') : __('table.undelivered') }}
                     </td>
                     <td class="text-right">{{ formatCurrency($productReceipt->total) }}</td>
+                    <td class="text-right text-danger">
+                        <strong>
+                            {{ isset($productReceipt->actual_total) && $productReceipt->publish == 3 ? formatCurrency($productReceipt->actual_total) : __('table.undelivered') }}
+                        </strong>
+                    </td>
                     <td class="text-center" style="color: red">
                         @if ($productReceipt->publish == 0)
                             {{ __('table.approved') }}

@@ -178,6 +178,7 @@ class ProductReceiptController extends Controller
                 'product_name' => $detail->product->product_name ?? 'N/A',
                 'variant_name' => $detail->productVariant->variant_name ?? 'N/A',
                 'quantity' => $detail->quantity,
+                'actual_quantity' => $detail->actual_quantity,
                 'price' => (float)$detail->price
             ];
         });
@@ -203,6 +204,7 @@ class ProductReceiptController extends Controller
                 'product_name' => $detail->product->product_name ?? 'N/A',
                 'variant_name' => $detail->productVariant->variant_name ?? 'N/A',
                 'quantity' => $detail->quantity,
+                'actual_quantity' => $detail->actual_quantity,
                 'price' => (float)$detail->price
             ];
         });
@@ -244,6 +246,7 @@ class ProductReceiptController extends Controller
                 'product_name' => $detail->product->product_name ?? 'N/A',
                 'variant_name' => $detail->productVariant->variant_name ?? 'N/A',
                 'quantity' => $detail->quantity,
+                'actual_quantity' => $detail->actual_quantity,
                 'price' => (float)$detail->price
             ];
         });

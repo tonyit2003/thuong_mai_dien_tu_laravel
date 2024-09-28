@@ -450,6 +450,41 @@
         return integerPart + (decimalPart ? dec_point + decimalPart : "");
     }
 
+    function formatCurrency(amount) {
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"; // Định dạng số
+    }
+
+    HT.total = () => {
+        $(document).ready(function () {
+            // Hàm tính tổng tiền
+            function calculateTotal() {
+                let total = 0;
+
+                // Duyệt qua từng dòng trong bảng để tính tổng
+                $("#productTable tbody tr").each(function () {
+                    const quantityInput = $(this).find(
+                        'input[name="actualQuantity[]"]'
+                    );
+                    const priceInput = $(this).find('input[name="price[]"]');
+
+                    const quantity = parseFloat(quantityInput.val()) || 0; // Giá trị số lượng thực nhập
+                    const price = parseFloat(priceInput.val()) || 0; // Giá trị giá
+
+                    // Tính tổng cho dòng hiện tại và cộng dồn vào tổng
+                    total += quantity * price;
+                });
+
+                // Cập nhật tổng tiền hiển thị
+                $(".total").text(formatCurrency(total)); // Làm tròn và cập nhật
+            }
+
+            // Lắng nghe sự kiện input trên trường actualQuantity
+            $('input[name="actualQuantity[]"]').on("input", function () {
+                calculateTotal(); // Gọi hàm tính tổng khi có thay đổi
+            });
+        });
+    };
+
     $(document).ready(function () {
         HT.checkAllReceipt();
         HT.checkBoxItemReceipt();
@@ -458,5 +493,6 @@
         HT.removeRowReceipt();
         HT.getDataUpdateProductReceipt();
         HT.getProductCatalogueBySupplierId();
+        HT.total();
     });
 })(jQuery);
