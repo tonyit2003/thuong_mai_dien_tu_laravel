@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // đăng ký composer => chia sẽ dữ liệu cho view cụ thể từ composer đăng ký
-        view()->composer('frontend.homepage.layout', SystemComposer::class);
+        // view()->composer('frontend.homepage.layout', SystemComposer::class);
         view()->composer('backend.dashboard.layout', SystemComposer::class);
         view()->composer('frontend.homepage.layout', MenuComposer::class);
         view()->composer('frontend.homepage.layout', LanguageComposer::class);

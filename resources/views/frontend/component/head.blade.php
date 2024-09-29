@@ -2,28 +2,29 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index,follow">
-<meta name="author" content="">
-<meta name="copyright" content="">
+<meta name="author" content="{{ $system['homepage_company'] }}">
+<meta name="copyright" content="{{ $system['homepage_company'] }}">
 <meta http-equiv="refresh" content="1800">
-<link rel="icon" href="" type="image/png" sizes="30x30">
+<link rel="icon" href="{{ $system['homepage_favicon'] }}" type="image/png" sizes="30x30">
 {{-- GOOGLE --}}
-<title>TC Shop</title>
-<meta name="description" content="">
-<link rel="canonical" href="">
+<title>{{ $seo['meta_title'] }}</title>
+<meta name="description" content="{{ $seo['meta_description'] }}">
+<meta name="keyword" content="{{ $seo['meta_keyword'] }}">
+<link rel="canonical" href="{{ $seo['canonical'] }}">
 <meta property="og:locale" content="vi_VN">
 {{-- FACEBOOK --}}
-<meta property="og:title" content="">
-<meta property="og:type" content="article">
-<meta property="og:image" content="">
-<meta property="og:url" content="">
-<meta property="og:description" content="">
+<meta property="og:title" content="{{ $seo['meta_title'] }}">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{{ $seo['meta_image'] }}">
+<meta property="og:url" content="{{ $seo['canonical'] }}">
+<meta property="og:description" content="{{ $seo['meta_description'] }}">
 <meta property="og:site_name" content="">
 <meta property="og:admins" content="">
 <meta property="og:app_id" content="">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="">
+<meta name="twitter:title" content="{{ $seo['meta_title'] }}">
+<meta name="twitter:description" content="{{ $seo['meta_description'] }}">
+<meta name="twitter:image" content="{{ $seo['meta_image'] }}">
 
 <link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
 @php

@@ -6,6 +6,7 @@ use App\Enums\SlideEnum;
 use App\Enums\WidgetEnum;
 use App\Http\Controllers\FrontendController;
 use App\Repositories\SlideRepository;
+use App\Repositories\SystemRepository;
 use App\Services\SlideService;
 use App\Services\WidgetService;
 
@@ -38,7 +39,15 @@ class HomeController extends FrontendController
         ], $this->language);
         $config = $this->config();
         $language = $this->language;
-        return view('frontend.homepage.home.index', compact('config', 'slides', 'widgets', 'language'));
+        $system = $this->system;
+        $seo = [
+            'meta_title' => $system['seo_meta_title'],
+            'meta_keyword' => $system['seo_meta_keyword'],
+            'meta_description' => $system['seo_meta_description'],
+            'meta_image' => $system['seo_meta_image'],
+            'canonical' => config('app.url')
+        ];
+        return view('frontend.homepage.home.index', compact('config', 'slides', 'widgets', 'language', 'seo', 'system'));
     }
 
     private function config()
