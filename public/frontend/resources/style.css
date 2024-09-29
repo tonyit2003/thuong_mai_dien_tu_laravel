@@ -3784,3 +3784,13 @@ a.ui-button:active,
 .product-item .stars::before {
     letter-spacing: 0;
 }
+
+.description-news {
+    font-size: 1rem;
+    display: -webkit-box; /* Tạo một hộp linh hoạt */
+    -webkit-box-orient: vertical; /* Xác định hướng của hộp là dọc */
+    -webkit-line-clamp: 3; /* Giới hạn văn bản chỉ hiển thị 3 dòng */
+    overflow: hidden; /* Ẩn phần văn bản vượt quá */
+    text-overflow: ellipsis; /* Thêm dấu ba chấm ở cuối */
+    text-align: justify;
+}

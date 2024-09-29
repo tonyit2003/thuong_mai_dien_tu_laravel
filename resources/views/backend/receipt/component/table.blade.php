@@ -25,11 +25,14 @@
                     </td>
                     <td>{{ $productReceipt->user->name }}</td>
                     <td>{{ $productReceipt->suppliers ? $productReceipt->suppliers->name : 'N/A' }}</td>
-                    <td class="text-center">{{ \Carbon\Carbon::parse($productReceipt->date_created)->format('d/m/Y') }}</td>
-                    <td class="text-center {{ isset($productReceipt->date_of_receipt) ? 'text-dark' : 'text-danger' }}">
+                    <td class="text-center">{{ \Carbon\Carbon::parse($productReceipt->date_created)->format('d/m/Y') }}
+                    </td>
+                    <td
+                        class="text-center {{ isset($productReceipt->date_of_receipt) ? 'text-dark' : 'text-danger' }}">
                         {{ isset($productReceipt->date_of_receipt) ? \Carbon\Carbon::parse($productReceipt->date_of_receipt)->format('d/m/Y') : __('table.approved') }}
                     </td>
-                    <td class="text-center {{ isset($productReceipt->date_of_booking) ? 'text-dark' : 'text-danger' }}">
+                    <td
+                        class="text-center {{ isset($productReceipt->date_of_booking) ? 'text-dark' : 'text-danger' }}">
                         {{ isset($productReceipt->date_of_booking) ? \Carbon\Carbon::parse($productReceipt->date_of_booking)->format('d/m/Y') : __('table.unbooking') }}
                     </td>
                     <td class="text-center {{ isset($productReceipt->date_approved) ? 'text-dark' : 'text-danger' }}">
@@ -57,7 +60,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000">
                                 <strong style="min-width: 0px">...</strong>
                             </a>
-                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -185px">
+                            <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -165px !important">
                                 <li>
                                     @if ($productReceipt->publish != 3 && $productReceipt->publish == 1)
                                         <a href="{{ route('receipt.instock', $productReceipt->id) }}">

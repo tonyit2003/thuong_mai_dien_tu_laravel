@@ -130,6 +130,33 @@ class System
             ],
         ];
 
+        $data['social'] = [
+            'label' => __('form.social_home_title'),
+            'description' => __('form.social_home_description'),
+            'value' => [
+                'facebook' => [
+                    'type' => 'text',
+                    'label' => __('form.facebook')
+                ],
+                'youtube' => [
+                    'type' => 'text',
+                    'label' => __('form.youtube')
+                ],
+                'twitter' => [
+                    'type' => 'text',
+                    'label' => __('form.twitter')
+                ],
+                'tiktok' => [
+                    'type' => 'text',
+                    'label' => __('form.tiktok')
+                ],
+                'instagram' => [
+                    'type' => 'text',
+                    'label' => __('form.instagram')
+                ],
+            ],
+        ];
+
         return $data;
     }
 }

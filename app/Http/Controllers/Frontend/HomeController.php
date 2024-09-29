@@ -27,7 +27,7 @@ class HomeController extends FrontendController
 
     public function index()
     {
-        $slides = $this->slideService->getSlides([SlideEnum::MAIN_SLIDE, SlideEnum::BANNER], $this->language);
+        $slides = $this->slideService->getSlides([SlideEnum::MAIN_SLIDE, SlideEnum::BANNER, SlideEnum::BANNER_FOOTER], $this->language);
         // children => lấy các danh mục con của các danh mục trong widget
         // promotion => lấy ra các sản phẩm + khuyến mãi của danh mục product catalogue
         // countObject => đếm các sản phẩm của danh mục
@@ -36,6 +36,7 @@ class HomeController extends FrontendController
             ['keyword' => WidgetEnum::CATEGORY_MENU],
             ['keyword' => WidgetEnum::CATEGORY_HOME, 'children' => true, 'promotion' => true, 'countObject' => true],
             ['keyword' => WidgetEnum::BESTSELLER, 'promotion' => true],
+            ['keyword' => WidgetEnum::FEATURED_NEWS],
         ], $this->language);
         $config = $this->config();
         $language = $this->language;

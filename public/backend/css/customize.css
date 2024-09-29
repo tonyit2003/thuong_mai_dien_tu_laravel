@@ -1165,4 +1165,8 @@ div.fix-label {
     font-size: 1.2rem;
     font-weight: 600;
 }
+
+.ibox-tools-button .dropdown-toggle + .dropdown-menu.dropdown-user {
+    left: -150px !important;
+}
 /* end */

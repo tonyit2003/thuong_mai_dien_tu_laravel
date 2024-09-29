@@ -184,44 +184,54 @@
                 </div>
             </div>
         </div>
-        {{--
-        <div class="panel-deal page-setup">
-            <div class="uk-container uk-container-center">
-                <div class="panel-head">
-                    <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        <h2 class="heading-1"><span>Giảm giá trong ngày</span></h2>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="uk-grid uk-grid-medium">
-                        <?php for($i = 0; $i<=3; $i++){  ?>
-                        <div class="uk-width-large-1-4">
-                            @include('frontend.component.product-item-2')
+        @if (isset($widgets[App\Enums\WidgetEnum::FEATURED_NEWS]->object))
+            <div class="panel-deal page-setup">
+                <div class="uk-container uk-container-center">
+                    <div class="panel-head">
+                        <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                            <h2 class="heading-1"><span>{{ __('homePage.featured_news') }}</span></h2>
                         </div>
-                        <?php }  ?>
+                    </div>
+                    <div class="panel-body">
+                        <div class="uk-grid uk-grid-medium">
+                            @foreach ($widgets[App\Enums\WidgetEnum::FEATURED_NEWS]->object as $key => $val)
+                                <div class="uk-width-large-1-4">
+                                    @include('frontend.component.news_item', [
+                                        'news' => $val,
+                                    ])
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="uk-container uk-container-center">
-            <div class="panel-group">
-                <div class="panel-body">
-                    <div class="group-title">Stay home & get your daily <br> needs from our shop</div>
-                    <div class="group-description">Start Your Daily Shopping with Nest Mart</div>
-                    <span class="image img-scaledowm"><img src="resources/img/banner-9-min.png" alt=""></span>
+        @endif
+        {{-- @if (isset($slides[App\Enums\SlideEnum::BANNER_FOOTER]['item']))
+            <div class="uk-container uk-container-center">
+                @php
+                    $description = $slides[App\Enums\SlideEnum::BANNER_FOOTER]['item'][0]['description'];
+                    $image = $slides[App\Enums\SlideEnum::BANNER_FOOTER]['item'][0]['image'];
+                @endphp
+                <div class="panel-group">
+                    <div class="panel-body">
+                        <div class="group-title">{!! $description !!}</div>
+                        <div class="group-description">{{ $system['homepage_slogan'] }}</div>
+                        <span class="image img-scaledowm"><img src="{{ $system['homepage_logo'] }}" alt=""></span>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif --}}
         <div class="panel-commit">
             <div class="uk-container uk-container-center">
                 <div class="uk-grid uk-grid-medium">
                     <div class="uk-width-large-1-5">
                         <div class="commit-item">
                             <div class="uk-flex uk-flex-middle">
-                                <span class="image"><img src="resources/img/commit-1.png" alt=""></span>
+                                <span class="image"><img src="{{ asset('frontend/resources/img/commit-1.png') }}"
+                                        alt="{{ __('homePage.commit.discount_title') }}"></span>
                                 <div class="info">
-                                    <div class="title">Giá ưu đãi</div>
-                                    <div class="description">Khi mua từ 500.000đ</div>
+                                    <div class="title">{{ __('homePage.commit.discount_title') }}</div>
+                                    <div class="description">{{ __('homePage.commit.discount_description') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -229,10 +239,11 @@
                     <div class="uk-width-large-1-5">
                         <div class="commit-item">
                             <div class="uk-flex uk-flex-middle">
-                                <span class="image"><img src="resources/img/commit-2.png" alt=""></span>
+                                <span class="image"><img src="{{ asset('frontend/resources/img/commit-2.png') }}"
+                                        alt="{{ __('homePage.commit.free_shipping_title') }}"></span>
                                 <div class="info">
-                                    <div class="title">Miễn phí vận chuyển</div>
-                                    <div class="description">Trong bán kính 2km</div>
+                                    <div class="title">{{ __('homePage.commit.free_shipping_title') }}</div>
+                                    <div class="description">{{ __('homePage.commit.free_shipping_description') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -240,10 +251,12 @@
                     <div class="uk-width-large-1-5">
                         <div class="commit-item">
                             <div class="uk-flex uk-flex-middle">
-                                <span class="image"><img src="resources/img/commit-3.png" alt=""></span>
+                                <span class="image"><img src="{{ asset('frontend/resources/img/commit-3.png') }}"
+                                        alt="{{ __('homePage.commit.account_discount_title') }}"></span>
                                 <div class="info">
-                                    <div class="title">Ưu đãi</div>
-                                    <div class="description">Khi đăng ký tài khoản</div>
+                                    <div class="title">{{ __('homePage.commit.account_discount_title') }}</div>
+                                    <div class="description">{{ __('homePage.commit.account_discount_description') }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -251,10 +264,12 @@
                     <div class="uk-width-large-1-5">
                         <div class="commit-item">
                             <div class="uk-flex uk-flex-middle">
-                                <span class="image"><img src="resources/img/commit-4.png" alt=""></span>
+                                <span class="image"><img src="{{ asset('frontend/resources/img/commit-4.png') }}"
+                                        alt="{{ __('homePage.commit.diverse_products_title') }}"></span>
                                 <div class="info">
-                                    <div class="title">Đa dạng </div>
-                                    <div class="description">Sản phẩm đa dạng</div>
+                                    <div class="title">{{ __('homePage.commit.diverse_products_title') }}</div>
+                                    <div class="description">{{ __('homePage.commit.diverse_products_description') }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -262,10 +277,11 @@
                     <div class="uk-width-large-1-5">
                         <div class="commit-item">
                             <div class="uk-flex uk-flex-middle">
-                                <span class="image"><img src="resources/img/commit-5.png" alt=""></span>
+                                <span class="image"><img src="{{ asset('frontend/resources/img/commit-5.png') }}"
+                                        alt="{{ __('homePage.commit.return_policy_title') }}"></span>
                                 <div class="info">
-                                    <div class="title">Đổi trả </div>
-                                    <div class="description">Đổi trả trong ngày</div>
+                                    <div class="title">{{ __('homePage.commit.return_policy_title') }}</div>
+                                    <div class="description">{{ __('homePage.commit.return_policy_description') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -273,6 +289,6 @@
                 </div>
             </div>
         </div>
-        --}}
+
     </div>
 @endsection
