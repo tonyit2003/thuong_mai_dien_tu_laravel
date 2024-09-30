@@ -195,9 +195,101 @@ if (!function_exists('convertArrayByKey')) {
 }
 
 if (!function_exists('formatCurrency')) {
-    function formatCurrency($amount)
+    function formatCurrency($amount, $currency = 'VND')
     {
-        return number_format($amount, 0, ',', '.') . ' VND';
+        $locale = app()->getLocale();
+        $currency = determineCurrency($locale);
+
+        // Nếu là VND, không cần quy đổi
+        if ($currency == 'VND') {
+            return number_format($amount, 0, ',', '.') . ' ₫';
+        }
+
+        // Gọi API để lấy tỷ giá quy đổi
+        $exchangeRate = getExchangeRate($currency);
+
+        // Nếu không lấy được tỷ giá, trả về số tiền gốc
+        if ($exchangeRate === null) {
+            return number_format($amount, 0, ',', '.') . ' ₫';
+        }
+
+        // Tính toán số tiền theo tỷ giá quy đổi
+        $convertedAmount = $amount * $exchangeRate;
+
+        // Định dạng theo ngôn ngữ
+        switch ($locale) {
+            case 'en':
+                return currencySymbol($currency) . number_format($convertedAmount, 2, '.', ',');
+            case 'cn':
+                return currencySymbol($currency) . number_format($convertedAmount, 2, '.', ',');
+            default: // Ngôn ngữ khác (ví dụ: tiếng Việt)
+                return number_format($convertedAmount, 2, ',', '.') . ' ' . $currency;
+        }
+    }
+
+    // Xác định loại tiền tệ dựa trên ngôn ngữ
+    function determineCurrency($locale)
+    {
+        switch ($locale) {
+            case "vn":
+                return "VND";
+            case "en":
+                return "USD";
+            case "cn":
+                return "CNY";
+            default:
+                return "VND"; // Mặc định
+        }
+    }
+
+    // Hàm gọi API để lấy tỷ giá
+    function getExchangeRate($currency)
+    {
+        $cacheFile = 'exchange_rates.json';
+        $cacheDuration = 3600; // Thời gian cache (1 giờ)
+        // Kiểm tra xem cache có tồn tại và còn hiệu lực không
+        if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheDuration)) {
+            $data = json_decode(file_get_contents($cacheFile), true);
+        } else {
+            // Lấy dữ liệu mới từ API
+            $apiKey = 'c4c172f9dcdc3d6a975c04c6'; // Thay bằng API Key của bạn
+            $url = "https://v6.exchangerate-api.com/v6/$apiKey/latest/VND";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            if ($response === false) {
+                return null; // Xử lý lỗi
+            }
+
+            $data = json_decode($response, true);
+
+            // Cache phản hồi
+            file_put_contents($cacheFile, json_encode($data));
+        }
+
+        return isset($data['conversion_rates'][$currency]) ? $data['conversion_rates'][$currency] : null;
+    }
+
+    // Hàm trả về ký hiệu tiền tệ tương ứng
+    function currencySymbol($currency)
+    {
+        switch ($currency) {
+            case 'USD':
+                return '$';
+            case 'EUR':
+                return '€';
+            case 'GBP':
+                return '£';
+            case 'CNY':
+                return '¥';
+            case 'VND':
+                return '₫';
+            default:
+                return '';
+        }
     }
 }
 
