@@ -33,5 +33,6 @@ return [
         'discountValue_fail'            => 'Bạn chưa nhập giá trị chiết khấu',
         'object_fail'                   => 'Bạn chưa chọn đối tượng áp dụng chiết khấu',
         'method_not_in'                 => 'Bạn chưa chọn hình thức khuyến mãi',
+        'discountValue_percent_fail'    => 'Phần trăm khuyến mãi không được lớn hơn 100%',
     ],
 ];

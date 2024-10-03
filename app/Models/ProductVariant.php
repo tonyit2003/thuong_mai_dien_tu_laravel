@@ -27,6 +27,10 @@ class ProductVariant extends Model
 
     protected $table = 'product_variants';
 
+    protected $casts = [
+        'album' => 'json',
+    ];
+
     public function products()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');

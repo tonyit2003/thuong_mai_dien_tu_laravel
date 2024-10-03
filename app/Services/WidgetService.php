@@ -84,6 +84,10 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                             // lấy một tập hợp các giá trị của một cột duy nhất từ cơ sở dữ liệu hoặc từ một collection
                             $productIds = $valObject->{$replace}->pluck('id')->toArray();
                             $valObject->{$replace} = $this->{$service}->combineProductAndPromotion($productIds, $valObject->{$replace});
+                            foreach ($valObject->{$replace} as $keyProduct => $valProduct) {
+                                $productVariantIds = $valProduct->product_variants->pluck('id')->toArray();
+                                $valProduct->product_variants = $this->{$service}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
+                            }
                         }
                         $widgets[$keyWidget]->object = $object;
                     }
@@ -91,6 +95,10 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                     if ($model === 'product' && isset($params[$keyWidget]['promotion']) && $params[$keyWidget]['promotion'] == true) {
                         $productIds = $object->pluck('id')->toArray();
                         $object = $this->{$service}->combineProductAndPromotion($productIds, $object);
+                        foreach ($object as $keyProduct => $valProduct) {
+                            $productVariantIds = $valProduct->product_variants->pluck('id')->toArray();
+                            $valProduct->product_variants = $this->{$service}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
+                        }
                     }
                     $widgets[$keyWidget]->object = $object;
                 }
@@ -243,6 +251,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             ],
             'flag' => true,
             'relation' => $relation,
+            'orderBy' => ['id', 'DESC'],
             'param' => [
                 'whereIn' => $widget->model_id,
                 'whereInField' => 'id'
@@ -255,7 +264,8 @@ class WidgetService extends BaseService implements WidgetServiceInterface
     {
         return [
             'condition' => [
-                config('apps.general.publish')
+                config('apps.general.publish'),
+
             ],
             'flag' => true,
             'relation' => [
@@ -263,6 +273,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                     $query->where('language_id', $language);
                 },
             ],
+            'orderBy' => ['id', 'DESC'],
             'param' => [
                 'whereIn' => $objectIds,
                 'whereInField' => 'parent_id'

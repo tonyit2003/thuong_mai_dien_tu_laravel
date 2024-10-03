@@ -1,7 +1,7 @@
 @php
-    $name = $product->languages->first()->pivot->name;
+    $name = $product->languages->first()->pivot->name . ' ' . $productVariant->languages->first()->pivot->name;
     $canonical = write_url($product->languages->first()->pivot->canonical, true, true);
-    $image = image($product->image);
+    $image = image(explode(',', $productVariant->album)[0]);
     $price = getPrice($product);
     $catNameArray = array_map(
         function ($category, $product) {
