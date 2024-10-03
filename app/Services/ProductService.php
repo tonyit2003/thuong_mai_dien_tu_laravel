@@ -195,6 +195,21 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $products;
     }
 
+    public function combineProductVariantAndPromotion($productVariantIds, $productVariants)
+    {
+        $promotions = $this->promotionRepository->findByProductVariant($productVariantIds);
+        if ($promotions) {
+            foreach ($productVariants as $keyProduct => $valProduct) {
+                foreach ($promotions as $keyPromotion => $valPromotion) {
+                    if ($valPromotion->product_id === $valProduct->id) {
+                        $productVariants[$keyProduct]->promotions = $valPromotion;
+                    }
+                }
+            }
+        }
+        return $productVariants;
+    }
+
     private function createProduct($request)
     {
         $payload = $request->only($this->payload());

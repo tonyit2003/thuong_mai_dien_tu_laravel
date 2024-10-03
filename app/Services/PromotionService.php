@@ -43,7 +43,7 @@ class PromotionService extends BaseService implements PromotionServiceInterface
             DB::commit();
             return true;
         } catch (Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             DB::rollBack();
             return false;
         }
@@ -61,6 +61,7 @@ class PromotionService extends BaseService implements PromotionServiceInterface
             DB::commit();
             return true;
         } catch (Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
             return false;
         }

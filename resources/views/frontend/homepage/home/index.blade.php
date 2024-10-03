@@ -126,11 +126,14 @@
                             <div class="panel-body">
                                 <div class="uk-grid uk-grid-medium">
                                     @foreach ($category->products as $product)
-                                        <div class="uk-width-large-1-5 mb20">
-                                            @include('frontend.component.product-item', [
-                                                'product' => $product,
-                                            ])
-                                        </div>
+                                        @foreach ($product->product_variants as $productVariant)
+                                            <div class="uk-width-large-1-5 mb20">
+                                                @include('frontend.component.product-item', [
+                                                    'product' => $product,
+                                                    'product_variant' => $productVariant,
+                                                ])
+                                            </div>
+                                        @endforeach
                                     @endforeach
                                 </div>
                             </div>
@@ -168,12 +171,15 @@
                                     <div class="swiper-button-prev"></div>
                                     <div class="swiper-container">
                                         <div class="swiper-wrapper">
-                                            @foreach ($widgets[App\Enums\WidgetEnum::BESTSELLER]->object as $key => $val)
-                                                <div class="swiper-slide">
-                                                    @include('frontend.component.product-item', [
-                                                        'product' => $val,
-                                                    ])
-                                                </div>
+                                            @foreach ($widgets[App\Enums\WidgetEnum::BESTSELLER]->object as $product)
+                                                @foreach ($product->product_variants as $productVariant)
+                                                    <div class="swiper-slide">
+                                                        @include('frontend.component.product-item', [
+                                                            'product' => $product,
+                                                            'productVariant' => $productVariant,
+                                                        ])
+                                                    </div>
+                                                @endforeach
                                             @endforeach
                                         </div>
                                     </div>

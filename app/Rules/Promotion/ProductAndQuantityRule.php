@@ -29,6 +29,10 @@ class ProductAndQuantityRule implements ValidationRule
             $fail(__('promotion.request.discountValue_fail'));
         }
 
+        if (convert_price($this->data['product_and_quantity']['discountValue']) > 100 && $this->data['product_and_quantity']['discountType'] == 'percent') {
+            $fail(__('promotion.request.discountValue_percent_fail'));
+        }
+
         if (!isset($this->data['object'])) {
             $fail(__('promotion.request.object_fail'));
         }
