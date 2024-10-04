@@ -175,7 +175,9 @@ class BaseRepository implements BaseRepositoryInterface
 
         $query->with($relation);
         $query->withCount($withCount);
-        $query->orderBy($orderBy[0], $orderBy[1]);
+        if (isset($orderBy)) {
+            $query->orderBy($orderBy[0], $orderBy[1]);
+        }
 
         // Trả về bản ghi đầu tiên tìm được
         return $flag == false ? $query->first() : $query->get();

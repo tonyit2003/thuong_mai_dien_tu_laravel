@@ -17,7 +17,7 @@
     @if ($price['percent'] !== 0)
         <div class="badge badge-bg2">-{{ $price['percent'] }}%</div>
     @endif
-    <a href="{{ $canonical }}" class="image">
+    <a href="{{ $canonical }}" class="image img-scaledown img-zoomin">
         <img src="{{ $image }}" alt="{{ $name }}">
     </a>
     <div class="info">
@@ -39,7 +39,7 @@
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 {!! $price['html'] !!}
                 <div class="addcart">
-                    {!! renderQuickBuy($product, $canonical, $name) !!}
+                    {{-- {!! renderQuickBuy($product, $canonical, $name) !!} --}}
                 </div>
             </div>
         </div>

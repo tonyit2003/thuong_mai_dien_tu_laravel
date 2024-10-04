@@ -429,3 +429,26 @@ if (!function_exists('renderQuickBuy')) {
         return $html;
     }
 }
+
+if (!function_exists('cut_string_and_decode')) {
+    function cut_string_and_decode($str = null, $n = 200)
+    {
+        // Chuyển đổi các ký tự HTML entities thành các ký tự tương ứng (&lt => '>', ...)
+        $str = html_entity_decode($str);
+        // Loại bỏ toàn bộ các thẻ HTML khỏi chuỗi.
+        $str = strip_tags($str);
+        $str = cutnchar($str, $n);
+        return $str;
+    }
+}
+
+if (!function_exists('cutnchar')) {
+    function cutnchar($str = null, $n = 200)
+    {
+        if (strlen($str) < $n) return $str;
+        $html = substr($str, 0, $n);
+        // Tìm vị trí khoảng trắng cuối cùng trong chuỗi => cắt => đảm bảo không cắt giữa chừng một từ.
+        $html = substr($html, 0, strrpos($html, ' '));
+        return $html . '...';
+    }
+}

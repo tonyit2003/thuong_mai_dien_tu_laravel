@@ -222,7 +222,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                             }]);
                         }]);
                     }
-                    $query->take($param['limit'] ?? 8);
+                    // $query->take($param['limit'] ?? 8);
                     $query->where('publish', 1);
                     $query->orderBy('order', 'DESC');
                 };

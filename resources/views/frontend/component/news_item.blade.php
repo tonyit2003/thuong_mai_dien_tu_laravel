@@ -5,7 +5,7 @@
     $description = $news->languages->first()->pivot->description;
 @endphp
 <div class="product-item-2 product">
-    <a href="{{ $canonical }}" class="image">
+    <a href="{{ $canonical }}" class="image img-scaledown img-zoomin">
         <img src="{{ $image }}" alt="{{ $name }}">
     </a>
     <div class="info">

@@ -125,15 +125,35 @@
                         @if (isset($category->products) && count($category->products))
                             <div class="panel-body">
                                 <div class="uk-grid uk-grid-medium">
+                                    @php
+                                        $countTotal = 0;
+                                    @endphp
                                     @foreach ($category->products as $product)
+                                        @php
+                                            $count = 0;
+                                        @endphp
                                         @foreach ($product->product_variants as $productVariant)
+                                            @php
+                                                $count++;
+                                                $countTotal++;
+                                            @endphp
                                             <div class="uk-width-large-1-5 mb20">
                                                 @include('frontend.component.product-item', [
                                                     'product' => $product,
                                                     'product_variant' => $productVariant,
                                                 ])
                                             </div>
+                                            @php
+                                                if ($count >= 2) {
+                                                    break;
+                                                }
+                                            @endphp
                                         @endforeach
+                                        @php
+                                            if ($countTotal >= 10) {
+                                                break;
+                                            }
+                                        @endphp
                                     @endforeach
                                 </div>
                             </div>

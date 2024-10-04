@@ -34,12 +34,14 @@ use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\RouterController;
 
 // @@use-controller@@
 
 /* FRONTEND ROUTES */
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
 
 /* BACKEND ROUTES */
 
