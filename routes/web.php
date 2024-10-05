@@ -23,6 +23,7 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\AttributeCatalogueController;
 use App\Http\Controllers\Backend\AttributeController;
+use App\Http\Controllers\Frontend\AuthClientController;
 use App\Http\Controllers\Backend\CustomerCatalogueController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\MenuController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\Frontend\RouterController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
+Route::get('/', [HomeController::class, 'index'])->name('home.index')->middleware(LoginMiddleware::class);
 
 /* BACKEND ROUTES */
 
@@ -320,7 +322,12 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::get('ajax/source/getAllSource', [AjaxSourceController::class, 'getAllSource'])->name('ajax.getAllSource');
 });
 
-// LOGIN - LOGOUT DASHBOARD
+// LOGIN - LOGOUT DASHBOARD (admin)
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
-Route::post('login', [AuthController::class, 'login'])->name('auth.login');
-Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::post('admin/login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('admin/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+// LOGIN CLIENT (client)
+Route::get('login', [AuthClientController::class, 'index'])->name('authClient.index');
+Route::post('login', [AuthClientController::class, 'login'])->name('authClient.login');
+Route::get('logout', [AuthClientController::class, 'logout'])->name('authClient.logout');
