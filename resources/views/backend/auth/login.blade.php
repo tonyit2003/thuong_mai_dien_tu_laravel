@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Tony Shop</title>
-
+    <title>TC Shop - Admin</title>
+    <link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
     <link href="backend/css/bootstrap.min.css" rel="stylesheet">
     <link href="backend/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="backend/css/animate.css" rel="stylesheet">
@@ -22,30 +22,22 @@
         <div class="row">
 
             <div class="col-md-6">
-                <h2 class="font-bold">Welcome to Tony Shop</h2>
-
+                <h2 class="font-bold">Welcome to TC Shop</h2>
                 <p>
-                    Chào mừng bạn đến với Tony Shop, nơi hội tụ những sản phẩm chất lượng và dịch vụ tuyệt vời!
+                    {{ __('info.mess_1') }}
                 </p>
-
                 <p>
-                    Những nỗ lực của bạn trong việc tuyển chọn sản phẩm và cung cấp dịch vụ tuyệt vời đã tạo nên một
-                    thương hiệu uy tín và đáng tin cậy.
+                    {{ __('info.mess_2') }}
                 </p>
-
                 <p>
-                    Cảm ơn bạn đã mang đến cho khách hàng một trải nghiệm mua sắm thật tuyệt vời.
+                    {{ __('info.mess_3') }}
                 </p>
-
                 <p>
-                    Chúc bạn và Tony Shop ngày càng phát triển và thành công hơn nữa!
+                    {{ __('info.mess_4') }}
                 </p>
-
                 <p>
-                    <small>Hãy để Tony Shop trở thành người bạn đồng hành đáng tin cậy của các khách hàng trong hành
-                        trình tìm kiếm phong cách riêng và sự tiện nghi trong cuộc sống!</small>
+                    {{ __('info.mess_5') }}
                 </p>
-
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
@@ -64,6 +56,7 @@
                         @csrf
 
                         <div class="form-group">
+                            <label for="">Email</label>
                             <input name="email" type="text" class="form-control" placeholder="Email"
                                 value="{{ old('email') ?? 'lehuutai090403@gmail.com' }}">
                             @if ($errors->has('email'))
@@ -72,20 +65,21 @@
                         </div>
 
                         <div class="form-group">
-                            <input name="password" type="password" class="form-control" placeholder="Mật khẩu" value="123456">
+                            <label for="">{{ __('info.password') }}</label>
+                            <input name="password" type="password" class="form-control" placeholder="{{ __('info.password') }}" value="123456">
                             @if ($errors->has('password'))
                                 <span class="error-message">* {{ $errors->first('password') }} </span>
                             @endif
                         </div>
 
-                        <button type="submit" class="btn btn-primary block full-width m-b">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary block full-width m-b">{{ __('info.login') }}</button>
 
                         <a href="#">
-                            <small>Quên mật khẩu?</small>
+                            <small>{{ __('info.forgot_password') }}</small>
                         </a>
                     </form>
                     <p class="m-t">
-                        <small>Bản quyền thuộc về Tony &copy; 2024</small>
+                        <strong>Copyright</strong> {{ $system['homepage_copyright'] }}&copy; 2024-2030
                     </p>
                 </div>
             </div>
@@ -93,7 +87,7 @@
         <hr />
         <div class="row">
             <div class="col-md-6">
-                Tony Shop
+                TC Shop
             </div>
             <div class="col-md-6 text-right">
                 <small>© 2024-2030</small>

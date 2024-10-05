@@ -23,38 +23,38 @@
                 <div class="logo">
                     <a class="brand-logo" href="index.html"><strong>TC - SHOP</strong></a>
                 </div>
-                <div class="form-section">
-                    <h3>Đăng ký tài khoản</h3>
-                    <h6>Để tiếp tục với hệ thống</h6>
+                <div class="form-section" style="max-width: 500px">
+                    <h3>{{ __('info.register') }}</h3>
+                    <h6>{{ __('info.notify') }}</h6>
                     <form action="{{ route('authClient.signup') }}" method="post" class="signin-form">
                         @csrf
-                        <label for="">Họ tên</label>
+                        <label for="">{{ __('info.name') }}</label>
                         <div class="form-input">
-                            <input type="text" name="name" placeholder="Họ tên" autofocus value="{{ old('name') }}">
+                            <input type="text" name="name" placeholder="{{ __('info.name') }}" autofocus value="{{ old('name') }}">
                         </div>
                         <label for="">Email</label>
                         <div class="form-input">
                             <input type="email" name="email" placeholder="Email" autofocus value="{{ old('email') }}">
                         </div>
-                        <label for="">Mật khẩu</label>
+                        <label for="">{{ __('info.password') }}</label>
                         <div class="form-input">
-                            <input type="password" name="password" placeholder="Mật khẩu">
+                            <input type="password" name="password" placeholder="{{ __('info.password') }}">
                         </div>
-                        <label for="">Nhập lại mật khẩu</label>
+                        <label for="">{{ __('info.re_password') }}</label>
                         <div class="form-input">
-                            <input type="password" name="re_password" placeholder="Nhập lại mật khẩu">
+                            <input type="password" name="re_password" placeholder="{{ __('info.re_password') }}">
                         </div>
                         <label class="check-remaind">
                             <input type="checkbox">
                             <span class="checkmark"></span>
-                            <p class="remember">Lưu lại</p>
+                            <p class="remember">{{ __('info.OK') }}</p>
                         </label>
                         <button type="submit" class="btn btn-primary theme-button mt-4">{{ __('info.register') }}</button>
                         <div class="new-signup">
-                            <a href="#reload" class="signuplink">Quên mật khẩu?</a>
+                            <a href="#reload" class="signuplink">{{ __('info.forgot_password') }}</a>
                         </div>
                     </form>
-                    <p class="signup">Bạn đã có tài khoản?
+                    <p class="signup">{{ __('info.question_yes') }}
                         <a href="{{ route('authClient.login') }}" class="signuplink">
                             {{ __('info.login') }}
                         </a>
