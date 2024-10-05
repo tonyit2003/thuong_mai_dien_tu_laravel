@@ -41,10 +41,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             // )
             if (isset($condition['keyword']) && !empty($condition['keyword'])) {
                 $query->where(function ($query) use ($condition) {
-                    $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('email', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('address', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('phone', 'LIKE', '%' . $condition['keyword'] . '%');
+                    $query->where('users.name', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('users.email', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('users.address', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('users.phone', 'LIKE', '%' . $condition['keyword'] . '%');
                 });
             }
             // with: lấy các bản ghi từ bảng user_catalogues (tải trước dữ liệu => lấy dữ liệu nhanh hơn)
@@ -69,7 +69,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         // kết các bảng lại với nhau
         if (isset($join) && is_array($join) && count($join)) {
             foreach ($join as $key => $val) {
-                $query->join($val[0], $val[1], $val[2], $val[3]);
+                $query->leftJoin($val[0], $val[1], $val[2], $val[3]);
             }
         }
 

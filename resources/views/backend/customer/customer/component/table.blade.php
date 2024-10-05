@@ -47,10 +47,26 @@
                         {{ $customer->phone }}
                     </td>
                     <td>
-                        {{ $customer->address }},
-                        {{ optional($customer->ward)->full_name }},
-                        {{ optional($customer->district)->full_name }},
-                        {{ optional($customer->province)->full_name }}
+                        @php
+                            $addressParts = [];
+
+                            if (!empty($customer->address)) {
+                                $addressParts[] = $customer->address;
+                            }
+                            if (!empty(optional($customer->ward)->full_name)) {
+                                $addressParts[] = optional($customer->ward)->full_name;
+                            }
+                            if (!empty(optional($customer->district)->full_name)) {
+                                $addressParts[] = optional($customer->district)->full_name;
+                            }
+                            if (!empty(optional($customer->province)->full_name)) {
+                                $addressParts[] = optional($customer->province)->full_name;
+                            }
+                        @endphp
+
+                        @if (!empty($addressParts))
+                            {{ implode(', ', $addressParts) }}
+                        @endif
                     </td>
                     <td class="text-center">
                         {{ $customer->customer_catalogues->name }}

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\CustomerRepository;
+use App\Repositories\SourceRepository;
 use App\Services\Interfaces\CustomerServiceInterface;
 use Carbon\Carbon;
 use Exception;
@@ -16,10 +17,12 @@ use Illuminate\Support\Facades\Hash;
 class CustomerService extends BaseService implements CustomerServiceInterface
 {
     protected $customerRepository;
+    protected $sourceRepository;
 
-    public function __construct(CustomerRepository $customerRepository)
+    public function __construct(CustomerRepository $customerRepository, SourceRepository $sourceRepository)
     {
         $this->customerRepository = $customerRepository;
+        $this->sourceRepository = $sourceRepository;
     }
 
     public function paginate($request)
@@ -29,12 +32,30 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         $condition['source_id'] = $request->input('source_id') != null ? $request->input('source_id') : 0;
         $condition['publish'] = $request->input('publish') != null ? $request->integer('publish') : -1;
         $join = [
-            ['provinces', 'provinces.code', '=', 'customers.province_id'], // Join với bảng provinces
-            ['districts', 'districts.code', '=', 'customers.district_id'], // Join với bảng districts
-            ['wards', 'wards.code', '=', 'customers.ward_id'] // Join với bảng wards
+            ['provinces', 'provinces.code', '=', 'customers.province_id'], // Left join với bảng provinces
+            ['districts', 'districts.code', '=', 'customers.district_id'], // Left join với bảng districts
+            ['wards', 'wards.code', '=', 'customers.ward_id'] // Left join với bảng wards
         ];
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         return $this->customerRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'customer/index']);
+    }
+
+    public function signup($request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->except('_token', 'send', 're_password'); // lấy tất cả nhưng ngoại trừ... => trả về dạng mảng
+            $payload['password'] = Hash::make($payload['password']);
+            $source = $this->sourceRepository->findByCondition([['keyword', '=', 'website']]);
+            $payload['source_id'] = $source->id;
+            $payload['customer_catalogue_id'] = 1;
+            $this->customerRepository->create($payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 
     public function create($request)

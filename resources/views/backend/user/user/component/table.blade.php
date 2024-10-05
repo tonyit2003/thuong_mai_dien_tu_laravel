@@ -44,10 +44,26 @@
                         {{ $user->phone }}
                     </td>
                     <td>
-                        {{ $user->address }},
-                        {{ optional($user->ward)->full_name }},
-                        {{ optional($user->district)->full_name }},
-                        {{ optional($user->province)->full_name }}
+                        @php
+                            $addressParts = [];
+
+                            if (!empty($user->address)) {
+                                $addressParts[] = $user->address;
+                            }
+                            if (!empty(optional($user->ward)->full_name)) {
+                                $addressParts[] = optional($user->ward)->full_name;
+                            }
+                            if (!empty(optional($user->district)->full_name)) {
+                                $addressParts[] = optional($user->district)->full_name;
+                            }
+                            if (!empty(optional($user->province)->full_name)) {
+                                $addressParts[] = optional($user->province)->full_name;
+                            }
+                        @endphp
+
+                        @if (!empty($addressParts))
+                            {{ implode(', ', $addressParts) }}
+                        @endif
                     </td>
                     <td class="text-center">
                         {{ $user->user_catalogues->name }}

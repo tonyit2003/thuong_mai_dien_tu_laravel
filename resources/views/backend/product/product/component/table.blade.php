@@ -32,10 +32,17 @@
                                 <div class="catalogue">
                                     <span class="text-danger">{{ __('table.display_group') }}: </span>
                                     @foreach ($product->product_catalogues as $val)
-                                        @foreach ($val->product_catalogue_language as $cat)
+                                        @foreach ($val->product_catalogue_language->where('language_id', $languageId) as $cat)
                                             <a href="{{ route('product.index', ['product_catalogue_id' => $val->id]) }}">{{ $cat->name }}</a>
+                                            @if (!$loop->last)
+                                                |
+                                            @endif
                                         @endforeach
+                                        @if (!$loop->last)
+                                            |
+                                        @endif
                                     @endforeach
+
                                 </div>
                             </div>
                         </div>

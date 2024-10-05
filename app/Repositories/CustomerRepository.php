@@ -36,10 +36,10 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
 
             if (isset($condition['keyword']) && !empty($condition['keyword'])) {
                 $query->where(function ($query) use ($condition) {
-                    $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('email', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('address', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('phone', 'LIKE', '%' . $condition['keyword'] . '%');
+                    $query->where('customers.name', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('customers.email', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('customers.address', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('customers.phone', 'LIKE', '%' . $condition['keyword'] . '%');
                 });
             }
         })->with(['customer_catalogues', 'sources']);
@@ -59,7 +59,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
 
         if (isset($join) && is_array($join) && count($join)) {
             foreach ($join as $key => $val) {
-                $query->join($val[0], $val[1], $val[2], $val[3]);
+                $query->leftJoin($val[0], $val[1], $val[2], $val[3]);
             }
         }
 

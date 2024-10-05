@@ -3,6 +3,8 @@
 return [
     'account'           => 'Tài khoản',
     'info'              => 'Thông tin cá nhân',
-    'setting_account'   => 'Cài đặt tài khoản',
-    'logout'            => 'Đăng xuất'
+    'order'             => 'Xem đơn hàng',
+    'logout'            => 'Đăng xuất',
+    'login'             => 'Đăng nhập',
+    'register'          => 'Đăng ký',
 ];

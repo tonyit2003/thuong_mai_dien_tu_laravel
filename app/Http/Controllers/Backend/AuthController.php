@@ -33,7 +33,6 @@ class AuthController extends Controller
         return redirect()->route('auth.admin');
     }
 
-
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();

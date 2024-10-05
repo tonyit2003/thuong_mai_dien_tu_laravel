@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Frontend\AuthClientController;
 use App\Http\ViewComposers\LanguageComposer;
 use App\Http\ViewComposers\MenuComposer;
 use App\Http\ViewComposers\SystemComposer;

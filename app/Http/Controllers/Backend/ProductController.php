@@ -52,10 +52,11 @@ class ProductController extends Controller
             ],
             'model' => 'Product'
         ];
+        $languageId = $this->language;
         $config['seo'] = __('product');
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.product.product.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'products', 'dropdown'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'products', 'dropdown', 'languageId'));
     }
 
     public function create()

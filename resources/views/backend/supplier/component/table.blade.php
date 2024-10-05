@@ -32,10 +32,26 @@
                     <td>{{ $supplier->email }}</td>
                     <td>{{ $supplier->phone }}</td>
                     <td>
-                        {{ $supplier->address }},
-                        {{ optional($supplier->ward)->full_name }},
-                        {{ optional($supplier->district)->full_name }},
-                        {{ optional($supplier->province)->full_name }}
+                        @php
+                            $addressParts = [];
+
+                            if (!empty($supplier->address)) {
+                                $addressParts[] = $supplier->address;
+                            }
+                            if (!empty(optional($supplier->ward)->full_name)) {
+                                $addressParts[] = optional($supplier->ward)->full_name;
+                            }
+                            if (!empty(optional($supplier->district)->full_name)) {
+                                $addressParts[] = optional($supplier->district)->full_name;
+                            }
+                            if (!empty(optional($supplier->province)->full_name)) {
+                                $addressParts[] = optional($supplier->province)->full_name;
+                            }
+                        @endphp
+
+                        @if (!empty($addressParts))
+                            {{ implode(', ', $addressParts) }}
+                        @endif
                     </td>
                     <td class="text-center">{{ $supplier->fax }}</td>
                     <td>{{ $productTypes ?? __('No Product Types') }}</td>

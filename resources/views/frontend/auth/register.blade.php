@@ -2,7 +2,7 @@
 <html lang="zxx">
 
 <head>
-    <title>Đăng nhập</title>
+    <title>{{ __('info.register') }}</title>
 
     <!-- Meta tags -->
     <link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
@@ -10,10 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- Style -->
-    <link rel="stylesheet" href="frontend/auth/css/style.css" type="text/css" media="all" />
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="frontend/auth/css/style.css" type="text/css" media="all" />
 </head>
 
 <body>
@@ -25,32 +24,39 @@
                     <a class="brand-logo" href="index.html"><strong>TC - SHOP</strong></a>
                 </div>
                 <div class="form-section">
-                    <h3>Đăng nhập</h3>
+                    <h3>Đăng ký tài khoản</h3>
                     <h6>Để tiếp tục với hệ thống</h6>
-                    <form action="{{ route('authClient.login') }}" method="post" class="signin-form">
+                    <form action="{{ route('authClient.signup') }}" method="post" class="signin-form">
                         @csrf
-                        <label for="email">Email</label>
+                        <label for="">Họ tên</label>
                         <div class="form-input">
-                            <input type="email" id="email" name="email" placeholder="Email" autofocus
-                                value="{{ old('email', 'caotancong2003@gmail.com') }}">
+                            <input type="text" name="name" placeholder="Họ tên" autofocus value="{{ old('name') }}">
                         </div>
-                        <label for="password">Mật khẩu</label>
+                        <label for="">Email</label>
                         <div class="form-input">
-                            <input type="password" id="password" name="password" placeholder="Mật khẩu" value="123456">
+                            <input type="email" name="email" placeholder="Email" autofocus value="{{ old('email') }}">
+                        </div>
+                        <label for="">Mật khẩu</label>
+                        <div class="form-input">
+                            <input type="password" name="password" placeholder="Mật khẩu">
+                        </div>
+                        <label for="">Nhập lại mật khẩu</label>
+                        <div class="form-input">
+                            <input type="password" name="re_password" placeholder="Nhập lại mật khẩu">
                         </div>
                         <label class="check-remaind">
-                            <input type="checkbox" id="remember">
+                            <input type="checkbox">
                             <span class="checkmark"></span>
                             <p class="remember">Lưu lại</p>
                         </label>
-                        <button type="submit" class="btn btn-primary theme-button mt-4">{{ __('info.login') }}</button>
+                        <button type="submit" class="btn btn-primary theme-button mt-4">{{ __('info.register') }}</button>
                         <div class="new-signup">
                             <a href="#reload" class="signuplink">Quên mật khẩu?</a>
                         </div>
                     </form>
-                    <p class="signup">Bạn chưa có tài khoản?
-                        <a href="{{ route('authClient.register') }}" class="signuplink">
-                            {{ __('info.register') }}
+                    <p class="signup">Bạn đã có tài khoản?
+                        <a href="{{ route('authClient.login') }}" class="signuplink">
+                            {{ __('info.login') }}
                         </a>
                     </p>
                 </div>
@@ -71,8 +77,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <!-- Toast Notifications -->
     <script>
         toastr.options = {
             "closeButton": true,
@@ -99,7 +103,6 @@
             @endforeach
         @endif
     </script>
-    <!-- /login form -->
 </body>
 
 </html>
