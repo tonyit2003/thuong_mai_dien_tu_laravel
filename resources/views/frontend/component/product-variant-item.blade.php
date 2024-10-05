@@ -1,16 +1,10 @@
 @php
-    $name = $product->languages->first()->pivot->name . ' ' . $productVariant->languages->first()->pivot->name;
-    $canonical = write_url($product->languages->first()->pivot->canonical, true, true);
+    $name = $productVariant->product_name . ' ' . $productVariant->name;
+    $canonical = write_url($productVariant->product_canonical, true, true);
     $image = image(explode(',', $productVariant->album)[0]);
     $price = getPrice($productVariant);
-    $catName = '';
-    foreach ($product->product_catalogues->toArray() as $key => $val) {
-        if ($val['id'] == $product->product_catalogue_id) {
-            $catName = $val['languages'][0]['pivot']['name'];
-            break;
-        }
-    }
-    $review = getReview($product);
+    $catName = $productVariant->product_catalogue->languages->first()->pivot->name;
+    $review = getReview($productVariant);
 @endphp
 <div class="product-item product">
     @if ($price['percent'] !== 0)

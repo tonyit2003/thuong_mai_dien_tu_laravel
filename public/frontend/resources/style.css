@@ -1695,7 +1695,7 @@ a.ui-button:active,
     position: relative;
 }
 .page-breadcrumb li > * {
-    color: var(--primary-color);
+    color: #fff;
     font-weight: 600;
 }
 .page-breadcrumb li > *:hover {

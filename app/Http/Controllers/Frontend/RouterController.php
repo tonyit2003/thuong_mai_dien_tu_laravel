@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
 use App\Repositories\RouterRepository;
+use Illuminate\Http\Request;
 
 class RouterController extends FrontendController
 {
@@ -15,7 +16,7 @@ class RouterController extends FrontendController
         $this->routerRepository = $routerRepository;
     }
 
-    public function index($canonical = '')
+    public function index($canonical = '', Request $request)
     {
         $router = $this->routerRepository->findByCondition(
             [
@@ -27,7 +28,7 @@ class RouterController extends FrontendController
             $method = 'index';
             // app(): lấy một đối tượng của một lớp cụ thể
             // đoạn lệnh sau sẽ trả về 1 đoạn html và dùng echo để in nó ra
-            echo app($router->controllers)->{$method}($router->module_id, $this->language);
+            echo app($router->controllers)->{$method}($router->module_id, $request);
         }
     }
 }

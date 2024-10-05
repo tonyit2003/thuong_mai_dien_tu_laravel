@@ -19,13 +19,15 @@ class WidgetService extends BaseService implements WidgetServiceInterface
     protected $widgetRepository;
     protected $promotionRepository;
     protected $productService;
+    protected $productVariantService;
     protected $productCatalogueRepository;
 
-    public function __construct(WidgetRepository $widgetRepository, PromotionRepository $promotionRepository, ProductService $productService, ProductCatalogueRepository $productCatalogueRepository)
+    public function __construct(WidgetRepository $widgetRepository, PromotionRepository $promotionRepository, ProductService $productService, ProductCatalogueRepository $productCatalogueRepository, ProductVariantService $productVariantService)
     {
         $this->widgetRepository = $widgetRepository;
         $this->promotionRepository = $promotionRepository;
         $this->productService = $productService;
+        $this->productVariantService = $productVariantService;
         $this->productCatalogueRepository = $productCatalogueRepository;
     }
 
@@ -59,6 +61,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                 $model = lcfirst(str_replace('Catalogue', '', $valWidget->model));
                 $replace = $model . 's';
                 $service = $model . 'Service';
+                $serviceVariant = $model . 'VariantService';
                 if (count($object) && strpos($valWidget->model, 'Catalogue')) {
                     foreach ($object as $keyObject => $valObject) {
                         // lấy các đối tượng con của của danh mục cha
@@ -86,7 +89,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                             $valObject->{$replace} = $this->{$service}->combineProductAndPromotion($productIds, $valObject->{$replace});
                             foreach ($valObject->{$replace} as $keyProduct => $valProduct) {
                                 $productVariantIds = $valProduct->product_variants->pluck('id')->toArray();
-                                $valProduct->product_variants = $this->{$service}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
+                                $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
                             }
                         }
                         $widgets[$keyWidget]->object = $object;
@@ -97,7 +100,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                         $object = $this->{$service}->combineProductAndPromotion($productIds, $object);
                         foreach ($object as $keyProduct => $valProduct) {
                             $productVariantIds = $valProduct->product_variants->pluck('id')->toArray();
-                            $valProduct->product_variants = $this->{$service}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
+                            $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
                         }
                     }
                     $widgets[$keyWidget]->object = $object;
