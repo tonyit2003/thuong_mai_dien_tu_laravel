@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function __construct() {}
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function index()
     {
-        return view('backend.auth.login');
+        $system = $this->system;
+        return view('backend.auth.login', compact('system'));
     }
 
     public function login(AuthRequest $authRequest)
