@@ -34,8 +34,9 @@
         'https://unpkg.com/swiper/swiper-bundle.min.css',
         'frontend/resources/library/css/library.css',
         'frontend/resources/plugins/wow/css/libs/animate.css',
+        // 'frontend/resources/library/js/jquery.js',
+        'frontend/core/plugins/jquery-nice-select-1.1.0/css/nice-select.css',
         'frontend/resources/style.css',
-        'frontend/resources/library/js/jquery.js',
     ];
 @endphp
 @foreach ($coreCss as $item)

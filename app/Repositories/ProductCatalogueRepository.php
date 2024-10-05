@@ -24,6 +24,8 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
         return $this->model->select([
             'product_catalogues.id',
             'product_catalogues.parent_id',
+            'product_catalogues.lft',
+            'product_catalogues.rgt',
             'product_catalogues.image',
             'product_catalogues.icon',
             'product_catalogues.album',

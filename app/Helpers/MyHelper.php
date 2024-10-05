@@ -452,3 +452,16 @@ if (!function_exists('cutnchar')) {
         return $html . '...';
     }
 }
+
+if (!function_exists('seo')) {
+    function seo($model = null)
+    {
+        return [
+            'meta_title' => isset($model->meta_title) ? $model->meta_title : $model->name,
+            'meta_keyword' => isset($model->meta_keyword) ? $model->meta_keyword : '',
+            'meta_description' => isset($model->meta_description) ? $model->meta_description : cut_string_and_decode($model->description, 168),
+            'meta_image' => $model->image,
+            'canonical' => write_url($model->canonical, true, true),
+        ];
+    }
+}
