@@ -20,20 +20,20 @@ class ProductCatalogueController extends FrontendController
         $this->productVariantService = $productVariantService;
     }
 
-    public function index($id, $request)
+    public function index($id, $request, $page = 1)
     {
         $config = $this->config();
         $language = $this->language;
         $system = $this->system;
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($id, $language);
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $language);
-        $productVariants = $this->productVariantService->paginate($request, $language, $productCatalogue, ['path' => $productCatalogue->canonical . config('apps.general.suffix')]);
+        $productVariants = $this->productVariantService->paginate($request, $language, $productCatalogue, ['path' => $productCatalogue->canonical], $page);
         $productVariantIds = $productVariants->pluck('id')->toArray();
         if (count($productVariantIds) && isset($productVariantIds)) {
             $productVariants = $this->productVariantService->combineProductVariantAndPromotion($productVariantIds, $productVariants);
         }
         $this->productVariantService->getCatalogueName($productVariants, $this->language);
-        $seo = seo($productCatalogue);
+        $seo = seo($productCatalogue, $page);
         return view('frontend.product.catalogue.index', compact('config', 'language', 'seo', 'system', 'productCatalogue', 'breadcrumb', 'productVariants'));
     }
 

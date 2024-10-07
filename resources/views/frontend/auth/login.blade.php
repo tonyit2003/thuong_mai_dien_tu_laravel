@@ -22,7 +22,8 @@
         <div class="overlay">
             <div class="wrapper">
                 <div class="logo">
-                    <a class="brand-logo" href="index.html"><strong>{{ $system['homepage_brand'] }}</strong></a>
+                    <a class="brand-logo"
+                        href="{{ config('app.url') }}"><strong>{{ $system['homepage_brand'] }}</strong></a>
                 </div>
                 <div class="form-section">
                     <h3>{{ __('info.login') }}</h3>
@@ -43,7 +44,8 @@
                             <span class="checkmark"></span>
                             <p class="remember">{{ __('info.save_acc') }}</p>
                         </label>
-                        <button type="submit" class="btn btn-primary theme-button mt-4">{{ __('info.login') }}</button>
+                        <button type="submit"
+                            class="btn btn-primary theme-button mt-4">{{ __('info.login') }}</button>
                         <div class="new-signup">
                             <a href="#reload" class="signuplink">{{ __('info.forgot_password') }}</a>
                         </div>

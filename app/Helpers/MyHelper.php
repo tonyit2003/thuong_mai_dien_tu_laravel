@@ -454,14 +454,15 @@ if (!function_exists('cutnchar')) {
 }
 
 if (!function_exists('seo')) {
-    function seo($model = null)
+    function seo($model = null, $page = 1)
     {
+        $canonical = $page > 1 ? write_url($model->canonical, true, false) . '/page-' . $page . config('apps.general.suffix') : write_url($model->canonical, true, true);
         return [
             'meta_title' => isset($model->meta_title) ? $model->meta_title : $model->name,
             'meta_keyword' => isset($model->meta_keyword) ? $model->meta_keyword : '',
             'meta_description' => isset($model->meta_description) ? $model->meta_description : cut_string_and_decode($model->description, 168),
             'meta_image' => $model->image,
-            'canonical' => write_url($model->canonical, true, true),
+            'canonical' => $canonical,
         ];
     }
 }
