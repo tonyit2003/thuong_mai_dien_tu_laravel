@@ -22,7 +22,7 @@
         <div class="overlay">
             <div class="wrapper">
                 <div class="logo">
-                    <a class="brand-logo" href="index.html"><strong>TC - SHOP</strong></a>
+                    <a class="brand-logo" href="/"><strong>T&C - SHOP</strong></a>
                 </div>
                 <div class="form-section">
                     <h3>Đăng nhập</h3>

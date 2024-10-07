@@ -6,6 +6,7 @@ use App\Repositories\ProductCatalogueRepository;
 use App\Repositories\ProductVariantRepository;
 use App\Repositories\PromotionRepository;
 use App\Services\Interfaces\ProductVariantServiceInterface;
+use Illuminate\Pagination\Paginator;
 
 /**
  * Class ProductCatalogueService
@@ -24,8 +25,13 @@ class ProductVariantService extends BaseService implements ProductVariantService
         $this->productCatalogueRepository = $productCatalogueRepository;
     }
 
-    public function paginate($request, $languageId, $productCatalogue = null, $extend = [])
+    public function paginate($request, $languageId, $productCatalogue = null, $extend = [], $page = 1)
     {
+        if (isset($productCatalogue)) {
+            Paginator::currentPageResolver(function () use ($page) {
+                return $page;
+            });
+        }
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
@@ -48,7 +54,8 @@ class ProductVariantService extends BaseService implements ProductVariantService
             'path' => isset($extend['path']) ? $extend['path'] : '',
         ];
         $relations = ['products'];
-        return $this->productVariantRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $paginationConfig, $relations, $orderBy, $this->whereRaw($request, $languageId, $productCatalogue));
+        $productVariants = $this->productVariantRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $paginationConfig, $relations, $orderBy, $this->whereRaw($request, $languageId, $productCatalogue));
+        return $productVariants;
     }
 
     public function combineProductVariantAndPromotion($productVariantIds, $productVariants)

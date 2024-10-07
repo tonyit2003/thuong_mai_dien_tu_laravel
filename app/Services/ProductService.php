@@ -35,7 +35,7 @@ class ProductService extends BaseService implements ProductServiceInterface
         parent::__construct($routerRepository);
     }
 
-    public function paginate($request, $languageId, $productCatalogue = null, $extend = [])
+    public function paginate($request, $languageId)
     {
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         $condition = [
@@ -54,12 +54,12 @@ class ProductService extends BaseService implements ProductServiceInterface
             'products.id',
             'DESC'
         ];
-        $paginationConfig = [
-            'path' => isset($extend['path']) ? $extend['path'] : 'product/index',
+        $extend = [
+            'path' => 'product/index',
             'groupBy' => $this->paginateSelect()
         ];
         $relations = ['product_catalogues'];
-        return $this->productRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $paginationConfig, $relations, $orderBy, $this->whereRaw($request, $languageId, $productCatalogue));
+        return $this->productRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, $relations, $orderBy, $this->whereRaw($request, $languageId));
     }
 
     public function paginateProduct($request, $languageId)
@@ -334,12 +334,11 @@ class ProductService extends BaseService implements ProductServiceInterface
         return array_unique(array_merge(($request->input('catalogue') != null && is_array($request->input('catalogue'))) ? $request->input('catalogue') : [], [$request->product_catalogue_id]));
     }
 
-    private function whereRaw($request, $languageId, $productCatalogue = null)
+    private function whereRaw($request, $languageId)
     {
         $rawCondition = [];
         $productCatalogueId = $request->input('product_catalogue_id') != null ? $request->integer('product_catalogue_id') : 0;
-        if ($productCatalogueId > 0 || isset($productCatalogue)) {
-            $catId = ($productCatalogueId > 0 && $productCatalogue == null) ? $productCatalogueId : $productCatalogue->id;
+        if ($productCatalogueId > 0) {
             $rawCondition['whereRaw'] = [
                 [
                     'product_catalogue_product.product_catalogue_id IN (
@@ -350,7 +349,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                         AND rgt <= (SELECT rgt FROM product_catalogues WHERE product_catalogues.id = ?)
                         AND product_catalogue_language.language_id = ?
                     )',
-                    [$catId, $catId, $languageId]
+                    [$productCatalogueId, $productCatalogueId, $languageId]
                 ]
             ];
         }

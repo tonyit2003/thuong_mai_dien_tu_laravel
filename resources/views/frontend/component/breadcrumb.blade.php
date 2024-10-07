@@ -9,7 +9,7 @@
     </h1>
     <ul class="uk-list uk-clearfix">
         <li>
-            <a href="/">
+            <a href="{{ config('app.url') }}">
                 <i class="fi-rs-home mr5"></i>
                 {{ __('userPage.home_page') }}
             </a>

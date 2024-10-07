@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="uk-flex uk-flex-center">
-                        {{ $productVariants->links('pagination::bootstrap-4') }}
+                        @include('frontend.component.pagination', ['model' => $productVariants])
                     </div>
                 @endif
             </div>

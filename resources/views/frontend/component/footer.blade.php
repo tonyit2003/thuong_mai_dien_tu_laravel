@@ -4,8 +4,8 @@
             <div class="uk-grid uk-grid-medium">
                 <div class="uk-width-large-1-5">
                     <div class="footer-contact">
-                        <a href="" class="image img-scaledown"><img src="{{ $system['homepage_logo'] }}"
-                                alt=""></a>
+                        <a href="{{ config('app.url') }}" class="image img-scaledown"><img
+                                src="{{ $system['homepage_logo'] }}" alt=""></a>
                         <div class="footer-slogan">Slogan: {{ $system['homepage_slogan'] }}</div>
                         <div class="company-address">
                             <div class="address">{{ __('configuration.address') }}: {{ $system['contact_address'] }}

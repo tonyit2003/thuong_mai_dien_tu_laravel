@@ -8,5 +8,5 @@ namespace App\Services\Interfaces;
  */
 interface ProductVariantServiceInterface
 {
-    public function paginate($request, $languageId, $productCatalogue = null, $extend = []);
+    public function paginate($request, $languageId, $productCatalogue = null, $extend = [], $page = 1);
 }

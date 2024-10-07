@@ -21,7 +21,7 @@
         <div class="overlay">
             <div class="wrapper">
                 <div class="logo">
-                    <a class="brand-logo" href="index.html"><strong>TC - SHOP</strong></a>
+                    <a class="brand-logo" href="/"><strong>T&C - SHOP</strong></a>
                 </div>
                 <div class="form-section">
                     <h3>Đăng ký tài khoản</h3>
@@ -30,11 +30,13 @@
                         @csrf
                         <label for="">Họ tên</label>
                         <div class="form-input">
-                            <input type="text" name="name" placeholder="Họ tên" autofocus value="{{ old('name') }}">
+                            <input type="text" name="name" placeholder="Họ tên" autofocus
+                                value="{{ old('name') }}">
                         </div>
                         <label for="">Email</label>
                         <div class="form-input">
-                            <input type="email" name="email" placeholder="Email" autofocus value="{{ old('email') }}">
+                            <input type="email" name="email" placeholder="Email" autofocus
+                                value="{{ old('email') }}">
                         </div>
                         <label for="">Mật khẩu</label>
                         <div class="form-input">
@@ -49,7 +51,8 @@
                             <span class="checkmark"></span>
                             <p class="remember">Lưu lại</p>
                         </label>
-                        <button type="submit" class="btn btn-primary theme-button mt-4">{{ __('info.register') }}</button>
+                        <button type="submit"
+                            class="btn btn-primary theme-button mt-4">{{ __('info.register') }}</button>
                         <div class="new-signup">
                             <a href="#reload" class="signuplink">Quên mật khẩu?</a>
                         </div>
