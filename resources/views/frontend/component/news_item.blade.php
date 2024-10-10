@@ -14,7 +14,7 @@
                 <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
             </h3>
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                <div class="description-news uk-flex uk-flex-bottom">
+                <div class="description-news uk-flex uk-flex-bottom" style="text-align: left; color:#000">
                     {!! $description !!}
                 </div>
             </div>

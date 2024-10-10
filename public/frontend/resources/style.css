@@ -1131,6 +1131,10 @@ ul {
     display: none;
 }
 
+.swiper-button-prev-post:after,
+.swiper-button-next-post:after {
+    display: none;
+}
 /* MOBILE HEADER */
 .mobile-banner {
     padding: 5px;
@@ -1376,6 +1380,17 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover,
     right: 20px;
 }
 .product-detail .product-gallery .swiper-container .swiper-button-prev {
+    left: 20px;
+}
+
+.product-detail .product-gallery .swiper-container .swiper-button-next-post,
+.product-detail .product-gallery .swiper-container .swiper-button-prev-post {
+    top: 50%;
+}
+.product-detail .product-gallery .swiper-container .swiper-button-next-post {
+    right: 20px;
+}
+.product-detail .product-gallery .swiper-container .swiper-button-prev-post {
     left: 20px;
 }
 .product-detail .product-gallery .swiper-container .swiper-slide .image {
@@ -2327,6 +2342,15 @@ a.ui-button:active,
     top: 50%;
     left: 10px;
 }
+
+.panel-slide .swiper-button-prev-post {
+    top: 50%;
+    left: 10px;
+}
+.panel-slide .swiper-button-prev-post {
+    top: 50%;
+    left: 10px;
+}
 .panel-slide .image {
     height: 533px;
 }
@@ -2537,6 +2561,80 @@ a.ui-button:active,
     background-color: var(--primary-color);
 }
 
+/* Đảm bảo rằng .swiper-container có position: relative để định vị các nút */
+.panel-deal .swiper-container {
+    position: relative;
+}
+
+/* Đặt vị trí của các nút điều hướng */
+.panel-deal .swiper-button-next-post,
+.panel-deal .swiper-button-prev-post {
+    position: absolute;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    background-color: #f2f3f4;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    z-index: 10;
+    background-position: center;
+    transition: all 0.5s ease;
+}
+
+/* Nút điều hướng bên phải */
+.panel-deal .swiper-button-next-post {
+    right: 10px; /* Đặt nút sát bên phải */
+    background-image: url("img/arrow.png"); /* Cập nhật với đường dẫn hình ảnh của bạn */
+}
+
+/* Nút điều hướng bên trái */
+.panel-deal .swiper-button-prev-post {
+    left: 10px; /* Đặt nút sát bên trái */
+    background-image: url("img/arrow.png"); /* Cập nhật với đường dẫn hình ảnh của bạn */
+    transform: rotate(180deg);
+}
+
+/* Hiệu ứng khi hover */
+.panel-deal .swiper-button-next-post:hover,
+.panel-deal .swiper-button-prev-post:hover {
+    background-color: var(--primary-color); /* Màu khi hover, có thể thay đổi */
+}
+
+/* Đảm bảo rằng các nút sẽ nằm đúng vị trí khi màn hình thay đổi kích thước */
+@media (max-width: 768px) {
+    .panel-deal .swiper-button-next-post,
+    .panel-deal .swiper-button-prev-post {
+        width: 30px;
+        height: 30px;
+    }
+
+    .panel-deal .swiper-button-next-post {
+        right: 5px;
+    }
+
+    .panel-deal .swiper-button-prev-post {
+        left: 5px;
+    }
+}
+
+/* Mặc định của nút điều hướng */
+.swiper-button-prev-post,
+.swiper-button-next-post {
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: opacity 0.3s ease, cursor 0.3s ease;
+}
+
+/* Khi nút điều hướng bị vô hiệu hóa (ẩn đi) */
+.swiper-button-prev-post.disabled,
+.swiper-button-next-post.disabled {
+    opacity: 0.35;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
 @media (max-width: 768px) {
     .category-children {
         display: none;
@@ -2725,6 +2823,15 @@ a.ui-button:active,
     right: initial;
 }
 .panel-bestseller .swiper-button-next {
+    left: 50px;
+    right: initial;
+}
+
+.panel-bestseller .swiper-button-prev-post {
+    left: 0;
+    right: initial;
+}
+.panel-bestseller .swiper-button-next-post {
     left: 50px;
     right: initial;
 }

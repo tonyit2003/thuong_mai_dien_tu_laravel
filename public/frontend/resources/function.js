@@ -65,8 +65,9 @@
         });
     };
 
+    // Bestseller Swiper
     HT.swiperBestSeller = () => {
-        var swiper = new Swiper(".panel-bestseller .swiper-container", {
+        var swiper = new Swiper(".bestseller-container", {
             loop: false,
             pagination: {
                 el: ".swiper-pagination",
@@ -88,10 +89,72 @@
                 },
             },
             navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
+                nextEl: ".bestseller-next",
+                prevEl: ".bestseller-prev",
             },
         });
+    };
+
+    HT.swiperFeaturedNews = () => {
+        var swiper = new Swiper(".deal-container", {
+            loop: false,
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            spaceBetween: 20,
+            slidesPerView: 2,
+            breakpoints: {
+                415: {
+                    slidesPerView: 1,
+                },
+                500: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 3,
+                },
+                1280: {
+                    slidesPerView: 4,
+                },
+            },
+            navigation: {
+                nextEl: ".swiper-button-next-post",
+                prevEl: ".swiper-button-prev-post",
+            },
+            on: {
+                init: function () {
+                    const swiper = this;
+                    checkNavigationState(swiper);
+                },
+                slideChange: function () {
+                    const swiper = this;
+                    checkNavigationState(swiper);
+                },
+            },
+        });
+
+        function checkNavigationState(swiper) {
+            const prevButton = document.querySelector(
+                ".swiper-button-prev-post"
+            );
+            const nextButton = document.querySelector(
+                ".swiper-button-next-post"
+            );
+
+            // Ẩn nút "prev" nếu ở trang đầu
+            if (swiper.isBeginning) {
+                prevButton.classList.add("disabled");
+            } else {
+                prevButton.classList.remove("disabled");
+            }
+
+            // Ẩn nút "next" nếu ở trang cuối
+            if (swiper.isEnd) {
+                nextButton.classList.add("disabled");
+            } else {
+                nextButton.classList.remove("disabled");
+            }
+        }
     };
 
     HT.wow = () => {
@@ -118,6 +181,7 @@
         HT.wow();
         HT.swiperCategory();
         HT.swiperBestSeller();
+        HT.swiperFeaturedNews();
         HT.swiper();
         HT.niceSelect();
     });

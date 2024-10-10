@@ -24,11 +24,7 @@
                                 @foreach ($widgets[App\Enums\WidgetEnum::CATEGORY]->object as $key => $val)
                                     @php
                                         $name = $val->languages->first()->pivot->name;
-                                        $canonical = write_url(
-                                            $val->languages->first()->pivot->canonical ?? '',
-                                            true,
-                                            true,
-                                        );
+                                        $canonical = write_url($val->languages->first()->pivot->canonical ?? '', true, true);
                                         $image = $val->image;
                                         $productCount = $val->products_count;
                                     @endphp
@@ -38,8 +34,7 @@
                                                 <img src="{{ $image }}" alt="{{ $name }}">
                                             </a>
                                             <div class="title">
-                                                <a href="{{ $canonical }}"
-                                                    title="{{ $name }}">{{ $name }}</a>
+                                                <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
                                             </div>
                                             {{-- <div class="total-product">{{ $productCount }} {{ __('unit.product') }}</div> --}}
                                         </div>
@@ -70,8 +65,7 @@
                                         </span>
                                         <div class="banner-overlay">
                                             <div class="banner-title">{!! $description !!}</div>
-                                            <a class="btn-shop" href="{{ $canonical }}"
-                                                title="{{ $name }}">{{ __('homePage.buy_now') }}</a>
+                                            <a class="btn-shop" href="{{ $canonical }}" title="{{ $name }}">{{ __('homePage.buy_now') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -93,28 +87,21 @@
                         <div class="panel-head">
                             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                                 <h2 class="heading-1">
-                                    <a href="{{ $categoryCanonical }}"
-                                        title="{{ $categoryName }}">{{ $categoryName }}</a>
+                                    <a href="{{ $categoryCanonical }}" title="{{ $categoryName }}">{{ $categoryName }}</a>
                                 </h2>
                                 @if (isset($children))
                                     <div class="category-children">
                                         <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
                                             <li class="">
-                                                <a href="{{ $categoryCanonical }}"
-                                                    title="{{ $categoryName }}">{{ __('homePage.all') }}</a>
+                                                <a href="{{ $categoryCanonical }}" title="{{ $categoryName }}">{{ __('homePage.all') }}</a>
                                             </li>
                                             @foreach ($children as $child)
                                                 @php
                                                     $childName = $child->languages->first()->pivot->name;
-                                                    $childCanonical = write_url(
-                                                        $child->languages->first()->pivot->canonical,
-                                                        true,
-                                                        true,
-                                                    );
+                                                    $childCanonical = write_url($child->languages->first()->pivot->canonical, true, true);
                                                 @endphp
                                                 <li class="">
-                                                    <a href="{{ $childCanonical }}"
-                                                        title="{{ $childName }}">{{ $childName }}</a>
+                                                    <a href="{{ $childCanonical }}" title="{{ $childName }}">{{ $childName }}</a>
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -176,8 +163,7 @@
                     <div class="uk-grid uk-grid-medium">
                         <div class="uk-width-large-1-4">
                             <div class="best-seller-banner">
-                                <a href="#" class="image img-cover"><img
-                                        src="{{ $widgets[App\Enums\WidgetEnum::BESTSELLER]->album[0] ?? '' }}"
+                                <a href="#" class="image img-cover"><img src="{{ $widgets[App\Enums\WidgetEnum::BESTSELLER]->album[0] ?? '' }}"
                                         alt="{{ $widgets[App\Enums\WidgetEnum::BESTSELLER]->album[0] ?? '' }}"></a>
                                 <div class="banner-title">
                                     {!! $widgets[App\Enums\WidgetEnum::BESTSELLER]->description[$language] ?? '' !!}
@@ -187,9 +173,9 @@
                         <div class="uk-width-large-3-4">
                             @if (isset($widgets[App\Enums\WidgetEnum::BESTSELLER]->object))
                                 <div class="product-wrapper">
-                                    <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev"></div>
-                                    <div class="swiper-container">
+                                    <div class="swiper-button-next bestseller-next"></div>
+                                    <div class="swiper-button-prev bestseller-prev"></div>
+                                    <div class="swiper-container bestseller-container">
                                         <div class="swiper-wrapper">
                                             @foreach ($widgets[App\Enums\WidgetEnum::BESTSELLER]->object as $product)
                                                 @foreach ($product->product_variants as $productVariant)
@@ -210,6 +196,7 @@
                 </div>
             </div>
         </div>
+
         @if (isset($widgets[App\Enums\WidgetEnum::FEATURED_NEWS]->object))
             <div class="panel-deal page-setup">
                 <div class="uk-container uk-container-center">
@@ -219,14 +206,18 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="uk-grid uk-grid-medium">
-                            @foreach ($widgets[App\Enums\WidgetEnum::FEATURED_NEWS]->object as $key => $val)
-                                <div class="uk-width-large-1-4">
-                                    @include('frontend.component.news_item', [
-                                        'news' => $val,
-                                    ])
-                                </div>
-                            @endforeach
+                        <div class="swiper-container deal-container">
+                            <div class="swiper-wrapper">
+                                @foreach ($widgets[App\Enums\WidgetEnum::FEATURED_NEWS]->object as $key => $val)
+                                    <div class="swiper-slide">
+                                        @include('frontend.component.news_item', [
+                                            'news' => $val,
+                                        ])
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="swiper-button-next-post deal-next"></div>
+                            <div class="swiper-button-prev-post deal-prev"></div>
                         </div>
                     </div>
                 </div>
