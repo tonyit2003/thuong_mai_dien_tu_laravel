@@ -28,6 +28,7 @@ class ProductVariantService extends BaseService implements ProductVariantService
     public function paginate($request, $languageId, $productCatalogue = null, $extend = [], $page = 1)
     {
         if (isset($productCatalogue)) {
+            // kiểm soát trang hiện tại một cách thủ công, thay vì để Laravel tự động lấy từ URL
             Paginator::currentPageResolver(function () use ($page) {
                 return $page;
             });

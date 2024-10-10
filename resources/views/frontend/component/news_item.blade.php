@@ -1,7 +1,7 @@
 @php
     $image = $news->image;
     $name = $news->languages->first()->pivot->name;
-    $canonical = $news->languages->first()->pivot->canonical;
+    $canonical = write_url($news->languages->first()->pivot->canonical, true, true);
     $description = $news->languages->first()->pivot->description;
 @endphp
 <div class="product-item-2 product">

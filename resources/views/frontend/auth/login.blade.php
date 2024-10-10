@@ -30,7 +30,7 @@
                     <h6>{{ __('info.notify') }}</h6>
                     <form action="{{ route('authClient.login') }}" method="post" class="signin-form">
                         @csrf
-                        <label for="email">Email</label>
+                        <label for="email">{{ __('form.email') }}</label>
                         <div class="form-input">
                             <input type="email" id="email" name="email" placeholder="Email" autofocus
                                 value="{{ old('email', 'caotancong2003@gmail.com') }}">
