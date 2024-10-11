@@ -39,6 +39,7 @@ class ProductVariantService extends BaseService implements ProductVariantService
             'publish' => $request->input('publish') != null ? $request->integer('publish') : -1,
             'where' => [
                 ['product_variant_language.language_id', '=', $languageId],
+                ['product_language.language_id', '=', $languageId],
             ]
         ];
         $join = [
@@ -59,10 +60,14 @@ class ProductVariantService extends BaseService implements ProductVariantService
         return $productVariants;
     }
 
-    public function combineProductVariantAndPromotion($productVariantIds, $productVariants)
+    public function combineProductVariantAndPromotion($productVariantIds, $productVariants, $flag = false)
     {
         $promotions = $this->promotionRepository->findByProductVariant($productVariantIds);
         if ($promotions) {
+            if ($flag == true) {
+                $productVariants->promotions = $promotions[0];
+                return $productVariants;
+            }
             foreach ($productVariants as $keyProduct => $valProduct) {
                 foreach ($promotions as $keyPromotion => $valPromotion) {
                     if ($valPromotion->product_variant_id === $valProduct->id) {

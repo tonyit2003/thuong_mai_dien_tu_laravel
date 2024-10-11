@@ -63,14 +63,14 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
                     LEAST (
                         CASE
                             WHEN discountType = 'cash' THEN discountValue
-                            WHEN discountType = 'percent' THEN products.price * discountValue / 100
+                            WHEN discountType = 'percent' THEN pv.price * discountValue / 100
                             ELSE 0
                         END,
                         promotions.maxDiscountValue
                     ),
                     CASE
                         WHEN discountType = 'cash' THEN discountValue
-                        WHEN discountType = 'percent' THEN products.price * discountValue / 100
+                        WHEN discountType = 'percent' THEN pv.price * discountValue / 100
                         ELSE 0
                     END
                 )

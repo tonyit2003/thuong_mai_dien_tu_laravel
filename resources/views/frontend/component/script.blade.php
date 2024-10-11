@@ -16,3 +16,20 @@
 <script async defer crossorigin="anonymous"
     src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0&appId=103609027035330&autoLogAppEvents=1"
     nonce="E1aWx0Pa"></script>
+<script>
+    (function(d, t) {
+        var BASE_URL = "https://app.chatwoot.com";
+        var g = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        g.src = BASE_URL + "/packs/js/sdk.js";
+        g.defer = true;
+        g.async = true;
+        s.parentNode.insertBefore(g, s);
+        g.onload = function() {
+            window.chatwootSDK.run({
+                websiteToken: 'ihSoP3cwMqKnYYctnJsm1Hg9',
+                baseUrl: BASE_URL
+            })
+        }
+    })(document, "script");
+</script>

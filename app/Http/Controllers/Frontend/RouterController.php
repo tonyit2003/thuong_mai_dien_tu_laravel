@@ -40,6 +40,17 @@ class RouterController extends FrontendController
         }
     }
 
+    public function getProduct($canonical = '', $variantId = 0, Request $request)
+    {
+        $this->getRouter($canonical);
+        if (isset($this->router) && !empty($this->router)) {
+            $method = 'index';
+            // app(): lấy một đối tượng của một lớp cụ thể
+            // đoạn lệnh sau sẽ trả về 1 đoạn html và dùng echo để in nó ra
+            echo app($this->router->controllers)->{$method}($this->router->module_id, $variantId, $request);
+        }
+    }
+
     private function getRouter($canonical)
     {
         $this->router = $this->routerRepository->findByCondition(
