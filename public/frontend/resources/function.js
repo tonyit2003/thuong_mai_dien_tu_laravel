@@ -177,6 +177,31 @@
         }
     };
 
+    HT.popupSwiperSlide = () => {
+        var swiper = new Swiper(".popup-gallery .swiper-container", {
+            loop: true,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: {
+                    el: ".swiper-container-thumbs",
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                    slideToClickedSlide: true,
+                },
+            },
+        });
+    };
+
     $(document).ready(function () {
         HT.wow();
         HT.swiperCategory();
@@ -184,6 +209,7 @@
         HT.swiperFeaturedNews();
         HT.swiper();
         HT.niceSelect();
+        HT.popupSwiperSlide();
     });
 })(jQuery);
 

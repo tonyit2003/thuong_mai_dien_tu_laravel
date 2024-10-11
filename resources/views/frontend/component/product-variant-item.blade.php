@@ -1,6 +1,10 @@
 @php
     $name = $productVariant->product_name . ' ' . $productVariant->name;
-    $canonical = write_url($productVariant->product_canonical, true, true);
+    $canonical =
+        write_url($productVariant->product_canonical, true, false) .
+        '/id=' .
+        $productVariant->id .
+        config('apps.general.suffix');
     $image = image(explode(',', $productVariant->album)[0]);
     $price = getPrice($productVariant);
     $catName = $productVariant->product_catalogue->languages->first()->pivot->name;

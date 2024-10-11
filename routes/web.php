@@ -43,6 +43,7 @@ use App\Http\Controllers\Frontend\RouterController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
+Route::get('{canonical}' . '/id={variant_id}' . config('apps.general.suffix'), [RouterController::class, 'getProduct'])->name('router.getProduct')->where('canonical', '[a-zA-Z0-9-]+')->where('variant_id', '[0-9]+');
 Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
 
 /* BACKEND ROUTES */
