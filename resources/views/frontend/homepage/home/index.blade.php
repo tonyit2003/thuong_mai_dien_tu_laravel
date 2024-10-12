@@ -198,7 +198,7 @@
         </div>
 
         @if (isset($widgets[App\Enums\WidgetEnum::FEATURED_NEWS]->object))
-            <div class="panel-deal page-setup">
+            <div class="panel-deal">
                 <div class="uk-container uk-container-center">
                     <div class="panel-head">
                         <div class="uk-flex uk-flex-middle uk-flex-space-between">

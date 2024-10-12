@@ -186,6 +186,11 @@ class PostService extends BaseService implements PostServiceInterface
         return $rawCondition;
     }
 
+    public function getData($postid)
+    {
+        return $this->postRepository->findById($postid, ['*'], ['languages']);
+    }
+
     private function paginateSelect()
     {
         return [

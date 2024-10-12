@@ -10,7 +10,7 @@ use App\Repositories\PostRepository;
 use App\Services\PostService;
 use App\Services\WidgetService;
 
-class PostController extends FrontendController
+class PostCatalogueController extends FrontendController
 {
     protected $postService;
     protected $postRepository;
@@ -30,8 +30,7 @@ class PostController extends FrontendController
 
     public function index($id)
     {
-        $language = $this->language;
-        $post = $this->postRepository->getPostById($id, $this->language);
+        $posts = $this->postRepository->findColumnById('post_catalogue_id', $id)->paginate(10);
         $system = $this->system;
         $seo = [
             'meta_title' => $system['seo_meta_title'],
@@ -40,27 +39,10 @@ class PostController extends FrontendController
             'meta_image' => $system['seo_meta_image'],
             'canonical' => config('app.url')
         ];
-        $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($post->post_catalogue_id, $language);
+        $language = $this->language;
+        $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $language);
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $language);
-        $widgets = $this->widgetService->getWidgets([
-            ['keyword' => WidgetEnum::FEATURED_NEWS],
-        ], $this->language);
-        return view('frontend.post.index', compact('post', 'language', 'system', 'seo', 'postCatalogue', 'breadcrumb', 'widgets'));
-    }
-
-    public function show()
-    {
-        $posts = Post::paginate(10);
-        $system = $this->system;
-        $seo = [
-            'meta_title' => $system['seo_meta_title'],
-            'meta_keyword' => $system['seo_meta_keyword'],
-            'meta_description' => $system['seo_meta_description'],
-            'meta_image' => $system['seo_meta_image'],
-            'canonical' => config('app.url')
-        ];
-        $language = $this->language;
-        return view('frontend.post.show', compact('posts', 'language', 'system', 'seo'));
+        return view('frontend.post.show', compact('posts', 'language', 'system', 'seo', 'breadcrumb', 'postCatalogue'));
     }
 
     private function config()

@@ -41,9 +41,14 @@ use App\Http\Controllers\Frontend\RouterController;
 
 /* FRONTEND ROUTES */
 
+// Route cho trang chủ
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+// Route cho RouterController
 Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
 Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
+
+Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
 
 /* BACKEND ROUTES */
 

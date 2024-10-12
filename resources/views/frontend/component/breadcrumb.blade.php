@@ -3,7 +3,7 @@
 @endphp
 <div class="page-breadcrumb background">
     <h1 class="heading-2">
-        <span>
+        <span style="color: #fff">
             {{ $modelName }}
         </span>
     </h1>

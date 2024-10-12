@@ -25,6 +25,11 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->with($relation)->get();
     }
 
+    public function findColumnById($column, $id)
+    {
+        return $this->model->where($column, '=', $id);
+    }
+
     public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])
     {
         $query = $this->model->select($column);

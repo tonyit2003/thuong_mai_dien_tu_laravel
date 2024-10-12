@@ -3931,3 +3931,47 @@ a.ui-button:active,
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.post-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post-container h1 {
+    font-size: 3rem;
+    /* Kích thước chữ lớn cho tên bài viết */
+    font-weight: bold;
+    margin-bottom: 20px;
+    /* Khoảng cách dưới */
+    color: #333;
+    /* Màu sắc cho tên bài viết */
+    letter-spacing: 1px;
+    /* Tăng khoảng cách giữa các ký tự */
+    line-height: 1.2;
+    /* Khoảng cách giữa các dòng */
+}
+
+.post-container h2 {
+    font-size: 1.3rem;
+    /* Kích thước nhỏ hơn cho mô tả */
+    font-weight: normal;
+    margin-bottom: 15px;
+    color: #555;
+    /* Màu sắc nhẹ hơn cho mô tả */
+    letter-spacing: 0.5px;
+    /* Tăng khoảng cách giữa các ký tự */
+    line-height: 1.4;
+    /* Khoảng cách giữa các dòng */
+}
+
+.post-container p {
+    font-size: 1rem;
+    /* Kích thước chuẩn cho nội dung chi tiết */
+    line-height: 1.6;
+    /* Khoảng cách giữa các dòng */
+    color: #666;
+    /* Màu sắc cho nội dung */
+    letter-spacing: 0.5px;
+    /* Tăng khoảng cách giữa các ký tự */
+}
