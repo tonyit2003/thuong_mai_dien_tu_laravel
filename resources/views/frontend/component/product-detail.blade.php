@@ -14,6 +14,7 @@
         $catName = $productCatalogue->name;
         $review = getReview($productVariant);
         $description = $product->description;
+        $attributeCatalogues = $product->attributeCatalogue;
     @endphp
     <div class="uk-grid uk-grid-medium">
         <div class="uk-width-large-1-2">
@@ -62,45 +63,26 @@
                     </div>
                 </div>
                 {!! $price['html'] !!}
-                <div>
+                <div class="">
                     {!! $description !!}
                 </div>
-                <div class="attribute">
-                    <div class="attribute-item attribute-color">
-                        <div class="label">Color: <span>Pink Gold</span></div>
-                        <div class="uk-grid uk-grid-small">
-                            <?php foreach($colorImage as $key => $val){  ?>
-                            <div class="uk-width-large-1-10">
-                                <div class="color-item <?php if ($key == 1) {
-                                    echo 'outstock';
-                                } elseif ($key == 4) {
-                                    echo 'active';
-                                } ?>">
-                                    <span class="image"><img src="<?php echo $val; ?>" alt=""></span>
-                                </div>
+                @if (isset($attributeCatalogues))
+                    @foreach ($attributeCatalogues as $attributeCatalogue)
+                        <div class="attribute">
+                            <div class="attribute-item attribute-color">
+                                <div class="label">{{ $attributeCatalogue->name }}: <span>S22</span></div>
+                                @if (isset($attributeCatalogue->attribute))
+                                    <div class="attribute-value">
+                                        @foreach ($attributeCatalogue->attribute as $attribute)
+                                            <a data-attributeid = "{{ $attribute->id }}"
+                                                title="{{ $attribute->name }}">{{ $attribute->name }}</a>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
-                            <?php }  ?>
                         </div>
-                    </div>
-                    <div class="attribute-item attribute-color">
-                        <div class="label">Styles: <span>S22</span></div>
-                        <div class="attribute-value">
-                            <a href="" title="">S22 Ultra</a>
-                            <a href="" title="" class="active">S22</a>
-                            <a href="" title="" class="outstock">S22 + Standing Cover</a>
-                        </div>
-                    </div>
-                    <div class="attribute-item attribute-color">
-                        <div class="label">Size: <span>125GB</span></div>
-                        <div class="attribute-value">
-                            <a href="" title="" class="outstock">1GB</a>
-                            <a href="" title="" class="active">512GB</a>
-                            <a href="" title="">64GB</a>
-                            <a href="" title="">128GB</a>
-                            <a href="" title="">32GB</a>
-                        </div>
-                    </div>
-                </div><!-- .attribute -->
+                    @endforeach
+                @endif
                 <div class="quantity">
                     <div class="text">Quantity</div>
                     <div class="uk-flex uk-flex-middle">

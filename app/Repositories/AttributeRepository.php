@@ -48,11 +48,21 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
         })->get();
     }
 
-    public function findAttributeByIdArray($attributeArray = [], $languageId)
+    public function findAttributeByIdArray($attributeArray = [], $languageId, $publish = false)
     {
-        return $this->model->select([
+        $query = $this->model->select([
             'attributes.id',
+            'attributes.attribute_catalogue_id',
             'attribute_language.name'
-        ])->join('attribute_language', 'attribute_language.attribute_id', '=', 'attributes.id')->where('attribute_language.language_id', '=', $languageId)->whereIn('attributes.id', $attributeArray)->get();
+        ])
+            ->join('attribute_language', 'attribute_language.attribute_id', '=', 'attributes.id')
+            ->where('attribute_language.language_id', '=', $languageId)
+            ->whereIn('attributes.id', $attributeArray);
+
+        if ($publish) {
+            $query->where([config('apps.general.publish')]);
+        }
+
+        return $query->get();
     }
 }

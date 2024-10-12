@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Repositories\AttributeCatalogueRepository;
+use App\Repositories\AttributeRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantAttributeRepository;
 use App\Repositories\ProductVariantLanguageRepository;
@@ -24,14 +26,18 @@ class ProductService extends BaseService implements ProductServiceInterface
     protected $productVariantLanguageRepository;
     protected $productVariantAttributeRepository;
     protected $promotionRepository;
+    protected $attributeCatalogueRepository;
+    protected $attributeRepository;
     protected $controllerName = 'ProductController';
 
-    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository, PromotionRepository $promotionRepository)
+    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository, PromotionRepository $promotionRepository, AttributeCatalogueRepository $attributeCatalogueRepository, AttributeRepository $attributeRepository)
     {
         $this->productRepository = $productRepository;
         $this->productVariantLanguageRepository = $productVariantLanguageRepository;
         $this->productVariantAttributeRepository = $productVariantAttributeRepository;
         $this->promotionRepository = $promotionRepository;
+        $this->attributeCatalogueRepository = $attributeCatalogueRepository;
+        $this->attributeRepository = $attributeRepository;
         parent::__construct($routerRepository);
     }
 
@@ -110,6 +116,31 @@ class ProductService extends BaseService implements ProductServiceInterface
         ];
 
         return $this->productRepository->getProductForReceipt($this->paginateSelectReceipt(), $condition, $join, $extend, $relations);
+    }
+
+    public function getAttribute($product, $language)
+    {
+        $attributeArray = json_decode($product->attribute, true);
+        // Lấy danh sách attribute catalogue
+        $attributeCatalogueIds = array_keys($attributeArray);
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAttributeCatalogueWhereIn($attributeCatalogueIds, 'attribute_catalogues.id', $language);
+        // Lấy danh sách attribute
+        $attributeIds = array_merge(...$attributeArray);
+        $attributes = $this->attributeRepository->findAttributeByIdArray($attributeIds, $language, true);
+        // Gán attribute vào attribute catalogue
+        if (isset($attributeCatalogues)) {
+            foreach ($attributeCatalogues as $attributeCatalogue) {
+                $tempAttributes = [];
+                foreach ($attributes as $attribute) {
+                    if ($attributeCatalogue->id == $attribute->attribute_catalogue_id) {
+                        $tempAttributes[] = $attribute;
+                    }
+                }
+                $attributeCatalogue->attribute = $tempAttributes;
+            }
+        }
+        $product->attributeCatalogue = $attributeCatalogues;
+        return $product;
     }
 
     public function create($request, $languageId)
