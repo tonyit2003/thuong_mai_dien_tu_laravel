@@ -25,6 +25,8 @@ class PostCatalogueRepository extends BaseRepository implements PostCatalogueRep
             'post_catalogues.id',
             'post_catalogues.parent_id',
             'post_catalogues.image',
+            'post_catalogues.lft',
+            'post_catalogues.rgt',
             'post_catalogues.icon',
             'post_catalogues.album',
             'post_catalogues.publish',

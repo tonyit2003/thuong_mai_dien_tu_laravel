@@ -19,6 +19,11 @@ class RouterController extends FrontendController
 
     public function index($canonical = '', Request $request)
     {
+        if ($canonical == 'bai-viet') {
+            echo app('App\Http\Controllers\Frontend\PostController')->show();
+            return;
+        }
+
         $this->getRouter($canonical);
         if (isset($this->router) && !empty($this->router)) {
             $method = 'index';
