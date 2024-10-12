@@ -46,4 +46,17 @@ class AttributeCatalogueRepository extends BaseRepository implements AttributeCa
             $query->where('language_id', $languageId);
         }])->get();
     }
+
+    public function getAttributeCatalogueWhereIn($whereIn = [], $whereInField = 'id', $language = 1)
+    {
+        return $this->model->select([
+            'attribute_catalogues.id',
+            'attribute_catalogue_language.name',
+        ])
+            ->join('attribute_catalogue_language', 'attribute_catalogue_language.attribute_catalogue_id', '=', 'attribute_catalogues.id')
+            ->where('attribute_catalogue_language.language_id', '=', $language)
+            ->where([config('apps.general.publish')])
+            ->whereIn($whereInField, $whereIn)
+            ->get();
+    }
 }
