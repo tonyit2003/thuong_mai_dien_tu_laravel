@@ -50,7 +50,11 @@ class PostController extends FrontendController
 
     public function show()
     {
-        $posts = Post::paginate(10);
+        $conditions = [
+            'publish' => 1,
+        ];
+
+        $posts = $this->postRepository->findByConditions($conditions)->paginate(10);
         $system = $this->system;
         $seo = [
             'meta_title' => $system['seo_meta_title'],

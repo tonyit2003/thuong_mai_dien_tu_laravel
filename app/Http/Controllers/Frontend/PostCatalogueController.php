@@ -30,7 +30,12 @@ class PostCatalogueController extends FrontendController
 
     public function index($id)
     {
-        $posts = $this->postRepository->findColumnById('post_catalogue_id', $id)->paginate(10);
+        $conditions = [
+            'publish' => 1,
+            'post_catalogue_id' => $id,
+        ];
+
+        $posts = $this->postRepository->findByConditions($conditions)->paginate(10);
         $system = $this->system;
         $seo = [
             'meta_title' => $system['seo_meta_title'],

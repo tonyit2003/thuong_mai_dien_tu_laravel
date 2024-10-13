@@ -19,7 +19,7 @@ return [
         'return_policy_title' => 'Đổi trả',
         'return_policy_description' => 'Đổi trả trong ngày',
     ],
-    'post' => 'Tin tức',
+    'post' => 'Bài viết',
     'related_articles' => 'Bài viết liên quan',
     'no_post' => 'Không có bài viết'
 ];
