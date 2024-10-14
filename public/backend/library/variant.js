@@ -704,65 +704,79 @@
         // atob() => Giải mã Base64
         // JSON.parse() => chuyển 1 chuỗi JSON (có dấu ngoặc kép bao quanh: '{}') thành 1 đối tượng (ko có dấu ngoặc kép bao quanh: {})
         variant = JSON.parse(atob(variant));
+        const findIndexVariantBySku = (sku) =>
+            variant.sku.findIndex((item) => item === sku);
         $(".variant-row").each(function (index, value) {
             let _this = $(this);
-            let inputHiddenFields = [
-                {
-                    name: "variant[quantity][]",
-                    class: "variant_quantity",
-                    value: variant.quantity[index],
-                },
-                {
-                    name: "variant[sku][]",
-                    class: "variant_sku",
-                    value: variant.sku[index],
-                },
-                {
-                    name: "variant[price][]",
-                    class: "variant_price",
-                    value: variant.price[index],
-                },
-                {
-                    name: "variant[barcode][]",
-                    class: "variant_barcode",
-                    value: variant.barcode[index],
-                },
-                {
-                    name: "variant[file_name][]",
-                    class: "variant_filename",
-                    value: variant.file_name[index],
-                },
-                {
-                    name: "variant[file_url][]",
-                    class: "variant_fileurl",
-                    value: variant.file_url[index],
-                },
-                {
-                    name: "variant[album][]",
-                    class: "variant_album",
-                    value: variant.album[index],
-                },
-            ];
-            for (let i = 0; i < inputHiddenFields.length; i++) {
-                _this
-                    .find(`.${inputHiddenFields[i].class}`)
-                    .val(inputHiddenFields[i].value);
-            }
+            // tìm phần tử có class bắt đầu là tr-variant-(số)-(số)-... và lấy phần số ((số)-(số))
+            let variantKey = _this
+                .attr("class")
+                .match(/tr-variant-(\d+(-\d+)*)/)[1];
 
-            let album = variant.album[index];
-            let variantImage = album
-                ? album.split(",")[0]
-                : "backend/img/photo.jpg";
-            _this
-                .find(".td-quantity")
-                .html(
-                    variant.quantity[index]
-                        ? HT.addCommas(variant.quantity[index])
-                        : "-"
-                );
-            _this.find(".td-price").html(HT.addCommas(variant.price[index]));
-            _this.find(".td-sku").html(variant.sku[index]);
-            _this.find(".imageSrc").attr("src", variantImage);
+            let dataIndex = variant.sku.findIndex((sku) =>
+                sku.includes(variantKey)
+            );
+            if (dataIndex !== -1) {
+                let inputHiddenFields = [
+                    {
+                        name: "variant[quantity][]",
+                        class: "variant_quantity",
+                        value: variant.quantity[dataIndex],
+                    },
+                    {
+                        name: "variant[sku][]",
+                        class: "variant_sku",
+                        value: variant.sku[dataIndex],
+                    },
+                    {
+                        name: "variant[price][]",
+                        class: "variant_price",
+                        value: variant.price[dataIndex],
+                    },
+                    {
+                        name: "variant[barcode][]",
+                        class: "variant_barcode",
+                        value: variant.barcode[dataIndex],
+                    },
+                    {
+                        name: "variant[file_name][]",
+                        class: "variant_filename",
+                        value: variant.file_name[dataIndex],
+                    },
+                    {
+                        name: "variant[file_url][]",
+                        class: "variant_fileurl",
+                        value: variant.file_url[dataIndex],
+                    },
+                    {
+                        name: "variant[album][]",
+                        class: "variant_album",
+                        value: variant.album[dataIndex],
+                    },
+                ];
+                for (let i = 0; i < inputHiddenFields.length; i++) {
+                    _this
+                        .find(`.${inputHiddenFields[i].class}`)
+                        .val(inputHiddenFields[i].value);
+                }
+
+                let album = variant.album[dataIndex];
+                let variantImage = album
+                    ? album.split(",")[0]
+                    : "backend/img/photo.jpg";
+                _this
+                    .find(".td-quantity")
+                    .html(
+                        variant.quantity[dataIndex]
+                            ? HT.addCommas(variant.quantity[dataIndex])
+                            : "-"
+                    );
+                _this
+                    .find(".td-price")
+                    .html(HT.addCommas(variant.price[dataIndex]));
+                _this.find(".td-sku").html(variant.sku[dataIndex]);
+                _this.find(".imageSrc").attr("src", variantImage);
+            }
         });
     };
 

@@ -7,6 +7,7 @@ use App\Models\Language;
 use App\Models\Supplier;
 use App\Repositories\ProductReceiptRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\ProductVariantRepository;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -16,12 +17,14 @@ class ProductController extends Controller
     protected $productRepository;
     protected $productService;
     protected $productReceiptRepository;
+    protected $productVariantRepository;
 
-    public function __construct(ProductRepository $productRepository, ProductService $productService, ProductReceiptRepository $productReceiptRepository)
+    public function __construct(ProductRepository $productRepository, ProductService $productService, ProductReceiptRepository $productReceiptRepository, ProductVariantRepository $productVariantRepository)
     {
         $this->productRepository = $productRepository;
         $this->productService = $productService;
         $this->productReceiptRepository = $productReceiptRepository;
+        $this->productVariantRepository = $productVariantRepository;
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -106,6 +109,18 @@ class ProductController extends Controller
         return response()->json([
             'model' => $get['model'] ?? 'Product',
             'objects' => $objects
+        ]);
+    }
+
+    public function loadVariant(Request $request)
+    {
+        $get = $request->input();
+        $attributeId = $get['attribute_id'];
+        sort($attributeId, SORT_NUMERIC);
+        $attributeId = implode(',', $attributeId);
+        $variant = $this->productVariantRepository->findVariant($attributeId, $get['product_id'], $get['language_id']);
+        return response()->json([
+            'variant' => $variant
         ]);
     }
 }

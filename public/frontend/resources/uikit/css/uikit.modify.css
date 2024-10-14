@@ -152,7 +152,7 @@ h5,
 h6 {
     margin: 0 0 10px 0;
     font-family: inherit;
-    color: #fff;
+    /* color: #fff; */
     text-transform: none
 }
 

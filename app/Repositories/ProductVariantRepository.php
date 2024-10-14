@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\PriceEnum;
 use App\Models\ProductVariant;
 use App\Repositories\Interfaces\ProductVariantRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
                 ->where('id', $detail->product_variant_id)
                 ->update([
                     'quantity' => DB::raw('quantity + ' . $detail->actual_quantity),
-                    'price' => $detail->price
+                    'price' => $detail->price + ($detail->price * (PriceEnum::PERCENT_PRICE / 100)),
                 ]);
             $this->dataSynchronization($detail);
         }
@@ -44,12 +45,24 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
         $variants = json_decode($product->variant);
         foreach ($variants->sku as $key => $val) {
             if ($val === $sku) {
-                $variants->price[$key] = $detail->price;
+                $variants->price[$key] = convert_price(floatval($detail->price) + (floatval($detail->price) * (PriceEnum::PERCENT_PRICE / 100)));
                 $variants->quantity[$key] += $detail->actual_quantity;
                 break;
             }
         }
         $payload['variant'] = json_encode($variants);
         $this->productRepository->update($detail->product_id, $payload);
+    }
+
+    public function findVariant($code, $productId, $languageId)
+    {
+        return $this->model->select(['id', 'uuid'])->where([
+            'code' => $code,
+            'product_id' => $productId
+        ])
+            ->with('languages', function ($query) use ($languageId) {
+                $query->where('language_id', $languageId);
+            })
+            ->first();
     }
 }

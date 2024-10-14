@@ -22,4 +22,5 @@ return [
     'mess_4'            => 'Chúc bạn và TC Shop ngày càng phát triển và thành công hơn nữa!',
     'mess_5'            => '<small>Hãy để TC Shop trở thành người bạn đồng hành đáng tin cậy của các khách hàng trong hành trình tìm kiếm phong cách riêng và sự tiện nghi trong cuộc sống!</small>',
     'evaluate'          => 'Đánh giá',
+    'product'           => 'Sản phẩm',
 ];

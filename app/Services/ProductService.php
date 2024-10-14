@@ -308,11 +308,13 @@ class ProductService extends BaseService implements ProductServiceInterface
         $variant = [];
         if (isset($payload['variant']['sku']) && count($payload['variant']['sku'])) {
             foreach ($payload['variant']['sku'] as $key => $val) {
+                $vId = $payload['productVariant']['id'][$key] ?? '';
+                $productVariantId = sortString($vId);
                 // tạo một UUID duy nhất, sử dụng hàm băm SHA-1 và dựa trên không gian tên cùng với một chuỗi đầu vào duy nhất.
                 $uuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, $product->id . ', ' . $payload['productVariant']['id'][$key]);
                 $variant[] = [
                     'uuid' => $uuid,
-                    'code' => $payload['productVariant']['id'][$key] ?? '',
+                    'code' => $productVariantId,
                     'quantity' => $payload['variant']['quantity'][$key] ?? 0,
                     'sku' => $val,
                     'price' => $payload['variant']['price'][$key] ? convert_price($payload['variant']['price'][$key]) : '',

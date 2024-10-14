@@ -1,7 +1,4 @@
 <div class="panel-body">
-    <?php
-    $colorImage = ['https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-2.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-1.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-3.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-4.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-5.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-6.jpg', 'https://wp.alithemes.com/html/ecom/demo/assets/imgs/page/product/img-gallery-7.jpg'];
-    ?>
     @php
         $name = $product->name . ' ' . $productVariant->languages->first()->pivot->name;
         $canonical =
@@ -9,42 +6,47 @@
             '/id=' .
             $productVariant->id .
             config('apps.general.suffix');
-        $image = image(explode(',', $productVariant->album)[0]);
         $price = getPrice($productVariant);
         $catName = $productCatalogue->name;
         $review = getReview($productVariant);
         $description = $product->description;
         $attributeCatalogues = $product->attributeCatalogue;
+        $gallery =
+            isset($productVariant->album) && $productVariant->album != ''
+                ? explode(',', $productVariant->album)
+                : json_decode($product->album);
     @endphp
     <div class="uk-grid uk-grid-medium">
-        <div class="uk-width-large-1-2">
+        <div class="uk-width-large-1-4">
             <div class="popup-gallery">
                 <div class="swiper-container">
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-wrapper big-pic">
-                        <?php foreach($colorImage as $key => $val){  ?>
-                        <div class="swiper-slide" data-swiper-autoplay="2000">
-                            <a href="<?php echo $val; ?>" class="image img-cover"><img src="<?php echo $val; ?>"
-                                    alt="<?php echo $val; ?>"></a>
-                        </div>
-                        <?php }  ?>
+                        @foreach ($gallery as $key => $val)
+                            <div class="swiper-slide" data-swiper-autoplay="2000">
+                                <a href="{{ $val }}" class="image img-cover">
+                                    <img src="{{ $val }}" alt="{{ $val }}">
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
                 <div class="swiper-container-thumbs">
                     <div class="swiper-wrapper pic-list">
-                        <?php foreach($colorImage as $key => $val){  ?>
-                        <div class="swiper-slide">
-                            <span class="image img-cover"><img src="<?php echo $val; ?>"
-                                    alt="<?php echo $val; ?>"></span>
-                        </div>
-                        <?php }  ?>
+                        @foreach ($gallery as $key => $val)
+                            <div class="swiper-slide">
+                                <span class="image img-cover">
+                                    <img src="{{ $val }}" alt="{{ $val }}">
+                                </span>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
-        <div class="uk-width-large-1-2">
+        <div class="uk-width-large-2-4">
             <div class="popup-product">
                 <h1 class="title">
                     <span>
@@ -63,26 +65,10 @@
                     </div>
                 </div>
                 {!! $price['html'] !!}
-                <div class="">
+                <div class="description">
                     {!! $description !!}
                 </div>
-                @if (isset($attributeCatalogues))
-                    @foreach ($attributeCatalogues as $attributeCatalogue)
-                        <div class="attribute">
-                            <div class="attribute-item attribute-color">
-                                <div class="label">{{ $attributeCatalogue->name }}: <span>S22</span></div>
-                                @if (isset($attributeCatalogue->attribute))
-                                    <div class="attribute-value">
-                                        @foreach ($attributeCatalogue->attribute as $attribute)
-                                            <a data-attributeid = "{{ $attribute->id }}"
-                                                title="{{ $attribute->name }}">{{ $attribute->name }}</a>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+                @include('frontend.product.product.component.variant')
                 <div class="quantity">
                     <div class="text">Quantity</div>
                     <div class="uk-flex uk-flex-middle">
@@ -99,6 +85,48 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="uk-width-large-1-4">
+            <div class="aside">
+                @if (isset($category))
+                    @foreach ($category as $key => $val)
+                        @php
+                            $name = $val['item']->languages->first()->pivot->name;
+                        @endphp
+                        <div class="aside-panel aside-category">
+                            <div class="aside-heading">{{ $name }}</div>
+                            @if (isset($val['children']) && count($val['children']))
+                                <div class="aside-body">
+                                    <ul class="uk-list uk-clearfix">
+                                        @foreach ($val['children'] as $item)
+                                            @php
+                                                $itemName = $item['item']->languages->first()->pivot->name;
+                                                $itemImage = $item['item']->image;
+                                                $itemCanonical = write_url(
+                                                    $item['item']->languages->first()->pivot->canonical,
+                                                    true,
+                                                    true,
+                                                );
+                                            @endphp
+                                            <li class="mb20">
+                                                <div class="categories-item-1">
+                                                    <a href="{{ $itemCanonical }}" title="{{ $itemName }}"
+                                                        class="uk-flex uk-flex-middle uk-flex uk-flex-space-between">
+                                                        <div class="uk-flex uk-flex-middle">
+                                                            <img src="{{ $itemImage }}" alt="{{ $itemName }}">
+                                                            <span>{{ $itemName }}</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
