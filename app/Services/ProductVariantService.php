@@ -60,17 +60,17 @@ class ProductVariantService extends BaseService implements ProductVariantService
         return $productVariants;
     }
 
-    public function combineProductVariantAndPromotion($productVariantIds, $productVariants, $flag = false)
+    public function combineProductVariantAndPromotion($productVariantUuids, $productVariants, $flag = false)
     {
-        $promotions = $this->promotionRepository->findByProductVariant($productVariantIds);
+        $promotions = $this->promotionRepository->findByProductVariant($productVariantUuids);
         if ($promotions) {
             if ($flag == true) {
-                $productVariants->promotions = $promotions[0];
+                $productVariants->promotions = $promotions[0] ?? [];
                 return $productVariants;
             }
             foreach ($productVariants as $keyProduct => $valProduct) {
                 foreach ($promotions as $keyPromotion => $valPromotion) {
-                    if ($valPromotion->product_variant_id === $valProduct->id) {
+                    if ($valPromotion->product_variant_uuid === $valProduct->uuid) {
                         $productVariants[$keyProduct]->promotions = $valPromotion;
                     }
                 }
@@ -118,6 +118,7 @@ class ProductVariantService extends BaseService implements ProductVariantService
     {
         return [
             'product_variants.id',
+            'product_variants.uuid',
             'product_variants.code',
             'product_variants.quantity',
             'product_variants.album',
@@ -128,7 +129,7 @@ class ProductVariantService extends BaseService implements ProductVariantService
             'products.product_catalogue_id',
             'products.image',
             'products.order',
-            'products.price',
+            'products.price as product_price',
             'product_language.name as product_name',
             'product_language.canonical as product_canonical',
         ];

@@ -42,3 +42,7 @@
 @foreach ($coreCss as $item)
     <link rel="stylesheet" href="{{ asset($item) }}">
 @endforeach
+<script>
+    var BASE_URL = "{{ config('app.url') }}"
+    var SUFFIX = "{{ config('apps.general.suffix') }}"
+</script>

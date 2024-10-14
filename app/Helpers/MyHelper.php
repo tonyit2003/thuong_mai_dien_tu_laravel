@@ -372,9 +372,9 @@ if (!function_exists('getPrice')) {
             'html' => ''
         ];
         $result['html'] .= '<div class="price uk-flex uk-flex-bottom">';
-        $result['html'] .= '<div class="price-sale">' . (isset($product->promotions->discount) ? convert_price($result['priceSale'], true) : convert_price($result['price'], true)) . __('form.cash') . '</div>';
+        $result['html'] .= '<div class="price-sale">' . (isset($product->promotions->discount) ? formatCurrency($result['priceSale']) : formatCurrency($result['price'])) . '</div>';
         if (isset($product->promotions->discount)) {
-            $result['html'] .= '<div class="price-old">' . convert_price($result['price'], true) . __('form.cash') . '</div>';
+            $result['html'] .= '<div class="price-old">' . formatCurrency($result['price']) . '</div>';
         }
         $result['html'] .= '</div>';
         return $result;
@@ -464,5 +464,17 @@ if (!function_exists('seo')) {
             'meta_image' => $model->image,
             'canonical' => $canonical,
         ];
+    }
+}
+
+if (!function_exists('sortString')) {
+    function sortString($string = '')
+    {
+        $extract = explode(',', $string);
+        // Loại bỏ khoảng trắng ở đầu và cuối của mỗi phần tử trong mảng $extract.
+        $extract = array_map('trim', $extract);
+        // Sắp xếp các phần tử trong mảng $extract theo giá trị số học
+        sort($extract, SORT_NUMERIC);
+        return implode(',', $extract);
     }
 }

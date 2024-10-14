@@ -49,14 +49,15 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
             ->where('promotions.publish', 1)
             ->whereIn('products.id', $productIds)
             ->whereDate('promotions.endDate', '>', now())
+            ->whereNull('promotions.deleted_at')
             ->groupBy('products.id')
             ->get();
     }
 
-    public function findByProductVariant($productVariantIds = [])
+    public function findByProductVariant($productVariantUuids = [])
     {
         return $this->model->selectRaw("
-            pv.id as product_variant_id,
+            pv.uuid as product_variant_uuid,
             MAX(
                 IF(
                     promotions.maxDiscountValue != 0,
@@ -77,14 +78,14 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
             ) as discount
         ")
             ->join('promotion_product_variant as ppv', 'ppv.promotion_id', '=', 'promotions.id')
-            ->join('products', 'products.id', '=', 'ppv.product_id')
-            ->join('product_variants as pv', 'products.id', '=', 'pv.product_id')
-            ->where('products.publish', 1)
+            // ->join('products', 'products.id', '=', 'ppv.product_id')
+            ->join('product_variants as pv', 'ppv.variant_uuid', '=', 'pv.uuid')
             ->where('pv.publish', 1)
             ->where('promotions.publish', 1)
-            ->whereIn('pv.id', $productVariantIds)
+            ->whereIn('pv.uuid', $productVariantUuids)
             ->whereDate('promotions.endDate', '>', now())
-            ->groupBy('pv.id')
+            ->whereNull('promotions.deleted_at')
+            ->groupBy('pv.uuid')
             ->get();
     }
 }

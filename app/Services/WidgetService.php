@@ -88,8 +88,8 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                             $productIds = $valObject->{$replace}->pluck('id')->toArray();
                             $valObject->{$replace} = $this->{$service}->combineProductAndPromotion($productIds, $valObject->{$replace});
                             foreach ($valObject->{$replace} as $keyProduct => $valProduct) {
-                                $productVariantIds = $valProduct->product_variants->pluck('id')->toArray();
-                                $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
+                                $productVariantUuids = $valProduct->product_variants->pluck('uuid')->toArray();
+                                $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantUuids,  $valProduct->product_variants);
                             }
                         }
                         $widgets[$keyWidget]->object = $object;
@@ -99,8 +99,8 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                         $productIds = $object->pluck('id')->toArray();
                         $object = $this->{$service}->combineProductAndPromotion($productIds, $object);
                         foreach ($object as $keyProduct => $valProduct) {
-                            $productVariantIds = $valProduct->product_variants->pluck('id')->toArray();
-                            $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantIds,  $valProduct->product_variants);
+                            $productVariantUuids = $valProduct->product_variants->pluck('uuid')->toArray();
+                            $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantUuids,  $valProduct->product_variants);
                         }
                     }
                     $widgets[$keyWidget]->object = $object;

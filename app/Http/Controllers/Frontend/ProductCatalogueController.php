@@ -28,9 +28,9 @@ class ProductCatalogueController extends FrontendController
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($id, $language);
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $language);
         $productVariants = $this->productVariantService->paginate($request, $language, $productCatalogue, ['path' => $productCatalogue->canonical], $page);
-        $productVariantIds = $productVariants->pluck('id')->toArray();
-        if (count($productVariantIds) && isset($productVariantIds)) {
-            $productVariants = $this->productVariantService->combineProductVariantAndPromotion($productVariantIds, $productVariants);
+        $productVariantUuids = $productVariants->pluck('uuid')->toArray();
+        if (count($productVariantUuids) && isset($productVariantUuids)) {
+            $productVariants = $this->productVariantService->combineProductVariantAndPromotion($productVariantUuids, $productVariants);
         }
         $this->productVariantService->getCatalogueName($productVariants, $this->language);
         $seo = seo($productCatalogue, $page);

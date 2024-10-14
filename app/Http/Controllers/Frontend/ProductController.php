@@ -28,23 +28,30 @@ class ProductController extends FrontendController
         $this->productService = $productService;
     }
 
-    public function index($id, $productVariantId, $request)
+    public function index($id, $variantUuid, $request)
     {
         $language = $this->language;
         $product = $this->productRepository->getProductById($id, $language);
         $product = $this->productService->getAttribute($product, $language);
-        $productVariant = $this->productVariantRepository->findById($productVariantId, ['*'], [
+        $category = recursive($this->productCatalogueRepository->all([
+            'languages' => function ($query) use ($language) {
+                $query->where('language_id', $language);
+            }
+        ]));
+        $productVariant = $this->productVariantRepository->findByCondition([
+            ['uuid', '=', $variantUuid],
+        ], false, [
             'languages' => function ($query) use ($language) {
                 $query->where('language_id', $language);
             }
         ]);
-        $productVariant = $this->productVariantService->combineProductVariantAndPromotion([$productVariantId], $productVariant, true);
+        $productVariant = $this->productVariantService->combineProductVariantAndPromotion([$variantUuid], $productVariant, true);
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($product->product_catalogue_id, $language);
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $language);
         $config = $this->config();
         $system = $this->system;
         $seo = seo($product);
-        return view('frontend.product.product.index', compact('config', 'language', 'seo', 'system', 'product', 'productVariant', 'productCatalogue', 'breadcrumb'));
+        return view('frontend.product.product.index', compact('config', 'language', 'seo', 'system', 'product', 'productVariant', 'productCatalogue', 'breadcrumb', 'category', 'language'));
     }
 
     private function config()
