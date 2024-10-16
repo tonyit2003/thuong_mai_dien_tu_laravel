@@ -1,5 +1,5 @@
 @php
-    $name = $product->languages->first()->pivot->name . ' ' . $productVariant->languages->first()->pivot->name;
+    $name = $product->languages->first()->pivot->name . ' - ' . $productVariant->languages->first()->pivot->name;
     $canonical =
         write_url($product->languages->first()->pivot->canonical, true, false) .
         '/uuid=' .

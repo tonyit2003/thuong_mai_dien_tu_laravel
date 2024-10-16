@@ -26,9 +26,12 @@
 <meta name="twitter:description" content="{{ $seo['meta_description'] }}">
 <meta name="twitter:image" content="{{ $seo['meta_image'] }}">
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
 @php
     $coreCss = [
+        'backend\css\plugins\toastr\toastr.min.css',
         'frontend/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css',
         'frontend/resources/uikit/css/uikit.modify.css',
         'https://unpkg.com/swiper/swiper-bundle.min.css',

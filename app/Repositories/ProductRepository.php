@@ -42,16 +42,18 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             'product_language.meta_keyword',
             'product_language.meta_description',
             'product_language.canonical'
-        ])->join('product_language', 'product_language.product_id', '=', 'products.id')->with([
-            'product_catalogues',
-            'product_variants' => function ($query) use ($language_id) {
-                $query->with(['attributes' => function ($query) use ($language_id) {
-                    $query->with(['attribute_language' => function ($query) use ($language_id) {
-                        $query->where('language_id', '=', $language_id);
+        ])->join('product_language', 'product_language.product_id', '=', 'products.id')
+            ->with([
+                'product_catalogues',
+                'product_variants' => function ($query) use ($language_id) {
+                    $query->with(['attributes' => function ($query) use ($language_id) {
+                        $query->with(['attribute_language' => function ($query) use ($language_id) {
+                            $query->where('language_id', '=', $language_id);
+                        }]);
                     }]);
-                }]);
-            }
-        ])->where('product_language.language_id', '=', $language_id)->find($id);
+                }
+            ])->where('product_language.language_id', '=', $language_id)
+            ->find($id);
     }
 
     public function findProductForPromotion($condition = [], $relation = [])

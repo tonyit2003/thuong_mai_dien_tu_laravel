@@ -261,6 +261,25 @@
         });
     };
 
+    HT.changeQuantity = () => {
+        if ($(".quantity .minus").length) {
+            $(".quantity .minus").click(function () {
+                var $quantity = $(this).siblings(".quantity-text");
+                var currentValue = parseInt($quantity.val());
+                if (currentValue > 1) {
+                    $quantity.val(currentValue - 1);
+                }
+            });
+        }
+        if ($(".quantity .plus").length) {
+            $(".quantity .plus").click(function () {
+                var $quantity = $(this).siblings(".quantity-text");
+                var currentValue = parseInt($quantity.val());
+                $quantity.val(currentValue + 1);
+            });
+        }
+    };
+
     $(document).ready(function () {
         HT.wow();
         HT.swiperCategory();
@@ -271,6 +290,7 @@
         HT.popupSwiperSlide();
         HT.selectProductVariant();
         HT.showAttribute();
+        HT.changeQuantity();
     });
 })(jQuery);
 

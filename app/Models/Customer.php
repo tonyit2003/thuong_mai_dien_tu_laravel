@@ -79,4 +79,9 @@ class Customer extends Authenticatable
     {
         return $this->belongsTo(Ward::class, 'ward_id', 'code');
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

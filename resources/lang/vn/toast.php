@@ -17,4 +17,7 @@ return [
     'approve_failed'                        => 'Duyệt phiếu nhập kho không thành công',
     'delivere_success'                      => 'Xác nhận nhập kho thành công',
     'delivere_failed'                       => 'Xác nhận nhập kho không thành công',
+    'login_required'                        => 'Bạn cần phải đăng nhập',
+    'add_to_cart_success'                   => 'Thêm sản phẩm vào giỏ hàng thành công',
+    'add_to_cart_failed'                    => 'Thêm sản phẩm vào giỏ hàng thất bại',
 ];

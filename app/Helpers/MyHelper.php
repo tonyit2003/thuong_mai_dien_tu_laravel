@@ -478,3 +478,12 @@ if (!function_exists('sortString')) {
         return implode(',', $extract);
     }
 }
+
+if (!function_exists('sortAttributeId')) {
+    function sortAttributeId($attributeId = [])
+    {
+        sort($attributeId, SORT_NUMERIC);
+        $attributeId = implode(',', $attributeId);
+        return $attributeId;
+    }
+}

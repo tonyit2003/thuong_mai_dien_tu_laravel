@@ -3975,3 +3975,15 @@ a.ui-button:active,
     letter-spacing: 0.5px;
     /* Tăng khoảng cách giữa các ký tự */
 }
+
+.addToCart {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    color: #fff;
+}
+
+.addToCart > * {
+    color: #fff;
+    font-weight: 500;
+}

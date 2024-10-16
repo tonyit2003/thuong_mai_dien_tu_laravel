@@ -1,5 +1,5 @@
 @php
-    $name = $productVariant->product_name . ' ' . $productVariant->name;
+    $name = $productVariant->product_name . ' - ' . $productVariant->name;
     $canonical =
         write_url($productVariant->product_canonical, true, false) .
         '/uuid=' .

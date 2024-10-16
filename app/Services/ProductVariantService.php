@@ -40,6 +40,7 @@ class ProductVariantService extends BaseService implements ProductVariantService
             'where' => [
                 ['product_variant_language.language_id', '=', $languageId],
                 ['product_language.language_id', '=', $languageId],
+                ['products.publish', '=', 1],
             ]
         ];
         $join = [

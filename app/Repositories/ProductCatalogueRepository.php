@@ -38,6 +38,9 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
             'product_catalogue_language.meta_keyword',
             'product_catalogue_language.meta_description',
             'product_catalogue_language.canonical'
-        ])->join('product_catalogue_language', 'product_catalogue_language.product_catalogue_id', '=', 'product_catalogues.id')->where('product_catalogue_language.language_id', '=', $language_id)->find($id);
+        ])
+            ->join('product_catalogue_language', 'product_catalogue_language.product_catalogue_id', '=', 'product_catalogues.id')
+            ->where('product_catalogue_language.language_id', '=', $language_id)
+            ->find($id);
     }
 }

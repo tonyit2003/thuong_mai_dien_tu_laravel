@@ -56,6 +56,10 @@ class ProductController extends FrontendController
 
     private function config()
     {
-        return [];
+        return [
+            'js' => [
+                'frontend/core/library/cart.js'
+            ]
+        ];
     }
 }

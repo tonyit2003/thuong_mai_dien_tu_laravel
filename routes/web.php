@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
+use App\Http\Controllers\Ajax\CartController as AjaxCartController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
@@ -34,8 +35,10 @@ use App\Http\Controllers\Backend\SourceController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\RouterController;
+use App\Http\Middleware\CustomerAuthenticateMiddleware;
 
 // @@use-controller@@
 
@@ -49,6 +52,13 @@ Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::cla
 Route::get('{canonical}' . '/uuid={uuid}' . config('apps.general.suffix'), [RouterController::class, 'getProduct'])->name('router.getProduct')->where('canonical', '[a-zA-Z0-9-]+');
 Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
 Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
+
+// Route cho giỏ hàng
+Route::get('pay' . config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');
+
+// AJAX
+Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
+Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create')->middleware(CustomerAuthenticateMiddleware::class);
 
 /* BACKEND ROUTES */
 
@@ -326,9 +336,6 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::get('ajax/product/loadProductPromotion', [AjaxProductController::class, 'loadProductPromotion'])->name('ajax.loadProductPromotion');
     Route::get('ajax/source/getAllSource', [AjaxSourceController::class, 'getAllSource'])->name('ajax.getAllSource');
 });
-
-// AJAX - FRONTEND
-Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
 
 // LOGIN - LOGOUT DASHBOARD (admin)
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
