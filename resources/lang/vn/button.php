@@ -33,4 +33,5 @@ return [
     'delete_promotion'              => 'Xóa khuyến mãi',
     'delete_supplier'               => 'Xóa nhà cung cấp',
     'browse'                        => 'Duyệt đề xuất nhập hàng',
+    'order_payment'                 => 'Thanh toán đơn hàng',
 ];

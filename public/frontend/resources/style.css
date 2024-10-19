@@ -3435,11 +3435,11 @@ a.ui-button:active,
 .panel-cart .cart-heading {
     text-transform: uppercase;
     font-weight: 900;
-    font-size: 30px;
+    font-size: 25px;
     line-height: 32px;
 }
 .panel-cart .panel-head .has-account {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
 }
 .panel-cart .panel-head .has-account a {
@@ -3487,8 +3487,10 @@ a.ui-button:active,
     max-width: 55px;
 }
 .cart-checkout {
+    font-weight: bold;
+    border: none;
     border-radius: 16px;
-    background: #000;
+    background: var(--primary-color);
     height: 50px;
     width: 100%;
     padding: 15px 20px;
@@ -3499,8 +3501,8 @@ a.ui-button:active,
     transition: all 0.3s ease;
 }
 .cart-checkout:hover {
-    background: #d9d9d9;
-    color: #000;
+    background: var(--hover-cover);
+    color: #fff;
 }
 .cart-return {
     font-size: 13px;
@@ -3643,7 +3645,7 @@ a.ui-button:active,
 }
 .voucher-right .voucher-title span {
     font-weight: normal;
-    font-size: 10px;
+    font-size: 12px;
     color: blue;
 }
 .voucher-right .voucher-description {
@@ -3688,7 +3690,15 @@ a.ui-button:active,
     font-size: 13px;
     color: #fff;
     background: #000;
+    transition: all 0.3s ease;
+    font-weight: bold;
 }
+
+.voucher-form a:hover {
+    border: 1px solid var(--hover-cover);
+    background: var(--hover-cover);
+}
+
 .voucher-list {
     overflow-x: auto;
     overflow-y: hidden;
@@ -3700,8 +3710,8 @@ a.ui-button:active,
 }
 
 .voucher-item.active {
-    background: #2f5acf;
-    border: 2px solid #2f5acf;
+    background: var(--primary-color);
+    border: 2px solid #000;
     color: #fff;
 }
 .voucher-item.active .voucher-description {
@@ -3981,6 +3991,11 @@ a.ui-button:active,
     background-color: var(--primary-color);
     border-radius: 8px;
     color: #fff;
+}
+
+.addToCart:hover {
+    cursor: pointer;
+    background-color: var(--hover-cover);
 }
 
 .addToCart > * {

@@ -247,4 +247,12 @@ return [
     'twitter'                           => 'Twitter',
     'tiktok'                            => 'Tiktok',
     'instagram'                         => 'Instagram',
+    'enter_name'                        => 'Nhập họ và tên',
+    'enter_phone'                       => 'Nhập số điện thoại',
+    'enter_email'                       => 'Nhập email',
+    'enter_address'                     => 'Nhập địa chỉ',
+    'enter_description'                 => 'Nhập mô tả',
+    'payment_method'                    => 'Hình thức thanh toán',
+    'choose_promotion'                  => 'Chọn mã giảm giá',
+    'apply'                             => 'Áp dụng',
 ];

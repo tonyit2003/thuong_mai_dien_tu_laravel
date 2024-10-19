@@ -25,4 +25,13 @@ return [
     'product'           => 'Sản phẩm',
     'addToCart'         => 'Thêm vào giỏ hàng',
     'quantity'          => 'Số lượng',
+    'pay_meta_title'    => 'Thanh toán đơn hàng',
+    'order_information' => 'Thông tin đặt hàng',
+    'has_account'       => 'Bạn đã có tài khoản?',
+    'login_now'         => 'Đăng nhập ngay',
+    'cart'              => 'Giỏ hàng',
+    'discount'          => 'Giảm giá',
+    'shipping_fee'      => 'Phí giao hàng',
+    'free'              => 'Miễn phí',
+    'total_price'       => 'Tổng tiền',
 ];
