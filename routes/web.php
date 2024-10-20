@@ -57,6 +57,7 @@ Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterCon
 Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
 
 // AJAX
+Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
 Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
 Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create')->middleware(CustomerAuthenticateMiddleware::class);
 
@@ -319,7 +320,6 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     // @@new-module@@
 
     // AJAX
-    Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
     Route::post('ajax/dashboard/changeStatus', [AjaxDashboardController::class, 'changeStatus'])->name('ajax.dashboard.changeStatus');
     Route::post('ajax/dashboard/changeStatusAll', [AjaxDashboardController::class, 'changeStatusAll'])->name('ajax.dashboard.changeStatusAll');
     Route::get('ajax/dashboard/getMenu', [AjaxDashboardController::class, 'getMenu'])->name('ajax.dashboard.getMenu');

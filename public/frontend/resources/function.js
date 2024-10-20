@@ -177,109 +177,6 @@
         }
     };
 
-    HT.popupSwiperSlide = () => {
-        var swiper = new Swiper(".popup-gallery .swiper-container", {
-            loop: true,
-            autoplay: {
-                delay: 2000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            thumbs: {
-                swiper: {
-                    el: ".swiper-container-thumbs",
-                    slidesPerView: 4,
-                    spaceBetween: 10,
-                    slideToClickedSlide: true,
-                },
-            },
-        });
-    };
-
-    HT.selectProductVariant = () => {
-        if ($(".choose-attribute").length) {
-            $(document).on("click", ".choose-attribute", function (e) {
-                e.preventDefault();
-                let _this = $(this);
-                _this
-                    .parents(".attribute-value")
-                    .find(".choose-attribute")
-                    .removeClass("active");
-                _this.addClass("active");
-                HT.handleAttribute();
-            });
-        }
-    };
-
-    HT.handleAttribute = () => {
-        let attribute_id = [];
-        let canonical = $("input[name=product_canonical]").val();
-        $(".attribute-value .choose-attribute").each(function () {
-            let _this = $(this);
-            if (_this.hasClass("active")) {
-                attribute_id.push(_this.attr("data-attributeid"));
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "ajax/product/loadVariant",
-            data: {
-                attribute_id: attribute_id,
-                product_id: $("input[name=product_id]").val(),
-                language_id: $("input[name=language_id]").val(),
-            },
-            dataType: "json",
-            beforeSend: function () {},
-            success: function (res) {
-                if (res.variant.uuid) {
-                    let variant_url =
-                        BASE_URL +
-                        `${canonical}/uuid=${res.variant.uuid}` +
-                        SUFFIX;
-                    window.location.href = variant_url;
-                }
-            },
-        });
-    };
-
-    HT.showAttribute = () => {
-        $(".attribute-value .choose-attribute").each(function () {
-            let _this = $(this);
-            if (_this.hasClass("active")) {
-                let attribute_name = _this.text();
-                _this
-                    .parents(".attribute-item")
-                    .find("span")
-                    .html(attribute_name);
-            }
-        });
-    };
-
-    HT.changeQuantity = () => {
-        if ($(".quantity .minus").length) {
-            $(".quantity .minus").click(function () {
-                var $quantity = $(this).siblings(".quantity-text");
-                var currentValue = parseInt($quantity.val());
-                if (currentValue > 1) {
-                    $quantity.val(currentValue - 1);
-                }
-            });
-        }
-        if ($(".quantity .plus").length) {
-            $(".quantity .plus").click(function () {
-                var $quantity = $(this).siblings(".quantity-text");
-                var currentValue = parseInt($quantity.val());
-                $quantity.val(currentValue + 1);
-            });
-        }
-    };
-
     $(document).ready(function () {
         HT.wow();
         HT.swiperCategory();
@@ -287,10 +184,6 @@
         HT.swiperFeaturedNews();
         HT.swiper();
         HT.niceSelect();
-        HT.popupSwiperSlide();
-        HT.selectProductVariant();
-        HT.showAttribute();
-        HT.changeQuantity();
     });
 })(jQuery);
 
@@ -305,54 +198,3 @@ addCommas = (nStr) => {
     str = str.slice(0, str.length - 1);
     return str;
 };
-
-HT.selectProductVariant = () => {
-    if ($(".choose-attribute").length) {
-        $(document).on("click", ".choose-attribute", function (e) {
-            e.preventDefault();
-            let _this = $(this);
-            let attribute_id = _this.attr("data-attributeid");
-            let attribute_name = _this.text();
-            _this.parents(".attribute-item").find("span").html(attribute_name);
-            _this
-                .parents(".attribute-value")
-                .find(".choose-attribute")
-                .removeClass("active");
-            _this.addClass("active");
-            HT.handleAttribute();
-        });
-    }
-};
-
-// HT.handleAttribute = () => {
-//     let attribute_id = [];
-//     let flag = true;
-//     $(".attribute-value .choose-attribute").each(function () {
-//         let _this = $(this);
-//         if (_this.hasClass("active")) {
-//             attribute_id.push(_this.attr("data-attributeid"));
-//         }
-//     });
-//     $(".attribute").each(function () {
-//         if ($(this).find(".choose-attribute.active").length === 0) {
-//             flag = false;
-//             return false;
-//         }
-//     });
-//     if (flag) {
-//         $.ajax({
-//             type: "GET",
-//             url: "ajax/product/loadVariant",
-//             data: {
-//                 attribute_id: attribute_id,
-//                 product_id: $("input[name=product_id]").val(),
-//                 language_id: $("input[name=language_id]").val(),
-//             },
-//             dataType: "json",
-//             beforeSend: function () {},
-//             success: function (res) {
-//                 console.log(res);
-//             },
-//         });
-//     }
-// };

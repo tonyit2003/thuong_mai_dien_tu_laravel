@@ -3757,6 +3757,12 @@ a.ui-button:active,
     padding-left: 20px !important;
 }
 
+.select2-container--default
+    .select2-search--dropdown
+    .select2-search__field:focus-visible {
+    outline: none;
+}
+
 .cart-price-old {
     color: #777;
     font-size: 12px;

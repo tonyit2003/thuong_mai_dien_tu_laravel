@@ -25,40 +25,50 @@
                                         <div class="uk-grid uk-grid-medium mb20">
                                             <div class="uk-width-large-1-2">
                                                 <div class="form-row">
-                                                    <input type="text" name="fullname" id="" value=""
+                                                    <input type="text" name="fullname" id=""
+                                                        value="{{ isset($customer->name) ? $customer->name : '' }}"
                                                         placeholder="{{ __('form.enter_name') }}" class="input-text">
                                                 </div>
                                             </div>
                                             <div class="uk-width-large-1-2">
                                                 <div class="form-row">
-                                                    <input type="text" name="phone" id="" value=""
+                                                    <input type="text" name="phone" id=""
+                                                        value="{{ isset($customer->phone) ? $customer->phone : '' }}"
                                                         placeholder="{{ __('form.enter_phone') }}" class="input-text">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-row mb20">
-                                            <input type="text" name="email" id="" value=""
+                                            <input type="text" name="email" id=""
+                                                value="{{ isset($customer->email) ? $customer->email : '' }}"
                                                 placeholder="{{ __('form.enter_email') }}" class="input-text">
                                         </div>
                                         <div class="uk-grid uk-grid-medium mb20">
                                             <div class="uk-width-large-1-3">
-                                                <select name="" id="" class="nice-select">
-                                                    <option value="">{{ __('form.select_province') }}</option>
+                                                <select name="province_id" id=""
+                                                    class="setupSelect2 province location" data-target="district">
+                                                    <option value="0">{{ __('form.select_province') }}</option>
+                                                    @foreach ($provinces as $key => $val)
+                                                        <option @if (old('province_id') == $val->code) selected @endif
+                                                            value="{{ $val->code }}">{{ $val->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="uk-width-large-1-3">
-                                                <select name="" id="" class="nice-select">
-                                                    <option value="">{{ __('form.select_district') }}</option>
+                                                <select name="district_id" id=""
+                                                    class="setupSelect2 district location" data-target="ward">
+                                                    <option value="0">{{ __('form.select_district') }}</option>
                                                 </select>
                                             </div>
                                             <div class="uk-width-large-1-3">
-                                                <select name="" id="" class="nice-select">
-                                                    <option value="">{{ __('form.select_ward') }}</option>
+                                                <select name="ward_id" id="" class="setupSelect2 ward">
+                                                    <option value="0">{{ __('form.select_ward') }}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-row mb20">
-                                            <input type="text" name="address" id="" value=""
+                                            <input type="text" name="address" id=""
+                                                value="{{ isset($customer->address) ? $customer->address : '' }}"
                                                 placeholder="{{ __('form.enter_address') }}" class="input-text">
                                         </div>
                                         <div class="form-row">
@@ -96,46 +106,53 @@
                                     </h2>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="cart-list">
-                                        @for ($i = 0; $i < 3; $i++)
-                                            <div class="cart-item">
-                                                <div class="uk-grid uk-grid-medium">
-                                                    <div class="uk-width-small-1-1 uk-width-medium-1-5">
-                                                        <div class="cart-item-image">
-                                                            <span class="image img-scaledown">
-                                                                <img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-1/452648975_1553239808882646_747626360851414855_n.jpg?stp=dst-jpg_s200x200&_nc_cat=109&ccb=1-7&_nc_sid=50d2ac&_nc_eui2=AeFYllgEXeffMFjUoPQV7T5G5ejIMbZx-7bl6MgxtnH7tpxY0shu1aYqRYoaKh90xvc7xVx_lxcoEddGISbyS-gq&_nc_ohc=xELauPTXDiUQ7kNvgGX9FuG&_nc_zt=24&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AfUae7J210rCC86FYosHCxS&oh=00_AYBt5fp3CWtURxrb7OoA4l-Ld0ODnh6SO6tIHCpi4Fy3sA&oe=6719B392"
-                                                                    alt="">
-                                                            </span>
-                                                            <span class="cart-item-number">1</span>
+                                    @if (isset($carts) && count($carts))
+                                        <div class="cart-list">
+                                            @foreach ($carts as $key => $val)
+                                                <div class="cart-item">
+                                                    <div class="uk-grid uk-grid-medium">
+                                                        <div class="uk-width-small-1-1 uk-width-medium-1-5">
+                                                            <div class="cart-item-image">
+                                                                <span class="image img-scaledown">
+                                                                    <img src="{{ isset($val->image) ? $val->image : 'backend/img/no-photo.png' }}"
+                                                                        alt="">
+                                                                </span>
+                                                                <span class="cart-item-number">{{ $val->quantity }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="uk-width-small-1-1 uk-width-medium-4-5">
-                                                        <div class="cart-item-info">
-                                                            <h3 class="title">
-                                                                <span>AAAAAAAAAAAAAAAAA</span>
-                                                            </h3>
-                                                            <div
-                                                                class="cart-item-action uk-flex uk-flex-middle uk-flex-space-between">
-                                                                <div class="cart-item-qty">
-                                                                    <button type="button"
-                                                                        class="btn-qty minus">-</button>
-                                                                    <input type="text" class="input-qty"
-                                                                        value="1">
-                                                                    <button type="button" class="btn-qty plus">+</button>
-                                                                </div>
-                                                                <div class="cart-item-price">11.000.000đ</div>
-                                                                <div class="cart-item-remove">
-                                                                    <span>✖</span>
+                                                        <div class="uk-width-small-1-1 uk-width-medium-4-5">
+                                                            <div class="cart-item-info">
+                                                                <h3 class="title">
+                                                                    <span>{{ $val->name }}</span>
+                                                                </h3>
+                                                                <div
+                                                                    class="cart-item-action uk-flex uk-flex-middle uk-flex-space-between">
+                                                                    <div class="cart-item-qty">
+                                                                        <button type="button"
+                                                                            class="btn-qty minus">-</button>
+                                                                        <input type="text" class="input-qty"
+                                                                            value="{{ $val->quantity }}">
+                                                                        <button type="button"
+                                                                            class="btn-qty plus">+</button>
+                                                                    </div>
+                                                                    <div class="price cart-item-price"
+                                                                        style="margin-bottom: 0px">
+                                                                        <div class="price-sale">
+                                                                            {{ formatCurrency($val->price) }}</div>
+                                                                    </div>
+                                                                    <div class="cart-item-remove">
+                                                                        <span>✖</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endfor
-                                    </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
-                                <div class="panel-voucher">
+                                <div class="panel-voucher uk-hidden">
                                     <div class="voucher-list">
                                         @for ($i = 0; $i < 10; $i++)
                                             <div class="voucher-item {{ $i == 0 ? 'active' : '' }}">
@@ -160,12 +177,12 @@
                                         <a href="" class="apply-voucher">{{ __('form.apply') }}</a>
                                     </div>
                                 </div>
-                                <div class="panel-foot">
+                                <div class="panel-foot mt30">
                                     <div class="cart-summary">
                                         <div class="cart-summary-item">
                                             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                                                 <span class="summary-title">{{ __('info.discount') }}</span>
-                                                <div class="summary-value">-0đ</div>
+                                                <div class="summary-value">- {{ formatCurrency(0) }}</div>
                                             </div>
                                         </div>
                                         <div class="cart-summary-item">
@@ -177,7 +194,7 @@
                                         <div class="cart-summary-item">
                                             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                                                 <span class="summary-title bold">{{ __('info.total_price') }}</span>
-                                                <div class="summary-value cart-total">100.000.000đ</div>
+                                                <div class="summary-value cart-total">{{ $totalPrice }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,3 +207,9 @@
         </div>
     </div>
 @endsection
+
+<script>
+    var province_id = '{{ isset($customer->province_id) ? $customer->province_id : old('province_id') }}';
+    var district_id = '{{ isset($customer->district_id) ? $customer->district_id : old('district_id') }}';
+    var ward_id = '{{ isset($customer->ward_id) ? $customer->ward_id : old('ward_id') }}';
+</script>

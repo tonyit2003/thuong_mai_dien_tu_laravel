@@ -58,7 +58,8 @@ class ProductController extends FrontendController
     {
         return [
             'js' => [
-                'frontend/core/library/cart.js'
+                'frontend/core/library/cart.js',
+                'frontend/core/library/product.js',
             ]
         ];
     }

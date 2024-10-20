@@ -12,56 +12,58 @@
     };
 
     HT.addCart = () => {
-        $(document).on("click", ".addToCart", function (e) {
-            e.preventDefault();
-            let _this = $(this);
-            let product_id = _this.attr("data-productid");
-            let variant_uuid = _this.attr("data-variantuuid");
-            let quantity = $(".quantity-text").val();
-            if (typeof quantity === "undefined") {
-                quantity = 1;
-            }
-
-            let attribute_id = [];
-            $(".attribute-value .choose-attribute").each(function () {
+        if ($(".addToCart").length) {
+            $(document).on("click", ".addToCart", function (e) {
+                e.preventDefault();
                 let _this = $(this);
-                if (_this.hasClass("active")) {
-                    attribute_id.push(_this.attr("data-attributeid"));
+                let product_id = _this.attr("data-productid");
+                let variant_uuid = _this.attr("data-variantuuid");
+                let quantity = $(".quantity-text").val();
+                if (typeof quantity === "undefined") {
+                    quantity = 1;
                 }
-            });
 
-            let option = {
-                product_id: product_id,
-                variant_uuid: variant_uuid,
-                quantity: quantity,
-                attribute_id: attribute_id,
-                _token: _token,
-            };
-
-            $.ajax({
-                url: "ajax/cart/create",
-                type: "POST",
-                data: option,
-                dataType: "json",
-                beforeSend: function () {},
-                success: function (res) {
-                    toastr.clear();
-                    if (res.code === 10) {
-                        toastr.success(res.messages, "SUCCESS");
-                    } else {
-                        toastr.error(res.messages, "ERROR");
+                let attribute_id = [];
+                $(".attribute-value .choose-attribute").each(function () {
+                    let _this = $(this);
+                    if (_this.hasClass("active")) {
+                        attribute_id.push(_this.attr("data-attributeid"));
                     }
-                },
-                error: function (xhr) {
-                    if (xhr.status === 401) {
-                        var response = xhr.responseJSON;
-                        if (response.redirect) {
-                            window.location.href = response.redirect;
+                });
+
+                let option = {
+                    product_id: product_id,
+                    variant_uuid: variant_uuid,
+                    quantity: quantity,
+                    attribute_id: attribute_id,
+                    _token: _token,
+                };
+
+                $.ajax({
+                    url: "ajax/cart/create",
+                    type: "POST",
+                    data: option,
+                    dataType: "json",
+                    beforeSend: function () {},
+                    success: function (res) {
+                        toastr.clear();
+                        if (res.code === 10) {
+                            toastr.success(res.messages, "SUCCESS");
+                        } else {
+                            toastr.error(res.messages, "ERROR");
                         }
-                    }
-                },
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            var response = xhr.responseJSON;
+                            if (response.redirect) {
+                                window.location.href = response.redirect;
+                            }
+                        }
+                    },
+                });
             });
-        });
+        }
     };
 
     // HT.changeQuantity = () => {
@@ -187,15 +189,15 @@
     //     _this.parents(".cart-item").remove();
     // };
 
-    // HT.setupSelect2 = () => {
-    //     if ($(".setupSelect2").length) {
-    //         $(".setupSelect2").select2();
-    //     }
-    // };
+    HT.setupSelect2 = () => {
+        if ($(".setupSelect2").length) {
+            $(".setupSelect2").select2();
+        }
+    };
 
     $document.ready(function () {
         HT.addCart();
-        // HT.setupSelect2();
+        HT.setupSelect2();
         // HT.changeQuantity();
         // HT.changeQuantityInput();
         // HT.removeCartItem();

@@ -29,6 +29,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
+
 @php
     $coreCss = [
         'backend\css\plugins\toastr\toastr.min.css',
@@ -41,10 +42,17 @@
         'frontend/core/plugins/jquery-nice-select-1.1.0/css/nice-select.css',
         'frontend/resources/style.css',
     ];
+    if (isset($config['css'])) {
+        foreach ($config['css'] as $val) {
+            array_push($coreCss, $val);
+        }
+    }
 @endphp
+
 @foreach ($coreCss as $item)
     <link rel="stylesheet" href="{{ asset($item) }}">
 @endforeach
+
 <script>
     var BASE_URL = "{{ config('app.url') }}"
     var SUFFIX = "{{ config('apps.general.suffix') }}"
