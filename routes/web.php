@@ -60,6 +60,8 @@ Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Fr
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
 Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
 Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create')->middleware(CustomerAuthenticateMiddleware::class);
+Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update')->middleware(CustomerAuthenticateMiddleware::class);
+Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete')->middleware(CustomerAuthenticateMiddleware::class);
 
 /* BACKEND ROUTES */
 

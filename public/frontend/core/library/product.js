@@ -34,7 +34,6 @@
         $(document).on("click", ".quantity-button", function () {
             let _this = $(this);
             let quantity = $(".quantity-text").val();
-            console.log($(".quantity-text").val());
 
             let newQuantity = 0;
             if (_this.hasClass("minus")) {

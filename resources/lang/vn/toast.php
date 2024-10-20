@@ -20,4 +20,8 @@ return [
     'login_required'                        => 'Bạn cần phải đăng nhập',
     'add_to_cart_success'                   => 'Thêm sản phẩm vào giỏ hàng thành công',
     'add_to_cart_failed'                    => 'Thêm sản phẩm vào giỏ hàng thất bại',
+    'update_quantity_cart_success'          => 'Cập nhật số lượng thành công',
+    'update_quantity_cart_failed'           => 'Cập nhật số lượng thất bại',
+    'delete_cart_success'                   => 'Xóa sản phẩm khỏi giỏ hàng thành công',
+    'delete_cart_failed'                    => 'Xóa sản phẩm khỏi giỏ hàng thất bại',
 ];

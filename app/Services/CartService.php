@@ -79,6 +79,42 @@ class CartService implements CartServiceInterface
         }
     }
 
+    public function update($request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->except('_token');
+            $this->cartRepository->updateByWhere([
+                ['customer_id', '=', $payload['customer_id']],
+                ['product_id', '=', $payload['product_id']],
+                ['variant_uuid', '=', $payload['variant_uuid']],
+            ], ['quantity' => $payload['quantity']]);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function delete($request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->except('_token');
+            $this->cartRepository->deleteByCondition([
+                ['customer_id', '=', $payload['customer_id']],
+                ['product_id', '=', $payload['product_id']],
+                ['variant_uuid', '=', $payload['variant_uuid']],
+            ]);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
     public function setInformation($productVariants = null, $language = 1)
     {
         if (isset($productVariants) && count($productVariants)) {
@@ -99,11 +135,7 @@ class CartService implements CartServiceInterface
                         $query->where('language_id', $language);
                     }
                 ]);
-                if (isset($val->promotions) && $val->promotions->discount > 0) {
-                    $val->price = ($productVariant->price - $val->promotions->discount) * $val->quantity;
-                } else {
-                    $val->price = $productVariant->price * $val->quantity;
-                }
+                $val->price = $this->getTotalPriceItem($val);
                 $val->image = isset($productVariant->album) ? explode(',', $productVariant->album)[0] : null;
                 $val->name = $product->languages->first()->pivot->name . ' - ' .  $productVariant->languages->first()->pivot->name;
             }
@@ -111,10 +143,28 @@ class CartService implements CartServiceInterface
         return $productVariants;
     }
 
-    public function combineProductVariantAndPromotion($productVariantUuids, $productVariants)
+    public function getTotalPriceItem($cart)
+    {
+        $productVariant = $this->productVariantRepository->findByCondition([
+            ['uuid', '=', $cart->variant_uuid],
+        ]);
+        $price = 0;
+        if (isset($cart->promotions) && $cart->promotions->discount > 0) {
+            $price = ($productVariant->price - $cart->promotions->discount) * $cart->quantity;
+        } else {
+            $price = $productVariant->price * $cart->quantity;
+        }
+        return $price;
+    }
+
+    public function combineProductVariantAndPromotion($productVariantUuids, $productVariants, $flag = false)
     {
         $promotions = $this->promotionRepository->findByProductVariant($productVariantUuids);
         if ($promotions) {
+            if ($flag == true) {
+                $productVariants->promotions = $promotions[0] ?? [];
+                return $productVariants;
+            }
             foreach ($productVariants as $keyProduct => $valProduct) {
                 foreach ($promotions as $keyPromotion => $valPromotion) {
                     if ($valPromotion->product_variant_uuid === $valProduct->variant_uuid) {
@@ -135,5 +185,16 @@ class CartService implements CartServiceInterface
             }
         }
         return formatCurrency($total);
+    }
+
+    public function getTotalQuantity($carts)
+    {
+        $quantity = 0;
+        if (isset($carts) && count($carts)) {
+            foreach ($carts as $key => $val) {
+                $quantity += $val->quantity;
+            }
+        }
+        return $quantity;
     }
 }

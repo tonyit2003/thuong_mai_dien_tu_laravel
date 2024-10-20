@@ -66,128 +66,145 @@
         }
     };
 
-    // HT.changeQuantity = () => {
-    //     $(document).on("click", ".btn-qty", function () {
-    //         let _this = $(this);
-    //         let qtyElement = _this.siblings(".input-qty");
-    //         let qty = qtyElement.val();
-    //         let newQty = _this.hasClass("minus")
-    //             ? parseInt(qty) - 1
-    //             : parseInt(qty) + 1;
-    //         newQty = newQty < 1 ? 1 : newQty;
-    //         qtyElement.val(newQty);
+    HT.changeQuantity = () => {
+        if ($(".btn-qty").length) {
+            $(document).on("click", ".btn-qty", function () {
+                let _this = $(this);
+                let qtyElement = _this.siblings(".input-qty");
+                let qty = qtyElement.val();
+                let newQty = _this.hasClass("minus")
+                    ? parseInt(qty) - 1
+                    : parseInt(qty) + 1;
+                newQty = newQty < 1 ? 1 : newQty;
+                qtyElement.val(newQty);
 
-    //         let option = {
-    //             qty: newQty,
-    //             rowId: _this.siblings(".rowId").val(),
-    //             _token: _token,
-    //         };
+                let option = {
+                    quantity: newQty,
+                    customer_id: _this
+                        .siblings(".cart-info")
+                        .find(".customer_id")
+                        .val(),
+                    product_id: _this
+                        .siblings(".cart-info")
+                        .find(".product_id")
+                        .val(),
+                    variant_uuid: _this
+                        .siblings(".cart-info")
+                        .find(".variant_uuid")
+                        .val(),
+                    _token: _token,
+                };
 
-    //         HT.handleUpdateCart(_this, option);
-    //     });
-    // };
+                HT.handleUpdateCart(_this, option);
+            });
+        }
+    };
 
-    // HT.changeQuantityInput = () => {
-    //     $(document).on("change", ".input-qty", function () {
-    //         let _this = $(this);
-    //         let option = {
-    //             qty: parseInt(_this.val()) == 0 ? 1 : parseInt(_this.val()),
-    //             rowId: _this.siblings(".rowId").val(),
-    //             _token: _token,
-    //         };
+    HT.changeQuantityInput = () => {
+        if ($(".input-qty").length) {
+            $(document).on("change", ".input-qty", function () {
+                let _this = $(this);
+                let option = {
+                    quantity:
+                        parseInt(_this.val()) == 0 ? 1 : parseInt(_this.val()),
+                    customer_id: _this
+                        .siblings(".cart-info")
+                        .find(".customer_id")
+                        .val(),
+                    product_id: _this
+                        .siblings(".cart-info")
+                        .find(".product_id")
+                        .val(),
+                    variant_uuid: _this
+                        .siblings(".cart-info")
+                        .find(".variant_uuid")
+                        .val(),
+                    _token: _token,
+                };
+                _this.val(option.quantity);
+                HT.handleUpdateCart(_this, option);
+            });
+        }
+    };
 
-    //         if (isNaN(option.qty)) {
-    //             toastr.error(
-    //                 "Số lượng nhập không chính xác",
-    //                 "Thông báo từ hệ thống!"
-    //             );
-    //             return false;
-    //         }
+    HT.handleUpdateCart = (_this, option) => {
+        $.ajax({
+            url: "ajax/cart/update",
+            type: "POST",
+            data: option,
+            dataType: "json",
+            beforeSend: function () {},
+            success: function (res) {
+                toastr.clear();
+                if (res.code === 10) {
+                    HT.changeMinyCartQuantity(res.totalQuantity);
+                    HT.changeMinyQuantityItem(_this, option.quantity);
+                    HT.changeCartItemSubTotal(_this, res.totalItem);
+                    HT.changeCartTotal(res.totalPrice);
+                    toastr.success(res.messages, "SUCCESS");
+                } else {
+                    toastr.error(res.messages, "ERROR");
+                }
+            },
+        });
+    };
 
-    //         HT.handleUpdateCart(_this, option);
-    //     });
-    // };
+    HT.changeMinyQuantityItem = (item, quantity) => {
+        item.parents(".cart-item").find(".cart-item-number").html(quantity);
+    };
 
-    // HT.handleUpdateCart = (_this, option) => {
-    //     $.ajax({
-    //         url: "ajax/cart/update",
-    //         type: "POST",
-    //         data: option,
-    //         dataType: "json",
-    //         beforeSend: function () {},
-    //         success: function (res) {
-    //             toastr.clear();
-    //             if (res.code === 10) {
-    //                 HT.changeMinyCartQuantity(res);
-    //                 HT.changeMinyQuantityItem(_this, option);
-    //                 HT.changeCartItemSubTotal(_this, res);
-    //                 HT.changeCartTotal(res);
-    //                 toastr.success(res.messages, "Thông báo từ hệ thống!");
-    //             } else {
-    //                 toastr.error(
-    //                     "Có vấn đề xảy ra! Hãy thử lại",
-    //                     "Thông báo từ hệ thống!"
-    //                 );
-    //             }
-    //         },
-    //     });
-    // };
+    HT.changeCartItemSubTotal = (item, totalItem) => {
+        item.parents(".cart-item-info")
+            .find(".cart-price-sale")
+            .html(totalItem);
+    };
 
-    // HT.changeMinyQuantityItem = (item, option) => {
-    //     item.parents(".cart-item").find(".cart-item-number").html(option.qty);
-    // };
+    HT.changeMinyCartQuantity = (quantity) => {
+        $("#cartTotalItem").html(quantity);
+    };
 
-    // HT.changeCartItemSubTotal = (item, res) => {
-    //     item.parents(".cart-item-info")
-    //         .find(".cart-price-sale")
-    //         .html(addCommas(res.response.cartItemSubTotal) + "đ");
-    // };
+    HT.changeCartTotal = (totalPrice) => {
+        $(".cart-total").html(totalPrice);
+        // $(".discount-value").html(
+        //     "-" + addCommas(res.response.cartDiscount) + "đ"
+        // );
+    };
 
-    // HT.changeMinyCartQuantity = (res) => {
-    //     $("#cartTotalItem").html(res.response.cartTotalItems);
-    // };
+    HT.removeCartItem = () => {
+        if ($(".cart-item-remove").length) {
+            $(document).on("click", ".cart-item-remove", function () {
+                let _this = $(this);
+                let option = {
+                    customer_id: _this.attr("data-customer-id"),
+                    product_id: _this.attr("data-product-id"),
+                    variant_uuid: _this.attr("data-variant-uuid"),
+                    _token: _token,
+                };
+                $.ajax({
+                    url: "ajax/cart/delete",
+                    type: "POST",
+                    data: option,
+                    dataType: "json",
+                    beforeSend: function () {},
+                    success: function (res) {
+                        toastr.clear();
+                        if (res.code === 10) {
+                            HT.changeMinyCartQuantity(res.totalQuantity);
+                            HT.changeCartTotal(res.totalPrice);
+                            HT.removeCartItemRow(_this);
+                            toastr.success(res.messages, "SUCCESS");
+                        } else {
+                            toastr.error(res.messages, "ERROR");
+                        }
+                    },
+                });
+            });
+        }
+    };
 
-    // HT.changeCartTotal = (res) => {
-    //     $(".cart-total").html(addCommas(res.response.cartTotal) + "đ");
-    //     $(".discount-value").html(
-    //         "-" + addCommas(res.response.cartDiscount) + "đ"
-    //     );
-    // };
-
-    // HT.removeCartItem = () => {
-    //     $(document).on("click", ".cart-item-remove", function () {
-    //         let _this = $(this);
-    //         let option = {
-    //             rowId: _this.attr("data-row-id"),
-    //             _token: _token,
-    //         };
-    //         $.ajax({
-    //             url: "ajax/cart/delete",
-    //             type: "POST",
-    //             data: option,
-    //             dataType: "json",
-    //             beforeSend: function () {},
-    //             success: function (res) {
-    //                 toastr.clear();
-    //                 if (res.code === 10) {
-    //                     HT.changeMinyCartQuantity(res);
-    //                     HT.changeCartTotal(res);
-    //                     HT.removeCartItemRow(_this);
-    //                     toastr.success(res.messages, "Thông báo từ hệ thống!");
-    //                 } else {
-    //                     toastr.error(
-    //                         "Có vấn đề xảy ra! Hãy thử lại",
-    //                         "Thông báo từ hệ thống!"
-    //                     );
-    //                 }
-    //             },
-    //         });
-    //     });
-    // };
-
-    // HT.removeCartItemRow = (_this) => {
-    //     _this.parents(".cart-item").remove();
-    // };
+    HT.removeCartItemRow = (_this) => {
+        _this.parents(".cart-item").remove();
+    };
 
     HT.setupSelect2 = () => {
         if ($(".setupSelect2").length) {
@@ -198,8 +215,8 @@
     $document.ready(function () {
         HT.addCart();
         HT.setupSelect2();
-        // HT.changeQuantity();
-        // HT.changeQuantityInput();
-        // HT.removeCartItem();
+        HT.changeQuantity();
+        HT.changeQuantityInput();
+        HT.removeCartItem();
     });
 })(jQuery);

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Controllers\Frontend\AuthClientController;
+use App\Http\ViewComposers\CartComposer;
 use App\Http\ViewComposers\LanguageComposer;
 use App\Http\ViewComposers\MenuComposer;
 use App\Http\ViewComposers\SystemComposer;
@@ -66,5 +67,6 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('backend.dashboard.layout', SystemComposer::class);
         view()->composer('frontend.homepage.layout', MenuComposer::class);
         view()->composer('frontend.homepage.layout', LanguageComposer::class);
+        view()->composer('frontend.homepage.layout', CartComposer::class);
     }
 }
