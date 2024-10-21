@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\PromotionEnum;
 use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
@@ -184,7 +185,7 @@ class CartService implements CartServiceInterface
                 $total += $val->price;
             }
         }
-        return formatCurrency($total);
+        return $total;
     }
 
     public function getTotalQuantity($carts)
@@ -196,5 +197,54 @@ class CartService implements CartServiceInterface
             }
         }
         return $quantity;
+    }
+
+    public function cartPromotion($carts)
+    {
+        $maxDiscount = 0;
+        $selectedPromotion = null;
+        if (isset($carts)) {
+            $cartTotal = $this->getTotalPrice($carts);
+            $promotions = $this->promotionRepository->getPromotionByCartTotal();
+            if (isset($promotions)) {
+                foreach ($promotions as $promotion) {
+                    $discount = $promotion->discountInformation['info'];
+                    $amountFrom = $discount['amountFrom'] ?? [];
+                    $amountTo = $discount['amountTo'] ?? [];
+                    $amountValue = $discount['amountValue'] ?? [];
+                    $amountType = $discount['amountType'] ?? [];
+
+                    if (isset($amountFrom) && count($amountFrom) == count($amountTo) && count($amountTo) == count($amountValue)) {
+                        for ($i = 0; $i < count($amountFrom); $i++) {
+                            $currentAmountFrom = convert_price($amountFrom[$i]);
+                            $currentAmountTo = convert_price($amountTo[$i]);
+                            $currentAmountValue = convert_price($amountValue[$i]);
+                            $currentAmountType = $amountType[$i];
+
+                            if ($cartTotal >= $currentAmountFrom && $cartTotal <= $currentAmountTo) {
+                                if ($currentAmountType == PromotionEnum::CASH) {
+                                    $maxDiscount = max($maxDiscount, $currentAmountValue);
+                                } else if ($currentAmountType == PromotionEnum::PERCENT) {
+                                    $maxDiscount = max($maxDiscount, ($currentAmountValue / 100) * $cartTotal);
+                                }
+                                $selectedPromotion = $promotion;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return [
+            'discount' => $maxDiscount,
+            'promotion' => $selectedPromotion
+        ];
+    }
+
+    public function getTotalPricePromotion($totalPrice = 0, $discount = 0)
+    {
+        if ($totalPrice < $discount) {
+            return 0;
+        }
+        return $totalPrice - $discount;
     }
 }

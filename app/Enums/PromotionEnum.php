@@ -9,4 +9,6 @@ enum PromotionEnum: string
     const MODULE_TYPE = 'module_type';
     const DISCOUNT_INFORMATION = 'discountInformation';
     const OBJECT = 'object';
+    const CASH = 'cash';
+    const PERCENT = 'percent';
 }

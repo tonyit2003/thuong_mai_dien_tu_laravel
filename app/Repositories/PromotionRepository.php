@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\PromotionEnum;
 use App\Models\Promotion;
 use App\Repositories\Interfaces\PromotionRepositoryInterface;
 
@@ -48,7 +49,8 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
             ->where('products.publish', 1)
             ->where('promotions.publish', 1)
             ->whereIn('products.id', $productIds)
-            ->whereDate('promotions.endDate', '>', now())
+            ->whereDate('promotions.endDate', '>=', now())
+            ->whereDate('promotions.startDate', '<=', now())
             ->whereNull('promotions.deleted_at')
             ->groupBy('products.id')
             ->get();
@@ -83,9 +85,20 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
             ->where('pv.publish', 1)
             ->where('promotions.publish', 1)
             ->whereIn('pv.uuid', $productVariantUuids)
-            ->whereDate('promotions.endDate', '>', now())
+            ->whereDate('promotions.endDate', '>=', now())
+            ->whereDate('promotions.startDate', '<=', now())
             ->whereNull('promotions.deleted_at')
             ->groupBy('pv.uuid')
+            ->get();
+    }
+
+    public function getPromotionByCartTotal()
+    {
+        return $this->model
+            ->where('promotions.publish', 1)
+            ->where('promotions.method', PromotionEnum::ORDER_AMOUNT_RANGE)
+            ->whereDate('promotions.endDate', '>=', now())
+            ->whereDate('promotions.startDate', '<=', now())
             ->get();
     }
 }

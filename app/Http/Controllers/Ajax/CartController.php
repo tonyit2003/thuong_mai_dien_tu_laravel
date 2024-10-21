@@ -34,10 +34,7 @@ class CartController extends FrontendController
         $get = $request->input();
         $flag = $this->cartService->update($request);
         if ($flag) {
-            $carts = $this->cartRepository->findByCondition([
-                ['customer_id', '=', $get['customer_id']],
-            ], true);
-            $carts = $this->cartService->setInformation($carts, $language);
+            $carts = $this->getCartByCustomer($get, $language);
             $cartItem = $carts->first(function ($cart) use ($get) {
                 if ($cart->product_id == $get['product_id'] && $cart->variant_uuid == $get['variant_uuid']) {
                     return $cart;
@@ -45,11 +42,14 @@ class CartController extends FrontendController
             });
             $totalItem = formatCurrency($this->cartService->getTotalPriceItem($cartItem));
             $totalQuantity = $this->cartService->getTotalQuantity($carts);
-            $totalPrice = $this->cartService->getTotalPrice($carts);
+            $cartPromotion = $this->cartService->cartPromotion($carts);
+            $cartDiscount = formatCurrency($cartPromotion['discount']);
+            $totalPrice = formatCurrency($this->cartService->getTotalPricePromotion($this->cartService->getTotalPrice($carts), $cartPromotion['discount']));
             return response()->json([
                 'messages' => __('toast.update_quantity_cart_success'),
                 'code' => 10,
                 'totalItem' => $totalItem,
+                'cartDiscount' => $cartDiscount,
                 'totalPrice' => $totalPrice,
                 'totalQuantity' => $totalQuantity,
             ]);
@@ -66,15 +66,15 @@ class CartController extends FrontendController
         $get = $request->input();
         $flag = $this->cartService->delete($request);
         if ($flag) {
-            $carts = $this->cartRepository->findByCondition([
-                ['customer_id', '=', $get['customer_id']],
-            ], true);
-            $carts = $this->cartService->setInformation($carts, $language);
+            $carts = $this->getCartByCustomer($get, $language);
             $totalQuantity = $this->cartService->getTotalQuantity($carts);
-            $totalPrice = $this->cartService->getTotalPrice($carts);
+            $cartPromotion = $this->cartService->cartPromotion($carts);
+            $cartDiscount = formatCurrency($cartPromotion['discount']);
+            $totalPrice = formatCurrency($this->cartService->getTotalPricePromotion($this->cartService->getTotalPrice($carts), $cartPromotion['discount']));
             return response()->json([
                 'messages' => __('toast.delete_cart_success'),
                 'code' => 10,
+                'cartDiscount' => $cartDiscount,
                 'totalPrice' => $totalPrice,
                 'totalQuantity' => $totalQuantity,
             ]);
@@ -83,5 +83,14 @@ class CartController extends FrontendController
             'messages' => __('toast.delete_cart_failed'),
             'code' => 11,
         ]);
+    }
+
+    private function getCartByCustomer($get, $language)
+    {
+        $carts = $this->cartRepository->findByCondition([
+            ['customer_id', '=', $get['customer_id']],
+        ], true);
+        $carts = $this->cartService->setInformation($carts, $language);
+        return $carts;
     }
 }

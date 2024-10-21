@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\FrontendController;
 use App\Repositories\CartRepository;
 use App\Repositories\CustomerRepository;
+use App\Repositories\PromotionRepository;
 use App\Repositories\ProvinceRepository;
 use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +13,16 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends FrontendController
 {
     protected $provinceRepository;
+    protected $promotionRepository;
     protected $customerRepository;
     protected $cartRepository;
     protected $cartService;
 
-    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService)
+    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService, PromotionRepository $promotionRepository)
     {
         parent::__construct();
         $this->provinceRepository = $provinceRepository;
+        $this->promotionRepository = $promotionRepository;
         $this->customerRepository = $customerRepository;
         $this->cartRepository = $cartRepository;
         $this->cartService = $cartService;
@@ -34,7 +37,8 @@ class CartController extends FrontendController
             ['customer_id', '=', Auth::guard('customers')->id()]
         ], true);
         $carts = $this->cartService->setInformation($carts, $language);
-        $totalPrice = $this->cartService->getTotalPrice($carts);
+        $cartPromotion = $this->cartService->cartPromotion($carts);
+        $totalPrice = formatCurrency($this->cartService->getTotalPricePromotion($this->cartService->getTotalPrice($carts), $cartPromotion['discount']));
         $config = $this->config();
         $system = $this->system;
         $seo = [
@@ -45,7 +49,7 @@ class CartController extends FrontendController
             'canonical' => write_url('pay', true, true)
         ];
         // dd($carts);
-        return view('frontend.cart.index', compact('language', 'seo', 'system', 'config', 'provinces', 'customer', 'carts', 'totalPrice'));
+        return view('frontend.cart.index', compact('language', 'seo', 'system', 'config', 'provinces', 'customer', 'carts', 'totalPrice', 'cartPromotion'));
     }
 
     private function config()

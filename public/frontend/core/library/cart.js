@@ -94,7 +94,6 @@
                         .val(),
                     _token: _token,
                 };
-
                 HT.handleUpdateCart(_this, option);
             });
         }
@@ -140,7 +139,7 @@
                     HT.changeMinyCartQuantity(res.totalQuantity);
                     HT.changeMinyQuantityItem(_this, option.quantity);
                     HT.changeCartItemSubTotal(_this, res.totalItem);
-                    HT.changeCartTotal(res.totalPrice);
+                    HT.changeCartTotal(res.totalPrice, res.cartDiscount);
                     toastr.success(res.messages, "SUCCESS");
                 } else {
                     toastr.error(res.messages, "ERROR");
@@ -163,11 +162,9 @@
         $("#cartTotalItem").html(quantity);
     };
 
-    HT.changeCartTotal = (totalPrice) => {
+    HT.changeCartTotal = (totalPrice, cartDiscount) => {
         $(".cart-total").html(totalPrice);
-        // $(".discount-value").html(
-        //     "-" + addCommas(res.response.cartDiscount) + "đ"
-        // );
+        $(".discount-value").html("- " + cartDiscount);
     };
 
     HT.removeCartItem = () => {
