@@ -282,9 +282,17 @@
                         </td>
                     </tr>`;
                 $("#productTableBodyRereipt").append(newRow);
+
+                // Khóa chọn nhà cung cấp
+                $("#supplierField").prop("disabled", true);
             }
         } else {
             HT.removeRow(null, uniqueId + "-receipt");
+
+            //Xóa chọn nhà cung cấp
+            if ($(".checkBoxItemReceipt:checked").length === 0) {
+                $("#supplierField").prop("disabled", false);
+            }
         }
     };
 
@@ -293,6 +301,11 @@
             event.preventDefault();
         }
         $("#" + rowId).remove();
+
+        //Xóa chọn nhà cung cấp
+        if ($(".checkBoxItemReceipt:checked").length === 0) {
+            $("#supplierField").prop("disabled", false);
+        }
     };
 
     HT.removeRowReceipt = () => {

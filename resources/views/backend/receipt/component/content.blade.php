@@ -47,7 +47,7 @@
                     <div class="uk-flex uk-flex-middle" style="margin-left: auto;" id="keywordInput">
                         <label for="productSelect" class="mr10">{{ __('table.supplier') }} <span class="text-danger">(*)</span></label>
                         @if ($config['method'] == 'edit')
-                            <select name="supplier_id" class="form-control mr10 setupSelect2" disabled>
+                            <select name="supplier_id" class="form-control mr10 setupSelect2" disabled id="supplierField">
                                 @foreach ($suppliers as $key => $val)
                                     <option value="{{ $val->id }}" {{ $val->id == $productReceipt->supplier_id ? 'selected' : '' }}>
                                         {{ $val->name }}
@@ -56,7 +56,7 @@
                             </select>
                             <input type="hidden" name="supplier_id" value="{{ $productReceipt->supplier_id }}">
                         @else
-                            <select name="supplier_id" class="form-control mr10 setupSelect2">
+                            <select name="supplier_id" class="form-control mr10 setupSelect2" id="supplierField">
                                 @foreach ($suppliers as $key => $val)
                                     <option value="{{ $val->id }}" {{ old('supplier_id') == $val->id ? 'selected' : '' }}>
                                         {{ $val->name }}
