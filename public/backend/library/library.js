@@ -226,6 +226,15 @@
         }
     };
 
+    HT.setupDatepickerSearchTime = () => {
+        if ($(".datepickerSearchTime").length) {
+            $(".datepickerSearchTime").datetimepicker({
+                timepicker: true,
+                format: "d/m/Y H:i",
+            });
+        }
+    };
+
     $(document).ready(function () {
         HT.switchery();
         HT.select2();
@@ -236,6 +245,7 @@
         HT.sortui();
         HT.int();
         HT.setupDatepicker();
+        HT.setupDatepickerSearchTime();
     });
 })(jQuery);
 

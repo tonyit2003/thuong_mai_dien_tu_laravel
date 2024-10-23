@@ -37,6 +37,9 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
             'publish' => $request->input('publish') != null ? $request->integer('publish') : -1,
+            'date_approved' => $request->input('date_approved'),
+            'supplier_id' => $request->input('supplier') != null ? $request->integer('supplier') : 0,
+            'user_id' => $request->input('user') != null ? $request->integer('user') : 0,
         ];
 
         $extend = ['path' => 'product/receipt/index'];

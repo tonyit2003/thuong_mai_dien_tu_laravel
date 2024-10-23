@@ -10,6 +10,7 @@ use App\Models\Language;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductReceiptRepository;
 use App\Repositories\SupplierRepository;
+use App\Repositories\UserRepository;
 use App\Services\ProductReceiptService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -24,8 +25,9 @@ class ProductReceiptController extends Controller
     protected $productRepository;
     protected $productService;
     protected $supplierRepository;
+    protected $userRepository;
 
-    public function __construct(ProductReceiptService $productReceiptService, ProductReceiptRepository $productReceiptRepository, ProductRepository $productRepository, ProductService $productService, SupplierRepository $supplierRepository)
+    public function __construct(ProductReceiptService $productReceiptService, ProductReceiptRepository $productReceiptRepository, ProductRepository $productRepository, ProductService $productService, SupplierRepository $supplierRepository, UserRepository $userRepository)
     {
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
@@ -33,6 +35,7 @@ class ProductReceiptController extends Controller
             $this->language = $language->id;
             return $next($request);
         });
+        $this->userRepository = $userRepository;
         $this->productReceiptService = $productReceiptService;
         $this->productReceiptRepository = $productReceiptRepository;
         $this->productRepository = $productRepository;
@@ -48,17 +51,22 @@ class ProductReceiptController extends Controller
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/plugins/datetimepicker-master/build/jquery.datetimepicker.full.js'
             ],
             'css' => [
                 'backend/css/plugins/switchery/switchery.css',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
+                'backend/plugins/datetimepicker-master/build/jquery.datetimepicker.min.css',
             ],
             'model' => 'ProductReceipt'
         ];
         $config['seo'] = __('receipt');
         $template = 'backend.receipt.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'productReceipts'));
+
+        $suppliers = $this->supplierRepository->all();
+        $users = $this->userRepository->all();
+        return view('backend.dashboard.layout', compact('template', 'config', 'productReceipts', 'suppliers', 'users'));
     }
 
     public function monitor(Request $request)
@@ -69,17 +77,22 @@ class ProductReceiptController extends Controller
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/plugins/datetimepicker-master/build/jquery.datetimepicker.full.js'
             ],
             'css' => [
                 'backend/css/plugins/switchery/switchery.css',
+                'backend/plugins/datetimepicker-master/build/jquery.datetimepicker.min.css',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
             ],
             'model' => 'ProductReceipt'
         ];
         $config['seo'] = __('monitor');
         $template = 'backend.receipt.monitor';
-        return view('backend.dashboard.layout', compact('template', 'config', 'productReceipts'));
+
+        $suppliers = $this->supplierRepository->all();
+        $users = $this->userRepository->all();
+        return view('backend.dashboard.layout', compact('template', 'config', 'productReceipts', 'suppliers', 'users'));
     }
 
     public function create(Request $request)

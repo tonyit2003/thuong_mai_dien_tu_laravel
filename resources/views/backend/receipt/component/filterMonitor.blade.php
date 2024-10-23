@@ -4,12 +4,49 @@
             @include('backend.dashboard.component.perPage')
             <div class="action">
                 <div class="uk-flex uk-flex-middle">
+                    @php
+                        $supplier = request('supplier') != null ? request('supplier') : -1;
+                        $user = request('user') != null ? request('user') : -1;
+                        $time =
+                            request('date_approved') != null ? request('date_approved') : now()->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i');
+                    @endphp
+                    <label for="" class="control-label text-left mr5">{{ __('form.date_approved') }}</label>
+                    <div class="form-date mr10">
+                        <input type="text" name="date_approved" value="{{ old('date_approved', $time ?? '') }}"
+                            class="form-control datepickerSearchTime" placeholder="" autocomplete="off">
+                        <span><i class="fa fa-calendar"></i></span>
+                    </div>
+                    <select name="supplier" class="form-control mr10 setupSelect2">
+                        <option {{ $supplier == 0 ? 'selected' : '' }} value="0">Chọn nhà cung cấp</option>
+                        @foreach ($suppliers as $key => $val)
+                            <option {{ $val->id == $supplier ? 'selected' : '' }} value="{{ $val->id }}">
+                                {{ $val->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <select name="user" class="form-control mr10 setupSelect2">
+                        <option {{ $user == 0 ? 'selected' : '' }} value="0">Chọn người lập phiếu</option>
+                        @foreach ($users as $key => $val)
+                            <option {{ $val->id == $user ? 'selected' : '' }} value="{{ $val->id }}">
+                                {{ $val->name }}
+                            </option>
+                        @endforeach
+                    </select>
                     @include('backend.dashboard.component.filterReceipt')
                     @php
                         $productCatalogueId = old('product_catalogue_id') ?? request('product_catalogue_id');
                     @endphp
 
-                    @include('backend.dashboard.component.keyword')
+                    <div class="uk-search uk-flex uk-flex-middle mr10">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary mb0 btn-sm">
+                                    {{ __('button.search') }}
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
