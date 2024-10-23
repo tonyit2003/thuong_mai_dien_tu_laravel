@@ -23,7 +23,20 @@ class ApprovedReceiptRequest extends FormRequest
     {
         return [
             'date_approved' => 'required',
-            'actualQuantity.*' => 'required|gt:0'
+            'actualQuantity.*' => [
+                'required',
+                'gt:0',
+                function ($attribute, $value, $fail) {
+                    // Lấy số lượng đã định từ dữ liệu được gửi
+                    $index = (int) filter_var($attribute, FILTER_SANITIZE_NUMBER_INT); // Lấy chỉ số của mảng
+                    $quantity = $this->input('quantity.' . $index); // Truy cập số lượng theo chỉ số
+
+                    // Kiểm tra nếu số lượng thực nhập lớn hơn số lượng đã định
+                    if ($value > $quantity) {
+                        $fail('Số lượng thực nhập không được lớn hơn số lượng.');
+                    }
+                },
+            ],
         ];
     }
 

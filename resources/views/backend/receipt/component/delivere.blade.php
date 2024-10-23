@@ -65,17 +65,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($formattedDetails as $formattedDetail)
+                    @foreach ($formattedDetails as $index => $formattedDetail)
                         <tr>
                             <td>{{ $formattedDetail['product_name'] }}</td>
                             <td>{{ $formattedDetail['variant_name'] }}</td>
-                            <td class="text-center"><input type="text" name="actualQuantity[]" class="form-control mr10 int" placeholder=""
-                                    value="0"></td>
-                            <td class="text-center">{{ $formattedDetail['quantity'] }}</td>
+                            <td class="text-center">
+                                <input type="text" name="actualQuantity[]" class="form-control mr10 int" placeholder="" value="0">
+                            </td>
+                            <td class="text-center">
+                                <input type="hidden" name="quantity[]" value="{{ $formattedDetail['quantity'] }}">
+                                {{ $formattedDetail['quantity'] }}
+                            </td>
                             <td class="text-right">
                                 {{ formatCurrency($formattedDetail['price']) }}
-                                <input type="hidden" name="price[]" class="form-control mr10 int"
-                                    placeholder=""value="{{ $formattedDetail['price'] }}">
+                                <input type="hidden" name="price[]" class="form-control mr10 int" placeholder=""
+                                    value="{{ $formattedDetail['price'] }}">
                             </td>
                         </tr>
                     @endforeach
