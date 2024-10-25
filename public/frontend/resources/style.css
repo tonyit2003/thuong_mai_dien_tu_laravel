@@ -3780,7 +3780,7 @@ a.ui-button:active,
 }
 @media (min-width: 1220px) {
     .cart-success {
-        width: 800px;
+        width: 900px;
         margin: 0 auto;
     }
 }
@@ -3795,7 +3795,7 @@ a.ui-button:active,
 .discover-text > * {
     display: inline-block;
     padding: 10px 25px;
-    background: #2f5acf;
+    background: var(--hover-cover);
     border-radius: 16px;
     cursor: pointer;
     color: #fff;
@@ -3837,7 +3837,7 @@ a.ui-button:active,
 }
 .cart-success .table thead > tr th {
     color: #fff;
-    background: #2f5acf;
+    background: var(--primary-color);
     font-weight: 500;
     font-size: 14px;
     vertical-align: middle;
@@ -3852,6 +3852,33 @@ a.ui-button:active,
     font-size: 14px;
     color: #000;
     border-bottom: 1px solid #ccc;
+}
+/* Định rõ chiều rộng cho từng cột */
+.cart-success .table th:nth-child(1),
+.cart-success .table td:nth-child(1) {
+    width: 40%; /* Tên sản phẩm */
+}
+
+.cart-success .table th:nth-child(2),
+.cart-success .table td:nth-child(2) {
+    width: 15%; /* Số lượng */
+    text-align: center;
+}
+
+.cart-success .table th:nth-child(3),
+.cart-success .table td:nth-child(3) {
+    width: 25%; /* Giá bán */
+    text-align: right;
+}
+
+.cart-success .table th:nth-child(4),
+.cart-success .table td:nth-child(4) {
+    width: 20%; /* Tổng tiền */
+    text-align: right;
+}
+
+.cart-success .total_payment {
+    font-weight: bold;
 }
 .cart-success tfoot {
     background: #fff;
@@ -4007,4 +4034,81 @@ a.ui-button:active,
 .addToCart > * {
     color: #fff;
     font-weight: 500;
+}
+
+.empty-cart {
+    width: 50vw;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 300;
+}
+
+.empty-cart svg {
+    max-width: 60%;
+    padding: 5rem 3rem;
+}
+
+.empty-cart #oval,
+.empty-cart #plus,
+.empty-cart #diamond,
+.empty-cart #bubble-rounded {
+    animation: plopp 4s ease-out infinite;
+}
+
+.empty-cart #oval:nth-child(1),
+.empty-cart #plus:nth-child(1),
+.empty-cart #diamond:nth-child(1),
+.empty-cart #bubble-rounded:nth-child(1) {
+    animation-delay: -240ms;
+}
+
+.empty-cart #oval:nth-child(2),
+.empty-cart #plus:nth-child(2),
+.empty-cart #diamond:nth-child(2),
+.empty-cart #bubble-rounded:nth-child(2) {
+    animation-delay: -480ms;
+}
+
+.empty-cart #oval:nth-child(3),
+.empty-cart #plus:nth-child(3),
+.empty-cart #diamond:nth-child(3),
+.empty-cart #bubble-rounded:nth-child(3) {
+    animation-delay: -720ms;
+}
+
+/* Tiếp tục cho các nth-child từ 4 đến 16 theo cùng quy luật */
+
+.empty-cart #bg-line:nth-child(2) {
+    fill-opacity: 0.3;
+}
+
+.empty-cart #bg-line:nth-child(3) {
+    fill-opacity: 0.4;
+}
+
+@keyframes plopp {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0, -10px);
+        opacity: 0;
+    }
+}
+
+.empty-cart h3 {
+    font-size: 2rem;
+    line-height: 2rem;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+}
+
+.empty-cart p {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    line-height: 24px;
+    max-width: 80%;
+    margin: 1.25rem auto 0 auto;
 }

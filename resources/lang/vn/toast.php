@@ -24,4 +24,6 @@ return [
     'update_quantity_cart_failed'           => 'Cập nhật số lượng thất bại',
     'delete_cart_success'                   => 'Xóa sản phẩm khỏi giỏ hàng thành công',
     'delete_cart_failed'                    => 'Xóa sản phẩm khỏi giỏ hàng thất bại',
+    'order_success'                         => 'Đặt hàng thành công',
+    'order_fail'                            => 'Đặt hàng thất bại',
 ];

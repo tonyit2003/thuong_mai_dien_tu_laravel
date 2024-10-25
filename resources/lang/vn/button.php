@@ -34,4 +34,5 @@ return [
     'delete_supplier'               => 'Xóa nhà cung cấp',
     'browse'                        => 'Duyệt đề xuất nhập hàng',
     'order_payment'                 => 'Thanh toán đơn hàng',
+    'purchase'                      => 'Mua hàng',
 ];

@@ -5,7 +5,7 @@ return [
         [
             'name'      => 'cod',
             'image'     => 'frontend/resources/core/img/COD.svg',
-            'title'     => 'Thanh toán khi nhận hàng'
+            'title'     => 'Thanh toán khi nhận hàng (COD)'
         ],
         [
             'name'      => 'zalo',
@@ -27,6 +27,11 @@ return [
             'image'     => 'frontend/resources/core/img/vnpay.webp',
             'title'     => 'Thanh toán qua ví điện tử VNPay'
         ],
+        [
+            'name'      => 'paypal',
+            'image'     => 'frontend/resources/core/img/paypal.webp',
+            'title'     => 'Thanh toán qua PayPal'
+        ],
     ],
-    
+
 ];

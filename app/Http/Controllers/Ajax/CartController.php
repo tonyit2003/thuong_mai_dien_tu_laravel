@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontendController;
 use App\Repositories\CartRepository;
 use App\Services\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends FrontendController
 {
@@ -21,10 +22,16 @@ class CartController extends FrontendController
 
     public function create(Request $request)
     {
+        $language = $this->language;
         $flag = $this->cartService->create($request, $this->language);
+        $carts = $this->cartRepository->findByCondition([
+            ['customer_id', '=', Auth::guard('customers')->id()],
+        ], true);
+        $totalQuantity = $this->cartService->getTotalQuantity($carts);
         return response()->json([
             'messages' => $flag ? __('toast.add_to_cart_success') : __('toast.add_to_cart_failed'),
             'code' => $flag ? 10 : 11,
+            'totalQuantity' => $flag ? $totalQuantity : 0,
         ]);
     }
 
@@ -51,7 +58,7 @@ class CartController extends FrontendController
                 'totalItem' => $totalItem,
                 'cartDiscount' => $cartDiscount,
                 'totalPrice' => $totalPrice,
-                'totalQuantity' => $totalQuantity,
+                'totalQuantity' => $totalQuantity ?? 0,
             ]);
         }
         return response()->json([
@@ -76,7 +83,7 @@ class CartController extends FrontendController
                 'code' => 10,
                 'cartDiscount' => $cartDiscount,
                 'totalPrice' => $totalPrice,
-                'totalQuantity' => $totalQuantity,
+                'totalQuantity' => $totalQuantity ?? 0,
             ]);
         }
         return response()->json([

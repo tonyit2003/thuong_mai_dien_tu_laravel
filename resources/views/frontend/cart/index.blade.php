@@ -1,8 +1,22 @@
 @extends('frontend.homepage.layout')
 @section('content')
-    <div class="cart-container">
+    <div class="empty-cart {{ count($carts) == 0 ? '' : 'uk-hidden' }}">
+        @include('frontend.cart.component.empty-cart')
+    </div>
+
+    <div class="cart-not-empty cart-container {{ count($carts) == 0 ? 'uk-hidden' : '' }}">
         <div class="uk-container uk-container-center">
-            <form method="post" action="" class="uk-form form">
+            @if ($errors->any())
+                <div class="uk-alert uk-alert-danger mt20">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="post" action="{{ route('cart.store') }}" class="uk-form form">
                 @csrf
                 <div class="cart-wrapper">
                     <div class="uk-grid uk-grid-medium">
@@ -11,7 +25,7 @@
                                 @include('frontend.cart.component.information', ['model' => $customer])
                                 @include('frontend.cart.component.method')
                                 <button type="submit" class="cart-checkout" value="create"
-                                    name="create">{{ __('button.order_payment') }}</button>
+                                    name="create">{{ __('button.purchase') }}</button>
                             </div>
                         </div>
                         <div class="uk-width-large-2-5">
