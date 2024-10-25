@@ -48,6 +48,7 @@
                     success: function (res) {
                         toastr.clear();
                         if (res.code === 10) {
+                            HT.changeMinyCartQuantity(res.totalQuantity);
                             toastr.success(res.messages, "SUCCESS");
                         } else {
                             toastr.error(res.messages, "ERROR");
@@ -187,8 +188,14 @@
                         toastr.clear();
                         if (res.code === 10) {
                             HT.changeMinyCartQuantity(res.totalQuantity);
-                            HT.changeCartTotal(res.totalPrice);
+                            HT.changeCartTotal(
+                                res.totalPrice,
+                                res.cartDiscount
+                            );
                             HT.removeCartItemRow(_this);
+                            if (res.totalQuantity == 0) {
+                                HT.setCartEmpty();
+                            }
                             toastr.success(res.messages, "SUCCESS");
                         } else {
                             toastr.error(res.messages, "ERROR");
@@ -196,6 +203,15 @@
                     },
                 });
             });
+        }
+    };
+
+    HT.setCartEmpty = () => {
+        if ($(".cart-not-empty").length) {
+            $(".cart-not-empty").addClass("uk-hidden");
+        }
+        if ($(".empty-cart").length) {
+            $(".empty-cart").removeClass("uk-hidden");
         }
     };
 

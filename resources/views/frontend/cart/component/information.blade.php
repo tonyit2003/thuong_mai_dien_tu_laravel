@@ -16,20 +16,21 @@
             <div class="uk-width-large-1-2">
                 <div class="form-row">
                     <input type="text" name="fullname" id=""
-                        value="{{ isset($model->name) ? $model->name : '' }}" placeholder="{{ __('form.enter_name') }}"
-                        class="input-text">
+                        value="{{ old('fullname', isset($model->name) ? $model->name : '') }}"
+                        placeholder="{{ __('form.enter_name') }}" class="input-text">
                 </div>
             </div>
             <div class="uk-width-large-1-2">
                 <div class="form-row">
                     <input type="text" name="phone" id=""
-                        value="{{ isset($model->phone) ? $model->phone : '' }}"
+                        value="{{ old('phone', isset($model->phone) ? $model->phone : '') }}"
                         placeholder="{{ __('form.enter_phone') }}" class="input-text">
                 </div>
             </div>
         </div>
         <div class="form-row mb20">
-            <input type="text" name="email" id="" value="{{ isset($model->email) ? $model->email : '' }}"
+            <input type="text" name="email" id=""
+                value="{{ old('email', isset($model->email) ? $model->email : '') }}"
                 placeholder="{{ __('form.enter_email') }}" class="input-text">
         </div>
         <div class="uk-grid uk-grid-medium mb20">
@@ -55,18 +56,21 @@
         </div>
         <div class="form-row mb20">
             <input type="text" name="address" id=""
-                value="{{ isset($model->address) ? $model->address : '' }}"
+                value="{{ old('address', isset($model->address) ? $model->address : '') }}"
                 placeholder="{{ __('form.enter_address') }}" class="input-text">
         </div>
         <div class="form-row">
-            <input type="text" name="description" id="" value="" placeholder="{{ __('form.note') }}"
-                class="input-text">
+            <input type="text" name="description" id="" value="{{ old('description') }}"
+                placeholder="{{ __('form.note') }}" class="input-text">
         </div>
     </div>
 </div>
 
 <script>
-    var province_id = '{{ isset($model->province_id) ? $model->province_id : old('province_id') }}';
-    var district_id = '{{ isset($model->district_id) ? $model->district_id : old('district_id') }}';
-    var ward_id = '{{ isset($model->ward_id) ? $model->ward_id : old('ward_id') }}';
+    var province_id =
+        '{{ old('province_id', isset($model->province_id) ? $model->province_id : '') }}';
+    var district_id =
+        '{{ old('district_id', isset($model->district_id) ? $model->district_id : '') }}';
+    var ward_id =
+        '{{ old('ward_id', isset($model->ward_id) ? $model->ward_id : '') }}';
 </script>

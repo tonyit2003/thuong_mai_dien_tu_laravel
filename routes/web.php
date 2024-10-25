@@ -47,8 +47,16 @@ use App\Http\Middleware\CustomerAuthenticateMiddleware;
 // Route cho trang chủ
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-// Route cho giỏ hàng
-Route::get('pay' . config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout')->middleware(CustomerAuthenticateMiddleware::class);
+Route::group(['middleware' => [CustomerAuthenticateMiddleware::class]], function () {
+    // Route cho giỏ hàng
+    Route::get('pay' . config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::post('pay-information' . config('apps.general.suffix'), [CartController::class, 'store'])->name('cart.store');
+    Route::get('order-information/id={code}' . config('apps.general.suffix'), [CartController::class, 'success'])->name('cart.success');
+    // AJAX
+    Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create');
+    Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update');
+    Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete');
+});
 
 // Route cho RouterController
 Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
@@ -59,9 +67,6 @@ Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Fr
 // AJAX
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
 Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
-Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create')->middleware(CustomerAuthenticateMiddleware::class);
-Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update')->middleware(CustomerAuthenticateMiddleware::class);
-Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete')->middleware(CustomerAuthenticateMiddleware::class);
 
 /* BACKEND ROUTES */
 
