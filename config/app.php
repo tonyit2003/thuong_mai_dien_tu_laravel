@@ -129,11 +129,11 @@ return [
     // đăng ký LanguageComposerServiceProvider để Laravel biết và sử dụng nó.
     'providers' => ServiceProvider::defaultProviders()->merge([
         App\Providers\LanguageComposerServiceProvider::class,
-        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
+        // Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
     ])->toArray(),
 
     // Có thể dùng Cart để thay thế cho Gloudemans\Shoppingcart\Facades\Cart::class trong code
     'aliases' => Facade::defaultAliases()->merge([
-        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class
+        // 'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class
     ])->toArray(),
 ];
