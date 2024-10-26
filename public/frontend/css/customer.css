@@ -1,0 +1,190 @@
+.sidebar {
+    background-color: #f7f7f7;
+    padding: 20px;
+}
+
+.sidebar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.content {
+    padding: 20px;
+}
+
+.profile-form label {
+    font-weight: bold;
+}
+
+.profile-form .btn-save {
+    background-color: #ff4d4d;
+    color: #fff;
+    font-weight: bold;
+}
+
+.mt-3 {
+    padding-bottom: 15px;
+}
+
+.form-check-inline {
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.profile-header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-header .ml-3 {
+    margin-left: 15px;
+}
+
+.profile-header a {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.profile-header a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    /* Remove default bullet points */
+    padding: 0;
+    /* Remove padding */
+    margin: 0;
+    /* Remove margin */
+}
+
+li .no-boder {
+    padding: 10px 0;
+    /* Add some space between list items */
+    border-bottom: 1px solid #ddd;
+    /* Add a separator line between items */
+}
+
+li .no-boder a {
+    text-decoration: none;
+    /* Remove underline */
+    color: #333;
+    /* Set text color */
+    display: flex;
+    /* Flexbox for aligning icons and text */
+    align-items: center;
+    /* Vertically center the icon and text */
+    /* Make text bold */
+    transition: background-color 0.3s ease;
+    /* Add smooth hover transition */
+}
+
+li .no-boder a:hover {
+    background-color: #f0f0f0;
+    /* Change background color on hover */
+    color: var(--primary-color);
+    /* Change text color on hover */
+}
+
+li .no-boder a i {
+    margin-right: 10px;
+    /* Add space between icon and text */
+}
+
+ul.list-unstyled {
+    list-style-type: none;
+    /* Xóa dấu chấm trước các item */
+    padding: 0;
+    /* Xóa padding mặc định */
+    margin: 0;
+    /* Xóa margin mặc định */
+}
+
+ul.list-unstyled li {
+    display: flex;
+    /* Sử dụng flexbox để canh hình và văn bản */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    padding: 10px 0;
+    /* Thêm khoảng cách giữa các item */
+    border-bottom: 1px solid #ddd;
+    /* Thêm đường phân cách giữa các mục */
+}
+
+ul.list-unstyled li img {
+    width: 24px;
+    /* Điều chỉnh kích thước icon */
+    height: 24px;
+    /* Điều chỉnh kích thước icon */
+    margin-right: 10px;
+    /* Thêm khoảng cách giữa hình và văn bản */
+}
+
+/* Áp dụng margin-left cho các mục không có hình ảnh */
+ul.list-unstyled li a {
+    text-decoration: none;
+    /* Bỏ gạch chân */
+    color: #333;
+    /* Màu chữ */
+    font-weight: bold;
+    /* Đậm chữ */
+    transition: color 0.3s ease;
+    /* Hiệu ứng chuyển đổi màu chữ khi hover */
+    margin-left: 34px;
+    /* Thụt vào cho các mục không có hình ảnh */
+}
+
+ul.list-unstyled li img + a {
+    margin-left: 0;
+    /* Reset margin-left cho các mục có hình ảnh */
+}
+
+ul.list-unstyled li a:hover {
+    color: #ff4d4d;
+    /* Đổi màu chữ khi hover */
+}
+
+.no-hover {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #007bff; /* Màu chữ mặc định */
+    font-weight: bold; /* Chữ in đậm */
+}
+
+.no-hover:hover {
+    text-decoration: none; /* Tắt hiệu ứng hover */
+    color: #007bff; /* Giữ nguyên màu chữ khi hover */
+}
+
+.mt-2 {
+    margin-top: 20px;
+}
+
+.mt-1 {
+    margin-top: 5px;
+}
+
+.button-default {
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+}
+
+.mb-2 {
+    padding-bottom: 20px;
+}

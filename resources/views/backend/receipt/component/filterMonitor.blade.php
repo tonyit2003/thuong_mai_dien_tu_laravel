@@ -17,7 +17,7 @@
                         <span><i class="fa fa-calendar"></i></span>
                     </div>
                     <select name="supplier" class="form-control mr10 setupSelect2">
-                        <option {{ $supplier == 0 ? 'selected' : '' }} value="0">Chọn nhà cung cấp</option>
+                        <option {{ $supplier == 0 ? 'selected' : '' }} value="0">{{ __('form.choose_supplier') }}</option>
                         @foreach ($suppliers as $key => $val)
                             <option {{ $val->id == $supplier ? 'selected' : '' }} value="{{ $val->id }}">
                                 {{ $val->name }}
@@ -25,7 +25,7 @@
                         @endforeach
                     </select>
                     <select name="user" class="form-control mr10 setupSelect2">
-                        <option {{ $user == 0 ? 'selected' : '' }} value="0">Chọn người lập phiếu</option>
+                        <option {{ $user == 0 ? 'selected' : '' }} value="0">{{ __('form.choose_recipt') }}</option>
                         @foreach ($users as $key => $val)
                             <option {{ $val->id == $user ? 'selected' : '' }} value="{{ $val->id }}">
                                 {{ $val->name }}

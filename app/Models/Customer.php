@@ -32,6 +32,7 @@ class Customer extends Authenticatable
         'publish',
         'deleted_at',
         'source_id',
+        'sex'
     ];
 
     protected $hidden = [

@@ -27,6 +27,8 @@
 <meta name="twitter:image" content="{{ $seo['meta_image'] }}">
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
 
@@ -57,3 +59,5 @@
     var BASE_URL = "{{ config('app.url') }}"
     var SUFFIX = "{{ config('apps.general.suffix') }}"
 </script>
+
+<script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>

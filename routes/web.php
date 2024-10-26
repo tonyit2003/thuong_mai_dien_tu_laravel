@@ -36,6 +36,7 @@ use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\RouterController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
@@ -57,6 +58,10 @@ Route::group(['middleware' => [CustomerAuthenticateMiddleware::class]], function
     Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update');
     Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete');
 });
+
+//Info customer
+Route::get('info' . config('apps.general.suffix'), [FrontendCustomerController::class, 'info'])->name('customer.info')->middleware(CustomerAuthenticateMiddleware::class);
+Route::post('updateInfo', [FrontendCustomerController::class, 'updateInfo'])->name('customer.updateInfo')->middleware(CustomerAuthenticateMiddleware::class);
 
 // Route cho RouterController
 Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');

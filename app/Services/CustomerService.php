@@ -68,7 +68,21 @@ class CustomerService extends BaseService implements CustomerServiceInterface
             $payload['password'] = Hash::make($payload['password']);
 
             $this->customerRepository->create($payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
 
+    public function updateInfo($id, $request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->input();
+            $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
+            $this->customerRepository->update($id, $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {
