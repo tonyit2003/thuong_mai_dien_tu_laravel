@@ -11,7 +11,6 @@ use App\Repositories\ProductVariantRepository;
 use App\Repositories\PromotionRepository;
 use App\Services\Interfaces\CartServiceInterface;
 use Exception;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
