@@ -45,64 +45,61 @@
                             <div style="padding-top: 8px"></div>
                             <hr>
                             <!-- Profile Form -->
-                            <div class="row">
-                                @if ($errors->any())
-                                    <div class="uk-alert uk-alert-danger mt20">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
+                            @if ($errors->any())
+                                <div class="uk-alert uk-alert-danger mt20">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form class="profile-form" method="post" action="{{ route('customer.updateInfo') }}">
+                                @csrf
+                                <div class="uk-grid uk-grid-medium mb20">
+                                    <div class="uk-width-large-1-3">
+                                        <select name="province_id" id="" class="setupSelect2 province location" data-target="district">
+                                            <option value="0">{{ __('form.select_province') }}</option>
+                                            @foreach ($provinces as $key => $val)
+                                                <option @if (old('province_id') == $val->code) selected @endif value="{{ $val->code }}">
+                                                    {{ $val->name }}</option>
                                             @endforeach
-                                        </ul>
+                                        </select>
                                     </div>
-                                @endif
-                                <form class="profile-form" method="post" action="{{ route('customer.updateInfo') }}">
-                                    @csrf
-                                    <div class="col-lg-9 mt-2">
-                                        <div class="uk-grid uk-grid-medium mb20">
-                                            <div class="uk-width-large-1-3">
-                                                <select name="province_id" id="" class="setupSelect2 province location" data-target="district">
-                                                    <option value="0">{{ __('form.select_province') }}</option>
-                                                    @foreach ($provinces as $key => $val)
-                                                        <option @if (old('province_id') == $val->code) selected @endif value="{{ $val->code }}">
-                                                            {{ $val->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="uk-width-large-1-3">
-                                                <select name="district_id" id="" class="setupSelect2 district location" data-target="ward">
-                                                    <option value="0">{{ __('form.select_district') }}</option>
-                                                </select>
-                                            </div>
-                                            <div class="uk-width-large-1-3">
-                                                <select name="ward_id" id="" class="setupSelect2 ward">
-                                                    <option value="0">{{ __('form.select_ward') }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-row mb20">
-                                            <input type="text" name="address" id=""
-                                                value="{{ old('address', isset($model->address) ? $model->address : '') }}"
-                                                placeholder="{{ __('form.enter_address') }}" class="input-text">
-                                        </div>
-                                        <div class="form-row">
-                                            <input type="text" name="description" id="" value="{{ old('description') }}"
-                                                placeholder="{{ __('form.note') }}" class="input-text">
-                                        </div>
+                                    <div class="uk-width-large-1-3">
+                                        <select name="district_id" id="" class="setupSelect2 district location" data-target="ward">
+                                            <option value="0">{{ __('form.select_district') }}</option>
+                                        </select>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="uk-width-large-1-3">
+                                        <select name="ward_id" id="" class="setupSelect2 ward">
+                                            <option value="0">{{ __('form.select_ward') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row mb20">
+                                    <input type="text" name="address" id=""
+                                        value="{{ old('address', isset($model->address) ? $model->address : '') }}"
+                                        placeholder="{{ __('form.enter_address') }}" class="input-text">
+                                </div>
+                                <div class="form-row">
+                                    <input type="text" name="description" id="" value="{{ old('description') }}"
+                                        placeholder="{{ __('form.note') }}" class="input-text">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
     <script>
         var province_id =
-            '{{ old('province_id', isset($model->province_id) ? $model->province_id : '') }}';
+            '{{ old('province_id', isset($customer->province_id) ? $customer->province_id : '') }}';
         var district_id =
-            '{{ old('district_id', isset($model->district_id) ? $model->district_id : '') }}';
+            '{{ old('district_id', isset($customer->district_id) ? $customer->district_id : '') }}';
         var ward_id =
-            '{{ old('ward_id', isset($model->ward_id) ? $model->ward_id : '') }}';
+            '{{ old('ward_id', isset($customer->ward_id) ? $customer->ward_id : '') }}';
     </script>
 @endsection
