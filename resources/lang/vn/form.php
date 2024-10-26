@@ -255,4 +255,6 @@ return [
     'payment_method'                    => 'Hình thức thanh toán',
     'choose_promotion'                  => 'Chọn mã giảm giá',
     'apply'                             => 'Áp dụng',
+    'choose_supplier'                   => 'Chọn nhà cung cấp',
+    'choose_recipt'                     => 'Chọn người lập phiếu'
 ];

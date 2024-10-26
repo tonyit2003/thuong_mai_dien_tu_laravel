@@ -187,7 +187,7 @@
                                         </div>
                                     </a>
                                     <div class="dropdown-content">
-                                        <a href="#">{{ __('info.info') }}</a>
+                                        <a href="{{ route('customer.info') }}">{{ __('info.info') }}</a>
                                         <a href="{{ route('authClient.login') }}">{{ __('info.order') }}</a>
                                         <a
                                             href="{{ Auth::guard('customers')->check() ? route('authClient.logout') : route('authClient.login') }}">
