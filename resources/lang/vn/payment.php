@@ -29,7 +29,7 @@ return [
         ],
         [
             'name'      => 'paypal',
-            'image'     => 'frontend/resources/core/img/paypal.webp',
+            'image'     => 'frontend/resources/core/img/paypal.ico',
             'title'     => 'Thanh toán qua PayPal'
         ],
     ],
