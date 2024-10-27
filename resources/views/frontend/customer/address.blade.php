@@ -54,11 +54,12 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form class="profile-form" method="post" action="{{ route('customer.updateInfo') }}">
+                            <label for="" style="margin-bottom: 20px">Địa chỉ</label>
+                            <form class="profile-form form" method="post" action="{{ route('customer.updateAddress') }}">
                                 @csrf
                                 <div class="uk-grid uk-grid-medium mb20">
                                     <div class="uk-width-large-1-3">
-                                        <select name="province_id" id="" class="setupSelect2 province location" data-target="district">
+                                        <select name="province_id" id="" class="setupSelect2 province location w-350" data-target="district">
                                             <option value="0">{{ __('form.select_province') }}</option>
                                             @foreach ($provinces as $key => $val)
                                                 <option @if (old('province_id') == $val->code) selected @endif value="{{ $val->code }}">
@@ -67,25 +68,28 @@
                                         </select>
                                     </div>
                                     <div class="uk-width-large-1-3">
-                                        <select name="district_id" id="" class="setupSelect2 district location" data-target="ward">
+                                        <select name="district_id" id="" class="setupSelect2 district location w-350" data-target="ward">
                                             <option value="0">{{ __('form.select_district') }}</option>
                                         </select>
                                     </div>
                                     <div class="uk-width-large-1-3">
-                                        <select name="ward_id" id="" class="setupSelect2 ward">
+                                        <select name="ward_id" id="" class="setupSelect2 ward w-350">
                                             <option value="0">{{ __('form.select_ward') }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-row mb20">
                                     <input type="text" name="address" id=""
-                                        value="{{ old('address', isset($model->address) ? $model->address : '') }}"
+                                        value="{{ old('address', isset($customer->address) ? $customer->address : '') }}"
                                         placeholder="{{ __('form.enter_address') }}" class="input-text">
                                 </div>
                                 <div class="form-row">
-                                    <input type="text" name="description" id="" value="{{ old('description') }}"
+                                    <input type="text" name="description" id=""
+                                        value="{{ old('description', isset($customer->description) ? $customer->description : '') }}"
                                         placeholder="{{ __('form.note') }}" class="input-text">
                                 </div>
+
+                                <input type="submit" class="btn button-default mt-2" value="{{ __('customerInfo.save') }}"></input>
                             </form>
                         </div>
                     </div>

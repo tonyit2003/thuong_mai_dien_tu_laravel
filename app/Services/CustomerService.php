@@ -91,6 +91,23 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         }
     }
 
+    public function updateAddress($id, $request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->input();
+            $payload['province_id'] = $request->integer('province_id');
+            $payload['district_id'] = $request->integer('district_id');
+            $payload['ward_id'] = $request->integer('ward_id');
+            $this->customerRepository->update($id, $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
     public function update($id, $request)
     {
         DB::beginTransaction();

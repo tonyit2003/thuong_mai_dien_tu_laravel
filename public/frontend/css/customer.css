@@ -188,3 +188,16 @@ ul.list-unstyled li a:hover {
 .mb-2 {
     padding-bottom: 20px;
 }
+
+.w-350 {
+    width: 365px;
+}
+
+.input-text {
+    width: 100% !important;
+    border-radius: 100px;
+    height: 45px;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    padding: 5px 20px;
+}

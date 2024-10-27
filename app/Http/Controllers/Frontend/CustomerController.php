@@ -70,6 +70,17 @@ class CustomerController extends FrontendController
         return view('frontend.customer.address', compact('config', 'language', 'system', 'seo', 'customer', 'provinces'));
     }
 
+    public function updateAddress(Request $storeCustomerRequest)
+    {
+        $id = Auth::guard('customers')->user()->id;
+        if ($this->customerService->updateAddress($id, $storeCustomerRequest)) {
+            flash()->success(__('toast.store_success'));
+            return redirect()->route('customer.address');
+        }
+        flash()->error(__('toast.store_failed'));
+        return redirect()->route('customer.address');
+    }
+
     private function config()
     {
         return [
