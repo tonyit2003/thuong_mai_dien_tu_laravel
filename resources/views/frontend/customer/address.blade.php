@@ -21,7 +21,7 @@
                                     <a href="#">25.10 Lương Về SaleTo</a>
                                 </li>
                                 <li class="no-boder"><img src="frontend/img/icons8-account-100.png" alt="">
-                                    <a href="#">{{ __('customerInfo.my_account') }}</a>
+                                    <a href="{{ route('customer.address') }}">{{ __('customerInfo.my_account') }}</a>
                                 </li>
                                 <li class="no-boder"><a href="#">{{ __('customerInfo.info') }}</a></li>
                                 <li class="no-boder"><a href="#">{{ __('customerInfo.bank') }}</a></li>

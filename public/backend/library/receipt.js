@@ -283,13 +283,15 @@
                     </tr>`;
                 $("#productTableBodyRereipt").append(newRow);
 
-                // Khóa chọn nhà cung cấp
-                $("#supplierField").prop("disabled", true);
+                // Khóa chọn nhà cung cấp và lưu giá trị vào hidden input
+                let selectedSupplier = $("#supplierField").val(); // Lấy giá trị của supplier đã chọn
+                $("#hiddenSupplierId").val(selectedSupplier); // Cập nhật hidden input với giá trị đã chọn
+                $("#supplierField").prop("disabled", true); // Disable trường select
             }
         } else {
             HT.removeRow(null, uniqueId + "-receipt");
 
-            //Xóa chọn nhà cung cấp
+            // Nếu không có sản phẩm nào được chọn, mở khóa nhà cung cấp
             if ($(".checkBoxItemReceipt:checked").length === 0) {
                 $("#supplierField").prop("disabled", false);
             }
@@ -302,7 +304,7 @@
         }
         $("#" + rowId).remove();
 
-        //Xóa chọn nhà cung cấp
+        // Nếu không có sản phẩm nào được chọn, mở khóa nhà cung cấp
         if ($(".checkBoxItemReceipt:checked").length === 0) {
             $("#supplierField").prop("disabled", false);
         }

@@ -63,6 +63,7 @@
                                     </option>
                                 @endforeach
                             </select>
+                            <input type="hidden" name="supplier_id" id="hiddenSupplierId" value="">
                         @endif
                     </div>
                 </div>
