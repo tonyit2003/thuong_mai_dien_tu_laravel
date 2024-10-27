@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\OrderEnum;
 use App\Enums\PromotionEnum;
+use App\Mail\OrderMail;
 use App\Repositories\CartRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
@@ -13,6 +14,7 @@ use App\Services\Interfaces\CartServiceInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class AttributeCatalogueService
@@ -256,7 +258,7 @@ class CartService implements CartServiceInterface
         return $totalPrice - $discount;
     }
 
-    public function order($request, $language)
+    public function order($request, $language, $system)
     {
         DB::beginTransaction();
         try {
@@ -291,6 +293,14 @@ class CartService implements CartServiceInterface
         }
     }
 
+    public function mail($order, $orderProducts, $system)
+    {
+        $to = $order->email;
+        $cc = $system['contact_email'];
+        $data = ['order' => $order, 'orderProducts' => $orderProducts];
+        Mail::to($to)->cc($cc)->send(new OrderMail($data));
+    }
+
     private function request($request, $cartPromotion, $totalPrice)
     {
         $payload = $request->except('_token', 'voucher', 'create');
@@ -319,19 +329,34 @@ class CartService implements CartServiceInterface
 
     private function createOrderProduct($order, $carts)
     {
-        $payload = [];
-        if (isset($carts)) {
-            foreach ($carts as $key => $val) {
-                $payload[$val->product_id] = [
+        foreach ($carts as $key => $val) {
+            $existingRecord = $order->products()
+                ->wherePivot('product_id', $val->product_id)
+                ->wherePivot('variant_uuid', $val->variant_uuid)
+                ->first();
+
+            if ($existingRecord) {
+                // Nếu bản ghi đã tồn tại với product_id, order_id và variant_uuid, thì cập nhật dữ liệu khác
+                $order->products()->updateExistingPivot($val->product_id, [
                     'variant_uuid' => $val->variant_uuid,
                     'quantity' => $val->quantity,
                     'price' => $val->priceUnit,
-                    'priceOriginal' => $this->productVariantRepository->findByCondition([['uuid', '=', $val->variant_uuid]])->price,
-                ];
+                    'priceOriginal' => $this->productVariantRepository
+                        ->findByCondition([['uuid', '=', $val->variant_uuid]])
+                        ->price,
+                ]);
+            } else {
+                // Nếu chưa tồn tại, thêm bản ghi mới
+                $order->products()->attach($val->product_id, [
+                    'variant_uuid' => $val->variant_uuid,
+                    'quantity' => $val->quantity,
+                    'price' => $val->priceUnit,
+                    'priceOriginal' => $this->productVariantRepository
+                        ->findByCondition([['uuid', '=', $val->variant_uuid]])
+                        ->price,
+                ]);
             }
         }
-        // đồng bộ dữ liệu bảng trung gian = $payload dựa trên 2 khóa ngoại
-        $order->products()->sync($payload);
     }
 
     private function paymentOnline($method)

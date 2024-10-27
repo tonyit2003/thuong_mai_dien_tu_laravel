@@ -63,7 +63,8 @@ class CartController extends FrontendController
 
     public function store(StoreCartRequest $storeCartRequest)
     {
-        $order = $this->cartService->order($storeCartRequest, $this->language);
+        $system = $this->system;
+        $order = $this->cartService->order($storeCartRequest, $this->language, $system);
         if ($order['flag']) {
             flash()->success(__('toast.order_success'));
             return redirect()->route('cart.success', ['code' => $order['code']]);
@@ -78,9 +79,9 @@ class CartController extends FrontendController
         $order = $this->orderRepository->findByCondition([['code', '=', $code]], false, ['products']);
         $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
         $orderProducts = $this->orderService->setInformation($orderProducts, $language);
-        // dd($orderProducts);
-        $config = $this->config();
         $system = $this->system;
+        $this->cartService->mail($order, $orderProducts, $system);
+        $config = $this->config();
         $seo = [
             'meta_title' => __('info.order_information'),
             'meta_keyword' => '',

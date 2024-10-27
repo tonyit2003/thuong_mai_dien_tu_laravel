@@ -51,32 +51,32 @@
                                     <td>{{ $val->quantity }}</td>
                                     {{-- <td>{{ formatCurrency($val->priceOriginal) }}</td> --}}
                                     <td>{{ formatCurrency($val->price) }}</td>
-                                    <td>{{ formatCurrency($val->price * $val->quantity) }}</td>
+                                    <td><strong>{{ formatCurrency($val->price * $val->quantity) }}</strong></td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="3">{{ __('info.discount_code') }}</td>
-                                <td>{{ $order->promotion['code'] }}</td>
+                                <td><strong>{{ $order->promotion['code'] ?? '' }}</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="3">{{ __('info.total_product_value') }}</td>
-                                <td>{{ formatCurrency($initialTotal) }}</td>
+                                <td><strong>{{ formatCurrency($initialTotal) }}</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="3">{{ __('info.total_promotional_value') }}</td>
-                                <td>- {{ formatCurrency($order->promotion['discount']) }}</td>
+                                <td><strong>- {{ formatCurrency($order->promotion['discount'] ?? 0) }}</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="3">{{ __('info.shipping_fee') }}</td>
-                                <td>{{ formatCurrency(0) }}</td>
+                                <td><strong>{{ formatCurrency(0) }}</strong></td>
                             </tr>
                             <tr class="total_payment">
                                 <td colspan="3">
                                     <span>{{ __('info.total payment') }}</span>
                                 </td>
-                                <td>{{ formatCurrency($order->totalPrice) }}</td>
+                                <td><strong>{{ formatCurrency($order->totalPrice) }}</strong></td>
                             </tr>
                         </tfoot>
                     </table>

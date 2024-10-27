@@ -3856,6 +3856,7 @@ a.ui-button:active,
 /* Định rõ chiều rộng cho từng cột */
 .cart-success .table th:nth-child(1),
 .cart-success .table td:nth-child(1) {
+    text-align: left;
     width: 40%; /* Tên sản phẩm */
 }
 
