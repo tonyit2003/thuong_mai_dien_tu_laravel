@@ -37,4 +37,6 @@
     var doNotSeoTitle = "{{ __('form.do_not_seo_title') }}"
     var yourPathUrl = "{{ __('form.your_path_url') }}"
     var unitCharacter = "{{ __('unit.characters') }}"
+    var apply = "{{ __('form.apply') }}"
+    var cancel = "{{ __('form.cancel') }}"
 </script>

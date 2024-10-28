@@ -28,6 +28,7 @@ use App\Http\Controllers\Frontend\AuthClientController;
 use App\Http\Controllers\Backend\CustomerCatalogueController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PromotionController;
 use App\Http\Controllers\Backend\ProductReceiptController;
 use App\Http\Controllers\Backend\SlideController;
@@ -140,6 +141,12 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::get('permission', [CustomerCatalogueController::class, 'permission'])->name('customer.catalogue.permission');
         Route::post('updatePermission', [CustomerCatalogueController::class, 'updatePermission'])->name('customer.catalogue.updatePermission');
     });
+
+    // ORDER
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('index', [OrderController::class, 'index'])->name('order.index');
+    });
+
 
     // POST
     Route::group(['prefix' => 'post'], function () {

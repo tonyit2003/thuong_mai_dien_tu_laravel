@@ -25,6 +25,7 @@ class Order extends Model
         'promotion',
         'cart',
         'totalPrice',
+        'totalPriceOriginal',
         'guest_cookie',
         'method',
         'confirm',

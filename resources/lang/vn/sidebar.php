@@ -26,6 +26,17 @@ return [
             ]
         ],
         [
+            'title' => 'Đơn hàng',
+            'icon' => 'fa fa-shopping-bag',
+            'name' => ['order'],
+            'subModule' => [
+                [
+                    'title' => 'Đơn hàng',
+                    'route' => 'order.index'
+                ],
+            ]
+        ],
+        [
             'title' => 'Khách hàng',
             'icon' => 'fa fa-user',
             'name' => ['customer'],

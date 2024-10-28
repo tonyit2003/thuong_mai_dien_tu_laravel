@@ -4,10 +4,18 @@ namespace App\Traits;
 
 trait QueryScopes
 {
-    public function scopeKeyword($query, $keyword)
+    public function scopeKeyword($query, $keyword, $fieldSearch = [])
     {
         if (isset($keyword) && !empty($keyword)) {
-            $query->where('name', 'LIKE', '%' . $keyword . '%');
+            if (isset($fieldSearch) && count($fieldSearch)) {
+                $query->where(function ($query) use ($fieldSearch, $keyword) {
+                    foreach ($fieldSearch as $key => $val) {
+                        $query->orWhere($val, 'LIKE', '%' . $keyword . '%');
+                    }
+                });
+            } else {
+                $query->where('name', 'LIKE', '%' . $keyword . '%');
+            }
         }
         return $query;
     }
@@ -90,6 +98,31 @@ trait QueryScopes
             // 1. cột cần xét sắp xếp
             // 2. kiểu sắp sếp (tăng, giảm)
             $query->orderBy($orderBy[0], $orderBy[1]);
+        }
+        return $query;
+    }
+
+    public function scopeCustomDropdownFilter($query, $condition)
+    {
+        if (isset($condition) && count($condition)) {
+            foreach ($condition as $key => $val) {
+                if ($val != 'none' && $val != '') {
+                    $query->where($key, '=', $val);
+                }
+            }
+        }
+        return $query;
+    }
+
+    public function scopeCustomCreatedAt($query, $condition)
+    {
+        if (isset($condition) && $condition != "") {
+            $explode = explode('-', $condition);
+            $explode = array_map('trim', $explode);
+            $startDate = convertDateTime($explode[0], 'Y-m-d 00:00:00', 'd/m/Y');
+            $endDate = convertDateTime($explode[1], 'Y-m-d 23:59:59', 'd/m/Y');
+            $query->whereDate('created_at', '>=', $startDate);
+            $query->whereDate('created_at', '<=', $endDate);
         }
         return $query;
     }

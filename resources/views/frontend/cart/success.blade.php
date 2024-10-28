@@ -95,7 +95,8 @@
                     {{ __('info.email') }}: <span>{{ $order->email }}</span>
                 </div>
                 <div>
-                    {{ __('info.address') }}: <span>{{ $order->address }}</span>
+                    {{ __('info.address') }}:
+                    <span>{{ getAddress($order->province_id, $order->district_id, $order->ward_id, $order->address) }}</span>
                 </div>
                 <div>
                     {{ __('info.phone') }}: <span>{{ $order->phone }}</span>
