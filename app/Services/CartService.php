@@ -267,9 +267,10 @@ class CartService implements CartServiceInterface
             ], true);
             $carts = $this->setInformation($carts, $language);
             $cartPromotion = $this->cartPromotion($carts);
-            $totalPrice = $this->getTotalPricePromotion($this->getTotalPrice($carts), $cartPromotion['discount']);
+            $totalPriceOriginal = $this->getTotalPrice($carts);
+            $totalPrice = $this->getTotalPricePromotion($totalPriceOriginal, $cartPromotion['discount']);
 
-            $payload = $this->request($request, $cartPromotion, $totalPrice);
+            $payload = $this->request($request, $cartPromotion, $totalPrice, $totalPriceOriginal);
             $order = $this->orderRepository->create($payload);
             if ($order->id > 0) {
                 $code = $this->updateOrderCode($order);
@@ -301,7 +302,7 @@ class CartService implements CartServiceInterface
         Mail::to($to)->cc($cc)->send(new OrderMail($data));
     }
 
-    private function request($request, $cartPromotion, $totalPrice)
+    private function request($request, $cartPromotion, $totalPrice, $totalPriceOriginal)
     {
         $payload = $request->except('_token', 'voucher', 'create');
         $payload['customer_id'] = Auth::guard('customers')->id();
@@ -313,6 +314,7 @@ class CartService implements CartServiceInterface
             $payload['promotion']['endDate'] = $cartPromotion['promotion']->endDate;
         }
         $payload['totalPrice'] = $totalPrice;
+        $payload['totalPriceOriginal'] = $totalPriceOriginal;
         $payload['confirm'] = 'pending';
         $payload['delivery'] = 'pending';
         $payload['payment'] = 'unpaid';

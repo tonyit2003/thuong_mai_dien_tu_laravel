@@ -126,7 +126,8 @@
                     {{ __('info.email') }}: <span>{{ $data['order']->email }}</span>
                 </div>
                 <div style="margin-bottom: 15px; font-weight: 500;">
-                    {{ __('info.address') }}: <span>{{ $data['order']->address }}</span>
+                    {{ __('info.address') }}:
+                    <span>{{ getAddress($data['order']->province_id, $data['order']->district_id, $data['order']->ward_id, $data['order']->address) }}</span>
                 </div>
                 <div style="margin-bottom: 15px; font-weight: 500;">
                     {{ __('info.phone') }}: <span>{{ $data['order']->phone }}</span>

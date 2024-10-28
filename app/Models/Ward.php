@@ -11,7 +11,9 @@ class Ward extends Model
     use HasFactory, QueryScopes;
 
     protected $fillable = [
-        'name'
+        'code',
+        'name',
+        'full_name',
     ];
 
     // Tên bảng tương ứng trong mysql

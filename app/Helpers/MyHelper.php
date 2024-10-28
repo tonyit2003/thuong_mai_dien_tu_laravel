@@ -1,6 +1,9 @@
 <?php
 
 use App\Enums\PromotionEnum;
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Ward;
 use Carbon\Carbon;
 
 if (!function_exists('convert_price')) {
@@ -297,10 +300,10 @@ if (!function_exists('formatCurrency')) {
 }
 
 if (!function_exists('convertDateTime')) {
-    function convertDateTime($date = '', $format = 'd/m/Y H:i')
+    function convertDateTime($date = '', $format = 'd/m/Y H:i', $inputDateFormat = 'Y-m-d H:i:s')
     {
         // tạo một đối tượng ngày từ định dạng Y-m-d H:i:s.
-        $carbonDate = Carbon::createFromFormat('Y-m-d H:i:s', $date);
+        $carbonDate = Carbon::createFromFormat($inputDateFormat, $date);
         // Trả về chuỗi ngày tháng đã chuyển đổi sang định dạng mong muốn.
         return $carbonDate->format($format);
     }
@@ -488,5 +491,16 @@ if (!function_exists('sortAttributeId')) {
         sort($attributeId, SORT_NUMERIC);
         $attributeId = implode(',', $attributeId);
         return $attributeId;
+    }
+}
+
+if (!function_exists('getAddress')) {
+    function getAddress($province_id, $district_id, $ward_id, $address)
+    {
+        $province = Province::where('code', $province_id)->value('full_name');
+        $district = District::where('code', $district_id)->value('full_name');
+        $ward = Ward::where('code', $ward_id)->value('full_name');
+        $result = (isset($address) ? $address . ', ' : '') . (isset($ward) ? $ward . ', ' : '') . (isset($district) ? $district . ', ' : '') . (isset($province) ? $province . ', ' : '');
+        return rtrim($result, ', ');
     }
 }

@@ -77,4 +77,12 @@ return [
     'actual_quantity_imported'          => 'Số lượng thực nhập',
     'actual_total'                      => 'Tổng tiền thực nhập',
     'total_receipt'                     => 'Tổng tiền phiếu nhập',
+    'order_code'                        => 'Mã đơn hàng',
+    'customer'                          => 'Khách hàng',
+    'pay'                               => 'Thanh toán',
+    'method'                            => 'Hình thức',
+    'shipping_fee'                      => 'Phí ship',
+    'discount_v2'                       => 'Giảm giá',
+    'delivery'                          => 'Giao hàng',
+    'totalFinal'                        => 'Tổng tiền thanh toán',
 ];

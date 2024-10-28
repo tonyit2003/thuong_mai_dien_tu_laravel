@@ -235,6 +235,30 @@
         }
     };
 
+    HT.setupDateRangePicker = () => {
+        if ($(".rangepicker").length) {
+            $(".rangepicker")
+                .daterangepicker({
+                    autoUpdateInput: false, // để không tự động cập nhật
+                    locale: {
+                        format: "DD/MM/YYYY",
+                        applyLabel: apply,
+                        cancelLabel: cancel,
+                    },
+                })
+                .on("apply.daterangepicker", function (ev, picker) {
+                    $(this).val(
+                        picker.startDate.format("DD/MM/YYYY") +
+                            " - " +
+                            picker.endDate.format("DD/MM/YYYY")
+                    );
+                })
+                .on("cancel.daterangepicker", function (ev, picker) {
+                    $(this).val("");
+                });
+        }
+    };
+
     $(document).ready(function () {
         HT.switchery();
         HT.select2();
@@ -246,6 +270,7 @@
         HT.int();
         HT.setupDatepicker();
         HT.setupDatepickerSearchTime();
+        HT.setupDateRangePicker();
     });
 })(jQuery);
 
