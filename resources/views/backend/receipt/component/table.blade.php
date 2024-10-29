@@ -62,7 +62,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -165px !important">
                                 <li>
-                                    @if ($productReceipt->publish != 3 && $productReceipt->publish == 1)
+                                    @if ($productReceipt->publish != 3 && $productReceipt->publish == 2)
                                         <a href="{{ route('receipt.instock', $productReceipt->id) }}">
                                             {{ __('table.check_approved') }}
                                         </a>
@@ -73,7 +73,7 @@
                                     @endif
                                 </li>
                                 <li>
-                                    @if ($productReceipt->publish != 1 && $productReceipt->publish != 3)
+                                    @if ($productReceipt->publish != 2 && $productReceipt->publish != 3)
                                         <a href="{{ route('receipt.edit', $productReceipt->id) }}">
                                             {{ __('table.update') }}
                                         </a>

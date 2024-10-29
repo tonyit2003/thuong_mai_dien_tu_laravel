@@ -66,7 +66,7 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
             'user_id' => $request->input('user') != null ? $request->integer('user') : 0,
         ];
 
-        $extend = ['path' => 'product/receipt/index'];
+        $extend = ['path' => 'receipt/index'];
         return $this->productReceiptRepository->pagination($this->paginateSelect(), $condition, [], $perPage, $extend, []);
     }
 
@@ -166,8 +166,9 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
     {
         DB::beginTransaction();
         try {
-            $payload['publish'] = 1;
+            $payload['publish'] = 2;
             $payload['date_of_receipt'] = now();
+            $payload['date_of_booking'] = now();
             $this->productReceiptRepository->update($id, $payload);
             DB::commit();
             return true;
