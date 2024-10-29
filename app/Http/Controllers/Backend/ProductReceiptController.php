@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\ProductReceiptExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApprovedReceiptRequest;
 use App\Http\Requests\StoreProductReceiptRequest;
@@ -16,6 +17,7 @@ use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductReceiptController extends Controller
 {
@@ -35,6 +37,7 @@ class ProductReceiptController extends Controller
             $this->language = $language->id;
             return $next($request);
         });
+        parent::__construct();
         $this->userRepository = $userRepository;
         $this->productReceiptService = $productReceiptService;
         $this->productReceiptRepository = $productReceiptRepository;
@@ -232,7 +235,7 @@ class ProductReceiptController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => __('toast.approve_success'),
-                'redirect_url' => route('receipt.monitor')
+                'redirect_url' => route('receipt.success', ['code' => $id])
             ]);
         }
         flash()->error(__('toast.approve_failed'));
@@ -240,6 +243,26 @@ class ProductReceiptController extends Controller
             'success' => false,
             'message' => __('toast.approve_failed')
         ]);
+    }
+
+    public function success($id, Request $request)
+    {
+        Gate::authorize('modules', 'receipt.browse');
+        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $formattedDetails = $productReceipt->details->map(function ($detail) {
+            return [
+                'product_id' => (int)$detail->product_id,
+                'variant_id' => (int)$detail->product_variant_id,
+                'product_name' => $detail->product->product_name ?? 'N/A',
+                'variant_name' => $detail->productVariant->variant_name ?? 'N/A',
+                'quantity' => $detail->quantity,
+                'actual_quantity' => $detail->actual_quantity,
+                'price' => (float)$detail->price
+            ];
+        });
+        $system = $this->system;
+        $this->productReceiptService->mail($productReceipt->suppliers->email, $productReceipt, $formattedDetails, $system);
+        return redirect()->route('receipt.index');
     }
 
     public function instock($id)
