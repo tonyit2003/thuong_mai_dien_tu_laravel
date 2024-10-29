@@ -1169,4 +1169,107 @@ div.fix-label {
 .ibox-tools-button .dropdown-toggle + .dropdown-menu.dropdown-user {
     left: -150px !important;
 }
+
+.order-wrapper {
+    padding: 20px 20px 40px;
+    margin: 0 auto;
+    /* max-width: 1036px; */
+}
+
+.ibox-title-left .badge {
+    margin-left: 20px;
+}
+
+.badge__tip {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px 0 0;
+    color: #9c6f19;
+    display: inline-block;
+    background: transparent;
+    border-radius: 50%;
+    border: 0.2rem solid currentColor;
+}
+
+.badge-text {
+    display: inline-block;
+}
+
+.ibox-title-left .badge {
+    background: #ffea8a;
+}
+
+.table-order {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-item:not(:last-child) {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.table-order td {
+    padding: 6px 10px;
+    padding-left: 0;
+}
+
+.order-item .image {
+    width: 100%;
+    height: 75px;
+}
+
+.order-item-name {
+    color: #2962ff;
+}
+
+.order-item-voucher {
+    font-size: 1.3rem;
+}
+
+.order-item-subtotal,
+.order-item-price {
+    text-align: right;
+}
+
+.order-item-times,
+.order-item-qty {
+    text-align: center;
+}
+
+.table-order {
+    color: #000;
+}
+
+.table-order strong,
+.order-item-subtotal {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.payment-confirm {
+    padding: 20px;
+    border-top: 1px solid #eaeaea;
+    background: #fff;
+}
+
+.payment-confirm .icon {
+    margin-right: 10px;
+}
+
+.payment-confirm .icon img {
+    max-width: 18px;
+}
+
+.payment-title {
+    margin-left: 20px;
+}
+
+.payment-title .text_2 {
+    font-size: 1.3rem;
+}
+
+.customer-line:not(:last-child) {
+    margin-bottom: 10px;
+}
 /* end */

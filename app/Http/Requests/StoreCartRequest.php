@@ -25,6 +25,9 @@ class StoreCartRequest extends FormRequest
             'fullname' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
+            'province_id' => 'gt:0',
+            'district_id' => 'gt:0',
+            'ward_id' => 'gt:0',
         ];
     }
 
@@ -35,6 +38,9 @@ class StoreCartRequest extends FormRequest
             'phone.required' => __('checkout.request.phone_required'),
             'email.required' => __('checkout.request.email_required'),
             'email.email' => __('checkout.request.email_email'),
+            'province_id.gt' => __('checkout.request.province_gt'),
+            'district_id.gt' => __('checkout.request.district_gt'),
+            'ward_id.gt' => __('checkout.request.ward_gt'),
         ];
     }
 }

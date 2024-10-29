@@ -19,7 +19,7 @@ return [
         'title' => 'Quản lý đơn hàng',
         'table' => 'Danh sách đơn hàng'
     ],
-    'create' => [
-        'title' => 'Thêm mới đơn hàng'
+    'detail' => [
+        'title' => 'Chi tiết đơn hàng'
     ],
 ];

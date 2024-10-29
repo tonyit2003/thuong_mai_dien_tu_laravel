@@ -4,7 +4,8 @@
             <div class="uk-flex uk-flex-middle">
                 @include('backend.dashboard.component.perPage')
                 <div class="date-item-box">
-                    <input type="text" name="created_at" id="" value="" class="rangepicker form-control">
+                    <input readonly type="text" name="created_at" id="" value=""
+                        class="rangepicker form-control" placeholder="{{ __('form.choose_range_date') }}">
                 </div>
             </div>
             <div class="action">

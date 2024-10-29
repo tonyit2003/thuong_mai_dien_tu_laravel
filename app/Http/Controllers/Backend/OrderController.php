@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Language;
+use App\Repositories\OrderProductRepository;
 use App\Repositories\OrderRepository;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
@@ -14,11 +15,13 @@ class OrderController extends Controller
 {
     protected $orderService;
     protected $orderRepository;
+    protected $orderProductRepository;
 
-    public function __construct(OrderService $orderService, OrderRepository $orderRepository)
+    public function __construct(OrderService $orderService, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository)
     {
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
+        $this->orderProductRepository = $orderProductRepository;
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -49,5 +52,16 @@ class OrderController extends Controller
 
         $template = 'backend.order.index';
         return view('backend.dashboard.layout', compact('template', 'config', 'orders'));
+    }
+
+    public function detail(Request $request, $id)
+    {
+        $language = $this->language;
+        $order = $this->orderRepository->findByCondition([['id', '=', $id]], false, ['products']);
+        $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
+        $orderProducts = $this->orderService->setInformation($orderProducts, $language);
+        $config['seo'] = __('order');
+        $template = 'backend.order.detail';
+        return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts'));
     }
 }

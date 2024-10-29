@@ -85,4 +85,5 @@ return [
     'discount_v2'                       => 'Giảm giá',
     'delivery'                          => 'Giao hàng',
     'totalFinal'                        => 'Tổng tiền thanh toán',
+    'provisional_total'                 => 'Tổng tiền tạm tính',
 ];

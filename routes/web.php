@@ -38,6 +38,7 @@ use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Backend\WidgetController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerController;
+use App\Http\Controllers\Frontend\GoogleAuthController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\RouterController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
@@ -45,6 +46,10 @@ use App\Http\Middleware\CustomerAuthenticateMiddleware;
 // @@use-controller@@
 
 /* FRONTEND ROUTES */
+
+Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
 
 // Route cho trang chủ
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -145,6 +150,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     // ORDER
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
+        Route::get('{id}/detail', [OrderController::class, 'detail'])->name('order.detail')->where(['id' => '[0-9]+']);
     });
 
 

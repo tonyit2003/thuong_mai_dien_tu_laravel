@@ -35,4 +35,5 @@ return [
     'browse'                        => 'Duyệt đề xuất nhập hàng',
     'order_payment'                 => 'Thanh toán đơn hàng',
     'purchase'                      => 'Mua hàng',
+    'cancel_order'                  => 'Hủy đơn hàng',
 ];

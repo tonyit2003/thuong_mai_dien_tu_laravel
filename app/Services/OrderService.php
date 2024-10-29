@@ -52,6 +52,7 @@ class OrderService implements OrderServiceInterface
                     }
                 ]);
                 $val->name = $product->languages->first()->pivot->name . ' - ' .  $productVariant->languages->first()->pivot->name;
+                $val->image = isset($productVariant->album) ? explode(',', $productVariant->album)[0] : null;
             }
         }
         return $orderProducts;
