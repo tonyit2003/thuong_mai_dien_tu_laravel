@@ -12,6 +12,7 @@
         "anayarojo/shoppingcart": "^4.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "maatwebsite/excel": "^3.1",
         "ramsey/uuid": "^4.7",
         "yoeunes/toastr": "^3.0"
     },

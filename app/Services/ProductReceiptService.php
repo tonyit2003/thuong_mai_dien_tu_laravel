@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Classes\Nestedsetbie;
+use App\Exports\ProductReceiptExport;
+use App\Mail\SendOrderMail;
 use App\Repositories\ProductReceiptRepository;
 use App\Repositories\ProductVariantRepository;
 use App\Repositories\RouterRepository;
@@ -11,7 +13,9 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class PostCatalogueService
@@ -29,6 +33,26 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
         $this->productReceiptRepository = $productReceiptRepository;
         $this->productVariantRepository = $productVariantRepository;
         parent::__construct($routerRepository);
+    }
+
+    public function mail($email, $productReceipt, $formattedDetails, $system)
+    {
+        $total = $formattedDetails->reduce(function ($carry, $detail) {
+            return $carry + ($detail['price'] * $detail['quantity']);
+        }, 0);
+
+        // Tạo file Excel trong bộ nhớ
+        $excelFile = Excel::raw(new ProductReceiptExport($formattedDetails, $total), \Maatwebsite\Excel\Excel::XLSX);
+
+        // Tạo dữ liệu truyền vào email
+        $data = [
+            'formattedDetails' => $formattedDetails,
+            'productReceipt' => $productReceipt,
+            'system' => $system
+        ];
+
+        // Gửi email với file Excel đính kèm
+        Mail::to($email)->send(new SendOrderMail($data, $excelFile));
     }
 
     public function paginate($request, $languageId)

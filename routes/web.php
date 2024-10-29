@@ -314,6 +314,8 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::get('monitor', [ProductReceiptController::class, 'monitor'])->name('receipt.monitor');
         Route::get('{id}/browse', [ProductReceiptController::class, 'browse'])->name('receipt.browse')->where(['id' => '[0-9]+']);
         Route::post('{id}/approve', [ProductReceiptController::class, 'approve'])->name('receipt.approve')->where(['id' => '[0-9]+']);
+
+        Route::get('sendOrder/id/{code}', [ProductReceiptController::class, 'success'])->name('receipt.success');
     });
 
     // ATTRIBUTE CATALOGUE
