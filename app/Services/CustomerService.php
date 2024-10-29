@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Customer;
 use App\Repositories\CustomerRepository;
 use App\Repositories\SourceRepository;
 use App\Services\Interfaces\CustomerServiceInterface;
@@ -76,6 +77,43 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         }
     }
 
+    public function createFromGoogle($googleUser)
+    {
+        DB::beginTransaction();
+        try {
+            $sourceGoogle = $this->sourceRepository->findByCondition([['keyword', '=', 'google']]);
+            $customer = $this->customerRepository->findByCondition([
+                ['email', '=', $googleUser->getEmail()],
+                ['google_id', '=', $googleUser->getId()]
+            ]);
+            if (!isset($customer)) {
+                $payload = [
+                    'email' => $googleUser->getEmail(),
+                    'name' => $googleUser->getName(),
+                    'google_id' => $googleUser->getId(),
+                    'phone' => null,
+                    'province_id' => null,
+                    'district_id' => null,
+                    'ward_id' => null,
+                    'address' => null,
+                    'birthday' => null,
+                    'image' => $googleUser->getAvatar(),
+                    'description' => null,
+                    'password' => $googleUser->getId(),
+                    'customer_catalogue_id' => 1,
+                    'source_id' => $sourceGoogle->id,
+                ];
+                $customer = $this->customerRepository->create($payload);
+            }
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+            return false;
+        }
+    }
+
     public function updateInfo($id, $request)
     {
         DB::beginTransaction();
@@ -135,6 +173,8 @@ class CustomerService extends BaseService implements CustomerServiceInterface
             return false;
         }
     }
+
+
 
     private function convertBirthdayDate($birthday = '')
     {

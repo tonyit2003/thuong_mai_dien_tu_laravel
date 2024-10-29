@@ -11,6 +11,7 @@
         "php": "^8.2",
         "anayarojo/shoppingcart": "^4.2",
         "laravel/framework": "^11.9",
+        "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
         "ramsey/uuid": "^4.7",

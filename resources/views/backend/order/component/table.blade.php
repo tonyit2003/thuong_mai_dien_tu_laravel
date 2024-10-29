@@ -14,7 +14,7 @@
                 {{ __('table.customer') }}
             </th>
             <th class="text-center">
-                {{ __('table.total') }}
+                {{ __('table.provisional_total') }}
             </th>
             <th class="text-center">
                 {{ __('table.discount_v2') }}
@@ -44,7 +44,7 @@
                         <input type="checkbox" value="{{ $order->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td class="text-center">
-                        <a href="">{{ $order->code }}</a>
+                        <a href="{{ route('order.detail', $order->id) }}">{{ $order->code }}</a>
                     </td>
                     <td>
                         {{ convertDatetime($order->created_at, 'H:i d-m-Y') }}

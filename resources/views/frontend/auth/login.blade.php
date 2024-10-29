@@ -55,6 +55,7 @@
                             {{ __('info.register') }}
                         </a>
                     </p>
+                    <p>Đăng nhập với <a href="{{ route('auth.google') }}">Google</a></p>
                 </div>
             </div>
         </div>
