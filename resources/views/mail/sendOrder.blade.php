@@ -148,7 +148,7 @@
                 <tbody>
                     @php $total = 0; @endphp
                     @if ($formattedDetails->isNotEmpty())
-                        @foreach ($formattedDetails as $detail)
+                        @foreach ($formattedDetails->take(6) as $detail)
                             <tr>
                                 <td>{{ $detail['product_name'] }}</td>
                                 <td>{{ $detail['variant_name'] }}</td>
@@ -159,6 +159,16 @@
                                 $total += $detail['price'] * $detail['quantity'];
                             @endphp
                         @endforeach
+
+                        {{-- Hiển thị dòng "..." nếu có nhiều hơn 6 sản phẩm --}}
+                        @if ($formattedDetails->count() > 6)
+                            <tr>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                            </tr>
+                        @endif
                     @else
                         <tr>
                             <td colspan="4">Không có sản phẩm nào.</td>

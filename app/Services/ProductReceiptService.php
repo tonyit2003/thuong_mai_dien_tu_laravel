@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 /**
  * Class PostCatalogueService
@@ -37,14 +41,16 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
 
     public function mail($email, $productReceipt, $formattedDetails, $system)
     {
+        // Tính tổng tiền
         $total = $formattedDetails->reduce(function ($carry, $detail) {
             return $carry + ($detail['price'] * $detail['quantity']);
         }, 0);
 
-        // Tạo file Excel trong bộ nhớ
-        $excelFile = Excel::raw(new ProductReceiptExport($formattedDetails, $total), \Maatwebsite\Excel\Excel::XLSX);
+        // Tạo file Excel với lớp ProductReceiptExport
+        $export = new ProductReceiptExport($formattedDetails, $total, $system, $productReceipt);
+        $filePath = $export->export();
 
-        // Tạo dữ liệu truyền vào email
+        // Dữ liệu cho email
         $data = [
             'formattedDetails' => $formattedDetails,
             'productReceipt' => $productReceipt,
@@ -52,7 +58,7 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
         ];
 
         // Gửi email với file Excel đính kèm
-        Mail::to($email)->send(new SendOrderMail($data, $excelFile));
+        Mail::to($email)->send(new SendOrderMail($data, file_get_contents($filePath)));
     }
 
     public function paginate($request, $languageId)

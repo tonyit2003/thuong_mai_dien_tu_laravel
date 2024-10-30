@@ -262,7 +262,7 @@ class ProductReceiptController extends Controller
         });
         $system = $this->system;
         $this->productReceiptService->mail($productReceipt->suppliers->email, $productReceipt, $formattedDetails, $system);
-        return redirect()->route('receipt.index');
+        return redirect()->route('receipt.monitor');
     }
 
     public function instock($id)
