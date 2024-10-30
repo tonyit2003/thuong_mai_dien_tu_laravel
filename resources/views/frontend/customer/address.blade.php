@@ -21,9 +21,9 @@
                                     <a href="#">25.10 Lương Về SaleTo</a>
                                 </li>
                                 <li class="no-boder"><img src="frontend/img/icons8-account-100.png" alt="">
-                                    <a href="{{ route('customer.address') }}">{{ __('customerInfo.my_account') }}</a>
+                                    <a href="{{ route('customer.info') }}">{{ __('customerInfo.my_account') }}</a>
                                 </li>
-                                <li class="no-boder"><a href="#">{{ __('customerInfo.info') }}</a></li>
+                                <li class="no-boder"><a href="{{ route('customer.info') }}">{{ __('customerInfo.info') }}</a></li>
                                 <li class="no-boder"><a href="#">{{ __('customerInfo.bank') }}</a></li>
                                 <li class="no-boder"><a href="{{ route('customer.address') }}">{{ __('customerInfo.address') }}</a></li>
                                 <li class="no-boder"><a href="#">{{ __('customerInfo.change_password') }}</a></li>
@@ -42,7 +42,6 @@
                         <div class="col-lg-9 content">
                             <h2>Địa Chỉ Của Tôi</h2>
                             <p>Quản lý thông tin địa chỉ để đặt hàng</p>
-                            <div style="padding-top: 8px"></div>
                             <hr>
                             <!-- Profile Form -->
                             @if ($errors->any())

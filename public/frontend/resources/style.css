@@ -1102,7 +1102,7 @@ span[class*="fi-rs-"]:before {
     box-sizing: border-box;
 }
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif !important;
     font-weight: 400;
     margin: 0;
 }

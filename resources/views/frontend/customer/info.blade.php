@@ -42,7 +42,6 @@
                         <div class="col-lg-9 content">
                             <h2>{{ __('customerInfo.my_info') }}</h2>
                             <p>{{ __('customerInfo.mess') }}</p>
-                            <div style="padding-top: 8px"></div>
                             <hr>
                             <!-- Profile Form -->
                             <div class="row">
