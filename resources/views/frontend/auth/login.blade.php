@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="frontend/auth/css/style.css" type="text/css" media="all" />
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend/resources/style.css') }}">
 </head>
 
 <body>
@@ -55,7 +56,22 @@
                             {{ __('info.register') }}
                         </a>
                     </p>
-                    <p>Đăng nhập với <a href="{{ route('auth.google') }}">Google</a></p>
+
+                    <div class="login-google">
+                        <div class="line-through is-flex is-align-items-center">
+                            <hr>
+                            <p>hoặc</p>
+                            <hr>
+                        </div>
+
+                        <div class="login-google uk-flex uk-flex-middle">
+                            <span>{{ __('info.login_with') }}: </span>
+                            <a class="uk-flex uk-flex-middle uk-flex-space-between" href="{{ route('auth.google') }}">
+                                <img src="{{ asset('frontend/img/google.png') }}" alt="">
+                                <span>Google</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

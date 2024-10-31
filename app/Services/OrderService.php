@@ -6,6 +6,8 @@ use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
 use App\Services\Interfaces\OrderServiceInterface;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class AttributeCatalogueService
@@ -33,6 +35,37 @@ class OrderService implements OrderServiceInterface
         $condition['created_at'] = $request->input('created_at');
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'order/index']);
+    }
+
+    public function update($request)
+    {
+        DB::beginTransaction();
+        try {
+            $id = $request->input('id');
+            $payload = $request->input('payload');
+            if (isset($payload['ward_id']) || isset($payload['district_id']) || isset($payload['province_id'])) {
+                if (in_array(null, $payload, true)) {
+                    DB::rollBack();
+                    return false;
+                }
+            }
+            $this->orderRepository->update($id, $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function setAddress($order)
+    {
+        if (isset($order)) {
+            $order->ward = getAddress(null, null, $order->ward_id, null);
+            $order->district = getAddress(null, $order->district_id, null, null);
+            $order->province = getAddress($order->province_id, null, null, null);
+        }
+        return $order;
     }
 
     public function setInformation($orderProducts = null, $language = 1)

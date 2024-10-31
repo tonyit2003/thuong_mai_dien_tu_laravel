@@ -5,6 +5,7 @@ use App\Http\Controllers\Ajax\CartController as AjaxCartController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
+use App\Http\Controllers\Ajax\OrderController as AjaxOrderController;
 use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
 use App\Http\Controllers\Ajax\SourceController as AjaxSourceController;
 use App\Http\Controllers\Backend\AuthController;
@@ -46,9 +47,6 @@ use App\Http\Middleware\CustomerAuthenticateMiddleware;
 // @@use-controller@@
 
 /* FRONTEND ROUTES */
-
-Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
 
 // Route cho trang chủ
@@ -364,12 +362,15 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::get('ajax/{id}/getProductCatalogueBySupplier', [AjaxProductController::class, 'getProductCatalogueBySupplierId'])->name('ajax.product.getProductCatalogueBySupplierId')->where(['id' => '[0-9]+']);
     Route::get('ajax/product/loadProductPromotion', [AjaxProductController::class, 'loadProductPromotion'])->name('ajax.loadProductPromotion');
     Route::get('ajax/source/getAllSource', [AjaxSourceController::class, 'getAllSource'])->name('ajax.getAllSource');
+    Route::post('ajax/order/update', [AjaxOrderController::class, 'update'])->name('ajax.update');
 });
 
 // LOGIN - LOGOUT DASHBOARD (admin)
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
 Route::post('admin/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('admin/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
 // LOGIN CLIENT (client)
 Route::get('login', [AuthClientController::class, 'index'])->name('authClient.index');

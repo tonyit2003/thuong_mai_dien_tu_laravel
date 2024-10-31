@@ -1272,4 +1272,29 @@ div.fix-label {
 .customer-line:not(:last-child) {
     margin-bottom: 10px;
 }
+
+div .edit {
+    cursor: pointer;
+}
+
+.order-aside label {
+    display: block !important;
+}
+
+.order-aside .select2-container {
+    width: 100% !important;
+}
+
+.cancel-badge {
+    padding: 3px 7px;
+    background: red;
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.updateBadge {
+    cursor: pointer;
+}
 /* end */

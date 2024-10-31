@@ -54,4 +54,5 @@ return [
     'payment_method'                => 'Hình thức thanh toán',
     'cart_empty'                    => 'Giỏ hàng của bạn đang trống.',
     'select_more_products'          => 'Hãy chọn thêm sản phẩm để mua sắm nhé.',
+    'login_with'                    => 'Đăng nhập với',
 ];

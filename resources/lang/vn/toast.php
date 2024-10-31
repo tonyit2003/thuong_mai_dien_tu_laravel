@@ -26,4 +26,5 @@ return [
     'delete_cart_failed'                    => 'Xóa sản phẩm khỏi giỏ hàng thất bại',
     'order_success'                         => 'Đặt hàng thành công',
     'order_fail'                            => 'Đặt hàng thất bại',
+    'must_confirm_order'                    => 'Bạn phải xác nhận đơn hàng trước khi thực hiện cập nhật này',
 ];
