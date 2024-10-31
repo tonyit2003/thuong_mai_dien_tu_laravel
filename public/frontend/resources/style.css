@@ -4113,3 +4113,45 @@ a.ui-button:active,
     max-width: 80%;
     margin: 1.25rem auto 0 auto;
 }
+
+.uk-flex-space-between {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.uk-flex-middle {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.uk-flex {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.login-google .line-through {
+    gap: 10px;
+    margin: 20px auto 0;
+    width: 60%;
+}
+
+.is-flex {
+    display: flex !important;
+}
+
+.is-align-items-center {
+    align-items: center !important;
+}
+
+.login-google img {
+    margin: 10px;
+}
+
+.login-google .line-through hr {
+    background-color: #dbdbdb;
+    height: 1px;
+    width: 100%;
+}

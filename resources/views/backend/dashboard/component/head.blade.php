@@ -39,4 +39,6 @@
     var unitCharacter = "{{ __('unit.characters') }}"
     var apply = "{{ __('form.apply') }}"
     var cancel = "{{ __('form.cancel') }}"
+    var edit = "{{ __('form.edit') }}"
+    var save = "{{ __('button.save') }}"
 </script>

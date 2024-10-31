@@ -22,4 +22,9 @@ return [
     'detail' => [
         'title' => 'Chi tiết đơn hàng'
     ],
+    'confirm-title' => [
+        'pending' => "Đang chờ xác nhận đơn hàng",
+        'confirm' => "Đơn hàng đã được xác nhận",
+        'cancel' => "Đơn hàng đã bị hủy",
+    ],
 ];
