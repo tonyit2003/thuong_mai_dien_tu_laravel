@@ -134,9 +134,9 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->input();
-            $payload['province_id'] = $request->integer('province_id');
-            $payload['district_id'] = $request->integer('district_id');
-            $payload['ward_id'] = $request->integer('ward_id');
+            $payload['province_id'] = $request->input('province_id');
+            $payload['district_id'] = $request->input('district_id');
+            $payload['ward_id'] = $request->input('ward_id');
             $this->customerRepository->update($id, $payload);
             DB::commit();
             return true;
