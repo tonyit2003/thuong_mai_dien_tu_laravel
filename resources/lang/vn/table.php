@@ -74,7 +74,7 @@ return [
     'expired'                           => 'Hết hạn',
     'fax'                               => 'Số fax',
     'product_catalogue'                 => 'Loại sản phẩm',
-    'actual_quantity_imported'          => 'Số lượng thực nhập',
+    'actual_quantity_imported'          => 'Số lượng đặt',
     'actual_total'                      => 'Tổng tiền thực nhập',
     'total_receipt'                     => 'Tổng tiền phiếu nhập',
     'order_code'                        => 'Mã đơn hàng',

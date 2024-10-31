@@ -497,7 +497,22 @@
             $('input[name="actualQuantity[]"]').on("input", function () {
                 calculateTotal(); // Gọi hàm tính tổng khi có thay đổi
             });
+
+            // Gọi tính tổng khi trang được tải để cập nhật số ban đầu
+            calculateTotal();
         });
+    };
+
+    HT.setupDatepickerApproved = () => {
+        if ($(".datepickerApproved").length) {
+            const today = new Date();
+            $(".datepickerApproved").datetimepicker({
+                timepicker: true, // Tắt chọn giờ
+                format: "d/m/Y H:i",
+                minDate: today, // Giới hạn ngày bắt đầu từ hôm nay
+                maxDate: today, // Giới hạn ngày kết thúc là hôm nay
+            });
+        }
     };
 
     $(document).ready(function () {
@@ -509,5 +524,6 @@
         HT.getDataUpdateProductReceipt();
         HT.getProductCatalogueBySupplierId();
         HT.total();
+        HT.setupDatepickerApproved();
     });
 })(jQuery);

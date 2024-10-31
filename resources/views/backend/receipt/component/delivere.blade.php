@@ -23,6 +23,8 @@
                                     {{ __('table.approved') }}
                                 @elseif ($productReceipt->publish == 1)
                                     {{ __('table.unapproved') }}
+                                @elseif($productReceipt->publish == 2)
+                                    {{ __('table.booking') }}
                                 @else
                                     {{ __('table.delivered') }}
                                 @endif
@@ -46,8 +48,9 @@
                         <label for="" class="control-label text-left mr5">{{ __('form.date_approved') }} <span
                                 class="text-danger">(*)</span></label>
                         <div class="form-date">
-                            <input type="text" name="date_approved" value="{{ old('date_approved', $productReceipt->date_approved ?? '') }}"
-                                class="form-control datepicker" placeholder="" autocomplete="off">
+                            <input type="text" name="date_approved"
+                                value="{{ old('date_approved', $productReceipt->date_approved ?? now()->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i')) }}"
+                                class="form-control datepickerApproved" placeholder="" autocomplete="off">
                             <span><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
@@ -59,8 +62,8 @@
                     <tr>
                         <th class="text-center" style="width: 25%">{{ __('table.product_name') }}</th>
                         <th class="text-center" style="width: 35%">{{ __('table.version') }}</th>
-                        <th class="text-center" style="width: 15%">{{ __('table.actual_quantity_imported') }}</th>
-                        <th class="text-center" style="width: 10%">{{ __('table.quantity_imported') }}</th>
+                        <th class="text-center" style="width: 10%">{{ __('table.actual_quantity_imported') }}</th>
+                        <th class="text-center" style="width: 15%">{{ __('table.quantity_imported') }}</th>
                         <th class="text-center" style="width: 15%">{{ __('table.price') }}</th>
                     </tr>
                 </thead>
@@ -70,11 +73,12 @@
                             <td>{{ $formattedDetail['product_name'] }}</td>
                             <td>{{ $formattedDetail['variant_name'] }}</td>
                             <td class="text-center">
-                                <input type="text" name="actualQuantity[]" class="form-control mr10 int" placeholder="" value="0">
-                            </td>
-                            <td class="text-center">
                                 <input type="hidden" name="quantity[]" value="{{ $formattedDetail['quantity'] }}">
                                 {{ $formattedDetail['quantity'] }}
+                            </td>
+                            <td class="text-center">
+                                <input type="text" name="actualQuantity[]" class="form-control mr10 int" placeholder=""
+                                    value="{{ $formattedDetail['quantity'] }}">
                             </td>
                             <td class="text-right">
                                 {{ formatCurrency($formattedDetail['price']) }}
