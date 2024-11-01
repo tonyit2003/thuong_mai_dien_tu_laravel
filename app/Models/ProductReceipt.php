@@ -16,6 +16,7 @@ class ProductReceipt extends Model
         'date_of_receipt',
         'date_of_booking',
         'date_approved',
+        'expected_delivery_date',
         'publish',
         'user_id',
         'supplier_id',

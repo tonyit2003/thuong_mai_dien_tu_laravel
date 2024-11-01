@@ -134,30 +134,41 @@
             </div>
             <hr>
             <p>Kính gửi: {{ $productReceipt->suppliers->name }}</p>
-            <p>Chúng tôi xin chân thành cảm ơn quý công ty đã xác nhận đơn hàng từ {{ $system['homepage_company'] }}. Dưới đây là các thông tin chi
-                tiết về đơn đặt hàng mà chúng tôi muốn nhận được:</p>
+            <p>Chúng tôi xin chân thành cảm ơn quý công ty đã xác nhận đơn hàng từ {{ $system['homepage_company'] }}
+            <p>
+                Chúng tôi mong muốn nhận được hàng vào ngày dự kiến:
+                <strong>
+                    {{ \Carbon\Carbon::parse($productReceipt->expected_delivery_date)->format('d/m/Y') }}
+                </strong>
+                để đảm bảo tiến độ kinh doanh và phục vụ khách hàng một cách tốt nhất.
+            </p>
+            <p>Xin quý công ty hỗ trợ sắp xếp và xác nhận lịch giao hàng sớm nhất có thể.</p>
+            <p>Dưới đây là các thông tin chi tiết về đơn đặt hàng mà chúng tôi muốn nhận được:</p>
             <table>
                 <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Tên sản phẩm</th>
                         <th>Phiên bản</th>
                         <th class="text-center">Số lượng</th>
                         <th class="price-column">Giá (VND)</th>
                     </tr>
                 </thead>
+                @php
+                    $total = $formattedDetails->sum(function ($detail) {
+                        return $detail['price'] * $detail['quantity'];
+                    });
+                @endphp
                 <tbody>
-                    @php $total = 0; @endphp
                     @if ($formattedDetails->isNotEmpty())
-                        @foreach ($formattedDetails->take(6) as $detail)
+                        @foreach ($formattedDetails->take(6) as $key => $detail)
                             <tr>
+                                <td>{{ $key + 1 }}</td>
                                 <td>{{ $detail['product_name'] }}</td>
                                 <td>{{ $detail['variant_name'] }}</td>
                                 <td class="text-center">{{ $detail['quantity'] }}</td>
                                 <td class="price-column">{{ number_format($detail['price'], 0, ',', '.') }}</td>
                             </tr>
-                            @php
-                                $total += $detail['price'] * $detail['quantity'];
-                            @endphp
                         @endforeach
 
                         {{-- Hiển thị dòng "..." nếu có nhiều hơn 6 sản phẩm --}}
@@ -177,13 +188,10 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="4" style="text-align: right;">Tổng tiền: {{ number_format($total, 0, ',', '.') }} VND</th>
+                        <th colspan="5" style="text-align: right;">Tổng tiền: {{ number_format($total, 0, ',', '.') }} VND</th>
                     </tr>
                 </tfoot>
             </table>
-            <p>Chúng tôi mong muốn nhận được hàng vào ngày dự kiến: <strong>{{ now()->addWeeks(2)->format('d-m-Y') }}</strong> để đảm bảo tiến độ
-                kinh doanh và phục vụ khách hàng một cách tốt nhất. </p>
-            <p>Xin quý công ty hỗ trợ sắp xếp và xác nhận lịch giao hàng sớm nhất có thể.</p>
 
             <p>Cảm ơn bạn đã hợp tác với chúng tôi!</p>
             <p>Trân trọng,<br>{{ $system['homepage_company'] }}</p>

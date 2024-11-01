@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class ProductReceiptExport
 {
@@ -41,9 +42,10 @@ class ProductReceiptExport
         $sheet->setCellValue("E6", "Mã phiếu: " . $this->productReceipt->id);
         $sheet->setCellValue("C8", "Ngày " . now()->day . " tháng " . now()->month . " năm " . now()->year);
         $sheet->setCellValue("A10", "Kính gửi: " . $this->productReceipt->suppliers->name);
+        $sheet->setCellValue("A11", "Ngày nhận hàng dự kiến: " . ($this->productReceipt->expected_delivery_date ? Carbon::parse($this->productReceipt->expected_delivery_date)->format('d-m-Y') : ''));
 
         // Chèn thông tin chi tiết sản phẩm
-        $startRow = 14;
+        $startRow = 15;
         $templateStyle = $sheet->getStyle("A$startRow:E$startRow");
 
         foreach ($this->formattedDetails as $index => $detail) {
@@ -82,14 +84,10 @@ class ProductReceiptExport
         $sheet->getStyle("D$totalRow")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle("E$totalRow")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
-        // Hợp nhất và thêm thông báo
-        $mergeRow = $totalRow + 2;
-        $sheet->mergeCells("A{$mergeRow}:E{$mergeRow}");
-        $sheet->setCellValue("A{$mergeRow}", "Chúng tôi mong muốn nhận được hàng vào ngày dự kiến: " . now()->addWeeks(2)->format('d-m-Y') . " để đảm bảo tiến độ kinh doanh và phục vụ khách hàng một cách tốt nhất.");
-
         // Thêm dòng Trân trọng
-        $thanksnum = $mergeRow + 4;
-        $sheet->setCellValue("A{$thanksnum}", "Trân trọng, " . $this->system['homepage_company']);
+        $mergeRow = $totalRow + 6;
+        $sheet->mergeCells("A{$mergeRow}:E{$mergeRow}");
+        $sheet->setCellValue("A{$mergeRow}", "Trân trọng, " . $this->system['homepage_company']);
 
         // Lưu file Excel mới
         $filePath = 'order_receipt_generated.xlsx';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Exports\ProductReceiptExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApprovedReceiptRequest;
+use App\Http\Requests\ExpectedDeliveryDateRequest;
 use App\Http\Requests\StoreProductReceiptRequest;
 use App\Http\Requests\UpdateProductReceiptRequest;
 use App\Models\Language;
@@ -228,9 +229,9 @@ class ProductReceiptController extends Controller
         return view('backend.dashboard.layout', compact('template', 'config', 'productReceipt', 'products', 'suppliers', 'formattedDetails'));
     }
 
-    public function approve($id)
+    public function approve($id, ExpectedDeliveryDateRequest $request)
     {
-        if ($this->productReceiptService->approve($id)) {
+        if ($this->productReceiptService->approve($id, $request)) {
             flash()->success(__('toast.approve_success'));
             return response()->json([
                 'success' => true,

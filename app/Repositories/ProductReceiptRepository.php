@@ -117,6 +117,7 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
                 'product_receipts.date_of_receipt',
                 'product_receipts.date_of_booking',
                 'product_receipts.date_approved',
+                'product_receipts.expected_delivery_date',
                 'product_receipts.publish',
                 'product_receipts.user_id',
                 'product_receipts.total',

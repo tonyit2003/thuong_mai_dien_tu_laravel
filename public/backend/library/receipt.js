@@ -515,6 +515,17 @@
         }
     };
 
+    HT.setupDatepickerExpectedDeliverDate = () => {
+        if ($(".expected_delivery_date").length) {
+            const today = new Date();
+            $(".expected_delivery_date").datetimepicker({
+                timepicker: false, // Tắt chọn giờ
+                format: "d/m/Y H:i",
+                minDate: new Date(),
+            });
+        }
+    };
+
     $(document).ready(function () {
         HT.checkAllReceipt();
         HT.checkBoxItemReceipt();
@@ -525,5 +536,6 @@
         HT.getProductCatalogueBySupplierId();
         HT.total();
         HT.setupDatepickerApproved();
+        HT.setupDatepickerExpectedDeliverDate();
     });
 })(jQuery);

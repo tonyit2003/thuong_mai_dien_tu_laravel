@@ -39,6 +39,22 @@
     <div class="ibox">
         <div class="ibox-title">{{ __('table.receipt_detail') }}</div>
         <div class="ibox-content">
+
+            <div class="filter-wrapper">
+                <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                    <div class="uk-flex uk-flex-middle" style="margin-left: auto;" id="keywordInput">
+                        <label for="" class="control-label text-left mr5">{{ __('table.expected_delivery_date') }} <span
+                                class="text-danger">(*)</span></label>
+                        <div class="form-date">
+                            <input type="text" name="expected_delivery_date"
+                                value="{{ old('expected_delivery_date', $productReceipt->expected_delivery_date ?? now()->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i')) }}"
+                                class="form-control expected_delivery_date" placeholder="" autocomplete="off">
+                            <span><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <table class="table table-striped table-bordered" id="productTable">
                 <thead>
                     <tr>

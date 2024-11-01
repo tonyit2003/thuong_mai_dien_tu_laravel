@@ -4,14 +4,15 @@
             <th class="text-center" style="width: 3%">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox" />
             </th>
-            <th class="text-center" style="width: 20%">{{ __('table.user') }}</th>
-            <th class="text-center" style="width: 20%">{{ __('table.supplier_information') }}</th>
+            <th class="text-center" style="width: 15%">{{ __('table.user') }}</th>
+            <th class="text-center" style="width: 15%">{{ __('table.supplier_information') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_created') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_approved') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_booking') }}</th>
+            <th class="text-center" style="width: 7%">{{ __('table.expected_delivery_date') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.date_delivered') }}</th>
             <th class="text-center" style="width: 10%">{{ __('table.total_receipt') }}</th>
-            <th class="text-center" style="width: 10%">{{ __('table.actual_total') }}</th>
+            <th class="text-center" style="width: 13%">{{ __('table.actual_total') }}</th>
             <th class="text-center" style="width: 7%">{{ __('table.status') }}</th>
             <th class="text-center" style="width: 5%">{{ __('table.actions') }}</th>
         </tr>
@@ -27,13 +28,14 @@
                     <td>{{ $productReceipt->suppliers ? $productReceipt->suppliers->name : 'N/A' }}</td>
                     <td class="text-center">{{ \Carbon\Carbon::parse($productReceipt->date_created)->format('d/m/Y') }}
                     </td>
-                    <td
-                        class="text-center {{ isset($productReceipt->date_of_receipt) ? 'text-dark' : 'text-danger' }}">
+                    <td class="text-center {{ isset($productReceipt->date_of_receipt) ? 'text-dark' : 'text-danger' }}">
                         {{ isset($productReceipt->date_of_receipt) ? \Carbon\Carbon::parse($productReceipt->date_of_receipt)->format('d/m/Y') : __('table.approved') }}
                     </td>
-                    <td
-                        class="text-center {{ isset($productReceipt->date_of_booking) ? 'text-dark' : 'text-danger' }}">
+                    <td class="text-center {{ isset($productReceipt->date_of_booking) ? 'text-dark' : 'text-danger' }}">
                         {{ isset($productReceipt->date_of_booking) ? \Carbon\Carbon::parse($productReceipt->date_of_booking)->format('d/m/Y') : __('table.unbooking') }}
+                    </td>
+                    <td class="text-center {{ isset($productReceipt->expected_delivery_date) ? 'text-dark' : 'text-danger' }}">
+                        {{ isset($productReceipt->expected_delivery_date) ? \Carbon\Carbon::parse($productReceipt->expected_delivery_date)->format('d/m/Y') : __('table.unbooking') }}
                     </td>
                     <td class="text-center {{ isset($productReceipt->date_approved) ? 'text-dark' : 'text-danger' }}">
                         {{ isset($productReceipt->date_approved) ? \Carbon\Carbon::parse($productReceipt->date_approved)->format('d/m/Y') : __('table.undelivered') }}

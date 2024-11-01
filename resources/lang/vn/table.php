@@ -38,6 +38,7 @@ return [
     'supplier_information'              => 'Thông tin nhà cung cấp',
     'date_created'                      => 'Ngày tạo',
     'date_approved'                     => 'Ngày duyệt',
+    'expected_delivery_date'            => 'Ngày giao hàng dự kiến',
     'date_booking'                      => 'Ngày đặt hàng',
     'date_delivered'                    => 'Ngày giao hàng',
     'total'                             => 'Tổng tiền',

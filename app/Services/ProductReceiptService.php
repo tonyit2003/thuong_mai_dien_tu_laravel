@@ -168,13 +168,19 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
         }
     }
 
-    public function approve($id)
+    public function approve($id, $request)
     {
         DB::beginTransaction();
         try {
             $payload['publish'] = 2;
             $payload['date_of_receipt'] = now();
             $payload['date_of_booking'] = now();
+            // Xử lý ngày phê duyệt
+            if ($request->input('expected_delivery_date')) {
+                $payload['expected_delivery_date'] = Carbon::createFromFormat('d/m/Y H:i', $request->input('expected_delivery_date'))->format('Y-m-d H:i:s');
+            } else {
+                $payload['expected_delivery_date'] = null;
+            }
             $this->productReceiptRepository->update($id, $payload);
             DB::commit();
             return true;
@@ -274,6 +280,7 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
             'product_receipts.date_of_receipt',
             'product_receipts.date_of_booking',
             'product_receipts.date_approved',
+            'product_receipts.expected_delivery_date',
         ];
     }
 }
