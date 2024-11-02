@@ -281,4 +281,5 @@ return [
     'status_delivery'                   => 'Tình trạng giao hàng',
     'status_payment'                    => 'Tình trạng thanh toán',
     'form_phone'                        => 'Nhập số điện thoại',
+    'null'                              => 'Không có dữ liệu để hiển thị. Vui lòng nhập số điện thoại khách hàng tìm kiếm hóa đơn.'
 ];

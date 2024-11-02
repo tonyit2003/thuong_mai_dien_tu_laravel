@@ -39,6 +39,9 @@
                         <tbody>
                             @foreach ($orderProducts as $key => $val)
                                 <tr class="order-item">
+                                    <td class="">
+                                        <input type="checkbox" value="{{ $val->id }}" class="input-checkbox" />
+                                    </td>
                                     <td>
                                         <div class="image">
                                             <span class="image img-scaledown">
@@ -49,7 +52,10 @@
                                     </td>
                                     <td>
                                         <div class="order-item-name">
-                                            {{ $val->name }}
+                                            {{ $val->name }} <br>
+                                            <strong style="color: red">Thời gian bảo hành:
+                                                {{ convertDatetime($val->warranty_time, 'H:i d-m-Y') }}
+                                            </strong>
                                         </div>
                                         {{-- <div class="order-item-voucher">
                                             {{ __('form.discount_code') }}: BBBBBB
@@ -78,20 +84,20 @@
                                 </tr>
                             @endforeach
                             <tr>
-                                <td colspan="5" class="text-right">{{ __('form.provisional_total') }}</td>
+                                <td colspan="6" class="text-right">{{ __('form.provisional_total') }}</td>
                                 <td class="text-right">{{ formatCurrency($order->totalPriceOriginal) }}</td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="text-right">{{ __('form.discount_v2') }}</td>
+                                <td colspan="6" class="text-right">{{ __('form.discount_v2') }}</td>
                                 <td class="text-right" style="color: red">
                                     - {{ formatCurrency($order->promotion['discount'] ?? 0) }}</td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="text-right">{{ __('form.delivery') }}</td>
+                                <td colspan="6" class="text-right">{{ __('form.delivery') }}</td>
                                 <td class="text-right">{{ formatCurrency($val->shipping) }}</td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="text-right"><strong>{{ __('form.final_total') }}</strong>
+                                <td colspan="6" class="text-right"><strong>{{ __('form.final_total') }}</strong>
                                 </td>
                                 <td class="text-right">
                                     <strong>{{ formatCurrency($order->totalPrice) }}</strong>
