@@ -36,6 +36,7 @@ use App\Http\Controllers\Backend\SlideController;
 use App\Http\Controllers\Backend\SourceController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\SystemController;
+use App\Http\Controllers\Backend\WarrantyController;
 use App\Http\Controllers\Backend\WidgetController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerController;
@@ -342,6 +343,12 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/update', [AttributeController::class, 'update'])->name('attribute.update')->where(['id' => '[0-9]+']);
         Route::get('{id}/delete', [AttributeController::class, 'delete'])->name('attribute.delete')->where(['id' => '[0-9]+']);
         Route::post('{id}/destroy', [AttributeController::class, 'destroy'])->name('attribute.destroy')->where(['id' => '[0-9]+']);
+    });
+
+    // WARRANTY
+    Route::group(['prefix' => 'warranty'], function () {
+        Route::get('index', [WarrantyController::class, 'index'])->name('warranty.index');
+        Route::get('{id}/detail', [WarrantyController::class, 'detail'])->name('warranty.detail')->where(['id' => '[0-9]+']);
     });
 
     // @@new-module@@

@@ -37,6 +37,17 @@ return [
             ]
         ],
         [
+            'title' => 'Bảo hành',
+            'icon' => 'fa fa-pencil-square-o',
+            'name' => ['warranty'],
+            'subModule' => [
+                [
+                    'title' => 'Bảo hành',
+                    'route' => 'warranty.index'
+                ],
+            ]
+        ],
+        [
             'title' => 'Khách hàng',
             'icon' => 'fa fa-user',
             'name' => ['customer'],
