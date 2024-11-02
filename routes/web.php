@@ -43,6 +43,7 @@ use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerControll
 use App\Http\Controllers\Frontend\GoogleAuthController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\RouterController;
+use App\Http\Controllers\Frontend\VNPayController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
 
 // @@use-controller@@
@@ -75,6 +76,9 @@ Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::cla
 Route::get('{canonical}' . '/uuid={uuid}' . config('apps.general.suffix'), [RouterController::class, 'getProduct'])->name('router.getProduct')->where('canonical', '[a-zA-Z0-9-]+');
 Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
 Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
+
+Route::get('return/vnpay' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_return'])->name('vnpay.vnpay_return');
+Route::get('return/vnpay_ipn' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_ipn'])->name('vnpay.vnpay_ipn');
 
 // AJAX
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Classes\VNPay;
 use App\Http\Controllers\FrontendController;
 use App\Http\Requests\StoreCartRequest;
 use App\Repositories\CartRepository;
@@ -24,8 +25,9 @@ class CartController extends FrontendController
     protected $orderProductRepository;
     protected $cartService;
     protected $orderService;
+    protected $vNPay;
 
-    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService, PromotionRepository $promotionRepository, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, OrderService $orderService)
+    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService, PromotionRepository $promotionRepository, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, OrderService $orderService, VNPay $vNPay)
     {
         parent::__construct();
         $this->provinceRepository = $provinceRepository;
@@ -36,6 +38,7 @@ class CartController extends FrontendController
         $this->orderProductRepository = $orderProductRepository;
         $this->cartService = $cartService;
         $this->orderService = $orderService;
+        $this->vNPay = $vNPay;
     }
 
     public function checkout()
@@ -66,8 +69,14 @@ class CartController extends FrontendController
         $system = $this->system;
         $order = $this->cartService->order($storeCartRequest, $this->language, $system);
         if ($order['flag']) {
-            flash()->success(__('toast.order_success'));
-            return redirect()->route('cart.success', ['code' => $order['code']]);
+            $response = $this->vNPay->payment($order);
+            if ($response['code'] == '00') {
+                // trả về 1 đường dẫn bên ngoài
+                return redirect()->away($response['url']);
+            } else {
+                flash()->success(__('toast.order_success'));
+                return redirect()->route('cart.success', ['code' => $order['code']]);
+            }
         }
         flash()->error(__('toast.order_fail'));
         return redirect()->route('cart.checkout');

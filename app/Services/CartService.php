@@ -275,7 +275,6 @@ class CartService implements CartServiceInterface
             if ($order->id > 0) {
                 $code = $this->updateOrderCode($order);
                 $this->createOrderProduct($order, $carts);
-                $this->paymentOnline($payload['method']);
                 $this->cartRepository->deleteByCondition([
                     ['customer_id', '=', Auth::guard('customers')->id()],
                 ]);

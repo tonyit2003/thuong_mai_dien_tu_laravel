@@ -132,10 +132,6 @@
                 <div style="margin-bottom: 15px; font-weight: 500;">
                     {{ __('info.phone') }}: <span>{{ $data['order']->phone }}</span>
                 </div>
-                <div style="margin-bottom: 15px; font-weight: 500;">
-                    {{ __('info.payment_method') }}:
-                    <span>{{ array_column(__('payment.method'), 'title', 'name')[$data['order']->method] ?? '-' }}</span>
-                </div>
             </div>
         </div>
     </div>

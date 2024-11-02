@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 21, 2024 lúc 06:00 PM
+-- Thời gian đã tạo: Th10 01, 2024 lúc 01:56 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -323,8 +323,9 @@ CREATE TABLE `carts` (
 
 INSERT INTO `carts` (`id`, `customer_id`, `product_id`, `variant_uuid`, `quantity`, `created_at`, `updated_at`) VALUES
 (6, 7, 28, '4ff12264-360e-5341-a38e-e1253e07bb60', 1, '2024-10-20 19:26:09', '2024-10-20 19:32:42'),
-(12, 6, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 28, '2024-10-21 13:12:00', '2024-10-21 13:29:23'),
-(14, 6, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 1, '2024-10-21 13:13:00', '2024-10-21 13:28:35');
+(101, 6, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, '2024-10-28 09:44:08', '2024-10-28 09:44:08'),
+(103, 25, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, '2024-10-31 14:05:10', '2024-10-31 14:05:10'),
+(104, 7, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, '2024-11-01 12:38:14', '2024-11-01 12:38:14');
 
 -- --------------------------------------------------------
 
@@ -354,21 +355,26 @@ CREATE TABLE `customers` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `source_id` bigint(20) UNSIGNED NOT NULL DEFAULT 3
+  `source_id` bigint(20) UNSIGNED NOT NULL DEFAULT 3,
+  `sex` varchar(255) DEFAULT NULL,
+  `google_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `customers`
 --
 
-INSERT INTO `customers` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `publish`, `deleted_at`, `customer_catalogue_id`, `remember_token`, `created_at`, `updated_at`, `source_id`) VALUES
-(1, 'AAA', '0123456789', '40', '430', '17971', 'aaa', '2003-04-09 01:40:01', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', 'None', NULL, NULL, 'a@gmail.com', NULL, '$2y$12$lBCgoBSE/SA1cCCKjD0E8e88id7rkmCqTCd4E4rN8PEtrj.1CeC/i', 1, NULL, 1, NULL, '2024-09-12 18:40:01', '2024-09-12 18:40:10', 3),
-(2, 'BBB', '0987654321', '44', '457', '19279', 'test', '2003-09-04 01:42:46', '/thuongmaidientu/public/userfiles/image/temp/zoro_avatar.jpg', 'None', NULL, NULL, 'b@gmail.com', NULL, '$2y$12$LYI5XyzYhDLyT8wwPMzUUObJVYNOD/5w3TX3UilxTeVEraLStvGDC', 1, '2024-09-12 18:43:07', 1, NULL, '2024-09-12 18:41:56', '2024-09-12 18:43:07', 3),
-(3, 'Test', 'None', '01', '004', '00148', 'None', '2003-08-10 14:32:12', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', 'None', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$HbmVi/YIfO/hWeHVPIydBeZvcfrrI/OLgvInjcpWPPiUtZJOCqA7W', 1, NULL, 2, NULL, '2024-09-12 18:51:00', '2024-10-17 07:32:12', 3),
-(4, 'CCC', NULL, '0', '0', '0', NULL, '2203-04-01 19:51:08', 'backend/img/no-photo.png', NULL, NULL, NULL, 'ccc@gmail.com', NULL, '$2y$12$dAxAIp1Vh6daB7qzfbZk3u.0YD77XwOurLS5k7obMm4kYsNWEOOhW', 1, NULL, 1, NULL, '2024-09-13 12:50:02', '2024-09-13 12:51:08', 2),
-(5, 'DDD', NULL, '0', '0', '0', NULL, NULL, 'backend/img/no-photo.png', NULL, NULL, NULL, 'ddd@gmail.com', NULL, '$2y$12$u3xVFItCONrLpMYYr1bEJe1WqDDZqklXrjHqCJrmMlgBwg9KkTvTm', 0, NULL, 3, NULL, '2024-09-13 13:02:51', '2024-10-17 07:33:00', 1),
-(6, 'Lê Hữu Tài', '0342937692', '83', '832', '28879', 'Cầu Lộ Hội', '2024-10-20 18:05:50', 'backend/img/no-photo.png', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$yNQGO6xWGE.DTVs521Ppf.U0LPEhMiRCZisBiuwPmdt7nhdE0cf6.', 0, NULL, 1, NULL, '2024-10-12 15:19:28', '2024-10-20 11:05:50', 3),
-(7, 'Cao Tấn Công', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'caotancong2003@gmail.com', NULL, '$2y$12$v78LQZMxmDMeGkz6UNbwXeuix3UVMEPMKcCIog2/NiSYc3TVv1.bW', 1, NULL, 1, NULL, '2024-10-20 11:13:49', '2024-10-20 11:13:49', 3);
+INSERT INTO `customers` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `publish`, `deleted_at`, `customer_catalogue_id`, `remember_token`, `created_at`, `updated_at`, `source_id`, `sex`, `google_id`) VALUES
+(1, 'AAA', '0123456789', '40', '430', '17971', 'aaa', '2003-04-09 01:40:01', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', 'None', NULL, NULL, 'a@gmail.com', NULL, '$2y$12$lBCgoBSE/SA1cCCKjD0E8e88id7rkmCqTCd4E4rN8PEtrj.1CeC/i', 1, NULL, 1, NULL, '2024-09-12 18:40:01', '2024-09-12 18:40:10', 3, '', NULL),
+(2, 'BBB', '0987654321', '44', '457', '19279', 'test', '2003-09-04 01:42:46', '/thuongmaidientu/public/userfiles/image/temp/zoro_avatar.jpg', 'None', NULL, NULL, 'b@gmail.com', NULL, '$2y$12$LYI5XyzYhDLyT8wwPMzUUObJVYNOD/5w3TX3UilxTeVEraLStvGDC', 1, '2024-09-12 18:43:07', 1, NULL, '2024-09-12 18:41:56', '2024-09-12 18:43:07', 3, '', NULL),
+(3, 'Test', 'None', '01', '004', '00148', 'None', '2003-08-10 14:32:12', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', 'None', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$HbmVi/YIfO/hWeHVPIydBeZvcfrrI/OLgvInjcpWPPiUtZJOCqA7W', 1, NULL, 2, NULL, '2024-09-12 18:51:00', '2024-10-17 07:32:12', 3, '', NULL),
+(4, 'CCC', NULL, '0', '0', '0', NULL, '2203-04-01 19:51:08', 'backend/img/no-photo.png', NULL, NULL, NULL, 'ccc@gmail.com', NULL, '$2y$12$dAxAIp1Vh6daB7qzfbZk3u.0YD77XwOurLS5k7obMm4kYsNWEOOhW', 1, NULL, 1, NULL, '2024-09-13 12:50:02', '2024-09-13 12:51:08', 2, '', NULL),
+(5, 'DDD', NULL, '0', '0', '0', NULL, NULL, 'backend/img/no-photo.png', NULL, NULL, NULL, 'ddd@gmail.com', NULL, '$2y$12$u3xVFItCONrLpMYYr1bEJe1WqDDZqklXrjHqCJrmMlgBwg9KkTvTm', 0, NULL, 3, NULL, '2024-09-13 13:02:51', '2024-10-17 07:33:00', 1, '', NULL),
+(6, 'Lê Hữu Tài', '0342937692', '83', '832', '28879', 'Cầu Lộ Hội', '2024-10-20 18:05:50', 'backend/img/no-photo.png', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$yNQGO6xWGE.DTVs521Ppf.U0LPEhMiRCZisBiuwPmdt7nhdE0cf6.', 0, NULL, 1, NULL, '2024-10-12 15:19:28', '2024-10-20 11:05:50', 3, '', NULL),
+(7, 'Cao Tấn Công', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'caotancong2003@gmail.com', NULL, '$2y$12$v78LQZMxmDMeGkz6UNbwXeuix3UVMEPMKcCIog2/NiSYc3TVv1.bW', 1, NULL, 1, NULL, '2024-10-20 11:13:49', '2024-10-20 11:13:49', 3, '', NULL),
+(25, 'Tai Le', NULL, '01', '01', '04', NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocIiSL1WV1htXqQn_H_8IgqeEEz29O1aet3hvZSOOXztD3GphBU=s96-c', NULL, NULL, NULL, 'tonyit2003@gmail.com', NULL, '$2y$12$n3bbXzKTvL4cYzlLWMpRweib6tEw4M1G4sXSo.x7X97SbPb78aAGy', 1, NULL, 1, NULL, '2024-10-28 19:26:10', '2024-10-31 14:05:33', 9, NULL, '105172921075741450407'),
+(27, 'Shop T&C', NULL, '1', '1', '1', 'TP .HCM', '2024-10-07 12:48:52', '/thuongmaidientu/public/userfiles/image/temp/bug.png', 'None', NULL, NULL, 'tcshoptelephone@gmail.com', NULL, '$2y$12$lMCli24mnnCUjCfbQt1.Nuxk3AJX9FOz4k0GMtdxhkCZRPQjdYsEW', 1, NULL, 1, NULL, '2024-10-29 05:48:01', '2024-10-29 05:52:05', 9, 'Nam', '117346212502454122054'),
+(28, 'Shop TC', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJvrizm90nEjy2LBB4sAsHazvzGUiPU8rbM_uiGZJpL1qp--Q=s96-c', NULL, NULL, NULL, 'tcshopk3@gmail.com', NULL, '$2y$12$XuwyAlUhzcfs7tsuoPrLc.GKCgKtkA82LAC/0DxeZ/fAZSnoRR1Rm', 1, NULL, 1, NULL, '2024-10-29 06:04:01', '2024-10-29 06:04:01', 9, NULL, '103512913208111756719');
 
 -- --------------------------------------------------------
 
@@ -1464,7 +1470,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (113, '2024_10_20_184620_remove_name_from_carts_table', 71),
 (114, '2024_10_21_222310_create_orders_table', 72),
 (115, '2024_10_21_224624_create_order_product_table', 73),
-(116, '2024_10_21_225431_create_order_payment_table', 74);
+(116, '2024_10_21_225431_create_order_payment_table', 74),
+(117, '2024_10_25_222015_add_sex_at_to_custemers_table', 75),
+(118, '2024_10_27_165920_add_total_price_original_to_orders_table', 76),
+(119, '2024_10_29_011252_add_google_id_to_customers_table', 77),
+(120, '2024_10_29_014817_modify_sex_nullable_in_customers', 78);
 
 -- --------------------------------------------------------
 
@@ -1487,6 +1497,7 @@ CREATE TABLE `orders` (
   `promotion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`promotion`)),
   `cart` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`cart`)),
   `totalPrice` double NOT NULL DEFAULT 0,
+  `totalPriceOriginal` double NOT NULL DEFAULT 0,
   `guest_cookie` varchar(255) DEFAULT NULL,
   `method` varchar(50) DEFAULT NULL,
   `confirm` varchar(50) DEFAULT NULL,
@@ -1497,6 +1508,16 @@ CREATE TABLE `orders` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_id`, `code`, `fullname`, `phone`, `email`, `province_id`, `district_id`, `ward_id`, `address`, `description`, `promotion`, `cart`, `totalPrice`, `totalPriceOriginal`, `guest_cookie`, `method`, `confirm`, `payment`, `delivery`, `shipping`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 6, '6-10001', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '0', '0', 'Cầu Lộ Hội', NULL, '{\"discount\":4649000,\"name\":\"Gi\\u1ea3m gi\\u00e1 th\\u00e1ng 11\",\"code\":\"GIAMGIATHANG11\",\"startDate\":\"2024-10-21 15:07:00\",\"endDate\":\"2024-11-30 15:07:00\"}', NULL, 18596000, 23245000, NULL, 'cod', 'pending', 'unpaid', 'pending', 0, NULL, '2024-10-27 10:11:21', '2024-10-27 10:11:21'),
+(2, 6, '6-10002', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '832', '28879', 'Cầu Lộ Hội', NULL, NULL, NULL, 2000000, 2000000, NULL, 'cod', 'confirm', 'unpaid', 'pending', 0, NULL, '2024-08-27 10:11:41', '2024-10-31 04:13:21'),
+(3, 6, '6-10003', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '832', '28879', 'Cầu Lộ Hội', 'Giao hàng vào buổi sáng', '{\"discount\":17097000,\"name\":\"Gi\\u1ea3m gi\\u00e1 th\\u00e1ng 11\",\"code\":\"GIAMGIATHANG11\",\"startDate\":\"2024-10-21 15:07:00\",\"endDate\":\"2024-11-30 15:07:00\"}', NULL, 68388000, 85485000, NULL, 'cod', 'confirm', 'unpaid', 'pending', 0, NULL, '2024-10-28 09:37:42', '2024-10-31 04:13:19'),
+(4, 25, '25-10004', 'Tai Le', '0342937692', 'tonyit2003@gmail.com', '02', '026', '00718', 'TP .HCM', 'None', NULL, NULL, 7500000, 7500000, NULL, 'cod', 'cancel', 'paid', 'processing', 0, NULL, '2024-10-28 19:36:53', '2024-10-31 03:24:39');
 
 -- --------------------------------------------------------
 
@@ -1533,6 +1554,20 @@ CREATE TABLE `order_product` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `order_product`
+--
+
+INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `variant_uuid`, `quantity`, `price`, `priceOriginal`, `promotion`, `option`, `created_at`, `updated_at`) VALUES
+(1, 1, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 1, 1000000, 2000000, NULL, NULL, '2024-10-27 10:11:21', '2024-10-27 10:11:21'),
+(2, 1, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 1, 22245000, 44490000, NULL, NULL, '2024-10-27 10:11:21', '2024-10-27 10:11:21'),
+(3, 2, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 1, 1000000, 2000000, NULL, NULL, '2024-10-27 10:11:41', '2024-10-27 10:11:41'),
+(4, 2, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, 1000000, 2000000, NULL, NULL, '2024-10-27 10:11:41', '2024-10-27 10:11:41'),
+(5, 3, 29, 'b4b88bae-f694-5110-b0a9-2cbf8639bc49', 5, 3750000, 7500000, NULL, NULL, '2024-10-28 09:37:42', '2024-10-28 09:37:42'),
+(6, 3, 28, '4ff12264-360e-5341-a38e-e1253e07bb60', 2, 22245000, 44490000, NULL, NULL, '2024-10-28 09:37:42', '2024-10-28 09:37:42'),
+(7, 3, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 1, 22245000, 44490000, NULL, NULL, '2024-10-28 09:37:42', '2024-10-28 09:37:42'),
+(8, 4, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, 7500000, 15000000, NULL, NULL, '2024-10-28 19:36:53', '2024-10-28 19:36:53');
 
 -- --------------------------------------------------------
 
@@ -1652,7 +1687,8 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 (85, 'Xem danh sách nhà cung cấp', 'supplier.index', '2024-09-17 18:34:18', '2024-09-17 18:34:18'),
 (86, 'Thêm nhà cung cấp', 'supplier.create', '2024-09-20 12:02:13', '2024-09-20 12:02:13'),
 (87, 'Sửa nhà cung cấp', 'supplier.update', '2024-09-20 12:02:27', '2024-09-20 12:02:27'),
-(88, 'Xóa nhà cung cấp', 'supplier.destroy', '2024-09-20 12:02:37', '2024-09-20 12:02:37');
+(88, 'Xóa nhà cung cấp', 'supplier.destroy', '2024-09-20 12:02:37', '2024-09-20 12:02:37'),
+(89, 'Xem danh dách đơn hàng', 'order.index', '2024-10-27 08:36:01', '2024-10-27 08:36:01');
 
 -- --------------------------------------------------------
 
@@ -1856,7 +1892,7 @@ INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, 
 (28, 3, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_7__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_9__2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 14:58:35', '2024-10-14 11:57:12', '[\"1\"]', '1725806874', 'Hàn Quốc', 44490000, '{\"1\":[\"4\",\"14\",\"16\",\"17\"]}', '{\"quantity\":[null,null,null,null],\"sku\":[\"1725806874-4\",\"1725806874-14\",\"1725806874-16\",\"1725806874-17\"],\"price\":[\"44.490.000\",\"44.490.000\",\"44.490.000\",\"44.490.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"]}'),
 (29, 5, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:07:03', '2024-10-16 10:28:55', '[\"1\",\"3\"]', '1725807621', 'USA', 34990000, '{\"1\":[\"2\",\"4\",\"18\",\"19\"],\"3\":[\"8\"]}', '{\"quantity\":[\"200\",\"60\",\"60\",null],\"sku\":[\"1725807621-2-8\",\"1725807621-4-8\",\"1725807621-18-8\",\"1725807621-19-8\"],\"price\":[\"7.500.000\",\"20000.00\",\"1.000.000\",\"29.290.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\"]}'),
 (30, 5, '/thuongmaidientu/public/userfiles/image/iphone-13/iphone-13_2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/13_4_7_2_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13-0-0.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:24:54', '2024-10-16 15:38:26', '[\"1\"]', '1725808096', 'USA', 17290000, '{\"1\":[\"2\",\"4\",\"13\",\"15\",\"18\"]}', '{\"quantity\":[null,null,null,null,null],\"sku\":[\"1725808096-2\",\"1725808096-4\",\"1725808096-13\",\"1725808096-15\",\"1725808096-18\"],\"price\":[\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\"],\"barcode\":[null,null,null,null,null],\"file_name\":[null,null,null,null,null],\"file_url\":[null,null,null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\"]}'),
-(31, 2, '/thuongmaidientu/public/userfiles/image/logo/logo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 15:53:50', '2024-10-16 10:28:56', '[\"1\"]', '1725810741', 'Hàn Quốc', 2000000, '{\"1\":[\"2\",\"13\"]}', '{\"quantity\":[null,null],\"sku\":[\"1725810741-2\",\"1725810741-13\"],\"price\":[\"2.000.000\",\"2.000.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]}'),
+(31, 2, '/thuongmaidientu/public/userfiles/image/logo/logo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 15:53:50', '2024-10-28 08:16:14', '[\"1\"]', '1725810741', 'Hàn Quốc', 2000000, '{\"1\":[\"2\",\"13\"]}', '{\"quantity\":[5,5],\"sku\":[\"1725810741-2\",\"1725810741-13\"],\"price\":[\"15000000\",\"15000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]}'),
 (32, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:33:08', '2024-09-30 08:12:57', '2024-09-30 08:33:08', '', '1727683874', NULL, 200000, '', ''),
 (33, 2, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:35:02', '2024-09-30 08:34:18', '2024-09-30 08:35:02', '', '1727685190', NULL, 0, '', '');
 
@@ -2046,18 +2082,8 @@ CREATE TABLE `product_receipts` (
 --
 
 INSERT INTO `product_receipts` (`id`, `date_created`, `publish`, `user_id`, `total`, `created_at`, `updated_at`, `deleted_at`, `supplier_id`, `date_of_receipt`, `date_of_booking`, `date_approved`, `actual_total`) VALUES
-(2, '2024-10-08 07:28:32', 3, 201014, 500000000.00, '2024-10-08 07:28:32', '2024-10-08 07:51:03', NULL, 2, '2024-10-08 07:28:43', NULL, '2024-10-31 07:29:00', 500000000.00),
-(3, '2024-10-08 07:52:23', 3, 201014, 500000.00, '2024-10-08 07:52:23', '2024-10-08 07:55:06', NULL, 2, '2024-10-08 07:52:47', NULL, '2024-10-09 07:52:00', 500000.00),
-(4, '2024-10-08 07:58:13', 3, 201014, 500000000.00, '2024-10-08 07:58:13', '2024-10-08 07:58:52', NULL, 3, '2024-10-08 07:58:19', NULL, '2024-10-17 07:58:00', 500000000.00),
-(5, '2024-10-08 08:02:24', 3, 201014, 200000000.00, '2024-10-08 08:02:24', '2024-10-08 08:04:13', NULL, 3, '2024-10-08 08:03:03', NULL, '2024-10-09 08:03:00', 185000000.00),
-(6, '2024-10-08 08:05:36', 3, 201014, 330000.00, '2024-10-08 08:05:36', '2024-10-08 08:05:56', NULL, 3, '2024-10-08 08:05:42', NULL, '2024-10-10 08:05:00', 330000.00),
-(7, '2024-10-13 07:59:35', 3, 201014, 50000000.00, '2024-10-13 07:59:35', '2024-10-13 08:00:05', NULL, 3, '2024-10-13 07:59:45', NULL, '2024-10-17 07:59:00', 50000000.00),
-(8, '2024-10-13 08:05:25', 3, 201014, 50000.00, '2024-10-13 08:05:25', '2024-10-13 08:08:35', NULL, 3, '2024-10-13 08:05:33', NULL, '2024-10-18 08:05:00', 50000.00),
-(9, '2024-10-13 08:11:01', 3, 201014, 100000.00, '2024-10-13 08:11:01', '2024-10-13 08:25:39', NULL, 3, '2024-10-13 08:11:11', NULL, '2024-10-16 08:11:00', 100000.00),
-(10, '2024-10-13 10:25:12', 3, 201014, 100000.00, '2024-10-13 10:25:12', '2024-10-13 10:25:57', NULL, 3, '2024-10-13 10:25:21', NULL, '2024-10-25 10:25:00', 100000.00),
-(11, '2024-10-14 11:37:44', 3, 201014, 25000000.00, '2024-10-14 11:37:44', '2024-10-14 11:38:04', NULL, 3, '2024-10-14 11:37:48', NULL, '2024-10-24 11:38:00', 25000000.00),
-(12, '2024-10-14 11:39:06', 3, 201014, 35000000.00, '2024-10-14 11:39:06', '2024-10-14 11:39:22', NULL, 3, '2024-10-14 11:39:11', NULL, '2024-10-24 11:39:00', 35000000.00),
-(13, '2024-10-14 11:58:13', 3, 201014, 500000000.00, '2024-10-14 11:58:13', '2024-10-14 11:58:30', NULL, 3, '2024-10-14 11:58:17', NULL, '2024-10-18 11:58:00', 500000000.00);
+(2, '2024-10-28 08:15:43', 3, 201014, 50050000.00, '2024-10-28 08:15:43', '2024-10-28 08:16:14', NULL, 3, '2024-10-28 08:15:51', NULL, '2024-10-30 08:16:00', 50050000.00),
+(3, '2024-10-29 06:05:52', 1, 201014, 150000.00, '2024-10-29 06:05:52', '2024-10-29 06:06:01', NULL, 2, '2024-10-29 06:06:01', NULL, NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -2076,6 +2102,16 @@ CREATE TABLE `product_receipt_detail` (
   `product_id` bigint(20) UNSIGNED NOT NULL,
   `actual_quantity` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_receipt_detail`
+--
+
+INSERT INTO `product_receipt_detail` (`id`, `product_receipt_id`, `product_variant_id`, `quantity`, `price`, `created_at`, `updated_at`, `product_id`, `actual_quantity`) VALUES
+(19, 2, 367, 5, 10000000.00, '2024-10-28 08:15:43', '2024-10-28 08:16:14', 31, 5),
+(20, 2, 368, 5, 10000.00, '2024-10-28 08:15:43', '2024-10-28 08:16:14', 31, 5),
+(21, 3, 385, 5, 10000.00, '2024-10-29 06:05:52', '2024-10-29 06:05:52', 28, 0),
+(22, 3, 386, 5, 20000.00, '2024-10-29 06:05:52', '2024-10-29 06:05:52', 28, 0);
 
 -- --------------------------------------------------------
 
@@ -2107,8 +2143,8 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `code`, `quantity`, `sku`, `price`, `barcode`, `file_name`, `file_url`, `album`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `uuid`) VALUES
-(367, 31, '2', 0, '1725810741-2', 2000000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-10-14 11:50:21', '2024-10-14 11:50:21', '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea'),
-(368, 31, '13', 0, '1725810741-13', 2000000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-10-14 11:50:21', '2024-10-14 11:50:21', '989a0d25-8428-5964-8da4-a184a87cd90a'),
+(367, 31, '2', 5, '1725810741-2', 15000000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-10-14 11:50:21', '2024-10-28 08:16:14', '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea'),
+(368, 31, '13', 5, '1725810741-13', 15000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-10-14 11:50:21', '2024-10-28 08:16:14', '989a0d25-8428-5964-8da4-a184a87cd90a'),
 (369, 27, '13', 0, '1725805125-13', 43990000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\"', 1, 201014, NULL, '2024-10-14 11:51:47', '2024-10-14 11:51:47', 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d'),
 (370, 27, '14', 0, '1725805125-14', 43990000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png\"', 1, 201014, NULL, '2024-10-14 11:51:47', '2024-10-14 11:51:47', 'b1ccf651-d5c2-521f-aed8-393abddbb848'),
 (371, 27, '15', 0, '1725805125-15', 43990000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png\"', 1, 201014, NULL, '2024-10-14 11:51:47', '2024-10-14 11:51:47', '16a756b2-9c92-55b8-a255-f3e73c2d39fa'),
@@ -2492,7 +2528,13 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('cw8tdmMJ3yHt86OyHXYzqXSqVGpDwdiRVui6CjVe', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiemxiOHJQY204WEEwT0Z3QXhHOTBZQk1rSlFMeTRpN0o4ejNhdjBPaSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MzoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMvcGF5Lmh0bWwiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU2OiJsb2dpbl9jdXN0b21lcnNfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo2O3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1729524823);
+('5bvEhQzSotupTrav8lE8E1SSWBK3yof1pPVuqKDS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVEg4UW1YT2cwa1htRnFKWXlQNnVNSXZ6a3RUU2dzbEtJbGtVbE5SaiI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjE6e2k6MDtPOjM1OiJGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxFbnZlbG9wZSI6Mjp7czo0MzoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAHN0YW1wcyI7YTo2OntzOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjtPOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjoxOntzOjM5OiIARmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcABwbHVnaW4iO3M6NzoiZmxhc2hlciI7fXM6MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiO086MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiOjI6e3M6NDU6IgBGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wAGNyZWF0ZWRBdCI7TzoxNzoiRGF0ZVRpbWVJbW11dGFibGUiOjM6e3M6NDoiZGF0ZSI7czoyNjoiMjAyNC0xMS0wMSAxOTo1MDo1NS4zMDY2NzQiO3M6MTM6InRpbWV6b25lX3R5cGUiO2k6MztzOjg6InRpbWV6b25lIjtzOjE2OiJBc2lhL0hvX0NoaV9NaW5oIjt9czo0MjoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAAZm9ybWF0IjtzOjExOiJZLW0tZCBIOmk6cyI7fXM6Mjc6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSWRTdGFtcCI7TzoyNzoiRmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wIjoxOntzOjMxOiIARmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wAGlkIjtzOjMyOiJhNmY4YmZjMjJjNWMzNmQxOTk0MzYxOWYxZDVhMzQ5YSI7fXM6MzA6IkZsYXNoZXJcUHJpbWVcU3RhbXBcRGVsYXlTdGFtcCI7TzozMDoiRmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wIjoxOntzOjM3OiIARmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wAGRlbGF5IjtpOjA7fXM6Mjk6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wIjtPOjI5OiJGbGFzaGVyXFByaW1lXFN0YW1wXEhvcHNTdGFtcCI6MTp7czozNzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wAGFtb3VudCI7aToxO31zOjMzOiJGbGFzaGVyXFByaW1lXFN0YW1wXFByaW9yaXR5U3RhbXAiO086MzM6IkZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcCI6MTp7czo0MzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcABwcmlvcml0eSI7aTowO319czo0OToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAG5vdGlmaWNhdGlvbiI7TzozOToiRmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uIjo0OntzOjQ2OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAHRpdGxlIjtzOjA6IiI7czo0ODoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgBtZXNzYWdlIjtzOjI2OiLEkMSDbmcgbmjhuq1wIHRow6BuaCBjw7RuZyI7czo0NToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgB0eXBlIjtzOjc6InN1Y2Nlc3MiO3M6NDg6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24Ab3B0aW9ucyI7YTowOnt9fX19czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NzE6Imh0dHA6Ly9iYzRkLTE3MS0yNTItMTg4LTE4Ni5uZ3Jvay1mcmVlLmFwcC90aHVvbmdtYWlkaWVudHUvcHVibGljL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9', 1730465455),
+('G7F0g0huAOayTEKYh9jefSmrGoVHNjxKhBPOr6BY', NULL, '127.0.0.1', 'WhatsApp/2', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSk1pQjRscXdseTBqWjh0SjZmcklDeXI2N05IOU1LRzF2NTlsTlBHNCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovL2M1YTctMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1730462879),
+('LpAOgudbwuMax3ZkonkBAgaKZufVFT0OMJkCKOeD', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoia3lXVDc0eVVrZDZqVndhN2V2clJ1eXpaVnZpaTlpN0lSdkZmMjc4RSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovL2M1YTctMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU2OiJsb2dpbl9jdXN0b21lcnNfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo3O3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1730463338),
+('NnTe4700dMhoJDdLUukuO1EUPuuwAIymQLhwKGmM', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRWlCQkdMbmY0T1NIc1dtOTJZYmFGZTZOQnBYQ0VvcG5udUtQeE9ZbCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovLzM1ZjEtMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1730464587),
+('SFyBWI6KXlAXum3OM4ddC6WDLXJphPdIg3QRc7M0', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiM2RoNjBnUXlHRXRUeDBuaWFRbXlWbEVrSGl3U2tObXBYb3JZMHBlNyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0NDoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1730463255),
+('v2V0bzhMYm3ewHQA7AmhJ5RjJWP00xjUX8TdEIX8', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQnNHS2R2anlCYXRSR2VBUzZHTkc0TFpXS0l0Mk9sWEVld2p1WTVYOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NzE6Imh0dHA6Ly8zNWYxLTE3MS0yNTItMTg4LTE4Ni5uZ3Jvay1mcmVlLmFwcC90aHVvbmdtYWlkaWVudHUvcHVibGljL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjE6e2k6MDtPOjM1OiJGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxFbnZlbG9wZSI6Mjp7czo0MzoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAHN0YW1wcyI7YTo2OntzOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjtPOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjoxOntzOjM5OiIARmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcABwbHVnaW4iO3M6NzoiZmxhc2hlciI7fXM6MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiO086MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiOjI6e3M6NDU6IgBGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wAGNyZWF0ZWRBdCI7TzoxNzoiRGF0ZVRpbWVJbW11dGFibGUiOjM6e3M6NDoiZGF0ZSI7czoyNjoiMjAyNC0xMS0wMSAxOTo0MjowOS42MDQ2MTEiO3M6MTM6InRpbWV6b25lX3R5cGUiO2k6MztzOjg6InRpbWV6b25lIjtzOjE2OiJBc2lhL0hvX0NoaV9NaW5oIjt9czo0MjoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAAZm9ybWF0IjtzOjExOiJZLW0tZCBIOmk6cyI7fXM6Mjc6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSWRTdGFtcCI7TzoyNzoiRmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wIjoxOntzOjMxOiIARmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wAGlkIjtzOjMyOiJhZTU5YWVhN2E1MzJhMTZhOGQ1OTE5ZDM3MWJjNWZlMiI7fXM6MzA6IkZsYXNoZXJcUHJpbWVcU3RhbXBcRGVsYXlTdGFtcCI7TzozMDoiRmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wIjoxOntzOjM3OiIARmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wAGRlbGF5IjtpOjA7fXM6Mjk6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wIjtPOjI5OiJGbGFzaGVyXFByaW1lXFN0YW1wXEhvcHNTdGFtcCI6MTp7czozNzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wAGFtb3VudCI7aToxO31zOjMzOiJGbGFzaGVyXFByaW1lXFN0YW1wXFByaW9yaXR5U3RhbXAiO086MzM6IkZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcCI6MTp7czo0MzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcABwcmlvcml0eSI7aTowO319czo0OToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAG5vdGlmaWNhdGlvbiI7TzozOToiRmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uIjo0OntzOjQ2OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAHRpdGxlIjtzOjA6IiI7czo0ODoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgBtZXNzYWdlIjtzOjI2OiLEkMSDbmcgbmjhuq1wIHRow6BuaCBjw7RuZyI7czo0NToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgB0eXBlIjtzOjc6InN1Y2Nlc3MiO3M6NDg6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24Ab3B0aW9ucyI7YTowOnt9fX19czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9', 1730464929),
+('yTapL2hVJDC2pJGRqto4vIvAnYCzCGMHAai4SF8h', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTHdyUEYwZmw3RG1nb29xeFI2VFIwQTl6NUloS1lMNTZ5OUs1OEQzbSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovLzg5NzEtMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1730464423);
 
 -- --------------------------------------------------------
 
@@ -2556,7 +2598,8 @@ INSERT INTO `sources` (`id`, `name`, `keyword`, `description`, `publish`, `delet
 (5, 'Instagram', 'instagram', '<p>Kh&aacute;ch h&agrave;ng mua h&agrave;ng từ Instagram</p>', 1, NULL, '2024-09-12 15:10:54', '2024-09-12 15:10:57'),
 (6, 'Facebook', 'facebook', '<p>Kh&aacute;ch h&agrave;ng mua h&agrave;ng từ Facebook, fanpage,...</p>', 1, NULL, '2024-09-12 15:11:26', '2024-09-12 15:11:28'),
 (7, 'Youtube', 'youtube', '<p>Kh&aacute;ch h&agrave;ng mua h&agrave;ng từ youtube shop</p>', 1, NULL, '2024-09-12 15:11:55', '2024-09-12 15:47:49'),
-(8, 'Khách hàng offline', 'store', '<p>Kh&aacute;ch mua h&agrave;ng trực tiếp từ của h&agrave;ng</p>', 1, NULL, '2024-09-12 16:03:33', '2024-09-29 15:34:13');
+(8, 'Khách hàng offline', 'store', '<p>Kh&aacute;ch mua h&agrave;ng trực tiếp từ của h&agrave;ng</p>', 1, NULL, '2024-09-12 16:03:33', '2024-09-29 15:34:13'),
+(9, 'Google', 'google', NULL, 1, NULL, '2024-10-28 18:38:10', '2024-10-28 18:38:12');
 
 -- --------------------------------------------------------
 
@@ -2623,7 +2666,7 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 (12, 1, 201014, 'contact_sell_phone', '0123456789', NULL, NULL),
 (13, 1, 201014, 'contact_phone', '0123456789', NULL, NULL),
 (14, 1, 201014, 'contact_fax', '943', NULL, NULL),
-(15, 1, 201014, 'contact_email', 'tonycompany@gmail.com', NULL, NULL),
+(15, 1, 201014, 'contact_email', 'tcshop.id.vn@gmail.com', NULL, NULL),
 (16, 1, 201014, 'contact_tax', '943', NULL, NULL),
 (17, 1, 201014, 'contact_website', 'tcshop.id.vn', NULL, NULL),
 (18, 1, 201014, 'contact_map', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4648.830339913121!2d106.6262624757035!3d10.803509158692233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bfd56e5e211%3A0xc0c7a099415a25f5!2zMTEgxJDGsOG7nW5nIHPhu5EgMjcsIFPGoW4gS-G7sywgVMOibiBQaMO6LCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e1!3m2!1svi!2s!4v1723706582173!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', NULL, NULL),
@@ -2783,7 +2826,6 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 4),
 (1, 3),
 (1, 2),
-(1, 1),
 (1, 13),
 (1, 14),
 (1, 15),
@@ -2859,7 +2901,8 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 85),
 (1, 86),
 (1, 87),
-(1, 88);
+(1, 88),
+(1, 89);
 
 -- --------------------------------------------------------
 
@@ -13614,6 +13657,7 @@ ALTER TABLE `carts`
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `customers_email_unique` (`email`),
+  ADD UNIQUE KEY `customers_google_id_unique` (`google_id`),
   ADD KEY `customers_customer_catalogue_id_foreign` (`customer_catalogue_id`),
   ADD KEY `customers_source_id_foreign` (`source_id`);
 
@@ -13975,13 +14019,13 @@ ALTER TABLE `attribute_catalogues`
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT cho bảng `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT cho bảng `customer_catalogues`
@@ -14029,13 +14073,13 @@ ALTER TABLE `menu_catalogues`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `order_payment`
@@ -14047,13 +14091,13 @@ ALTER TABLE `order_payment`
 -- AUTO_INCREMENT cho bảng `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`
@@ -14083,13 +14127,13 @@ ALTER TABLE `product_catalogues`
 -- AUTO_INCREMENT cho bảng `product_receipts`
 --
 ALTER TABLE `product_receipts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `product_receipt_detail`
 --
 ALTER TABLE `product_receipt_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `product_variants`
@@ -14137,7 +14181,7 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT cho bảng `sources`
 --
 ALTER TABLE `sources`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `suppliers`
@@ -14438,3 +14482,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+tcshop

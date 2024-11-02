@@ -61,7 +61,7 @@
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <div class="uk-flex uk-flex-middle">
                     <div class="logo">
-                        <a href="{{ config('app.url') }}" class="logo-image">
+                        <a href="{{ route('home.index') }}" class="logo-image">
                             <img src="{{ $system['homepage_logo'] }}" alt="">
                         </a>
                     </div>
