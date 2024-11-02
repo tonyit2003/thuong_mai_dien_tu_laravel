@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use App\Models\Language;
 use App\Repositories\OrderProductRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProvinceRepository;
-use App\Repositories\UserCatalogueRepository;
-use App\Repositories\UserRepository;
 use App\Services\OrderService;
-use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
@@ -41,7 +36,13 @@ class WarrantyController extends Controller
     {
         Gate::authorize('modules', 'warranty.index');
 
-        $orders = $this->orderService->paginate($request);
+        $orders = collect(); // Khởi tạo một tập hợp rỗng nếu không có từ khóa tìm kiếm
+
+        // Kiểm tra nếu có từ khóa tìm kiếm trong request, chỉ khi đó mới truy vấn
+        if ($request->filled('keyword')) {
+            $orders = $this->orderService->warrantyPaginate($request);
+        }
+
         $config = [
             'js' => [
                 'backend\js\plugins\toastr\toastr.min.js',
@@ -85,7 +86,7 @@ class WarrantyController extends Controller
             ],
         ];
         $config['seo'] = __('order');
-        $template = 'backend.order.detail';
+        $template = 'backend.warranty.warranty.detail';
         return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts', 'provinces'));
     }
 }

@@ -27,6 +27,7 @@ class Product extends Model
         'attributeCatalogue',
         'attribute',
         'variant',
+        'warranty_time'
     ];
 
     protected $table = 'products';

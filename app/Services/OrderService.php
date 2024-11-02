@@ -37,6 +37,16 @@ class OrderService implements OrderServiceInterface
         return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'order/index']);
     }
 
+    public function warrantyPaginate($request)
+    {
+        $condition['keyword'] = addslashes($request->input('keyword'));
+        foreach (__('statusOrder') as $key => $val) {
+            $condition['dropdown'][$key] = $request->string($key);
+        }
+        $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
+        return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'warranty/index']);
+    }
+
     public function update($request)
     {
         DB::beginTransaction();
@@ -85,6 +95,7 @@ class OrderService implements OrderServiceInterface
                     }
                 ]);
                 $val->name = $product->languages->first()->pivot->name . ' - ' .  $productVariant->languages->first()->pivot->name;
+                $val->warranty_time = $product->warranty_time;
                 $val->image = isset($productVariant->album) ? explode(',', $productVariant->album)[0] : null;
             }
         }
