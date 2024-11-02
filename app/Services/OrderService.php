@@ -58,6 +58,19 @@ class OrderService implements OrderServiceInterface
         }
     }
 
+    public function updateVNPay($payload, $order)
+    {
+        DB::beginTransaction();
+        try {
+            $this->orderRepository->update($order->id, $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
     public function setAddress($order)
     {
         if (isset($order)) {

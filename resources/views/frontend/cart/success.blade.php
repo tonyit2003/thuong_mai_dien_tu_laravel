@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel-foot">
+        <div class="panel-foot mb30">
             <h2 class="cart-heading">
                 <span>{{ __('info.delivery_information_payment') }}</span>
             </h2>
@@ -101,11 +101,10 @@
                 <div>
                     {{ __('info.phone') }}: <span>{{ $order->phone }}</span>
                 </div>
-                <div>
-                    {{ __('info.payment_method') }}:
-                    <span>{{ array_column(__('payment.method'), 'title', 'name')[$order->method] ?? '-' }}</span>
-                </div>
             </div>
         </div>
+        @if (isset($template))
+            @include($template)
+        @endif
     </div>
 @endsection

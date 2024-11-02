@@ -4155,3 +4155,7 @@ a.ui-button:active,
     height: 1px;
     width: 100%;
 }
+
+.mb30 {
+    margin-bottom: 30px;
+}

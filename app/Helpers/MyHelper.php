@@ -504,3 +504,17 @@ if (!function_exists('getAddress')) {
         return rtrim($result, ', ');
     }
 }
+
+if (!function_exists('vnPayConfig')) {
+    function vnPayConfig()
+    {
+        return [
+            'vnp_Url' => "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
+            'vnp_Returnurl' => write_url('return/vnpay', true, true),
+            'vnp_TmnCode' => "X0YGLFY1",
+            'vnp_HashSecret' => "KJ0QJ6S3ODXYGT6C0HWZ0PBQKG59228Z",
+            'vnp_apiUrl' => "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html",
+            'apiUrl' => "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction"
+        ];
+    }
+}
