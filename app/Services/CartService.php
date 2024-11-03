@@ -259,40 +259,15 @@ class CartService implements CartServiceInterface
         return $totalPrice - $discount;
     }
 
-    public function order($request, $language)
+    public function getTotalPriceByCustomer($customerId = 0, $language = 1)
     {
-        DB::beginTransaction();
-        try {
-            $carts = $this->cartRepository->findByCondition([
-                ['customer_id', '=', Auth::guard('customers')->id()]
-            ], true);
-            $carts = $this->setInformation($carts, $language);
-            $cartPromotion = $this->cartPromotion($carts);
-            $totalPriceOriginal = $this->getTotalPrice($carts);
-            $totalPrice = $this->getTotalPricePromotion($totalPriceOriginal, $cartPromotion['discount']);
-
-            $payload = $this->request($request, $cartPromotion, $totalPrice, $totalPriceOriginal);
-            $order = $this->orderRepository->create($payload);
-            if ($order->id > 0) {
-                $code = $this->updateOrderCode($order);
-                $this->createOrderProduct($order, $carts);
-                $this->cartRepository->deleteByCondition([
-                    ['customer_id', '=', Auth::guard('customers')->id()],
-                ]);
-            }
-            DB::commit();
-            return [
-                'code' => $code,
-                'method' => $order->method,
-                'flag' => true
-            ];
-        } catch (Exception $e) {
-            DB::rollBack();
-            return [
-                'code' => null,
-                'flag' => false
-            ];
-        }
+        $carts = $this->cartRepository->findByCondition([
+            ['customer_id', '=', $customerId]
+        ], true);
+        $carts = $this->setInformation($carts, $language);
+        $cartPromotion = $this->cartPromotion($carts);
+        $totalPriceOriginal = $this->getTotalPrice($carts);
+        return $this->getTotalPricePromotion($totalPriceOriginal, $cartPromotion['discount']);
     }
 
     public function mail($order, $orderProducts, $system)
@@ -303,62 +278,10 @@ class CartService implements CartServiceInterface
         Mail::to($to)->cc($cc)->send(new OrderMail($data));
     }
 
-    private function request($request, $cartPromotion, $totalPrice, $totalPriceOriginal)
-    {
-        $payload = $request->except('_token', 'voucher', 'create');
-        $payload['customer_id'] = Auth::guard('customers')->id();
-        if (isset($cartPromotion['promotion'])) {
-            $payload['promotion']['discount'] = $cartPromotion['discount'];
-            $payload['promotion']['name'] = $cartPromotion['promotion']->name;
-            $payload['promotion']['code'] = $cartPromotion['promotion']->code;
-            $payload['promotion']['startDate'] = $cartPromotion['promotion']->startDate;
-            $payload['promotion']['endDate'] = $cartPromotion['promotion']->endDate;
-        }
-        $payload['totalPrice'] = $totalPrice;
-        $payload['totalPriceOriginal'] = $totalPriceOriginal;
-        $payload['confirm'] = 'pending';
-        $payload['delivery'] = 'pending';
-        $payload['payment'] = 'unpaid';
-
-        return $payload;
-    }
-
     private function updateOrderCode($order)
     {
         $payload['code'] =  Auth::guard('customers')->id() . '-' . (OrderEnum::ORDER_CODE + $order->id);
         $this->orderRepository->update($order->id, $payload);
         return $payload['code'];
-    }
-
-    private function createOrderProduct($order, $carts)
-    {
-        foreach ($carts as $key => $val) {
-            $existingRecord = $order->products()
-                ->wherePivot('product_id', $val->product_id)
-                ->wherePivot('variant_uuid', $val->variant_uuid)
-                ->first();
-
-            if ($existingRecord) {
-                // Nếu bản ghi đã tồn tại với product_id, order_id và variant_uuid, thì cập nhật dữ liệu khác
-                $order->products()->updateExistingPivot($val->product_id, [
-                    'variant_uuid' => $val->variant_uuid,
-                    'quantity' => $val->quantity,
-                    'price' => $val->priceUnit,
-                    'priceOriginal' => $this->productVariantRepository
-                        ->findByCondition([['uuid', '=', $val->variant_uuid]])
-                        ->price,
-                ]);
-            } else {
-                // Nếu chưa tồn tại, thêm bản ghi mới
-                $order->products()->attach($val->product_id, [
-                    'variant_uuid' => $val->variant_uuid,
-                    'quantity' => $val->quantity,
-                    'price' => $val->priceUnit,
-                    'priceOriginal' => $this->productVariantRepository
-                        ->findByCondition([['uuid', '=', $val->variant_uuid]])
-                        ->price,
-                ]);
-            }
-        }
     }
 }

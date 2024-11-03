@@ -66,28 +66,14 @@ class VNPayController extends FrontendController
         if ($secureHash == $vnp_SecureHash) {
             if ($_GET['vnp_ResponseCode'] == '00') {
                 $code = $request->input('vnp_TxnRef');
-                $language = $this->language;
-                $order = $this->orderRepository->findByCondition([['code', '=', $code]], false, ['products']);
-                $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
-                $orderProducts = $this->orderService->setInformation($orderProducts, $language);
-                $system = $this->system;
-                $this->cartService->mail($order, $orderProducts, $system);
-                $config = $this->config();
-                $seo = [
-                    'meta_title' => __('info.order_information'),
-                    'meta_keyword' => '',
-                    'meta_description' => '',
-                    'meta_image' => '',
-                    'canonical' => write_url('order-information', true, true)
-                ];
-                $template = 'frontend.cart.component.vnpay';
-                $this->testVnPayIpn($order, $inputData, $vnp_SecureHash);
-                return view('frontend.cart.success', compact('language', 'seo', 'system', 'config', 'order', 'orderProducts', 'template', 'secureHash', 'vnp_SecureHash'));
+                return redirect()->route('order.store', ['code' => $code]);
             } else {
-                echo __('info.transaction_vnpay_fail');
+                flash()->error(__('info.transaction_vnpay_fail'));
+                return redirect()->route('cart.checkout');
             }
         } else {
-            echo __('info.invalid_signature');
+            flash()->error(__('info.invalid_signature'));
+            return redirect()->route('cart.checkout');
         }
     }
 
@@ -241,20 +227,5 @@ class VNPayController extends FrontendController
             $returnData['RspCode'] = '99';
             $returnData['Message'] = 'Unknow error';
         }
-    }
-
-
-    private function config()
-    {
-        return [
-            'css' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
-            ],
-            'js' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                'backend/library/location.js',
-                'frontend/core/library/cart.js',
-            ]
-        ];
     }
 }

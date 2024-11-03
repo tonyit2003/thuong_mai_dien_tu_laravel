@@ -60,36 +60,27 @@ class MoMoController extends FrontendController
 
             $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
 
-            if ($m2signature == $partnerSignature) {
-                if ($errorCode == '0') {
-                    // $this->orderService->create($this->language);
-
-                    $code = $request->input('vnp_TxnRef');
-                    $language = $this->language;
-                    $order = $this->orderRepository->findByCondition([['code', '=', $code]], false, ['products']);
-                    $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
-                    $orderProducts = $this->orderService->setInformation($orderProducts, $language);
-                    $system = $this->system;
-                    $this->cartService->mail($order, $orderProducts, $system);
-                    $config = $this->config();
-                    $seo = [
-                        'meta_title' => __('info.order_information'),
-                        'meta_keyword' => '',
-                        'meta_description' => '',
-                        'meta_image' => '',
-                        'canonical' => write_url('order-information', true, true)
-                    ];
-                    $template = 'frontend.cart.component.momo';
-                    // $this->testVnPayIpn($order, $inputData, $vnp_SecureHash);
-                    return view('frontend.cart.success', compact('language', 'seo', 'system', 'config', 'order', 'orderProducts', 'template'));
-                } else {
-                    return redirect()->route('home.index');
-                }
+            if ($errorCode == '0') {
+                return redirect()->route('order.store', ['code' => $orderId]);
             } else {
-                return redirect()->route('home.index');
+                flash()->error(__('info.transaction_momo_fail'));
+                return redirect()->route('cart.checkout');
             }
+
+            // if ($m2signature == $partnerSignature) {
+            //     if ($errorCode == '0') {
+            //         return redirect()->route('order.store', ['code' => $orderId]);
+            //     } else {
+            //         flash()->error(__('info.transaction_momo_fail'));
+            //         return redirect()->route('cart.checkout');
+            //     }
+            // } else {
+            //     flash()->error(__('info.transaction_momo_fail'));
+            //     return redirect()->route('cart.checkout');
+            // }
         } else {
-            abort(404);
+            flash()->error(__('info.transaction_momo_fail'));
+            return redirect()->route('cart.checkout');
         }
     }
 

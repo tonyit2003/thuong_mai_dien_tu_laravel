@@ -43,6 +43,7 @@ use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerControll
 use App\Http\Controllers\Frontend\GoogleAuthController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\MoMoController;
+use App\Http\Controllers\Frontend\OrderController as FrontendOrderController;
 use App\Http\Controllers\Frontend\RouterController;
 use App\Http\Controllers\Frontend\VNPayController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
@@ -60,6 +61,7 @@ Route::group(['middleware' => [CustomerAuthenticateMiddleware::class]], function
     Route::get('pay' . config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');
     Route::post('pay-information' . config('apps.general.suffix'), [CartController::class, 'store'])->name('cart.store');
     Route::get('order-information/id={code}' . config('apps.general.suffix'), [CartController::class, 'success'])->name('cart.success');
+    Route::get('create-order/id={code}' . config('apps.general.suffix'), [FrontendOrderController::class, 'store'])->name('order.store');
     // AJAX
     Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create');
     Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update');

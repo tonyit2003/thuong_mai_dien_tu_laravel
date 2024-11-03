@@ -2,11 +2,15 @@
 
 namespace App\Services;
 
+use App\Enums\OrderEnum;
+use App\Models\Order;
+use App\Repositories\CartRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
 use App\Services\Interfaces\OrderServiceInterface;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -18,12 +22,16 @@ class OrderService implements OrderServiceInterface
     protected $productRepository;
     protected $orderRepository;
     protected $productVariantRepository;
+    protected $cartRepository;
+    protected $cartService;
 
-    public function __construct(ProductRepository $productRepository, ProductVariantRepository $productVariantRepository, OrderRepository $orderRepository)
+    public function __construct(ProductRepository $productRepository, ProductVariantRepository $productVariantRepository, OrderRepository $orderRepository, CartRepository $cartRepository, CartService $cartService)
     {
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->orderRepository = $orderRepository;
+        $this->cartRepository = $cartRepository;
+        $this->cartService = $cartService;
     }
 
     public function paginate($request)
@@ -45,6 +53,37 @@ class OrderService implements OrderServiceInterface
         }
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'warranty/index']);
+    }
+
+    public function create($orderCode, $language)
+    {
+        DB::beginTransaction();
+        try {
+            $carts = $this->cartRepository->findByCondition([
+                ['customer_id', '=', Auth::guard('customers')->id()]
+            ], true);
+            $carts = $this->cartService->setInformation($carts, $language);
+            $cartPromotion = $this->cartService->cartPromotion($carts);
+            $totalPriceOriginal = $this->cartService->getTotalPrice($carts);
+            $totalPrice = $this->cartService->getTotalPricePromotion($totalPriceOriginal, $cartPromotion['discount']);
+
+            $payload = $this->request($cartPromotion, $totalPrice, $totalPriceOriginal, $orderCode);
+
+            $order = $this->orderRepository->create($payload);
+            if ($order->id > 0) {
+                $this->createOrderProduct($order, $carts);
+                $this->cartRepository->deleteByCondition([
+                    ['customer_id', '=', Auth::guard('customers')->id()],
+                ]);
+                session()->forget('customer_data');
+            }
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            DB::rollBack();
+            return false;
+        }
     }
 
     public function update($request)
@@ -113,6 +152,71 @@ class OrderService implements OrderServiceInterface
             }
         }
         return $orderProducts;
+    }
+
+    public function getOrderCode()
+    {
+        // $latestOrder = Order::latest()->first();
+        // $orderId = $latestOrder ? $latestOrder->id : 0;
+        // return Auth::guard('customers')->id() . '-' . (OrderEnum::ORDER_CODE + $orderId) + 1;
+        return time();
+    }
+
+    private function request($cartPromotion, $totalPrice, $totalPriceOriginal, $orderCode)
+    {
+        $payload = session('customer_data');
+        $payload['customer_id'] = Auth::guard('customers')->id();
+        if (isset($cartPromotion['promotion'])) {
+            $payload['promotion']['discount'] = $cartPromotion['discount'];
+            $payload['promotion']['name'] = $cartPromotion['promotion']->name;
+            $payload['promotion']['code'] = $cartPromotion['promotion']->code;
+            $payload['promotion']['startDate'] = $cartPromotion['promotion']->startDate;
+            $payload['promotion']['endDate'] = $cartPromotion['promotion']->endDate;
+        }
+        $payload['code'] = $orderCode;
+        $payload['totalPrice'] = $totalPrice;
+        $payload['totalPriceOriginal'] = $totalPriceOriginal;
+        $payload['confirm'] = 'pending';
+        $payload['delivery'] = 'pending';
+        if ($payload['method'] != 'cod') {
+            $payload['payment'] = 'paid';
+        } else {
+            $payload['payment'] = 'unpaid';
+        }
+
+        return $payload;
+    }
+
+    private function createOrderProduct($order, $carts)
+    {
+        foreach ($carts as $key => $val) {
+            $existingRecord = $order->products()
+                ->wherePivot('product_id', $val->product_id)
+                ->wherePivot('variant_uuid', $val->variant_uuid)
+                ->first();
+
+            if ($existingRecord) {
+                // Nếu bản ghi đã tồn tại với product_id, order_id và variant_uuid, thì cập nhật dữ liệu khác
+                $order->products()->updateExistingPivot($val->product_id, [
+                    'variant_uuid' => $val->variant_uuid,
+                    'quantity' => $val->quantity,
+                    'price' => $val->priceUnit,
+                    'priceOriginal' => $this->productVariantRepository
+                        ->findByCondition([['uuid', '=', $val->variant_uuid]])
+                        ->price,
+                ]);
+            } else {
+                // Nếu chưa tồn tại, thêm bản ghi mới
+                $order->products()->attach($val->product_id, [
+                    'variant_uuid' => $val->variant_uuid,
+                    'quantity' => $val->quantity,
+                    'price' => $val->priceUnit,
+                    'priceOriginal' => $this->productVariantRepository
+                        ->findByCondition([['uuid', '=', $val->variant_uuid]])
+                        ->price,
+                ]);
+            }
+        }
     }
 
     private function paginateSelect()

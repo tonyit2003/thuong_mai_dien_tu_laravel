@@ -2,18 +2,12 @@
 
 namespace App\Classes;
 
-use App\Repositories\OrderRepository;
 
 class MoMo
 {
-    protected $orderRepository;
+    public function __construct() {}
 
-    public function __construct(OrderRepository $orderRepository)
-    {
-        $this->orderRepository = $orderRepository;
-    }
-
-    public function payment($order)
+    public function payment($totalPrice, $orderCode)
     {
         $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
 
@@ -23,16 +17,14 @@ class MoMo
         $accessKey = $configMoMo["accessKey"];
         $secretKey = $configMoMo["secretKey"];
 
-        $orderInformation = $this->orderRepository->findByCondition([['code', '=', $order['code']]]);
-
         $orderInfo = __('info.momo_payment');
-        $amount = (string)$orderInformation->totalPrice;
+        $amount = (string)$totalPrice;
         $returnUrl = $configMoMo["returnUrl"];
         $notifyurl = $configMoMo["notifyurl"];
 
         $bankCode = "";
 
-        $orderid = $orderInformation->code;
+        $orderid = (string)$orderCode;
         $requestId = time() . "";
         $requestType = "payWithMoMoATM";
         $extraData = "";
@@ -68,7 +60,7 @@ class MoMo
         );
         $result = execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true);
-        $jsonResult['url'] = $jsonResult['payUrl'];
+        $jsonResult['url'] = $jsonResult['payUrl'] ?? '';
         return $jsonResult;
     }
 }

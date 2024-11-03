@@ -2,18 +2,13 @@
 
 namespace App\Classes;
 
-use App\Repositories\OrderRepository;
-
 class VNPay
 {
     protected $orderRepository;
 
-    public function __construct(OrderRepository $orderRepository)
-    {
-        $this->orderRepository = $orderRepository;
-    }
+    public function __construct() {}
 
-    public function payment($order)
+    public function payment($totalPrice, $orderCode)
     {
         $configVNPay = vnPayConfig();
         $vnp_Url = $configVNPay['vnp_Url'];
@@ -21,12 +16,10 @@ class VNPay
         $vnp_TmnCode = $configVNPay['vnp_TmnCode'];
         $vnp_HashSecret = $configVNPay['vnp_HashSecret'];
 
-        $orderInfo = $this->orderRepository->findByCondition([['code', '=', $order['code']]]);
-
-        $vnp_TxnRef = $orderInfo->code;
-        $vnp_OrderInfo = __('info.vnpay_payment', ['orderCode' => $orderInfo->code]);
+        $vnp_TxnRef = $orderCode;
+        $vnp_OrderInfo = __('info.vnpay_payment');
         $vnp_OrderType = '140000';
-        $vnp_Amount = $orderInfo->totalPrice * 100;
+        $vnp_Amount = $totalPrice;
         $vnp_Locale = 'vn';
 
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];

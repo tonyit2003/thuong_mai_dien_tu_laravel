@@ -69,20 +69,23 @@ class CartController extends FrontendController
 
     public function store(StoreCartRequest $storeCartRequest)
     {
-        // session(['customer_data' => $storeCartRequest->except('_token', 'voucher', 'create')]);
-        $order = $this->cartService->order($storeCartRequest, $this->language);
-        if ($order['flag']) {
-            $response = $this->paymentOnline($order);
+        session()->forget('customer_data');
+        session(['customer_data' => $storeCartRequest->except('_token', 'voucher', 'create')]);
+        $method = $storeCartRequest->input('method');
+        $orderCode = $this->orderService->getOrderCode();
+        if ($method != 'cod') {
+            $totalPrice = $this->cartService->getTotalPriceByCustomer(Auth::guard('customers')->id(), $this->language);
+            $response = $this->paymentOnline($method, $totalPrice, $orderCode);
             if ($response['errorCode'] == 0) {
                 // trả về 1 đường dẫn bên ngoài
                 return redirect()->away($response['url']);
             } else {
-                flash()->success(__('toast.order_success'));
-                return redirect()->route('cart.success', ['code' => $order['code']]);
+                flash()->error(__('toast.order_fail'));
+                return redirect()->route('cart.checkout');
             }
+        } else {
+            return redirect()->route('order.store', ['code' => $orderCode]);
         }
-        flash()->error(__('toast.order_fail'));
-        return redirect()->route('cart.checkout');
     }
 
     public function success($code)
@@ -94,6 +97,7 @@ class CartController extends FrontendController
         $system = $this->system;
         $this->cartService->mail($order, $orderProducts, $system);
         $config = $this->config();
+        $template = $this->getTemplatePayment($order->method);
         $seo = [
             'meta_title' => __('info.order_information'),
             'meta_keyword' => '',
@@ -101,17 +105,34 @@ class CartController extends FrontendController
             'meta_image' => '',
             'canonical' => write_url('order-information', true, true)
         ];
-        return view('frontend.cart.success', compact('language', 'seo', 'system', 'config', 'order', 'orderProducts'));
+        return view('frontend.cart.success', compact('language', 'seo', 'system', 'config', 'order', 'orderProducts', 'template'));
     }
 
-    private function paymentOnline($order)
+    private function getTemplatePayment($method)
     {
-        switch ($order['method']) {
+        $template = null;
+        switch ($method) {
             case 'momo':
-                $response = $this->moMo->payment($order);
+                $template = 'frontend.cart.component.momo';
                 break;
             case 'vnpay':
-                $response = $this->vNPay->payment($order);
+                $template = 'frontend.cart.component.vnpay';
+                break;
+            case 'paypal':
+                // $this->paypal();
+                break;
+        }
+        return $template;
+    }
+
+    private function paymentOnline($method, $totalPrice, $orderCode)
+    {
+        switch ($method) {
+            case 'momo':
+                $response = $this->moMo->payment($totalPrice, $orderCode);
+                break;
+            case 'vnpay':
+                $response = $this->vNPay->payment($totalPrice, $orderCode);
                 break;
             case 'paypal':
                 // $this->paypal();

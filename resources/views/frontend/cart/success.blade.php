@@ -105,10 +105,10 @@
                     {{ __('info.payment_method') }}:
                     <span>{{ array_column(__('payment.method'), 'title', 'name')[$order->method] ?? '-' }}</span>
                 </div>
+                @if (isset($template))
+                    @include($template)
+                @endif
             </div>
         </div>
-        @if (isset($template))
-            @include($template)
-        @endif
     </div>
 @endsection
