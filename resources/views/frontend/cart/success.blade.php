@@ -101,6 +101,10 @@
                 <div>
                     {{ __('info.phone') }}: <span>{{ $order->phone }}</span>
                 </div>
+                <div>
+                    {{ __('info.payment_method') }}:
+                    <span>{{ array_column(__('payment.method'), 'title', 'name')[$order->method] ?? '-' }}</span>
+                </div>
             </div>
         </div>
         @if (isset($template))

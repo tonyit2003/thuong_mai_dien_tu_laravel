@@ -71,7 +71,7 @@ class VNPay
         }
 
         $returnData = array(
-            'code' => '00',
+            'errorCode' => 0,
             'message' => 'success',
             'url' => $vnp_Url
         );

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enums\OrderEnum;
 use App\Enums\PromotionEnum;
 use App\Mail\OrderMail;
+use App\Models\Order;
 use App\Repositories\CartRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
@@ -258,7 +259,7 @@ class CartService implements CartServiceInterface
         return $totalPrice - $discount;
     }
 
-    public function order($request, $language, $system)
+    public function order($request, $language)
     {
         DB::beginTransaction();
         try {
@@ -282,6 +283,7 @@ class CartService implements CartServiceInterface
             DB::commit();
             return [
                 'code' => $code,
+                'method' => $order->method,
                 'flag' => true
             ];
         } catch (Exception $e) {
@@ -357,27 +359,6 @@ class CartService implements CartServiceInterface
                         ->price,
                 ]);
             }
-        }
-    }
-
-    private function paymentOnline($method)
-    {
-        switch ($method) {
-            case 'zalo':
-                // $this->zaloPay();
-                break;
-            case 'momo':
-                // $this->momo();
-                break;
-            case 'shoppe':
-                // $this->shoppePay();
-                break;
-            case 'vnpay':
-                // $this->vnPay();
-                break;
-            case 'paypal':
-                // $this->paypal();
-                break;
         }
     }
 }

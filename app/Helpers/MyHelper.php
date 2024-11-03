@@ -518,3 +518,41 @@ if (!function_exists('vnPayConfig')) {
         ];
     }
 }
+
+if (!function_exists('moMoConfig')) {
+    function moMoConfig()
+    {
+        return [
+            "partnerCode" => "MOMOBKUN20180529",
+            "accessKey" => "klm05TvNBzhg7h7j",
+            "secretKey" => "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa",
+            "returnUrl" => write_url('return/momo', true, true),
+            "notifyurl" => write_url('return/momo_ipn', true, true),
+            "secretKey" => 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa',
+        ];
+    }
+}
+
+if (!function_exists('execPostRequest')) {
+    function execPostRequest($url, $data)
+    {
+        $options = [
+            'http' => [
+                'header' => "Content-Type: application/json\r\n" .
+                    "Content-Length: " . strlen($data) . "\r\n",
+                'method' => 'POST',
+                'content' => $data,
+                'timeout' => 5,
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+
+        if ($result === FALSE) {
+            return false;
+        }
+
+        return $result;
+    }
+}

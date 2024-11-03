@@ -42,6 +42,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CustomerController as FrontendCustomerController;
 use App\Http\Controllers\Frontend\GoogleAuthController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\MoMoController;
 use App\Http\Controllers\Frontend\RouterController;
 use App\Http\Controllers\Frontend\VNPayController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
@@ -77,8 +78,13 @@ Route::get('{canonical}' . '/uuid={uuid}' . config('apps.general.suffix'), [Rout
 Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
 Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
 
+// Thanh toán VNPay
 Route::get('return/vnpay' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_return'])->name('vnpay.vnpay_return');
 Route::get('return/vnpay_ipn' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_ipn'])->name('vnpay.vnpay_ipn');
+
+// Thanh toán MoMo
+Route::get('return/momo' . config('apps.general.suffix'), [MoMoController::class, 'momo_return'])->name('momo.momo_return');
+Route::get('return/momo_ipn' . config('apps.general.suffix'), [MoMoController::class, 'momo_ipn'])->name('momo.momo_ipn');
 
 // AJAX
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');

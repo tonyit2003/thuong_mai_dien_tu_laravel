@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Classes\MoMo;
 use App\Classes\VNPay;
 use App\Http\Controllers\FrontendController;
 use App\Http\Requests\StoreCartRequest;
@@ -26,8 +27,9 @@ class CartController extends FrontendController
     protected $cartService;
     protected $orderService;
     protected $vNPay;
+    protected $moMo;
 
-    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService, PromotionRepository $promotionRepository, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, OrderService $orderService, VNPay $vNPay)
+    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService, PromotionRepository $promotionRepository, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, OrderService $orderService, VNPay $vNPay, MoMo $moMo)
     {
         parent::__construct();
         $this->provinceRepository = $provinceRepository;
@@ -39,6 +41,7 @@ class CartController extends FrontendController
         $this->cartService = $cartService;
         $this->orderService = $orderService;
         $this->vNPay = $vNPay;
+        $this->moMo = $moMo;
     }
 
     public function checkout()
@@ -66,11 +69,11 @@ class CartController extends FrontendController
 
     public function store(StoreCartRequest $storeCartRequest)
     {
-        $system = $this->system;
-        $order = $this->cartService->order($storeCartRequest, $this->language, $system);
+        // session(['customer_data' => $storeCartRequest->except('_token', 'voucher', 'create')]);
+        $order = $this->cartService->order($storeCartRequest, $this->language);
         if ($order['flag']) {
-            $response = $this->vNPay->payment($order);
-            if ($response['code'] == '00') {
+            $response = $this->paymentOnline($order);
+            if ($response['errorCode'] == 0) {
                 // trả về 1 đường dẫn bên ngoài
                 return redirect()->away($response['url']);
             } else {
@@ -99,6 +102,22 @@ class CartController extends FrontendController
             'canonical' => write_url('order-information', true, true)
         ];
         return view('frontend.cart.success', compact('language', 'seo', 'system', 'config', 'order', 'orderProducts'));
+    }
+
+    private function paymentOnline($order)
+    {
+        switch ($order['method']) {
+            case 'momo':
+                $response = $this->moMo->payment($order);
+                break;
+            case 'vnpay':
+                $response = $this->vNPay->payment($order);
+                break;
+            case 'paypal':
+                // $this->paypal();
+                break;
+        }
+        return $response;
     }
 
     private function config()
