@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreWarrantyRequest;
 use App\Models\Language;
 use App\Repositories\OrderProductRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProvinceRepository;
+use App\Repositories\WarrantyRepository;
 use App\Services\OrderService;
+use App\Services\WarrantyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
@@ -18,12 +21,16 @@ class WarrantyController extends Controller
     protected $orderRepository;
     protected $orderProductRepository;
     protected $provinceRepository;
-    public function __construct(OrderService $orderService, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, ProvinceRepository $provinceRepository)
+    protected $warrantyService;
+    protected $warrantyRepository;
+    public function __construct(OrderService $orderService, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, ProvinceRepository $provinceRepository, WarrantyService $warrantyService, WarrantyRepository $warrantyRepository)
     {
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
         $this->orderProductRepository = $orderProductRepository;
         $this->provinceRepository = $provinceRepository;
+        $this->warrantyService = $warrantyService;
+        $this->warrantyRepository = $warrantyRepository;
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -74,6 +81,8 @@ class WarrantyController extends Controller
         $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
         $orderProducts = $this->orderService->setInformation($orderProducts, $language);
         $provinces = $this->provinceRepository->all();
+        $warranty_card = $this->warrantyRepository->findByConditionWarranty([['order_id', '=', $order->id]], false);
+
         $config = [
             'css' => [
                 'backend\css\plugins\toastr\toastr.min.css',
@@ -87,6 +96,16 @@ class WarrantyController extends Controller
         ];
         $config['seo'] = __('order');
         $template = 'backend.warranty.warranty.detail';
-        return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts', 'provinces'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts', 'provinces', 'warranty_card'));
+    }
+
+    public function warrantyConfirm(StoreWarrantyRequest $request)
+    {
+        if ($this->warrantyService->create($request)) {
+            flash()->success(__('toast.store_success'));
+            return redirect()->route('warranty.index');
+        }
+        flash()->error(__('toast.store_failed'));
+        return redirect()->route('warranty.index');
     }
 }

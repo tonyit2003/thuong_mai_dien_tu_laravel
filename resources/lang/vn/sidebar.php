@@ -38,7 +38,7 @@ return [
         ],
         [
             'title' => 'Bảo hành',
-            'icon' => 'fa fa-pencil-square-o',
+            'icon' => 'fa fa-shield',
             'name' => ['warranty'],
             'subModule' => [
                 [

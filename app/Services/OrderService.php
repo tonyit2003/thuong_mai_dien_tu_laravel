@@ -52,7 +52,7 @@ class OrderService implements OrderServiceInterface
             $condition['dropdown'][$key] = $request->string($key);
         }
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
-        return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'warranty/index']);
+        return $this->orderRepository->paginationWarranty($this->paginateSelect(), $condition, [], $perPage, ['path' => 'warranty/index']);
     }
 
     public function create($orderCode, $language)
