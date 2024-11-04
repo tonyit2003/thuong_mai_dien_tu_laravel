@@ -260,11 +260,9 @@ if (!function_exists('formatCurrency')) {
             // Lấy dữ liệu mới từ API
             $apiKey = 'c4c172f9dcdc3d6a975c04c6'; // Thay bằng API Key của bạn
             $url = "https://v6.exchangerate-api.com/v6/$apiKey/latest/VND";
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($ch);
-            curl_close($ch);
+
+            // Sử dụng file_get_contents thay cho curl
+            $response = @file_get_contents($url);
 
             if ($response === false) {
                 return null; // Xử lý lỗi
