@@ -5,6 +5,7 @@ use App\Models\District;
 use App\Models\Province;
 use App\Models\Ward;
 use Carbon\Carbon;
+use CurrencyApi\CurrencyApi\CurrencyApiClient;
 
 if (!function_exists('convert_price')) {
     function convert_price($price = '', $flag = false)
@@ -554,5 +555,25 @@ if (!function_exists('execPostRequest')) {
         }
 
         return $result;
+    }
+}
+
+if (!function_exists('convertVNDToUSD')) {
+    function convertVNDToUSD($amountInVND)
+    {
+        $apiKey = 'cur_live_9BzWyCeHf1VAFWB4L9on1XSFipRrcS1sCxVoylcN';
+        $currencyapi = new CurrencyApiClient($apiKey);
+
+        $response = $currencyapi->latest([
+            'base_currency' => 'VND',
+            'currencies' => 'USD',
+        ]);
+
+        if (isset($response['data']['USD']['value'])) {
+            $exchangeRate = $response['data']['USD']['value'];
+            return number_format($amountInVND * $exchangeRate, 2, '.', '');
+        }
+
+        return 0;
     }
 }

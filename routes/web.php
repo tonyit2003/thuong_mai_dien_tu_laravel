@@ -44,6 +44,7 @@ use App\Http\Controllers\Frontend\GoogleAuthController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\MoMoController;
 use App\Http\Controllers\Frontend\OrderController as FrontendOrderController;
+use App\Http\Controllers\Frontend\PaypalController;
 use App\Http\Controllers\Frontend\RouterController;
 use App\Http\Controllers\Frontend\VNPayController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
@@ -87,6 +88,10 @@ Route::get('return/vnpay_ipn' . config('apps.general.suffix'), [VNPayController:
 // Thanh toán MoMo
 Route::get('return/momo' . config('apps.general.suffix'), [MoMoController::class, 'momo_return'])->name('momo.momo_return');
 Route::get('return/momo_ipn' . config('apps.general.suffix'), [MoMoController::class, 'momo_ipn'])->name('momo.momo_ipn');
+
+// Thanh toán Paypal
+Route::get('paypal/success/id={code}' . config('apps.general.suffix'), [PaypalController::class, 'success'])->name('paypal.success');
+Route::get('paypal/cancel' . config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
 
 // AJAX
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
