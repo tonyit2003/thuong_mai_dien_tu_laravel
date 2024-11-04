@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Classes\MoMo;
+use App\Classes\Paypal;
 use App\Classes\VNPay;
 use App\Http\Controllers\FrontendController;
 use App\Http\Requests\StoreCartRequest;
@@ -28,8 +29,9 @@ class CartController extends FrontendController
     protected $orderService;
     protected $vNPay;
     protected $moMo;
+    protected $paypal;
 
-    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService, PromotionRepository $promotionRepository, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, OrderService $orderService, VNPay $vNPay, MoMo $moMo)
+    public function __construct(ProvinceRepository $provinceRepository, CustomerRepository $customerRepository, CartRepository $cartRepository, CartService $cartService, PromotionRepository $promotionRepository, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, OrderService $orderService, VNPay $vNPay, MoMo $moMo, Paypal $paypal)
     {
         parent::__construct();
         $this->provinceRepository = $provinceRepository;
@@ -42,6 +44,7 @@ class CartController extends FrontendController
         $this->orderService = $orderService;
         $this->vNPay = $vNPay;
         $this->moMo = $moMo;
+        $this->paypal = $paypal;
     }
 
     public function checkout()
@@ -119,7 +122,7 @@ class CartController extends FrontendController
                 $template = 'frontend.cart.component.vnpay';
                 break;
             case 'paypal':
-                // $this->paypal();
+                $template = 'frontend.cart.component.paypal';
                 break;
         }
         return $template;
@@ -135,7 +138,7 @@ class CartController extends FrontendController
                 $response = $this->vNPay->payment($totalPrice, $orderCode);
                 break;
             case 'paypal':
-                // $this->paypal();
+                $response = $this->paypal->payment($totalPrice, $orderCode);
                 break;
         }
         return $response;
