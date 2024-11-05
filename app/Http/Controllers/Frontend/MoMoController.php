@@ -28,22 +28,21 @@ class MoMoController extends FrontendController
         $this->cartService = $cartService;
     }
 
-    public function momo_return(Request $request)
+    public function momo_return()
     {
         $configMoMo = moMoConfig();
 
         $secretKey = $configMoMo["secretKey"];
+        $partnerCode = $configMoMo["partnerCode"];
+        $accessKey = $configMoMo["accessKey"];
 
         if (!empty($_GET)) {
-            $partnerCode = $_GET["partnerCode"];
-            $accessKey = $_GET["accessKey"];
             $orderId = $_GET["orderId"];
-            $localMessage = utf8_encode($_GET["localMessage"]);
             $message = $_GET["message"];
             $transId = $_GET["transId"];
-            $orderInfo = utf8_encode($_GET["orderInfo"]);
+            $orderInfo = $_GET["orderInfo"];
             $amount = $_GET["amount"];
-            $errorCode = $_GET["errorCode"];
+            $resultCode = $_GET["resultCode"];
             $responseTime = $_GET["responseTime"];
             $requestId = $_GET["requestId"];
             $extraData = $_GET["extraData"];
@@ -54,33 +53,22 @@ class MoMoController extends FrontendController
 
 
             //Checksum
-            $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo .
-                "&orderType=" . $orderType . "&transId=" . $transId . "&message=" . $message . "&localMessage=" . $localMessage . "&responseTime=" . $responseTime . "&errorCode=" . $errorCode .
-                "&payType=" . $payType . "&extraData=" . $extraData;
+            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&message=" . $message . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&orderType=" . $orderType . "&partnerCode=" . $partnerCode . "&payType=" . $payType . "&requestId=" . $requestId . "&responseTime=" . $responseTime . "&resultCode=" . $resultCode . "&transId=" . $transId;
 
             $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
 
-            if ($errorCode == '0') {
-                return redirect()->route('order.store', ['code' => $orderId]);
+
+            if ($m2signature == $partnerSignature) {
+                if ($resultCode == '0') {
+                    return redirect()->route('order.store', ['code' => $orderId]);
+                } else {
+                    flash()->error(__('info.transaction_momo_fail'));
+                    return redirect()->route('cart.checkout');
+                }
             } else {
                 flash()->error(__('info.transaction_momo_fail'));
                 return redirect()->route('cart.checkout');
             }
-
-            // if ($m2signature == $partnerSignature) {
-            //     if ($errorCode == '0') {
-            //         return redirect()->route('order.store', ['code' => $orderId]);
-            //     } else {
-            //         flash()->error(__('info.transaction_momo_fail'));
-            //         return redirect()->route('cart.checkout');
-            //     }
-            // } else {
-            //     flash()->error(__('info.transaction_momo_fail'));
-            //     return redirect()->route('cart.checkout');
-            // }
-        } else {
-            flash()->error(__('info.transaction_momo_fail'));
-            return redirect()->route('cart.checkout');
         }
     }
 
