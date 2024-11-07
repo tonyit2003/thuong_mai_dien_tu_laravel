@@ -7,6 +7,7 @@ use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
 use App\Http\Controllers\Ajax\OrderController as AjaxOrderController;
 use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
+use App\Http\Controllers\Ajax\ReviewController as AjaxReviewController;
 use App\Http\Controllers\Ajax\SourceController as AjaxSourceController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -67,6 +68,7 @@ Route::group(['middleware' => [CustomerAuthenticateMiddleware::class]], function
     Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create');
     Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update');
     Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete');
+    Route::post('ajax/review/create', [AjaxReviewController::class, 'create'])->name('ajax.review.create');
 });
 
 //Info customer

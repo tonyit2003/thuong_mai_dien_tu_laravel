@@ -24,10 +24,15 @@ class ProductCatalogue extends Model
         'order',
         'user_id',
         'deleted_at',
-        'follow'
+        'follow',
+        'attribute',
     ];
 
     protected $table = 'product_catalogues';
+
+    protected $casts = [
+        'attribute' => 'json',
+    ];
 
     public function suppliers()
     {

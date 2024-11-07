@@ -6,8 +6,10 @@ use App\Http\Controllers\FrontendController;
 use App\Repositories\ProductCatalogueRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
+use App\Repositories\ReviewRepository;
 use App\Services\ProductService;
 use App\Services\ProductVariantService;
+use App\Services\ReviewService;
 
 class ProductController extends FrontendController
 {
@@ -16,8 +18,10 @@ class ProductController extends FrontendController
     protected $productService;
     protected $productVariantService;
     protected $productVariantRepository;
+    protected $reviewRepository;
+    protected $reviewService;
 
-    public function __construct(ProductCatalogueRepository $productCatalogueRepository, ProductVariantService $productVariantService, ProductRepository $productRepository, ProductVariantRepository $productVariantRepository, ProductService $productService)
+    public function __construct(ProductCatalogueRepository $productCatalogueRepository, ProductVariantService $productVariantService, ProductRepository $productRepository, ProductVariantRepository $productVariantRepository, ProductService $productService, ReviewRepository $reviewRepository, ReviewService $reviewService)
     {
         // gọi hàm khởi tạo (constructor) của lớp cha
         parent::__construct();
@@ -26,6 +30,8 @@ class ProductController extends FrontendController
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->productService = $productService;
+        $this->reviewRepository = $reviewRepository;
+        $this->reviewService = $reviewService;
     }
 
     public function index($id, $variantUuid, $request)
@@ -48,10 +54,12 @@ class ProductController extends FrontendController
         $productVariant = $this->productVariantService->combineProductVariantAndPromotion([$variantUuid], $productVariant, true);
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($product->product_catalogue_id, $language);
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $language);
+        $reviews = $this->reviewRepository->findByCondition([['variant_uuid', '=', $variantUuid]], true);
+        $reviews = $this->reviewService->setCustomerInformation($reviews);
         $config = $this->config();
         $system = $this->system;
         $seo = seo($product);
-        return view('frontend.product.product.index', compact('config', 'language', 'seo', 'system', 'product', 'productVariant', 'productCatalogue', 'breadcrumb', 'category', 'language'));
+        return view('frontend.product.product.index', compact('config', 'language', 'seo', 'system', 'product', 'productVariant', 'productCatalogue', 'breadcrumb', 'category', 'language', 'reviews'));
     }
 
     private function config()
@@ -60,6 +68,10 @@ class ProductController extends FrontendController
             'js' => [
                 'frontend/core/library/cart.js',
                 'frontend/core/library/product.js',
+                'frontend/core/library/review.js',
+            ],
+            'css' => [
+                'frontend/core/css/product.css'
             ]
         ];
     }
