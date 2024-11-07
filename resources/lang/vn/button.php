@@ -36,4 +36,8 @@ return [
     'order_payment'                 => 'Thanh toán đơn hàng',
     'purchase'                      => 'Mua hàng',
     'cancel_order'                  => 'Hủy đơn hàng',
+    'submit_review'                 => 'Gửi đánh giá',
+    'complete'                      => 'Hoàn tất',
+    'login'                         => 'Đăng nhập',
+    'register'                      => 'Đăng ký',
 ];

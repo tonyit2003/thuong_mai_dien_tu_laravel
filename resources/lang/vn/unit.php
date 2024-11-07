@@ -7,5 +7,6 @@ return [
     'px'            => 'px',
     'ms'            => 'ms',
     'product'       => 'sản phẩm',
-    'evaluate'       => 'đánh giá',
+    'evaluate'      => 'đánh giá',
+    'star'          => 'sao',
 ];

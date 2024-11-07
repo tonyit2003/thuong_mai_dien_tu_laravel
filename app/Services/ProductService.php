@@ -28,9 +28,10 @@ class ProductService extends BaseService implements ProductServiceInterface
     protected $promotionRepository;
     protected $attributeCatalogueRepository;
     protected $attributeRepository;
+    protected $productCatalogueService;
     protected $controllerName = 'ProductController';
 
-    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository, PromotionRepository $promotionRepository, AttributeCatalogueRepository $attributeCatalogueRepository, AttributeRepository $attributeRepository)
+    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository, PromotionRepository $promotionRepository, AttributeCatalogueRepository $attributeCatalogueRepository, AttributeRepository $attributeRepository, ProductCatalogueService $productCatalogueService)
     {
         $this->productRepository = $productRepository;
         $this->productVariantLanguageRepository = $productVariantLanguageRepository;
@@ -38,6 +39,7 @@ class ProductService extends BaseService implements ProductServiceInterface
         $this->promotionRepository = $promotionRepository;
         $this->attributeCatalogueRepository = $attributeCatalogueRepository;
         $this->attributeRepository = $attributeRepository;
+        $this->productCatalogueService = $productCatalogueService;
         parent::__construct($routerRepository);
     }
 
@@ -155,6 +157,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                 if ($request->input('attribute')) {
                     $this->createVariant($product, $request, $languageId);
                 }
+                $this->productCatalogueService->setAttribute($product);
             }
             DB::commit();
             return true;
@@ -168,8 +171,8 @@ class ProductService extends BaseService implements ProductServiceInterface
     {
         DB::beginTransaction();
         try {
-            $product = $this->productRepository->findById($id);
-            if ($this->updateProduct($product, $request)) {
+            $product = $this->updateProduct($id, $request);
+            if ($product) {
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $this->updateCatalogueForProduct($product, $request);
                 $this->updateRouter($product, $request, $this->controllerName, $languageId);
@@ -184,6 +187,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                 if ($request->input('attribute')) {
                     $this->createVariant($product, $request, $languageId);
                 }
+                $this->productCatalogueService->setAttribute($product);
             }
             DB::commit();
             return true;
@@ -239,12 +243,12 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $this->productRepository->create($payload);
     }
 
-    private function updateProduct($product, $request)
+    private function updateProduct($id, $request)
     {
         $payload = $request->only($this->payload());
         $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
         $payload['price'] = convert_price($payload['price']);
-        return $this->productRepository->update($product->id, $payload);
+        return $this->productRepository->update($id, $payload);
     }
 
     private function updateLanguageForProduct($product, $request, $languageId)

@@ -575,3 +575,32 @@ if (!function_exists('convertVNDToUSD')) {
         return 0;
     }
 }
+
+if (!function_exists('getFirstLetterOfName')) {
+    function getFirstLetterOfName($fullName)
+    {
+        // Tách tên đầy đủ thành các phần
+        $nameParts = explode(' ', trim($fullName));
+
+        // Lấy phần cuối cùng (tên) và lấy chữ cái đầu tiên
+        $firstLetter = mb_substr(end($nameParts), 0, 1);
+
+        return strtoupper($firstLetter); // Viết hoa chữ cái đầu tiên
+    }
+}
+
+if (!function_exists('generateStar')) {
+    function generateStar($score)
+    {
+        $score = max(1, min(5, $score));
+        $output = '<div class="review-star">';
+        for ($i = 1; $i <= $score; $i++) {
+            $output .= '<i class="fa fa-star"></i>';
+        }
+        for ($i = $score + 1; $i <= 5; $i++) {
+            $output .= '<i class="fa fa-star fa-star-dark"></i>';
+        }
+        $output .= '</div>';
+        return $output;
+    }
+}
