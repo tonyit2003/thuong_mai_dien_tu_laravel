@@ -87,4 +87,9 @@ return [
     'delivery'                          => 'Giao hàng',
     'totalFinal'                        => 'Tổng tiền thanh toán',
     'provisional_total'                 => 'Tổng tiền tạm tính',
+    'time_warranty'                     => 'Thời gian bảo hành',
+    'warranty_expired'                  => 'Hết hạn bảo hành',
+    'active'                            => 'Đang sửa chữa',
+    'pending'                           => 'Đang chờ',
+    'completed'                         => 'Hoàn thành',
 ];

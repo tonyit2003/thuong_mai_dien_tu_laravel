@@ -366,7 +366,10 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::group(['prefix' => 'warranty'], function () {
         Route::get('index', [WarrantyController::class, 'index'])->name('warranty.index');
         Route::get('{id}/detail', [WarrantyController::class, 'detail'])->name('warranty.detail')->where(['id' => '[0-9]+']);
-        Route::post('warrantyConfirm', [WarrantyController::class, 'warrantyConfirm'])->name('warranty.warrantyConfirm')->where(['id' => '[0-9]+']);
+        Route::post('warrantyConfirm', [WarrantyController::class, 'warrantyConfirm'])->name('warranty.warrantyConfirm');
+        Route::get('warrantyRepair', [WarrantyController::class, 'warrantyRepair'])->name('warranty.warrantyRepair');
+        Route::get('{id}/repairDetail', [WarrantyController::class, 'repairDetail'])->name('warranty.repairDetail')->where(['id' => '[0-9]+']);
+        Route::post('warrantyConfirmRepair', [WarrantyController::class, 'warrantyConfirmRepair'])->name('warranty.warrantyConfirmRepair');
     });
 
     // @@new-module@@

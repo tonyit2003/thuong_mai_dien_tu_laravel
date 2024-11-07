@@ -45,6 +45,10 @@ return [
                     'title' => 'Bảo hành',
                     'route' => 'warranty.index'
                 ],
+                [
+                    'title' => 'Danh sách sản phẩm',
+                    'route' => 'warranty.warrantyRepair'
+                ],
             ]
         ],
         [

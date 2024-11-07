@@ -101,11 +101,75 @@ class WarrantyController extends Controller
 
     public function warrantyConfirm(StoreWarrantyRequest $request)
     {
-        if ($this->warrantyService->create($request)) {
+        if ($this->warrantyService->createOrUpdate($request)) {
             flash()->success(__('toast.store_success'));
-            return redirect()->route('warranty.index');
+            return redirect()->route('warranty.warrantyRepair');
         }
         flash()->error(__('toast.store_failed'));
-        return redirect()->route('warranty.index');
+        return redirect()->route('warranty.warrantyRepair');
+    }
+
+    public function warrantyRepair(Request $request)
+    {
+        Gate::authorize('modules', 'warranty.warrantyRepair');
+
+        $orders = $this->orderService->warrantyRepairPaginate($request);
+
+        $config = [
+            'js' => [
+                'backend\js\plugins\toastr\toastr.min.js',
+                'backend/js/plugins/switchery/switchery.js',
+                'backend/library/order.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js',
+                'backend/js/plugins/daterangepicker/daterangepicker.js',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+            ],
+            'css' => [
+                'backend\css\plugins\toastr\toastr.min.css',
+                'backend/css/plugins/switchery/switchery.css',
+                'backend/css/plugins/daterangepicker/daterangepicker-bs3.css',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+            ],
+            'model' => 'Order'
+        ];
+        $config['seo'] = __('warrantyRepair');
+
+        $template = 'backend.warranty.repair.index';
+        return view('backend.dashboard.layout', compact('template', 'config', 'orders'));
+    }
+
+    public function repairDetail(Request $request, $id)
+    {
+        $language = $this->language;
+        $order = $this->orderRepository->findByCondition([['id', '=', $id]], false, ['products']);
+        $order = $this->orderService->setAddress($order);
+        $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
+        $orderProducts = $this->orderService->setInformation($orderProducts, $language);
+        $provinces = $this->provinceRepository->all();
+        $warranty_card = $this->warrantyRepository->findByConditionWarranty([['order_id', '=', $order->id]], false);
+        $config = [
+            'css' => [
+                'backend\css\plugins\toastr\toastr.min.css',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+            ],
+            'js' => [
+                'backend\js\plugins\toastr\toastr.min.js',
+                'backend/library/order.js',
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+            ],
+        ];
+        $config['seo'] = __('orderWarranty');
+        $template = 'backend.warranty.repair.detail';
+        return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts', 'provinces', 'warranty_card'));
+    }
+
+    public function warrantyConfirmRepair(StoreWarrantyRequest $request)
+    {
+        if ($this->warrantyService->updateRepair($request)) {
+            flash()->success(__('toast.update_success'));
+            return redirect()->route('warranty.warrantyRepair');
+        }
+        flash()->error(__('toast.update_failed'));
+        return redirect()->route('warranty.warrantyRepair');
     }
 }

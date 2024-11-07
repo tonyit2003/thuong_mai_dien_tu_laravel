@@ -64,7 +64,7 @@
                                         <td style="width: 2%;">
                                             <input type="checkbox" name="product_id[]" value="{{ $val->product_id }}" class="input-checkbox"
                                                 {{ $val->warranty_time < now() ? 'readonly' : '' }} {{ $status == 'active' ? 'readonly' : '' }}
-                                                {{ in_array($val->variant_uuid, $warrantyVariants) ? 'checked' : '' }} />
+                                                {{ in_array($val->variant_uuid, $warrantyVariants) && $status == 'active' ? 'checked' : '' }} />
                                             <input type="hidden" name="variant_uuid[]" value="{{ $val->variant_uuid }}" />
                                         </td>
                                         <td style="width: 10%;">
@@ -79,13 +79,14 @@
                                         <td style="width: 57%;">
                                             <div class="order-item-name">
                                                 <div style="font-size: 14px">{{ $val->name }}</div>
-                                                <strong style="color: red">Thời gian bảo hành:
+                                                <strong style="color: red">{{ __('table.time_warranty') }}:
                                                     {{ $val->warranty_time > now() ? convertDatetime($val->warranty_time, 'H:i d-m-Y') : 'Hết hạn bảo hành' }}
                                                 </strong>
                                                 <br>
                                                 <span style="color: #000">{{ __('form.note') }} <span class="text-danger">(*)</span></span>
-                                                <input style="color: #000" type="text" value="{{ $warrantyNotes[$key] ?? '' }}"
-                                                    class="form-control" name="notes[]" placeholder="{{ __('form.enter_note') }}"
+                                                <input style="color: #000" type="text"
+                                                    value="{{ $status == 'active' ? $warrantyNotes[$key] : '' }}" class="form-control" name="notes[]"
+                                                    placeholder="{{ __('form.enter_note') }}"
                                                     {{ $val->warranty_time < now() || $status == 'active' ? 'readonly' : '' }}>
                                             </div>
                                         </td>

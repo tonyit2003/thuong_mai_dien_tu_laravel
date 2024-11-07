@@ -14,7 +14,7 @@
                 {{ __('table.customer') }}
             </th>
             <th class="text-center">
-                {{ __('table.delivery') }}
+                {{ __('table.pay') }}
             </th>
             <th class="text-center" style="width: 50px">
                 {{ __('table.actions') }}
@@ -29,7 +29,7 @@
                         <input type="checkbox" value="{{ $order->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('warranty.detail', $order->id) }}">{{ $order->code }}</a>
+                        <a href="{{ route('warranty.repairDetail', $order->id) }}">{{ $order->code }}</a>
                     </td>
                     <td class="text-center">
                         {{ convertDatetime($order->created_at, 'H:i d-m-Y') }}

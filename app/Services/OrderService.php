@@ -55,6 +55,16 @@ class OrderService implements OrderServiceInterface
         return $this->orderRepository->paginationWarranty($this->paginateSelect(), $condition, [], $perPage, ['path' => 'warranty/index']);
     }
 
+    public function warrantyRepairPaginate($request)
+    {
+        $condition['keyword'] = addslashes($request->input('keyword'));
+        foreach (__('statusOrder') as $key => $val) {
+            $condition['dropdown'][$key] = $request->string($key);
+        }
+        $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
+        return $this->orderRepository->paginationRepairWarranty($this->paginateSelect(), $condition, [], $perPage, ['path' => 'warranty/warrantyRepair']);
+    }
+
     public function create($orderCode, $language)
     {
         DB::beginTransaction();

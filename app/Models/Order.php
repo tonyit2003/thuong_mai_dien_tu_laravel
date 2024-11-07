@@ -57,4 +57,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderPayment::class, 'order_id', 'id');
     }
+
+    public function warranty_cards()
+    {
+        return $this->hasMany(WarrantyCard::class, 'order_id', 'id');
+    }
 }

@@ -283,5 +283,6 @@ return [
     'form_phone'                        => 'Nhập số điện thoại',
     'null'                              => 'Không có dữ liệu để hiển thị. Vui lòng nhập số điện thoại khách hàng tìm kiếm hóa đơn.',
     'confirm_warranty'                  => 'Xác nhận bảo hành sản phẩm',
-    'enter_note'                        => 'Nhập ghi chú'
+    'enter_note'                        => 'Nhập ghi chú',
+    'confirm_repair'                    => 'Xác nhận sửa chữa sản phẩm',
 ];

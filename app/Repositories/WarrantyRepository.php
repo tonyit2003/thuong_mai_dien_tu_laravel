@@ -59,4 +59,16 @@ class WarrantyRepository extends BaseRepository implements WarrantyRepositoryInt
         // Trả về tất cả các bản ghi có warranty_start_date lớn nhất
         return $query->get();
     }
+
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function findByOrderAndVariant($orderId, $variantUuid)
+    {
+        return $this->model->where('order_id', $orderId)
+            ->where('variant_uuid', $variantUuid)
+            ->first();
+    }
 }

@@ -19,6 +19,7 @@ class WarrantyCard extends Model
         'warranty_end_date',
         'status',
         'notes',
+        'quantity',
     ];
 
     /**

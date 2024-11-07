@@ -31,18 +31,23 @@
             {{-- __('sidebar.module') => resources/lang/{locale}/sidebar.php (locale trong file app.php) --}}
             @foreach (__('sidebar.module') as $key => $val)
                 <li class="{{ in_array($segment, $val['name']) ? 'active' : '' }}">
-                    <a href="#"><i class="{{ $val['icon'] }}"></i> <span class="nav-label">{{ $val['title'] }}</span>
-                        <span class="fa arrow"></span></a>
+                    <a href="#" class="{{ in_array($segment, $val['name']) ? 'text-white' : '' }}">
+                        <i class="{{ $val['icon'] }}"></i> <span class="nav-label">{{ $val['title'] }}</span>
+                        <span class="fa arrow"></span>
+                    </a>
                     @if (isset($val['subModule']))
                         <ul class="nav nav-second-level">
                             @foreach ($val['subModule'] as $module)
-                                <li><a href="{{ route($module['route']) }}">{{ $module['title'] }}</a></li>
+                                <li class="{{ request()->routeIs($module['route']) ? 'active' : '' }}">
+                                    <a href="{{ route($module['route']) }}" class="{{ request()->routeIs($module['route']) ? 'text-white' : '' }}">
+                                        {{ $module['title'] }}
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     @endif
                 </li>
             @endforeach
         </ul>
-
     </div>
 </nav>

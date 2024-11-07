@@ -3,15 +3,31 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @php
-    $segment = request()->segment(1);
+    $currentRoute = request()->route()->getName(); // Lấy route hiện tại
+    $pageTitle = null; // Biến để lưu tiêu đề hiển thị
+
+    // Lặp qua các module để tìm tiêu đề
+    foreach (__('sidebar.module') as $module) {
+        foreach ($module['subModule'] as $subModule) {
+            if ($subModule['route'] === $currentRoute) {
+                $pageTitle = $subModule['title']; // Gán tiêu đề từ subModule nếu route khớp
+                break 2; // Thoát khỏi cả 2 vòng lặp
+            }
+        }
+    }
+
+    // Nếu không khớp với subModule, kiểm tra tiêu đề của module
+    if (!$pageTitle) {
+        foreach (__('sidebar.module') as $module) {
+            if (in_array(request()->segment(1), $module['name'])) {
+                $pageTitle = $module['title']; // Gán tiêu đề từ module
+                break;
+            }
+        }
+    }
 @endphp
 
-@foreach (__('sidebar.module') as $key => $val)
-    @if (in_array($segment, $val['name']))
-        <title>{{ $val['title'] }}</title>
-    @break
-@endif
-@endforeach
+<title>{{ $pageTitle ?? 'TC Shop Admin' }}</title>
 
 <link rel="icon" type="image/png" href="{{ $system['homepage_favicon'] }}">
 
@@ -22,9 +38,9 @@
 <link href="{{ asset('backend/plugins/jquery-ui.css') }}" rel="stylesheet">
 
 @if (isset($config['css']) && is_array($config['css']))
-@foreach ($config['css'] as $val)
-    <link href="{{ asset($val) }}" rel="stylesheet">
-@endforeach
+    @foreach ($config['css'] as $val)
+        <link href="{{ asset($val) }}" rel="stylesheet">
+    @endforeach
 @endif
 
 <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
