@@ -29,4 +29,5 @@ return [
     'must_confirm_order'                    => 'Bạn phải xác nhận đơn hàng trước khi thực hiện cập nhật này',
     'review_success'                        => 'Đánh giá sản phẩm thành công',
     'review_fail'                           => 'Đánh giá sản phẩm thất bại',
+    'not_purchased_product'                 => 'Bạn chưa mua sản phẩm. Vui lòng mua sản phẩm để đánh giá',
 ];

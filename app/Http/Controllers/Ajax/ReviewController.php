@@ -18,6 +18,12 @@ class ReviewController extends FrontendController
 
     public function create(Request $request)
     {
+        if (!$this->reviewService->checkPurchasedProduct($request)) {
+            return response()->json([
+                'messages' => __('toast.not_purchased_product'),
+                'code' => 12
+            ]);
+        }
         $flag = $this->reviewService->create($request);
         return response()->json([
             'messages' => $flag ? __('toast.review_success') : __('toast.review_fail'),

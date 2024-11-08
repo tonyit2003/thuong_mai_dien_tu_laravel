@@ -53,6 +53,11 @@ class Order extends Model
         )->withTimestamps();;
     }
 
+    public function order_products()
+    {
+        return $this->hasMany(OrderProduct::class, 'order_id', 'id');
+    }
+
     public function order_payment()
     {
         return $this->hasMany(OrderPayment::class, 'order_id', 'id');

@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\OrderProduct;
 use App\Repositories\CustomerRepository;
+use App\Repositories\OrderProductRepository;
+use App\Repositories\OrderRepository;
 use App\Repositories\ReviewRepository;
 use App\Services\Interfaces\ReviewServiceInterface;
 use Exception;
@@ -17,11 +20,15 @@ class ReviewService extends BaseService implements ReviewServiceInterface
 {
     protected $reviewRepository;
     protected $customerRepository;
+    protected $orderRepository;
+    protected $orderProductRepository;
 
-    public function __construct(ReviewRepository $reviewRepository, CustomerRepository $customerRepository)
+    public function __construct(ReviewRepository $reviewRepository, CustomerRepository $customerRepository, OrderRepository $orderRepository, OrderProductRepository $orderProductRepository)
     {
         $this->reviewRepository = $reviewRepository;
         $this->customerRepository = $customerRepository;
+        $this->orderRepository = $orderRepository;
+        $this->orderProductRepository = $orderProductRepository;
     }
 
     public function create($request)
@@ -61,6 +68,13 @@ class ReviewService extends BaseService implements ReviewServiceInterface
             DB::rollBack();
             return false;
         }
+    }
+
+    public function checkPurchasedProduct($request)
+    {
+        $customer_id = Auth::guard('customers')->id();
+        $variant_uuid = $request->input('variant_uuid');
+        return $this->orderProductRepository->checkProductVariantExists($variant_uuid, $customer_id);
     }
 
     public function setCustomerInformation($reviews)

@@ -28,8 +28,11 @@
                         toastr.success(res.messages, "SUCCESS");
                         modal.hide();
                         location.reload();
-                    } else {
+                    } else if (res.code == 11) {
                         toastr.error(res.messages, "ERROR");
+                    } else if (res.code == 12) {
+                        toastr.warning(res.messages, "WARNING");
+                        modal.hide();
                     }
                 },
             });
