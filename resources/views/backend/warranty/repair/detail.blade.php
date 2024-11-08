@@ -16,8 +16,6 @@
 
     $statuses = [
         'active' => __('table.active'),
-        'expired' => __('table.expired'),
-        'pending' => __('table.pending'),
         'completed' => __('table.completed'),
     ];
 

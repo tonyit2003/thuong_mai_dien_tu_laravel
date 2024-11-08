@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\SendChangePassword;
 use App\Models\Customer;
 use App\Repositories\CustomerRepository;
 use App\Repositories\SourceRepository;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class CustomerService
@@ -39,6 +41,24 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         ];
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         return $this->customerRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'customer/index']);
+    }
+
+    public function mail($user, $system, $hostname, $ipAddress, $browser, $platform, $device, $currentTime)
+    {
+        $to = $user->email;
+        $cc = $system['contact_email'];
+        $data = [
+            'user' => $user,
+            'system' => $system,
+            'hostname' => $hostname,
+            'ipAddress' => $ipAddress,
+            'browser' => $browser,
+            'platform' => $platform,
+            'device' => $device,
+            'currentTime' => $currentTime,
+        ];
+
+        Mail::to($to)->cc($cc)->send(new SendChangePassword($data));
     }
 
     public function signup($request)
@@ -137,6 +157,21 @@ class CustomerService extends BaseService implements CustomerServiceInterface
             $payload['province_id'] = $request->input('province_id');
             $payload['district_id'] = $request->input('district_id');
             $payload['ward_id'] = $request->input('ward_id');
+            $this->customerRepository->update($id, $payload);
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function changePass($id, $request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->input();
+            $payload['password'] = Hash::make($payload['password']);
             $this->customerRepository->update($id, $payload);
             DB::commit();
             return true;

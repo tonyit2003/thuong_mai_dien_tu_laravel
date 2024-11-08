@@ -76,6 +76,12 @@ Route::get('info' . config('apps.general.suffix'), [FrontendCustomerController::
 Route::post('updateInfo', [FrontendCustomerController::class, 'updateInfo'])->name('customer.updateInfo')->middleware(CustomerAuthenticateMiddleware::class);
 Route::get('address' . config('apps.general.suffix'), [FrontendCustomerController::class, 'address'])->name('customer.address')->middleware(CustomerAuthenticateMiddleware::class);
 Route::post('updateAddress', [FrontendCustomerController::class, 'updateAddress'])->name('customer.updateAddress')->middleware(CustomerAuthenticateMiddleware::class);
+Route::get('changePassword' . config('apps.general.suffix'), [FrontendCustomerController::class, 'changePassword'])->name('customer.changePassword')->middleware(CustomerAuthenticateMiddleware::class);
+Route::get('sendChangePassword', [FrontendCustomerController::class, 'sendChangePassword'])->name('customer.sendChangePassword');
+
+
+Route::get('change', [FrontendCustomerController::class, 'change'])->name('customer.change');
+Route::post('updateChangePassword', [FrontendCustomerController::class, 'updateChangePassword'])->name('customer.updateChangePassword')->middleware(CustomerAuthenticateMiddleware::class);
 
 // Route cho RouterController
 Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
@@ -170,7 +176,6 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
         Route::get('{id}/detail', [OrderController::class, 'detail'])->name('order.detail')->where(['id' => '[0-9]+']);
     });
-
 
     // POST
     Route::group(['prefix' => 'post'], function () {
