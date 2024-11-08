@@ -4159,3 +4159,7 @@ a.ui-button:active,
 .mb30 {
     margin-bottom: 30px;
 }
+
+.login-google .uk-flex {
+    justify-content: space-around;
+}

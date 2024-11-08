@@ -66,7 +66,7 @@
 
                         <div class="login-google uk-flex uk-flex-middle">
                             <span>{{ __('info.login_with') }}: </span>
-                            <a class="uk-flex uk-flex-middle uk-flex-space-between" href="{{ route('auth.google') }}">
+                            <a class="uk-flex uk-flex-middle uk-flex-space-around" href="{{ route('auth.google') }}">
                                 <img src="{{ asset('frontend/img/google.png') }}" alt="">
                                 <span>Google</span>
                             </a>

@@ -174,8 +174,6 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         }
     }
 
-
-
     private function convertBirthdayDate($birthday = '')
     {
         if ($birthday == null) return null;

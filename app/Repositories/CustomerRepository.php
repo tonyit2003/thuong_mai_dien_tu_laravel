@@ -69,4 +69,9 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
 
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }
+
+    public function checkEmailExists($gmail)
+    {
+        return $this->model->where('email', $gmail)->whereNull('google_id')->exists();
+    }
 }

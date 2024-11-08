@@ -72,7 +72,7 @@
 <body>
     <div class="container">
         <div class="error-img">
-            <a href="http://tcshop.id.vn/dashboard/index"><img src="backend/img/403.png" alt="404 Error"></a>
+            <a href="{{ route('home.index') }}"><img src="backend/img/403.png" alt="404 Error"></a>
         </div>
         <div class="error-content">
             <h3>Mã lỗi 403 - Truy cập bị từ chối!</h3>
