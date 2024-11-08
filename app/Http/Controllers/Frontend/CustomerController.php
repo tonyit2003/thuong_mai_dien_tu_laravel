@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Requests\UpdateChangePasswordRequest;
 use App\Repositories\CustomerRepository;
 use App\Repositories\ProvinceRepository;
 use App\Services\CustomerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
+use Jenssegers\Agent\Agent;
 
 class CustomerController extends FrontendController
 {
@@ -74,6 +76,80 @@ class CustomerController extends FrontendController
     {
         $id = Auth::guard('customers')->user()->id;
         if ($this->customerService->updateAddress($id, $storeCustomerRequest)) {
+            flash()->success(__('toast.store_success'));
+            return redirect()->route('customer.address');
+        }
+        flash()->error(__('toast.store_failed'));
+        return redirect()->route('customer.address');
+    }
+
+    public function changePassword()
+    {
+        $id = Auth::guard('customers')->user()->id;
+        $language = $this->language;
+        $system = $this->system;
+        $provinces = $this->provinceRepository->all();
+        $seo = [
+            'meta_title' => $system['seo_meta_title'],
+            'meta_keyword' => $system['seo_meta_keyword'],
+            'meta_description' => $system['seo_meta_description'],
+            'meta_image' => $system['seo_meta_image'],
+            'canonical' => config('app.url')
+        ];
+        $customer = $this->customerRepository->findById($id);
+        $config = $this->config();
+        return view('frontend.customer.changePassword', compact('config', 'language', 'system', 'seo', 'customer', 'provinces'));
+    }
+
+    public function sendChangePassword(Request $request)
+    {
+        $user = Auth::guard('customers')->user();
+        $system = $this->system;
+
+        // Lấy địa chỉ IP của người dùng
+        $ipAddress = $request->ip();
+
+        // Lấy tên máy tính (hostname) dựa trên địa chỉ IP
+        $hostname = gethostbyaddr($ipAddress); // Tên máy tính
+
+        // Lấy thông tin thiết bị và trình duyệt
+        $agent = new Agent();
+        $browser = $agent->browser(); // Tên trình duyệt
+        $platform = $agent->platform(); // Hệ điều hành
+        $device = $agent->isDesktop() ? 'Desktop' : $agent->device(); // Loại thiết bị
+
+        // Thời gian hiện tại
+        $currentTime = now()->toDateTimeString();
+
+        // Gửi mail
+        $this->customerService->mail($user, $system, $hostname, $ipAddress, $browser, $platform, $device, $currentTime);
+
+        // Truyền dữ liệu vào view (nếu cần hiển thị trước khi gửi mail)
+        return view('mail.sendChangePassword', compact('user', 'system', 'hostname', 'ipAddress', 'browser', 'platform', 'device', 'currentTime'));
+    }
+
+    public function change()
+    {
+        $id = Auth::guard('customers')->user()->id;
+        $language = $this->language;
+        $system = $this->system;
+        $provinces = $this->provinceRepository->all();
+        $seo = [
+            'meta_title' => $system['seo_meta_title'],
+            'meta_keyword' => $system['seo_meta_keyword'],
+            'meta_description' => $system['seo_meta_description'],
+            'meta_image' => $system['seo_meta_image'],
+            'canonical' => config('app.url')
+        ];
+        $customer = $this->customerRepository->findById($id);
+        $config = $this->config();
+        return view('frontend.customer.change', compact('config', 'language', 'system', 'seo', 'customer', 'provinces'));
+    }
+
+    public function updateChangePassword(UpdateChangePasswordRequest $storeCustomerRequest)
+    {
+        $id = Auth::guard('customers')->user()->id;
+        if ($this->customerService->changePass($id, $storeCustomerRequest)) {
             flash()->success(__('toast.store_success'));
             return redirect()->route('customer.address');
         }
