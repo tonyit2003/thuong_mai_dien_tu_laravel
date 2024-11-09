@@ -27,7 +27,6 @@
                     if (res.code === 10) {
                         toastr.success(res.messages, "SUCCESS");
                         modal.hide();
-                        location.reload();
                     } else if (res.code == 11) {
                         toastr.error(res.messages, "ERROR");
                     } else if (res.code == 12) {

@@ -27,7 +27,7 @@ return [
     'order_success'                         => 'Đặt hàng thành công',
     'order_fail'                            => 'Đặt hàng thất bại',
     'must_confirm_order'                    => 'Bạn phải xác nhận đơn hàng trước khi thực hiện cập nhật này',
-    'review_success'                        => 'Đánh giá sản phẩm thành công',
+    'review_success'                        => ':brand đã nhận được phản hồi của bạn',
     'review_fail'                           => 'Đánh giá sản phẩm thất bại',
     'not_purchased_product'                 => 'Bạn chưa mua sản phẩm. Vui lòng mua sản phẩm để đánh giá',
     'email_registered'                      => 'Email đã được đăng ký tài khoản. Vui lòng chọn tài khoản Google khác!',

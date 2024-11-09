@@ -60,7 +60,7 @@
                     <div class="login-google">
                         <div class="line-through is-flex is-align-items-center">
                             <hr>
-                            <p>hoặc</p>
+                            <p>{{ __('info.or') }}</p>
                             <hr>
                         </div>
 

@@ -26,10 +26,10 @@
                 {{ __('table.status') }}
             </th>
             <th class="text-center">
-                {{ __('table.pay') }}
+                {{ __('table.delivery') }}
             </th>
             <th class="text-center">
-                {{ __('table.delivery') }}
+                {{ __('table.pay') }}
             </th>
             <th class="text-center">
                 {{ __('table.method') }}
@@ -78,7 +78,7 @@
                             ? __('statusOrder.confirm')[$order->confirm]
                             : '<span class="cancel-badge">' . __('statusOrder.confirm')[$order->confirm] . '</span>' !!}
                     </td>
-                    @foreach (__('statusOrder') as $keyItem => $item)
+                    {{-- @foreach (__('statusOrder') as $keyItem => $item)
                         @if ($keyItem == 'confirm')
                             @continue
                         @endif
@@ -101,13 +101,13 @@
                             <input type="hidden" class="confirm" value="{{ $order->confirm }}">
                             <input type="hidden" class="changeOrderStatus" value="{{ $order->{$keyItem} }}">
                         </td>
-                    @endforeach
-                    {{-- <td class="text-center">
+                    @endforeach --}}
+                    <td class="text-center">
                         {{ __('statusOrder.delivery')[$order->delivery] }}
                     </td>
                     <td class="text-center">
                         {{ __('statusOrder.payment')[$order->payment] }}
-                    </td> --}}
+                    </td>
                     <td class="text-center">
                         <img style="max-width: 54px;"
                             title="{{ array_column(__('payment.method'), 'title', 'name')[$order->method] ?? '-' }}"

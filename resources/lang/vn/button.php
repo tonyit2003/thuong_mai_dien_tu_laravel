@@ -40,4 +40,5 @@ return [
     'complete'                      => 'Hoàn tất',
     'login'                         => 'Đăng nhập',
     'register'                      => 'Đăng ký',
+    'delete_review'                 => 'Xóa đánh giá',
 ];

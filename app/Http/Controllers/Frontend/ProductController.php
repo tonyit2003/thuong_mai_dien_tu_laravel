@@ -54,7 +54,10 @@ class ProductController extends FrontendController
         $productVariant = $this->productVariantService->combineProductVariantAndPromotion([$variantUuid], $productVariant, true);
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($product->product_catalogue_id, $language);
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $language);
-        $reviews = $this->reviewRepository->findByCondition([['variant_uuid', '=', $variantUuid]], true);
+        $reviews = $this->reviewRepository->findByCondition([
+            ['variant_uuid', '=', $variantUuid],
+            config('apps.general.publish')
+        ], true);
         $reviews = $this->reviewService->setCustomerInformation($reviews);
         $config = $this->config();
         $system = $this->system;

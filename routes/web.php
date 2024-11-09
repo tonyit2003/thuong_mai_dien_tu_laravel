@@ -33,6 +33,7 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PromotionController;
 use App\Http\Controllers\Backend\ProductReceiptController;
+use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Backend\SlideController;
 use App\Http\Controllers\Backend\SourceController;
 use App\Http\Controllers\Backend\SupplierController;
@@ -298,6 +299,13 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('store', [SystemController::class, 'store'])->name('system.store');
         Route::get('{languageId}/translate', [SystemController::class, 'translate'])->name('system.translate')->where(['languageId' => '[0-9]+']);
         Route::post('{languageId}/saveTranslate', [SystemController::class, 'saveTranslate'])->name('system.save.translate')->where(['languageId' => '[0-9]+']);
+    });
+
+    // REVIEW
+    Route::group(['prefix' => 'review'], function () {
+        Route::get('index', [ReviewController::class, 'index'])->name('review.index');
+        Route::get('{id}/delete', [ReviewController::class, 'delete'])->name('review.delete')->where(['id' => '[0-9]+']);
+        Route::post('{id}/destroy', [ReviewController::class, 'destroy'])->name('review.destroy')->where(['id' => '[0-9]+']);
     });
 
     // PRODUCT CATALOGUE

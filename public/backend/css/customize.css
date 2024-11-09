@@ -1297,4 +1297,21 @@ div .edit {
 .updateBadge {
     cursor: pointer;
 }
+
+.review-star {
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.review-star .fa {
+    margin-right: 3px;
+}
+
+.review-star .fa-star {
+    color: #efb140;
+}
+
+.review-star .fa-star-dark {
+    color: rgba(145, 158, 171, 0.522) !important;
+}
 /* end */

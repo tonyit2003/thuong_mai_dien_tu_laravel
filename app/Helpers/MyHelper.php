@@ -527,7 +527,6 @@ if (!function_exists('moMoConfig')) {
             "secretKey" => "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa",
             "returnUrl" => write_url('return/momo', true, true),
             "notifyurl" => write_url('return/momo_ipn', true, true),
-            "secretKey" => 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa',
         ];
     }
 }

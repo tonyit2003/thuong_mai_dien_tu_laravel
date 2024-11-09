@@ -84,4 +84,13 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $query->orderBy('id', 'DESC');
         return $query->paginate(10);
     }
+
+    public function getProductByVariant($variant_uuid, $language)
+    {
+        return $this->model->whereHas('product_variants', function ($query) use ($variant_uuid) {
+            $query->where('uuid', $variant_uuid);
+        })->with('languages', function ($query) use ($language) {
+            $query->where('language_id', $language);
+        })->first();
+    }
 }

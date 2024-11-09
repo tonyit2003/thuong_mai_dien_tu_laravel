@@ -285,4 +285,5 @@ return [
     'confirm_warranty'                  => 'Xác nhận bảo hành sản phẩm',
     'enter_note'                        => 'Nhập ghi chú',
     'confirm_repair'                    => 'Xác nhận sửa chữa sản phẩm',
+    'star_score'                        => 'Điểm đánh giá',
 ];
