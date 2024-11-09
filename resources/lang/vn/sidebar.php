@@ -97,6 +97,17 @@ return [
             ]
         ],
         [
+            'title' => 'Đánh giá',
+            'icon' => 'fa fa-star',
+            'name' => ['review'],
+            'subModule' => [
+                [
+                    'title' => 'Đánh giá',
+                    'route' => 'review.index'
+                ],
+            ]
+        ],
+        [
             'title' => 'Nhập kho',
             'icon' => 'fa fa-edit',
             'name' => ['receipt'],

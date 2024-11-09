@@ -92,4 +92,5 @@ return [
     'notification'                  => 'Thông báo',
     'anonymous_customer'            => 'Khách hàng ẩn danh',
     'day'                           => 'Ngày',
+    'or'                            => 'hoặc',
 ];

@@ -92,4 +92,8 @@ return [
     'active'                            => 'Đang sửa chữa',
     'pending'                           => 'Đang chờ',
     'completed'                         => 'Hoàn thành',
+    'content'                           => 'Nội dung',
+    'star_score'                        => 'Điểm đánh giá',
+    'object'                            => 'Đối tượng',
+    'click_to_object'                   => 'Click để xem đối tượng',
 ];

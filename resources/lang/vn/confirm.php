@@ -42,4 +42,6 @@ return [
     'delete_promotion_name'             => 'Bạn đang muốn xóa khuyến mãi có tên là: <span class="text-danger">:name</span>?',
     'delete_supplier'                   => 'Xác nhận xóa nhà cung cấp',
     'delete_supplier_email'             => 'Bạn đang muốn xóa nhà cung cấp có email là: <span class="text-danger">:email</span>?',
+    'delete_review'                     => 'Xác nhận xóa đánh giá',
+    'delete_review_email'               => 'Bạn đang muốn xóa đánh giá?',
 ];

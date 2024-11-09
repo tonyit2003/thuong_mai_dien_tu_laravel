@@ -26,7 +26,7 @@ class ReviewController extends FrontendController
         }
         $flag = $this->reviewService->create($request);
         return response()->json([
-            'messages' => $flag ? __('toast.review_success') : __('toast.review_fail'),
+            'messages' => $flag ? __('toast.review_success', ['brand' => $this->system['homepage_brand']]) : __('toast.review_fail'),
             'code' => $flag ? 10 : 11
         ]);
     }
