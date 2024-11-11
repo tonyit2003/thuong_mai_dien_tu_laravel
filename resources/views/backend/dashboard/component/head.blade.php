@@ -8,10 +8,12 @@
 
     // Lặp qua các module để tìm tiêu đề
     foreach (__('sidebar.module') as $module) {
-        foreach ($module['subModule'] as $subModule) {
-            if ($subModule['route'] === $currentRoute) {
-                $pageTitle = $subModule['title']; // Gán tiêu đề từ subModule nếu route khớp
-                break 2; // Thoát khỏi cả 2 vòng lặp
+        if (isset($module['subModule'])) {
+            foreach ($module['subModule'] as $subModule) {
+                if ($subModule['route'] === $currentRoute) {
+                    $pageTitle = $subModule['title']; // Gán tiêu đề từ subModule nếu route khớp
+                    break 2; // Thoát khỏi cả 2 vòng lặp
+                }
             }
         }
     }

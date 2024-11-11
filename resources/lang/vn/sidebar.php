@@ -3,6 +3,13 @@
 return [
     'module' => [
         [
+            'title' => 'Dashboard',
+            'icon' => 'fa fa-database',
+            'name' => ['dashboard'],
+            'route' => 'dashboard/index',
+            'class' => 'special',
+        ],
+        [
             'title' => 'Sản phẩm',
             'icon' => 'fa fa-cube',
             'name' => ['product', 'attribute'],

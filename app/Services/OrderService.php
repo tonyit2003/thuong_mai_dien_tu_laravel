@@ -9,6 +9,7 @@ use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
 use App\Services\Interfaces\OrderServiceInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -170,6 +171,64 @@ class OrderService implements OrderServiceInterface
         // $orderId = $latestOrder ? $latestOrder->id : 0;
         // return Auth::guard('customers')->id() . '-' . (OrderEnum::ORDER_CODE + $orderId) + 1;
         return time();
+    }
+
+    public function statistic()
+    {
+        $month = now()->month;
+        $year = now()->year;
+        $previousMonth = ($month == 1) ? 12 : $month - 1;
+        $previousYear = ($month == 1) ? $year - 1 : $year;
+        $orderCurrentMonth = $this->orderRepository->getOrderByTime($month, $year);
+        $orderPreviousMonth = $this->orderRepository->getOrderByTime($previousMonth, $previousYear);
+        return [
+            'orderCurrentMonth' => $orderCurrentMonth ?? 0,
+            'orderPreviousMonth' => $orderPreviousMonth ?? 0,
+            'growth' => growth($orderCurrentMonth, $orderPreviousMonth),
+            'totalOrders' => $this->orderRepository->getTotalOrders() ?? 0,
+            'cancelOrders' => $this->orderRepository->getCancelOrders() ?? 0,
+            'revenueOrders' => $this->orderRepository->getRevenueOrders() ?? 0,
+            'revenueChart' => convertRevenueChartData($this->orderRepository->getRevenueByYear($year), __('dashboard.month'), 'monthly_revenue', 'month'),
+        ];
+    }
+
+    public function getOrderChart($request)
+    {
+        $type = $request->input('charType');
+        switch ($type) {
+            case 1: {
+                    $year = now()->year;
+                    $response = convertRevenueChartData($this->orderRepository->getRevenueByYear($year), __('dashboard.month'), 'monthly_revenue', 'month');
+                    break;
+                }
+            case 7: {
+                    $response = convertRevenueChartData($this->orderRepository->revenue7Day(), __('dashboard.day'), 'daily_revenue', 'date');
+                    break;
+                }
+            case 30: {
+                    $currentMonth = now()->month;
+                    $currentYear = now()->year;
+                    $daysInMonth = Carbon::createFromDate($currentYear, $currentMonth, 1)->daysInMonth;
+                    $allDays = range(1, $daysInMonth);
+                    $temp = $this->orderRepository->revenueCurrentMonth($currentMonth, $currentYear);
+                    $label = [];
+                    $data = [];
+                    $temp2 = array_map(function ($day) use ($temp, &$label, &$data) {
+                        // lấy phần tử đầu tiên trong $temp mà thỏa mãn điều kiện $record['day'] == $day.
+                        $found = collect($temp)->first(function ($record) use ($day) {
+                            return $record['day'] == $day;
+                        });
+                        $label[] = __('dashboard.day') . ' ' . $day;
+                        $data[] = isset($found) ? $found['daily_revenue'] : 0;
+                    }, $allDays);
+                    $response = [
+                        'label' => $label,
+                        'data' => $data
+                    ];
+                    break;
+                }
+        }
+        return $response;
     }
 
     private function request($cartPromotion, $totalPrice, $totalPriceOriginal, $orderCode)

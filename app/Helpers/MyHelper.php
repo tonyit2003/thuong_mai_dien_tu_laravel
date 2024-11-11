@@ -603,3 +603,45 @@ if (!function_exists('generateStar')) {
         return $output;
     }
 }
+
+if (!function_exists('growth')) {
+    function growth($currentValue, $previousValue)
+    {
+        $division = $previousValue == 0 ? 1 : $previousValue;
+        return number_format(($currentValue - $previousValue) / $division * 100, 1, ',', '.');
+    }
+}
+
+if (!function_exists('growthHtml')) {
+    function growthHtml($growth)
+    {
+        if ($growth >= 0) {
+            return '<div class="stat-percent font-bold text-success">' . $growth . '% <i class="fa  fa-level-up"></i></div>';
+        } else {
+            return '<div class="stat-percent font-bold text-danger">' . $growth . '% <i class="fa  fa-level-down"></i></div>';
+        }
+    }
+}
+
+if (!function_exists('getCurrency')) {
+    function getCurrency()
+    {
+        $locale = app()->getLocale();
+        $currency = determineCurrency($locale);
+        return $currency;
+    }
+}
+
+if (!function_exists('convertRevenueChartData')) {
+    function convertRevenueChartData($chartData, $text, $data = 'monthly_revenue', $label = 'month')
+    {
+        $newArray = [];
+        if (isset($chartData) && count($chartData)) {
+            foreach ($chartData as $key => $val) {
+                $newArray['data'][] = $val->{$data};
+                $newArray['label'][] = $text . ' ' . $val->{$label};
+            }
+        }
+        return $newArray;
+    }
+}

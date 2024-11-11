@@ -44,4 +44,10 @@ class OrderController extends Controller
             'order' => $order,
         ]);
     }
+
+    public function chart(Request $request)
+    {
+        $chart = $this->orderService->getOrderChart($request);
+        return response()->json($chart);
+    }
 }

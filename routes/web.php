@@ -408,6 +408,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::get('ajax/product/loadProductPromotion', [AjaxProductController::class, 'loadProductPromotion'])->name('ajax.loadProductPromotion');
     Route::get('ajax/source/getAllSource', [AjaxSourceController::class, 'getAllSource'])->name('ajax.getAllSource');
     Route::post('ajax/order/update', [AjaxOrderController::class, 'update'])->name('ajax.update');
+    Route::get('ajax/order/chart', [AjaxOrderController::class, 'chart'])->name('ajax.chart');
 });
 
 // LOGIN - LOGOUT DASHBOARD (admin)

@@ -209,6 +209,17 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         }
     }
 
+    public function statistic()
+    {
+        $month = now()->month;
+        $year = now()->year;
+        $customerCurrentMonth = $this->customerRepository->getCustomerByTime($month, $year);
+        return [
+            'totalCustomer' => $this->customerRepository->totalCustomer() ?? 0,
+            'customerCurrentMonth' => $customerCurrentMonth ?? 0,
+        ];
+    }
+
     private function convertBirthdayDate($birthday = '')
     {
         if ($birthday == null) return null;

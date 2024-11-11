@@ -74,4 +74,14 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     {
         return $this->model->where('email', $gmail)->whereNull('google_id')->exists();
     }
+
+    public function totalCustomer()
+    {
+        return $this->model->count();
+    }
+
+    public function getCustomerByTime($month, $year)
+    {
+        return $this->model->whereMonth('created_at', $month)->whereYear('created_at', $year)->count();
+    }
 }
