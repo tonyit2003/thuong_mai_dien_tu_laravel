@@ -41,6 +41,7 @@
         // 'frontend/resources/library/js/jquery.js',
         'frontend/core/plugins/jquery-nice-select-1.1.0/css/nice-select.css',
         'frontend/resources/style.css',
+        'backend\plugins\jquery-ui.css',
     ];
     if (isset($config['css'])) {
         foreach ($config['css'] as $val) {

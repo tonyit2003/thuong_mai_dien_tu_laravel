@@ -55,6 +55,7 @@ class ProductController extends Controller
 
         return response()->json(['data' => $formattedDetails]);
     }
+
     public function getProductCatalogueBySupplierId($id)
     {
         $languageId = $this->language;

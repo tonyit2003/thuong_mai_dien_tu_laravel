@@ -93,4 +93,5 @@ return [
     'anonymous_customer'            => 'Khách hàng ẩn danh',
     'day'                           => 'Ngày',
     'or'                            => 'hoặc',
+    'no_reuslt'                     => 'Không có kết quả nào phù hợp',
 ];

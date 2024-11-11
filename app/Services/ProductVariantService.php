@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Repositories\ProductCatalogueRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
 use App\Repositories\PromotionRepository;
+use App\Repositories\ReviewRepository;
 use App\Services\Interfaces\ProductVariantServiceInterface;
 use Illuminate\Pagination\Paginator;
 
@@ -17,12 +19,16 @@ class ProductVariantService extends BaseService implements ProductVariantService
     protected $productVariantRepository;
     protected $productCatalogueRepository;
     protected $promotionRepository;
+    protected $reviewRepository;
+    protected $productRepository;
 
-    public function __construct(ProductVariantRepository $productVariantRepository, PromotionRepository $promotionRepository, ProductCatalogueRepository $productCatalogueRepository)
+    public function __construct(ProductVariantRepository $productVariantRepository, PromotionRepository $promotionRepository, ProductCatalogueRepository $productCatalogueRepository, ReviewRepository $reviewRepository, ProductRepository $productRepository)
     {
         $this->productVariantRepository = $productVariantRepository;
         $this->promotionRepository = $promotionRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->reviewRepository = $reviewRepository;
+        $this->productRepository = $productRepository;
     }
 
     public function paginate($request, $languageId, $productCatalogue = null, $extend = [], $page = 1)
@@ -90,6 +96,168 @@ class ProductVariantService extends BaseService implements ProductVariantService
                 $val->product_catalogue = $productCatalogue;
             }
         }
+    }
+
+    public function getReview($productVariants)
+    {
+        if (isset($productVariants) && count($productVariants)) {
+            foreach ($productVariants as $productVariant) {
+                $reviews = $this->reviewRepository->findByCondition([
+                    ['variant_uuid', '=', $productVariant->uuid],
+                    config('apps.general.publish')
+                ], true);
+                if (isset($reviews) && count($reviews)) {
+                    $productVariant->reviews = $reviews;
+                }
+            }
+        }
+        return $productVariants;
+    }
+
+    public function setInformationFilter($productVariants, $language)
+    {
+        if (isset($productVariants) && count($productVariants)) {
+            foreach ($productVariants as $item) {
+                $uuid = $item->uuid;
+                $product = $this->productRepository->getProductByVariant($uuid, $language);
+                $productVariant = $this->productVariantRepository->findByCondition([
+                    ['uuid', '=', $uuid]
+                ], false, ['languages' => function ($query) use ($language) {
+                    $query->where('language_id', $language);
+                }]);
+                $productCatalogue = $this->productCatalogueRepository->findById($product->product_catalogue_id, ['*'], ['languages' => function ($query) use ($language) {
+                    $query->where('language_id', $language);
+                }]);
+                $item->name = $product->languages->first()->pivot->name . ' - ' . $productVariant->languages->first()->pivot->name;
+                $item->canonical = write_url($product->languages->first()->pivot->canonical, true, false) . '/uuid=' . $uuid . config('apps.general.suffix');
+                $item->image = isset($productVariant->album) ? image(explode(',', $productVariant->album)[0]) : 'backend/img/no-photo.png';
+                $item->catName = $productCatalogue->languages->first()->pivot->name;
+            }
+        }
+        return $productVariants;
+    }
+
+    public function filter($request)
+    {
+        $perpage = $request->input('perpage') ?? 20;
+        $path = 'ajax/product/filter';
+        $param['priceQuery'] = $this->priceQuery($request);
+        $param['attributeQuery'] = $this->attributeQuery($request);
+        $param['productCatalogueQuery'] = $this->productCatalogueQuery($request);
+        $query = $this->combineFilterQuery($param);
+        $productVariants = $this->productVariantRepository->filter($query, $perpage, $path);
+        return $productVariants;
+    }
+
+    private function combineFilterQuery($param)
+    {
+        $query = [];
+        foreach ($param as $array) {
+            foreach ($array as $key => $val) {
+                if (!isset($query[$key])) {
+                    $query[$key] = [];
+                }
+                if (is_array($val)) {
+                    $query[$key] = array_merge($query[$key], $val);
+                } else {
+                    $query[$key][] = $val;
+                }
+            }
+        }
+        return $query;
+    }
+
+    private function productCatalogueQuery($request)
+    {
+        $productCatalogueId = $request->input('productCatalogueId');
+        $query['join'] = null;
+        $query['whereRaw'] = null;
+        $query['select'] = null;
+        if ($productCatalogueId > 0) {
+            // $query['select'] = ['products.name'];
+            $query['join'] = [
+                ['products', 'products.id', '=', 'product_variants.product_id'],
+                ['product_catalogue_product', 'products.id', '=', 'product_catalogue_product.product_id'],
+            ];
+            $query['whereRaw'] = [
+                [
+                    'product_catalogue_product.product_catalogue_id IN (
+                        SELECT id
+                        FROM product_catalogues
+                        WHERE lft >= (SELECT lft FROM product_catalogues WHERE product_catalogues.id = ?)
+                        AND rgt <= (SELECT rgt FROM product_catalogues WHERE product_catalogues.id = ?)
+                    )',
+                    [$productCatalogueId, $productCatalogueId]
+                ]
+            ];
+        }
+        return $query;
+    }
+
+    private function attributeQuery($request)
+    {
+        $attributes = $request->input('attributes');
+        $query['join'] = null;
+        $query['where'] = null;
+
+        if (isset($attributes) && count($attributes)) {
+            foreach ($attributes as $key => $attribute) {
+                $joinKey = 'tb' . $key;
+                $query['join'][] = [
+                    "product_variant_attribute as $joinKey",
+                    "$joinKey.product_variant_id",
+                    '=',
+                    'product_variants.id'
+                ];
+                $query['where'][] = function ($query) use ($joinKey, $attribute) {
+                    foreach ($attribute as $attr) {
+                        $query->orWhere("$joinKey.attribute_id", '=', $attr);
+                    }
+                };
+            }
+        }
+        return $query;
+    }
+
+    private function priceQuery($request)
+    {
+        $price = $request->input('price');
+        $priceMin = convert_price($price['price_min']);
+        $priceMax = convert_price($price['price_max']);
+        $query['having'] = null;
+        $query['join'] = null;
+        $query['select'] = null;
+
+        if ($priceMax > $priceMin) {
+            $query['join']  = [
+                ['promotion_product_variant', 'promotion_product_variant.variant_uuid', '=', 'product_variants.uuid'],
+                ['promotions', 'promotion_product_variant.promotion_id', '=', 'promotions.id'],
+            ];
+            $query['select'] = "
+                (product_variants.price - MAX(
+                IF(
+                    promotions.maxDiscountValue != 0,
+                    LEAST (
+                        CASE
+                            WHEN discountType = 'cash' THEN discountValue
+                            WHEN discountType = 'percent' THEN product_variants.price * discountValue / 100
+                            ELSE 0
+                        END,
+                        promotions.maxDiscountValue
+                    ),
+                    CASE
+                        WHEN discountType = 'cash' THEN discountValue
+                        WHEN discountType = 'percent' THEN product_variants.price * discountValue / 100
+                        ELSE 0
+                    END
+                )
+            )) as discounted_price
+            ";
+            $query['having'] = function ($query) use ($priceMin, $priceMax) {
+                $query->havingRaw('discounted_price >= ? AND discounted_price <= ?', [$priceMin, $priceMax]);
+            };
+        }
+        return $query;
     }
 
     private function whereRaw($request, $languageId, $productCatalogue = null)

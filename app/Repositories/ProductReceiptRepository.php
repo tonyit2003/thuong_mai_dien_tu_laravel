@@ -32,7 +32,7 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
 
             // Lọc theo ngày tạo
             if (isset($condition['date_approved']) && !empty($condition['date_approved'])) {
-                // Chuyển đổi chuỗi ngày thành đối tượng Carbon 
+                // Chuyển đổi chuỗi ngày thành đối tượng Carbon
                 $dateCreated = Carbon::createFromFormat('d/m/Y H:i', $condition['date_approved']);
 
                 // Xác định ngày bắt đầu và ngày kết thúc của tháng

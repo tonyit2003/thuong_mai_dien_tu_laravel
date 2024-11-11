@@ -59,6 +59,7 @@ class ReviewService extends BaseService implements ReviewServiceInterface
                 $payload = [
                     'content' => $content,
                     'score' => $score,
+                    'publish' => 0,
                 ];
                 $this->reviewRepository->update($existingReview->id, $payload);
             } else {
@@ -67,6 +68,7 @@ class ReviewService extends BaseService implements ReviewServiceInterface
                     'variant_uuid' => $variant_uuid,
                     'content' => $content,
                     'score' => $score,
+                    'publish' => 0,
                 ];
                 $this->reviewRepository->create($payload);
             }

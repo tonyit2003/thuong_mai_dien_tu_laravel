@@ -37,6 +37,7 @@ class ProductCatalogueController extends FrontendController
             $productVariants = $this->productVariantService->combineProductVariantAndPromotion($productVariantUuids, $productVariants);
         }
         $this->productVariantService->getCatalogueName($productVariants, $this->language);
+        $productVariants = $this->productVariantService->getReview($productVariants);
         $seo = seo($productCatalogue, $page);
         return view('frontend.product.catalogue.index', compact('config', 'language', 'seo', 'system', 'productCatalogue', 'breadcrumb', 'productVariants', 'filters'));
     }
@@ -52,6 +53,10 @@ class ProductCatalogueController extends FrontendController
 
     private function config()
     {
-        return [];
+        return [
+            'js' => [
+                'frontend/core/library/filter.js',
+            ]
+        ];
     }
 }

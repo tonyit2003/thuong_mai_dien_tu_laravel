@@ -20,9 +20,9 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="uk-flex uk-flex-center">
-                        @include('frontend.component.pagination', ['model' => $productVariants])
+                        <div class="uk-flex uk-flex-center">
+                            @include('frontend.component.pagination', ['model' => $productVariants])
+                        </div>
                     </div>
                 @endif
             </div>

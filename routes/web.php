@@ -7,6 +7,7 @@ use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
 use App\Http\Controllers\Ajax\OrderController as AjaxOrderController;
 use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
+use App\Http\Controllers\Ajax\ProductVariantController as AjaxProductVariantController;
 use App\Http\Controllers\Ajax\ReviewController as AjaxReviewController;
 use App\Http\Controllers\Ajax\SourceController as AjaxSourceController;
 use App\Http\Controllers\Backend\AuthController;
@@ -105,6 +106,7 @@ Route::get('paypal/cancel' . config('apps.general.suffix'), [PaypalController::c
 // AJAX
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
 Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
+Route::get('ajax/product/filter', [AjaxProductVariantController::class, 'filter'])->name('ajax.filter');
 
 /* BACKEND ROUTES */
 

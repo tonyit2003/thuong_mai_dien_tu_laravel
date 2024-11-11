@@ -65,4 +65,51 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
             })
             ->first();
     }
+
+    public function filter($param, $perPage, $path)
+    {
+        $query = $this->model->newQuery();
+        $query->select(['product_variants.uuid', 'product_variants.price']);
+
+        if (isset($param['select']) && count($param['select'])) {
+            foreach ($param['select'] as $key => $val) {
+                if (is_null($val)) continue;
+                $query->selectRaw($val);
+            }
+        }
+
+        if (isset($param['join']) && count($param['join'])) {
+            foreach ($param['join'] as $key => $val) {
+                if (is_null($val)) continue;
+                $query->leftJoin($val[0], $val[1], $val[2], $val[3]);
+            }
+        }
+
+        $query->where('products.publish', '=', 1);
+
+        if (isset($param['where']) && count($param['where'])) {
+            foreach ($param['where'] as $key => $val) {
+                if (is_null($val)) continue;
+                $query->where($val);
+            }
+        }
+
+        if (isset($param['whereRaw']) && count($param['whereRaw'])) {
+            foreach ($param['whereRaw'] as $key => $val) {
+                if (is_null($val)) continue;
+                $query->whereRaw($val[0], $val[1]);
+            }
+        }
+
+        $query->groupBy(['product_variants.uuid', 'product_variants.price']);
+
+        if (isset($param['having']) && count($param['having'])) {
+            foreach ($param['having'] as $key => $val) {
+                if (is_null($val)) continue;
+                $query->having($val);
+            }
+        }
+
+        return $query->paginate($perPage)->withQueryString()->withPath(env('APP_URL') . $path);
+    }
 }
