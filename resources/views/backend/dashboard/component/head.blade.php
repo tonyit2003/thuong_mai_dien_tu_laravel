@@ -47,6 +47,7 @@
 
 <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/customize.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/plugins/modal/jquery.modal.min.css') }}" rel="stylesheet">
 <script src="{{ asset('backend/js/jquery-3.1.1.min.js') }}"></script>
 <script>
     var BASE_URL = "{{ config('app.url') }}"

@@ -11,11 +11,11 @@
                                 <span>{{ __('form.order_detail') }} #{{ $order->code }}</span>
                             </div>
                             <div class="uk-flex uk-flex-middle uk-flex-space-between mb15">
-                                <div> - {{ __('form.status_delivery') }}: </div>
+                                <div> - {{ __('form.status_confirm') }}: </div>
                                 <span class="badge">
                                     <div class="badge__tip"></div>
                                     <div class="badge-text">
-                                        {{ __('statusOrder.delivery')[$order->delivery] }}
+                                        {{ __('statusOrder.confirm')[$order->confirm] }}
                                     </div>
                                 </span>
                             </div>
@@ -37,9 +37,6 @@
                 <div class="ibox-content">
                     <table class="table-order">
                         <tbody>
-                            @php
-                                $check = true;
-                            @endphp
                             @foreach ($orderProducts as $key => $val)
                                 <tr class="order-item">
                                     <td>
@@ -145,17 +142,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cancel-block">
-                            @if ($order->confirm == 'confirm' && $order->delivery != 'pending')
+                        <div class="invoice-block">
+                            @if (($order->delivery == 'processing' || $order->delivery == 'success') && $order->confirm == 'confirm')
                                 <a class="btn btn-success" target="_blank"
                                     href="{{ write_url('invoice/' . $order->code . '.pdf', true, false) }}">{{ __('form.invoice') }}</a>
-                            @else
-                                @if (
-                                    ($order->confirm == 'confirm' && $order->delivery == 'pending') ||
-                                        ($order->confirm == 'pending' && $check == false))
-                                    <a href="#submitCancelOrder" rel="modal:open"
-                                        class="btn btn-danger">{{ __('button.cancel_order') }}</a>
-                                @endif
+                                <a class="btn btn-primary confirm updateField" data-field="delivery"
+                                    data-value="success"
+                                    data-title="{{ __('form.delivery_successful') }}">{{ __('button.delivery_successful') }}</a>
                             @endif
                         </div>
                     </div>
@@ -168,22 +161,17 @@
                             </span>
                             <div class="payment-title">
                                 <div class="text_1">
-                                    {{ __('form.confirm_order') }}
+                                    {{ __('form.confirm_out_of_stock') }}
                                 </div>
                             </div>
                         </div>
-                        <div class="confirm-block">
-                            @if ($order->confirm == 'pending')
-                                @if ($check == true)
-                                    <a class="btn btn-primary confirm updateField" data-field="confirm"
-                                        data-value="confirm"
-                                        data-title="{{ __('form.order_confirmed') }}">{{ __('button.confirm') }}</a>
-                                @else
-                                    <span class="text-danger">{{ __('form.not_qualified_confirm') }}</span>
-                                @endif
+                        <div class="processing-block">
+                            @if ($order->delivery == 'pending' && $order->confirm == 'confirm')
+                                <a class="btn btn-primary confirm updateField" data-field="delivery"
+                                    data-value="processing"
+                                    data-title="{{ __('form.order_processing') }}">{{ __('button.out_of_stock') }}</a>
                             @else
-                                <span class=" {{ $order->confirm == 'confirm' ? 'text-success' : 'text-danger' }}">
-                                    {{ $order->confirm == 'confirm' ? __('form.confirmed') : __('form.canceled') }}</span>
+                                <span class="text-success">{{ __('form.successful_export') }}</span>
                             @endif
                         </div>
                     </div>
@@ -195,7 +183,6 @@
                 <div class="ibox-title">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
                         <span>{{ __('form.note') }}</span>
-                        <div class="edit span edit-order" data-target="description">{{ __('form.edit') }}</div>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -208,7 +195,6 @@
                 <div class="ibox-title">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
                         <span>{{ __('form.customer_information') }}</span>
-                        <div class="edit span edit-order" data-target="customerInfo">{{ __('form.edit') }}</div>
                     </div>
                 </div>
                 <div class="ibox-content order-customer-information">
@@ -251,52 +237,12 @@
     </div>
 </div>
 
-<div id="submitCancelOrder" class="modal">
-    <div class="panel-head text-center mb10">{{ __('info.notification') }}</div>
-    <div class="panel-body payment-confirm">
-        <p class="message-text">{!! __('form.confirm_order_deletion', ['orderCode' => $order->code]) !!}</p>
-        <div class="text-right mt20">
-            <a href="#" class="btn btn-danger updateField" data-field="confirm" data-value="cancel"
-                data-title="{{ __('form.order_canceled') }}">
-                {{ __('button.cancel_order') }}
-            </a>
-            <a href="#" class="btn btn-success" rel="modal:close">{{ __('form.cancel') }}</a>
-        </div>
-    </div>
-</div>
-
 <input type="hidden" class="orderId" value="{{ $order->id }}">
-<input type="hidden" name="" class="ward_id" value="{{ $order->ward_id }}">
-<input type="hidden" name="" class="district_id" value="{{ $order->district_id }}">
-<input type="hidden" name="" class="province_id" value="{{ $order->province_id }}">
 
 <script>
-    var provinces =
-        @json(
-            $provinces->map(function ($item) {
-                    return [
-                        'id' => $item->code,
-                        'name' => $item->name,
-                    ];
-                })->values());
-
-    var attribute =
-        "{{ base64_encode(json_encode(old('attribute', isset($product->attribute) ? json_decode($product->attribute, true) : []))) }}"; // lấy dữ liệu từ các ô input trong div hidden
-    var variant =
-        "{{ base64_encode(json_encode(old('variant', isset($product->variant) ? json_decode($product->variant, true) : []))) }}"
-
-    var fullname = "{{ __('form.name') }}"
-    var phone = "{{ __('form.phone') }}"
-    var email = "{{ __('form.email') }}"
-    var address = "{{ __('form.address') }}"
-    var province = "{{ __('form.province') }}"
-    var district = "{{ __('form.district') }}"
-    var ward = "{{ __('form.ward') }}"
-    var selectProvince = "{{ __('form.select_province') }}"
-    var selectDistrict = "{{ __('form.select_district') }}"
-    var selectWard = "{{ __('form.select_ward') }}"
-    var cancelOrder = "{{ __('button.cancel_order') }}"
-    var orderCanceled = "{{ __('form.order_canceled') }}"
-    var confirmed = "{{ __('form.confirmed') }}"
-    var canceled = "{{ __('form.canceled') }}"
+    var invoiceButton = "{{ __('button.delivery_successful') }}"
+    var successfulExport = "{{ __('form.successful_export') }}"
+    var routeOutOfStock = "{{ route('order.outOfStock') }}"
+    var invoiceTitle = "{{ __('form.invoice') }}"
+    var invoiceUrl = "{{ write_url('invoice/' . $order->code . '.pdf', true, false) }}"
 </script>

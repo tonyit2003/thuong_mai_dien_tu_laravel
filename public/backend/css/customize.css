@@ -1223,6 +1223,7 @@ div.fix-label {
 }
 
 .order-item-voucher {
+    margin-top: 3px;
     font-size: 1.3rem;
 }
 
@@ -1313,5 +1314,18 @@ div .edit {
 
 .review-star .fa-star-dark {
     color: rgba(145, 158, 171, 0.522) !important;
+}
+
+#submitCancelOrder .panel-head {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#submitCancelOrder .message-text {
+    font-size: 1.3rem;
+}
+
+#submitCancelOrder .close-modal {
+    display: none !important;
 }
 /* end */

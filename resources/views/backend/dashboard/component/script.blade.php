@@ -16,6 +16,7 @@
 <script src="{{ asset('backend/library/library.js') }}"></script>
 <script src="{{ asset('backend/js/inspinia.js') }}"></script>
 <script src="{{ asset('backend/js/plugins/pace/pace.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/modal/jquery.modal.min.js') }}"></script>
 
 {{-- <script>
     $(document).ready(function() {

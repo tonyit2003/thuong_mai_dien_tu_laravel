@@ -21,7 +21,7 @@
             <div class="ibox-content">
                 <h1 class="no-margins">{{ number_format($orderStatistic['totalOrders'], null, ',', '.') }}</h1>
                 <div class="stat-percent font-bold text-danger">
-                    {{ number_format(($orderStatistic['cancelOrders'] / $orderStatistic['totalOrders']) * 100, null, ',', '.') }}%
+                    {{ number_format(($orderStatistic['cancelOrders'] / ($orderStatistic['totalOrders'] == 0 ? 1 : $orderStatistic['totalOrders'])) * 100, null, ',', '.') }}%
                     <i class="fa fa-bolt"></i>
                 </div>
                 <small>{{ __('dashboard.cancellation_rate') }}</small>

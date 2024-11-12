@@ -32,7 +32,8 @@ class Order extends Model
         'payment',
         'delivery',
         'shipping',
-        'deleted_at'
+        'deleted_at',
+        'invoice_date',
     ];
 
     protected $table = 'orders';

@@ -44,7 +44,13 @@
                         <input type="checkbox" value="{{ $order->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('order.detail', $order->id) }}">{{ $order->code }}</a>
+                        @php
+                            $link =
+                                isset($config['type']) && $config['type'] == 'index'
+                                    ? route('order.detail', $order->id)
+                                    : route('order.detailOutOfStock', $order->id);
+                        @endphp
+                        <a href="{{ $link }}">{{ $order->code }}</a>
                     </td>
                     <td>
                         {{ convertDatetime($order->created_at, 'H:i d-m-Y') }}
