@@ -286,4 +286,7 @@ return [
     'enter_note'                        => 'Nhập ghi chú',
     'confirm_repair'                    => 'Xác nhận sửa chữa sản phẩm',
     'star_score'                        => 'Điểm đánh giá',
+    'error'                             => 'Lỗi gặp phải',
+    'enter_error'                       => 'Nhập lỗi gặp phải',
+    'date_of_receipt'                   => 'Ngày nhận hàng',
 ];

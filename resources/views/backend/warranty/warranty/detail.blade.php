@@ -15,7 +15,7 @@
     <input type="hidden" value="{{ $order->id }}" name="order_id">
     <div class="order-wrapper">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-10">
                 <div class="ibox">
                     <div class="ibox-title">
                         <div class="uk-flex uk-flex-middle uk-flex-space-between">
@@ -54,6 +54,10 @@
                                     $warrantyVariants = $warranty_card->pluck('variant_uuid')->toArray();
                                     $warrantyStatus = $warranty_card->pluck('status')->toArray();
                                     $warrantyNotes = $warranty_card->pluck('notes')->toArray();
+                                    $warrantyDateOfReceipt = $warranty_card
+                                        ->pluck('date_of_receipt')
+                                        ->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'))
+                                        ->toArray();
                                 @endphp
 
                                 @foreach ($orderProducts as $key => $val)
@@ -72,29 +76,39 @@
                                                 <span class="image img-scaledown">
                                                     <img src="{{ isset($val->image) ? $val->image : 'backend/img/no-photo.png' }}"
                                                         alt="{{ $val->name }}">
-                                                    <!-- Thay đổi kích thước cố định -->
                                                 </span>
                                             </div>
                                         </td>
-                                        <td style="width: 57%;">
+                                        <td style="width: 50%;">
                                             <div class="order-item-name">
                                                 <div style="font-size: 14px">{{ $val->name }}</div>
                                                 <strong style="color: red">{{ __('table.time_warranty') }}:
-                                                    {{ $val->warranty_time > now() ? convertDatetime($val->warranty_time, 'H:i d-m-Y') : 'Hết hạn bảo hành' }}
+                                                    {{ $val->warranty_time > now() ? convertDatetime($val->warranty_time, 'd-m-Y') : 'Hết hạn bảo hành' }}
                                                 </strong>
                                                 <br>
-                                                <span style="color: #000">{{ __('form.note') }} <span class="text-danger">(*)</span></span>
+                                                <span style="color: #000">{{ __('form.error') }} <span class="text-danger">(*)</span></span>
                                                 <input style="color: #000" type="text"
                                                     value="{{ $status == 'active' ? $warrantyNotes[$key] : '' }}" class="form-control" name="notes[]"
-                                                    placeholder="{{ __('form.enter_note') }}"
+                                                    placeholder="{{ __('form.enter_error') }}"
                                                     {{ $val->warranty_time < now() || $status == 'active' ? 'readonly' : '' }}>
                                             </div>
                                         </td>
+
+                                        <td style="width: 7%; vertical-align: top;">
+                                            <span>{{ __('form.date_of_receipt') }} </span><span class="text-danger">(*)</span>
+                                            <br>
+                                            <input type="date" name="date_of_receipt[]" class="form-control"
+                                                {{ isset($warrantyDateOfReceipt[$key]) && $status == 'active' ? 'readonly' : '' }}
+                                                value="{{ isset($warrantyDateOfReceipt[$key]) ? $warrantyDateOfReceipt[$key] : \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                        </td>
+
                                         <td style="width: 10%;">
                                             <div class="order-item-price">
                                                 {{ formatCurrency($val->price) }}
                                             </div>
                                         </td>
+
                                         <td style="width: 2%;">
                                             <div class="order-item-times">
                                                 ✖
@@ -143,21 +157,21 @@
                                 @endforeach
 
                                 <tr>
-                                    <td colspan="6" class="text-right">{{ __('form.provisional_total') }}</td>
+                                    <td colspan="7" class="text-right">{{ __('form.provisional_total') }}</td>
                                     <td class="text-right">{{ formatCurrency($order->totalPriceOriginal) }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-right">{{ __('form.discount_v2') }}</td>
+                                    <td colspan="7" class="text-right">{{ __('form.discount_v2') }}</td>
                                     <td class="text-right" style="color: red">
                                         - {{ formatCurrency($order->promotion['discount'] ?? 0) }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-right">{{ __('form.delivery') }}</td>
+                                    <td colspan="7" class="text-right">{{ __('form.delivery') }}</td>
                                     <td class="text-right">{{ formatCurrency($val->shipping) }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-right"><strong>{{ __('form.final_total') }}</strong></td>
+                                    <td colspan="7" class="text-right"><strong>{{ __('form.final_total') }}</strong></td>
                                     <td class="text-right">
                                         <strong>{{ formatCurrency($order->totalPrice) }}</strong>
                                     </td>
@@ -184,7 +198,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 order-aside">
+            <div class="col-lg-2 order-aside">
                 <div class="ibox">
                     <div class="ibox-title">
                         <div class="uk-flex uk-flex-middle uk-flex-space-between">

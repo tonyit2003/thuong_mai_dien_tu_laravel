@@ -17,9 +17,11 @@ class WarrantyCard extends Model
         'variant_uuid',
         'warranty_start_date',
         'warranty_end_date',
+        'date_of_receipt',
         'status',
         'notes',
         'quantity',
+        'user_id'
     ];
 
     /**
