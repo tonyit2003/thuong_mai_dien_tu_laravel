@@ -47,6 +47,7 @@ class SendChangePassword extends Mailable
                 'platform' => $this->data['platform'],
                 'device' => $this->data['device'],
                 'currentTime' => $this->data['currentTime'],
+                'link' => $this->data['link'],
             ]
         );
     }

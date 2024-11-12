@@ -49,11 +49,11 @@ return [
             'name' => ['warranty'],
             'subModule' => [
                 [
-                    'title' => 'Bảo hành',
+                    'title' => 'Tiếp nhận bảo hành',
                     'route' => 'warranty.index'
                 ],
                 [
-                    'title' => 'Danh sách sản phẩm',
+                    'title' => 'Giao trả sản phẩm',
                     'route' => 'warranty.warrantyRepair'
                 ],
             ]

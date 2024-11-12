@@ -106,9 +106,8 @@
                 <li>Thông báo rằng bạn vừa trúng thưởng</li>
             </ul>
 
-            <p><strong>Nếu bạn đang thực hiện đăng nhập, vui lòng xác nhận <a href="{{ route('customer.change') }}" class="">TẠI
-                        ĐÂY</a></strong> (hiệu lực trong
-                vòng 10 phút).</p>
+            <p><strong>Nếu bạn đang thực hiện đăng nhập, vui lòng xác nhận <a href="{{ $link }}">TẠI ĐÂY</a></strong> (hiệu lực trong vòng 10
+                phút).</p>
 
             <p>Trân trọng,<br>Đội ngũ Hỗ trợ</p>
         </div>

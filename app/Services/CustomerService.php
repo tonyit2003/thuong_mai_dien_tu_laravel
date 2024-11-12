@@ -43,7 +43,7 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         return $this->customerRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, ['path' => 'customer/index']);
     }
 
-    public function mail($user, $system, $hostname, $ipAddress, $browser, $platform, $device, $currentTime)
+    public function mail($user, $system, $hostname, $ipAddress, $browser, $platform, $device, $currentTime, $link)
     {
         $to = $user->email;
         $cc = $system['contact_email'];
@@ -56,6 +56,7 @@ class CustomerService extends BaseService implements CustomerServiceInterface
             'platform' => $platform,
             'device' => $device,
             'currentTime' => $currentTime,
+            'link' => $link
         ];
 
         Mail::to($to)->cc($cc)->send(new SendChangePassword($data));
