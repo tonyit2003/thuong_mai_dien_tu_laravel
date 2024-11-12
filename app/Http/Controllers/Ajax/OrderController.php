@@ -22,13 +22,14 @@ class OrderController extends Controller
             $this->language = $language->id;
             return $next($request);
         });
+        parent::__construct();
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
     }
 
     public function update(Request $request)
     {
-        $flag = $this->orderService->update($request);
+        $flag = $this->orderService->update($request, $this->system, $this->language);
         $order = $this->orderRepository->findById($request->input('id'));
         $order = $this->orderService->setAddress($order);
         if ($flag) {

@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Enums\OrderEnum;
 use App\Models\Order;
 use App\Repositories\CartRepository;
+use App\Repositories\CustomerRepository;
+use App\Repositories\OrderProductRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
@@ -13,6 +15,10 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Invoice;
 
 /**
  * Class AttributeCatalogueService
@@ -25,14 +31,18 @@ class OrderService implements OrderServiceInterface
     protected $productVariantRepository;
     protected $cartRepository;
     protected $cartService;
+    protected $orderProductRepository;
+    protected $customerRepository;
 
-    public function __construct(ProductRepository $productRepository, ProductVariantRepository $productVariantRepository, OrderRepository $orderRepository, CartRepository $cartRepository, CartService $cartService)
+    public function __construct(ProductRepository $productRepository, ProductVariantRepository $productVariantRepository, OrderRepository $orderRepository, CartRepository $cartRepository, CartService $cartService, OrderProductRepository $orderProductRepository, CustomerRepository $customerRepository)
     {
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->orderRepository = $orderRepository;
         $this->cartRepository = $cartRepository;
         $this->cartService = $cartService;
+        $this->orderProductRepository = $orderProductRepository;
+        $this->customerRepository = $customerRepository;
     }
 
     public function paginate($request)
@@ -44,6 +54,15 @@ class OrderService implements OrderServiceInterface
         $condition['created_at'] = $request->input('created_at');
         $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
         return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'order/index']);
+    }
+
+    public function paginateOutOfStock($request)
+    {
+        $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['created_at'] = $request->input('created_at');
+        $condition['dropdown']['confirm'] = 'confirm';
+        $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 20;
+        return $this->orderRepository->paginationOutOfStock($this->paginateSelect(), $condition, [], $perPage, ['path' => 'order/index']);
     }
 
     public function warrantyPaginate($request)
@@ -97,7 +116,7 @@ class OrderService implements OrderServiceInterface
         }
     }
 
-    public function update($request)
+    public function update($request, $system, $language)
     {
         DB::beginTransaction();
         try {
@@ -109,11 +128,20 @@ class OrderService implements OrderServiceInterface
                     return false;
                 }
             }
+            if (isset($payload['delivery']) && $payload['delivery'] == 'processing') {
+                $this->updateStockQuantity($id);
+                $this->createBill($id, $system, $language);
+                $payload['invoice_date'] = Carbon::now();
+            }
+            if (isset($payload['delivery']) && $payload['delivery'] == 'success') {
+                $payload['payment'] = 'paid';
+            }
             $this->orderRepository->update($id, $payload);
             DB::commit();
             return true;
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             return false;
         }
     }
@@ -160,6 +188,7 @@ class OrderService implements OrderServiceInterface
                 $val->name = $product->languages->first()->pivot->name . ' - ' .  $productVariant->languages->first()->pivot->name;
                 $val->warranty_time = $product->warranty_time;
                 $val->image = isset($productVariant->album) ? explode(',', $productVariant->album)[0] : null;
+                $val->quantityInStock = $productVariant->quantity ?? 0;
             }
         }
         return $orderProducts;
@@ -229,6 +258,79 @@ class OrderService implements OrderServiceInterface
                 }
         }
         return $response;
+    }
+
+    private function createBill($orderId, $system, $language)
+    {
+        $client = new Party([
+            'name'          => $system['homepage_brand'] ?? '',
+            'phone'         => $system['contact_phone'] ?? '',
+        ]);
+
+        $order = $this->orderRepository->findById($orderId);
+        $customerInfo = $this->customerRepository->findById($order->customer_id);
+        $customer = new Party([
+            'name'          => $customerInfo->name ?? '',
+            'address'       => getAddress($customerInfo->province_id, $customerInfo->district_id, $customerInfo->ward_id, $customerInfo->address),
+            'code'          => $customerInfo->id,
+        ]);
+
+        $orderProducts = $this->orderProductRepository->findByCondition([
+            ['order_id', '=', $orderId]
+        ], true);
+        $orderProducts = $this->setInformation($orderProducts, $language);
+        if (isset($orderProducts) && count($orderProducts)) {
+            $items = $orderProducts->map(function ($orderProduct) {
+                return InvoiceItem::make($orderProduct->name)
+                    ->pricePerUnit($orderProduct->price)
+                    ->quantity($orderProduct->quantity);
+            });
+        }
+
+        $notes = $order->description ?? '';
+
+        $invoice = Invoice::make('receipt')
+            ->series('TC')
+            ->status(__('statusOrder.payment')[$order->payment])
+            ->sequence($order->id)
+            ->serialNumberFormat('{SEQUENCE}/{SERIES}')
+            ->seller($client)
+            ->buyer($customer)
+            ->date($order->created_at)
+            ->dateFormat('d/m/Y')
+            ->payUntilDays(14)
+            ->currencySymbol(getCurrency() == 'VND' ? '₫' : '')
+            ->currencyCode(getCurrency())
+            ->currencyFormat('{VALUE}{SYMBOL}')
+            ->currencyThousandsSeparator('.')
+            ->currencyDecimalPoint(',')
+            ->filename($order->code)
+            ->addItems($items)
+            ->notes($notes)
+            ->logo(public_path($system['homepage_favicon']))
+            ->save('invoices');
+
+        $link = $invoice->url();
+
+        return $invoice->stream();
+    }
+
+    private function updateStockQuantity($orderId)
+    {
+        $orderProducts = $this->orderProductRepository->findByCondition([
+            ['order_id', '=', $orderId]
+        ], true);
+        if (isset($orderProducts) && count($orderProducts)) {
+            foreach ($orderProducts as $orderProduct) {
+                $productVariant = $this->productVariantRepository->findByCondition([
+                    ['uuid', '=', $orderProduct->variant_uuid]
+                ]);
+                $payload['quantity'] = $productVariant->quantity - $orderProduct->quantity;
+                $this->productVariantRepository->updateByWhere([
+                    ['uuid', '=', $productVariant->uuid]
+                ], $payload);
+            }
+        }
     }
 
     private function request($cartPromotion, $totalPrice, $totalPriceOriginal, $orderCode)

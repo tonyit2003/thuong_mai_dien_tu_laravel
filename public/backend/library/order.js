@@ -355,7 +355,8 @@
     };
 
     HT.updateField = () => {
-        $(document).on("click", ".updateField", function () {
+        $(document).on("click", ".updateField", function (e) {
+            e.preventDefault();
             let _this = $(this);
             let option = {
                 payload: {
@@ -383,22 +384,42 @@
     };
 
     HT.createOrderConfirmSection = (object) => {
-        let button = `<button class="btn btn-danger updateField" data-field="confirm" data-value="cancel" data-title="${orderCanceled}">${cancelOrder}</button>`;
-        $(".cancel-block").html(button);
-
         $(".isConfirm").html(object.attr("data-title"));
 
         if (object.attr("data-value") == "confirm") {
+            let button = `<a href="#submitCancelOrder" rel="modal:open" class="btn btn-danger">${cancelOrder}</a>`;
+            $(".cancel-block").html(button);
+
             let checkImage = "backend/img/check.png";
             $(".confirm-box").find("img").attr("src", checkImage);
-            $(".confirm-block").html(confirmed);
+            $(".confirm-block").html(confirmed).addClass("text-success");
         }
 
         if (object.attr("data-value") == "cancel") {
             let checkImage = "backend/img/remove.png";
             $(".confirm-box").find("img").attr("src", checkImage);
-            $(".cancel-block").html(canceled).addClass("text-danger");
+            $(".confirm-block").html(canceled).addClass("text-danger");
+            $(".cancel-block").html("");
         }
+
+        if (object.attr("data-value") == "processing") {
+            let button = `<a class="btn btn-success" target="_blank" href="${invoiceUrl}">${invoiceTitle}</a> <a class="btn btn-primary confirm updateField" data-field="delivery" data-value="success" data-title="${invoiceButton}">${invoiceButton}</a>`;
+            $(".invoice-block").html(button);
+
+            let checkImage = "backend/img/sold.png";
+            $(".confirm-box").find("img").attr("src", checkImage);
+            $(".processing-block")
+                .html(successfulExport)
+                .addClass("text-success");
+
+            $(".order-item-voucher").html("");
+        }
+
+        if (object.attr("data-value") == "success") {
+            window.location.href = `${routeOutOfStock}`;
+        }
+
+        $.modal.close();
     };
 
     HT.updateBadge = () => {

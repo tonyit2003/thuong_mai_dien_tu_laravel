@@ -177,7 +177,9 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     // ORDER
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
+        Route::get('outOfStock', [OrderController::class, 'outOfStock'])->name('order.outOfStock');
         Route::get('{id}/detail', [OrderController::class, 'detail'])->name('order.detail')->where(['id' => '[0-9]+']);
+        Route::get('{id}/detailOutOfStock', [OrderController::class, 'detailOutOfStock'])->name('order.detailOutOfStock')->where(['id' => '[0-9]+']);
     });
 
     // POST

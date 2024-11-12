@@ -41,4 +41,7 @@ return [
     'login'                         => 'Đăng nhập',
     'register'                      => 'Đăng ký',
     'delete_review'                 => 'Xóa đánh giá',
+    'out_of_stock'                  => 'Xuất kho',
+    'invoice'                       => 'Xuất hóa đơn',
+    'delivery_successful'           => 'Giao hàng thành công',
 ];

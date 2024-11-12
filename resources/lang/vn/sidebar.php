@@ -41,6 +41,10 @@ return [
                     'title' => 'Đơn hàng',
                     'route' => 'order.index'
                 ],
+                [
+                    'title' => 'Xuất kho',
+                    'route' => 'order.outOfStock'
+                ],
             ]
         ],
         [
