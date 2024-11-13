@@ -23,7 +23,7 @@ return [
     'discount'               => 'Chiết khấu',
     'tax'                    => 'Thuế',
     'sub_total'              => 'Tạm tính',
-    'total_discount'         => 'Tổng chiết khấu',
+    'total_discount'         => 'Giảm giá',
     'taxable_amount'         => 'Số tiền chịu thuế',
     'total_taxes'            => 'Tổng thuế',
     'tax_rate'               => 'Tỷ lệ thuế',
@@ -36,4 +36,6 @@ return [
     'paid'                   => 'Đã thanh toán',
     'due'                    => 'Chưa thanh toán',
     'page'                   => 'Trang',
+    'taxCode'                => 'Mã số thuế',
+    'email'                  => 'Email',
 ];

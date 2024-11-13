@@ -141,7 +141,7 @@ class OrderService implements OrderServiceInterface
             return true;
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
+            dd($e->getLine());
             return false;
         }
     }
@@ -264,6 +264,8 @@ class OrderService implements OrderServiceInterface
     {
         $client = new Party([
             'name'          => $system['homepage_brand'] ?? '',
+            'taxCode'          => $system['contact_tax'] ?? '',
+            'address'          => $system['contact_address'] ?? '',
             'phone'         => $system['contact_phone'] ?? '',
         ]);
 
@@ -271,8 +273,9 @@ class OrderService implements OrderServiceInterface
         $customerInfo = $this->customerRepository->findById($order->customer_id);
         $customer = new Party([
             'name'          => $customerInfo->name ?? '',
+            'email'          => $customerInfo->email ?? '',
+            'phone'          => $customerInfo->phone ?? '',
             'address'       => getAddress($customerInfo->province_id, $customerInfo->district_id, $customerInfo->ward_id, $customerInfo->address),
-            'code'          => $customerInfo->id,
         ]);
 
         $orderProducts = $this->orderProductRepository->findByCondition([
@@ -308,6 +311,8 @@ class OrderService implements OrderServiceInterface
             ->addItems($items)
             ->notes($notes)
             ->logo(public_path($system['homepage_favicon']))
+            ->totalDiscount($order->totalPriceOriginal - $order->totalPrice)
+            ->totalAmount($order->totalPriceOriginal)
             ->save('invoices');
 
         $link = $invoice->url();

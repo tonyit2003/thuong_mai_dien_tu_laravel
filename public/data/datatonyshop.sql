@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 01, 2024 lúc 01:56 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Nov 13, 2024 at 01:01 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,25 +18,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `datatonyshop`
+-- Database: `tcshop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `administrative_regions`
+-- Table structure for table `administrative_regions`
 --
 
 CREATE TABLE `administrative_regions` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `name_en` varchar(255) NOT NULL,
-  `code_name` varchar(255) DEFAULT NULL,
-  `code_name_en` varchar(255) DEFAULT NULL
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `administrative_regions`
+-- Dumping data for table `administrative_regions`
 --
 
 INSERT INTO `administrative_regions` (`id`, `name`, `name_en`, `code_name`, `code_name_en`) VALUES
@@ -52,21 +52,21 @@ INSERT INTO `administrative_regions` (`id`, `name`, `name_en`, `code_name`, `cod
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `administrative_units`
+-- Table structure for table `administrative_units`
 --
 
 CREATE TABLE `administrative_units` (
-  `id` int(11) NOT NULL,
-  `full_name` varchar(255) DEFAULT NULL,
-  `full_name_en` varchar(255) DEFAULT NULL,
-  `short_name` varchar(255) DEFAULT NULL,
-  `short_name_en` varchar(255) DEFAULT NULL,
-  `code_name` varchar(255) DEFAULT NULL,
-  `code_name_en` varchar(255) DEFAULT NULL
+  `id` int NOT NULL,
+  `full_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `short_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `short_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `administrative_units`
+-- Dumping data for table `administrative_units`
 --
 
 INSERT INTO `administrative_units` (`id`, `full_name`, `full_name_en`, `short_name`, `short_name_en`, `code_name`, `code_name_en`) VALUES
@@ -84,26 +84,26 @@ INSERT INTO `administrative_units` (`id`, `full_name`, `full_name_en`, `short_na
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attributes`
+-- Table structure for table `attributes`
 --
 
 CREATE TABLE `attributes` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `attribute_catalogue_id` int(11) NOT NULL DEFAULT 0,
-  `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `follow` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `attribute_catalogue_id` int NOT NULL DEFAULT '0',
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `follow` tinyint NOT NULL DEFAULT '1',
+  `order` int NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `attributes`
+-- Dumping data for table `attributes`
 --
 
 INSERT INTO `attributes` (`id`, `attribute_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -129,29 +129,29 @@ INSERT INTO `attributes` (`id`, `attribute_catalogue_id`, `image`, `icon`, `albu
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attribute_catalogues`
+-- Table structure for table `attribute_catalogues`
 --
 
 CREATE TABLE `attribute_catalogues` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `parent_id` int(11) NOT NULL DEFAULT 0,
-  `lft` int(11) NOT NULL DEFAULT 0,
-  `rgt` int(11) NOT NULL DEFAULT 0,
-  `level` int(11) NOT NULL DEFAULT 0,
-  `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `follow` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `parent_id` int NOT NULL DEFAULT '0',
+  `lft` int NOT NULL DEFAULT '0',
+  `rgt` int NOT NULL DEFAULT '0',
+  `level` int NOT NULL DEFAULT '0',
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `follow` tinyint NOT NULL DEFAULT '1',
+  `order` int NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `attribute_catalogues`
+-- Dumping data for table `attribute_catalogues`
 --
 
 INSERT INTO `attribute_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -166,16 +166,16 @@ INSERT INTO `attribute_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `i
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attribute_catalogue_attribute`
+-- Table structure for table `attribute_catalogue_attribute`
 --
 
 CREATE TABLE `attribute_catalogue_attribute` (
-  `attribute_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `attribute_id` bigint(20) UNSIGNED NOT NULL
+  `attribute_catalogue_id` bigint UNSIGNED NOT NULL,
+  `attribute_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `attribute_catalogue_attribute`
+-- Dumping data for table `attribute_catalogue_attribute`
 --
 
 INSERT INTO `attribute_catalogue_attribute` (`attribute_catalogue_id`, `attribute_id`) VALUES
@@ -201,25 +201,25 @@ INSERT INTO `attribute_catalogue_attribute` (`attribute_catalogue_id`, `attribut
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attribute_catalogue_language`
+-- Table structure for table `attribute_catalogue_language`
 --
 
 CREATE TABLE `attribute_catalogue_language` (
-  `attribute_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_keyword` varchar(255) DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `canonical` varchar(255) DEFAULT NULL,
+  `attribute_catalogue_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `content` longtext COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `attribute_catalogue_language`
+-- Dumping data for table `attribute_catalogue_language`
 --
 
 INSERT INTO `attribute_catalogue_language` (`attribute_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
@@ -236,25 +236,25 @@ INSERT INTO `attribute_catalogue_language` (`attribute_catalogue_id`, `language_
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attribute_language`
+-- Table structure for table `attribute_language`
 --
 
 CREATE TABLE `attribute_language` (
-  `attribute_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_keyword` varchar(255) DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `canonical` varchar(255) DEFAULT NULL,
+  `attribute_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `content` longtext COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `attribute_language`
+-- Dumping data for table `attribute_language`
 --
 
 INSERT INTO `attribute_language` (`attribute_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`) VALUES
@@ -280,88 +280,78 @@ INSERT INTO `attribute_language` (`attribute_id`, `language_id`, `name`, `descri
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cache`
+-- Table structure for table `cache`
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) NOT NULL,
-  `value` mediumtext NOT NULL,
-  `expiration` int(11) NOT NULL
+  `key` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cache_locks`
+-- Table structure for table `cache_locks`
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) NOT NULL,
-  `owner` varchar(255) NOT NULL,
-  `expiration` int(11) NOT NULL
+  `key` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `carts`
+-- Table structure for table `carts`
 --
 
 CREATE TABLE `carts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `customer_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `variant_uuid` varchar(255) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 1,
+  `id` bigint UNSIGNED NOT NULL,
+  `customer_id` bigint UNSIGNED NOT NULL,
+  `variant_uuid` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Đang đổ dữ liệu cho bảng `carts`
---
-
-INSERT INTO `carts` (`id`, `customer_id`, `product_id`, `variant_uuid`, `quantity`, `created_at`, `updated_at`) VALUES
-(6, 7, 28, '4ff12264-360e-5341-a38e-e1253e07bb60', 1, '2024-10-20 19:26:09', '2024-10-20 19:32:42'),
-(101, 6, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, '2024-10-28 09:44:08', '2024-10-28 09:44:08'),
-(103, 25, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, '2024-10-31 14:05:10', '2024-10-31 14:05:10'),
-(104, 7, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, '2024-11-01 12:38:14', '2024-11-01 12:38:14');
-
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customers`
+-- Table structure for table `customers`
 --
 
 CREATE TABLE `customers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `province_id` varchar(10) DEFAULT NULL,
-  `district_id` varchar(10) DEFAULT NULL,
-  `ward_id` varchar(10) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `province_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ward_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `birthday` datetime DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `ip` text DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `user_agent` text COLLATE utf8mb4_general_ci,
+  `ip` text COLLATE utf8mb4_general_ci,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `publish` tinyint NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `customer_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `customer_catalogue_id` bigint UNSIGNED NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `source_id` bigint(20) UNSIGNED NOT NULL DEFAULT 3,
-  `sex` varchar(255) DEFAULT NULL,
-  `google_id` varchar(255) DEFAULT NULL
+  `source_id` bigint UNSIGNED NOT NULL DEFAULT '3',
+  `sex` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `google_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `customers`
+-- Dumping data for table `customers`
 --
 
 INSERT INTO `customers` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `publish`, `deleted_at`, `customer_catalogue_id`, `remember_token`, `created_at`, `updated_at`, `source_id`, `sex`, `google_id`) VALUES
@@ -372,28 +362,30 @@ INSERT INTO `customers` (`id`, `name`, `phone`, `province_id`, `district_id`, `w
 (5, 'DDD', NULL, '0', '0', '0', NULL, NULL, 'backend/img/no-photo.png', NULL, NULL, NULL, 'ddd@gmail.com', NULL, '$2y$12$u3xVFItCONrLpMYYr1bEJe1WqDDZqklXrjHqCJrmMlgBwg9KkTvTm', 0, NULL, 3, NULL, '2024-09-13 13:02:51', '2024-10-17 07:33:00', 1, '', NULL),
 (6, 'Lê Hữu Tài', '0342937692', '83', '832', '28879', 'Cầu Lộ Hội', '2024-10-20 18:05:50', 'backend/img/no-photo.png', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$yNQGO6xWGE.DTVs521Ppf.U0LPEhMiRCZisBiuwPmdt7nhdE0cf6.', 0, NULL, 1, NULL, '2024-10-12 15:19:28', '2024-10-20 11:05:50', 3, '', NULL),
 (7, 'Cao Tấn Công', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'caotancong2003@gmail.com', NULL, '$2y$12$v78LQZMxmDMeGkz6UNbwXeuix3UVMEPMKcCIog2/NiSYc3TVv1.bW', 1, NULL, 1, NULL, '2024-10-20 11:13:49', '2024-10-20 11:13:49', 3, '', NULL),
-(25, 'Tai Le', NULL, '01', '01', '04', NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocIiSL1WV1htXqQn_H_8IgqeEEz29O1aet3hvZSOOXztD3GphBU=s96-c', NULL, NULL, NULL, 'tonyit2003@gmail.com', NULL, '$2y$12$n3bbXzKTvL4cYzlLWMpRweib6tEw4M1G4sXSo.x7X97SbPb78aAGy', 1, NULL, 1, NULL, '2024-10-28 19:26:10', '2024-10-31 14:05:33', 9, NULL, '105172921075741450407'),
 (27, 'Shop T&C', NULL, '1', '1', '1', 'TP .HCM', '2024-10-07 12:48:52', '/thuongmaidientu/public/userfiles/image/temp/bug.png', 'None', NULL, NULL, 'tcshoptelephone@gmail.com', NULL, '$2y$12$lMCli24mnnCUjCfbQt1.Nuxk3AJX9FOz4k0GMtdxhkCZRPQjdYsEW', 1, NULL, 1, NULL, '2024-10-29 05:48:01', '2024-10-29 05:52:05', 9, 'Nam', '117346212502454122054'),
-(28, 'Shop TC', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJvrizm90nEjy2LBB4sAsHazvzGUiPU8rbM_uiGZJpL1qp--Q=s96-c', NULL, NULL, NULL, 'tcshopk3@gmail.com', NULL, '$2y$12$XuwyAlUhzcfs7tsuoPrLc.GKCgKtkA82LAC/0DxeZ/fAZSnoRR1Rm', 1, NULL, 1, NULL, '2024-10-29 06:04:01', '2024-10-29 06:04:01', 9, NULL, '103512913208111756719');
+(28, 'Shop TC', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJvrizm90nEjy2LBB4sAsHazvzGUiPU8rbM_uiGZJpL1qp--Q=s96-c', NULL, NULL, NULL, 'tcshopk3@gmail.com', NULL, '$2y$12$XuwyAlUhzcfs7tsuoPrLc.GKCgKtkA82LAC/0DxeZ/fAZSnoRR1Rm', 1, NULL, 1, NULL, '2024-10-29 06:04:01', '2024-10-29 06:04:01', 9, NULL, '103512913208111756719'),
+(30, 'Lê Hữu Tài', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLMZRgCjzk7Enua2WbdQA5UIGlxhB2lzvBn07usJ8mzDkNGhnI=s96-c', NULL, NULL, NULL, 'acmagaming@gmail.com', NULL, '$2y$12$532wJ6lwAxHvwr80YY1/hOnKe9vTvkvbcxmurGRu1bkoWTI5z93sK', 1, NULL, 1, NULL, '2024-11-08 09:18:28', '2024-11-08 09:18:28', 9, NULL, '116453903575398384686'),
+(33, 'T&C-Company', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJ02ecHQ6wiKmza2orM-sE951kGM8S43ytL6Aa7lLZBtM8YPA=s96-c', NULL, NULL, NULL, 'tcshop.id.vn@gmail.com', NULL, '$2y$12$GruhRiEpR7eq233vrkXmNe85UcIHT9pclyB2Nn5O4z.CdgGPr2Hr2', 1, NULL, 1, NULL, '2024-11-08 09:49:54', '2024-11-08 09:49:54', 9, NULL, '102802497229217561013'),
+(34, 'Tai Le', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocIiSL1WV1htXqQn_H_8IgqeEEz29O1aet3hvZSOOXztD3GphBU=s96-c', NULL, NULL, NULL, 'tonyit2003@gmail.com', NULL, '$2y$12$1GmUwIz2gx1bxH6L7Ct5duqeS0LYRqsMKdPTA5hxjT/v/EUNGjFOS', 1, NULL, 1, NULL, '2024-11-08 09:51:09', '2024-11-08 09:51:09', 9, NULL, '105172921075741450407');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer_catalogues`
+-- Table structure for table `customer_catalogues`
 --
 
 CREATE TABLE `customer_catalogues` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `customer_catalogues`
+-- Dumping data for table `customer_catalogues`
 --
 
 INSERT INTO `customer_catalogues` (`id`, `name`, `description`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -405,22 +397,22 @@ INSERT INTO `customer_catalogues` (`id`, `name`, `description`, `publish`, `dele
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `districts`
+-- Table structure for table `districts`
 --
 
 CREATE TABLE `districts` (
-  `code` varchar(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `name_en` varchar(255) DEFAULT NULL,
-  `full_name` varchar(255) DEFAULT NULL,
-  `full_name_en` varchar(255) DEFAULT NULL,
-  `code_name` varchar(255) DEFAULT NULL,
-  `province_code` varchar(20) DEFAULT NULL,
-  `administrative_unit_id` int(11) DEFAULT NULL
+  `code` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `province_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `administrative_unit_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `districts`
+-- Dumping data for table `districts`
 --
 
 INSERT INTO `districts` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `code_name`, `province_code`, `administrative_unit_id`) VALUES
@@ -1134,29 +1126,29 @@ INSERT INTO `districts` (`code`, `name`, `name_en`, `full_name`, `full_name_en`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` bigint UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_general_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_general_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `generates`
+-- Table structure for table `generates`
 --
 
 CREATE TABLE `generates` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `schema` longtext NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `schema` longtext COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1164,97 +1156,97 @@ CREATE TABLE `generates` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `jobs`
+-- Table structure for table `jobs`
 --
 
 CREATE TABLE `jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
-  `attempts` tinyint(3) UNSIGNED NOT NULL,
-  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
-  `available_at` int(10) UNSIGNED NOT NULL,
-  `created_at` int(10) UNSIGNED NOT NULL
+  `id` bigint UNSIGNED NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `attempts` tinyint UNSIGNED NOT NULL,
+  `reserved_at` int UNSIGNED DEFAULT NULL,
+  `available_at` int UNSIGNED NOT NULL,
+  `created_at` int UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `job_batches`
+-- Table structure for table `job_batches`
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `total_jobs` int(11) NOT NULL,
-  `pending_jobs` int(11) NOT NULL,
-  `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext NOT NULL,
-  `options` mediumtext DEFAULT NULL,
-  `cancelled_at` int(11) DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
-  `finished_at` int(11) DEFAULT NULL
+  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `total_jobs` int NOT NULL,
+  `pending_jobs` int NOT NULL,
+  `failed_jobs` int NOT NULL,
+  `failed_job_ids` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `options` mediumtext COLLATE utf8mb4_general_ci,
+  `cancelled_at` int DEFAULT NULL,
+  `created_at` int NOT NULL,
+  `finished_at` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `languages`
+-- Table structure for table `languages`
 --
 
 CREATE TABLE `languages` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `canonical` varchar(10) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `canonical` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
-  `description` text DEFAULT NULL,
-  `current` tinyint(4) NOT NULL DEFAULT 0
+  `publish` tinyint NOT NULL DEFAULT '0',
+  `description` text COLLATE utf8mb4_general_ci,
+  `current` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `languages`
+-- Dumping data for table `languages`
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/thuongmaidientu/public/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-10-11 14:52:36', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/thuongmaidientu/public/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-10-11 14:52:36', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(1, 'Tiếng Việt', 'vn', '/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-11-03 12:10:24', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-11-03 12:10:24', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
 (6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0),
-(7, 'Tiếng Trung', 'cn', '/thuongmaidientu/public/userfiles/image/language/china.png', 201014, '2024-08-16 07:28:53', '2024-10-11 14:52:36', NULL, 0, NULL, 0);
+(7, 'Tiếng Trung', 'cn', '/userfiles/image/language/china.png', 201014, '2024-08-16 07:28:53', '2024-11-03 12:10:24', NULL, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `menus`
+-- Table structure for table `menus`
 --
 
 CREATE TABLE `menus` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `parent_id` int(11) NOT NULL DEFAULT 0,
-  `menu_catalogue_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `lft` int(11) NOT NULL DEFAULT 0,
-  `rgt` int(11) NOT NULL DEFAULT 0,
-  `level` int(11) NOT NULL DEFAULT 0,
-  `type` varchar(50) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `parent_id` int NOT NULL DEFAULT '0',
+  `menu_catalogue_id` bigint UNSIGNED DEFAULT NULL,
+  `lft` int NOT NULL DEFAULT '0',
+  `rgt` int NOT NULL DEFAULT '0',
+  `level` int NOT NULL DEFAULT '0',
+  `type` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `order` int DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `menus`
+-- Dumping data for table `menus`
 --
 
 INSERT INTO `menus` (`id`, `parent_id`, `menu_catalogue_id`, `lft`, `rgt`, `level`, `type`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -1273,11 +1265,11 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu_catalogue_id`, `lft`, `rgt`, `leve
 (82, 0, 8, 10, 13, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 09:49:04', '2024-09-21 09:49:21'),
 (83, 0, 8, 20, 25, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-21 09:49:04', '2024-09-22 08:36:27'),
 (84, 0, 8, 26, 27, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:04', '2024-09-21 09:49:21'),
-(85, 81, 8, 15, 18, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:21'),
-(86, 85, 8, 16, 17, 3, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:27'),
-(87, 83, 8, 23, 24, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:02'),
-(88, 83, 8, 21, 22, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-09-22 08:36:02'),
-(89, 82, 8, 11, 12, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:50:04', '2024-09-22 08:36:02'),
+(85, 81, 8, 15, 18, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
+(86, 85, 8, 16, 17, 3, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
+(87, 83, 8, 23, 24, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
+(88, 83, 8, 21, 22, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
+(89, 82, 8, 11, 12, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:50:04', '2024-11-01 14:59:08'),
 (90, 0, 9, 2, 3, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
 (91, 0, 9, 4, 5, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
 (92, 0, 9, 6, 7, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
@@ -1286,21 +1278,21 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu_catalogue_id`, `lft`, `rgt`, `leve
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `menu_catalogues`
+-- Table structure for table `menu_catalogues`
 --
 
 CREATE TABLE `menu_catalogues` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `keyword` varchar(255) NOT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `publish` tinyint NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `menu_catalogues`
+-- Dumping data for table `menu_catalogues`
 --
 
 INSERT INTO `menu_catalogues` (`id`, `name`, `keyword`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -1311,20 +1303,20 @@ INSERT INTO `menu_catalogues` (`id`, `name`, `keyword`, `publish`, `deleted_at`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `menu_language`
+-- Table structure for table `menu_language`
 --
 
 CREATE TABLE `menu_language` (
-  `menu_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `canonical` varchar(255) DEFAULT NULL,
+  `menu_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `menu_language`
+-- Dumping data for table `menu_language`
 --
 
 INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `created_at`, `updated_at`) VALUES
@@ -1339,10 +1331,6 @@ INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `cre
 (78, 1, 'Quy chế hoạt động', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
 (79, 1, 'Liên hệ hợp tác kinh doanh', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
 (80, 1, 'Tuyển dụng', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
-(81, 1, 'Trang chủ', 'http://localhost:8081/thuongmaidientu/public/', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
-(82, 1, 'Sạc điện thoại', 'sac-dien-thoai', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
-(83, 1, 'Điện thoại', 'dien-thoai', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
-(84, 1, 'Thông tin', '#', '2024-09-21 09:49:04', '2024-09-21 09:49:04'),
 (85, 1, 'iPhone 13 128GB | Chính hãng VN/A', 'iphone-13-128gb-chinh-hang-vna', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
 (86, 1, 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iphone-15-pro-max-256gb-chinh-hang-vna', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
 (87, 1, 'Samsung Galaxy S24 Ultra 12GB 1TB', 'samsung-galaxy-s24-ultra-12gb-1tb', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
@@ -1351,22 +1339,26 @@ INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `cre
 (90, 1, 'Facebook', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
 (91, 1, 'Zalo', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
 (92, 1, 'Tiktok', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(93, 1, 'Youtube', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13');
+(93, 1, 'Youtube', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
+(81, 1, 'Trang chủ', 'http://tcshop.id.vn/', '2024-11-01 14:59:08', '2024-11-01 14:59:08'),
+(83, 1, 'Điện thoại', 'dien-thoai', '2024-11-01 14:59:08', '2024-11-01 14:59:08'),
+(82, 1, 'Sạc điện thoại', 'sac-dien-thoai', '2024-11-01 14:59:08', '2024-11-01 14:59:08'),
+(84, 1, 'Thông tin', '#', '2024-11-01 14:59:08', '2024-11-01 14:59:08');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -1474,129 +1466,136 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (117, '2024_10_25_222015_add_sex_at_to_custemers_table', 75),
 (118, '2024_10_27_165920_add_total_price_original_to_orders_table', 76),
 (119, '2024_10_29_011252_add_google_id_to_customers_table', 77),
-(120, '2024_10_29_014817_modify_sex_nullable_in_customers', 78);
+(120, '2024_10_29_014817_modify_sex_nullable_in_customers', 78),
+(121, '2024_11_01_142712_add_expected_delivery_date_to_product_receipts', 79),
+(122, '2024_11_02_162152_add_warranty_time_to_products', 80),
+(123, '2024_11_03_160038_create_warranty_cards_table', 81),
+(124, '2024_11_06_143922_add_attribute_to_product_catalogues_table', 82),
+(126, '2024_11_07_181443_add_unique_constraint_to_uuid_in_product_variants', 83),
+(128, '2024_11_07_181529_create_reviews_table', 84),
+(129, '2024_11_07_150032_add_quantity_warranty_at_to_table_warranty_cards', 85),
+(133, '2024_11_08_152757_drop_carts_table', 86),
+(135, '2024_11_08_153107_create_carts_table', 87),
+(136, '2024_11_08_155004_drop_order_product_table', 88),
+(137, '2024_11_08_155216_create_order_product_table', 88),
+(138, '2024_11_09_101557_add_publish_to_reviews_table', 89),
+(140, '2024_11_12_214053_add_invoice_fields_to_orders_table', 90),
+(141, '2024_11_12_181359_add_date_of_receipt_at_warranty_cards', 91),
+(142, '2024_11_12_212615_add_user_id_at_warranty_cards_table', 91);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `customer_id` bigint(20) UNSIGNED NOT NULL,
-  `code` varchar(50) DEFAULT NULL,
-  `fullname` varchar(255) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `province_id` varchar(20) DEFAULT NULL,
-  `district_id` varchar(20) DEFAULT NULL,
-  `ward_id` varchar(20) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `promotion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`promotion`)),
-  `cart` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`cart`)),
-  `totalPrice` double NOT NULL DEFAULT 0,
-  `totalPriceOriginal` double NOT NULL DEFAULT 0,
-  `guest_cookie` varchar(255) DEFAULT NULL,
-  `method` varchar(50) DEFAULT NULL,
-  `confirm` varchar(50) DEFAULT NULL,
-  `payment` varchar(50) DEFAULT NULL,
-  `delivery` varchar(50) DEFAULT NULL,
-  `shipping` double NOT NULL DEFAULT 0,
+  `id` bigint UNSIGNED NOT NULL,
+  `customer_id` bigint UNSIGNED NOT NULL,
+  `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fullname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `province_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ward_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `promotion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `cart` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `totalPrice` double NOT NULL DEFAULT '0',
+  `totalPriceOriginal` double NOT NULL DEFAULT '0',
+  `guest_cookie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `method` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `confirm` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipping` double NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `invoice_date` timestamp NULL DEFAULT NULL
+) ;
 
 --
--- Đang đổ dữ liệu cho bảng `orders`
+-- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `customer_id`, `code`, `fullname`, `phone`, `email`, `province_id`, `district_id`, `ward_id`, `address`, `description`, `promotion`, `cart`, `totalPrice`, `totalPriceOriginal`, `guest_cookie`, `method`, `confirm`, `payment`, `delivery`, `shipping`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 6, '6-10001', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '0', '0', 'Cầu Lộ Hội', NULL, '{\"discount\":4649000,\"name\":\"Gi\\u1ea3m gi\\u00e1 th\\u00e1ng 11\",\"code\":\"GIAMGIATHANG11\",\"startDate\":\"2024-10-21 15:07:00\",\"endDate\":\"2024-11-30 15:07:00\"}', NULL, 18596000, 23245000, NULL, 'cod', 'pending', 'unpaid', 'pending', 0, NULL, '2024-10-27 10:11:21', '2024-10-27 10:11:21'),
-(2, 6, '6-10002', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '832', '28879', 'Cầu Lộ Hội', NULL, NULL, NULL, 2000000, 2000000, NULL, 'cod', 'confirm', 'unpaid', 'pending', 0, NULL, '2024-08-27 10:11:41', '2024-10-31 04:13:21'),
-(3, 6, '6-10003', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '832', '28879', 'Cầu Lộ Hội', 'Giao hàng vào buổi sáng', '{\"discount\":17097000,\"name\":\"Gi\\u1ea3m gi\\u00e1 th\\u00e1ng 11\",\"code\":\"GIAMGIATHANG11\",\"startDate\":\"2024-10-21 15:07:00\",\"endDate\":\"2024-11-30 15:07:00\"}', NULL, 68388000, 85485000, NULL, 'cod', 'confirm', 'unpaid', 'pending', 0, NULL, '2024-10-28 09:37:42', '2024-10-31 04:13:19'),
-(4, 25, '25-10004', 'Tai Le', '0342937692', 'tonyit2003@gmail.com', '02', '026', '00718', 'TP .HCM', 'None', NULL, NULL, 7500000, 7500000, NULL, 'cod', 'cancel', 'paid', 'processing', 0, NULL, '2024-10-28 19:36:53', '2024-10-31 03:24:39');
+INSERT INTO `orders` (`id`, `customer_id`, `code`, `fullname`, `phone`, `email`, `province_id`, `district_id`, `ward_id`, `address`, `description`, `promotion`, `cart`, `totalPrice`, `totalPriceOriginal`, `guest_cookie`, `method`, `confirm`, `payment`, `delivery`, `shipping`, `deleted_at`, `created_at`, `updated_at`, `invoice_date`) VALUES
+(1, 6, '1731502683', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '832', '28879', 'Cầu Lộ Hội', NULL, '{\"discount\":14156800,\"name\":\"Gi\\u1ea3m gi\\u00e1 th\\u00e1ng 11\",\"code\":\"GIAMGIATHANG11\",\"startDate\":\"2024-10-21 15:07:00\",\"endDate\":\"2024-11-30 15:07:00\"}', NULL, 56627200, 70784000, NULL, 'cod', 'confirm', 'paid', 'success', 0, NULL, '2024-11-13 12:58:04', '2024-11-13 12:59:29', '2024-11-13 12:59:02');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_payment`
+-- Table structure for table `order_payment`
 --
 
 CREATE TABLE `order_payment` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  `method_name` varchar(50) DEFAULT NULL,
-  `payment_id` varchar(255) DEFAULT NULL,
-  `payment_detail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`payment_detail`)),
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `method_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_detail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_product`
+-- Table structure for table `order_product`
 --
 
 CREATE TABLE `order_product` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `variant_uuid` varchar(255) DEFAULT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 1,
-  `price` double NOT NULL DEFAULT 0,
-  `priceOriginal` double NOT NULL DEFAULT 0,
-  `promotion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`promotion`)),
-  `option` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`option`)),
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `variant_uuid` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
+  `price` double NOT NULL DEFAULT '0',
+  `priceOriginal` double NOT NULL DEFAULT '0',
+  `promotion` json DEFAULT NULL,
+  `option` json DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `order_product`
+-- Dumping data for table `order_product`
 --
 
 INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `variant_uuid`, `quantity`, `price`, `priceOriginal`, `promotion`, `option`, `created_at`, `updated_at`) VALUES
-(1, 1, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 1, 1000000, 2000000, NULL, NULL, '2024-10-27 10:11:21', '2024-10-27 10:11:21'),
-(2, 1, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 1, 22245000, 44490000, NULL, NULL, '2024-10-27 10:11:21', '2024-10-27 10:11:21'),
-(3, 2, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 1, 1000000, 2000000, NULL, NULL, '2024-10-27 10:11:41', '2024-10-27 10:11:41'),
-(4, 2, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, 1000000, 2000000, NULL, NULL, '2024-10-27 10:11:41', '2024-10-27 10:11:41'),
-(5, 3, 29, 'b4b88bae-f694-5110-b0a9-2cbf8639bc49', 5, 3750000, 7500000, NULL, NULL, '2024-10-28 09:37:42', '2024-10-28 09:37:42'),
-(6, 3, 28, '4ff12264-360e-5341-a38e-e1253e07bb60', 2, 22245000, 44490000, NULL, NULL, '2024-10-28 09:37:42', '2024-10-28 09:37:42'),
-(7, 3, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 1, 22245000, 44490000, NULL, NULL, '2024-10-28 09:37:42', '2024-10-28 09:37:42'),
-(8, 4, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 1, 7500000, 15000000, NULL, NULL, '2024-10-28 19:36:53', '2024-10-28 19:36:53');
+(11, 1, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 1, 35592000, 44490000, NULL, NULL, '2024-11-13 12:58:04', '2024-11-13 12:58:04'),
+(12, 1, 27, 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d', 1, 35192000, 43990000, NULL, NULL, '2024-11-13 12:58:04', '2024-11-13 12:58:04');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `password_reset_tokens`
+-- Table structure for table `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permissions`
+-- Table structure for table `permissions`
 --
 
 CREATE TABLE `permissions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `canonical` varchar(255) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `permissions`
+-- Dumping data for table `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`) VALUES
@@ -1688,31 +1687,34 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 (86, 'Thêm nhà cung cấp', 'supplier.create', '2024-09-20 12:02:13', '2024-09-20 12:02:13'),
 (87, 'Sửa nhà cung cấp', 'supplier.update', '2024-09-20 12:02:27', '2024-09-20 12:02:27'),
 (88, 'Xóa nhà cung cấp', 'supplier.destroy', '2024-09-20 12:02:37', '2024-09-20 12:02:37'),
-(89, 'Xem danh dách đơn hàng', 'order.index', '2024-10-27 08:36:01', '2024-10-27 08:36:01');
+(89, 'Xem danh dách đơn hàng', 'order.index', '2024-10-27 08:36:01', '2024-10-27 08:36:01'),
+(90, 'Xem danh sách đánh giá', 'review.index', '2024-11-09 03:24:42', '2024-11-09 03:24:42'),
+(91, 'Xóa đánh giá', 'review.destroy', '2024-11-09 15:19:57', '2024-11-09 15:19:57'),
+(92, 'Xuất kho', 'order.outOfStock', '2024-11-12 13:30:14', '2024-11-12 13:30:14');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `post_catalogue_id` int(11) NOT NULL DEFAULT 0,
-  `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) NOT NULL DEFAULT 0,
-  `follow` tinyint(4) NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `post_catalogue_id` int NOT NULL DEFAULT '0',
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `order` int NOT NULL DEFAULT '0',
+  `follow` tinyint NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `post_catalogue_id`, `image`, `icon`, `album`, `publish`, `order`, `follow`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -1726,29 +1728,29 @@ INSERT INTO `posts` (`id`, `post_catalogue_id`, `image`, `icon`, `album`, `publi
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `post_catalogues`
+-- Table structure for table `post_catalogues`
 --
 
 CREATE TABLE `post_catalogues` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `parent_id` int(11) NOT NULL DEFAULT 0,
-  `lft` int(11) NOT NULL DEFAULT 0,
-  `rgt` int(11) NOT NULL DEFAULT 0,
-  `level` int(11) NOT NULL DEFAULT 0,
-  `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
-  `order` int(11) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `parent_id` int NOT NULL DEFAULT '0',
+  `lft` int NOT NULL DEFAULT '0',
+  `rgt` int NOT NULL DEFAULT '0',
+  `level` int NOT NULL DEFAULT '0',
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '0',
+  `order` int NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `follow` tinyint(4) NOT NULL DEFAULT 0
+  `follow` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `post_catalogues`
+-- Dumping data for table `post_catalogues`
 --
 
 INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `follow`) VALUES
@@ -1758,31 +1760,31 @@ INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`
 (55, 54, 8, 9, 3, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:12', '2024-07-14 08:30:11', '2024-10-13 08:47:12', -1),
 (56, 54, 8, 9, 3, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:06', '2024-07-14 08:38:26', '2024-10-13 08:47:06', -1),
 (57, 53, 6, 7, 3, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:00', '2024-07-14 08:43:16', '2024-10-13 08:47:00', -1),
-(58, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-07-18 12:28:06', '2024-08-24 07:53:18', -1);
+(58, 0, 2, 3, 1, '/userfiles/image/bai%20bao/tgdd-xiaomi-14t-13.jpg', NULL, '', 1, 0, 201014, NULL, '2024-07-18 12:28:06', '2024-11-01 14:22:46', -1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `post_catalogue_language`
+-- Table structure for table `post_catalogue_language`
 --
 
 CREATE TABLE `post_catalogue_language` (
-  `post_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_keyword` varchar(255) DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `canonical` varchar(255) NOT NULL,
+  `post_catalogue_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `content` longtext COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `post_catalogue_language`
+-- Dumping data for table `post_catalogue_language`
 --
 
 INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1794,21 +1796,21 @@ INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name
 (57, 1, 'V League 1', NULL, NULL, NULL, NULL, NULL, 'v-league-1', '2024-07-14 08:43:16', '2024-07-14 08:43:16', NULL),
 (52, 2, 'Football', '<p>Football</p>', '<p>Football</p>', 'Football', 'Football', 'Football', 'football', '2024-07-30 20:09:52', '2024-07-30 20:09:52', NULL),
 (58, 2, 'Technology123', '<p>Technology</p>', '<p>Technology</p>', 'Technology', 'Technology', 'Technology', 'technology123', '2024-07-31 04:26:42', '2024-07-31 04:26:42', NULL),
-(58, 1, 'Công nghệ', NULL, NULL, NULL, NULL, NULL, 'cong-nghe', '2024-08-24 07:53:18', '2024-08-24 07:53:18', NULL);
+(58, 1, 'Công nghệ', NULL, NULL, NULL, NULL, NULL, 'cong-nghe', '2024-11-01 14:22:46', '2024-11-01 14:22:46', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `post_catalogue_post`
+-- Table structure for table `post_catalogue_post`
 --
 
 CREATE TABLE `post_catalogue_post` (
-  `post_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `post_id` bigint(20) UNSIGNED NOT NULL
+  `post_catalogue_id` bigint UNSIGNED NOT NULL,
+  `post_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `post_catalogue_post`
+-- Dumping data for table `post_catalogue_post`
 --
 
 INSERT INTO `post_catalogue_post` (`post_catalogue_id`, `post_id`) VALUES
@@ -1824,26 +1826,26 @@ INSERT INTO `post_catalogue_post` (`post_catalogue_id`, `post_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `post_language`
+-- Table structure for table `post_language`
 --
 
 CREATE TABLE `post_language` (
-  `post_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_keyword` varchar(255) DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `canonical` varchar(255) NOT NULL,
+  `post_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `content` longtext COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `post_language`
+-- Dumping data for table `post_language`
 --
 
 INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1857,103 +1859,105 @@ INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `c
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `product_catalogue_id` int(11) NOT NULL DEFAULT 0,
-  `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `follow` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `product_catalogue_id` int NOT NULL DEFAULT '0',
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `follow` tinyint NOT NULL DEFAULT '1',
+  `order` int NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `attributeCatalogue` text DEFAULT NULL,
-  `code` varchar(255) NOT NULL DEFAULT '0',
-  `made_in` varchar(255) DEFAULT NULL,
-  `price` double NOT NULL DEFAULT 0,
-  `attribute` text DEFAULT NULL,
-  `variant` text DEFAULT NULL
+  `attributeCatalogue` text COLLATE utf8mb4_general_ci,
+  `code` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `made_in` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `price` double NOT NULL DEFAULT '0',
+  `attribute` text COLLATE utf8mb4_general_ci,
+  `variant` text COLLATE utf8mb4_general_ci,
+  `warranty_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attributeCatalogue`, `code`, `made_in`, `price`, `attribute`, `variant`) VALUES
-(20, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-09-08 14:18:39', '2024-08-11 07:49:34', '2024-09-08 14:18:39', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}'),
-(26, 2, '/thuongmaidientu/public/userfiles/image/thoi-su/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg', NULL, '', 1, -1, 0, 201014, '2024-09-08 14:18:36', '2024-08-26 19:31:31', '2024-09-08 14:18:36', '[\"1\",\"3\",\"4\"]', 'SacIphone', 'Hàn Quốc', 500000, '{\"1\":[\"2\",\"3\"],\"3\":[\"8\"],\"4\":[\"11\"]}', '{\"quantity\":[\"100\",\"1\"],\"sku\":[\"SacIphone-3-8-11\",\"SacIphone-3-8-10\"],\"price\":[\"500.000\",\"500.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[null,null]}'),
-(27, 3, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-z-fold-6/samsung-galaxy-z-fold-6-xanh_5.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 14:47:39', '2024-10-14 11:51:47', '[\"1\"]', '1725805125', 'Hàn Quốc', 43990000, '{\"1\":[\"13\",\"14\",\"15\"]}', '{\"quantity\":[null,null,null],\"sku\":[\"1725805125-13\",\"1725805125-14\",\"1725805125-15\"],\"price\":[\"43.990.000\",\"43.990.000\",\"43.990.000\"],\"barcode\":[null,null,null],\"file_name\":[null,null,null],\"file_url\":[null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png\"]}'),
-(28, 3, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_7__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_9__2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 14:58:35', '2024-10-14 11:57:12', '[\"1\"]', '1725806874', 'Hàn Quốc', 44490000, '{\"1\":[\"4\",\"14\",\"16\",\"17\"]}', '{\"quantity\":[null,null,null,null],\"sku\":[\"1725806874-4\",\"1725806874-14\",\"1725806874-16\",\"1725806874-17\"],\"price\":[\"44.490.000\",\"44.490.000\",\"44.490.000\",\"44.490.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"]}'),
-(29, 5, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:07:03', '2024-10-16 10:28:55', '[\"1\",\"3\"]', '1725807621', 'USA', 34990000, '{\"1\":[\"2\",\"4\",\"18\",\"19\"],\"3\":[\"8\"]}', '{\"quantity\":[\"200\",\"60\",\"60\",null],\"sku\":[\"1725807621-2-8\",\"1725807621-4-8\",\"1725807621-18-8\",\"1725807621-19-8\"],\"price\":[\"7.500.000\",\"20000.00\",\"1.000.000\",\"29.290.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\"]}'),
-(30, 5, '/thuongmaidientu/public/userfiles/image/iphone-13/iphone-13_2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/13_4_7_2_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13-0-0.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:24:54', '2024-10-16 15:38:26', '[\"1\"]', '1725808096', 'USA', 17290000, '{\"1\":[\"2\",\"4\",\"13\",\"15\",\"18\"]}', '{\"quantity\":[null,null,null,null,null],\"sku\":[\"1725808096-2\",\"1725808096-4\",\"1725808096-13\",\"1725808096-15\",\"1725808096-18\"],\"price\":[\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\"],\"barcode\":[null,null,null,null,null],\"file_name\":[null,null,null,null,null],\"file_url\":[null,null,null,null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\"]}'),
-(31, 2, '/thuongmaidientu/public/userfiles/image/logo/logo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 15:53:50', '2024-10-28 08:16:14', '[\"1\"]', '1725810741', 'Hàn Quốc', 2000000, '{\"1\":[\"2\",\"13\"]}', '{\"quantity\":[5,5],\"sku\":[\"1725810741-2\",\"1725810741-13\"],\"price\":[\"15000000\",\"15000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]}'),
-(32, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:33:08', '2024-09-30 08:12:57', '2024-09-30 08:33:08', '', '1727683874', NULL, 200000, '', ''),
-(33, 2, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:35:02', '2024-09-30 08:34:18', '2024-09-30 08:35:02', '', '1727685190', NULL, 0, '', '');
+INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attributeCatalogue`, `code`, `made_in`, `price`, `attribute`, `variant`, `warranty_time`) VALUES
+(20, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-09-08 14:18:39', '2024-08-11 07:49:34', '2024-09-08 14:18:39', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}', NULL),
+(26, 2, '/thuongmaidientu/public/userfiles/image/thoi-su/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg', NULL, '', 1, -1, 0, 201014, '2024-09-08 14:18:36', '2024-08-26 19:31:31', '2024-09-08 14:18:36', '[\"1\",\"3\",\"4\"]', 'SacIphone', 'Hàn Quốc', 500000, '{\"1\":[\"2\",\"3\"],\"3\":[\"8\"],\"4\":[\"11\"]}', '{\"quantity\":[\"100\",\"1\"],\"sku\":[\"SacIphone-3-8-11\",\"SacIphone-3-8-10\"],\"price\":[\"500.000\",\"500.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[null,null]}', NULL),
+(27, 3, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-z-fold-6/samsung-galaxy-z-fold-6-xanh_5.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 14:47:39', '2024-11-13 10:23:29', '[\"1\"]', '1725805125', 'Hàn Quốc', 43990000, '{\"1\":[\"13\",\"14\",\"15\"]}', '{\"quantity\":[null,null,null],\"sku\":[\"1725805125-13\",\"1725805125-14\",\"1725805125-15\"],\"price\":[\"43.990.000\",\"43.990.000\",\"43.990.000\"],\"barcode\":[null,null,null],\"file_name\":[null,null,null],\"file_url\":[null,null,null],\"album\":[\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png\"]}', NULL),
+(28, 3, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_7__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_9__2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 14:58:35', '2024-11-13 10:23:22', '[\"1\"]', '1725806874', 'Hàn Quốc', 44490000, '{\"1\":[\"4\",\"14\",\"16\",\"17\"]}', '{\"quantity\":[null,null,null,null],\"sku\":[\"1725806874-4\",\"1725806874-14\",\"1725806874-16\",\"1725806874-4\"],\"price\":[\"44.490.000\",\"44.490.000\",\"44.490.000\",\"44.490.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"]}', NULL),
+(29, 5, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:07:03', '2024-11-13 10:23:17', '[\"1\"]', '1725807621', 'USA', 34990000, '{\"1\":[\"2\",\"4\",\"18\",\"19\"]}', '{\"quantity\":[null,null,null,null],\"sku\":[\"1725807621-2\",\"1725807621-4\",\"1725807621-18\",\"1725807621-19\"],\"price\":[\"34.990.000\",\"34.990.000\",\"34.990.000\",\"34.990.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"]}', NULL),
+(30, 5, '/thuongmaidientu/public/userfiles/image/iphone-13/iphone-13_2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/13_4_7_2_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13-0-0.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:24:54', '2024-11-13 10:23:12', '[\"1\",\"3\",\"5\"]', '1725808096', 'USA', 17290000, '{\"1\":[\"3\",\"4\",\"13\",\"17\",\"18\"],\"3\":[\"8\",\"9\"],\"5\":[\"7\"]}', '{\"quantity\":[null,null,null,null,null,null,null,null,null,null],\"sku\":[\"1725808096-3-8-7\",\"1725808096-3-9-7\",\"1725808096-4-8-7\",\"1725808096-4-9-7\",\"1725808096-13-8-7\",\"1725808096-13-9-7\",\"1725808096-17-8-7\",\"1725808096-17-9-7\",\"1725808096-18-8-7\",\"1725808096-18-9-7\"],\"price\":[\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\"],\"barcode\":[null,null,null,null,null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null,null,null,null,null],\"album\":[null,null,null,null,null,null,null,null,null,null]}', NULL),
+(31, 2, '/thuongmaidientu/public/userfiles/image/logo/logo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 15:53:50', '2024-11-13 10:23:47', '[\"1\"]', '1725810741', 'Hàn Quốc', 2000000, '{\"1\":[\"2\",\"13\"]}', '{\"quantity\":[\"5\",\"5\"],\"sku\":[\"1725810741-2\",\"1725810741-13\"],\"price\":[\"15.000.000\",\"15.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]}', NULL),
+(32, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:33:08', '2024-09-30 08:12:57', '2024-09-30 08:33:08', '', '1727683874', NULL, 200000, '', '', NULL),
+(33, 2, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:35:02', '2024-09-30 08:34:18', '2024-09-30 08:35:02', '', '1727685190', NULL, 0, '', '', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_catalogues`
+-- Table structure for table `product_catalogues`
 --
 
 CREATE TABLE `product_catalogues` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `parent_id` int(11) NOT NULL DEFAULT 0,
-  `lft` int(11) NOT NULL DEFAULT 0,
-  `rgt` int(11) NOT NULL DEFAULT 0,
-  `level` int(11) NOT NULL DEFAULT 0,
-  `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `follow` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `parent_id` int NOT NULL DEFAULT '0',
+  `lft` int NOT NULL DEFAULT '0',
+  `rgt` int NOT NULL DEFAULT '0',
+  `level` int NOT NULL DEFAULT '0',
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `follow` tinyint NOT NULL DEFAULT '1',
+  `order` int NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `attribute` json DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_catalogues`
+-- Dumping data for table `product_catalogues`
 --
 
-INSERT INTO `product_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 0, 2, 7, 1, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-09-20 15:22:58'),
-(2, 0, 8, 9, 1, '/thuongmaidientu/public/userfiles/image/sac-dien-thoai/cu-sac-nhanh-iphone-20w-pd-type.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-26 19:19:29', '2024-09-20 15:22:46'),
-(3, 1, 5, 6, 2, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_12__2.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-23 11:40:38', '2024-09-23 11:40:38'),
-(4, 3, 4, 5, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-09-25 18:34:33', '2024-09-23 17:47:26', '2024-09-25 18:34:33'),
-(5, 1, 3, 4, 2, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-10-03 07:02:08', '2024-10-03 07:02:09');
+INSERT INTO `product_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attribute`) VALUES
+(1, 0, 2, 7, 1, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-11-13 10:23:29', '{\"1\": {\"0\": \"3\", \"1\": \"4\", \"2\": \"13\", \"3\": \"18\", \"4\": \"17\", \"5\": \"2\", \"6\": \"19\", \"7\": \"14\", \"8\": \"16\", \"14\": \"15\"}, \"3\": [\"8\", \"9\"], \"5\": [\"7\"]}'),
+(2, 0, 8, 9, 1, '/thuongmaidientu/public/userfiles/image/sac-dien-thoai/cu-sac-nhanh-iphone-20w-pd-type.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-26 19:19:29', '2024-11-13 10:23:47', '{\"1\": [\"2\", \"13\"]}'),
+(3, 1, 5, 6, 2, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_12__2.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-23 11:40:38', '2024-11-13 10:23:29', '{\"1\": [\"4\", \"14\", \"16\", \"17\", \"13\", \"15\"]}'),
+(4, 3, 4, 5, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-09-25 18:34:33', '2024-09-23 17:47:26', '2024-09-25 18:34:33', 'null'),
+(5, 1, 3, 4, 2, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-10-03 07:02:08', '2024-11-13 10:23:17', '{\"1\": [\"3\", \"4\", \"13\", \"18\", \"17\", \"2\", \"19\"], \"3\": [\"8\", \"9\"], \"5\": [\"7\"]}');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_catalogue_language`
+-- Table structure for table `product_catalogue_language`
 --
 
 CREATE TABLE `product_catalogue_language` (
-  `product_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_keyword` varchar(255) DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `canonical` varchar(255) DEFAULT NULL,
+  `product_catalogue_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `content` longtext COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_catalogue_language`
+-- Dumping data for table `product_catalogue_language`
 --
 
 INSERT INTO `product_catalogue_language` (`product_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1966,16 +1970,16 @@ INSERT INTO `product_catalogue_language` (`product_catalogue_id`, `language_id`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_catalogue_product`
+-- Table structure for table `product_catalogue_product`
 --
 
 CREATE TABLE `product_catalogue_product` (
-  `product_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL
+  `product_catalogue_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_catalogue_product`
+-- Dumping data for table `product_catalogue_product`
 --
 
 INSERT INTO `product_catalogue_product` (`product_catalogue_id`, `product_id`) VALUES
@@ -1993,16 +1997,16 @@ INSERT INTO `product_catalogue_product` (`product_catalogue_id`, `product_id`) V
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_catalogue_supplier`
+-- Table structure for table `product_catalogue_supplier`
 --
 
 CREATE TABLE `product_catalogue_supplier` (
-  `product_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `supplier_id` bigint(20) UNSIGNED NOT NULL
+  `product_catalogue_id` bigint UNSIGNED NOT NULL,
+  `supplier_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_catalogue_supplier`
+-- Dumping data for table `product_catalogue_supplier`
 --
 
 INSERT INTO `product_catalogue_supplier` (`product_catalogue_id`, `supplier_id`) VALUES
@@ -2018,26 +2022,26 @@ INSERT INTO `product_catalogue_supplier` (`product_catalogue_id`, `supplier_id`)
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_language`
+-- Table structure for table `product_language`
 --
 
 CREATE TABLE `product_language` (
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `meta_title` varchar(255) DEFAULT NULL,
-  `meta_keyword` varchar(255) DEFAULT NULL,
-  `meta_description` text DEFAULT NULL,
-  `canonical` varchar(255) DEFAULT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `content` longtext COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_language`
+-- Dumping data for table `product_language`
 --
 
 INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2047,236 +2051,270 @@ INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `descriptio
 (30, 2, 'iPhone 13 128GB', '<p>Short description</p>', '<p>Long description</p>', 'iPhone 13 128GB', 'iPhone 13 128GB', 'Description SEO', 'iphone-13-128gb-en', '2024-09-08 15:48:32', '2024-09-08 15:48:32', NULL),
 (32, 1, 'test567', NULL, NULL, NULL, NULL, NULL, 'test567', '2024-09-30 08:12:57', '2024-09-30 08:12:57', NULL),
 (33, 1, 'Test 6465yu', NULL, NULL, NULL, NULL, NULL, 'test-6465yu', '2024-09-30 08:34:18', '2024-09-30 08:34:18', NULL),
-(31, 1, 'Test product', '<p>Test product</p>', '<p>Test product</p>', 'Test product', 'Test product', 'Test product', 'test-product', '2024-10-14 11:50:21', '2024-10-14 11:50:21', NULL),
-(27, 1, 'Samsung Galaxy Z Fold6', '<h2>Đặc điểm nổi bật của Samsung Galaxy Z Fold6</h2>\r\n\r\n<ul>\r\n	<li>M&agrave;n h&igrave;nh ch&iacute;nh Dynamic AMOLED 2X 7.6 inch cho trải nghiệm giải tr&iacute;, l&agrave;m việc đỉnh cao.</li>\r\n	<li>Chip Snapdragon 8 Gen 3 cho tốc độ xử l&yacute; si&ecirc;u nhanh, đ&aacute;p ứng tốt mọi nhu cầu sử dụng.</li>\r\n	<li>Camera ch&iacute;nh 50.0 MP ghi lại những khoảnh khắc đẹp với độ chi tiết, m&agrave;u sắc ấn tượng.</li>\r\n	<li>Pin 4400mAh cho ph&eacute;p bạn sử dụng điện thoại cả ng&agrave;y d&agrave;i m&agrave; kh&ocirc;ng cần lo lắng về việc hết pin.</li>\r\n</ul>', '<blockquote>\r\n<p><a href=\"https://cellphones.com.vn/samsung-galaxy-z-fold-6.html\" target=\"_blank\" title=\"Samsung Galaxy Z Fold 6 mới nhất\"><strong>Samsung Z Fold 6</strong></a>&nbsp;l&agrave; si&ecirc;u phẩm&nbsp;<strong>điện thoại gập</strong>&nbsp;được ra mắt ng&agrave;y 10/7, hiệu năng dẫn đầu ph&acirc;n kh&uacute;c với chip 8 nh&acirc;n&nbsp;<strong>Snapdragon 8 Gen 3 for Galaxy</strong>, 12GB RAM c&ugrave;ng bộ nhớ trong từ&nbsp;<strong>256GB đến 1TB</strong>. Thay đổi mạnh mẽ về&nbsp;<strong>hiệu năng v&agrave; thiết kế</strong>, Galaxy Z Fold 6 hứa hẹn sẽ l&agrave; chiếc&nbsp;<strong>smartphone AI</strong>&nbsp;đ&aacute;ng sở hữu nhất nửa cuối năm 2024. C&ugrave;ng CellphoneS cập nhật tất tần tật th&ocirc;ng tin về Galaxy Z Fold6 ngay đ&acirc;y nh&eacute;!</p>\r\n</blockquote>\r\n\r\n<h2><strong>V&igrave; sao n&ecirc;n mua&nbsp;Samsung Galaxy Z Fold 6?</strong></h2>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;l&agrave; bước nhảy vọt về c&ocirc;ng nghệ điện thoại gập, mang lại trải nghiệm độc đ&aacute;o v&agrave; vượt trội cho người d&ugrave;ng. C&oacute;&nbsp;<strong>8 l&yacute; do</strong>&nbsp;v&igrave; sao n&ecirc;n mua Samsugn Z Fold 6 như sau:</p>\r\n\r\n<p>- T&iacute;ch hợp c&aacute;c t&iacute;nh năng<strong>&nbsp;Galaxy AI:</strong>&nbsp;Khoanh tr&ograve;n để t&igrave;m kiếm, Trợ l&yacute; Note quyền năng, Trợ l&yacute; chat th&ocirc;ng minh, Interpreter,...</p>\r\n\r\n<p>- Thiết kế<strong>&nbsp;si&ecirc;u mỏng nhẹ</strong>&nbsp;với trọng lượng chỉ&nbsp;<strong>249g, độ mỏng 5.6mm</strong>&nbsp;dễ d&agrave;ng cầm nắm v&agrave; mang theo.</p>\r\n\r\n<p>- M&agrave;u sắc tinh tế, thời thượng, thể hiện c&aacute; t&iacute;nh ri&ecirc;ng:&nbsp;<strong>X&aacute;m Metal, Hồng Ros&eacute;, Xanh Navy.</strong></p>\r\n\r\n<p>- Hiệu năng mạnh mẽ như PC thu nhỏ với bộ vi xử l&yacute;<strong>&nbsp;Snapdragon&reg; 8 Gen 3 for Galaxy</strong>&nbsp;tối ưu ri&ecirc;ng cho điện thoại Samsung.</p>\r\n\r\n<p><strong>-&nbsp;</strong>Dung lượng<strong>&nbsp;pin 4400mAh&nbsp;</strong>mang đến trải nghiệm li&ecirc;n tục m&agrave; kh&ocirc;ng lo gi&aacute;n đoạn.</p>\r\n\r\n<p><strong>-&nbsp;</strong>M&agrave;n h&igrave;nh với<strong>&nbsp;độ s&aacute;ng tối đa</strong>&nbsp;<strong>2600 nits</strong>, cho khả năng hiển thị ấn tượng dưới nhiều điều kiện &aacute;nh s&aacute;ng kh&aacute;c nhau.</p>\r\n\r\n<p>- M&agrave;n h&igrave;nh ngo&agrave;i k&iacute;ch thước&nbsp;<strong>6.3 inch,</strong>&nbsp;mở rộng diện t&iacute;ch hiển thị.</p>\r\n\r\n<p>- Camera thu ph&oacute;ng sắc n&eacute;t, chụp ảnh chi tiết v&agrave; sống động c&ugrave;ng khả năng chụp ảnh chuy&ecirc;n nghiệp với&nbsp;<strong>ProVisual Engine.</strong></p>\r\n\r\n<p><img alt=\"Những lý do nên mua Samsung Z Fold 6\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-12.jpg\" title=\"Những lý do nên mua Samsung Z Fold 6\" /></p>\r\n\r\n<p><em>Top 8 l&yacute; do n&ecirc;n mua ngay Samsung Galaxy Z Fold 6</em></p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 gi&aacute; bao nhi&ecirc;u? Bảng gi&aacute; mới nhất</strong></h2>\r\n\r\n<p><strong>Gi&aacute; Samsung Galaxy Z Fold 6</strong>&nbsp;tại thời điểm ra mắt l&agrave;<strong>&nbsp;43,990,000 đồng</strong>&nbsp;cho bản 12GB 256GB. C&aacute;c phi&ecirc;n bản kh&aacute;c tại thời điểm ra mắt c&oacute; gi&aacute; như sau:</p>\r\n\r\n<p>Bảng gi&aacute; chi tiết c&aacute;c phi&ecirc;n bản:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Phi&ecirc;n bản Samsung&nbsp;Z Fold6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; mở b&aacute;n quốc tế</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n mở b&aacute;n Việt Nam</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6&nbsp;12GB RAM + 256GB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>1,899 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>43,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6&nbsp;12GB RAM + 512GB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>2,019 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>47,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6 12GB RAm + 1TB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>2,259 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>54,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Như vậy, gi&aacute; khởi điểm Z Fold 6 cao hơn Z Fold 5 khoảng 100 USD ở thời điểm ra mắt. Đồng thời để n&acirc;ng cấp bộ nhớ trong c&aacute;c phi&ecirc;n bản năm nay, người d&ugrave;ng sẽ cần b&ugrave; th&ecirc;m khoảng 4 triệu đồng.</p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Th&ocirc;ng tin ch&iacute;nh thức, điện thoại gập&nbsp;<strong>Samsung Z Fold6 đ&atilde; được&nbsp;ra mắt v&agrave;o ng&agrave;y 10/7/2024</strong>&nbsp;tại sự kiện&nbsp;<strong>Galaxy Unpacked</strong>&nbsp;diễn ra ở&nbsp;<strong>thủ đ&ocirc; Paris</strong>.</p>\r\n</blockquote>\r\n\r\n<p>Vẫn như th&ocirc;ng lệ kể từ khi ra mắt d&ograve;ng sản phẩm Galaxy Z Series sẽ xuất hiện v&agrave;o khoảng đầu m&ugrave;a h&egrave; năm 2024. Cụ thể th&igrave; điện thoại Z Fold 6 sẽ ch&iacute;nh thức được giới thiệu trong khoảng nửa đầu th&aacute;ng 7 năm 2024.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy Z Fold6 khi nào ra mắt?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-2.png\" /></p>\r\n\r\n<p><em>Samsung Z Fold6 ch&iacute;nh thức ra mắt v&agrave;o ng&agrave;y 10/7/2024</em></p>\r\n\r\n<p>Vậy ở phi&ecirc;n bản năm nay, Samsung Galaxy Z Fold 6 đ&atilde; c&oacute; những thay đổi g&igrave; so với bản tiền nhiệm? Liệu những thay đổi n&agrave;y c&oacute; mang đến lợi &iacute;ch trực tiếp cho người d&ugrave;ng Samsung Gập kh&ocirc;ng? Xem ngay qua phần so s&aacute;nh tiếp theo!</p>\r\n\r\n<h2><strong>Bảng so s&aacute;nh th&ocirc;ng số Z Fold 6 v&agrave; Z Fold 5 chi tiết</strong></h2>\r\n\r\n<p>L&agrave; thế hệ điện thoại gập cao cấp mới nhất nh&agrave; Samsung,&nbsp;<strong>Galaxy Z Fold 6</strong>&nbsp;dự kiến được trang bị nhiều c&ocirc;ng nghệ ti&ecirc;n tiến v&agrave; vượt trội. B&ecirc;n cạnh những cải tiến về bộ vi xử l&yacute; gi&uacute;p n&acirc;ng cao hiệu năng v&agrave; tối ưu h&oacute;a thời gian sử dụng. Những n&acirc;ng cấp n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao trải nghiệm người d&ugrave;ng m&agrave; c&ograve;n khẳng định sự ph&aacute;t triển kh&ocirc;ng ngừng của d&ograve;ng sản phẩm Z Fold.</p>\r\n\r\n<p>Bảng so s&aacute;nh th&ocirc;ng số kỹ thuật<strong>&nbsp;Galaxy Z Fold6 v&agrave; Z Fold5:</strong></p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Ti&ecirc;u ch&iacute; so s&aacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 5</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p><strong>M&agrave;n h&igrave;nh phụ&nbsp;6.3 inch</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ 6.2 inch</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ m&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X QXGA+</p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X QXGA+</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ ph&acirc;n giải (pixel)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2160 x 1856</p>\r\n			</td>\r\n			<td>\r\n			<p>2176 x 1812</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ s&aacute;ng tối đa</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>2600nits</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>1750nits</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;nh cường lực</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Glass Victus 2</p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Victus 2</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chống nước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>IP48</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>IPX8</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Tần số qu&eacute;t</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi gập</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>153,5 x 68,1 x 12,1mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>154,9 x 67,1 x 13,4mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi mở</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>153,5 x 132,6 x 5,6mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>154,9 x 129,9 x 6,1mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Trọng lượng&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>239 gram</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>253 gram</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>RAM</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Bộ nhớ trong</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chip xử l&yacute;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Snapdragon 8 Gen 3 For Galaxy</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 2 For Galaxy</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Kết nối&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Hỗ trợ S Pen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera sau</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera trước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh:&nbsp;4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh: 4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ chụp ảnh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p><strong>Zoom quang học 3X chất lượng 2X</strong></p>\r\n\r\n			<p>Thu ph&oacute;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p>Thu ph&ograve;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Dung lượng pin</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u sắc</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>X&aacute;m Metal,&nbsp;&nbsp;Xanh Navy, Hồng Rose</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Xanh Icy, Đen Phantom, Kem Ivory</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Như vậy, dễ thấy Samsung Fold thế hệ thứ 6 đ&atilde; được n&acirc;ng cấp&nbsp;<strong>mỏng nhẹ hơn</strong>. B&ecirc;n cạnh đ&oacute; l&agrave;&nbsp;<strong>cải tiến về camera, chipset v&agrave; m&agrave;u sắc</strong>&nbsp;thiết kế. Vậy so với Z Flip 6 c&ugrave;ng ra mắt năm nay th&igrave; th&ocirc;ng số giữa hai thiết bị n&agrave;y c&oacute; g&igrave; kh&aacute;c biệt? Đ&acirc;u l&agrave; điểm tạo n&ecirc;n sự ch&ecirc;nh lệch về gi&aacute; giữa Fold 6 v&agrave; Flip 6? Đọc ngay nội dung so s&aacute;nh tiếp theo!</p>\r\n\r\n<h2><strong>Bảng so s&aacute;nh th&ocirc;ng số Z Fold 6 v&agrave; Z Flip 6 chi tiết</strong></h2>\r\n\r\n<p>D&ograve;ng sản phẩm&nbsp;<strong>Galaxy Z Fold 6 v&agrave;&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-z-flip-6.html\" target=\"_blank\" title=\"Samsung Galaxy Z Flip 6\">Z Flip 6</a></strong>&nbsp;của Samsung đều mang lại những cải tiến vượt trội, nhưng mỗi thiết bị lại c&oacute; những đặc điểm v&agrave; t&iacute;nh năng ri&ecirc;ng biệt để phục vụ nhu cầu đa dạng của người d&ugrave;ng. Dưới đ&acirc;y l&agrave; bảng so s&aacute;nh chi tiết về th&ocirc;ng số kỹ thuật của Z Fold 6 v&agrave; Z Flip 6, gi&uacute;p bạn dễ d&agrave;ng đ&aacute;nh gi&aacute; v&agrave; lựa chọn thiết bị ph&ugrave; hợp nhất với nhu cầu c&aacute; nh&acirc;n. Từ m&agrave;n h&igrave;nh, hiệu năng, đến t&iacute;nh năng đặc biệt, mọi chi tiết đều được liệt k&ecirc; r&otilde; r&agrave;ng để mang đến c&aacute;i nh&igrave;n to&agrave;n diện v&agrave; cụ thể nhất.</p>\r\n\r\n<p>Bảng so s&aacute;nh th&ocirc;ng số kỹ thuật&nbsp;<strong>Galaxy Z Fold6 v&agrave; Z Flip6</strong>:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Ti&ecirc;u ch&iacute; so s&aacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Flip 6</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ&nbsp;6.3 inch</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 6.7 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ 3.4 inch&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ m&agrave;n h&igrave;nh ch&iacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X</p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ ph&acirc;n giải (pixel)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2160 x 1856 (QXGA+)</p>\r\n			</td>\r\n			<td>\r\n			<p>2640 x 1080&nbsp; (FHD+)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ s&aacute;ng tối đa</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2600nits</p>\r\n			</td>\r\n			<td>\r\n			<p>2600nits</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;nh cường lực</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Glass Victus 2</p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Victus 2</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chống nước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>IP48</p>\r\n			</td>\r\n			<td>\r\n			<p>IP48</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Tần số qu&eacute;t</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi gập</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>153,5 x 68,1 x 12,1mm</p>\r\n			</td>\r\n			<td>\r\n			<p>85,1 x 71,9 x 14,9 mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi mở</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>153,5 x 132,6 x 5,6mm</p>\r\n			</td>\r\n			<td>\r\n			<p>165,1 x 71,9 x 6,9 mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Trọng lượng&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>239 gram</p>\r\n			</td>\r\n			<td>187gram</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>RAM</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Bộ nhớ trong</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chip xử l&yacute;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 3 For Galaxy</p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 3 For Galaxy</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Kết nối&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Hỗ trợ S Pen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>-</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera sau</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP +&nbsp; 12.0 MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera trước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh:&nbsp;4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n			<td>\r\n			<p>10MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ chụp ảnh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p>Zoom quang học 3X chất lượng 2X</p>\r\n\r\n			<p>Thu ph&oacute;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 2X</p>\r\n\r\n			<p>Thu ph&ograve;ng kh&ocirc;ng gian 10X</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Dung lượng pin</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n			<td>\r\n			<p>4.000 mAh</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u sắc</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>X&aacute;m Metal,&nbsp;&nbsp;Xanh Navy, Hồng Rose</p>\r\n			</td>\r\n			<td>\r\n			<p>Xanh Maya, Xanh Mint, X&aacute;m Metal, V&agrave;ng Solar</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Qua bảng so s&aacute;nh nhanh c&oacute; thể thấy được&nbsp;<strong>Z Fold 6 v&agrave; Z Flip 6</strong>&nbsp;đều sử dụng con chip mạnh như nhau. Tuy nhi&ecirc;n do concept thiết kế n&ecirc;n Z Fold6 c&oacute; k&iacute;ch thước to hơn, pin lớn hơn để đ&aacute;p ứng m&agrave;n h&igrave;nh rộng hơn. Ngo&agrave;i ra, giữa hai thiết bị gập mới n&agrave;y c&ograve;n kh&aacute;c nhau ở c&ocirc;ng nghệ camera, m&agrave;u sắc chủ đạo.</p>\r\n\r\n<h2><strong>Đ&aacute;nh gi&aacute; Samsung Galaxy Z Fold 6 về thiết kế v&agrave; hiệu năng</strong></h2>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6 5G</strong>&nbsp;l&agrave; phi&ecirc;n bản đ&aacute;nh dấu sự lột x&aacute;c ho&agrave;n to&agrave;n của d&ograve;ng sản phẩm điện thoại gập của Samsung sau 5 phi&ecirc;n bản kh&ocirc;ng c&oacute; qu&aacute; nhiều kh&aacute;c biệt. Ở tr&ecirc;n phi&ecirc;n bản n&agrave;y, Samsung đ&atilde; c&oacute; những sự bổ sung n&agrave;o để kh&ocirc;ng l&agrave;m những người h&acirc;m mộ của m&igrave;nh thất vọng? C&ugrave;ng&nbsp;<strong>đ&aacute;nh gi&aacute; Samsung Fold 6</strong>&nbsp;qua c&aacute;c nội dung ch&iacute;nh sau đ&acirc;y:</p>\r\n\r\n<ul>\r\n	<li>N&acirc;ng cấp vượt bậc về khả năng quay, chụp</li>\r\n	<li>Cấu h&igrave;nh h&agrave;ng đầu với con chip độc quyền cho Galaxy</li>\r\n	<li>Vi&ecirc;n pin lớn t&iacute;ch hợp khả năng sạc si&ecirc;u tốc</li>\r\n	<li>Sự lột x&aacute;c trong thiết kế</li>\r\n	<li>M&agrave;n h&igrave;nh Dynamic AMOLED 2X HD+ 120Hz sắc n&eacute;t nay mượt m&agrave; hơn</li>\r\n</ul>\r\n\r\n<p>Chi tiết c&aacute;c đ&aacute;nh gi&aacute; như sau:</p>\r\n\r\n<h3><strong>Những t&iacute;nh năng AI ấn tượng</strong></h3>\r\n\r\n<p><strong>Galaxy Z Fold 6</strong>&nbsp;được trang bị những&nbsp;<strong>t&iacute;nh năng AI</strong>&nbsp;ấn tượng, n&acirc;ng tầm trải nghiệm người d&ugrave;ng l&ecirc;n một đẳng cấp mới. Với khả năng xử l&yacute; th&ocirc;ng minh v&agrave; tự động h&oacute;a ti&ecirc;n tiến, thiết bị gi&uacute;p tối ưu h&oacute;a hiệu suất l&agrave;m việc v&agrave; s&aacute;ng tạo. C&aacute;c t&iacute;nh năng như phi&ecirc;n dịch trực tiếp, trợ l&yacute; ghi ch&uacute;, v&agrave; chỉnh sửa ảnh chuy&ecirc;n nghiệp mang lại sự tiện lợi v&agrave; hiệu quả chưa từng c&oacute;.</p>\r\n\r\n<p><strong>Khoanh Tr&ograve;n Để T&igrave;m Kiếm</strong></p>\r\n\r\n<p>Khai th&aacute;c sức mạnh của m&agrave;n h&igrave;nh gập lớn bằng c&aacute;ch&nbsp;<strong>khoanh tr&ograve;n bất cứ thứ g&igrave;</strong>&nbsp;bạn cần t&igrave;m kiếm tr&ecirc;n Z Fold6. T&iacute;nh năng n&agrave;y gi&uacute;p bạn dễ d&agrave;ng t&igrave;m th&ocirc;ng tin chỉ với một thao t&aacute;c đơn giản, d&ugrave; l&agrave; sử dụng ng&oacute;n tay hay S Pen, biến việc t&igrave;m kiếm trở n&ecirc;n nhanh ch&oacute;ng v&agrave; thuận tiện hơn bao giờ hết.</p>\r\n\r\n<p><img alt=\"Khoanh tròn để tìm kiếm là một tính năng hữu ích trên Z Fold 6\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-9.jpg\" title=\"Khoanh tròn để tìm kiếm là một tính năng hữu ích trên Z Fold 6\" /></p>\r\n\r\n<p><em>Khoanh tr&ograve;n để t&igrave;m kiếm l&agrave; một t&iacute;nh năng hữu &iacute;ch tr&ecirc;n Z Fold 6</em></p>\r\n\r\n<p><strong>Trợ L&yacute; Note Quyền Năng (Note Assist)</strong></p>\r\n\r\n<p><strong>Note Assist</strong>l&agrave; c&ocirc;ng cụ đắc lực cho những ai thường xuy&ecirc;n&nbsp;<strong>ghi ch&uacute;</strong>, đặc biệt l&agrave; trong c&aacute;c buổi họp hoặc giảng b&agrave;i. C&ocirc;ng cụ n&agrave;y tự động chuyển đổi c&aacute;c bản ghi &acirc;m th&agrave;nh văn bản, sắp xếp ch&uacute;ng th&agrave;nh c&aacute;c ghi ch&uacute; r&otilde; r&agrave;ng v&agrave; t&oacute;m tắt hiệu quả. B&uacute;t S Pen c&agrave;ng l&agrave;m tăng t&iacute;nh năng n&agrave;y, gi&uacute;p bạn đa t&aacute;c vụ dễ d&agrave;ng. Hơn thế nữa, trợ l&yacute; chat th&ocirc;ng minh v&agrave; tr&igrave;nh duyệt th&ocirc;ng minh của Galaxy Z Fold 6 gi&uacute;p bạn tối ưu h&oacute;a c&ocirc;ng việc với chỉ một v&agrave;i từ kh&oacute;a v&agrave; t&oacute;m tắt to&agrave;n bộ trang web chỉ trong nh&aacute;y mắt.</p>\r\n\r\n<p><strong>Trợ L&yacute; Chỉnh Ảnh Chuy&ecirc;n Nghiệp (Photo Assist)</strong></p>\r\n\r\n<p><strong>Photo Assist</strong>&nbsp;l&agrave; c&ocirc;ng cụ chỉnh sửa ảnh ti&ecirc;n tiến, biến mọi bức ảnh trở n&ecirc;n ho&agrave;n hảo ngay tr&ecirc;n chiếc&nbsp;<strong>Samsung Galaxy Z Fold 6</strong>. Photo Assist cho ph&eacute;p bạn x&aacute;c định đối tượng trong ảnh, di chuyển, x&oacute;a hoặc ph&oacute;ng to đối tượng đ&oacute; một c&aacute;ch dễ d&agrave;ng. Studio ch&acirc;n dung AI gi&uacute;p bạn tạo ra những bức ch&acirc;n dung nghệ thuật tuyệt đẹp, trong khi t&iacute;nh năng chuyển động chậm tức th&igrave; cho ph&eacute;p &aacute;p dụng hiệu ứng slow-motion c&oacute; chọn lọc cho video. Ph&aacute;c hoạ th&ocirc;ng minh sử dụng AI để biến những bức ph&aacute;c thảo th&agrave;nh h&igrave;nh ảnh thực, mang đến cho bạn trải nghiệm chỉnh sửa ảnh đầy s&aacute;ng tạo v&agrave; chuy&ecirc;n nghiệp.</p>\r\n\r\n<p><img alt=\"Photo Assist trên Z Fold6 cho phép bạn xác định đối tượng trong ảnh, di chuyển, xóa hoặc phóng to đối tượng đó\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-11.jpg\" title=\"Photo Assist trên Z Fold6 cho phép bạn xác định đối tượng trong ảnh, di chuyển, xóa hoặc phóng to đối tượng đó\" /></p>\r\n\r\n<p><em>Photo Assist tr&ecirc;n Z Fold6 cho ph&eacute;p bạn x&aacute;c định đối tượng trong ảnh, di chuyển, x&oacute;a hoặc ph&oacute;ng to đối tượng đ&oacute;</em></p>\r\n\r\n<p><strong>T&iacute;nh năng Interpreter (phi&ecirc;n dịch vi&ecirc;n)</strong></p>\r\n\r\n<p>T&iacute;nh năng&nbsp;<strong>phi&ecirc;n dịch tr&ecirc;n Z Fold 6 5G</strong>&nbsp;cũng l&agrave; một t&iacute;nh năng AI ấn tượng, bạn c&oacute; thể sử dụng để:</p>\r\n\r\n<p><strong>- Phi&ecirc;n Dịch Tối Ưu Với M&agrave;n H&igrave;nh K&eacute;p</strong>: Tận dụng tối đa m&agrave;n h&igrave;nh k&eacute;p, bạn c&oacute; thể phi&ecirc;n dịch ngay tại chỗ, d&ugrave; l&agrave; khi muốn thể hiện bản th&acirc;n, theo d&otilde;i hội nghị quốc tế, hay trao đổi với hướng dẫn vi&ecirc;n du lịch. T&iacute;nh năng n&agrave;y gi&uacute;p bạn vượt qua r&agrave;o cản ng&ocirc;n ngữ, mở ra thế giới mới mẻ v&agrave; đa dạng chỉ trong tầm tay.</p>\r\n\r\n<p><strong>- Phi&ecirc;n Dịch Trực Tiếp Cuộc Gọi</strong>: Với khả năng dịch c&aacute;c cuộc tr&ograve; chuyện qua điện thoại ngay lập tức, t&iacute;nh năng n&agrave;y ho&agrave;n hảo để dịch giọng n&oacute;i theo thời gian thực tr&ecirc;n nhiều ứng dụng kh&aacute;c nhau. Điều n&agrave;y đặc biệt hữu &iacute;ch khi bạn thực hiện c&aacute;c cuộc gọi li&ecirc;n quan đến hai ng&ocirc;n ngữ kh&aacute;c nhau, đảm bảo mọi th&ocirc;ng tin được truyền tải ch&iacute;nh x&aacute;c v&agrave; hiệu quả.</p>\r\n\r\n<p><strong>- Tr&ograve; Chuyện Với Gemini</strong>: T&iacute;nh năng Tr&ograve; chuyện với Gemini được t&iacute;ch hợp để hỗ trợ bạn trong việc học tập, viết nội dung, l&ecirc;n kế hoạch v&agrave; nhiều hơn thế. Gemini kh&ocirc;ng chỉ gi&uacute;p bạn phi&ecirc;n dịch m&agrave; c&ograve;n trở th&agrave;nh trợ thủ đắc lực trong cuộc sống h&agrave;ng ng&agrave;y.</p>\r\n\r\n<p><img alt=\"Tính năng phiên dịch trên Z Fold 6 cũng là một tính năng AI ấn tượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-10.jpg\" title=\"Tính năng phiên dịch trên Z Fold 6 cũng là một tính năng AI ấn tượng\" /></p>\r\n\r\n<p><em>T&iacute;nh năng phi&ecirc;n dịch tr&ecirc;n Z Fold 6 cũng l&agrave; một t&iacute;nh năng AI ấn tượng</em></p>\r\n\r\n<h3><strong>Tỷ lệ m&agrave;n h&igrave;nh 22.1:9 mới vu&ocirc;ng vức hơn</strong></h3>\r\n\r\n<p>Một n&acirc;ng cấp đ&aacute;ng ch&uacute; &yacute; kh&aacute;c của&nbsp;<strong>Samsung Galaxy Z Fold 6</strong>&nbsp;nằm ở m&agrave;n h&igrave;nh phụ. K&iacute;ch thước bề rộng khi gập m&aacute;y tăng th&ecirc;m 1mm v&agrave; chiều cao giảm 1.4mm, tỷ lệ m&agrave;n h&igrave;nh phụ giảm từ 23.1:9 xuống c&ograve;n&nbsp;<strong>22.1:9</strong>, gần bằng với tỷ lệ 21:9 của Sony Xperia. K&iacute;ch thước m&agrave;n h&igrave;nh phụ cũng tăng&nbsp;<strong>từ 6.2 inch l&ecirc;n 6.3 inch</strong>, mang đến trải nghiệm rộng r&atilde;i v&agrave; thoải m&aacute;i hơn. M&agrave;n h&igrave;nh ch&iacute;nh b&ecirc;n trong cũng c&oacute; sự thay đổi về k&iacute;ch thước, giữ nguy&ecirc;n k&iacute;ch thước đường ch&eacute;o 7.6 inch nhưng với bề ngang rộng hơn, mang lại cảm gi&aacute;c vu&ocirc;ng vức v&agrave; dễ thao t&aacute;c hơn.</p>\r\n\r\n<p><img alt=\"Màn hình phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-15.jpg\" title=\"Màn hình phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới\" /></p>\r\n\r\n<p><em>M&agrave;n h&igrave;nh phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới</em></p>\r\n\r\n<h3><strong>N&acirc;ng cấp vượt bậc về khả năng quay, chụp</strong></h3>\r\n\r\n<p><strong>Samsung Galaxy Z Fold6</strong>&nbsp;đ&aacute;nh dấu sự thay đổi vượt trội về khả năng chụp h&igrave;nh, quay phim của thiết bị. Mẫu điện thoại gập Z Fold thế hệ thứ s&aacute;u sở hữu nhiều t&iacute;nh năng vượt trội cả cụm camera sau lẫn camera trước.&nbsp;</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-3.png\" /></p>\r\n\r\n<p><em>Samsung Fold6 sở hữu camera ch&iacute;nh 50MP</em></p>\r\n\r\n<p>Camera g&oacute;c rộng của m&aacute;y c&oacute;&nbsp;<strong>cảm biến 50MP</strong>, camera tele cảm biến 10MP để chất lượng h&igrave;nh ảnh của c&aacute;c chế độ phụ trợ được sắc n&eacute;t hơn. Th&ecirc;m v&agrave;o đ&oacute; l&agrave; camera g&oacute;c si&ecirc;u rộng 12MP, hỗ trợ tối đa cho những bức ảnh chụp nhiều người hay to&agrave;n cảnh.</p>\r\n\r\n<p>Với cảm biến lớn hơn, camera của Z Fold 6 cũng được n&acirc;ng cấp về chất lượng quay video. Điện thoại Galaxy Z Fold 6 giờ đ&acirc;y đ&atilde; c&oacute; thể&nbsp;<strong>quay phim với chất lượng cao</strong>. Về mặt trước, điện thoại sẽ được trang bị bộ đ&ocirc;i camera selfie 10MP ở m&agrave;n h&igrave;nh phụ v&agrave; 4MP ở m&agrave;n h&igrave;nh ch&iacute;nh.</p>\r\n\r\n<h3><strong>Cấu h&igrave;nh h&agrave;ng đầu với chipset Snapdragon 8 Gen 3 For Galaxy</strong></h3>\r\n\r\n<p>Với khả năng đẩy xung nhịp l&ecirc;n cao hơn để tăng tốc độ xử l&yacute;, d&ograve;ng chip Snapdragon cho Galaxy vẫn sẽ tiếp tục được trang bị tr&ecirc;n thiết bị mới. Cụ thể th&igrave; Galaxy Z Fold 6 sẽ sở hữu mẫu chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;độc quyền.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-7.png\" /></p>\r\n\r\n<p><em>Galaxy Z Fold 6 sẽ sở hữu mẫu chip Snapdragon 8 Gen 3 độc quyền</em></p>\r\n\r\n<p>Dung lượng RAM 12GB vẫn sẽ được giữ nguy&ecirc;n từ phi&ecirc;n bản Z Fold 5 l&ecirc;n Z Fold 6. RAM tr&ecirc;n điện thoại Z Fold 6 vẫn thừa khả năng để đảm bảo c&aacute;c hoạt động đa nhiệm hay chạy song song c&ugrave;ng l&uacute;c hay ứng dụng được mượt m&agrave;, nhanh ch&oacute;ng.</p>\r\n\r\n<p>Điện thoại Galaxy Z Fold 6 sẽ c&oacute; tới 3 tuỳ chọn bộ nhớ l&agrave;&nbsp;<strong>256GB, 512GB v&agrave; 1TB</strong>. Phi&ecirc;n bản bộ nhớ 128GB đ&atilde; ho&agrave;n to&agrave;n bị loại bỏ do kh&ocirc;ng c&ograve;n đủ khả năng để đ&aacute;p ứng được c&aacute;c nhu cầu quay chụp chuy&ecirc;n dụng hay l&agrave;m việc tr&ecirc;n chiếc điện thoại n&agrave;y.</p>\r\n\r\n<h3><strong>Dung lượng pin 4400mAh, thoải m&aacute;i sử dụng ng&agrave;y d&agrave;i</strong></h3>\r\n\r\n<p>Z Fold 6 sở hữu vi&ecirc;n pin&nbsp;<strong>4400mAh</strong>&nbsp;đảm bảo thời gian sử dụng l&acirc;u d&agrave;i cho c&aacute;c nhu cầu giải tr&iacute; v&agrave; c&ocirc;ng việc. Với khả năng&nbsp;<strong>ph&aacute;t video l&ecirc;n đến 23 giờ</strong>&nbsp;v&agrave;&nbsp;<strong>ph&aacute;t &acirc;m thanh l&ecirc;n đến 77 giờ</strong>&nbsp;(ở điều kiện thử nghiệm, tr&ecirc;n thực tế c&oacute; thể thay đổi), người d&ugrave;ng c&oacute; thể thoải m&aacute;i tận hưởng những trải nghiệm đa phương tiện m&agrave; kh&ocirc;ng lo hết pin giữa chừng. Hiệu suất pin vượt trội n&agrave;y mang lại sự tiện lợi v&agrave; đ&aacute;ng tin cậy cho mọi hoạt động h&agrave;ng ng&agrave;y.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-3.png\" /></p>\r\n\r\n<p><em>Galaxy Fold6 sở hữu vi&ecirc;n pin 4400mAh</em></p>\r\n\r\n<p>Vi&ecirc;n pin mới cũng sẽ được t&iacute;ch hợp c&ocirc;ng nghệ sạc ti&ecirc;n tiến để mang tới khả năng sạc đầy si&ecirc;u tốc. Samsung Galaxy Z Fold 6 sẽ hỗsạc nhanh c&oacute; c&ocirc;ng suất 25W. Nhờ vậy m&agrave; Z Fold 6 sẽ kh&ocirc;ng chỉ c&oacute; được thời lượng d&ugrave;ng thoải m&aacute;i m&agrave; c&ograve;n r&uacute;t ngắn được thời gian sạc pin.</p>\r\n\r\n<h3><strong>Mỏng nhẹ hơn, đa dạng tuỳ chọn m&agrave;u sắc</strong></h3>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;kh&ocirc;ng thay đổi nhiều về tổng thể ngoại h&igrave;nh nhưng mang đến những cải tiến đ&aacute;ng gi&aacute;. So với thế hệ trước, Galaxy Z Fold6&nbsp;<strong>nhẹ hơn 14g</strong>&nbsp;v&agrave;&nbsp;<strong>mỏng hơn</strong>&nbsp;đ&aacute;ng kể, khi mở ra mỏng hơn 0.5mm v&agrave; khi gập lại mỏng hơn 1.3mm, mang lại cảm gi&aacute;c cầm nắm nhẹ nh&agrave;ng v&agrave; thoải m&aacute;i. Thiết kế vu&ocirc;ng vức hơn cũng tạo cảm gi&aacute;c cao cấp v&agrave; cứng c&aacute;p hơn. Samsung mang đến 3 t&ugrave;y chọn m&agrave;u sắc cho Galaxy Z Fold6:&nbsp;<strong>X&aacute;m Metal, Xanh Navy v&agrave; Hồng Rose</strong>, gi&uacute;p người d&ugrave;ng thể hiện c&aacute; t&iacute;nh ri&ecirc;ng.</p>\r\n\r\n<p><img alt=\"Galaxy Z Fold6 nhẹ hơn 14g và mỏng hơn đáng kể so với thế hệ trước\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-17.jpg\" title=\"Galaxy Z Fold6 nhẹ hơn 14g và mỏng hơn đáng kể so với thế hệ trước\" /></p>\r\n\r\n<p><em>Galaxy Z Fold6 nhẹ hơn 14g v&agrave; mỏng hơn đ&aacute;ng kể so với thế hệ trước</em></p>\r\n\r\n<p><strong>Bản lề cải tiến</strong>&nbsp;của phi&ecirc;n bản Z Fold mới mang đến trải nghiệm gập mở mượt m&agrave; v&agrave; bền hơn. Ngo&agrave;i ra, khả năng chống nước&nbsp;<strong>đạt chuẩn IP48</strong>, tức l&agrave; vẫn c&oacute; khả năng chống bụi nhẹ, l&agrave; một bước tiến so với thế hệ trước kh&ocirc;ng c&oacute; khả năng chống bụi.</p>\r\n\r\n<p>M&agrave;n h&igrave;nh phụ của Galaxy Z Fold 6 đ&atilde; được n&acirc;ng cấp từ 6.2 inch l&ecirc;n 6.3 inch, mang lại trải nghiệm thao t&aacute;c thoải m&aacute;i v&agrave; rộng r&atilde;i hơn so với thế hệ trước. K&iacute;ch thước thay đổi của m&aacute;y cũng ảnh hưởng đến m&agrave;n h&igrave;nh ch&iacute;nh, gi&uacute;p bề ngang rộng hơn v&agrave; thiết kế vu&ocirc;ng vức hơn, mặc d&ugrave; k&iacute;ch thước đường ch&eacute;o vẫn giữ nguy&ecirc;n 7.6 inch.</p>\r\n\r\n<h3><strong>M&agrave;n h&igrave;nh&nbsp;Dynamic AMOLED 2X HD+ 120Hz sắc n&eacute;t, độ s&aacute;ng vượt trội</strong></h3>\r\n\r\n<p><strong>Galaxy Z Fold 6</strong>&nbsp;được trang bị m&agrave;n h&igrave;nh ch&iacute;nh&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;với độ ph&acirc;n giải&nbsp;<strong>2376 x 968</strong>, mang đến h&igrave;nh ảnh sắc n&eacute;t v&agrave; sống động. Độ s&aacute;ng tối đa l&ecirc;n đến&nbsp;<strong>2600 nits</strong>&nbsp;đảm bảo khả năng hiển thị r&otilde; r&agrave;ng ngay cả dưới &aacute;nh s&aacute;ng mặt trời mạnh. Tốc độ l&agrave;m mới&nbsp;<strong>120Hz</strong>&nbsp;mang lại trải nghiệm mượt m&agrave;, l&yacute; tưởng cho việc xem video, chơi game v&agrave; lướt web.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-4.png\" /></p>\r\n\r\n<p><em>M&agrave;n h&igrave;nh Galaxy Z Fold 6 c&oacute; độ s&aacute;ng m&agrave;n h&igrave;nh tối đa l&ecirc;n đến 2600nits</em></p>\r\n\r\n<p>Những th&ocirc;ng số ấn tượng n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao chất lượng h&igrave;nh ảnh m&agrave; c&ograve;n cải thiện trải nghiệm người d&ugrave;ng, mang lại cảm gi&aacute;c ch&acirc;n thực v&agrave; sống động trong từng t&aacute;c vụ h&agrave;ng ng&agrave;y. M&agrave;n h&igrave;nh Z Fold 6 chắc chắn sẽ l&agrave;m h&agrave;i l&ograve;ng những kh&aacute;ch h&agrave;ng kh&oacute; t&iacute;nh nhất, từ nhu cầu giải tr&iacute; đến c&ocirc;ng việc.</p>\r\n\r\n<h2><strong>Samsung Z Fold 6 c&oacute; mấy m&agrave;u? M&agrave;u n&agrave;o mới xuất hiện?</strong></h2>\r\n\r\n<blockquote>\r\n<p><strong>Samsung Z Fold 6</strong>&nbsp;mang đến cho người d&ugrave;ng&nbsp;<strong>5 t&ugrave;y chọn m&agrave;u sắc</strong>&nbsp;đa dạng gồm&nbsp;<strong>X&aacute;m, Hồng, Xanh, Đen v&agrave; Trắng</strong>. M&agrave;u Đen v&agrave; Trắng l&agrave; hai m&agrave;u sắc độc quyền chỉ c&oacute; tại Samsung Store, mang đến sự lựa chọn đặc biệt cho những ai y&ecirc;u th&iacute;ch sự sang trọng v&agrave; tinh tế.</p>\r\n</blockquote>\r\n\r\n<p>Với sự bổ sung của c&aacute;c t&ugrave;y chọn m&agrave;u mới n&agrave;y, bạn c&oacute; thể dễ d&agrave;ng thể hiện c&aacute; t&iacute;nh ri&ecirc;ng của m&igrave;nh, từ vẻ ngo&agrave;i thanh lịch, quyến rũ đến phong c&aacute;ch hiện đại, mạnh mẽ. Samsung Z Fold 6 kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ ti&ecirc;n tiến m&agrave; c&ograve;n l&agrave; một phụ kiện thời trang đẳng cấp, ph&ugrave; hợp với mọi phong c&aacute;ch sống.</p>\r\n\r\n<p><img alt=\"Samsung Z Fold 6 mang đến cho người dùng 5 tùy chọn màu sắc đa dạng gồm Xám, Hồng, Xanh, Đen và Trắng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-5.png\" title=\"Samsung Z Fold 6 mang đến cho người dùng 5 tùy chọn màu sắc đa dạng gồm Xám, Hồng, Xanh, Đen và Trắng\" /></p>\r\n\r\n<p><em>Samsung Z Fold 6 mang đến cho người d&ugrave;ng 5 t&ugrave;y chọn m&agrave;u sắc đa dạng gồm X&aacute;m, Hồng, Xanh, Đen v&agrave; Trắng</em></p>\r\n\r\n<p>C&oacute; thể thấy, hầu hết bản m&agrave;u tr&ecirc;n phi&ecirc;n bản tiền nhiệm đ&atilde; thay thế bằng bộ m&agrave;u mới. Như Z Fold 5 c&oacute; c&aacute;c phi&ecirc;n bản: Xanh Icy, Đen Phantom, Kem Ivory v&agrave; 2 bản độc quyền chỉ b&aacute;n tr&ecirc;n trang trực tuyến Samsung: Xanh Downtown v&agrave; Ghi Urban.</p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 c&oacute; mấy phi&ecirc;n bản bộ nhớ?</strong></h2>\r\n\r\n<blockquote>\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;c&oacute;&nbsp;<strong>3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; 1TB</strong>&nbsp;để người d&ugrave;ng lựa chọn ph&ugrave; hợp với nhu cầu của m&igrave;nh. Tất cả đều đi c&ugrave;ng bộ nhớ RAM 12GB xử l&yacute; đa nhiệm mượt m&agrave;.</p>\r\n</blockquote>\r\n\r\n<p>Bạn c&oacute; thể lựa chọn giữa c&aacute;c phi&ecirc;n bản lưu trữ 256GB, 512GB, v&agrave; 1TB, gi&uacute;p bạn thoải m&aacute;i lưu trữ dữ liệu, ứng dụng v&agrave; nội dung y&ecirc;u th&iacute;ch m&agrave; kh&ocirc;ng lo hết dung lượng. Sự đa dạng trong t&ugrave;y chọn bộ nhớ của Galaxy Z Fold 6 đảm bảo đ&aacute;p ứng mọi nhu cầu từ cơ bản đến cao cấp, mang lại trải nghiệm sử dụng tối ưu cho người d&ugrave;ng.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy Z Fold 6 có 3 phiên bản bộ nhớ trong là 256GB, 512GB và 1TB\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-18.jpg\" title=\"Samsung Galaxy Z Fold 6 có 3 phiên bản bộ nhớ trong là 256GB, 512GB và 1TB\" /></p>\r\n\r\n<p><em>Samsung Galaxy Z Fold 6 c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; 1TB</em></p>\r\n\r\n<h2><strong>Samsung ZFold 6 c&oacute; n&acirc;ng cấp khả năng chống nước kh&ocirc;ng?</strong></h2>\r\n\r\n<p><strong>Samsung ZFold 6</strong>&nbsp;5G tiếp tục n&acirc;ng cấp khả năng chống nước với&nbsp;<strong>ti&ecirc;u chuẩn IP48</strong>, đồng thời ti&ecirc;u chuẩn n&agrave;y cũng đảm bảo thiết bị c&oacute; thể&nbsp;<strong>chống bụi nhẹ</strong>, đ&acirc;y l&agrave; một cải tiến đ&aacute;ng kể so với thế hệ tiền nhiệm vốn kh&ocirc;ng c&oacute; khả năng chống bụi.</p>\r\n\r\n<p>Điều n&agrave;y gi&uacute;p Z Fold 6 trở n&ecirc;n bền bỉ v&agrave; đ&aacute;ng tin cậy hơn trong nhiều điều kiện sử dụng. Tr&ecirc;n thị trường điện thoại gập hiện nay, khả năng chống nước của Galaxy Z Fold 6 gi&uacute;p thiết bị nổi bật hơn, mang lại sự y&ecirc;n t&acirc;m cho người. Với những cải tiến n&agrave;y, Galaxy Z Fold 6 kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ cao cấp m&agrave; c&ograve;n l&agrave; người bạn đồng h&agrave;nh đ&aacute;ng tin cậy trong mọi t&igrave;nh huống.</p>\r\n\r\n<p><img alt=\"Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-16.jpg\" title=\"Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng\" /></p>\r\n\r\n<p><em>Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng</em></p>\r\n\r\n<h2><strong>Chuy&ecirc;n gia c&ocirc;ng nghệ n&oacute;i g&igrave; về Samsung Z Fold 6?</strong></h2>\r\n\r\n<p><strong>Samsung Z Fold 6</strong>&nbsp;l&agrave; thế hệ điện thoại cao cấp của Samsung được tr&igrave;nh l&agrave;ng năm 2024. Với những n&acirc;ng cấp đ&aacute;ng để mẫu điện thoại đ&oacute;n nhận nhiều đ&aacute;nh gi&aacute; t&iacute;ch cực từ chuy&ecirc;n gia, nổi bật phải kể đến như:&nbsp;</p>\r\n\r\n<p>- Anh Huy NL - Người s&aacute;ng lập Schannel: &quot;Galaxy Z Fold6 năm nay m&igrave;nh thấy&nbsp;<strong>như một chiếc m&aacute;y t&iacute;nh thu gọn</strong>, dễ d&agrave;ng thao t&aacute;c, đa nhiệm hơn bao giờ hết tr&ecirc;n m&agrave;n h&igrave;nh si&ecirc;u lớn. Xử l&iacute; c&ocirc;ng việc nh&agrave;nh gọn chỉ cần v&agrave;i thao t&aacute;c c&ugrave;ng thanh t&aacute;c vụ mới tr&ecirc;n Z Fold6.&quot;</p>\r\n\r\n<p>- Anh Tuấn Ngọc - chuy&ecirc;n gia review c&ocirc;ng nghệ: &quot;Thiết kế&nbsp;<strong>tinh tế</strong>&nbsp;v&agrave;&nbsp;<strong>cảm gi&aacute;c nhẹ nh&agrave;ng hơn</strong>&nbsp;của Galaxy Z Fold6 khiến n&oacute; trở th&agrave;nh chiếc Fold mang nhiều điểm nhất từ trước đến nay. Galaxy Ai tr&ecirc;n Z Fold6 gi&uacute;p cho m&igrave;nh đa nhiệm tối ưu với c&ocirc;ng việc hơn bao giờ &quot;.</p>\r\n\r\n<p><img alt=\"Chuyên gia đánh giá gì về Z Fold 6?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/dien-thoai-samsung-z-flip-6-chuyen-gia.jpg\" /></p>', 'Samsung Galaxy Z Fold6', 'Samsung Galaxy Z Fold6', 'Samsung Z Fold 6 là siêu phẩm điện thoại gập được ra mắt ngày 10/7, hiệu năng dẫn đầu phân khúc với chip 8 nhân Snapdragon 8 Gen 3 for Galaxy, 12GB RAM cùng bộ nhớ trong từ 256GB đến 1TB. Thay đổi mạnh mẽ về hiệu năng và thiết kế, Galaxy Z Fold 6 hứa hẹn sẽ là chiếc smartphone AI đáng sở hữu nhất nửa cuối năm 2024. Cùng CellphoneS cập nhật tất tần tật thông tin về Galaxy Z Fold6 ngay đây nhé!', 'samsung-galaxy-z-fold6', '2024-10-14 11:51:47', '2024-10-14 11:51:47', NULL);
+(30, 1, 'iPhone 13 128GB | Chính hãng VN/A', '<h2>Đặc điểm nổi bật của iPhone 13 128GB | Ch&iacute;nh h&atilde;ng VN/A</h2>\r\n\r\n<ul>\r\n	<li>Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G tốc độ cao</li>\r\n	<li>Kh&ocirc;ng gian hiển thị sống động - M&agrave;n h&igrave;nh 6.1&quot; Super Retina XDR độ s&aacute;ng cao, sắc n&eacute;t</li>\r\n	<li>Trải nghiệm điện ảnh đỉnh cao - Camera k&eacute;p 12MP, hỗ trợ ổn định h&igrave;nh ảnh quang học</li>\r\n	<li>Tối ưu điện năng - Sạc nhanh 20 W, đầy 50% pin trong khoảng 30 ph&uacute;t</li>\r\n</ul>', '<h2><strong>Đ&aacute;nh gi&aacute; iPhone 13 - Flagship được mong chờ năm 2021</strong></h2>\r\n\r\n<p>Cuối năm 2020, bộ 4 iPhone 12 đ&atilde; được ra mắt với nhiều c&aacute;i tiến. Sau đ&oacute;, mọi sự quan t&acirc;m lại đổ dồn v&agrave;o sản phẩm tiếp theo &ndash;&nbsp;<strong>iPhone 13.</strong>&nbsp;Vậy iP&nbsp;13 sẽ c&oacute; những g&igrave; nổi bật, h&atilde;y t&igrave;m hiểu ngay sau đ&acirc;y nh&eacute;!</p>\r\n\r\n<h3><strong>Thiết kế với nhiều đột ph&aacute;</strong></h3>\r\n\r\n<p>Về k&iacute;ch thước, iPhone 13 sẽ c&oacute; 4 phi&ecirc;n bản kh&aacute;c nhau v&agrave; k&iacute;ch thước kh&ocirc;ng đổi so với series iPhone 12 hiện tại. Nếu iPhone 12 c&oacute; sự thay đổi trong thiết kế từ g&oacute;c cạnh bo tr&ograve;n (Thiết kế được duy tr&igrave; từ thời iPhone 6 đến iPhone 11 Pro Max) sang thiết kế vu&ocirc;ng vắn (đ&atilde; từng c&oacute; mặt tr&ecirc;n iPhone 4 đến iPhone 5S, SE).</p>\r\n\r\n<p>Điện thoại&nbsp;<a href=\"https://cellphones.com.vn/iphone-13.html\" target=\"_blank\" title=\"iPhone 13 128GB chính hãng\"><strong>iPhone 13</strong></a>&nbsp;vẫn được duy tr&igrave; một thiết kế tương tự. M&aacute;y&nbsp;vẫn c&oacute; phi&ecirc;n bản khung viền th&eacute;p, một số phi&ecirc;n bản khung nh&ocirc;m c&ugrave;ng mặt lưng k&iacute;nh. Tương tự năm ngo&aacute;i, Apple&nbsp;cũng sẽ cho ra mắt 4 phi&ecirc;n bản l&agrave; iPhone 13, 13 mini, 13 Pro v&agrave; 13 Pro Max.</p>\r\n\r\n<p><img alt=\"Thiết kế với nhiều đột phá\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-1.jpg\" /></p>\r\n\r\n<p>Phần tai thỏ tr&ecirc;n iPhone 13 cũng c&oacute; thay đổi so với thế hệ trước, cụ thể tai thỏ n&agrave;y được l&agrave;m nhỏ hơn so với 20%, trong khi đ&oacute; độ d&agrave;y của m&aacute;y vẫn được giữ nguy&ecirc;n.&nbsp;Điểm kh&aacute;c biệt nhất về thiết kế tr&ecirc;n thế hệ iPhone 2021 n&agrave;y đ&oacute; l&agrave; camera ch&eacute;o.</p>\r\n\r\n<p>M&agrave;u sắc tr&ecirc;n mẫu iPhone mới n&agrave;y cũng đa dạng hơn, trong đ&oacute; nổi bật l&agrave; iPhone 13 m&agrave;u hồng. C&aacute;c m&agrave;u sắc c&ograve;n lại đề đ&atilde; từng được xuất hiện tr&ecirc;n c&aacute;c phi&ecirc;n bản trước đ&oacute; như trắng, đen, đỏ, xanh blue.</p>\r\n\r\n<p><img alt=\"Nhiều màu sắc lựa chọn\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/iphone-13-13.png\" /></p>\r\n\r\n<h3><strong>M&agrave;n h&igrave;nh m&agrave;n h&igrave;nh Super Retina XDR độ s&aacute;ng cao</strong></h3>\r\n\r\n<p>Điện thoại iPhone 13 sẽ được sử dụng tấm nền OLED chất lượng cao v&agrave; c&oacute; k&iacute;ch thước 6.1 inch, lớn hơn&nbsp;<strong><a href=\"https://cellphones.com.vn/iphone-13-mini.html\" target=\"_blank\">iPhone 13 mini</a></strong>&nbsp;(5.4 inch). Với tấm nền n&agrave;y với c&ocirc;ng nghệ ProMotion gi&uacute;p iPhone 13 tiết kiệm pin đến tối đa khi sử dụng. Người d&ugrave;ng cũng c&oacute; thể dễ d&agrave;ng điều chỉnh tốc độ l&agrave;m tươi t&ugrave;y theo &yacute; th&iacute;ch.</p>\r\n\r\n<p><img alt=\"Màn hình tần số quét 120Hz, sự xuất hiện lại của TouchID\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-2.jpg\" /></p>\r\n\r\n<p>Về khả năng hiển thị, mang đến chất lượng hiển thị vượt trội với m&agrave;n h&igrave;nh OLED độ ph&acirc;n giải cao, độ s&aacute;ng lớn. Nhờ đ&oacute; người d&ugrave;ng c&oacute; thể nh&igrave;n r&otilde; trong nhiều điều kiện s&aacute;ng kh&aacute;c nhau, kể cả ngo&agrave;i trời.</p>\r\n\r\n<p>Cụ thể, m&agrave;n h&igrave;nh&nbsp;Super Retina XDR với độ s&aacute;ng cao l&ecirc;n đ&ecirc;n 800 nits, v&agrave; tối đa c&oacute; thể l&ecirc;n tới&nbsp;1200 nits c&ugrave;ng dải m&agrave;u rộng P3, tỉ lệ tương phản lớn. Ph&iacute;a b&ecirc;n ngo&agrave;i m&agrave;n h&igrave;nh được phủ lớp&nbsp;oleophobic gi&uacute;p chống b&aacute;m v&acirc;n tay. Nhờ đ&oacute; hạn chế được c&aacute;c t&igrave;nh trạng b&aacute;m bụi bẩn v&agrave; mồ h&ocirc;i trong qu&aacute; tr&igrave;nh sử dụng.</p>\r\n\r\n<h3><strong>Camera k&eacute;p 12MP, hỗ trợ ổn định h&igrave;nh ảnh quang học</strong></h3>\r\n\r\n<p>iPhone 13 c&oacute; một sự thay đổi lớn về camera so với tr&ecirc;n iPhone 12 Series. Cụ thể, iPhone c&oacute; thể được trang bị ống k&iacute;nh si&ecirc;u rộng mới gi&uacute;p m&aacute;y hiển thị được nhiều chi tiết hơn ở c&aacute;c bức h&igrave;nh thiếu s&aacute;ng.&nbsp;Trong khi đ&oacute; ống k&iacute;nh g&oacute;c rộng c&oacute; thể thu được nhiều s&aacute;ng hơn, l&ecirc;n đến 47% gi&uacute;p chất lượng bức ảnh, video được cải thiện hơn.</p>\r\n\r\n<p>Cụm camera được trang bị t&iacute;nh năng ổn định h&igrave;nh ảnh quang học c&ugrave;ng cảm biến mới, nhờ đ&oacute; bức h&igrave;nh chụp mang lại khả năng ổn định.</p>\r\n\r\n<p><img alt=\"Camera tiềm vọng, hỗ trợ zoom 10x\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-4.jpg\" /></p>\r\n\r\n<p>Số ống k&iacute;nh tr&ecirc;n iPhone 13 vẫn được giữ nguy&ecirc;n so với iPhone 12, chỉ kh&aacute;c về vị tr&iacute; từng ống kinh. Cả hai ống k&iacute;nh vẫn sở hữu độ ph&acirc;n giải 12MP. Trong đ&oacute; camera g&oacute;c rộng được trang bị khẩu độ&nbsp;&fnof; / 1.6 trong khi g&oacute;c si&ecirc;u rộng l&agrave;&nbsp;&fnof; / 2.4 c&ugrave;ng g&oacute;c quay 120 độ.</p>\r\n\r\n<p>Với iP13, người d&ugrave;ng c&oacute; thể quay phim chuy&ecirc;n nghiệp với chế độ điện ảnh. Cụm camera n&agrave;y cũng hỗ trợ người d&ugrave;ng chụp c&ugrave;ng l&uacute;c nhiều bức ảnh kh&aacute;c nhau m&agrave; kh&ocirc;ng cần nhấc ng&oacute;n tay. Đặc biệt với chế độ ch&acirc;n dung hỗ trợ l&agrave;m mờ hậu cảnh chuy&ecirc;n nghiệp gi&uacute;p to&agrave;n bức ảnh tập trung v&agrave;o chủ thể m&agrave; người d&ugrave;ng hướng tới.</p>\r\n\r\n<p>Ở chế độ chụp&nbsp;Smart HDR 4, m&aacute;y c&oacute; thể nhận diện được tối đa bốn người kh&aacute;c nhau trong một khung h&igrave;nh. Sau đ&oacute; sẽ tiến h&agrave;nh tối ưu h&oacute;a &aacute;nh s&aacute;ng, độ tương phản v&agrave; tone m&agrave;y cho từng người, mang lại một bức ảnh chất lượng tốt nhất.&nbsp;Nếu sử dụng b&ecirc;n đ&ecirc;m để chụp c&aacute;c bức ảnh thiếu s&aacute;ng, l&uacute;c n&agrave;y chế độ&nbsp;Deep Fusion k&iacute;ch hoạt v&agrave; ph&acirc;n t&iacute;ch chế độ phơi s&aacute;ng ở từng&nbsp;pixel.&nbsp;</p>\r\n\r\n<p><img alt=\"Chế độ điện ảnh chuyên nghiệp\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-5.jpg\" /></p>\r\n\r\n<p>Nhờ đ&oacute;, ảnh chụp tr&ecirc;n điện thoại hứa hẹn mang đến chất lượng như được chụp từ một m&aacute;y ảnh chuy&ecirc;n nghiệp. H&igrave;nh ảnh cho ra với chi tiết r&otilde;, dải nhạy s&aacute;ng cao, m&agrave;u sắc ch&acirc;n thực. Khả năng chụp đ&ecirc;m tr&ecirc;n 13 cũng được cải thiện với khả năng phơi s&aacute;ng tốt hơn mang đến nhi&ecirc;u chi tiết hơn.</p>\r\n\r\n<p>Về camera trước, điện thoại vẫn được trang bị camera đơn nằm trong notch tai thỏ với độ ph&acirc;n giải&nbsp;12MP c&ugrave;ng&nbsp;khẩu độ&nbsp;&fnof; / 2.2. Camera selfie n&agrave;y cũng được trang bị nhiều c&ocirc;ng nghệ chụp ảnh chuy&ecirc;n nghiệp như&nbsp;hiệu ứng bokeh, chế độ điện ảnh,&nbsp;Animoji v&agrave; Memoji,... mang lại những bức h&igrave;nh selfie chất lượng.</p>\r\n\r\n<p><img alt=\"Camera trước 12MP\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-6.jpg\" /></p>\r\n\r\n<h3><strong>Khả năng quay video được cải thiện</strong></h3>\r\n\r\n<p>Về khả năng quay video, iPhone 13 c&oacute; thể hỗ trợ quay video 4K ở tốc độ ở ba tốc độ khung h&igrave;nh kh&aacute;c nhau. M&aacute;y cũng hỗ trợ t&iacute;nh năng ổn định h&igrave;nh ảnh quang học c&ugrave;ng khả năng zoom 3x.&nbsp;Nhờ đ&oacute;, hứa hẹn mang để khả năng quay phim chuy&ecirc;n nghiệp.</p>\r\n\r\n<p><img alt=\"Khả năng quay video được cải thiện\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-7.jpg\" /></p>\r\n\r\n<p>iPhone 13 cũng hỗ trợ nhiều c&ocirc;ng cụ t&ugrave;y chỉnh n&acirc;ng cao với c&ocirc;ng nghệ Dolby Vision c&ugrave;ng khả năng quay Video HDR với độ ph&acirc;n giải 4K. Đặc biệt, người d&ugrave;ng c&oacute; thể l&agrave;m mọi việc tr&ecirc;n chiếc điện thoại n&agrave;y từ quay phim, chỉnh sửa&nbsp;đến&nbsp;render video một c&aacute;ch mượt m&agrave;.</p>\r\n\r\n<h3><strong>Tốc độ 5G tốt hơn với nhiều băng tần</strong></h3>\r\n\r\n<p>Thế hệ iPhone mới được cải thiện chất lượng 5G với nhiều băng tần hơn. Nhờ đ&oacute; việc xem trực tuyến hay tải xuống dữ liệu diễn ra nhanh hơn. Đặc biệt với chế độ dữ liệu th&ocirc;ng minh, thiết bị sẽ tự động ph&aacute;t hiện v&agrave; giảm tải tốc độ khi kh&ocirc;ng cần thiết kể tiết kiệm năng lượng.</p>\r\n\r\n<p><img alt=\"Chip set gia tăng tốc độ 5G\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-10.jpg\" /></p>\r\n\r\n<h3><strong>Hiệu năng vượt trội với chip Apple A15</strong></h3>\r\n\r\n<p>iPhone 13 Series sẽ được trang bị con chip Apple A15 Bionic, chip set được sản xuất tr&ecirc;n quy tr&igrave;nh 5nm. Theo nh&agrave; sản xuất, con chip&nbsp;Apple A15 Bionic cho CPU nhanh hơn 50% v&agrave; GPU nhanh hơn 30% so với đối thủ.</p>\r\n\r\n<p><img alt=\"Hiệu năng vượt trội với chip Apple A15\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-9.jpg\" /></p>\r\n\r\n<p>Hiệu năng tr&ecirc;n iPhone l&agrave; một điều khỏi phải b&agrave;n c&atilde;i. Vẫn mang trọng m&igrave;nh một sức mạnh vượt trội nhờ con chip Apple A15 được tối ưu, hệ điều h&agrave;nh iOS t&ugrave;y biến. iPhone 13 cũng c&oacute; thể chiến tốt mọi tựa game mới nhất mới max cấu h&igrave;nh đồ họa, mang đến những trải nghiệm chơi game mượt m&agrave;.</p>\r\n\r\n<h3><strong>C&ocirc;ng nghệ pin mới n&acirc;ng cao thời gian sử dụng</strong></h3>\r\n\r\n<p>Với bộ vi xử l&yacute; mới được tối ưu, điện thoại iPhone 13 mang lại vi&ecirc;n pin với thời gian sử dụng l&acirc;u d&agrave;i hơn. Cũng như mọi năm, Apple kh&ocirc;ng tiết lộ ch&iacute;nh x&aacute;c dung lượng pin cụ thể tr&ecirc;n thiết bị của m&igrave;nh. Tuy hi&ecirc;n, theo h&atilde;ng c&ocirc;ng bố th&igrave;&nbsp;thời lượng sử dụng pin tr&ecirc;n iPhone 13 sẽ được gia tăng đ&aacute;ng kể l&ecirc;n khoảng 2,5 tiếng so với thế hệ trước đ&oacute;.</p>\r\n\r\n<p><img alt=\"Công nghệ pin mới nâng cao thời gian sử dụng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE13-4.jpg\" /></p>\r\n\r\n<h3><strong>Dung lượng bộ nhớ được mở rộng</strong></h3>\r\n\r\n<p>iPhone 12 sở hữu bộ nhớ ti&ecirc;u chuẩn 64GB v&agrave; cao cấp nhất l&agrave; 512GB. Nhưng sang iPhone 13 lại kh&aacute;c, iPhone 13 phi&ecirc;n bản cao cấp c&oacute; thể sẽ loại bỏ phi&ecirc;n bản 64GB thay v&agrave;o đ&oacute; bản dung lượng bộ nhớ ti&ecirc;u chuẩn l&agrave; 128GB c&ugrave;ng t&ugrave;y chọn dung lượng lớn nhất l&ecirc;n đến 512B.&nbsp;&nbsp;</p>\r\n\r\n<p><img alt=\"Dung lượng bộ nhớ được mở rộng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-11.jpg\" /></p>\r\n\r\n<p>Về dung lượng RAM, chưa c&oacute; th&ocirc;ng tin chi tiết. Tuy nhi&ecirc;n, dự đoạn sẽ được trang bị bộ nhớ RAM từ 4-6GB. Với dung lượng n&agrave;y, người d&ugrave;ng c&oacute; thể thoải m&aacute;i đa nhiệm trong sử dụng h&agrave;ng ng&agrave;y.</p>\r\n\r\n<h3><strong>C&aacute;ch t&iacute;nh năng kh&aacute;c: thẻ sim, wifi, siri</strong></h3>\r\n\r\n<p>Ngo&agrave;i những điểm tr&ecirc;n, iPhone 13 cũng vẫn được trang bị 2 sim (1 sim vật l&yacute; v&agrave; 1 esim), tiếp tục hỗ trợ 5G như tr&ecirc;n iPhone 12. C&aacute;c kết nối kh&ocirc;ng d&acirc;y kh&aacute;c như wifi, bluetooth cũng được trang bị những c&ocirc;ng nghệ mới. Hey Siri cũng l&agrave; một t&iacute;nh năng y&ecirc;u th&iacute;ch của người d&ugrave;ng iPhone.</p>\r\n\r\n<p><img alt=\"Cách tính năng khác: thẻ sim, wifi, siri\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-12.jpg\" /></p>\r\n\r\n<p>M&aacute;y vẫn được trang bị c&ocirc;ng nghệ mở kh&oacute;a v&agrave; bảo mật&nbsp;Face ID - nhận đạng khu&ocirc;n mặt với tốc độ nhanh hơn. B&ecirc;n cạnh đ&oacute; l&agrave; chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP68 theo chuẩn&nbsp;IEC 60529.</p>\r\n\r\n<h2><strong>Điện thoại iPhone 13 ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<p>Điện thoại iPhone 13 đ&atilde; được ch&iacute;nh thức giới thiệu đến người ti&ecirc;u d&ugrave;ng tại sự kiện &quot;California Streaming&quot; c&ugrave;ng một loạt c&aacute;c sản phẩm Apple kh&aacute;c như&nbsp;iPad mini 6,&nbsp;Apple Watch Series 7 v&agrave;o ng&agrave;y 14/9 vừa qua.&nbsp;&nbsp;</p>\r\n\r\n<h2>Điện thoại&nbsp;<strong>iPhone 13 (128GB| 256GB| 512GB) gi&aacute; bao nhi&ecirc;u tiền?</strong></h2>\r\n\r\n<p>Điện thoại iPhone 13 dự kiến l&ecirc;n kệ tại thị trường Việt Nam với mức gi&aacute; khoảng gần 25 triệu đồng ở phi&ecirc;n bản ti&ecirc;u chuẩn v&agrave; hơn 30 triệu đồng - gần 31 triệu cho phi&ecirc;n bản cấu h&igrave;nh cao cấp nhất. Mức gi&aacute; n&agrave;y kh&ocirc;ng c&oacute; sự ch&ecirc;nh lệnh qu&aacute; lớn so với iPhone 12 trước đ&oacute;. M&aacute;y sẽ sớm được l&ecirc;n kệ c&aacute;c thệ thống b&aacute;n lẻ trong thời gian sắp tới.</p>\r\n\r\n<p>Vậy&nbsp;iPhone 13 128GB gi&aacute; bao nhi&ecirc;u, c&oacute; g&igrave; kh&aacute;c với những phi&ecirc;n bản dung lượng bộ nhớ kh&aacute;c.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<table border=\"0\">\r\n	<tbody>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB&nbsp;Đen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.390.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong><strong>iPhone 13 128GB Đỏ</strong></strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 18.790.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB Trắng</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.290.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB Hồng</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.490.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong>iPhone 13 128GB Xanh L&aacute;</strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.290.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong>iPhone 13 128GB Xanh Dương</strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 18.990.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>', 'iPhone 13 128GB Chính hãng VN/A', 'iPhone 13 128GB Chính hãng VN/A', 'Cuối năm 2020, bộ 4 iPhone 12 đã được ra mắt với nhiều cái tiến. Sau đó, mọi sự quan tâm lại đổ dồn vào sản phẩm tiếp theo – iPhone 13. Vậy iP 13 sẽ có những gì nổi bật, hãy tìm hiểu ngay sau đây nhé!', 'iphone-13-128gb-chinh-hang-vna', '2024-11-13 10:23:12', '2024-11-13 10:23:12', NULL);
 INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(30, 1, 'iPhone 13 128GB | Chính hãng VN/A', '<h2>Đặc điểm nổi bật của iPhone 13 128GB | Ch&iacute;nh h&atilde;ng VN/A</h2>\r\n\r\n<ul>\r\n	<li>Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G tốc độ cao</li>\r\n	<li>Kh&ocirc;ng gian hiển thị sống động - M&agrave;n h&igrave;nh 6.1&quot; Super Retina XDR độ s&aacute;ng cao, sắc n&eacute;t</li>\r\n	<li>Trải nghiệm điện ảnh đỉnh cao - Camera k&eacute;p 12MP, hỗ trợ ổn định h&igrave;nh ảnh quang học</li>\r\n	<li>Tối ưu điện năng - Sạc nhanh 20 W, đầy 50% pin trong khoảng 30 ph&uacute;t</li>\r\n</ul>', '<h2><strong>Đ&aacute;nh gi&aacute; iPhone 13 - Flagship được mong chờ năm 2021</strong></h2>\r\n\r\n<p>Cuối năm 2020, bộ 4 iPhone 12 đ&atilde; được ra mắt với nhiều c&aacute;i tiến. Sau đ&oacute;, mọi sự quan t&acirc;m lại đổ dồn v&agrave;o sản phẩm tiếp theo &ndash;&nbsp;<strong>iPhone 13.</strong>&nbsp;Vậy iP&nbsp;13 sẽ c&oacute; những g&igrave; nổi bật, h&atilde;y t&igrave;m hiểu ngay sau đ&acirc;y nh&eacute;!</p>\r\n\r\n<h3><strong>Thiết kế với nhiều đột ph&aacute;</strong></h3>\r\n\r\n<p>Về k&iacute;ch thước, iPhone 13 sẽ c&oacute; 4 phi&ecirc;n bản kh&aacute;c nhau v&agrave; k&iacute;ch thước kh&ocirc;ng đổi so với series iPhone 12 hiện tại. Nếu iPhone 12 c&oacute; sự thay đổi trong thiết kế từ g&oacute;c cạnh bo tr&ograve;n (Thiết kế được duy tr&igrave; từ thời iPhone 6 đến iPhone 11 Pro Max) sang thiết kế vu&ocirc;ng vắn (đ&atilde; từng c&oacute; mặt tr&ecirc;n iPhone 4 đến iPhone 5S, SE).</p>\r\n\r\n<p>Điện thoại&nbsp;<a href=\"https://cellphones.com.vn/iphone-13.html\" target=\"_blank\" title=\"iPhone 13 128GB chính hãng\"><strong>iPhone 13</strong></a>&nbsp;vẫn được duy tr&igrave; một thiết kế tương tự. M&aacute;y&nbsp;vẫn c&oacute; phi&ecirc;n bản khung viền th&eacute;p, một số phi&ecirc;n bản khung nh&ocirc;m c&ugrave;ng mặt lưng k&iacute;nh. Tương tự năm ngo&aacute;i, Apple&nbsp;cũng sẽ cho ra mắt 4 phi&ecirc;n bản l&agrave; iPhone 13, 13 mini, 13 Pro v&agrave; 13 Pro Max.</p>\r\n\r\n<p><img alt=\"Thiết kế với nhiều đột phá\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-1.jpg\" /></p>\r\n\r\n<p>Phần tai thỏ tr&ecirc;n iPhone 13 cũng c&oacute; thay đổi so với thế hệ trước, cụ thể tai thỏ n&agrave;y được l&agrave;m nhỏ hơn so với 20%, trong khi đ&oacute; độ d&agrave;y của m&aacute;y vẫn được giữ nguy&ecirc;n.&nbsp;Điểm kh&aacute;c biệt nhất về thiết kế tr&ecirc;n thế hệ iPhone 2021 n&agrave;y đ&oacute; l&agrave; camera ch&eacute;o.</p>\r\n\r\n<p>M&agrave;u sắc tr&ecirc;n mẫu iPhone mới n&agrave;y cũng đa dạng hơn, trong đ&oacute; nổi bật l&agrave; iPhone 13 m&agrave;u hồng. C&aacute;c m&agrave;u sắc c&ograve;n lại đề đ&atilde; từng được xuất hiện tr&ecirc;n c&aacute;c phi&ecirc;n bản trước đ&oacute; như trắng, đen, đỏ, xanh blue.</p>\r\n\r\n<p><img alt=\"Nhiều màu sắc lựa chọn\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/iphone-13-13.png\" /></p>\r\n\r\n<h3><strong>M&agrave;n h&igrave;nh m&agrave;n h&igrave;nh Super Retina XDR độ s&aacute;ng cao</strong></h3>\r\n\r\n<p>Điện thoại iPhone 13 sẽ được sử dụng tấm nền OLED chất lượng cao v&agrave; c&oacute; k&iacute;ch thước 6.1 inch, lớn hơn&nbsp;<strong><a href=\"https://cellphones.com.vn/iphone-13-mini.html\" target=\"_blank\">iPhone 13 mini</a></strong>&nbsp;(5.4 inch). Với tấm nền n&agrave;y với c&ocirc;ng nghệ ProMotion gi&uacute;p iPhone 13 tiết kiệm pin đến tối đa khi sử dụng. Người d&ugrave;ng cũng c&oacute; thể dễ d&agrave;ng điều chỉnh tốc độ l&agrave;m tươi t&ugrave;y theo &yacute; th&iacute;ch.</p>\r\n\r\n<p><img alt=\"Màn hình tần số quét 120Hz, sự xuất hiện lại của TouchID\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-2.jpg\" /></p>\r\n\r\n<p>Về khả năng hiển thị, mang đến chất lượng hiển thị vượt trội với m&agrave;n h&igrave;nh OLED độ ph&acirc;n giải cao, độ s&aacute;ng lớn. Nhờ đ&oacute; người d&ugrave;ng c&oacute; thể nh&igrave;n r&otilde; trong nhiều điều kiện s&aacute;ng kh&aacute;c nhau, kể cả ngo&agrave;i trời.</p>\r\n\r\n<p>Cụ thể, m&agrave;n h&igrave;nh&nbsp;Super Retina XDR với độ s&aacute;ng cao l&ecirc;n đ&ecirc;n 800 nits, v&agrave; tối đa c&oacute; thể l&ecirc;n tới&nbsp;1200 nits c&ugrave;ng dải m&agrave;u rộng P3, tỉ lệ tương phản lớn. Ph&iacute;a b&ecirc;n ngo&agrave;i m&agrave;n h&igrave;nh được phủ lớp&nbsp;oleophobic gi&uacute;p chống b&aacute;m v&acirc;n tay. Nhờ đ&oacute; hạn chế được c&aacute;c t&igrave;nh trạng b&aacute;m bụi bẩn v&agrave; mồ h&ocirc;i trong qu&aacute; tr&igrave;nh sử dụng.</p>\r\n\r\n<h3><strong>Camera k&eacute;p 12MP, hỗ trợ ổn định h&igrave;nh ảnh quang học</strong></h3>\r\n\r\n<p>iPhone 13 c&oacute; một sự thay đổi lớn về camera so với tr&ecirc;n iPhone 12 Series. Cụ thể, iPhone c&oacute; thể được trang bị ống k&iacute;nh si&ecirc;u rộng mới gi&uacute;p m&aacute;y hiển thị được nhiều chi tiết hơn ở c&aacute;c bức h&igrave;nh thiếu s&aacute;ng.&nbsp;Trong khi đ&oacute; ống k&iacute;nh g&oacute;c rộng c&oacute; thể thu được nhiều s&aacute;ng hơn, l&ecirc;n đến 47% gi&uacute;p chất lượng bức ảnh, video được cải thiện hơn.</p>\r\n\r\n<p>Cụm camera được trang bị t&iacute;nh năng ổn định h&igrave;nh ảnh quang học c&ugrave;ng cảm biến mới, nhờ đ&oacute; bức h&igrave;nh chụp mang lại khả năng ổn định.</p>\r\n\r\n<p><img alt=\"Camera tiềm vọng, hỗ trợ zoom 10x\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-4.jpg\" /></p>\r\n\r\n<p>Số ống k&iacute;nh tr&ecirc;n iPhone 13 vẫn được giữ nguy&ecirc;n so với iPhone 12, chỉ kh&aacute;c về vị tr&iacute; từng ống kinh. Cả hai ống k&iacute;nh vẫn sở hữu độ ph&acirc;n giải 12MP. Trong đ&oacute; camera g&oacute;c rộng được trang bị khẩu độ&nbsp;&fnof; / 1.6 trong khi g&oacute;c si&ecirc;u rộng l&agrave;&nbsp;&fnof; / 2.4 c&ugrave;ng g&oacute;c quay 120 độ.</p>\r\n\r\n<p>Với iP13, người d&ugrave;ng c&oacute; thể quay phim chuy&ecirc;n nghiệp với chế độ điện ảnh. Cụm camera n&agrave;y cũng hỗ trợ người d&ugrave;ng chụp c&ugrave;ng l&uacute;c nhiều bức ảnh kh&aacute;c nhau m&agrave; kh&ocirc;ng cần nhấc ng&oacute;n tay. Đặc biệt với chế độ ch&acirc;n dung hỗ trợ l&agrave;m mờ hậu cảnh chuy&ecirc;n nghiệp gi&uacute;p to&agrave;n bức ảnh tập trung v&agrave;o chủ thể m&agrave; người d&ugrave;ng hướng tới.</p>\r\n\r\n<p>Ở chế độ chụp&nbsp;Smart HDR 4, m&aacute;y c&oacute; thể nhận diện được tối đa bốn người kh&aacute;c nhau trong một khung h&igrave;nh. Sau đ&oacute; sẽ tiến h&agrave;nh tối ưu h&oacute;a &aacute;nh s&aacute;ng, độ tương phản v&agrave; tone m&agrave;y cho từng người, mang lại một bức ảnh chất lượng tốt nhất.&nbsp;Nếu sử dụng b&ecirc;n đ&ecirc;m để chụp c&aacute;c bức ảnh thiếu s&aacute;ng, l&uacute;c n&agrave;y chế độ&nbsp;Deep Fusion k&iacute;ch hoạt v&agrave; ph&acirc;n t&iacute;ch chế độ phơi s&aacute;ng ở từng&nbsp;pixel.&nbsp;</p>\r\n\r\n<p><img alt=\"Chế độ điện ảnh chuyên nghiệp\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-5.jpg\" /></p>\r\n\r\n<p>Nhờ đ&oacute;, ảnh chụp tr&ecirc;n điện thoại hứa hẹn mang đến chất lượng như được chụp từ một m&aacute;y ảnh chuy&ecirc;n nghiệp. H&igrave;nh ảnh cho ra với chi tiết r&otilde;, dải nhạy s&aacute;ng cao, m&agrave;u sắc ch&acirc;n thực. Khả năng chụp đ&ecirc;m tr&ecirc;n 13 cũng được cải thiện với khả năng phơi s&aacute;ng tốt hơn mang đến nhi&ecirc;u chi tiết hơn.</p>\r\n\r\n<p>Về camera trước, điện thoại vẫn được trang bị camera đơn nằm trong notch tai thỏ với độ ph&acirc;n giải&nbsp;12MP c&ugrave;ng&nbsp;khẩu độ&nbsp;&fnof; / 2.2. Camera selfie n&agrave;y cũng được trang bị nhiều c&ocirc;ng nghệ chụp ảnh chuy&ecirc;n nghiệp như&nbsp;hiệu ứng bokeh, chế độ điện ảnh,&nbsp;Animoji v&agrave; Memoji,... mang lại những bức h&igrave;nh selfie chất lượng.</p>\r\n\r\n<p><img alt=\"Camera trước 12MP\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-6.jpg\" /></p>\r\n\r\n<h3><strong>Khả năng quay video được cải thiện</strong></h3>\r\n\r\n<p>Về khả năng quay video, iPhone 13 c&oacute; thể hỗ trợ quay video 4K ở tốc độ ở ba tốc độ khung h&igrave;nh kh&aacute;c nhau. M&aacute;y cũng hỗ trợ t&iacute;nh năng ổn định h&igrave;nh ảnh quang học c&ugrave;ng khả năng zoom 3x.&nbsp;Nhờ đ&oacute;, hứa hẹn mang để khả năng quay phim chuy&ecirc;n nghiệp.</p>\r\n\r\n<p><img alt=\"Khả năng quay video được cải thiện\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-7.jpg\" /></p>\r\n\r\n<p>iPhone 13 cũng hỗ trợ nhiều c&ocirc;ng cụ t&ugrave;y chỉnh n&acirc;ng cao với c&ocirc;ng nghệ Dolby Vision c&ugrave;ng khả năng quay Video HDR với độ ph&acirc;n giải 4K. Đặc biệt, người d&ugrave;ng c&oacute; thể l&agrave;m mọi việc tr&ecirc;n chiếc điện thoại n&agrave;y từ quay phim, chỉnh sửa&nbsp;đến&nbsp;render video một c&aacute;ch mượt m&agrave;.</p>\r\n\r\n<h3><strong>Tốc độ 5G tốt hơn với nhiều băng tần</strong></h3>\r\n\r\n<p>Thế hệ iPhone mới được cải thiện chất lượng 5G với nhiều băng tần hơn. Nhờ đ&oacute; việc xem trực tuyến hay tải xuống dữ liệu diễn ra nhanh hơn. Đặc biệt với chế độ dữ liệu th&ocirc;ng minh, thiết bị sẽ tự động ph&aacute;t hiện v&agrave; giảm tải tốc độ khi kh&ocirc;ng cần thiết kể tiết kiệm năng lượng.</p>\r\n\r\n<p><img alt=\"Chip set gia tăng tốc độ 5G\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-10.jpg\" /></p>\r\n\r\n<h3><strong>Hiệu năng vượt trội với chip Apple A15</strong></h3>\r\n\r\n<p>iPhone 13 Series sẽ được trang bị con chip Apple A15 Bionic, chip set được sản xuất tr&ecirc;n quy tr&igrave;nh 5nm. Theo nh&agrave; sản xuất, con chip&nbsp;Apple A15 Bionic cho CPU nhanh hơn 50% v&agrave; GPU nhanh hơn 30% so với đối thủ.</p>\r\n\r\n<p><img alt=\"Hiệu năng vượt trội với chip Apple A15\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-9.jpg\" /></p>\r\n\r\n<p>Hiệu năng tr&ecirc;n iPhone l&agrave; một điều khỏi phải b&agrave;n c&atilde;i. Vẫn mang trọng m&igrave;nh một sức mạnh vượt trội nhờ con chip Apple A15 được tối ưu, hệ điều h&agrave;nh iOS t&ugrave;y biến. iPhone 13 cũng c&oacute; thể chiến tốt mọi tựa game mới nhất mới max cấu h&igrave;nh đồ họa, mang đến những trải nghiệm chơi game mượt m&agrave;.</p>\r\n\r\n<h3><strong>C&ocirc;ng nghệ pin mới n&acirc;ng cao thời gian sử dụng</strong></h3>\r\n\r\n<p>Với bộ vi xử l&yacute; mới được tối ưu, điện thoại iPhone 13 mang lại vi&ecirc;n pin với thời gian sử dụng l&acirc;u d&agrave;i hơn. Cũng như mọi năm, Apple kh&ocirc;ng tiết lộ ch&iacute;nh x&aacute;c dung lượng pin cụ thể tr&ecirc;n thiết bị của m&igrave;nh. Tuy hi&ecirc;n, theo h&atilde;ng c&ocirc;ng bố th&igrave;&nbsp;thời lượng sử dụng pin tr&ecirc;n iPhone 13 sẽ được gia tăng đ&aacute;ng kể l&ecirc;n khoảng 2,5 tiếng so với thế hệ trước đ&oacute;.</p>\r\n\r\n<p><img alt=\"Công nghệ pin mới nâng cao thời gian sử dụng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE13-4.jpg\" /></p>\r\n\r\n<h3><strong>Dung lượng bộ nhớ được mở rộng</strong></h3>\r\n\r\n<p>iPhone 12 sở hữu bộ nhớ ti&ecirc;u chuẩn 64GB v&agrave; cao cấp nhất l&agrave; 512GB. Nhưng sang iPhone 13 lại kh&aacute;c, iPhone 13 phi&ecirc;n bản cao cấp c&oacute; thể sẽ loại bỏ phi&ecirc;n bản 64GB thay v&agrave;o đ&oacute; bản dung lượng bộ nhớ ti&ecirc;u chuẩn l&agrave; 128GB c&ugrave;ng t&ugrave;y chọn dung lượng lớn nhất l&ecirc;n đến 512B.&nbsp;&nbsp;</p>\r\n\r\n<p><img alt=\"Dung lượng bộ nhớ được mở rộng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-11.jpg\" /></p>\r\n\r\n<p>Về dung lượng RAM, chưa c&oacute; th&ocirc;ng tin chi tiết. Tuy nhi&ecirc;n, dự đoạn sẽ được trang bị bộ nhớ RAM từ 4-6GB. Với dung lượng n&agrave;y, người d&ugrave;ng c&oacute; thể thoải m&aacute;i đa nhiệm trong sử dụng h&agrave;ng ng&agrave;y.</p>\r\n\r\n<h3><strong>C&aacute;ch t&iacute;nh năng kh&aacute;c: thẻ sim, wifi, siri</strong></h3>\r\n\r\n<p>Ngo&agrave;i những điểm tr&ecirc;n, iPhone 13 cũng vẫn được trang bị 2 sim (1 sim vật l&yacute; v&agrave; 1 esim), tiếp tục hỗ trợ 5G như tr&ecirc;n iPhone 12. C&aacute;c kết nối kh&ocirc;ng d&acirc;y kh&aacute;c như wifi, bluetooth cũng được trang bị những c&ocirc;ng nghệ mới. Hey Siri cũng l&agrave; một t&iacute;nh năng y&ecirc;u th&iacute;ch của người d&ugrave;ng iPhone.</p>\r\n\r\n<p><img alt=\"Cách tính năng khác: thẻ sim, wifi, siri\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-12.jpg\" /></p>\r\n\r\n<p>M&aacute;y vẫn được trang bị c&ocirc;ng nghệ mở kh&oacute;a v&agrave; bảo mật&nbsp;Face ID - nhận đạng khu&ocirc;n mặt với tốc độ nhanh hơn. B&ecirc;n cạnh đ&oacute; l&agrave; chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP68 theo chuẩn&nbsp;IEC 60529.</p>\r\n\r\n<h2><strong>Điện thoại iPhone 13 ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<p>Điện thoại iPhone 13 đ&atilde; được ch&iacute;nh thức giới thiệu đến người ti&ecirc;u d&ugrave;ng tại sự kiện &quot;California Streaming&quot; c&ugrave;ng một loạt c&aacute;c sản phẩm Apple kh&aacute;c như&nbsp;iPad mini 6,&nbsp;Apple Watch Series 7 v&agrave;o ng&agrave;y 14/9 vừa qua.&nbsp;&nbsp;</p>\r\n\r\n<h2>Điện thoại&nbsp;<strong>iPhone 13 (128GB| 256GB| 512GB) gi&aacute; bao nhi&ecirc;u tiền?</strong></h2>\r\n\r\n<p>Điện thoại iPhone 13 dự kiến l&ecirc;n kệ tại thị trường Việt Nam với mức gi&aacute; khoảng gần 25 triệu đồng ở phi&ecirc;n bản ti&ecirc;u chuẩn v&agrave; hơn 30 triệu đồng - gần 31 triệu cho phi&ecirc;n bản cấu h&igrave;nh cao cấp nhất. Mức gi&aacute; n&agrave;y kh&ocirc;ng c&oacute; sự ch&ecirc;nh lệnh qu&aacute; lớn so với iPhone 12 trước đ&oacute;. M&aacute;y sẽ sớm được l&ecirc;n kệ c&aacute;c thệ thống b&aacute;n lẻ trong thời gian sắp tới.</p>\r\n\r\n<p>Vậy&nbsp;iPhone 13 128GB gi&aacute; bao nhi&ecirc;u, c&oacute; g&igrave; kh&aacute;c với những phi&ecirc;n bản dung lượng bộ nhớ kh&aacute;c.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<table border=\"0\">\r\n	<tbody>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB&nbsp;Đen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.390.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong><strong>iPhone 13 128GB Đỏ</strong></strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 18.790.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB Trắng</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.290.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB Hồng</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.490.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong>iPhone 13 128GB Xanh L&aacute;</strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.290.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong>iPhone 13 128GB Xanh Dương</strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 18.990.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>', 'iPhone 13 128GB Chính hãng VN/A', 'iPhone 13 128GB Chính hãng VN/A', 'Cuối năm 2020, bộ 4 iPhone 12 đã được ra mắt với nhiều cái tiến. Sau đó, mọi sự quan tâm lại đổ dồn vào sản phẩm tiếp theo – iPhone 13. Vậy iP 13 sẽ có những gì nổi bật, hãy tìm hiểu ngay sau đây nhé!', 'iphone-13-128gb-chinh-hang-vna', '2024-10-14 11:52:42', '2024-10-14 11:52:42', NULL),
-(28, 1, 'Samsung Galaxy S24 Ultra 12GB 1TB', '<h2>Đặc điểm nổi bật của Samsung Galaxy S24 Ultra 12GB 1TB</h2>\r\n\r\n<ul>\r\n	<li>Mở kho&aacute; giới hạn tiềm năng với AI - Hỗ trợ phi&ecirc;n dịch cuộc gọi, khoanh v&ugrave;ng t&igrave;m kiếm, Trợ l&iacute; Note v&agrave; ch&igrave;nh sửa anh</li>\r\n	<li>Tuyệt t&aacute;c thiết kế bền bỉ v&agrave; ho&agrave;n hảo - Vỏ ngo&agrave;i bằng titan mới c&ugrave;ng m&agrave;u sắc lấy cảm hứng từ chất liệu đ&aacute; tự nhi&ecirc;n</li>\r\n	<li>T&iacute;ch hợp S-Pen cực nhạy - Thoải m&aacute;t viết, chạm thật ch&iacute;nh x&aacute;c tr&ecirc;n m&agrave;n h&igrave;nh c&ugrave;ng nhiều t&iacute;nh năng tiện &iacute;ch</li>\r\n	<li>Nắm trong tay trọn bộ chi tiết ch&acirc;n thực nhất - Camera 200MP hỗ trợ khả năng xử l&yacute; AI cải thiện độ n&eacute;t v&agrave; t&ocirc;ng m&agrave;u</li>\r\n</ul>', '<p><strong>Samsung Galaxy S24 Ultra 1TB&nbsp;</strong>l&agrave; chiếc smartphone flagship mới của nh&agrave; Samsung với m&agrave;n h&igrave;nh&nbsp;<strong>Dynamic AMOLED 2X</strong>, mang đến trải nghiệm giải tr&iacute; đỉnh cao. M&aacute;y cũng được trang bị con chip&nbsp;<strong>Snapdragon 8 Gen 3 for Galaxy</strong>, đi k&egrave;m với&nbsp;<strong>RAM 12GB&nbsp;</strong>v&agrave; bộ nhớ trong l&ecirc;n tới&nbsp;<strong>1TB</strong>. Hệ thống camera của S24 Ultra cũng được n&acirc;ng cấp đ&aacute;ng kể với camera ch&iacute;nh&nbsp;<strong>200MP</strong>, mang lại khả năng nhiếp ảnh tuyệt vời.</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra 1TB &ndash; Si&ecirc;u phẩm d&agrave;nh cho những người đam m&ecirc; c&ocirc;ng nghệ</strong></h2>\r\n\r\n<p>Si&ecirc;u phẩm AI smartphone&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-s24-ultra.html\" target=\"_blank\" title=\"điện thoại Samsung S24 Ultra mới nhất\"><strong>S24 Ultra</strong></a>&nbsp;được Samsung trang bị những&nbsp;<strong>c&ocirc;ng nghệ v&agrave; t&iacute;nh năng h&agrave;ng đầu</strong>. Với m&agrave;n h&igrave;nh lớn, cấu h&igrave;nh mạnh mẽ, camera đỉnh cao v&agrave; dung lượng lưu trữ khủng, sản phẩm hứa hẹn sẽ l&agrave; một lựa chọn ho&agrave;n hảo cho những người đam m&ecirc; c&ocirc;ng nghệ.</p>\r\n\r\n<h3><strong>Camera 200MP, mang đến chất lượng vượt trội</strong></h3>\r\n\r\n<p>S24 Ultra được trang bị một camera sau với độ ph&acirc;n giải khủng l&ecirc;n đến 200MP. Điều n&agrave;y mang đến khả năng chụp ảnh với chi tiết tuyệt vời v&agrave; độ n&eacute;t cao. Bạn sẽ c&oacute; khả năng tạo ra những bức ảnh sắc n&eacute;t, ch&acirc;n thực v&agrave; sống động.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra 1TB – Siêu phẩm dành cho những người đam mê công nghệ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-4_1.jpg\" /></p>\r\n\r\n<p>Điểm đặc biệt của phi&ecirc;n bản Ultra năm n&agrave;y l&agrave; m&aacute;y đ&atilde; sử dụng cảm biến thế hệ mới. Điều n&agrave;y đảm bảo rằng bạn c&oacute; thể chụp ảnh với mức độ chi tiết tuyệt vời v&agrave; độ n&eacute;t cao. Cảm biến cung cấp khả năng thu nhận &aacute;nh s&aacute;ng tốt hơn, gi&uacute;p t&aacute;i tạo m&agrave;u sắc ch&iacute;nh x&aacute;c v&agrave; độ tương phản tốt hơn trong c&aacute;c bức ảnh.</p>\r\n\r\n<h3><strong>Mượt m&agrave; mọi t&aacute;c vụ với Snapdragon 8 Gen 3 for Galaxy</strong></h3>\r\n\r\n<p>S24 Ultra được thiết kế với mục ti&ecirc;u mang đến hiệu năng mạnh mẽ v&agrave; trải nghiệm tuyệt vời cho người d&ugrave;ng. Với bộ vi xử l&yacute; Snapdragon 8 Gen 3, cung cấp hiệu suất mạnh mẽ, cho ph&eacute;p bạn chơi game đồ họa cao, xem video chất lượng cao một c&aacute;ch trơn tru.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra 1TB – Siêu phẩm dành cho những người đam mê công nghệ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-1_2.jpg\" /></p>\r\n\r\n<p>B&ecirc;n trong, Galaxy S24 Ultra được trang bị chipset Snapdragon 8 Gen 3 for Galaxy, cung cấp sức mạnh xử l&yacute; v&agrave; hiệu năng đ&aacute;ng kinh ngạc. Với dung lượng RAM 12GB v&agrave; bộ nhớ trong l&ecirc;n đến 1TB, người d&ugrave;ng c&oacute; đủ kh&ocirc;ng gian lưu trữ v&agrave; đồng thời trải nghiệm mượt m&agrave; khi sử dụng S24 Ultra.</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<p>Theo c&aacute;c nguồn tin đ&aacute;ng tin cậy, ng&agrave;y 17 th&aacute;ng 1 năm 2024 sắp tới sẽ chứng kiến sự kiện ra mắt Samsung Galaxy S24 Ultra v&agrave; c&aacute;c phi&ecirc;n bản S24 kh&aacute;c. Sự kiện ra mắt diễn ra tại Mỹ, nơi Samsung thường chọn l&agrave; địa điểm để giới thiệu những sản phẩm của m&igrave;nh.</p>\r\n\r\n<p><img alt=\"Khi nào ra mắt\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-2_2.jpg\" /></p>\r\n\r\n<p>C&ograve;n với người d&ugrave;ng Việt Nam, ch&uacute;ng ta sẽ phải chờ th&ecirc;m một khoảng thời gian cho đến khi S24 Series được mở b&aacute;n. Đ&acirc;y cũng sẽ l&agrave; cơ hội để những người đam m&ecirc; c&ocirc;ng nghệ c&oacute; thể sở hữu ngay chiếc điện thoại đẳng cấp n&agrave;y v&agrave; trải nghiệm những t&iacute;nh năng độc đ&aacute;o m&agrave; n&oacute; mang lại.&nbsp;</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra c&oacute; gi&aacute; bao nhi&ecirc;u?</strong></h2>\r\n\r\n<p>Samsung Galaxy S24 Ultra l&agrave; một chiếc điện thoại cao cấp v&agrave; c&oacute; mức gi&aacute; kh&aacute; đắt đỏ. Với phi&ecirc;n bản cao cấp l&agrave; 1TB th&igrave; mức gi&aacute; khởi điểm sẽ rơi v&agrave;o khoảng 44.49 triệu đồng.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra có giá bao nhiêu?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-3_2.jpg\" /></p>\r\n\r\n<p>D&ugrave; gi&aacute; b&aacute;n của&nbsp;<strong>Samsung Galaxy S24 Ultra 1TB&nbsp;</strong>c&oacute; thể cao, nhưng sản phẩm n&agrave;y được trang bị những cải tiến đ&aacute;ng kể về camera, m&agrave;n h&igrave;nh v&agrave; hiệu năng. Với những t&iacute;nh năng v&agrave; c&ocirc;ng nghệ h&agrave;ng đầu, Galaxy S24 Ultra xứng đ&aacute;ng l&agrave; một chiếc điện thoại cao cấp m&agrave; người d&ugrave;ng c&oacute; thể xem x&eacute;t.&nbsp;</p>', 'Samsung Galaxy S24 Ultra 12GB 1TB', 'Samsung Galaxy S24 Ultra 12GB 1TB', 'Samsung Galaxy S24 Ultra 1TB là chiếc smartphone flagship mới của nhà Samsung với màn hình Dynamic AMOLED 2X, mang đến trải nghiệm giải trí đỉnh cao. Máy cũng được trang bị con chip Snapdragon 8 Gen 3 for Galaxy, đi kèm với RAM 12GB và bộ nhớ trong lên tới 1TB. Hệ thống camera của S24 Ultra cũng được nâng cấp đáng kể với camera chính 200MP, mang lại khả năng nhiếp ảnh tuyệt vời.', 'samsung-galaxy-s24-ultra-12gb-1tb', '2024-10-14 11:57:12', '2024-10-14 11:57:12', NULL);
+(29, 1, 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', '<p>Đặc điểm nổi bật của iPhone 15 Pro Max 256GB | Ch&iacute;nh h&atilde;ng VN/A</p>\r\n\r\n<ul>\r\n	<li>Thiết kế khung viền từ titan chuẩn h&agrave;ng kh&ocirc;ng vũ trụ - Cực nhẹ, bền c&ugrave;ng viền cạnh mỏng cầm nắm thoải m&aacute;i</li>\r\n	<li>Hiệu năng Pro chiến game thả ga - Chip A17 Pro mang lại hiệu năng đồ họa v&ocirc; c&ugrave;ng sống động v&agrave; ch&acirc;n thực</li>\r\n	<li>Thoả sức s&aacute;ng tạo v&agrave; quay phim chuy&ecirc;n nghiệp - Cụm 3 camera sau đến 48MP v&agrave; nhiều chế độ ti&ecirc;n tiến</li>\r\n	<li>N&uacute;t t&aacute;c vụ mới gi&uacute;p nhanh ch&oacute;ng k&iacute;ch hoạt t&iacute;nh năng y&ecirc;u th&iacute;ch của bạn</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', '<blockquote>\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inches</strong>&nbsp;với độ ph&acirc;n giải&nbsp;<strong>2796 x 1290 pixels</strong>, cung cấp trải nghiệm h&igrave;nh ảnh sắc n&eacute;t, ch&acirc;n thực. So với c&aacute;c phi&ecirc;n bản tiền nhiệm, thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\" title=\"iPhone 15\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max đảm bảo mang tới hiệu năng mạnh mẽ với sự hỗ trợ của chipset&nbsp;<strong>Apple A17 Pro</strong>, c&ugrave;ng bộ nhớ ấn tượng. Đặc biệt hơn, điện thoại iPhone 15 ProMax mới n&agrave;y c&ograve;n được đ&aacute;nh gi&aacute; cao với camera sau&nbsp;<strong>48MP</strong>&nbsp;v&agrave; camera trước&nbsp;<strong>12MP</strong>, hỗ trợ chụp ảnh với độ r&otilde; n&eacute;t cực đỉnh.</p>\r\n</blockquote>\r\n\r\n<h2><strong>Đ&aacute;nh gi&aacute; iPhone 15 Pro Max chi tiết - những cải tiến nổi bật</strong></h2>\r\n\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;kh&ocirc;ng chỉ ghi điểm với&nbsp;<strong>cấu h&igrave;nh mạnh mẽ</strong>&nbsp;m&agrave; c&ograve;n g&acirc;y ấn tượng với&nbsp;<strong>nhiều t&iacute;nh năng mới</strong>&nbsp;đ&aacute;ng ch&uacute; &yacute;. Từ thiết kế khung titan cho tới hiệu năng đột ph&aacute;, tất cả đều được n&acirc;ng cấp để mang tới cho người d&ugrave;ng trải nghiệm smartphone tuyệt vời chưa từng c&oacute;. Những t&iacute;nh năng n&agrave;y sẽ được tr&igrave;nh b&agrave;y chi tiết hơn trong c&aacute;c phần b&agrave;i viết dưới đ&acirc;y, gi&uacute;p bạn c&oacute; c&aacute;i nh&igrave;n to&agrave;n diện về sự đột ph&aacute; của iPhone 15 ProMax.</p>\r\n\r\n<h3><strong>Kiểu d&aacute;ng sang trọng, thiết kế Titan thời thượng</strong></h3>\r\n\r\n<p><strong>Thiết kế titan</strong>&nbsp;dễ d&agrave;ng thể hiện được n&eacute;t đẳng cấp v&agrave; sự tinh tế ngay từ vẻ bề ngo&agrave;i của&nbsp;<strong>iPhone 15 Pro Max</strong>. Khung viền titan b&oacute;ng bẩy của m&aacute;y, được chế t&aacute;c qua nhiều quy tr&igrave;nh gia c&ocirc;ng cơ kh&iacute;, ch&agrave; nh&aacute;m v&agrave; đ&aacute;nh b&oacute;ng, mang lại vẻ đẹp sang trọng v&agrave; độ bền tuyệt vời. Với khung viền uốn cong v&agrave; kiểu d&aacute;ng si&ecirc;u mỏng, thế hệ iPhone n&agrave;y đem lại trải nghiệm cầm nắm kh&aacute; thoải m&aacute;i.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max sở hữu kiểu dáng sang trọng và thời thượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-1.jpg\" title=\"iPhone 15 Pro Max sở hữu kiểu dáng sang trọng và thời thượng\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max sở hữu kiểu d&aacute;ng sang trọng v&agrave; thời thượng</em></p>\r\n\r\n<h3><strong>Tấm nền Super Retina XDR hiển thị mượt m&agrave; v&agrave; sắc n&eacute;t</strong></h3>\r\n\r\n<p>Mượt m&agrave;, sắc n&eacute;t trong từng điểm ảnh l&agrave; những g&igrave;&nbsp;<strong>smartphone iPhone 15 Pro Max</strong>&nbsp;thể hiện được về khả năng hiển thị. Theo đ&oacute;,&nbsp;<strong>Super Retina XDR 6.7 inch OLED</strong>&nbsp;t&aacute;i hiện h&igrave;nh ảnh với độ&nbsp;<strong>sống động</strong>&nbsp;đ&aacute;ng kinh ngạc ở độ ph&acirc;n giải&nbsp;<strong>2796x1290 pixel</strong>. Đồng thời, c&aacute;c thao t&aacute;c vuốt, chạm tr&ecirc;n m&agrave;n h&igrave;nh iPhone 15 ProMax cũng v&ocirc; c&ugrave;ng lu&ocirc;n nhạy b&eacute;n, th&ocirc;ng qua c&ocirc;ng nghệ ProMotion 120Hz, đảm bảo tiết kiệm pin ấn tượng.</p>\r\n\r\n<p><img alt=\"Super Retina XDR 6.7 inch OLED là tấm nền hiển thị trên iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-2.jpg\" title=\"Super Retina XDR 6.7 inch OLED là tấm nền hiển thị trên iPhone 15 Pro Max\" /></p>\r\n\r\n<p><em>Super Retina XDR 6.7 inch OLED l&agrave; tấm nền hiển thị tr&ecirc;n iPhone 15 Pro Max</em></p>\r\n\r\n<h3><strong>Vi xử l&yacute; Apple A17 Pro cho hiệu năng mạnh mẽ h&agrave;ng đầu</strong></h3>\r\n\r\n<p>Để xứng tầm với iPhone 15 Pro Max, Apple đ&atilde; trang bị con&nbsp;<strong>chip A17 Pro</strong>&nbsp;n&acirc;ng sức mạnh của iPhone l&ecirc;n một đẳng cấp mới. Con chip A17 Pro cao cấp n&agrave;y đảm bảo trải nghiệm xử l&yacute; c&ocirc;ng việc mượt m&agrave;, chơi game đỉnh cao. C&ograve;n về khả năng xử l&yacute; đồ hoạ, GPU của iPhone 15 Promax cung cấp tốc độ xử l&yacute;&nbsp;<strong>vượt trội hơn bốn lần</strong>&nbsp;so với phi&ecirc;n bản trước với sự hỗ trợ từ c&ocirc;ng nghệ d&ograve; tia cao cấp. Qua đ&oacute;, m&aacute;y đảm bảo tạo n&ecirc;n hiệu ứng &aacute;nh s&aacute;ng ch&acirc;n thực h&agrave;ng đầu, n&acirc;ng cấp độ trau chuốt về mặt h&igrave;nh ảnh của c&aacute;c tựa game đồ họa.</p>\r\n\r\n<p><img alt=\"Apple đã trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax lên một đẳng cấp mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-3.jpg\" title=\"Apple đã trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax lên một đẳng cấp mới\" /></p>\r\n\r\n<p><em>Apple đ&atilde; trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax l&ecirc;n một đẳng cấp mới</em></p>\r\n\r\n<h3><strong>Cụm camera Zoom 5x mạnh mẽ, quay chụp chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p>Kể từ khi ra mắt iPhone 15 Pro Max lu&ocirc;n được ca tụng l&agrave; sở hữu&nbsp;<strong>cụm camera chuy&ecirc;n nghiệp</strong>&nbsp;h&agrave;ng đầu hiện nay, mang lại trải nghiệm chụp ảnh cực tốt. Với&nbsp;<strong>7 ti&ecirc;u cự</strong>&nbsp;kh&aacute;c nhau, từ g&oacute;c rộng, si&ecirc;u rộng rộng, cận cảnh cho tới ph&oacute;ng to 5x, thế hệ iPhone mới n&agrave;y c&oacute; thể được&nbsp;<strong>xem như chiếc m&aacute;y ảnh</strong>&nbsp;chuy&ecirc;n dụng cao cấp.</p>\r\n\r\n<p>Nhờ vậy m&agrave; bạn c&oacute; thể linh hoạt ghi lại nhiều tấm h&igrave;nh sắc n&eacute;t với độ chi tiết cực cao. B&ecirc;n cạnh đ&oacute;, t&iacute;nh năng chụp ảnh ch&acirc;n dung được n&acirc;ng cấp đ&aacute;ng kể, với khả năng tự động ph&aacute;t hiện v&agrave; chuyển sang chế độ ch&acirc;n dung khi cần thiết.</p>\r\n\r\n<p><img alt=\"iPhone mới này có thể được xem như 1 chiếc máy ảnh chuyên dụng cao cấp\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-4.jpg\" title=\"iPhone mới này có thể được xem như 1 chiếc máy ảnh chuyên dụng cao cấp\" /></p>\r\n\r\n<p><em>iPhone mới n&agrave;y c&oacute; thể được xem như 1 chiếc m&aacute;y ảnh chuy&ecirc;n dụng cao cấp</em></p>\r\n\r\n<p>Ở cảm biến&nbsp;<strong>camera ch&iacute;nh 48MP</strong>, Apple đ&atilde; tinh chỉnh lại để m&aacute;y ảnh n&agrave;y c&oacute; được khả năng kiểm so&aacute;t &aacute;nh s&aacute;ng th&ocirc;ng minh hơn. Cụ thể, chế độ ban đ&ecirc;m tr&ecirc;n m&aacute;y được hỗ trợ dải tần nhạy s&aacute;ng, hỗ trợ chụp ảnh sắc n&eacute;t hơn ngay cả trong tối. Nhờ vậy m&agrave; những tấm h&igrave;nh được quay chụp qua iPhone 15 ProMax c&oacute; thể t&aacute;i tạo t&ocirc;ng m&agrave;u da v&agrave; m&agrave;u sắc tuyệt đẹp hơn.</p>\r\n\r\n<p>Chưa dừng lại ở đ&oacute;, sản phẩm c&ograve;n cho ph&eacute;p&nbsp;<strong>zoom quang học l&ecirc;n đến 5 lần</strong>, điều m&agrave; c&aacute;c phi&ecirc;n bản iPhone thế hệ trước đ&oacute; chưa l&agrave;m được. Với ưu điểm n&agrave;y, iPhone 15 PRM cho ph&eacute;p bạn c&oacute; thể chụp lại c&aacute;c khung cảnh từ xa một c&aacute;ch r&otilde; n&eacute;t m&agrave; kh&ocirc;ng cần di chuyển lại gần m&agrave; vẫn c&oacute; độ sắc n&eacute;t cao.</p>\r\n\r\n<h3><strong>N&uacute;t t&aacute;c vụ mới thao t&aacute;c nhanh tr&ecirc;n iPhone 15 Pro Max</strong></h3>\r\n\r\n<p><strong>N&uacute;t t&aacute;c vụ của iPhone 15 Pro Max</strong>&nbsp;l&agrave; một t&iacute;nh năng mới lần đầu ti&ecirc;n xuất hiện tr&ecirc;n iPhone, được chuyển đổi từ thanh gạt chuyển chế độ &acirc;m thanh. N&uacute;t n&agrave;y cho ph&eacute;p bạn thao t&aacute;c một c&aacute;ch tiện lợi, dễ d&agrave;ng hơn, với c&aacute;c tiện &iacute;ch thường d&ugrave;ng. Tr&ecirc;n n&uacute;t t&aacute;c vụ mới n&agrave;y, bạn c&oacute; thể thao t&aacute;c v&agrave; k&iacute;ch hoạt c&aacute;c t&iacute;nh năng như mở camera, ghi &acirc;m, đ&egrave;n pin, dịch một c&aacute;ch nhanh ch&oacute;ng, tiện dụng.</p>\r\n\r\n<h3><strong>Cổng USB-C mới truyền tải dữ liệu nhanh hơn</strong></h3>\r\n\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;giới thiệu một ưu điểm nổi bật &ndash;&nbsp;<strong>cổng USB-C mới</strong>&nbsp;trong lần ra mắt trong 2023 vừa rồi. Đ&acirc;y l&agrave; lần đầu ti&ecirc;n iPhone hỗ trợ chuẩn USB 3, với tốc độ truyền dữ liệu l&ecirc;n đến 10Gb/s, gi&uacute;p bạn truyền tải c&aacute;c tệp tin lớn một c&aacute;ch nhanh ch&oacute;ng.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max sử dụng cổng USB-C hoàn toàn mới truyền tải nhanh hơn\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-5.jpg\" title=\"iPhone 15 Pro Max sử dụng cổng USB-C hoàn toàn mới truyền tải nhanh hơn\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max sử dụng cổng USB-C ho&agrave;n to&agrave;n mới truyền tải nhanh hơn</em></p>\r\n\r\n<p>Sự chuyển đổi sang cổng USB-C kh&ocirc;ng chỉ tạo ra bước tiến lớn về giao thức kết nối m&agrave; c&ograve;n mang lại sự tiện lợi khi dễ d&agrave;ng kết nối với c&aacute;c phụ kiện v&agrave; thiết bị kh&aacute;c. Việc n&agrave;y cho ph&eacute;p bạn sử dụng một loại c&aacute;p duy nhất cho tất cả c&aacute;c thiết bị của m&igrave;nh, tạo n&ecirc;n một trải nghiệm kết nối thuận tiện v&agrave; hiệu quả hơn.</p>\r\n\r\n<h3><strong>Thời lượng pin liền mạch l&ecirc;n đến 29 giờ ấn tượng</strong></h3>\r\n\r\n<p>Mặc d&ugrave; được trang bị nhiều t&iacute;nh năng mạnh mẽ v&agrave; hiện đại,&nbsp;<strong>điện thoại iPhone 15 Pro Max</strong>&nbsp;vẫn duy tr&igrave; thời lượng pin ấn tượng, đứng đầu trong c&aacute;c d&ograve;ng smartphone hiện nay. Người d&ugrave;ng c&oacute; thể tận hưởng giải tr&iacute; với thời gian xem video li&ecirc;n tục&nbsp;<strong>l&ecirc;n đến 29 giờ</strong>, vượt trội hơn iPhone 12 Pro Max tới 9 giờ. Điều n&agrave;y cho thấy Apple đ&atilde; tối ưu h&oacute;a hiệu quả pin vượt bậc, mang đến trải nghiệm liền mạch suốt ng&agrave;y d&agrave;i.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max cho thời gian xem video liên tục lên đến 29 giờ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-6.jpg\" title=\"iPhone 15 Pro Max cho thời gian xem video liên tục lên đến 29 giờ\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max cho thời gian xem video li&ecirc;n tục l&ecirc;n đến 29 giờ</em></p>\r\n\r\n<p>Kh&ocirc;ng chỉ c&oacute; thời lượng pin d&agrave;i,&nbsp;<strong>iP 15 Pro Max</strong>&nbsp;c&ograve;n hỗ trợ sạc nhanh v&agrave; sạc nhanh kh&ocirc;ng d&acirc;y qua&nbsp;<strong>c&ocirc;ng nghệ MagSafe</strong>. Do vậy m&agrave; việc nạp năng lượng của iPhone 15 Promax đ&atilde; trở n&ecirc;n tiện lợi v&agrave; nhanh ch&oacute;ng hơn. Người d&ugrave;ng c&oacute; thể an t&acirc;m rằng thiết bị lu&ocirc;n sẵn s&agrave;ng cho mọi nhu cầu, từ c&ocirc;ng việc đến giải tr&iacute;. Điều n&agrave;y gi&uacute;p cuộc sống trở n&ecirc;n tiện lợi hơn khi kh&ocirc;ng phải lo lắng về việc sạc pin, d&ugrave; bạn đang ở đ&acirc;u v&agrave; l&agrave;m g&igrave;. Từ đ&oacute; hiệu suất sử dụng được đảm bảo li&ecirc;n tục v&agrave; hiệu quả.</p>\r\n\r\n<h3><strong>Notch dạng Dynamic Island, n&acirc;ng cấp trải nghiệm sử dụng</strong></h3>\r\n\r\n<p><strong>Dynamic Island tr&ecirc;n iPhone 15 Pro Max</strong>&nbsp;l&agrave; một t&iacute;nh năng nổi bật gi&uacute;p người d&ugrave;ng c&oacute; trải nghiệm tiện lợi hơn bao giờ hết. Kh&ocirc;ng chỉ hiển thị th&ocirc;ng b&aacute;o một c&aacute;ch tinh tế, Dynamic Island c&ograve;n cho ph&eacute;p kiểm so&aacute;t &acirc;m nhạc v&agrave; xem bản đồ m&agrave; kh&ocirc;ng cần rời khỏi ứng dụng đang sử dụng.</p>\r\n\r\n<p><img alt=\"Dynamic Island trên iPhone 15 Pro Max là một tính năng nổi bật\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-7.jpg\" title=\"Dynamic Island trên iPhone 15 Pro Max là một tính năng nổi bật\" /></p>\r\n\r\n<p><em>Dynamic Island tr&ecirc;n iPhone 15 ProMax l&agrave; một t&iacute;nh năng nổi bật</em></p>\r\n\r\n<p>Đặc biệt, khi bạn thực hiện nhiều t&aacute;c vụ c&ugrave;ng l&uacute;c, Dynamic Island sẽ tự động t&aacute;ch th&agrave;nh hai phần ri&ecirc;ng biệt, gi&uacute;p bạn dễ d&agrave;ng quản l&yacute; v&agrave; theo d&otilde;i. T&iacute;nh năng n&agrave;y mang lại sự linh hoạt v&agrave; hiệu quả trong việc sử dụng, biến sản phẩm trở th&agrave;nh một lựa chọn tuyệt vời cho những ai y&ecirc;u th&iacute;ch c&ocirc;ng nghệ hiện đại.</p>\r\n\r\n<h3><strong>Hệ điều h&agrave;nh iOS 17 mới đa dạng t&iacute;nh năng độc đ&aacute;o</strong></h3>\r\n\r\n<p>iPhone 15 ProMax vận h&agrave;nh tr&ecirc;n phi&ecirc;n bản&nbsp;<strong>iOS thế hệ thứ 17</strong>, đem lại nhiều n&acirc;ng cấp lớn về bảo mật, hiệu suất. Một t&iacute;nh năng nổi bật trong phi&ecirc;n bản hệ điều h&agrave;nh mới n&agrave;y l&agrave; &Aacute;p ph&iacute;ch li&ecirc;n hệ, cho ph&eacute;p tạo ảnh đại diện t&ugrave;y chỉnh với ảnh, văn bản v&agrave; c&aacute;c yếu tố đồ họa kh&aacute;c.</p>\r\n\r\n<p>Hệ điều h&agrave;nh iOS 17 c&ograve;n t&iacute;ch hợp&nbsp;<strong>NameDrop</strong>, một t&iacute;nh năng mới hỗ trợ chia sẻ th&ocirc;ng tin li&ecirc;n hệ giữa c&aacute;c thiết bị Apple chỉ bằng c&aacute;ch chạm nhẹ hai thiết bị v&agrave;o nhau. Ngay lập tức, cửa sổ chia sẻ sẽ xuất hiện, gi&uacute;p việc trao đổi th&ocirc;ng tin diễn ra nhanh ch&oacute;ng v&agrave; dễ d&agrave;ng.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max vận hành trên phiên bản iOS thế hệ thứ 17, đem lại nhiều nâng cấp lớn về bảo mật, hiệu suất\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-8.jpg\" title=\"iPhone 15 Pro Max vận hành trên phiên bản iOS thế hệ thứ 17, đem lại nhiều nâng cấp lớn về bảo mật, hiệu suất\" /></p>\r\n\r\n<p><em>iPhone 15 ProMax vận h&agrave;nh tr&ecirc;n phi&ecirc;n bản iOS thế hệ thứ 17, đem lại nhiều n&acirc;ng cấp lớn về bảo mật, hiệu suất</em></p>\r\n\r\n<p>B&ecirc;n cạnh đ&oacute;, từ Live Photo, video hoặc ảnh, iOS 17 cũng hỗ trợ người d&ugrave;ng s&aacute;ng tạo ra c&aacute;c nh&atilde;n d&aacute;n với&nbsp;<strong>hiệu ứng động</strong>&nbsp;độc đ&aacute;o. Những nh&atilde;n d&aacute;n n&agrave;y c&oacute; thể sử dụng trong c&aacute;c ứng dụng như Tin nhắn, Ghi ch&uacute; v&agrave; Đ&aacute;nh dấu, mang lại trải nghiệm giao tiếp sinh động v&agrave; th&uacute; vị hơn. Nh&atilde;n d&aacute;n động được tạo ra th&ocirc;ng qua c&ocirc;ng cụ cắt v&agrave; chỉnh sửa ảnh hoặc video trong ứng dụng Tin nhắn, l&agrave;m cho cuộc tr&ograve; chuyện trở n&ecirc;n sinh động hơn bao giờ hết.</p>\r\n\r\n<p>Những cải tiến n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao hiệu suất của thiết bị m&agrave; c&ograve;n tăng cường khả năng tương t&aacute;c v&agrave; c&aacute; nh&acirc;n h&oacute;a. Với iOS 17, iPhone 15 Pro Max kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ ti&ecirc;n tiến m&agrave; c&ograve;n l&agrave; một c&ocirc;ng cụ hỗ trợ đắc lực cho cuộc sống h&agrave;ng ng&agrave;y của người d&ugrave;ng. Sự kết hợp giữa c&aacute;c t&iacute;nh năng mới mẻ v&agrave; hiệu suất vượt trội đảm bảo rằng người d&ugrave;ng sẽ c&oacute; những trải nghiệm tuyệt vời v&agrave; tiện &iacute;ch tối đa từ chiếc điện thoại n&agrave;y.</p>\r\n\r\n<h2><strong>So s&aacute;nh iPhone 15 Pro Max v&agrave; 14 Pro Max</strong></h2>\r\n\r\n<p>Ngay khi được ra mắt, iPhone 15 Pro Max đ&atilde; nhận được kh&aacute; nhiều đ&aacute;nh gi&aacute; cao từ ph&iacute;a người d&ugrave;ng từ thiết kế, m&agrave;n h&igrave;nh, camera cho tới hiệu năng. Tuy nhi&ecirc;n cũng kh&ocirc;ng &iacute;t người tỏ ra thắc mắc, băn khoăn khi so s&aacute;nh phi&ecirc;n bản Pro Max của iPhone thế hệ 14 v&agrave; 15. Nh&igrave;n chung, th&igrave; ở hầu hết mọi kh&iacute;a cạnh, thế hệ&nbsp;<strong>iPhone 15 Pro Max đ&atilde; c&oacute; nhiều cải tiến</strong>&nbsp;ấn tượng so với thế hệ tiền nhiệm trước đ&oacute;.</p>\r\n\r\n<p><strong>Bảng so s&aacute;nh th&ocirc;ng số iP 15 Pro Max v&agrave; 14 Pro Max:</strong></p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Th&ocirc;ng số</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iPhone 15 Pro Max</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iPhone 14 Pro Max</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>K&iacute;ch thước m&agrave;n h&igrave;nh</p>\r\n			</td>\r\n			<td>\r\n			<p>6.7 inches</p>\r\n			</td>\r\n			<td>\r\n			<p>6.7 inches</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Loại m&agrave;n h&igrave;nh</p>\r\n			</td>\r\n			<td>\r\n			<p>Super Retina XDR, OLED</p>\r\n			</td>\r\n			<td>\r\n			<p>Super Retina XDR, OLED</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Độ ph&acirc;n giải&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>2796 x 1290 pixels</p>\r\n			</td>\r\n			<td>\r\n			<p>2796 x 1290 pixels</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Tốc độ l&agrave;m mới&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>Up to 120Hz with ProMotion</p>\r\n			</td>\r\n			<td>\r\n			<p>Up to 120Hz with ProMotion</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Vi xử l&yacute;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>A17 Pro</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>A16 Bionic</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>RAM</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>8GB</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>6GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB, 512GB, 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>128GB, 256GB, 512GB, 1TB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera ch&iacute;nh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>48MP (wide)</p>\r\n			</td>\r\n			<td>\r\n			<p>48MP (wide)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera Tele</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (<strong>5x optical zoom</strong>)</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (3x optical zoom)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera g&oacute;c rộng</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (ultra-wide)</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (ultra-wide)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera trước&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Dung lượng pin</p>\r\n			</td>\r\n			<td>\r\n			<p>4352 mAh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>4352 mAh&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Khả năng sạc</p>\r\n			</td>\r\n			<td>\r\n			<p>Fast charging, MagSafe wireless charging</p>\r\n			</td>\r\n			<td>\r\n			<p>Fast charging, MagSafe wireless charging</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Hệ điều h&agrave;nh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iOS 17</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>iOS 16 (c&oacute; thể n&acirc;ng cấp l&ecirc;n)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Hỗ trợ 5G</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Wifi</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Wifi 6E</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Wifi 6</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Bluetooth</p>\r\n			</td>\r\n			<td>\r\n			<p>Bluetooth 5.3</p>\r\n			</td>\r\n			<td>\r\n			<p>Bluetooth 5.3</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Kết cấu vỏ</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Vỏ hợp kim titan</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Vỏ l&agrave;m bằng th&eacute;p kh&ocirc;ng gỉ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Trọng lượng</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>221g</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>240g</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>K&iacute;ch thước&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>159.9 x 76.7 x 8.25 mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>160.7 x 77.6 x 7.85 mm</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Cụ thể:</p>\r\n\r\n<p>-&nbsp;<strong>Về thiết kế v&agrave; vật liệu</strong>: sản phẩm mới&nbsp;<strong>vượt trội với khung titan</strong>&nbsp;v&agrave;&nbsp;<strong>m&agrave;u sắc mới</strong>&nbsp;(Đen Titan, Trắng Titan, Xanh Titan, Tự nhi&ecirc;n Titan). Trong khi đ&oacute;, iPhone 14 Pro Max lại được đ&aacute;nh gi&aacute; cao ở bộ khung ho&agrave;n thiện từ chất liệu th&eacute;p kh&ocirc;ng gỉ c&ugrave;ng c&aacute;c m&agrave;u Đen Kh&ocirc;ng Gian, V&agrave;ng, Bạc v&agrave; T&iacute;m Đậm.</p>\r\n\r\n<p>-&nbsp;<strong>Về khả năng xử l&yacute;</strong>: nhờ được trang bị chipset A17 Pro n&ecirc;n 15 Promax đem tới&nbsp;<strong>hiệu suất v&agrave; đồ họa tốt hơn</strong>&nbsp;con chip A16 Bionic của iPhone 14 ProMax. Đồng thời, camera của iPhone 15 Pro Max cũng được cải tiến với khả năng zoom quang học xa hơn, hỗ trợ ghi Log video v&agrave; cổng USB-C. Th&ocirc;ng số n&agrave;y ở iPhone 14 Pro Max chỉ được giới hạn ở camera ch&iacute;nh 48MP v&agrave; cổng Lightning.</p>\r\n\r\n<p>-&nbsp;<strong>Về dung lượng v&agrave; gi&aacute; cả</strong>: iPhone 15 Pro Max bắt đầu&nbsp;<strong>từ 256GB</strong>&nbsp;với gi&aacute; khởi điểm $1,199, cao hơn so với iPhone 14 Pro Max bắt đầu từ 128GB với gi&aacute; khởi điểm $1,099. Cả hai thiết bị đều c&oacute; thời lượng pin tương đương v&agrave; hỗ trợ sạc nhanh c&ugrave;ng sạc kh&ocirc;ng d&acirc;y MagSafe. Chi tiết c&aacute;c so s&aacute;nh về cấu h&igrave;nh v&agrave; th&ocirc;ng số kỹ thuật giữa 2 d&ograve;ng m&aacute;y n&agrave;y sẽ được thể hiện trong bảng tổng hợp dưới đ&acirc;y.</p>\r\n\r\n<p><img alt=\"Thiết kế và vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan và màu sắc mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-9.jpg\" title=\"Thiết kế và vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan và màu sắc mới\" /></p>\r\n\r\n<p><em>Thiết kế v&agrave; vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan v&agrave; m&agrave;u sắc mới</em></p>\r\n\r\n<p>Như vậy, so với iPhone Pro Max thế hệ 14, thế hệ 15 được n&acirc;ng cấp về chipset, RAM, hệ điều h&agrave;nh, kết nối WIFI, cổng sạc, camera, chất liệu v&agrave; trọng lượng. Tiếp theo đ&acirc;y, h&atilde;y c&ugrave;ng t&igrave;m hiểu xem chiếc smartphone cao cấp n&agrave;y c&oacute; những m&agrave;u sắc n&agrave;o v&agrave; m&agrave;u n&agrave;o đẹp nhất nh&eacute;!</p>\r\n\r\n<h2><strong>iPhone 15 Pro Max gi&aacute; bao nhi&ecirc;u? Bảng gi&aacute; mới nhất th&aacute;ng 7/2024</strong></h2>\r\n\r\n<p>Việc Apple ra mắt sản phẩm n&agrave;y đ&atilde; thu h&uacute;t sự ch&uacute; &yacute; lớn từ cộng đồng c&ocirc;ng nghệ to&agrave;n cầu do mức gi&aacute; ch&ecirc;nh lệch so với thế hệ trước. Mức gi&aacute;&nbsp;khởi điểm l&agrave; 1.199 USD tại thị trường Mỹ. Tuy nhi&ecirc;n, gi&aacute; th&agrave;nh hiện tại của d&ograve;ng iPhone n&agrave;y đ&atilde; c&oacute; sự hạ nhiệt hơn so với thời điểm vừa mới được ra mắt.</p>\r\n\r\n<p><strong>Bảng gi&aacute; iPhone 15 Pro Max</strong>&nbsp;mới nhất th&aacute;ng 7/2024 như sau:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>T&ecirc;n m&aacute;y</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n tại CellphoneS</strong></p>\r\n\r\n			<p><strong>(Chưa bao gồm c&aacute;c khuyến m&atilde;i)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; thu cũ l&ecirc;n đời tại CellphoneS</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 256GB</p>\r\n			</td>\r\n			<td>\r\n			<p>29.090.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>27.090.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 512GB</p>\r\n			</td>\r\n			<td>\r\n			<p>36.290.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>34.290.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>42.890.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>38.890.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p><strong><img alt=\"Bảng giá iPhone 15 Pro Max mới nhất tại CellphoneS\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-12.jpg\" title=\"Bảng giá iPhone 15 Pro Max mới nhất tại CellphoneS\" /></strong></p>\r\n\r\n<p><em>iPhone 15 Pro Max 256GB tốt ưu đ&atilde;i lớn tại hệ thống CellphoneS - T7/2024</em></p>\r\n\r\n<p><em><strong>Lưu &yacute;</strong>: gi&aacute; b&aacute;n c&oacute; thể thay đổi, li&ecirc;n hệ trực tiếp để được tư vấn chi tiết nhất!</em></p>\r\n\r\n<h2><strong>iPhone 15 Pro Max c&oacute; mấy m&agrave;u? M&agrave;u n&agrave;o đẹp?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Điện thoại&nbsp;<strong>iPhone 15 Pro Max 256GB</strong>&nbsp;được Apple giới thiệu với&nbsp;<strong>4 m&agrave;u sắc</strong>&nbsp;thời thượng l&agrave;:&nbsp;<strong>titan tự nhi&ecirc;n, titan trắng, titan đen v&agrave; titan xanh</strong>. Những m&agrave;u sắc mới n&agrave;y&nbsp;mang lại vẻ đẹp&nbsp;<strong>tinh tế v&agrave; sang trọng</strong>&nbsp;h&agrave;ng đầu thế giới smartphone hiện nay.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"4 màu sắc của iPhone 15 Pro Max lần lượt là: titan tự nhiên, titan trắng, titan đen và titan xanh\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-10.jpg\" title=\"4 màu sắc của iPhone 15 Pro Max lần lượt là: titan tự nhiên, titan trắng, titan đen và titan xanh\" /></p>\r\n\r\n<p><em>4 m&agrave;u sắc của iPhone 15 Pro Max lần lượt l&agrave;: titan tự nhi&ecirc;n, titan trắng, titan đen v&agrave; titan xanh</em></p>\r\n\r\n<p><strong>- Titan Tự Nhi&ecirc;n</strong>: Đ&acirc;y l&agrave; một m&agrave;u sắc ho&agrave;n to&agrave;n mới mẻ, chưa từng c&oacute; mặt tr&ecirc;n bất kỳ d&ograve;ng thiết bị n&agrave;o trước đ&oacute; của nh&agrave; T&aacute;o. M&agrave;u n&agrave;y tương đồng với m&agrave;u bạc pha x&aacute;m &aacute;nh kim, c&oacute; đặc t&iacute;nh phản chiếu &aacute;nh s&aacute;ng tốt, mang lại vẻ ngo&agrave;i độc đ&aacute;o v&agrave; hiện đại.</p>\r\n\r\n<p><strong>- Titan Trắng</strong>: Khung viền titan mang lại cho phi&ecirc;n bản iPhone m&agrave;u trắng n&agrave;y một vẻ ngo&agrave;i b&oacute;ng bẩy v&agrave; tinh tế hơn. B&ecirc;n cạnh đ&oacute;, m&agrave;u trắng trung t&iacute;nh cũng gi&uacute;p dễ d&agrave;ng phối hợp với c&aacute;c phụ kiện v&agrave; trang phục kh&aacute;c nhau, tạo n&ecirc;n sự thanh lịch v&agrave; tinh khiết cho người d&ugrave;ng.</p>\r\n\r\n<p><strong>- Titan Đen</strong>: M&agrave;u đen tr&ecirc;n iPhone 15 ProMax l&agrave; sự kết hợp giữa &aacute;nh kim loại của Titanium v&agrave; sắc đen huyền b&iacute;, mang lại vẻ tinh tế, sang trọng h&agrave;ng đầu. So với c&aacute;c phi&ecirc;n bản m&agrave;u đen tr&ecirc;n c&aacute;c thiết bị tiền nhiệm, m&agrave;u đen c&oacute; phần nhạt hơn, tạo n&ecirc;n sự độc đ&aacute;o hiếm c&oacute; cho d&ograve;ng điện thoại n&agrave;y.</p>\r\n\r\n<p><strong>- Titan Xanh</strong>: M&agrave;u xanh n&agrave;y được pha ch&uacute;t x&aacute;m, mang lại vẻ b&iacute; ẩn v&agrave; mạnh mẽ. So với m&agrave;u xanh lam tr&ecirc;n iPhone 12 Pro, titan xanh tối v&agrave; đậm hơn, ph&ugrave; hợp với những ai th&iacute;ch sự kh&aacute;c biệt v&agrave; phong c&aacute;ch.</p>\r\n\r\n<p>Việc chọn m&agrave;u ph&ugrave; hợp khi mua iPhone 15 Pro Max cũng c&ograve;n t&ugrave;y thuộc v&agrave;o từng sở th&iacute;ch v&agrave; c&aacute; t&iacute;nh của ri&ecirc;ng mỗi người d&ugrave;ng. Titan Đen v&agrave; Titan Trắng l&agrave; hai lựa chọn kh&aacute; được ưa chuộng v&igrave; khả năng dễ d&agrave;ng kết hợp với c&aacute;c phụ kiện kh&aacute;c. Trong khi đ&oacute;, Titan Tự Nhi&ecirc;n v&agrave; Titan Xanh mang lại sự mới mẻ v&agrave; c&aacute; t&iacute;nh. Do vậy m&agrave; c&ograve;n t&ugrave;y thuộc v&agrave;o phong c&aacute;ch v&agrave; y&ecirc;u cầu của mỗi người m&agrave; t&ugrave;y chọn m&agrave;u sắc ưng &yacute; sẽ c&oacute; sự kh&aacute;c biệt.</p>\r\n\r\n<h2><strong>iPhone 15 Pro Max c&oacute; mấy phi&ecirc;n bản bộ nhớ trong?</strong></h2>\r\n\r\n<p>Trong lần trở lại thị trường năm 2023 vừa rồi,&nbsp;<strong>iPhone 15 Promax</strong>&nbsp;c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave;&nbsp;<strong>256GB, 512GB v&agrave; lớn nhất 1TB</strong>&nbsp;để đ&aacute;p ứng c&aacute;c y&ecirc;u cầu ghi nhớ dữ liệu ng&agrave;y c&agrave;ng lớn.</p>\r\n\r\n<p><img alt=\"iPhone 15 Promax có 3 phiên bản bộ nhớ trong là 256GB, 512GB và lớn nhất 1TB\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-11.jpg\" title=\"iPhone 15 Promax có 3 phiên bản bộ nhớ trong là 256GB, 512GB và lớn nhất 1TB\" /></p>\r\n\r\n<p><em>iPhone 15 Promax c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; lớn nhất 1TB</em></p>\r\n\r\n<p>Vậy l&agrave;m sao chọn dung lượng bộ nhớ&nbsp;<strong>ph&ugrave; hợp với nhu cầu sử dụng</strong>&nbsp;của m&igrave;nh? Dưới đ&acirc;y l&agrave; th&ocirc;ng số tham khảo về khả năng lưu trữ tr&ecirc;n iP 15 Pro Max:</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong&nbsp;256GB</strong>: Dung lượng n&agrave;y c&oacute; thể lưu trữ khoảng 2300 bức ảnh định dạng JPG, 362 video 4K UHD, hơn 1105 ph&uacute;t video FHD, v&agrave; 1100 b&agrave;i h&aacute;t n&eacute;n. Trong số c&aacute;c phi&ecirc;n bản bộ nhớ, đ&acirc;y ph&ugrave; hợp với&nbsp;<strong>người d&ugrave;ng th&ocirc;ng thường</strong>&nbsp;nhất.</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong</strong><strong>&nbsp;512GB</strong>: Phi&ecirc;n bản n&agrave;y gi&uacute;p lưu trữ tới 1400 b&agrave;i h&aacute;t n&eacute;n, 2095 ph&uacute;t video FHD hoặc 804 ph&uacute;t video 4K UHD v&agrave; 2800 bức ảnh JPG. Với&nbsp;<strong>người d&ugrave;ng hay chụp ảnh hoặc quay video</strong>&nbsp;nhiều th&igrave; đ&acirc;y l&agrave; ph&acirc;n kh&uacute;c iPhone 15 ProMax ph&ugrave; hợp n&ecirc;n lựa chọn.</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong</strong><strong>&nbsp;1TB</strong>: Phi&ecirc;n bản n&agrave;y c&oacute; thể lưu trữ tới 3200 ảnh JPG, 2565 ph&uacute;t video FHD hay 894 ph&uacute;t 4K UHD, c&ugrave;ng với 1600 b&agrave;i h&aacute;t n&eacute;n. Đ&acirc;y l&agrave; t&ugrave;y chọn ph&ugrave; hợp nhất với&nbsp;<strong>người d&ugrave;ng c&oacute; nhiều nhu cầu đa phương tiện</strong>.</p>\r\n\r\n<h2><strong>iPhone 15 Promax dung lượng 256GB c&oacute; đủ d&ugrave;ng kh&ocirc;ng?</strong></h2>\r\n\r\n<p>Thế hệ điện thoại Apple mới 2023 n&agrave;y, Apple đ&atilde; loại bỏ phi&ecirc;n bản dung lượng bộ nhớ trong 128GB. Theo đ&oacute;,&nbsp;<strong>iPhone 15 ProMax 256GB</strong>&nbsp;bộ nhớ trong sẽ l&agrave; phi&ecirc;n bản bộ nhớ chuẩn. Vậy 256GB bộ nhớ lưu trữ c&oacute; đủ d&ugrave;ng kh&ocirc;ng, ph&ugrave; hợp sử dụng với những ai?</p>\r\n\r\n<blockquote>\r\n<p>Tr&ecirc;n thực tế,&nbsp;<strong>bộ nhớ trong 256GB</strong>&nbsp;l&agrave; dung lượng lưu trữ&nbsp;<strong>đủ lớn</strong>, ph&ugrave; hợp với nhu cầu sử dụng của&nbsp;<strong>đại đa số người d&ugrave;ng</strong>&nbsp;cơ bản.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max dung lượng 256GB có đủ dùng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/apple-iphone-15-pro-22.jpg\" /></p>\r\n\r\n<p>Theo đ&oacute;, nếu sử dụng điện thoại trong c&aacute;c nhu cầu như chơi game, gọi điện, nhắn tin, lướt web th&igrave;&nbsp;<strong>256GB ho&agrave;n to&agrave;n c&oacute; thể đ&aacute;p ứng</strong>&nbsp;được nhu cầu.&nbsp;Tuy nhi&ecirc;n, với người d&ugrave;ng thực hiện c&aacute;c c&ocirc;ng việc về s&aacute;ng tạo nội dung, cần lưu trữ những h&igrave;nh ảnh hay thước phim độ ph&acirc;n giải cao với dung lượng lớn th&igrave; c&oacute; thể c&acirc;n nhắc đến những phi&ecirc;n bản dung lượng cao hơn.</p>\r\n\r\n<h2><strong>Điện thoại iPhone 15 Pro Max ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Điện thoại&nbsp;<strong>iPhone Pro Max thứ 15</strong>&nbsp;của Apple đ&atilde; ch&iacute;nh thức được ra mắt người ti&ecirc;u d&ugrave;ng to&agrave;n cầu v&agrave;o ng&agrave;y&nbsp;<strong>12 th&aacute;ng 9 năm 2023 tại sự kiện Wonderlust</strong>&nbsp;của Apple. Đ&acirc;y l&agrave; sự kiện ra mắt iPhone mới, bao gồm c&aacute;c phi&ecirc;n bản từ ti&ecirc;u chuẩn cho tới ProMax c&oacute; mặt trong Series.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max chính thức ra mắt vào ngày 12 tháng 9 năm 2023 tại sự kiện Wonderlust\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-13.jpg\" title=\"iPhone 15 Pro Max chính thức ra mắt vào ngày 12 tháng 9 năm 2023 tại sự kiện Wonderlust\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max ch&iacute;nh thức ra mắt v&agrave;o ng&agrave;y 12 th&aacute;ng 9 năm 2023 tại sự kiện Wonderlust</em></p>\r\n\r\n<p>Sau khi ra mắt, c&aacute;c sản phẩm bắt đầu nhận đơn đặt h&agrave;ng từ ng&agrave;y 15 th&aacute;ng 9 v&agrave; ch&iacute;nh thức b&aacute;n ra v&agrave;o ng&agrave;y 22 th&aacute;ng 9 năm 2023. Hiện tại, bạn ho&agrave;n to&agrave;n c&oacute; thể gh&eacute; tới v&agrave; tham khảo th&ecirc;m d&ograve;ng iPhone cao cấp n&agrave;y ở c&aacute;c cửa h&agrave;ng c&ocirc;ng nghệ chất lượng cao như CellphoneS.</p>\r\n\r\n<p><img alt=\"Mua iPhone 15 Pro Max chính hãng trả góp &amp;#34;3 KHÔNG&amp;#34; tại CellphoneS\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-19.jpg\" title=\"Mua iPhone 15 Pro Max chính hãng trả góp &amp;#34;3 KHÔNG&amp;#34; tại CellphoneS\" /></p>\r\n\r\n<p><em>Mua iPhone 15 Pro Max ch&iacute;nh h&atilde;ng trả g&oacute;p &quot;3 KH&Ocirc;NG&quot; tại CellphoneS</em></p>\r\n\r\n<h2><strong>Trải nghiệm ngay sản phẩm iPhone 15 Pro Max tại CellphoneS</strong></h2>\r\n\r\n<p>B&ecirc;n cạnh những đ&aacute;nh gi&aacute; về th&ocirc;ng số, t&iacute;nh năng đ&atilde; đề cập, bạn c&oacute; thể đến ngay CellphoneS để trải nghiệm trực tiếp iPhone 15 Pro Max. Đặc biệt, trong qu&aacute; tr&igrave;nh trải nghiệm nếu c&oacute; bất kỳ thắc mắc n&agrave;o kh&aacute;ch h&agrave;ng sẽ được nh&acirc;n vi&ecirc;n tư vấn chi tiết nhất.</p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-42.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-43.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-40.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-41.jpg\" /></p>\r\n\r\n<h2><strong>Một số c&acirc;u hỏi thường gặp về iPhone 15 Pro Max</strong></h2>\r\n\r\n<p>iPhone 15 Pro Max sở hữu cấu h&igrave;nh vượt trội nhưng người d&ugrave;ng c&ograve;n nhiều thắc mắc đến sản phẩm n&agrave;y trước khi c&oacute; quyết định n&acirc;ng cấp. Một số thắc mắc phổ biến m&agrave; người d&ugrave;ng quan t&acirc;m đến sản phẩm n&agrave;y phải kể đến như:</p>\r\n\r\n<h3><strong>iPhone 15&nbsp;Pro Max nặng bao nhi&ecirc;u gram?</strong></h3>\r\n\r\n<p>Với khung viền titan cải tiến nhờ đ&oacute; thế hệ điện thoại mới n&agrave;y nhẹ hơn đ&aacute;ng kể so với phi&ecirc;n bản tiền nhiệm. Cụ thể&nbsp;<strong>iPhone 15 Pro Max c&oacute; trọng lượng</strong>&nbsp;rơi v&agrave;o khoảng&nbsp;<strong>221 gram</strong>, nhẹ hơn tới 20g so với tr&ecirc;n 14 Pro Max (240 gam). Với trọng lượng giảm, thiết bị gi&uacute;p người d&ugrave;ng c&oacute; những trải nghiệm cầm nắm thoải m&aacute;i hơn.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max nặng bao nhiêu\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-14-pro-max-16.jpg\" /></p>\r\n\r\n<h3><strong>iPhone 15&nbsp;Pro Max c&oacute; m&agrave;u hồng, đỏ kh&ocirc;ng</strong></h3>\r\n\r\n<p>Năm 2023, sản phẩm iPhone 15 ProMax&nbsp;<strong>kh&ocirc;ng c&oacute; m&agrave;u hồng v&agrave; đỏ</strong>. Đặc điểm m&agrave;u sắc tr&ecirc;n d&ograve;ng iPhone Pro của Apple đ&oacute; l&agrave; sử dụng những tone m&agrave;u trung t&iacute;nh. Trong khi đ&oacute; phi&ecirc;n bản thường,&nbsp; Plus hay mini sẽ được trang bị những gam m&agrave;u rực rỡ như v&agrave;ng, đỏ, t&iacute;m hồng,...</p>\r\n\r\n<h3><strong>Đang d&ugrave;ng iPhone 14 Pro/Pro Max c&oacute; n&ecirc;n mua 15 Pro Max kh&ocirc;ng?</strong></h3>\r\n\r\n<p>Sở hữu nhiều n&acirc;ng cấp nổi trội về thiết kế v&agrave; t&iacute;nh năng, vậy người d&ugrave;ng sử dụng phi&ecirc;n bản 14 Pro v&agrave; Pro Max c&oacute; n&ecirc;n n&acirc;ng cấp l&ecirc;n thế hệ mới n&agrave;y kh&ocirc;ng? C&acirc;u trả lời l&agrave;&nbsp;<strong>c&oacute;</strong>. 15 Pro Max với khung titan sang trọng, cổng sạc với c&ugrave;ng n&uacute;t t&aacute;c vụ tiện lợi. B&ecirc;n cạnh đ&oacute;, điện thoại c&ograve;n được cải tiến cấu h&igrave;nh với con chip A17 Pro c&ugrave;ng camera n&acirc;ng cấp khả năng chụp zoom l&ecirc;n 5x. Với những t&iacute;nh năng tr&ecirc;n th&igrave; những người d&ugrave;ng muốn trải nghiệm những c&ocirc;ng nghệ mới nhất ho&agrave;n to&agrave;n n&ecirc;n trải nghiệm. Trường hợp người d&ugrave;ng muốn trải nghiệm nhưng c&ograve;n vướng mắc về gi&aacute; th&igrave; c&oacute; thể tham khảo đến chương tr&igrave;nh thu cũ l&ecirc;n đời để sở hữu điện thoại c&ocirc;ng nghệ mới nhất với khoản chi ph&iacute; cần b&ugrave; th&ecirc;m hợp l&yacute;.</p>\r\n\r\n<h3><strong>K&iacute;ch thước của iPhone 15 Pro Max bao nhi&ecirc;u?</strong></h3>\r\n\r\n<p>C&ugrave;ng sở hữu m&agrave;n h&igrave;nh k&iacute;ch thước&nbsp;<strong>6.7 inch</strong>&nbsp;như thế hệ thệ 14 Pro Max tuy nhi&ecirc;n k&iacute;ch thước điện thoại mới n&agrave;y c&oacute; sự thay đổi đ&ocirc;i ch&uacute;t. Cụ thể, m&aacute;y d&agrave;y hơn đ&ocirc;i ch&uacute;t so với tr&ecirc;n iPhone 14 Pro Max v&agrave; giảm k&iacute;ch thước về chiều d&agrave;i v&agrave; rộng. Chi tiết k&iacute;ch thước tr&ecirc;n iPhone 15 Pro Max như sau: D&agrave;y&nbsp;8,25mm, rộng&nbsp;76,7 mm v&agrave; d&agrave;i&nbsp;159,9 mm.</p>\r\n\r\n<h3><strong>iP 15 ProMax c&oacute; chống nước, chống sốc kh&ocirc;ng?</strong></h3>\r\n\r\n<p>Mẫu điện thoại cao cấp mới n&agrave;y vẫn được Apple trang bị c&aacute;c ti&ecirc;u chuẩn kh&aacute;ng nước v&agrave; bụi bẩn như thế hệ trước đ&oacute;. Cụ thể,&nbsp;iP 15 ProMax được trang bị chuẩn&nbsp;<strong>kh&aacute;ng nước v&agrave; bụi bẩn&nbsp;IP68 theo ti&ecirc;u chuẩn IEC 60529</strong>&nbsp;gi&uacute;p bảo vệ thiết bị dưới nước ở độ s&acirc;u 6 m&eacute;t trong thời gian tối đa 30 ph&uacute;t. Tuy nhi&ecirc;n, t&iacute;nh năng kh&aacute;ng nước sẽ kh&ocirc;ng được h&atilde;ng bảo h&agrave;nh, do đ&oacute; khuyến k&iacute;ch người d&ugrave;ng kh&ocirc;ng test thử t&iacute;nh năng n&agrave;y.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max có chống nước\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-14-pro-max-15.jpg\" /></p>\r\n\r\n<h3><strong>M&agrave;u titan tr&ecirc;n iPhone 15 Pro Max gần với m&agrave;u g&igrave;?</strong></h3>\r\n\r\n<p>Cả bốn m&agrave;u tr&ecirc;n phi&ecirc;n bản 15 Pro Max đều l&agrave; những m&agrave;u mới, trong đ&oacute; Titanium tự nhi&ecirc;n nhận được nhiều sự quan t&acirc;m nhất của người d&ugrave;ng. Ba phi&ecirc;n bản m&agrave;u c&ograve;n lại tuy mới nhưng vẫn c&oacute; nhiều điểm tương đồng với những m&agrave;u sắc trước đ&oacute;, như sau:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u iPhone 15 Pro Max</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>So s&aacute;nh với m&agrave;u trước đ&oacute;</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan tự nhi&ecirc;n</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;u mới lần đầu xuất hiện</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan đen</p>\r\n			</td>\r\n			<td>\r\n			<p>Kh&aacute; giống&nbsp;Pacific Blue tr&ecirc;n&nbsp;iPhone 12 Pro nhưng sắc xanh đậm hơn</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan trắng</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute; nhiều điểm tương đồng với&nbsp;Black Space trước đ&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan xanh</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;u sắc gần giống với m&agrave;u Bạc&nbsp;Silver</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Nh&igrave;n chung, tuy cả bốn m&agrave;u đều l&agrave; m&agrave;u mới nhưng ch&uacute;ng đều c&oacute; điểm tương đồng với những m&agrave;u sắc từng được xuất hiện trước đ&oacute; của Apple.</p>\r\n\r\n<h3><strong>Điện thoại iPhone 15 Pro Max c&oacute; kết nối 5G kh&ocirc;ng?</strong></h3>\r\n\r\n<p>iPhone 15 Pro Max c&oacute; được trang bị&nbsp;<strong>kết nối 5G</strong>&nbsp;nhưng để sử dụng th&igrave; nh&agrave; mạng m&agrave; người d&ugrave;ng đang sử dụng phải hỗ trợ kết nối n&agrave;y. Một số nh&agrave; mạng tại Việt Nam c&oacute; hỗ trợ kết nối 5G phải kể đến như Vinaphone, Viettel, Mobifone&hellip;</p>\r\n\r\n<p><img alt=\"Điện thoại iPhone 15 Pro Max có kết nối 5G không\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-24.png\" /></p>\r\n\r\n<p>(Nguồn ảnh Apple.com)</p>', 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iPhone 15 Pro Max sở hữu màn hình Super Retina XDR OLED 6.7 inches với độ phân giải 2796 x 1290 pixels, cung cấp trải nghiệm hình ảnh sắc nét, chân thực. So với các phiên bản tiền nhiệm, thế hệ iPhone 15 bản Pro Max đảm bảo mang tới hiệu năng mạnh mẽ với sự hỗ trợ của chipset Apple A17 Pro, cùng bộ nhớ ấn tượng. Đặc biệt hơn, điện thoại iPhone 15 ProMax mới này còn được đánh giá cao với camera sau 48MP và camera trước 12MP, hỗ trợ chụp ảnh với độ rõ nét cực đỉnh.', 'iphone-15-pro-max-256gb-chinh-hang-vna', '2024-11-13 10:23:17', '2024-11-13 10:23:17', NULL);
 INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(29, 1, 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', '<p>Đặc điểm nổi bật của iPhone 15 Pro Max 256GB | Ch&iacute;nh h&atilde;ng VN/A</p>\r\n\r\n<ul>\r\n	<li>Thiết kế khung viền từ titan chuẩn h&agrave;ng kh&ocirc;ng vũ trụ - Cực nhẹ, bền c&ugrave;ng viền cạnh mỏng cầm nắm thoải m&aacute;i</li>\r\n	<li>Hiệu năng Pro chiến game thả ga - Chip A17 Pro mang lại hiệu năng đồ họa v&ocirc; c&ugrave;ng sống động v&agrave; ch&acirc;n thực</li>\r\n	<li>Thoả sức s&aacute;ng tạo v&agrave; quay phim chuy&ecirc;n nghiệp - Cụm 3 camera sau đến 48MP v&agrave; nhiều chế độ ti&ecirc;n tiến</li>\r\n	<li>N&uacute;t t&aacute;c vụ mới gi&uacute;p nhanh ch&oacute;ng k&iacute;ch hoạt t&iacute;nh năng y&ecirc;u th&iacute;ch của bạn</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', '<blockquote>\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inches</strong>&nbsp;với độ ph&acirc;n giải&nbsp;<strong>2796 x 1290 pixels</strong>, cung cấp trải nghiệm h&igrave;nh ảnh sắc n&eacute;t, ch&acirc;n thực. So với c&aacute;c phi&ecirc;n bản tiền nhiệm, thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\" title=\"iPhone 15\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max đảm bảo mang tới hiệu năng mạnh mẽ với sự hỗ trợ của chipset&nbsp;<strong>Apple A17 Pro</strong>, c&ugrave;ng bộ nhớ ấn tượng. Đặc biệt hơn, điện thoại iPhone 15 ProMax mới n&agrave;y c&ograve;n được đ&aacute;nh gi&aacute; cao với camera sau&nbsp;<strong>48MP</strong>&nbsp;v&agrave; camera trước&nbsp;<strong>12MP</strong>, hỗ trợ chụp ảnh với độ r&otilde; n&eacute;t cực đỉnh.</p>\r\n</blockquote>\r\n\r\n<h2><strong>Đ&aacute;nh gi&aacute; iPhone 15 Pro Max chi tiết - những cải tiến nổi bật</strong></h2>\r\n\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;kh&ocirc;ng chỉ ghi điểm với&nbsp;<strong>cấu h&igrave;nh mạnh mẽ</strong>&nbsp;m&agrave; c&ograve;n g&acirc;y ấn tượng với&nbsp;<strong>nhiều t&iacute;nh năng mới</strong>&nbsp;đ&aacute;ng ch&uacute; &yacute;. Từ thiết kế khung titan cho tới hiệu năng đột ph&aacute;, tất cả đều được n&acirc;ng cấp để mang tới cho người d&ugrave;ng trải nghiệm smartphone tuyệt vời chưa từng c&oacute;. Những t&iacute;nh năng n&agrave;y sẽ được tr&igrave;nh b&agrave;y chi tiết hơn trong c&aacute;c phần b&agrave;i viết dưới đ&acirc;y, gi&uacute;p bạn c&oacute; c&aacute;i nh&igrave;n to&agrave;n diện về sự đột ph&aacute; của iPhone 15 ProMax.</p>\r\n\r\n<h3><strong>Kiểu d&aacute;ng sang trọng, thiết kế Titan thời thượng</strong></h3>\r\n\r\n<p><strong>Thiết kế titan</strong>&nbsp;dễ d&agrave;ng thể hiện được n&eacute;t đẳng cấp v&agrave; sự tinh tế ngay từ vẻ bề ngo&agrave;i của&nbsp;<strong>iPhone 15 Pro Max</strong>. Khung viền titan b&oacute;ng bẩy của m&aacute;y, được chế t&aacute;c qua nhiều quy tr&igrave;nh gia c&ocirc;ng cơ kh&iacute;, ch&agrave; nh&aacute;m v&agrave; đ&aacute;nh b&oacute;ng, mang lại vẻ đẹp sang trọng v&agrave; độ bền tuyệt vời. Với khung viền uốn cong v&agrave; kiểu d&aacute;ng si&ecirc;u mỏng, thế hệ iPhone n&agrave;y đem lại trải nghiệm cầm nắm kh&aacute; thoải m&aacute;i.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max sở hữu kiểu dáng sang trọng và thời thượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-1.jpg\" title=\"iPhone 15 Pro Max sở hữu kiểu dáng sang trọng và thời thượng\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max sở hữu kiểu d&aacute;ng sang trọng v&agrave; thời thượng</em></p>\r\n\r\n<h3><strong>Tấm nền Super Retina XDR hiển thị mượt m&agrave; v&agrave; sắc n&eacute;t</strong></h3>\r\n\r\n<p>Mượt m&agrave;, sắc n&eacute;t trong từng điểm ảnh l&agrave; những g&igrave;&nbsp;<strong>smartphone iPhone 15 Pro Max</strong>&nbsp;thể hiện được về khả năng hiển thị. Theo đ&oacute;,&nbsp;<strong>Super Retina XDR 6.7 inch OLED</strong>&nbsp;t&aacute;i hiện h&igrave;nh ảnh với độ&nbsp;<strong>sống động</strong>&nbsp;đ&aacute;ng kinh ngạc ở độ ph&acirc;n giải&nbsp;<strong>2796x1290 pixel</strong>. Đồng thời, c&aacute;c thao t&aacute;c vuốt, chạm tr&ecirc;n m&agrave;n h&igrave;nh iPhone 15 ProMax cũng v&ocirc; c&ugrave;ng lu&ocirc;n nhạy b&eacute;n, th&ocirc;ng qua c&ocirc;ng nghệ ProMotion 120Hz, đảm bảo tiết kiệm pin ấn tượng.</p>\r\n\r\n<p><img alt=\"Super Retina XDR 6.7 inch OLED là tấm nền hiển thị trên iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-2.jpg\" title=\"Super Retina XDR 6.7 inch OLED là tấm nền hiển thị trên iPhone 15 Pro Max\" /></p>\r\n\r\n<p><em>Super Retina XDR 6.7 inch OLED l&agrave; tấm nền hiển thị tr&ecirc;n iPhone 15 Pro Max</em></p>\r\n\r\n<h3><strong>Vi xử l&yacute; Apple A17 Pro cho hiệu năng mạnh mẽ h&agrave;ng đầu</strong></h3>\r\n\r\n<p>Để xứng tầm với iPhone 15 Pro Max, Apple đ&atilde; trang bị con&nbsp;<strong>chip A17 Pro</strong>&nbsp;n&acirc;ng sức mạnh của iPhone l&ecirc;n một đẳng cấp mới. Con chip A17 Pro cao cấp n&agrave;y đảm bảo trải nghiệm xử l&yacute; c&ocirc;ng việc mượt m&agrave;, chơi game đỉnh cao. C&ograve;n về khả năng xử l&yacute; đồ hoạ, GPU của iPhone 15 Promax cung cấp tốc độ xử l&yacute;&nbsp;<strong>vượt trội hơn bốn lần</strong>&nbsp;so với phi&ecirc;n bản trước với sự hỗ trợ từ c&ocirc;ng nghệ d&ograve; tia cao cấp. Qua đ&oacute;, m&aacute;y đảm bảo tạo n&ecirc;n hiệu ứng &aacute;nh s&aacute;ng ch&acirc;n thực h&agrave;ng đầu, n&acirc;ng cấp độ trau chuốt về mặt h&igrave;nh ảnh của c&aacute;c tựa game đồ họa.</p>\r\n\r\n<p><img alt=\"Apple đã trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax lên một đẳng cấp mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-3.jpg\" title=\"Apple đã trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax lên một đẳng cấp mới\" /></p>\r\n\r\n<p><em>Apple đ&atilde; trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax l&ecirc;n một đẳng cấp mới</em></p>\r\n\r\n<h3><strong>Cụm camera Zoom 5x mạnh mẽ, quay chụp chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p>Kể từ khi ra mắt iPhone 15 Pro Max lu&ocirc;n được ca tụng l&agrave; sở hữu&nbsp;<strong>cụm camera chuy&ecirc;n nghiệp</strong>&nbsp;h&agrave;ng đầu hiện nay, mang lại trải nghiệm chụp ảnh cực tốt. Với&nbsp;<strong>7 ti&ecirc;u cự</strong>&nbsp;kh&aacute;c nhau, từ g&oacute;c rộng, si&ecirc;u rộng rộng, cận cảnh cho tới ph&oacute;ng to 5x, thế hệ iPhone mới n&agrave;y c&oacute; thể được&nbsp;<strong>xem như chiếc m&aacute;y ảnh</strong>&nbsp;chuy&ecirc;n dụng cao cấp.</p>\r\n\r\n<p>Nhờ vậy m&agrave; bạn c&oacute; thể linh hoạt ghi lại nhiều tấm h&igrave;nh sắc n&eacute;t với độ chi tiết cực cao. B&ecirc;n cạnh đ&oacute;, t&iacute;nh năng chụp ảnh ch&acirc;n dung được n&acirc;ng cấp đ&aacute;ng kể, với khả năng tự động ph&aacute;t hiện v&agrave; chuyển sang chế độ ch&acirc;n dung khi cần thiết.</p>\r\n\r\n<p><img alt=\"iPhone mới này có thể được xem như 1 chiếc máy ảnh chuyên dụng cao cấp\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-4.jpg\" title=\"iPhone mới này có thể được xem như 1 chiếc máy ảnh chuyên dụng cao cấp\" /></p>\r\n\r\n<p><em>iPhone mới n&agrave;y c&oacute; thể được xem như 1 chiếc m&aacute;y ảnh chuy&ecirc;n dụng cao cấp</em></p>\r\n\r\n<p>Ở cảm biến&nbsp;<strong>camera ch&iacute;nh 48MP</strong>, Apple đ&atilde; tinh chỉnh lại để m&aacute;y ảnh n&agrave;y c&oacute; được khả năng kiểm so&aacute;t &aacute;nh s&aacute;ng th&ocirc;ng minh hơn. Cụ thể, chế độ ban đ&ecirc;m tr&ecirc;n m&aacute;y được hỗ trợ dải tần nhạy s&aacute;ng, hỗ trợ chụp ảnh sắc n&eacute;t hơn ngay cả trong tối. Nhờ vậy m&agrave; những tấm h&igrave;nh được quay chụp qua iPhone 15 ProMax c&oacute; thể t&aacute;i tạo t&ocirc;ng m&agrave;u da v&agrave; m&agrave;u sắc tuyệt đẹp hơn.</p>\r\n\r\n<p>Chưa dừng lại ở đ&oacute;, sản phẩm c&ograve;n cho ph&eacute;p&nbsp;<strong>zoom quang học l&ecirc;n đến 5 lần</strong>, điều m&agrave; c&aacute;c phi&ecirc;n bản iPhone thế hệ trước đ&oacute; chưa l&agrave;m được. Với ưu điểm n&agrave;y, iPhone 15 PRM cho ph&eacute;p bạn c&oacute; thể chụp lại c&aacute;c khung cảnh từ xa một c&aacute;ch r&otilde; n&eacute;t m&agrave; kh&ocirc;ng cần di chuyển lại gần m&agrave; vẫn c&oacute; độ sắc n&eacute;t cao.</p>\r\n\r\n<h3><strong>N&uacute;t t&aacute;c vụ mới thao t&aacute;c nhanh tr&ecirc;n iPhone 15 Pro Max</strong></h3>\r\n\r\n<p><strong>N&uacute;t t&aacute;c vụ của iPhone 15 Pro Max</strong>&nbsp;l&agrave; một t&iacute;nh năng mới lần đầu ti&ecirc;n xuất hiện tr&ecirc;n iPhone, được chuyển đổi từ thanh gạt chuyển chế độ &acirc;m thanh. N&uacute;t n&agrave;y cho ph&eacute;p bạn thao t&aacute;c một c&aacute;ch tiện lợi, dễ d&agrave;ng hơn, với c&aacute;c tiện &iacute;ch thường d&ugrave;ng. Tr&ecirc;n n&uacute;t t&aacute;c vụ mới n&agrave;y, bạn c&oacute; thể thao t&aacute;c v&agrave; k&iacute;ch hoạt c&aacute;c t&iacute;nh năng như mở camera, ghi &acirc;m, đ&egrave;n pin, dịch một c&aacute;ch nhanh ch&oacute;ng, tiện dụng.</p>\r\n\r\n<h3><strong>Cổng USB-C mới truyền tải dữ liệu nhanh hơn</strong></h3>\r\n\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;giới thiệu một ưu điểm nổi bật &ndash;&nbsp;<strong>cổng USB-C mới</strong>&nbsp;trong lần ra mắt trong 2023 vừa rồi. Đ&acirc;y l&agrave; lần đầu ti&ecirc;n iPhone hỗ trợ chuẩn USB 3, với tốc độ truyền dữ liệu l&ecirc;n đến 10Gb/s, gi&uacute;p bạn truyền tải c&aacute;c tệp tin lớn một c&aacute;ch nhanh ch&oacute;ng.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max sử dụng cổng USB-C hoàn toàn mới truyền tải nhanh hơn\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-5.jpg\" title=\"iPhone 15 Pro Max sử dụng cổng USB-C hoàn toàn mới truyền tải nhanh hơn\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max sử dụng cổng USB-C ho&agrave;n to&agrave;n mới truyền tải nhanh hơn</em></p>\r\n\r\n<p>Sự chuyển đổi sang cổng USB-C kh&ocirc;ng chỉ tạo ra bước tiến lớn về giao thức kết nối m&agrave; c&ograve;n mang lại sự tiện lợi khi dễ d&agrave;ng kết nối với c&aacute;c phụ kiện v&agrave; thiết bị kh&aacute;c. Việc n&agrave;y cho ph&eacute;p bạn sử dụng một loại c&aacute;p duy nhất cho tất cả c&aacute;c thiết bị của m&igrave;nh, tạo n&ecirc;n một trải nghiệm kết nối thuận tiện v&agrave; hiệu quả hơn.</p>\r\n\r\n<h3><strong>Thời lượng pin liền mạch l&ecirc;n đến 29 giờ ấn tượng</strong></h3>\r\n\r\n<p>Mặc d&ugrave; được trang bị nhiều t&iacute;nh năng mạnh mẽ v&agrave; hiện đại,&nbsp;<strong>điện thoại iPhone 15 Pro Max</strong>&nbsp;vẫn duy tr&igrave; thời lượng pin ấn tượng, đứng đầu trong c&aacute;c d&ograve;ng smartphone hiện nay. Người d&ugrave;ng c&oacute; thể tận hưởng giải tr&iacute; với thời gian xem video li&ecirc;n tục&nbsp;<strong>l&ecirc;n đến 29 giờ</strong>, vượt trội hơn iPhone 12 Pro Max tới 9 giờ. Điều n&agrave;y cho thấy Apple đ&atilde; tối ưu h&oacute;a hiệu quả pin vượt bậc, mang đến trải nghiệm liền mạch suốt ng&agrave;y d&agrave;i.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max cho thời gian xem video liên tục lên đến 29 giờ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-6.jpg\" title=\"iPhone 15 Pro Max cho thời gian xem video liên tục lên đến 29 giờ\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max cho thời gian xem video li&ecirc;n tục l&ecirc;n đến 29 giờ</em></p>\r\n\r\n<p>Kh&ocirc;ng chỉ c&oacute; thời lượng pin d&agrave;i,&nbsp;<strong>iP 15 Pro Max</strong>&nbsp;c&ograve;n hỗ trợ sạc nhanh v&agrave; sạc nhanh kh&ocirc;ng d&acirc;y qua&nbsp;<strong>c&ocirc;ng nghệ MagSafe</strong>. Do vậy m&agrave; việc nạp năng lượng của iPhone 15 Promax đ&atilde; trở n&ecirc;n tiện lợi v&agrave; nhanh ch&oacute;ng hơn. Người d&ugrave;ng c&oacute; thể an t&acirc;m rằng thiết bị lu&ocirc;n sẵn s&agrave;ng cho mọi nhu cầu, từ c&ocirc;ng việc đến giải tr&iacute;. Điều n&agrave;y gi&uacute;p cuộc sống trở n&ecirc;n tiện lợi hơn khi kh&ocirc;ng phải lo lắng về việc sạc pin, d&ugrave; bạn đang ở đ&acirc;u v&agrave; l&agrave;m g&igrave;. Từ đ&oacute; hiệu suất sử dụng được đảm bảo li&ecirc;n tục v&agrave; hiệu quả.</p>\r\n\r\n<h3><strong>Notch dạng Dynamic Island, n&acirc;ng cấp trải nghiệm sử dụng</strong></h3>\r\n\r\n<p><strong>Dynamic Island tr&ecirc;n iPhone 15 Pro Max</strong>&nbsp;l&agrave; một t&iacute;nh năng nổi bật gi&uacute;p người d&ugrave;ng c&oacute; trải nghiệm tiện lợi hơn bao giờ hết. Kh&ocirc;ng chỉ hiển thị th&ocirc;ng b&aacute;o một c&aacute;ch tinh tế, Dynamic Island c&ograve;n cho ph&eacute;p kiểm so&aacute;t &acirc;m nhạc v&agrave; xem bản đồ m&agrave; kh&ocirc;ng cần rời khỏi ứng dụng đang sử dụng.</p>\r\n\r\n<p><img alt=\"Dynamic Island trên iPhone 15 Pro Max là một tính năng nổi bật\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-7.jpg\" title=\"Dynamic Island trên iPhone 15 Pro Max là một tính năng nổi bật\" /></p>\r\n\r\n<p><em>Dynamic Island tr&ecirc;n iPhone 15 ProMax l&agrave; một t&iacute;nh năng nổi bật</em></p>\r\n\r\n<p>Đặc biệt, khi bạn thực hiện nhiều t&aacute;c vụ c&ugrave;ng l&uacute;c, Dynamic Island sẽ tự động t&aacute;ch th&agrave;nh hai phần ri&ecirc;ng biệt, gi&uacute;p bạn dễ d&agrave;ng quản l&yacute; v&agrave; theo d&otilde;i. T&iacute;nh năng n&agrave;y mang lại sự linh hoạt v&agrave; hiệu quả trong việc sử dụng, biến sản phẩm trở th&agrave;nh một lựa chọn tuyệt vời cho những ai y&ecirc;u th&iacute;ch c&ocirc;ng nghệ hiện đại.</p>\r\n\r\n<h3><strong>Hệ điều h&agrave;nh iOS 17 mới đa dạng t&iacute;nh năng độc đ&aacute;o</strong></h3>\r\n\r\n<p>iPhone 15 ProMax vận h&agrave;nh tr&ecirc;n phi&ecirc;n bản&nbsp;<strong>iOS thế hệ thứ 17</strong>, đem lại nhiều n&acirc;ng cấp lớn về bảo mật, hiệu suất. Một t&iacute;nh năng nổi bật trong phi&ecirc;n bản hệ điều h&agrave;nh mới n&agrave;y l&agrave; &Aacute;p ph&iacute;ch li&ecirc;n hệ, cho ph&eacute;p tạo ảnh đại diện t&ugrave;y chỉnh với ảnh, văn bản v&agrave; c&aacute;c yếu tố đồ họa kh&aacute;c.</p>\r\n\r\n<p>Hệ điều h&agrave;nh iOS 17 c&ograve;n t&iacute;ch hợp&nbsp;<strong>NameDrop</strong>, một t&iacute;nh năng mới hỗ trợ chia sẻ th&ocirc;ng tin li&ecirc;n hệ giữa c&aacute;c thiết bị Apple chỉ bằng c&aacute;ch chạm nhẹ hai thiết bị v&agrave;o nhau. Ngay lập tức, cửa sổ chia sẻ sẽ xuất hiện, gi&uacute;p việc trao đổi th&ocirc;ng tin diễn ra nhanh ch&oacute;ng v&agrave; dễ d&agrave;ng.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max vận hành trên phiên bản iOS thế hệ thứ 17, đem lại nhiều nâng cấp lớn về bảo mật, hiệu suất\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-8.jpg\" title=\"iPhone 15 Pro Max vận hành trên phiên bản iOS thế hệ thứ 17, đem lại nhiều nâng cấp lớn về bảo mật, hiệu suất\" /></p>\r\n\r\n<p><em>iPhone 15 ProMax vận h&agrave;nh tr&ecirc;n phi&ecirc;n bản iOS thế hệ thứ 17, đem lại nhiều n&acirc;ng cấp lớn về bảo mật, hiệu suất</em></p>\r\n\r\n<p>B&ecirc;n cạnh đ&oacute;, từ Live Photo, video hoặc ảnh, iOS 17 cũng hỗ trợ người d&ugrave;ng s&aacute;ng tạo ra c&aacute;c nh&atilde;n d&aacute;n với&nbsp;<strong>hiệu ứng động</strong>&nbsp;độc đ&aacute;o. Những nh&atilde;n d&aacute;n n&agrave;y c&oacute; thể sử dụng trong c&aacute;c ứng dụng như Tin nhắn, Ghi ch&uacute; v&agrave; Đ&aacute;nh dấu, mang lại trải nghiệm giao tiếp sinh động v&agrave; th&uacute; vị hơn. Nh&atilde;n d&aacute;n động được tạo ra th&ocirc;ng qua c&ocirc;ng cụ cắt v&agrave; chỉnh sửa ảnh hoặc video trong ứng dụng Tin nhắn, l&agrave;m cho cuộc tr&ograve; chuyện trở n&ecirc;n sinh động hơn bao giờ hết.</p>\r\n\r\n<p>Những cải tiến n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao hiệu suất của thiết bị m&agrave; c&ograve;n tăng cường khả năng tương t&aacute;c v&agrave; c&aacute; nh&acirc;n h&oacute;a. Với iOS 17, iPhone 15 Pro Max kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ ti&ecirc;n tiến m&agrave; c&ograve;n l&agrave; một c&ocirc;ng cụ hỗ trợ đắc lực cho cuộc sống h&agrave;ng ng&agrave;y của người d&ugrave;ng. Sự kết hợp giữa c&aacute;c t&iacute;nh năng mới mẻ v&agrave; hiệu suất vượt trội đảm bảo rằng người d&ugrave;ng sẽ c&oacute; những trải nghiệm tuyệt vời v&agrave; tiện &iacute;ch tối đa từ chiếc điện thoại n&agrave;y.</p>\r\n\r\n<h2><strong>So s&aacute;nh iPhone 15 Pro Max v&agrave; 14 Pro Max</strong></h2>\r\n\r\n<p>Ngay khi được ra mắt, iPhone 15 Pro Max đ&atilde; nhận được kh&aacute; nhiều đ&aacute;nh gi&aacute; cao từ ph&iacute;a người d&ugrave;ng từ thiết kế, m&agrave;n h&igrave;nh, camera cho tới hiệu năng. Tuy nhi&ecirc;n cũng kh&ocirc;ng &iacute;t người tỏ ra thắc mắc, băn khoăn khi so s&aacute;nh phi&ecirc;n bản Pro Max của iPhone thế hệ 14 v&agrave; 15. Nh&igrave;n chung, th&igrave; ở hầu hết mọi kh&iacute;a cạnh, thế hệ&nbsp;<strong>iPhone 15 Pro Max đ&atilde; c&oacute; nhiều cải tiến</strong>&nbsp;ấn tượng so với thế hệ tiền nhiệm trước đ&oacute;.</p>\r\n\r\n<p><strong>Bảng so s&aacute;nh th&ocirc;ng số iP 15 Pro Max v&agrave; 14 Pro Max:</strong></p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Th&ocirc;ng số</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iPhone 15 Pro Max</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iPhone 14 Pro Max</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>K&iacute;ch thước m&agrave;n h&igrave;nh</p>\r\n			</td>\r\n			<td>\r\n			<p>6.7 inches</p>\r\n			</td>\r\n			<td>\r\n			<p>6.7 inches</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Loại m&agrave;n h&igrave;nh</p>\r\n			</td>\r\n			<td>\r\n			<p>Super Retina XDR, OLED</p>\r\n			</td>\r\n			<td>\r\n			<p>Super Retina XDR, OLED</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Độ ph&acirc;n giải&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>2796 x 1290 pixels</p>\r\n			</td>\r\n			<td>\r\n			<p>2796 x 1290 pixels</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Tốc độ l&agrave;m mới&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>Up to 120Hz with ProMotion</p>\r\n			</td>\r\n			<td>\r\n			<p>Up to 120Hz with ProMotion</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Vi xử l&yacute;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>A17 Pro</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>A16 Bionic</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>RAM</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>8GB</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>6GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB, 512GB, 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>128GB, 256GB, 512GB, 1TB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera ch&iacute;nh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>48MP (wide)</p>\r\n			</td>\r\n			<td>\r\n			<p>48MP (wide)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera Tele</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (<strong>5x optical zoom</strong>)</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (3x optical zoom)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera g&oacute;c rộng</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (ultra-wide)</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (ultra-wide)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera trước&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Dung lượng pin</p>\r\n			</td>\r\n			<td>\r\n			<p>4352 mAh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>4352 mAh&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Khả năng sạc</p>\r\n			</td>\r\n			<td>\r\n			<p>Fast charging, MagSafe wireless charging</p>\r\n			</td>\r\n			<td>\r\n			<p>Fast charging, MagSafe wireless charging</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Hệ điều h&agrave;nh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iOS 17</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>iOS 16 (c&oacute; thể n&acirc;ng cấp l&ecirc;n)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Hỗ trợ 5G</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Wifi</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Wifi 6E</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Wifi 6</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Bluetooth</p>\r\n			</td>\r\n			<td>\r\n			<p>Bluetooth 5.3</p>\r\n			</td>\r\n			<td>\r\n			<p>Bluetooth 5.3</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Kết cấu vỏ</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Vỏ hợp kim titan</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Vỏ l&agrave;m bằng th&eacute;p kh&ocirc;ng gỉ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Trọng lượng</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>221g</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>240g</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>K&iacute;ch thước&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>159.9 x 76.7 x 8.25 mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>160.7 x 77.6 x 7.85 mm</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Cụ thể:</p>\r\n\r\n<p>-&nbsp;<strong>Về thiết kế v&agrave; vật liệu</strong>: sản phẩm mới&nbsp;<strong>vượt trội với khung titan</strong>&nbsp;v&agrave;&nbsp;<strong>m&agrave;u sắc mới</strong>&nbsp;(Đen Titan, Trắng Titan, Xanh Titan, Tự nhi&ecirc;n Titan). Trong khi đ&oacute;, iPhone 14 Pro Max lại được đ&aacute;nh gi&aacute; cao ở bộ khung ho&agrave;n thiện từ chất liệu th&eacute;p kh&ocirc;ng gỉ c&ugrave;ng c&aacute;c m&agrave;u Đen Kh&ocirc;ng Gian, V&agrave;ng, Bạc v&agrave; T&iacute;m Đậm.</p>\r\n\r\n<p>-&nbsp;<strong>Về khả năng xử l&yacute;</strong>: nhờ được trang bị chipset A17 Pro n&ecirc;n 15 Promax đem tới&nbsp;<strong>hiệu suất v&agrave; đồ họa tốt hơn</strong>&nbsp;con chip A16 Bionic của iPhone 14 ProMax. Đồng thời, camera của iPhone 15 Pro Max cũng được cải tiến với khả năng zoom quang học xa hơn, hỗ trợ ghi Log video v&agrave; cổng USB-C. Th&ocirc;ng số n&agrave;y ở iPhone 14 Pro Max chỉ được giới hạn ở camera ch&iacute;nh 48MP v&agrave; cổng Lightning.</p>\r\n\r\n<p>-&nbsp;<strong>Về dung lượng v&agrave; gi&aacute; cả</strong>: iPhone 15 Pro Max bắt đầu&nbsp;<strong>từ 256GB</strong>&nbsp;với gi&aacute; khởi điểm $1,199, cao hơn so với iPhone 14 Pro Max bắt đầu từ 128GB với gi&aacute; khởi điểm $1,099. Cả hai thiết bị đều c&oacute; thời lượng pin tương đương v&agrave; hỗ trợ sạc nhanh c&ugrave;ng sạc kh&ocirc;ng d&acirc;y MagSafe. Chi tiết c&aacute;c so s&aacute;nh về cấu h&igrave;nh v&agrave; th&ocirc;ng số kỹ thuật giữa 2 d&ograve;ng m&aacute;y n&agrave;y sẽ được thể hiện trong bảng tổng hợp dưới đ&acirc;y.</p>\r\n\r\n<p><img alt=\"Thiết kế và vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan và màu sắc mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-9.jpg\" title=\"Thiết kế và vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan và màu sắc mới\" /></p>\r\n\r\n<p><em>Thiết kế v&agrave; vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan v&agrave; m&agrave;u sắc mới</em></p>\r\n\r\n<p>Như vậy, so với iPhone Pro Max thế hệ 14, thế hệ 15 được n&acirc;ng cấp về chipset, RAM, hệ điều h&agrave;nh, kết nối WIFI, cổng sạc, camera, chất liệu v&agrave; trọng lượng. Tiếp theo đ&acirc;y, h&atilde;y c&ugrave;ng t&igrave;m hiểu xem chiếc smartphone cao cấp n&agrave;y c&oacute; những m&agrave;u sắc n&agrave;o v&agrave; m&agrave;u n&agrave;o đẹp nhất nh&eacute;!</p>\r\n\r\n<h2><strong>iPhone 15 Pro Max gi&aacute; bao nhi&ecirc;u? Bảng gi&aacute; mới nhất th&aacute;ng 7/2024</strong></h2>\r\n\r\n<p>Việc Apple ra mắt sản phẩm n&agrave;y đ&atilde; thu h&uacute;t sự ch&uacute; &yacute; lớn từ cộng đồng c&ocirc;ng nghệ to&agrave;n cầu do mức gi&aacute; ch&ecirc;nh lệch so với thế hệ trước. Mức gi&aacute;&nbsp;khởi điểm l&agrave; 1.199 USD tại thị trường Mỹ. Tuy nhi&ecirc;n, gi&aacute; th&agrave;nh hiện tại của d&ograve;ng iPhone n&agrave;y đ&atilde; c&oacute; sự hạ nhiệt hơn so với thời điểm vừa mới được ra mắt.</p>\r\n\r\n<p><strong>Bảng gi&aacute; iPhone 15 Pro Max</strong>&nbsp;mới nhất th&aacute;ng 7/2024 như sau:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>T&ecirc;n m&aacute;y</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n tại CellphoneS</strong></p>\r\n\r\n			<p><strong>(Chưa bao gồm c&aacute;c khuyến m&atilde;i)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; thu cũ l&ecirc;n đời tại CellphoneS</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 256GB</p>\r\n			</td>\r\n			<td>\r\n			<p>29.090.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>27.090.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 512GB</p>\r\n			</td>\r\n			<td>\r\n			<p>36.290.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>34.290.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>42.890.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>38.890.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p><strong><img alt=\"Bảng giá iPhone 15 Pro Max mới nhất tại CellphoneS\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-12.jpg\" title=\"Bảng giá iPhone 15 Pro Max mới nhất tại CellphoneS\" /></strong></p>\r\n\r\n<p><em>iPhone 15 Pro Max 256GB tốt ưu đ&atilde;i lớn tại hệ thống CellphoneS - T7/2024</em></p>\r\n\r\n<p><em><strong>Lưu &yacute;</strong>: gi&aacute; b&aacute;n c&oacute; thể thay đổi, li&ecirc;n hệ trực tiếp để được tư vấn chi tiết nhất!</em></p>\r\n\r\n<h2><strong>iPhone 15 Pro Max c&oacute; mấy m&agrave;u? M&agrave;u n&agrave;o đẹp?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Điện thoại&nbsp;<strong>iPhone 15 Pro Max 256GB</strong>&nbsp;được Apple giới thiệu với&nbsp;<strong>4 m&agrave;u sắc</strong>&nbsp;thời thượng l&agrave;:&nbsp;<strong>titan tự nhi&ecirc;n, titan trắng, titan đen v&agrave; titan xanh</strong>. Những m&agrave;u sắc mới n&agrave;y&nbsp;mang lại vẻ đẹp&nbsp;<strong>tinh tế v&agrave; sang trọng</strong>&nbsp;h&agrave;ng đầu thế giới smartphone hiện nay.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"4 màu sắc của iPhone 15 Pro Max lần lượt là: titan tự nhiên, titan trắng, titan đen và titan xanh\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-10.jpg\" title=\"4 màu sắc của iPhone 15 Pro Max lần lượt là: titan tự nhiên, titan trắng, titan đen và titan xanh\" /></p>\r\n\r\n<p><em>4 m&agrave;u sắc của iPhone 15 Pro Max lần lượt l&agrave;: titan tự nhi&ecirc;n, titan trắng, titan đen v&agrave; titan xanh</em></p>\r\n\r\n<p><strong>- Titan Tự Nhi&ecirc;n</strong>: Đ&acirc;y l&agrave; một m&agrave;u sắc ho&agrave;n to&agrave;n mới mẻ, chưa từng c&oacute; mặt tr&ecirc;n bất kỳ d&ograve;ng thiết bị n&agrave;o trước đ&oacute; của nh&agrave; T&aacute;o. M&agrave;u n&agrave;y tương đồng với m&agrave;u bạc pha x&aacute;m &aacute;nh kim, c&oacute; đặc t&iacute;nh phản chiếu &aacute;nh s&aacute;ng tốt, mang lại vẻ ngo&agrave;i độc đ&aacute;o v&agrave; hiện đại.</p>\r\n\r\n<p><strong>- Titan Trắng</strong>: Khung viền titan mang lại cho phi&ecirc;n bản iPhone m&agrave;u trắng n&agrave;y một vẻ ngo&agrave;i b&oacute;ng bẩy v&agrave; tinh tế hơn. B&ecirc;n cạnh đ&oacute;, m&agrave;u trắng trung t&iacute;nh cũng gi&uacute;p dễ d&agrave;ng phối hợp với c&aacute;c phụ kiện v&agrave; trang phục kh&aacute;c nhau, tạo n&ecirc;n sự thanh lịch v&agrave; tinh khiết cho người d&ugrave;ng.</p>\r\n\r\n<p><strong>- Titan Đen</strong>: M&agrave;u đen tr&ecirc;n iPhone 15 ProMax l&agrave; sự kết hợp giữa &aacute;nh kim loại của Titanium v&agrave; sắc đen huyền b&iacute;, mang lại vẻ tinh tế, sang trọng h&agrave;ng đầu. So với c&aacute;c phi&ecirc;n bản m&agrave;u đen tr&ecirc;n c&aacute;c thiết bị tiền nhiệm, m&agrave;u đen c&oacute; phần nhạt hơn, tạo n&ecirc;n sự độc đ&aacute;o hiếm c&oacute; cho d&ograve;ng điện thoại n&agrave;y.</p>\r\n\r\n<p><strong>- Titan Xanh</strong>: M&agrave;u xanh n&agrave;y được pha ch&uacute;t x&aacute;m, mang lại vẻ b&iacute; ẩn v&agrave; mạnh mẽ. So với m&agrave;u xanh lam tr&ecirc;n iPhone 12 Pro, titan xanh tối v&agrave; đậm hơn, ph&ugrave; hợp với những ai th&iacute;ch sự kh&aacute;c biệt v&agrave; phong c&aacute;ch.</p>\r\n\r\n<p>Việc chọn m&agrave;u ph&ugrave; hợp khi mua iPhone 15 Pro Max cũng c&ograve;n t&ugrave;y thuộc v&agrave;o từng sở th&iacute;ch v&agrave; c&aacute; t&iacute;nh của ri&ecirc;ng mỗi người d&ugrave;ng. Titan Đen v&agrave; Titan Trắng l&agrave; hai lựa chọn kh&aacute; được ưa chuộng v&igrave; khả năng dễ d&agrave;ng kết hợp với c&aacute;c phụ kiện kh&aacute;c. Trong khi đ&oacute;, Titan Tự Nhi&ecirc;n v&agrave; Titan Xanh mang lại sự mới mẻ v&agrave; c&aacute; t&iacute;nh. Do vậy m&agrave; c&ograve;n t&ugrave;y thuộc v&agrave;o phong c&aacute;ch v&agrave; y&ecirc;u cầu của mỗi người m&agrave; t&ugrave;y chọn m&agrave;u sắc ưng &yacute; sẽ c&oacute; sự kh&aacute;c biệt.</p>\r\n\r\n<h2><strong>iPhone 15 Pro Max c&oacute; mấy phi&ecirc;n bản bộ nhớ trong?</strong></h2>\r\n\r\n<p>Trong lần trở lại thị trường năm 2023 vừa rồi,&nbsp;<strong>iPhone 15 Promax</strong>&nbsp;c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave;&nbsp;<strong>256GB, 512GB v&agrave; lớn nhất 1TB</strong>&nbsp;để đ&aacute;p ứng c&aacute;c y&ecirc;u cầu ghi nhớ dữ liệu ng&agrave;y c&agrave;ng lớn.</p>\r\n\r\n<p><img alt=\"iPhone 15 Promax có 3 phiên bản bộ nhớ trong là 256GB, 512GB và lớn nhất 1TB\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-11.jpg\" title=\"iPhone 15 Promax có 3 phiên bản bộ nhớ trong là 256GB, 512GB và lớn nhất 1TB\" /></p>\r\n\r\n<p><em>iPhone 15 Promax c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; lớn nhất 1TB</em></p>\r\n\r\n<p>Vậy l&agrave;m sao chọn dung lượng bộ nhớ&nbsp;<strong>ph&ugrave; hợp với nhu cầu sử dụng</strong>&nbsp;của m&igrave;nh? Dưới đ&acirc;y l&agrave; th&ocirc;ng số tham khảo về khả năng lưu trữ tr&ecirc;n iP 15 Pro Max:</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong&nbsp;256GB</strong>: Dung lượng n&agrave;y c&oacute; thể lưu trữ khoảng 2300 bức ảnh định dạng JPG, 362 video 4K UHD, hơn 1105 ph&uacute;t video FHD, v&agrave; 1100 b&agrave;i h&aacute;t n&eacute;n. Trong số c&aacute;c phi&ecirc;n bản bộ nhớ, đ&acirc;y ph&ugrave; hợp với&nbsp;<strong>người d&ugrave;ng th&ocirc;ng thường</strong>&nbsp;nhất.</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong</strong><strong>&nbsp;512GB</strong>: Phi&ecirc;n bản n&agrave;y gi&uacute;p lưu trữ tới 1400 b&agrave;i h&aacute;t n&eacute;n, 2095 ph&uacute;t video FHD hoặc 804 ph&uacute;t video 4K UHD v&agrave; 2800 bức ảnh JPG. Với&nbsp;<strong>người d&ugrave;ng hay chụp ảnh hoặc quay video</strong>&nbsp;nhiều th&igrave; đ&acirc;y l&agrave; ph&acirc;n kh&uacute;c iPhone 15 ProMax ph&ugrave; hợp n&ecirc;n lựa chọn.</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong</strong><strong>&nbsp;1TB</strong>: Phi&ecirc;n bản n&agrave;y c&oacute; thể lưu trữ tới 3200 ảnh JPG, 2565 ph&uacute;t video FHD hay 894 ph&uacute;t 4K UHD, c&ugrave;ng với 1600 b&agrave;i h&aacute;t n&eacute;n. Đ&acirc;y l&agrave; t&ugrave;y chọn ph&ugrave; hợp nhất với&nbsp;<strong>người d&ugrave;ng c&oacute; nhiều nhu cầu đa phương tiện</strong>.</p>\r\n\r\n<h2><strong>iPhone 15 Promax dung lượng 256GB c&oacute; đủ d&ugrave;ng kh&ocirc;ng?</strong></h2>\r\n\r\n<p>Thế hệ điện thoại Apple mới 2023 n&agrave;y, Apple đ&atilde; loại bỏ phi&ecirc;n bản dung lượng bộ nhớ trong 128GB. Theo đ&oacute;,&nbsp;<strong>iPhone 15 ProMax 256GB</strong>&nbsp;bộ nhớ trong sẽ l&agrave; phi&ecirc;n bản bộ nhớ chuẩn. Vậy 256GB bộ nhớ lưu trữ c&oacute; đủ d&ugrave;ng kh&ocirc;ng, ph&ugrave; hợp sử dụng với những ai?</p>\r\n\r\n<blockquote>\r\n<p>Tr&ecirc;n thực tế,&nbsp;<strong>bộ nhớ trong 256GB</strong>&nbsp;l&agrave; dung lượng lưu trữ&nbsp;<strong>đủ lớn</strong>, ph&ugrave; hợp với nhu cầu sử dụng của&nbsp;<strong>đại đa số người d&ugrave;ng</strong>&nbsp;cơ bản.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max dung lượng 256GB có đủ dùng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/apple-iphone-15-pro-22.jpg\" /></p>\r\n\r\n<p>Theo đ&oacute;, nếu sử dụng điện thoại trong c&aacute;c nhu cầu như chơi game, gọi điện, nhắn tin, lướt web th&igrave;&nbsp;<strong>256GB ho&agrave;n to&agrave;n c&oacute; thể đ&aacute;p ứng</strong>&nbsp;được nhu cầu.&nbsp;Tuy nhi&ecirc;n, với người d&ugrave;ng thực hiện c&aacute;c c&ocirc;ng việc về s&aacute;ng tạo nội dung, cần lưu trữ những h&igrave;nh ảnh hay thước phim độ ph&acirc;n giải cao với dung lượng lớn th&igrave; c&oacute; thể c&acirc;n nhắc đến những phi&ecirc;n bản dung lượng cao hơn.</p>\r\n\r\n<h2><strong>Điện thoại iPhone 15 Pro Max ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Điện thoại&nbsp;<strong>iPhone Pro Max thứ 15</strong>&nbsp;của Apple đ&atilde; ch&iacute;nh thức được ra mắt người ti&ecirc;u d&ugrave;ng to&agrave;n cầu v&agrave;o ng&agrave;y&nbsp;<strong>12 th&aacute;ng 9 năm 2023 tại sự kiện Wonderlust</strong>&nbsp;của Apple. Đ&acirc;y l&agrave; sự kiện ra mắt iPhone mới, bao gồm c&aacute;c phi&ecirc;n bản từ ti&ecirc;u chuẩn cho tới ProMax c&oacute; mặt trong Series.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max chính thức ra mắt vào ngày 12 tháng 9 năm 2023 tại sự kiện Wonderlust\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-13.jpg\" title=\"iPhone 15 Pro Max chính thức ra mắt vào ngày 12 tháng 9 năm 2023 tại sự kiện Wonderlust\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max ch&iacute;nh thức ra mắt v&agrave;o ng&agrave;y 12 th&aacute;ng 9 năm 2023 tại sự kiện Wonderlust</em></p>\r\n\r\n<p>Sau khi ra mắt, c&aacute;c sản phẩm bắt đầu nhận đơn đặt h&agrave;ng từ ng&agrave;y 15 th&aacute;ng 9 v&agrave; ch&iacute;nh thức b&aacute;n ra v&agrave;o ng&agrave;y 22 th&aacute;ng 9 năm 2023. Hiện tại, bạn ho&agrave;n to&agrave;n c&oacute; thể gh&eacute; tới v&agrave; tham khảo th&ecirc;m d&ograve;ng iPhone cao cấp n&agrave;y ở c&aacute;c cửa h&agrave;ng c&ocirc;ng nghệ chất lượng cao như CellphoneS.</p>\r\n\r\n<p><img alt=\"Mua iPhone 15 Pro Max chính hãng trả góp &amp;#34;3 KHÔNG&amp;#34; tại CellphoneS\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-19.jpg\" title=\"Mua iPhone 15 Pro Max chính hãng trả góp &amp;#34;3 KHÔNG&amp;#34; tại CellphoneS\" /></p>\r\n\r\n<p><em>Mua iPhone 15 Pro Max ch&iacute;nh h&atilde;ng trả g&oacute;p &quot;3 KH&Ocirc;NG&quot; tại CellphoneS</em></p>\r\n\r\n<h2><strong>Trải nghiệm ngay sản phẩm iPhone 15 Pro Max tại CellphoneS</strong></h2>\r\n\r\n<p>B&ecirc;n cạnh những đ&aacute;nh gi&aacute; về th&ocirc;ng số, t&iacute;nh năng đ&atilde; đề cập, bạn c&oacute; thể đến ngay CellphoneS để trải nghiệm trực tiếp iPhone 15 Pro Max. Đặc biệt, trong qu&aacute; tr&igrave;nh trải nghiệm nếu c&oacute; bất kỳ thắc mắc n&agrave;o kh&aacute;ch h&agrave;ng sẽ được nh&acirc;n vi&ecirc;n tư vấn chi tiết nhất.</p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-42.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-43.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-40.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-41.jpg\" /></p>\r\n\r\n<h2><strong>Một số c&acirc;u hỏi thường gặp về iPhone 15 Pro Max</strong></h2>\r\n\r\n<p>iPhone 15 Pro Max sở hữu cấu h&igrave;nh vượt trội nhưng người d&ugrave;ng c&ograve;n nhiều thắc mắc đến sản phẩm n&agrave;y trước khi c&oacute; quyết định n&acirc;ng cấp. Một số thắc mắc phổ biến m&agrave; người d&ugrave;ng quan t&acirc;m đến sản phẩm n&agrave;y phải kể đến như:</p>\r\n\r\n<h3><strong>iPhone 15&nbsp;Pro Max nặng bao nhi&ecirc;u gram?</strong></h3>\r\n\r\n<p>Với khung viền titan cải tiến nhờ đ&oacute; thế hệ điện thoại mới n&agrave;y nhẹ hơn đ&aacute;ng kể so với phi&ecirc;n bản tiền nhiệm. Cụ thể&nbsp;<strong>iPhone 15 Pro Max c&oacute; trọng lượng</strong>&nbsp;rơi v&agrave;o khoảng&nbsp;<strong>221 gram</strong>, nhẹ hơn tới 20g so với tr&ecirc;n 14 Pro Max (240 gam). Với trọng lượng giảm, thiết bị gi&uacute;p người d&ugrave;ng c&oacute; những trải nghiệm cầm nắm thoải m&aacute;i hơn.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max nặng bao nhiêu\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-14-pro-max-16.jpg\" /></p>\r\n\r\n<h3><strong>iPhone 15&nbsp;Pro Max c&oacute; m&agrave;u hồng, đỏ kh&ocirc;ng</strong></h3>\r\n\r\n<p>Năm 2023, sản phẩm iPhone 15 ProMax&nbsp;<strong>kh&ocirc;ng c&oacute; m&agrave;u hồng v&agrave; đỏ</strong>. Đặc điểm m&agrave;u sắc tr&ecirc;n d&ograve;ng iPhone Pro của Apple đ&oacute; l&agrave; sử dụng những tone m&agrave;u trung t&iacute;nh. Trong khi đ&oacute; phi&ecirc;n bản thường,&nbsp; Plus hay mini sẽ được trang bị những gam m&agrave;u rực rỡ như v&agrave;ng, đỏ, t&iacute;m hồng,...</p>\r\n\r\n<h3><strong>Đang d&ugrave;ng iPhone 14 Pro/Pro Max c&oacute; n&ecirc;n mua 15 Pro Max kh&ocirc;ng?</strong></h3>\r\n\r\n<p>Sở hữu nhiều n&acirc;ng cấp nổi trội về thiết kế v&agrave; t&iacute;nh năng, vậy người d&ugrave;ng sử dụng phi&ecirc;n bản 14 Pro v&agrave; Pro Max c&oacute; n&ecirc;n n&acirc;ng cấp l&ecirc;n thế hệ mới n&agrave;y kh&ocirc;ng? C&acirc;u trả lời l&agrave;&nbsp;<strong>c&oacute;</strong>. 15 Pro Max với khung titan sang trọng, cổng sạc với c&ugrave;ng n&uacute;t t&aacute;c vụ tiện lợi. B&ecirc;n cạnh đ&oacute;, điện thoại c&ograve;n được cải tiến cấu h&igrave;nh với con chip A17 Pro c&ugrave;ng camera n&acirc;ng cấp khả năng chụp zoom l&ecirc;n 5x. Với những t&iacute;nh năng tr&ecirc;n th&igrave; những người d&ugrave;ng muốn trải nghiệm những c&ocirc;ng nghệ mới nhất ho&agrave;n to&agrave;n n&ecirc;n trải nghiệm. Trường hợp người d&ugrave;ng muốn trải nghiệm nhưng c&ograve;n vướng mắc về gi&aacute; th&igrave; c&oacute; thể tham khảo đến chương tr&igrave;nh thu cũ l&ecirc;n đời để sở hữu điện thoại c&ocirc;ng nghệ mới nhất với khoản chi ph&iacute; cần b&ugrave; th&ecirc;m hợp l&yacute;.</p>\r\n\r\n<h3><strong>K&iacute;ch thước của iPhone 15 Pro Max bao nhi&ecirc;u?</strong></h3>\r\n\r\n<p>C&ugrave;ng sở hữu m&agrave;n h&igrave;nh k&iacute;ch thước&nbsp;<strong>6.7 inch</strong>&nbsp;như thế hệ thệ 14 Pro Max tuy nhi&ecirc;n k&iacute;ch thước điện thoại mới n&agrave;y c&oacute; sự thay đổi đ&ocirc;i ch&uacute;t. Cụ thể, m&aacute;y d&agrave;y hơn đ&ocirc;i ch&uacute;t so với tr&ecirc;n iPhone 14 Pro Max v&agrave; giảm k&iacute;ch thước về chiều d&agrave;i v&agrave; rộng. Chi tiết k&iacute;ch thước tr&ecirc;n iPhone 15 Pro Max như sau: D&agrave;y&nbsp;8,25mm, rộng&nbsp;76,7 mm v&agrave; d&agrave;i&nbsp;159,9 mm.</p>\r\n\r\n<h3><strong>iP 15 ProMax c&oacute; chống nước, chống sốc kh&ocirc;ng?</strong></h3>\r\n\r\n<p>Mẫu điện thoại cao cấp mới n&agrave;y vẫn được Apple trang bị c&aacute;c ti&ecirc;u chuẩn kh&aacute;ng nước v&agrave; bụi bẩn như thế hệ trước đ&oacute;. Cụ thể,&nbsp;iP 15 ProMax được trang bị chuẩn&nbsp;<strong>kh&aacute;ng nước v&agrave; bụi bẩn&nbsp;IP68 theo ti&ecirc;u chuẩn IEC 60529</strong>&nbsp;gi&uacute;p bảo vệ thiết bị dưới nước ở độ s&acirc;u 6 m&eacute;t trong thời gian tối đa 30 ph&uacute;t. Tuy nhi&ecirc;n, t&iacute;nh năng kh&aacute;ng nước sẽ kh&ocirc;ng được h&atilde;ng bảo h&agrave;nh, do đ&oacute; khuyến k&iacute;ch người d&ugrave;ng kh&ocirc;ng test thử t&iacute;nh năng n&agrave;y.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max có chống nước\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-14-pro-max-15.jpg\" /></p>\r\n\r\n<h3><strong>M&agrave;u titan tr&ecirc;n iPhone 15 Pro Max gần với m&agrave;u g&igrave;?</strong></h3>\r\n\r\n<p>Cả bốn m&agrave;u tr&ecirc;n phi&ecirc;n bản 15 Pro Max đều l&agrave; những m&agrave;u mới, trong đ&oacute; Titanium tự nhi&ecirc;n nhận được nhiều sự quan t&acirc;m nhất của người d&ugrave;ng. Ba phi&ecirc;n bản m&agrave;u c&ograve;n lại tuy mới nhưng vẫn c&oacute; nhiều điểm tương đồng với những m&agrave;u sắc trước đ&oacute;, như sau:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u iPhone 15 Pro Max</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>So s&aacute;nh với m&agrave;u trước đ&oacute;</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan tự nhi&ecirc;n</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;u mới lần đầu xuất hiện</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan đen</p>\r\n			</td>\r\n			<td>\r\n			<p>Kh&aacute; giống&nbsp;Pacific Blue tr&ecirc;n&nbsp;iPhone 12 Pro nhưng sắc xanh đậm hơn</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan trắng</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute; nhiều điểm tương đồng với&nbsp;Black Space trước đ&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan xanh</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;u sắc gần giống với m&agrave;u Bạc&nbsp;Silver</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Nh&igrave;n chung, tuy cả bốn m&agrave;u đều l&agrave; m&agrave;u mới nhưng ch&uacute;ng đều c&oacute; điểm tương đồng với những m&agrave;u sắc từng được xuất hiện trước đ&oacute; của Apple.</p>\r\n\r\n<h3><strong>Điện thoại iPhone 15 Pro Max c&oacute; kết nối 5G kh&ocirc;ng?</strong></h3>\r\n\r\n<p>iPhone 15 Pro Max c&oacute; được trang bị&nbsp;<strong>kết nối 5G</strong>&nbsp;nhưng để sử dụng th&igrave; nh&agrave; mạng m&agrave; người d&ugrave;ng đang sử dụng phải hỗ trợ kết nối n&agrave;y. Một số nh&agrave; mạng tại Việt Nam c&oacute; hỗ trợ kết nối 5G phải kể đến như Vinaphone, Viettel, Mobifone&hellip;</p>\r\n\r\n<p><img alt=\"Điện thoại iPhone 15 Pro Max có kết nối 5G không\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-24.png\" /></p>\r\n\r\n<p>(Nguồn ảnh Apple.com)</p>', 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iPhone 15 Pro Max sở hữu màn hình Super Retina XDR OLED 6.7 inches với độ phân giải 2796 x 1290 pixels, cung cấp trải nghiệm hình ảnh sắc nét, chân thực. So với các phiên bản tiền nhiệm, thế hệ iPhone 15 bản Pro Max đảm bảo mang tới hiệu năng mạnh mẽ với sự hỗ trợ của chipset Apple A17 Pro, cùng bộ nhớ ấn tượng. Đặc biệt hơn, điện thoại iPhone 15 ProMax mới này còn được đánh giá cao với camera sau 48MP và camera trước 12MP, hỗ trợ chụp ảnh với độ rõ nét cực đỉnh.', 'iphone-15-pro-max-256gb-chinh-hang-vna', '2024-10-14 12:12:20', '2024-10-14 12:12:20', NULL);
+(28, 1, 'Samsung Galaxy S24 Ultra 12GB 1TB', '<h2>Đặc điểm nổi bật của Samsung Galaxy S24 Ultra 12GB 1TB</h2>\r\n\r\n<ul>\r\n	<li>Mở kho&aacute; giới hạn tiềm năng với AI - Hỗ trợ phi&ecirc;n dịch cuộc gọi, khoanh v&ugrave;ng t&igrave;m kiếm, Trợ l&iacute; Note v&agrave; ch&igrave;nh sửa anh</li>\r\n	<li>Tuyệt t&aacute;c thiết kế bền bỉ v&agrave; ho&agrave;n hảo - Vỏ ngo&agrave;i bằng titan mới c&ugrave;ng m&agrave;u sắc lấy cảm hứng từ chất liệu đ&aacute; tự nhi&ecirc;n</li>\r\n	<li>T&iacute;ch hợp S-Pen cực nhạy - Thoải m&aacute;t viết, chạm thật ch&iacute;nh x&aacute;c tr&ecirc;n m&agrave;n h&igrave;nh c&ugrave;ng nhiều t&iacute;nh năng tiện &iacute;ch</li>\r\n	<li>Nắm trong tay trọn bộ chi tiết ch&acirc;n thực nhất - Camera 200MP hỗ trợ khả năng xử l&yacute; AI cải thiện độ n&eacute;t v&agrave; t&ocirc;ng m&agrave;u</li>\r\n</ul>', '<p><strong>Samsung Galaxy S24 Ultra 1TB&nbsp;</strong>l&agrave; chiếc smartphone flagship mới của nh&agrave; Samsung với m&agrave;n h&igrave;nh&nbsp;<strong>Dynamic AMOLED 2X</strong>, mang đến trải nghiệm giải tr&iacute; đỉnh cao. M&aacute;y cũng được trang bị con chip&nbsp;<strong>Snapdragon 8 Gen 3 for Galaxy</strong>, đi k&egrave;m với&nbsp;<strong>RAM 12GB&nbsp;</strong>v&agrave; bộ nhớ trong l&ecirc;n tới&nbsp;<strong>1TB</strong>. Hệ thống camera của S24 Ultra cũng được n&acirc;ng cấp đ&aacute;ng kể với camera ch&iacute;nh&nbsp;<strong>200MP</strong>, mang lại khả năng nhiếp ảnh tuyệt vời.</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra 1TB &ndash; Si&ecirc;u phẩm d&agrave;nh cho những người đam m&ecirc; c&ocirc;ng nghệ</strong></h2>\r\n\r\n<p>Si&ecirc;u phẩm AI smartphone&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-s24-ultra.html\" target=\"_blank\" title=\"điện thoại Samsung S24 Ultra mới nhất\"><strong>S24 Ultra</strong></a>&nbsp;được Samsung trang bị những&nbsp;<strong>c&ocirc;ng nghệ v&agrave; t&iacute;nh năng h&agrave;ng đầu</strong>. Với m&agrave;n h&igrave;nh lớn, cấu h&igrave;nh mạnh mẽ, camera đỉnh cao v&agrave; dung lượng lưu trữ khủng, sản phẩm hứa hẹn sẽ l&agrave; một lựa chọn ho&agrave;n hảo cho những người đam m&ecirc; c&ocirc;ng nghệ.</p>\r\n\r\n<h3><strong>Camera 200MP, mang đến chất lượng vượt trội</strong></h3>\r\n\r\n<p>S24 Ultra được trang bị một camera sau với độ ph&acirc;n giải khủng l&ecirc;n đến 200MP. Điều n&agrave;y mang đến khả năng chụp ảnh với chi tiết tuyệt vời v&agrave; độ n&eacute;t cao. Bạn sẽ c&oacute; khả năng tạo ra những bức ảnh sắc n&eacute;t, ch&acirc;n thực v&agrave; sống động.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra 1TB – Siêu phẩm dành cho những người đam mê công nghệ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-4_1.jpg\" /></p>\r\n\r\n<p>Điểm đặc biệt của phi&ecirc;n bản Ultra năm n&agrave;y l&agrave; m&aacute;y đ&atilde; sử dụng cảm biến thế hệ mới. Điều n&agrave;y đảm bảo rằng bạn c&oacute; thể chụp ảnh với mức độ chi tiết tuyệt vời v&agrave; độ n&eacute;t cao. Cảm biến cung cấp khả năng thu nhận &aacute;nh s&aacute;ng tốt hơn, gi&uacute;p t&aacute;i tạo m&agrave;u sắc ch&iacute;nh x&aacute;c v&agrave; độ tương phản tốt hơn trong c&aacute;c bức ảnh.</p>\r\n\r\n<h3><strong>Mượt m&agrave; mọi t&aacute;c vụ với Snapdragon 8 Gen 3 for Galaxy</strong></h3>\r\n\r\n<p>S24 Ultra được thiết kế với mục ti&ecirc;u mang đến hiệu năng mạnh mẽ v&agrave; trải nghiệm tuyệt vời cho người d&ugrave;ng. Với bộ vi xử l&yacute; Snapdragon 8 Gen 3, cung cấp hiệu suất mạnh mẽ, cho ph&eacute;p bạn chơi game đồ họa cao, xem video chất lượng cao một c&aacute;ch trơn tru.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra 1TB – Siêu phẩm dành cho những người đam mê công nghệ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-1_2.jpg\" /></p>\r\n\r\n<p>B&ecirc;n trong, Galaxy S24 Ultra được trang bị chipset Snapdragon 8 Gen 3 for Galaxy, cung cấp sức mạnh xử l&yacute; v&agrave; hiệu năng đ&aacute;ng kinh ngạc. Với dung lượng RAM 12GB v&agrave; bộ nhớ trong l&ecirc;n đến 1TB, người d&ugrave;ng c&oacute; đủ kh&ocirc;ng gian lưu trữ v&agrave; đồng thời trải nghiệm mượt m&agrave; khi sử dụng S24 Ultra.</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<p>Theo c&aacute;c nguồn tin đ&aacute;ng tin cậy, ng&agrave;y 17 th&aacute;ng 1 năm 2024 sắp tới sẽ chứng kiến sự kiện ra mắt Samsung Galaxy S24 Ultra v&agrave; c&aacute;c phi&ecirc;n bản S24 kh&aacute;c. Sự kiện ra mắt diễn ra tại Mỹ, nơi Samsung thường chọn l&agrave; địa điểm để giới thiệu những sản phẩm của m&igrave;nh.</p>\r\n\r\n<p><img alt=\"Khi nào ra mắt\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-2_2.jpg\" /></p>\r\n\r\n<p>C&ograve;n với người d&ugrave;ng Việt Nam, ch&uacute;ng ta sẽ phải chờ th&ecirc;m một khoảng thời gian cho đến khi S24 Series được mở b&aacute;n. Đ&acirc;y cũng sẽ l&agrave; cơ hội để những người đam m&ecirc; c&ocirc;ng nghệ c&oacute; thể sở hữu ngay chiếc điện thoại đẳng cấp n&agrave;y v&agrave; trải nghiệm những t&iacute;nh năng độc đ&aacute;o m&agrave; n&oacute; mang lại.&nbsp;</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra c&oacute; gi&aacute; bao nhi&ecirc;u?</strong></h2>\r\n\r\n<p>Samsung Galaxy S24 Ultra l&agrave; một chiếc điện thoại cao cấp v&agrave; c&oacute; mức gi&aacute; kh&aacute; đắt đỏ. Với phi&ecirc;n bản cao cấp l&agrave; 1TB th&igrave; mức gi&aacute; khởi điểm sẽ rơi v&agrave;o khoảng 44.49 triệu đồng.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra có giá bao nhiêu?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-3_2.jpg\" /></p>\r\n\r\n<p>D&ugrave; gi&aacute; b&aacute;n của&nbsp;<strong>Samsung Galaxy S24 Ultra 1TB&nbsp;</strong>c&oacute; thể cao, nhưng sản phẩm n&agrave;y được trang bị những cải tiến đ&aacute;ng kể về camera, m&agrave;n h&igrave;nh v&agrave; hiệu năng. Với những t&iacute;nh năng v&agrave; c&ocirc;ng nghệ h&agrave;ng đầu, Galaxy S24 Ultra xứng đ&aacute;ng l&agrave; một chiếc điện thoại cao cấp m&agrave; người d&ugrave;ng c&oacute; thể xem x&eacute;t.&nbsp;</p>', 'Samsung Galaxy S24 Ultra 12GB 1TB', 'Samsung Galaxy S24 Ultra 12GB 1TB', 'Samsung Galaxy S24 Ultra 1TB là chiếc smartphone flagship mới của nhà Samsung với màn hình Dynamic AMOLED 2X, mang đến trải nghiệm giải trí đỉnh cao. Máy cũng được trang bị con chip Snapdragon 8 Gen 3 for Galaxy, đi kèm với RAM 12GB và bộ nhớ trong lên tới 1TB. Hệ thống camera của S24 Ultra cũng được nâng cấp đáng kể với camera chính 200MP, mang lại khả năng nhiếp ảnh tuyệt vời.', 'samsung-galaxy-s24-ultra-12gb-1tb', '2024-11-13 10:23:22', '2024-11-13 10:23:22', NULL);
+INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(27, 1, 'Samsung Galaxy Z Fold6', '<h2>Đặc điểm nổi bật của Samsung Galaxy Z Fold6</h2>\r\n\r\n<ul>\r\n	<li>M&agrave;n h&igrave;nh ch&iacute;nh Dynamic AMOLED 2X 7.6 inch cho trải nghiệm giải tr&iacute;, l&agrave;m việc đỉnh cao.</li>\r\n	<li>Chip Snapdragon 8 Gen 3 cho tốc độ xử l&yacute; si&ecirc;u nhanh, đ&aacute;p ứng tốt mọi nhu cầu sử dụng.</li>\r\n	<li>Camera ch&iacute;nh 50.0 MP ghi lại những khoảnh khắc đẹp với độ chi tiết, m&agrave;u sắc ấn tượng.</li>\r\n	<li>Pin 4400mAh cho ph&eacute;p bạn sử dụng điện thoại cả ng&agrave;y d&agrave;i m&agrave; kh&ocirc;ng cần lo lắng về việc hết pin.</li>\r\n</ul>', '<blockquote>\r\n<p><a href=\"https://cellphones.com.vn/samsung-galaxy-z-fold-6.html\" target=\"_blank\" title=\"Samsung Galaxy Z Fold 6 mới nhất\"><strong>Samsung Z Fold 6</strong></a>&nbsp;l&agrave; si&ecirc;u phẩm&nbsp;<strong>điện thoại gập</strong>&nbsp;được ra mắt ng&agrave;y 10/7, hiệu năng dẫn đầu ph&acirc;n kh&uacute;c với chip 8 nh&acirc;n&nbsp;<strong>Snapdragon 8 Gen 3 for Galaxy</strong>, 12GB RAM c&ugrave;ng bộ nhớ trong từ&nbsp;<strong>256GB đến 1TB</strong>. Thay đổi mạnh mẽ về&nbsp;<strong>hiệu năng v&agrave; thiết kế</strong>, Galaxy Z Fold 6 hứa hẹn sẽ l&agrave; chiếc&nbsp;<strong>smartphone AI</strong>&nbsp;đ&aacute;ng sở hữu nhất nửa cuối năm 2024. C&ugrave;ng CellphoneS cập nhật tất tần tật th&ocirc;ng tin về Galaxy Z Fold6 ngay đ&acirc;y nh&eacute;!</p>\r\n</blockquote>\r\n\r\n<h2><strong>V&igrave; sao n&ecirc;n mua&nbsp;Samsung Galaxy Z Fold 6?</strong></h2>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;l&agrave; bước nhảy vọt về c&ocirc;ng nghệ điện thoại gập, mang lại trải nghiệm độc đ&aacute;o v&agrave; vượt trội cho người d&ugrave;ng. C&oacute;&nbsp;<strong>8 l&yacute; do</strong>&nbsp;v&igrave; sao n&ecirc;n mua Samsugn Z Fold 6 như sau:</p>\r\n\r\n<p>- T&iacute;ch hợp c&aacute;c t&iacute;nh năng<strong>&nbsp;Galaxy AI:</strong>&nbsp;Khoanh tr&ograve;n để t&igrave;m kiếm, Trợ l&yacute; Note quyền năng, Trợ l&yacute; chat th&ocirc;ng minh, Interpreter,...</p>\r\n\r\n<p>- Thiết kế<strong>&nbsp;si&ecirc;u mỏng nhẹ</strong>&nbsp;với trọng lượng chỉ&nbsp;<strong>249g, độ mỏng 5.6mm</strong>&nbsp;dễ d&agrave;ng cầm nắm v&agrave; mang theo.</p>\r\n\r\n<p>- M&agrave;u sắc tinh tế, thời thượng, thể hiện c&aacute; t&iacute;nh ri&ecirc;ng:&nbsp;<strong>X&aacute;m Metal, Hồng Ros&eacute;, Xanh Navy.</strong></p>\r\n\r\n<p>- Hiệu năng mạnh mẽ như PC thu nhỏ với bộ vi xử l&yacute;<strong>&nbsp;Snapdragon&reg; 8 Gen 3 for Galaxy</strong>&nbsp;tối ưu ri&ecirc;ng cho điện thoại Samsung.</p>\r\n\r\n<p><strong>-&nbsp;</strong>Dung lượng<strong>&nbsp;pin 4400mAh&nbsp;</strong>mang đến trải nghiệm li&ecirc;n tục m&agrave; kh&ocirc;ng lo gi&aacute;n đoạn.</p>\r\n\r\n<p><strong>-&nbsp;</strong>M&agrave;n h&igrave;nh với<strong>&nbsp;độ s&aacute;ng tối đa</strong>&nbsp;<strong>2600 nits</strong>, cho khả năng hiển thị ấn tượng dưới nhiều điều kiện &aacute;nh s&aacute;ng kh&aacute;c nhau.</p>\r\n\r\n<p>- M&agrave;n h&igrave;nh ngo&agrave;i k&iacute;ch thước&nbsp;<strong>6.3 inch,</strong>&nbsp;mở rộng diện t&iacute;ch hiển thị.</p>\r\n\r\n<p>- Camera thu ph&oacute;ng sắc n&eacute;t, chụp ảnh chi tiết v&agrave; sống động c&ugrave;ng khả năng chụp ảnh chuy&ecirc;n nghiệp với&nbsp;<strong>ProVisual Engine.</strong></p>\r\n\r\n<p><img alt=\"Những lý do nên mua Samsung Z Fold 6\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-12.jpg\" title=\"Những lý do nên mua Samsung Z Fold 6\" /></p>\r\n\r\n<p><em>Top 8 l&yacute; do n&ecirc;n mua ngay Samsung Galaxy Z Fold 6</em></p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 gi&aacute; bao nhi&ecirc;u? Bảng gi&aacute; mới nhất</strong></h2>\r\n\r\n<p><strong>Gi&aacute; Samsung Galaxy Z Fold 6</strong>&nbsp;tại thời điểm ra mắt l&agrave;<strong>&nbsp;43,990,000 đồng</strong>&nbsp;cho bản 12GB 256GB. C&aacute;c phi&ecirc;n bản kh&aacute;c tại thời điểm ra mắt c&oacute; gi&aacute; như sau:</p>\r\n\r\n<p>Bảng gi&aacute; chi tiết c&aacute;c phi&ecirc;n bản:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Phi&ecirc;n bản Samsung&nbsp;Z Fold6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; mở b&aacute;n quốc tế</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n mở b&aacute;n Việt Nam</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6&nbsp;12GB RAM + 256GB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>1,899 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>43,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6&nbsp;12GB RAM + 512GB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>2,019 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>47,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6 12GB RAm + 1TB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>2,259 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>54,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Như vậy, gi&aacute; khởi điểm Z Fold 6 cao hơn Z Fold 5 khoảng 100 USD ở thời điểm ra mắt. Đồng thời để n&acirc;ng cấp bộ nhớ trong c&aacute;c phi&ecirc;n bản năm nay, người d&ugrave;ng sẽ cần b&ugrave; th&ecirc;m khoảng 4 triệu đồng.</p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Th&ocirc;ng tin ch&iacute;nh thức, điện thoại gập&nbsp;<strong>Samsung Z Fold6 đ&atilde; được&nbsp;ra mắt v&agrave;o ng&agrave;y 10/7/2024</strong>&nbsp;tại sự kiện&nbsp;<strong>Galaxy Unpacked</strong>&nbsp;diễn ra ở&nbsp;<strong>thủ đ&ocirc; Paris</strong>.</p>\r\n</blockquote>\r\n\r\n<p>Vẫn như th&ocirc;ng lệ kể từ khi ra mắt d&ograve;ng sản phẩm Galaxy Z Series sẽ xuất hiện v&agrave;o khoảng đầu m&ugrave;a h&egrave; năm 2024. Cụ thể th&igrave; điện thoại Z Fold 6 sẽ ch&iacute;nh thức được giới thiệu trong khoảng nửa đầu th&aacute;ng 7 năm 2024.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy Z Fold6 khi nào ra mắt?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-2.png\" /></p>\r\n\r\n<p><em>Samsung Z Fold6 ch&iacute;nh thức ra mắt v&agrave;o ng&agrave;y 10/7/2024</em></p>\r\n\r\n<p>Vậy ở phi&ecirc;n bản năm nay, Samsung Galaxy Z Fold 6 đ&atilde; c&oacute; những thay đổi g&igrave; so với bản tiền nhiệm? Liệu những thay đổi n&agrave;y c&oacute; mang đến lợi &iacute;ch trực tiếp cho người d&ugrave;ng Samsung Gập kh&ocirc;ng? Xem ngay qua phần so s&aacute;nh tiếp theo!</p>\r\n\r\n<h2><strong>Bảng so s&aacute;nh th&ocirc;ng số Z Fold 6 v&agrave; Z Fold 5 chi tiết</strong></h2>\r\n\r\n<p>L&agrave; thế hệ điện thoại gập cao cấp mới nhất nh&agrave; Samsung,&nbsp;<strong>Galaxy Z Fold 6</strong>&nbsp;dự kiến được trang bị nhiều c&ocirc;ng nghệ ti&ecirc;n tiến v&agrave; vượt trội. B&ecirc;n cạnh những cải tiến về bộ vi xử l&yacute; gi&uacute;p n&acirc;ng cao hiệu năng v&agrave; tối ưu h&oacute;a thời gian sử dụng. Những n&acirc;ng cấp n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao trải nghiệm người d&ugrave;ng m&agrave; c&ograve;n khẳng định sự ph&aacute;t triển kh&ocirc;ng ngừng của d&ograve;ng sản phẩm Z Fold.</p>\r\n\r\n<p>Bảng so s&aacute;nh th&ocirc;ng số kỹ thuật<strong>&nbsp;Galaxy Z Fold6 v&agrave; Z Fold5:</strong></p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Ti&ecirc;u ch&iacute; so s&aacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 5</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p><strong>M&agrave;n h&igrave;nh phụ&nbsp;6.3 inch</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ 6.2 inch</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ m&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X QXGA+</p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X QXGA+</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ ph&acirc;n giải (pixel)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2160 x 1856</p>\r\n			</td>\r\n			<td>\r\n			<p>2176 x 1812</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ s&aacute;ng tối đa</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>2600nits</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>1750nits</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;nh cường lực</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Glass Victus 2</p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Victus 2</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chống nước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>IP48</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>IPX8</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Tần số qu&eacute;t</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi gập</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>153,5 x 68,1 x 12,1mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>154,9 x 67,1 x 13,4mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi mở</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>153,5 x 132,6 x 5,6mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>154,9 x 129,9 x 6,1mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Trọng lượng&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>239 gram</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>253 gram</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>RAM</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Bộ nhớ trong</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chip xử l&yacute;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Snapdragon 8 Gen 3 For Galaxy</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 2 For Galaxy</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Kết nối&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Hỗ trợ S Pen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera sau</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera trước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh:&nbsp;4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh: 4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ chụp ảnh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p><strong>Zoom quang học 3X chất lượng 2X</strong></p>\r\n\r\n			<p>Thu ph&oacute;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p>Thu ph&ograve;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Dung lượng pin</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u sắc</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>X&aacute;m Metal,&nbsp;&nbsp;Xanh Navy, Hồng Rose</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Xanh Icy, Đen Phantom, Kem Ivory</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Như vậy, dễ thấy Samsung Fold thế hệ thứ 6 đ&atilde; được n&acirc;ng cấp&nbsp;<strong>mỏng nhẹ hơn</strong>. B&ecirc;n cạnh đ&oacute; l&agrave;&nbsp;<strong>cải tiến về camera, chipset v&agrave; m&agrave;u sắc</strong>&nbsp;thiết kế. Vậy so với Z Flip 6 c&ugrave;ng ra mắt năm nay th&igrave; th&ocirc;ng số giữa hai thiết bị n&agrave;y c&oacute; g&igrave; kh&aacute;c biệt? Đ&acirc;u l&agrave; điểm tạo n&ecirc;n sự ch&ecirc;nh lệch về gi&aacute; giữa Fold 6 v&agrave; Flip 6? Đọc ngay nội dung so s&aacute;nh tiếp theo!</p>\r\n\r\n<h2><strong>Bảng so s&aacute;nh th&ocirc;ng số Z Fold 6 v&agrave; Z Flip 6 chi tiết</strong></h2>\r\n\r\n<p>D&ograve;ng sản phẩm&nbsp;<strong>Galaxy Z Fold 6 v&agrave;&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-z-flip-6.html\" target=\"_blank\" title=\"Samsung Galaxy Z Flip 6\">Z Flip 6</a></strong>&nbsp;của Samsung đều mang lại những cải tiến vượt trội, nhưng mỗi thiết bị lại c&oacute; những đặc điểm v&agrave; t&iacute;nh năng ri&ecirc;ng biệt để phục vụ nhu cầu đa dạng của người d&ugrave;ng. Dưới đ&acirc;y l&agrave; bảng so s&aacute;nh chi tiết về th&ocirc;ng số kỹ thuật của Z Fold 6 v&agrave; Z Flip 6, gi&uacute;p bạn dễ d&agrave;ng đ&aacute;nh gi&aacute; v&agrave; lựa chọn thiết bị ph&ugrave; hợp nhất với nhu cầu c&aacute; nh&acirc;n. Từ m&agrave;n h&igrave;nh, hiệu năng, đến t&iacute;nh năng đặc biệt, mọi chi tiết đều được liệt k&ecirc; r&otilde; r&agrave;ng để mang đến c&aacute;i nh&igrave;n to&agrave;n diện v&agrave; cụ thể nhất.</p>\r\n\r\n<p>Bảng so s&aacute;nh th&ocirc;ng số kỹ thuật&nbsp;<strong>Galaxy Z Fold6 v&agrave; Z Flip6</strong>:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Ti&ecirc;u ch&iacute; so s&aacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Flip 6</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ&nbsp;6.3 inch</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 6.7 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ 3.4 inch&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ m&agrave;n h&igrave;nh ch&iacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X</p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ ph&acirc;n giải (pixel)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2160 x 1856 (QXGA+)</p>\r\n			</td>\r\n			<td>\r\n			<p>2640 x 1080&nbsp; (FHD+)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ s&aacute;ng tối đa</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2600nits</p>\r\n			</td>\r\n			<td>\r\n			<p>2600nits</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;nh cường lực</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Glass Victus 2</p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Victus 2</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chống nước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>IP48</p>\r\n			</td>\r\n			<td>\r\n			<p>IP48</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Tần số qu&eacute;t</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi gập</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>153,5 x 68,1 x 12,1mm</p>\r\n			</td>\r\n			<td>\r\n			<p>85,1 x 71,9 x 14,9 mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi mở</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>153,5 x 132,6 x 5,6mm</p>\r\n			</td>\r\n			<td>\r\n			<p>165,1 x 71,9 x 6,9 mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Trọng lượng&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>239 gram</p>\r\n			</td>\r\n			<td>187gram</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>RAM</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Bộ nhớ trong</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chip xử l&yacute;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 3 For Galaxy</p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 3 For Galaxy</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Kết nối&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Hỗ trợ S Pen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>-</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera sau</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP +&nbsp; 12.0 MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera trước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh:&nbsp;4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n			<td>\r\n			<p>10MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ chụp ảnh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p>Zoom quang học 3X chất lượng 2X</p>\r\n\r\n			<p>Thu ph&oacute;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 2X</p>\r\n\r\n			<p>Thu ph&ograve;ng kh&ocirc;ng gian 10X</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Dung lượng pin</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n			<td>\r\n			<p>4.000 mAh</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u sắc</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>X&aacute;m Metal,&nbsp;&nbsp;Xanh Navy, Hồng Rose</p>\r\n			</td>\r\n			<td>\r\n			<p>Xanh Maya, Xanh Mint, X&aacute;m Metal, V&agrave;ng Solar</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Qua bảng so s&aacute;nh nhanh c&oacute; thể thấy được&nbsp;<strong>Z Fold 6 v&agrave; Z Flip 6</strong>&nbsp;đều sử dụng con chip mạnh như nhau. Tuy nhi&ecirc;n do concept thiết kế n&ecirc;n Z Fold6 c&oacute; k&iacute;ch thước to hơn, pin lớn hơn để đ&aacute;p ứng m&agrave;n h&igrave;nh rộng hơn. Ngo&agrave;i ra, giữa hai thiết bị gập mới n&agrave;y c&ograve;n kh&aacute;c nhau ở c&ocirc;ng nghệ camera, m&agrave;u sắc chủ đạo.</p>\r\n\r\n<h2><strong>Đ&aacute;nh gi&aacute; Samsung Galaxy Z Fold 6 về thiết kế v&agrave; hiệu năng</strong></h2>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6 5G</strong>&nbsp;l&agrave; phi&ecirc;n bản đ&aacute;nh dấu sự lột x&aacute;c ho&agrave;n to&agrave;n của d&ograve;ng sản phẩm điện thoại gập của Samsung sau 5 phi&ecirc;n bản kh&ocirc;ng c&oacute; qu&aacute; nhiều kh&aacute;c biệt. Ở tr&ecirc;n phi&ecirc;n bản n&agrave;y, Samsung đ&atilde; c&oacute; những sự bổ sung n&agrave;o để kh&ocirc;ng l&agrave;m những người h&acirc;m mộ của m&igrave;nh thất vọng? C&ugrave;ng&nbsp;<strong>đ&aacute;nh gi&aacute; Samsung Fold 6</strong>&nbsp;qua c&aacute;c nội dung ch&iacute;nh sau đ&acirc;y:</p>\r\n\r\n<ul>\r\n	<li>N&acirc;ng cấp vượt bậc về khả năng quay, chụp</li>\r\n	<li>Cấu h&igrave;nh h&agrave;ng đầu với con chip độc quyền cho Galaxy</li>\r\n	<li>Vi&ecirc;n pin lớn t&iacute;ch hợp khả năng sạc si&ecirc;u tốc</li>\r\n	<li>Sự lột x&aacute;c trong thiết kế</li>\r\n	<li>M&agrave;n h&igrave;nh Dynamic AMOLED 2X HD+ 120Hz sắc n&eacute;t nay mượt m&agrave; hơn</li>\r\n</ul>\r\n\r\n<p>Chi tiết c&aacute;c đ&aacute;nh gi&aacute; như sau:</p>\r\n\r\n<h3><strong>Những t&iacute;nh năng AI ấn tượng</strong></h3>\r\n\r\n<p><strong>Galaxy Z Fold 6</strong>&nbsp;được trang bị những&nbsp;<strong>t&iacute;nh năng AI</strong>&nbsp;ấn tượng, n&acirc;ng tầm trải nghiệm người d&ugrave;ng l&ecirc;n một đẳng cấp mới. Với khả năng xử l&yacute; th&ocirc;ng minh v&agrave; tự động h&oacute;a ti&ecirc;n tiến, thiết bị gi&uacute;p tối ưu h&oacute;a hiệu suất l&agrave;m việc v&agrave; s&aacute;ng tạo. C&aacute;c t&iacute;nh năng như phi&ecirc;n dịch trực tiếp, trợ l&yacute; ghi ch&uacute;, v&agrave; chỉnh sửa ảnh chuy&ecirc;n nghiệp mang lại sự tiện lợi v&agrave; hiệu quả chưa từng c&oacute;.</p>\r\n\r\n<p><strong>Khoanh Tr&ograve;n Để T&igrave;m Kiếm</strong></p>\r\n\r\n<p>Khai th&aacute;c sức mạnh của m&agrave;n h&igrave;nh gập lớn bằng c&aacute;ch&nbsp;<strong>khoanh tr&ograve;n bất cứ thứ g&igrave;</strong>&nbsp;bạn cần t&igrave;m kiếm tr&ecirc;n Z Fold6. T&iacute;nh năng n&agrave;y gi&uacute;p bạn dễ d&agrave;ng t&igrave;m th&ocirc;ng tin chỉ với một thao t&aacute;c đơn giản, d&ugrave; l&agrave; sử dụng ng&oacute;n tay hay S Pen, biến việc t&igrave;m kiếm trở n&ecirc;n nhanh ch&oacute;ng v&agrave; thuận tiện hơn bao giờ hết.</p>\r\n\r\n<p><img alt=\"Khoanh tròn để tìm kiếm là một tính năng hữu ích trên Z Fold 6\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-9.jpg\" title=\"Khoanh tròn để tìm kiếm là một tính năng hữu ích trên Z Fold 6\" /></p>\r\n\r\n<p><em>Khoanh tr&ograve;n để t&igrave;m kiếm l&agrave; một t&iacute;nh năng hữu &iacute;ch tr&ecirc;n Z Fold 6</em></p>\r\n\r\n<p><strong>Trợ L&yacute; Note Quyền Năng (Note Assist)</strong></p>\r\n\r\n<p><strong>Note Assist</strong>l&agrave; c&ocirc;ng cụ đắc lực cho những ai thường xuy&ecirc;n&nbsp;<strong>ghi ch&uacute;</strong>, đặc biệt l&agrave; trong c&aacute;c buổi họp hoặc giảng b&agrave;i. C&ocirc;ng cụ n&agrave;y tự động chuyển đổi c&aacute;c bản ghi &acirc;m th&agrave;nh văn bản, sắp xếp ch&uacute;ng th&agrave;nh c&aacute;c ghi ch&uacute; r&otilde; r&agrave;ng v&agrave; t&oacute;m tắt hiệu quả. B&uacute;t S Pen c&agrave;ng l&agrave;m tăng t&iacute;nh năng n&agrave;y, gi&uacute;p bạn đa t&aacute;c vụ dễ d&agrave;ng. Hơn thế nữa, trợ l&yacute; chat th&ocirc;ng minh v&agrave; tr&igrave;nh duyệt th&ocirc;ng minh của Galaxy Z Fold 6 gi&uacute;p bạn tối ưu h&oacute;a c&ocirc;ng việc với chỉ một v&agrave;i từ kh&oacute;a v&agrave; t&oacute;m tắt to&agrave;n bộ trang web chỉ trong nh&aacute;y mắt.</p>\r\n\r\n<p><strong>Trợ L&yacute; Chỉnh Ảnh Chuy&ecirc;n Nghiệp (Photo Assist)</strong></p>\r\n\r\n<p><strong>Photo Assist</strong>&nbsp;l&agrave; c&ocirc;ng cụ chỉnh sửa ảnh ti&ecirc;n tiến, biến mọi bức ảnh trở n&ecirc;n ho&agrave;n hảo ngay tr&ecirc;n chiếc&nbsp;<strong>Samsung Galaxy Z Fold 6</strong>. Photo Assist cho ph&eacute;p bạn x&aacute;c định đối tượng trong ảnh, di chuyển, x&oacute;a hoặc ph&oacute;ng to đối tượng đ&oacute; một c&aacute;ch dễ d&agrave;ng. Studio ch&acirc;n dung AI gi&uacute;p bạn tạo ra những bức ch&acirc;n dung nghệ thuật tuyệt đẹp, trong khi t&iacute;nh năng chuyển động chậm tức th&igrave; cho ph&eacute;p &aacute;p dụng hiệu ứng slow-motion c&oacute; chọn lọc cho video. Ph&aacute;c hoạ th&ocirc;ng minh sử dụng AI để biến những bức ph&aacute;c thảo th&agrave;nh h&igrave;nh ảnh thực, mang đến cho bạn trải nghiệm chỉnh sửa ảnh đầy s&aacute;ng tạo v&agrave; chuy&ecirc;n nghiệp.</p>\r\n\r\n<p><img alt=\"Photo Assist trên Z Fold6 cho phép bạn xác định đối tượng trong ảnh, di chuyển, xóa hoặc phóng to đối tượng đó\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-11.jpg\" title=\"Photo Assist trên Z Fold6 cho phép bạn xác định đối tượng trong ảnh, di chuyển, xóa hoặc phóng to đối tượng đó\" /></p>\r\n\r\n<p><em>Photo Assist tr&ecirc;n Z Fold6 cho ph&eacute;p bạn x&aacute;c định đối tượng trong ảnh, di chuyển, x&oacute;a hoặc ph&oacute;ng to đối tượng đ&oacute;</em></p>\r\n\r\n<p><strong>T&iacute;nh năng Interpreter (phi&ecirc;n dịch vi&ecirc;n)</strong></p>\r\n\r\n<p>T&iacute;nh năng&nbsp;<strong>phi&ecirc;n dịch tr&ecirc;n Z Fold 6 5G</strong>&nbsp;cũng l&agrave; một t&iacute;nh năng AI ấn tượng, bạn c&oacute; thể sử dụng để:</p>\r\n\r\n<p><strong>- Phi&ecirc;n Dịch Tối Ưu Với M&agrave;n H&igrave;nh K&eacute;p</strong>: Tận dụng tối đa m&agrave;n h&igrave;nh k&eacute;p, bạn c&oacute; thể phi&ecirc;n dịch ngay tại chỗ, d&ugrave; l&agrave; khi muốn thể hiện bản th&acirc;n, theo d&otilde;i hội nghị quốc tế, hay trao đổi với hướng dẫn vi&ecirc;n du lịch. T&iacute;nh năng n&agrave;y gi&uacute;p bạn vượt qua r&agrave;o cản ng&ocirc;n ngữ, mở ra thế giới mới mẻ v&agrave; đa dạng chỉ trong tầm tay.</p>\r\n\r\n<p><strong>- Phi&ecirc;n Dịch Trực Tiếp Cuộc Gọi</strong>: Với khả năng dịch c&aacute;c cuộc tr&ograve; chuyện qua điện thoại ngay lập tức, t&iacute;nh năng n&agrave;y ho&agrave;n hảo để dịch giọng n&oacute;i theo thời gian thực tr&ecirc;n nhiều ứng dụng kh&aacute;c nhau. Điều n&agrave;y đặc biệt hữu &iacute;ch khi bạn thực hiện c&aacute;c cuộc gọi li&ecirc;n quan đến hai ng&ocirc;n ngữ kh&aacute;c nhau, đảm bảo mọi th&ocirc;ng tin được truyền tải ch&iacute;nh x&aacute;c v&agrave; hiệu quả.</p>\r\n\r\n<p><strong>- Tr&ograve; Chuyện Với Gemini</strong>: T&iacute;nh năng Tr&ograve; chuyện với Gemini được t&iacute;ch hợp để hỗ trợ bạn trong việc học tập, viết nội dung, l&ecirc;n kế hoạch v&agrave; nhiều hơn thế. Gemini kh&ocirc;ng chỉ gi&uacute;p bạn phi&ecirc;n dịch m&agrave; c&ograve;n trở th&agrave;nh trợ thủ đắc lực trong cuộc sống h&agrave;ng ng&agrave;y.</p>\r\n\r\n<p><img alt=\"Tính năng phiên dịch trên Z Fold 6 cũng là một tính năng AI ấn tượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-10.jpg\" title=\"Tính năng phiên dịch trên Z Fold 6 cũng là một tính năng AI ấn tượng\" /></p>\r\n\r\n<p><em>T&iacute;nh năng phi&ecirc;n dịch tr&ecirc;n Z Fold 6 cũng l&agrave; một t&iacute;nh năng AI ấn tượng</em></p>\r\n\r\n<h3><strong>Tỷ lệ m&agrave;n h&igrave;nh 22.1:9 mới vu&ocirc;ng vức hơn</strong></h3>\r\n\r\n<p>Một n&acirc;ng cấp đ&aacute;ng ch&uacute; &yacute; kh&aacute;c của&nbsp;<strong>Samsung Galaxy Z Fold 6</strong>&nbsp;nằm ở m&agrave;n h&igrave;nh phụ. K&iacute;ch thước bề rộng khi gập m&aacute;y tăng th&ecirc;m 1mm v&agrave; chiều cao giảm 1.4mm, tỷ lệ m&agrave;n h&igrave;nh phụ giảm từ 23.1:9 xuống c&ograve;n&nbsp;<strong>22.1:9</strong>, gần bằng với tỷ lệ 21:9 của Sony Xperia. K&iacute;ch thước m&agrave;n h&igrave;nh phụ cũng tăng&nbsp;<strong>từ 6.2 inch l&ecirc;n 6.3 inch</strong>, mang đến trải nghiệm rộng r&atilde;i v&agrave; thoải m&aacute;i hơn. M&agrave;n h&igrave;nh ch&iacute;nh b&ecirc;n trong cũng c&oacute; sự thay đổi về k&iacute;ch thước, giữ nguy&ecirc;n k&iacute;ch thước đường ch&eacute;o 7.6 inch nhưng với bề ngang rộng hơn, mang lại cảm gi&aacute;c vu&ocirc;ng vức v&agrave; dễ thao t&aacute;c hơn.</p>\r\n\r\n<p><img alt=\"Màn hình phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-15.jpg\" title=\"Màn hình phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới\" /></p>\r\n\r\n<p><em>M&agrave;n h&igrave;nh phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới</em></p>\r\n\r\n<h3><strong>N&acirc;ng cấp vượt bậc về khả năng quay, chụp</strong></h3>\r\n\r\n<p><strong>Samsung Galaxy Z Fold6</strong>&nbsp;đ&aacute;nh dấu sự thay đổi vượt trội về khả năng chụp h&igrave;nh, quay phim của thiết bị. Mẫu điện thoại gập Z Fold thế hệ thứ s&aacute;u sở hữu nhiều t&iacute;nh năng vượt trội cả cụm camera sau lẫn camera trước.&nbsp;</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-3.png\" /></p>\r\n\r\n<p><em>Samsung Fold6 sở hữu camera ch&iacute;nh 50MP</em></p>\r\n\r\n<p>Camera g&oacute;c rộng của m&aacute;y c&oacute;&nbsp;<strong>cảm biến 50MP</strong>, camera tele cảm biến 10MP để chất lượng h&igrave;nh ảnh của c&aacute;c chế độ phụ trợ được sắc n&eacute;t hơn. Th&ecirc;m v&agrave;o đ&oacute; l&agrave; camera g&oacute;c si&ecirc;u rộng 12MP, hỗ trợ tối đa cho những bức ảnh chụp nhiều người hay to&agrave;n cảnh.</p>\r\n\r\n<p>Với cảm biến lớn hơn, camera của Z Fold 6 cũng được n&acirc;ng cấp về chất lượng quay video. Điện thoại Galaxy Z Fold 6 giờ đ&acirc;y đ&atilde; c&oacute; thể&nbsp;<strong>quay phim với chất lượng cao</strong>. Về mặt trước, điện thoại sẽ được trang bị bộ đ&ocirc;i camera selfie 10MP ở m&agrave;n h&igrave;nh phụ v&agrave; 4MP ở m&agrave;n h&igrave;nh ch&iacute;nh.</p>\r\n\r\n<h3><strong>Cấu h&igrave;nh h&agrave;ng đầu với chipset Snapdragon 8 Gen 3 For Galaxy</strong></h3>\r\n\r\n<p>Với khả năng đẩy xung nhịp l&ecirc;n cao hơn để tăng tốc độ xử l&yacute;, d&ograve;ng chip Snapdragon cho Galaxy vẫn sẽ tiếp tục được trang bị tr&ecirc;n thiết bị mới. Cụ thể th&igrave; Galaxy Z Fold 6 sẽ sở hữu mẫu chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;độc quyền.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-7.png\" /></p>\r\n\r\n<p><em>Galaxy Z Fold 6 sẽ sở hữu mẫu chip Snapdragon 8 Gen 3 độc quyền</em></p>\r\n\r\n<p>Dung lượng RAM 12GB vẫn sẽ được giữ nguy&ecirc;n từ phi&ecirc;n bản Z Fold 5 l&ecirc;n Z Fold 6. RAM tr&ecirc;n điện thoại Z Fold 6 vẫn thừa khả năng để đảm bảo c&aacute;c hoạt động đa nhiệm hay chạy song song c&ugrave;ng l&uacute;c hay ứng dụng được mượt m&agrave;, nhanh ch&oacute;ng.</p>\r\n\r\n<p>Điện thoại Galaxy Z Fold 6 sẽ c&oacute; tới 3 tuỳ chọn bộ nhớ l&agrave;&nbsp;<strong>256GB, 512GB v&agrave; 1TB</strong>. Phi&ecirc;n bản bộ nhớ 128GB đ&atilde; ho&agrave;n to&agrave;n bị loại bỏ do kh&ocirc;ng c&ograve;n đủ khả năng để đ&aacute;p ứng được c&aacute;c nhu cầu quay chụp chuy&ecirc;n dụng hay l&agrave;m việc tr&ecirc;n chiếc điện thoại n&agrave;y.</p>\r\n\r\n<h3><strong>Dung lượng pin 4400mAh, thoải m&aacute;i sử dụng ng&agrave;y d&agrave;i</strong></h3>\r\n\r\n<p>Z Fold 6 sở hữu vi&ecirc;n pin&nbsp;<strong>4400mAh</strong>&nbsp;đảm bảo thời gian sử dụng l&acirc;u d&agrave;i cho c&aacute;c nhu cầu giải tr&iacute; v&agrave; c&ocirc;ng việc. Với khả năng&nbsp;<strong>ph&aacute;t video l&ecirc;n đến 23 giờ</strong>&nbsp;v&agrave;&nbsp;<strong>ph&aacute;t &acirc;m thanh l&ecirc;n đến 77 giờ</strong>&nbsp;(ở điều kiện thử nghiệm, tr&ecirc;n thực tế c&oacute; thể thay đổi), người d&ugrave;ng c&oacute; thể thoải m&aacute;i tận hưởng những trải nghiệm đa phương tiện m&agrave; kh&ocirc;ng lo hết pin giữa chừng. Hiệu suất pin vượt trội n&agrave;y mang lại sự tiện lợi v&agrave; đ&aacute;ng tin cậy cho mọi hoạt động h&agrave;ng ng&agrave;y.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-3.png\" /></p>\r\n\r\n<p><em>Galaxy Fold6 sở hữu vi&ecirc;n pin 4400mAh</em></p>\r\n\r\n<p>Vi&ecirc;n pin mới cũng sẽ được t&iacute;ch hợp c&ocirc;ng nghệ sạc ti&ecirc;n tiến để mang tới khả năng sạc đầy si&ecirc;u tốc. Samsung Galaxy Z Fold 6 sẽ hỗsạc nhanh c&oacute; c&ocirc;ng suất 25W. Nhờ vậy m&agrave; Z Fold 6 sẽ kh&ocirc;ng chỉ c&oacute; được thời lượng d&ugrave;ng thoải m&aacute;i m&agrave; c&ograve;n r&uacute;t ngắn được thời gian sạc pin.</p>\r\n\r\n<h3><strong>Mỏng nhẹ hơn, đa dạng tuỳ chọn m&agrave;u sắc</strong></h3>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;kh&ocirc;ng thay đổi nhiều về tổng thể ngoại h&igrave;nh nhưng mang đến những cải tiến đ&aacute;ng gi&aacute;. So với thế hệ trước, Galaxy Z Fold6&nbsp;<strong>nhẹ hơn 14g</strong>&nbsp;v&agrave;&nbsp;<strong>mỏng hơn</strong>&nbsp;đ&aacute;ng kể, khi mở ra mỏng hơn 0.5mm v&agrave; khi gập lại mỏng hơn 1.3mm, mang lại cảm gi&aacute;c cầm nắm nhẹ nh&agrave;ng v&agrave; thoải m&aacute;i. Thiết kế vu&ocirc;ng vức hơn cũng tạo cảm gi&aacute;c cao cấp v&agrave; cứng c&aacute;p hơn. Samsung mang đến 3 t&ugrave;y chọn m&agrave;u sắc cho Galaxy Z Fold6:&nbsp;<strong>X&aacute;m Metal, Xanh Navy v&agrave; Hồng Rose</strong>, gi&uacute;p người d&ugrave;ng thể hiện c&aacute; t&iacute;nh ri&ecirc;ng.</p>\r\n\r\n<p><img alt=\"Galaxy Z Fold6 nhẹ hơn 14g và mỏng hơn đáng kể so với thế hệ trước\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-17.jpg\" title=\"Galaxy Z Fold6 nhẹ hơn 14g và mỏng hơn đáng kể so với thế hệ trước\" /></p>\r\n\r\n<p><em>Galaxy Z Fold6 nhẹ hơn 14g v&agrave; mỏng hơn đ&aacute;ng kể so với thế hệ trước</em></p>\r\n\r\n<p><strong>Bản lề cải tiến</strong>&nbsp;của phi&ecirc;n bản Z Fold mới mang đến trải nghiệm gập mở mượt m&agrave; v&agrave; bền hơn. Ngo&agrave;i ra, khả năng chống nước&nbsp;<strong>đạt chuẩn IP48</strong>, tức l&agrave; vẫn c&oacute; khả năng chống bụi nhẹ, l&agrave; một bước tiến so với thế hệ trước kh&ocirc;ng c&oacute; khả năng chống bụi.</p>\r\n\r\n<p>M&agrave;n h&igrave;nh phụ của Galaxy Z Fold 6 đ&atilde; được n&acirc;ng cấp từ 6.2 inch l&ecirc;n 6.3 inch, mang lại trải nghiệm thao t&aacute;c thoải m&aacute;i v&agrave; rộng r&atilde;i hơn so với thế hệ trước. K&iacute;ch thước thay đổi của m&aacute;y cũng ảnh hưởng đến m&agrave;n h&igrave;nh ch&iacute;nh, gi&uacute;p bề ngang rộng hơn v&agrave; thiết kế vu&ocirc;ng vức hơn, mặc d&ugrave; k&iacute;ch thước đường ch&eacute;o vẫn giữ nguy&ecirc;n 7.6 inch.</p>\r\n\r\n<h3><strong>M&agrave;n h&igrave;nh&nbsp;Dynamic AMOLED 2X HD+ 120Hz sắc n&eacute;t, độ s&aacute;ng vượt trội</strong></h3>\r\n\r\n<p><strong>Galaxy Z Fold 6</strong>&nbsp;được trang bị m&agrave;n h&igrave;nh ch&iacute;nh&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;với độ ph&acirc;n giải&nbsp;<strong>2376 x 968</strong>, mang đến h&igrave;nh ảnh sắc n&eacute;t v&agrave; sống động. Độ s&aacute;ng tối đa l&ecirc;n đến&nbsp;<strong>2600 nits</strong>&nbsp;đảm bảo khả năng hiển thị r&otilde; r&agrave;ng ngay cả dưới &aacute;nh s&aacute;ng mặt trời mạnh. Tốc độ l&agrave;m mới&nbsp;<strong>120Hz</strong>&nbsp;mang lại trải nghiệm mượt m&agrave;, l&yacute; tưởng cho việc xem video, chơi game v&agrave; lướt web.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-4.png\" /></p>\r\n\r\n<p><em>M&agrave;n h&igrave;nh Galaxy Z Fold 6 c&oacute; độ s&aacute;ng m&agrave;n h&igrave;nh tối đa l&ecirc;n đến 2600nits</em></p>\r\n\r\n<p>Những th&ocirc;ng số ấn tượng n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao chất lượng h&igrave;nh ảnh m&agrave; c&ograve;n cải thiện trải nghiệm người d&ugrave;ng, mang lại cảm gi&aacute;c ch&acirc;n thực v&agrave; sống động trong từng t&aacute;c vụ h&agrave;ng ng&agrave;y. M&agrave;n h&igrave;nh Z Fold 6 chắc chắn sẽ l&agrave;m h&agrave;i l&ograve;ng những kh&aacute;ch h&agrave;ng kh&oacute; t&iacute;nh nhất, từ nhu cầu giải tr&iacute; đến c&ocirc;ng việc.</p>\r\n\r\n<h2><strong>Samsung Z Fold 6 c&oacute; mấy m&agrave;u? M&agrave;u n&agrave;o mới xuất hiện?</strong></h2>\r\n\r\n<blockquote>\r\n<p><strong>Samsung Z Fold 6</strong>&nbsp;mang đến cho người d&ugrave;ng&nbsp;<strong>5 t&ugrave;y chọn m&agrave;u sắc</strong>&nbsp;đa dạng gồm&nbsp;<strong>X&aacute;m, Hồng, Xanh, Đen v&agrave; Trắng</strong>. M&agrave;u Đen v&agrave; Trắng l&agrave; hai m&agrave;u sắc độc quyền chỉ c&oacute; tại Samsung Store, mang đến sự lựa chọn đặc biệt cho những ai y&ecirc;u th&iacute;ch sự sang trọng v&agrave; tinh tế.</p>\r\n</blockquote>\r\n\r\n<p>Với sự bổ sung của c&aacute;c t&ugrave;y chọn m&agrave;u mới n&agrave;y, bạn c&oacute; thể dễ d&agrave;ng thể hiện c&aacute; t&iacute;nh ri&ecirc;ng của m&igrave;nh, từ vẻ ngo&agrave;i thanh lịch, quyến rũ đến phong c&aacute;ch hiện đại, mạnh mẽ. Samsung Z Fold 6 kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ ti&ecirc;n tiến m&agrave; c&ograve;n l&agrave; một phụ kiện thời trang đẳng cấp, ph&ugrave; hợp với mọi phong c&aacute;ch sống.</p>\r\n\r\n<p><img alt=\"Samsung Z Fold 6 mang đến cho người dùng 5 tùy chọn màu sắc đa dạng gồm Xám, Hồng, Xanh, Đen và Trắng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-5.png\" title=\"Samsung Z Fold 6 mang đến cho người dùng 5 tùy chọn màu sắc đa dạng gồm Xám, Hồng, Xanh, Đen và Trắng\" /></p>\r\n\r\n<p><em>Samsung Z Fold 6 mang đến cho người d&ugrave;ng 5 t&ugrave;y chọn m&agrave;u sắc đa dạng gồm X&aacute;m, Hồng, Xanh, Đen v&agrave; Trắng</em></p>\r\n\r\n<p>C&oacute; thể thấy, hầu hết bản m&agrave;u tr&ecirc;n phi&ecirc;n bản tiền nhiệm đ&atilde; thay thế bằng bộ m&agrave;u mới. Như Z Fold 5 c&oacute; c&aacute;c phi&ecirc;n bản: Xanh Icy, Đen Phantom, Kem Ivory v&agrave; 2 bản độc quyền chỉ b&aacute;n tr&ecirc;n trang trực tuyến Samsung: Xanh Downtown v&agrave; Ghi Urban.</p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 c&oacute; mấy phi&ecirc;n bản bộ nhớ?</strong></h2>\r\n\r\n<blockquote>\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;c&oacute;&nbsp;<strong>3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; 1TB</strong>&nbsp;để người d&ugrave;ng lựa chọn ph&ugrave; hợp với nhu cầu của m&igrave;nh. Tất cả đều đi c&ugrave;ng bộ nhớ RAM 12GB xử l&yacute; đa nhiệm mượt m&agrave;.</p>\r\n</blockquote>\r\n\r\n<p>Bạn c&oacute; thể lựa chọn giữa c&aacute;c phi&ecirc;n bản lưu trữ 256GB, 512GB, v&agrave; 1TB, gi&uacute;p bạn thoải m&aacute;i lưu trữ dữ liệu, ứng dụng v&agrave; nội dung y&ecirc;u th&iacute;ch m&agrave; kh&ocirc;ng lo hết dung lượng. Sự đa dạng trong t&ugrave;y chọn bộ nhớ của Galaxy Z Fold 6 đảm bảo đ&aacute;p ứng mọi nhu cầu từ cơ bản đến cao cấp, mang lại trải nghiệm sử dụng tối ưu cho người d&ugrave;ng.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy Z Fold 6 có 3 phiên bản bộ nhớ trong là 256GB, 512GB và 1TB\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-18.jpg\" title=\"Samsung Galaxy Z Fold 6 có 3 phiên bản bộ nhớ trong là 256GB, 512GB và 1TB\" /></p>\r\n\r\n<p><em>Samsung Galaxy Z Fold 6 c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; 1TB</em></p>\r\n\r\n<h2><strong>Samsung ZFold 6 c&oacute; n&acirc;ng cấp khả năng chống nước kh&ocirc;ng?</strong></h2>\r\n\r\n<p><strong>Samsung ZFold 6</strong>&nbsp;5G tiếp tục n&acirc;ng cấp khả năng chống nước với&nbsp;<strong>ti&ecirc;u chuẩn IP48</strong>, đồng thời ti&ecirc;u chuẩn n&agrave;y cũng đảm bảo thiết bị c&oacute; thể&nbsp;<strong>chống bụi nhẹ</strong>, đ&acirc;y l&agrave; một cải tiến đ&aacute;ng kể so với thế hệ tiền nhiệm vốn kh&ocirc;ng c&oacute; khả năng chống bụi.</p>\r\n\r\n<p>Điều n&agrave;y gi&uacute;p Z Fold 6 trở n&ecirc;n bền bỉ v&agrave; đ&aacute;ng tin cậy hơn trong nhiều điều kiện sử dụng. Tr&ecirc;n thị trường điện thoại gập hiện nay, khả năng chống nước của Galaxy Z Fold 6 gi&uacute;p thiết bị nổi bật hơn, mang lại sự y&ecirc;n t&acirc;m cho người. Với những cải tiến n&agrave;y, Galaxy Z Fold 6 kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ cao cấp m&agrave; c&ograve;n l&agrave; người bạn đồng h&agrave;nh đ&aacute;ng tin cậy trong mọi t&igrave;nh huống.</p>\r\n\r\n<p><img alt=\"Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-16.jpg\" title=\"Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng\" /></p>\r\n\r\n<p><em>Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng</em></p>\r\n\r\n<h2><strong>Chuy&ecirc;n gia c&ocirc;ng nghệ n&oacute;i g&igrave; về Samsung Z Fold 6?</strong></h2>\r\n\r\n<p><strong>Samsung Z Fold 6</strong>&nbsp;l&agrave; thế hệ điện thoại cao cấp của Samsung được tr&igrave;nh l&agrave;ng năm 2024. Với những n&acirc;ng cấp đ&aacute;ng để mẫu điện thoại đ&oacute;n nhận nhiều đ&aacute;nh gi&aacute; t&iacute;ch cực từ chuy&ecirc;n gia, nổi bật phải kể đến như:&nbsp;</p>\r\n\r\n<p>- Anh Huy NL - Người s&aacute;ng lập Schannel: &quot;Galaxy Z Fold6 năm nay m&igrave;nh thấy&nbsp;<strong>như một chiếc m&aacute;y t&iacute;nh thu gọn</strong>, dễ d&agrave;ng thao t&aacute;c, đa nhiệm hơn bao giờ hết tr&ecirc;n m&agrave;n h&igrave;nh si&ecirc;u lớn. Xử l&iacute; c&ocirc;ng việc nh&agrave;nh gọn chỉ cần v&agrave;i thao t&aacute;c c&ugrave;ng thanh t&aacute;c vụ mới tr&ecirc;n Z Fold6.&quot;</p>\r\n\r\n<p>- Anh Tuấn Ngọc - chuy&ecirc;n gia review c&ocirc;ng nghệ: &quot;Thiết kế&nbsp;<strong>tinh tế</strong>&nbsp;v&agrave;&nbsp;<strong>cảm gi&aacute;c nhẹ nh&agrave;ng hơn</strong>&nbsp;của Galaxy Z Fold6 khiến n&oacute; trở th&agrave;nh chiếc Fold mang nhiều điểm nhất từ trước đến nay. Galaxy Ai tr&ecirc;n Z Fold6 gi&uacute;p cho m&igrave;nh đa nhiệm tối ưu với c&ocirc;ng việc hơn bao giờ &quot;.</p>\r\n\r\n<p><img alt=\"Chuyên gia đánh giá gì về Z Fold 6?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/dien-thoai-samsung-z-flip-6-chuyen-gia.jpg\" /></p>', 'Samsung Galaxy Z Fold6', 'Samsung Galaxy Z Fold6', 'Samsung Z Fold 6 là siêu phẩm điện thoại gập được ra mắt ngày 10/7, hiệu năng dẫn đầu phân khúc với chip 8 nhân Snapdragon 8 Gen 3 for Galaxy, 12GB RAM cùng bộ nhớ trong từ 256GB đến 1TB. Thay đổi mạnh mẽ về hiệu năng và thiết kế, Galaxy Z Fold 6 hứa hẹn sẽ là chiếc smartphone AI đáng sở hữu nhất nửa cuối năm 2024. Cùng CellphoneS cập nhật tất tần tật thông tin về Galaxy Z Fold6 ngay đây nhé!', 'samsung-galaxy-z-fold6', '2024-11-13 10:23:29', '2024-11-13 10:23:29', NULL),
+(31, 1, 'Test product', '<p>Test product</p>', '<p>Test product</p>', 'Test product', 'Test product', 'Test product', 'test-product', '2024-11-13 10:23:47', '2024-11-13 10:23:47', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_receipts`
+-- Table structure for table `product_receipts`
 --
 
 CREATE TABLE `product_receipts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `date_created` timestamp NULL DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `total` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `publish` tinyint NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
+  `total` decimal(12,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `supplier_id` bigint(20) UNSIGNED NOT NULL,
+  `supplier_id` bigint UNSIGNED NOT NULL,
   `date_of_receipt` timestamp NULL DEFAULT NULL,
   `date_of_booking` timestamp NULL DEFAULT NULL,
   `date_approved` timestamp NULL DEFAULT NULL,
-  `actual_total` decimal(12,2) NOT NULL DEFAULT 0.00
+  `actual_total` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `expected_delivery_date` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_receipts`
+-- Dumping data for table `product_receipts`
 --
 
-INSERT INTO `product_receipts` (`id`, `date_created`, `publish`, `user_id`, `total`, `created_at`, `updated_at`, `deleted_at`, `supplier_id`, `date_of_receipt`, `date_of_booking`, `date_approved`, `actual_total`) VALUES
-(2, '2024-10-28 08:15:43', 3, 201014, 50050000.00, '2024-10-28 08:15:43', '2024-10-28 08:16:14', NULL, 3, '2024-10-28 08:15:51', NULL, '2024-10-30 08:16:00', 50050000.00),
-(3, '2024-10-29 06:05:52', 1, 201014, 150000.00, '2024-10-29 06:05:52', '2024-10-29 06:06:01', NULL, 2, '2024-10-29 06:06:01', NULL, NULL, 0.00);
+INSERT INTO `product_receipts` (`id`, `date_created`, `publish`, `user_id`, `total`, `created_at`, `updated_at`, `deleted_at`, `supplier_id`, `date_of_receipt`, `date_of_booking`, `date_approved`, `actual_total`, `expected_delivery_date`) VALUES
+(2, '2024-10-28 08:15:43', 3, 201014, '50050000.00', '2024-10-28 08:15:43', '2024-10-28 08:16:14', NULL, 3, '2024-10-28 08:15:51', NULL, '2024-10-30 08:16:00', '50050000.00', NULL),
+(3, '2024-10-29 06:05:52', 1, 201014, '150000.00', '2024-10-29 06:05:52', '2024-10-29 06:06:01', NULL, 2, '2024-10-29 06:06:01', NULL, NULL, '0.00', NULL),
+(4, '2024-11-02 11:03:24', 2, 201014, '34000000.00', '2024-11-02 11:03:24', '2024-11-02 11:03:29', NULL, 3, '2024-11-02 11:03:29', '2024-11-02 11:03:29', NULL, '0.00', '2024-11-02 11:03:00'),
+(5, '2024-11-02 11:12:54', 2, 201014, '180000.00', '2024-11-02 11:12:54', '2024-11-02 11:12:59', NULL, 3, '2024-11-02 11:12:59', '2024-11-02 11:12:59', NULL, '0.00', '2024-11-02 11:12:00'),
+(6, '2024-11-13 13:00:15', 2, 201014, '510000.00', '2024-11-13 13:00:15', '2024-11-13 13:00:25', NULL, 3, '2024-11-13 13:00:25', '2024-11-13 13:00:25', NULL, '0.00', '2024-11-13 13:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_receipt_detail`
+-- Table structure for table `product_receipt_detail`
 --
 
 CREATE TABLE `product_receipt_detail` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `product_receipt_id` bigint(20) UNSIGNED NOT NULL,
-  `product_variant_id` bigint(20) UNSIGNED NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 0,
-  `price` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `id` bigint UNSIGNED NOT NULL,
+  `product_receipt_id` bigint UNSIGNED NOT NULL,
+  `product_variant_id` bigint UNSIGNED NOT NULL,
+  `quantity` int NOT NULL DEFAULT '0',
+  `price` decimal(12,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `actual_quantity` int(11) NOT NULL DEFAULT 0
+  `product_id` bigint UNSIGNED NOT NULL,
+  `actual_quantity` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_receipt_detail`
+-- Dumping data for table `product_receipt_detail`
 --
 
 INSERT INTO `product_receipt_detail` (`id`, `product_receipt_id`, `product_variant_id`, `quantity`, `price`, `created_at`, `updated_at`, `product_id`, `actual_quantity`) VALUES
-(19, 2, 367, 5, 10000000.00, '2024-10-28 08:15:43', '2024-10-28 08:16:14', 31, 5),
-(20, 2, 368, 5, 10000.00, '2024-10-28 08:15:43', '2024-10-28 08:16:14', 31, 5),
-(21, 3, 385, 5, 10000.00, '2024-10-29 06:05:52', '2024-10-29 06:05:52', 28, 0),
-(22, 3, 386, 5, 20000.00, '2024-10-29 06:05:52', '2024-10-29 06:05:52', 28, 0);
+(27, 6, 764, 10, '1000.00', '2024-11-13 13:00:15', '2024-11-13 13:00:15', 31, 0),
+(28, 6, 765, 5, '100000.00', '2024-11-13 13:00:15', '2024-11-13 13:00:15', 31, 0);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_variants`
+-- Table structure for table `product_variants`
 --
 
 CREATE TABLE `product_variants` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `code` varchar(255) DEFAULT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 0,
-  `sku` varchar(255) DEFAULT NULL,
-  `price` double NOT NULL DEFAULT 0,
-  `barcode` varchar(255) DEFAULT NULL,
-  `file_name` varchar(255) DEFAULT NULL,
-  `file_url` varchar(255) DEFAULT NULL,
-  `album` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `quantity` int NOT NULL DEFAULT '0',
+  `sku` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `price` double NOT NULL DEFAULT '0',
+  `barcode` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `file_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `file_url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `uuid` varchar(36) DEFAULT NULL
+  `uuid` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_variants`
+-- Dumping data for table `product_variants`
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `code`, `quantity`, `sku`, `price`, `barcode`, `file_name`, `file_url`, `album`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `uuid`) VALUES
-(367, 31, '2', 5, '1725810741-2', 15000000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-10-14 11:50:21', '2024-10-28 08:16:14', '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea'),
-(368, 31, '13', 5, '1725810741-13', 15000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-10-14 11:50:21', '2024-10-28 08:16:14', '989a0d25-8428-5964-8da4-a184a87cd90a'),
-(369, 27, '13', 0, '1725805125-13', 43990000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\"', 1, 201014, NULL, '2024-10-14 11:51:47', '2024-10-14 11:51:47', 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d'),
-(370, 27, '14', 0, '1725805125-14', 43990000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png\"', 1, 201014, NULL, '2024-10-14 11:51:47', '2024-10-14 11:51:47', 'b1ccf651-d5c2-521f-aed8-393abddbb848'),
-(371, 27, '15', 0, '1725805125-15', 43990000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png\"', 1, 201014, NULL, '2024-10-14 11:51:47', '2024-10-14 11:51:47', '16a756b2-9c92-55b8-a255-f3e73c2d39fa'),
-(372, 30, '2', 0, '1725808096-2', 17290000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\"', 1, 201014, NULL, '2024-10-14 11:52:42', '2024-10-14 11:52:42', 'b51bdea1-ddd3-593b-b381-7c4b1761d839'),
-(373, 30, '4', 0, '1725808096-4', 17290000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-10-14 11:52:42', '2024-10-14 11:52:42', '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe'),
-(374, 30, '13', 0, '1725808096-13', 17290000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-10-14 11:52:42', '2024-10-14 11:52:42', '0ed350a3-acd6-57b0-bd00-caecec088e8c'),
-(375, 30, '15', 0, '1725808096-15', 17290000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-10-14 11:52:42', '2024-10-14 11:52:42', '736153d0-89ce-587c-b49c-4a64080d69f8'),
-(376, 30, '18', 0, '1725808096-18', 17290000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\"', 1, 201014, NULL, '2024-10-14 11:52:42', '2024-10-14 11:52:42', '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac'),
-(385, 28, '4', 0, '1725806874-4', 44490000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"', 1, 201014, NULL, '2024-10-14 11:57:12', '2024-10-14 11:57:12', 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f'),
-(386, 28, '14', 0, '1725806874-14', 44490000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\"', 1, 201014, NULL, '2024-10-14 11:57:12', '2024-10-14 11:57:12', '4ff12264-360e-5341-a38e-e1253e07bb60'),
-(387, 28, '16', 0, '1725806874-16', 44490000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_2.png\"', 1, 201014, NULL, '2024-10-14 11:57:12', '2024-10-14 11:57:12', '9f617c3c-ac73-5ca9-839d-9672ce668e86'),
-(388, 28, '17', 0, '1725806874-17', 44490000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-10-14 11:57:12', '2024-10-14 11:57:12', '1de712db-fe45-535b-a77c-a5b589d66ed7'),
-(389, 29, '2,8', 200, '1725807621-2-8', 7500000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-10-14 12:12:20', '2024-10-14 12:12:20', 'b4b88bae-f694-5110-b0a9-2cbf8639bc49'),
-(390, 29, '4,8', 60, '1725807621-4-8', 2000000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\"', 1, 201014, NULL, '2024-10-14 12:12:20', '2024-10-14 12:12:20', '4d4a52ad-003b-5523-95be-b2792580f24f'),
-(391, 29, '8,18', 60, '1725807621-18-8', 1000000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-10-14 12:12:20', '2024-10-14 12:12:20', '12a54d5b-2b1f-55ae-85df-4a198cc09e68'),
-(392, 29, '8,19', 0, '1725807621-19-8', 29290000, '', '', '', '\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\"', 1, 201014, NULL, '2024-10-14 12:12:20', '2024-10-14 12:12:20', '57c2fd44-e5ee-52d9-9d48-29888481059a');
+(743, 30, '3,7,8', 0, '1725808096-3-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'd5d1f792-bb5e-5f2b-8fbf-5a028dcd3227'),
+(744, 30, '3,7,9', 0, '1725808096-3-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '3dfe35b8-fae3-59a0-b55f-b979d9143edb'),
+(745, 30, '4,7,8', 0, '1725808096-4-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '581a401f-1fe3-53a2-a789-8b8d5af36bf6'),
+(746, 30, '4,7,9', 0, '1725808096-4-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'de33adc1-9f84-56a3-88f7-69482ddc1e5e'),
+(747, 30, '7,8,13', 0, '1725808096-13-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'a466e365-3c1d-5bf0-95ea-59d413b39454'),
+(748, 30, '7,9,13', 0, '1725808096-13-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '4e3e89a0-3261-502d-987e-cf2a848d4a5b'),
+(749, 30, '7,8,17', 0, '1725808096-17-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'f53ad24b-d763-5b3c-82f3-a4f468ae097f'),
+(750, 30, '7,9,17', 0, '1725808096-17-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'a610f96b-2d09-59ac-b5f3-b0db402f21d1'),
+(751, 30, '7,8,18', 0, '1725808096-18-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'db278c98-5345-5eea-a644-fca543cac611'),
+(752, 30, '7,9,18', 0, '1725808096-18-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '14fcb80a-134c-5c52-a7cb-e387dbe34059'),
+(753, 29, '2', 0, '1725807621-2', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '75a91c97-ff7e-5a73-b6f5-5b6577cdea54'),
+(754, 29, '4', 0, '1725807621-4', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '99b74199-95f1-579e-bbb6-a9a566b66c00'),
+(755, 29, '18', 0, '1725807621-18', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '3cbc0c16-2450-50a4-a5a2-5f024b03b898'),
+(756, 29, '19', 0, '1725807621-19', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '5c15a59b-a3bf-5947-8788-a275a4ec132a'),
+(757, 28, '4', 99, '1725806874-4', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 12:59:01', 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f'),
+(758, 28, '14', 0, '1725806874-14', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 10:23:22', '4ff12264-360e-5341-a38e-e1253e07bb60'),
+(759, 28, '16', 0, '1725806874-16', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 10:23:22', '9f617c3c-ac73-5ca9-839d-9672ce668e86'),
+(760, 28, '17', 0, '1725806874-4', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 10:23:22', '1de712db-fe45-535b-a77c-a5b589d66ed7'),
+(761, 27, '13', 99, '1725805125-13', 43990000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png\"', 1, 201014, NULL, '2024-11-13 10:23:29', '2024-11-13 12:59:01', 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d'),
+(762, 27, '14', 0, '1725805125-14', 43990000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\"', 1, 201014, NULL, '2024-11-13 10:23:29', '2024-11-13 10:23:29', 'b1ccf651-d5c2-521f-aed8-393abddbb848'),
+(763, 27, '15', 0, '1725805125-15', 43990000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png\"', 1, 201014, NULL, '2024-11-13 10:23:29', '2024-11-13 10:23:29', '16a756b2-9c92-55b8-a255-f3e73c2d39fa'),
+(764, 31, '2', 5, '1725810741-2', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\"', 1, 201014, NULL, '2024-11-13 10:23:47', '2024-11-13 10:23:47', '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea'),
+(765, 31, '13', 5, '1725810741-13', 15000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-11-13 10:23:47', '2024-11-13 10:23:47', '989a0d25-8428-5964-8da4-a184a87cd90a');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_variant_attribute`
+-- Table structure for table `product_variant_attribute`
 --
 
 CREATE TABLE `product_variant_attribute` (
-  `product_variant_id` bigint(20) UNSIGNED NOT NULL,
-  `attribute_id` bigint(20) UNSIGNED NOT NULL,
+  `product_variant_id` bigint UNSIGNED NOT NULL,
+  `attribute_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_variant_attribute`
+-- Dumping data for table `product_variant_attribute`
 --
 
 INSERT INTO `product_variant_attribute` (`product_variant_id`, `attribute_id`, `created_at`, `updated_at`) VALUES
-(367, 2, NULL, NULL),
-(368, 13, NULL, NULL),
-(369, 13, NULL, NULL),
-(370, 14, NULL, NULL),
-(371, 15, NULL, NULL),
-(372, 2, NULL, NULL),
-(373, 4, NULL, NULL),
-(374, 13, NULL, NULL),
-(375, 15, NULL, NULL),
-(376, 18, NULL, NULL),
-(385, 4, NULL, NULL),
-(386, 14, NULL, NULL),
-(387, 16, NULL, NULL),
-(388, 17, NULL, NULL),
-(389, 2, NULL, NULL),
-(389, 8, NULL, NULL),
-(390, 4, NULL, NULL),
-(390, 8, NULL, NULL),
-(391, 18, NULL, NULL),
-(391, 8, NULL, NULL),
-(392, 19, NULL, NULL),
-(392, 8, NULL, NULL);
+(743, 3, NULL, NULL),
+(743, 8, NULL, NULL),
+(743, 7, NULL, NULL),
+(744, 3, NULL, NULL),
+(744, 9, NULL, NULL),
+(744, 7, NULL, NULL),
+(745, 4, NULL, NULL),
+(745, 8, NULL, NULL),
+(745, 7, NULL, NULL),
+(746, 4, NULL, NULL),
+(746, 9, NULL, NULL),
+(746, 7, NULL, NULL),
+(747, 13, NULL, NULL),
+(747, 8, NULL, NULL),
+(747, 7, NULL, NULL),
+(748, 13, NULL, NULL),
+(748, 9, NULL, NULL),
+(748, 7, NULL, NULL),
+(749, 17, NULL, NULL),
+(749, 8, NULL, NULL),
+(749, 7, NULL, NULL),
+(750, 17, NULL, NULL),
+(750, 9, NULL, NULL),
+(750, 7, NULL, NULL),
+(751, 18, NULL, NULL),
+(751, 8, NULL, NULL),
+(751, 7, NULL, NULL),
+(752, 18, NULL, NULL),
+(752, 9, NULL, NULL),
+(752, 7, NULL, NULL),
+(753, 2, NULL, NULL),
+(754, 4, NULL, NULL),
+(755, 18, NULL, NULL),
+(756, 19, NULL, NULL),
+(757, 4, NULL, NULL),
+(758, 14, NULL, NULL),
+(759, 16, NULL, NULL),
+(760, 17, NULL, NULL),
+(761, 13, NULL, NULL),
+(762, 14, NULL, NULL),
+(763, 15, NULL, NULL),
+(764, 2, NULL, NULL),
+(765, 13, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_variant_language`
+-- Table structure for table `product_variant_language`
 --
 
 CREATE TABLE `product_variant_language` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `product_variant_id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `product_variant_id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_variant_language`
+-- Dumping data for table `product_variant_language`
 --
 
 INSERT INTO `product_variant_language` (`id`, `product_variant_id`, `language_id`, `name`, `created_at`, `updated_at`) VALUES
-(315, 367, 1, 'Màu xanh', NULL, NULL),
-(316, 368, 1, 'Màu hồng', NULL, NULL),
-(317, 369, 1, 'Màu hồng', NULL, NULL),
-(318, 370, 1, 'Màu xám', NULL, NULL),
-(319, 371, 1, 'Màu xanh dương', NULL, NULL),
-(320, 372, 1, 'Màu xanh', NULL, NULL),
-(321, 373, 1, 'Màu đen', NULL, NULL),
-(322, 374, 1, 'Màu hồng', NULL, NULL),
-(323, 375, 1, 'Màu xanh dương', NULL, NULL),
-(324, 376, 1, 'Màu trắng', NULL, NULL),
-(333, 385, 1, 'Màu đen', NULL, NULL),
-(334, 386, 1, 'Màu xám', NULL, NULL),
-(335, 387, 1, 'Màu vàng', NULL, NULL),
-(336, 388, 1, 'Màu tím', NULL, NULL),
-(337, 389, 1, 'Màu xanh, Titan', NULL, NULL),
-(338, 390, 1, 'Màu đen, Titan', NULL, NULL),
-(339, 391, 1, 'Màu trắng, Titan', NULL, NULL),
-(340, 392, 1, 'Màu tự nhiên, Titan', NULL, NULL);
+(691, 743, 1, 'Màu đỏ, Titan, 256GB', NULL, NULL),
+(692, 744, 1, 'Màu đỏ, Bạc, 256GB', NULL, NULL),
+(693, 745, 1, 'Màu đen, Titan, 256GB', NULL, NULL),
+(694, 746, 1, 'Màu đen, Bạc, 256GB', NULL, NULL),
+(695, 747, 1, 'Màu hồng, Titan, 256GB', NULL, NULL),
+(696, 748, 1, 'Màu hồng, Bạc, 256GB', NULL, NULL),
+(697, 749, 1, 'Màu tím, Titan, 256GB', NULL, NULL),
+(698, 750, 1, 'Màu tím, Bạc, 256GB', NULL, NULL),
+(699, 751, 1, 'Màu trắng, Titan, 256GB', NULL, NULL),
+(700, 752, 1, 'Màu trắng, Bạc, 256GB', NULL, NULL),
+(701, 753, 1, 'Màu xanh', NULL, NULL),
+(702, 754, 1, 'Màu đen', NULL, NULL),
+(703, 755, 1, 'Màu trắng', NULL, NULL),
+(704, 756, 1, 'Màu tự nhiên', NULL, NULL),
+(705, 757, 1, 'Màu đen', NULL, NULL),
+(706, 758, 1, 'Màu xám', NULL, NULL),
+(707, 759, 1, 'Màu vàng', NULL, NULL),
+(708, 760, 1, 'Màu tím', NULL, NULL),
+(709, 761, 1, 'Màu hồng', NULL, NULL),
+(710, 762, 1, 'Màu xám', NULL, NULL),
+(711, 763, 1, 'Màu xanh dương', NULL, NULL),
+(712, 764, 1, 'Màu xanh', NULL, NULL),
+(713, 765, 1, 'Màu hồng', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `promotions`
+-- Table structure for table `promotions`
 --
 
 CREATE TABLE `promotions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `code` varchar(20) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `method` varchar(255) DEFAULT NULL,
-  `discountInformation` longtext DEFAULT NULL CHECK (json_valid(`discountInformation`)),
-  `neverEndDate` varchar(255) DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `method` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `discountInformation` longtext COLLATE utf8mb4_general_ci,
+  `neverEndDate` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `startDate` timestamp NULL DEFAULT NULL,
   `endDate` timestamp NULL DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 1,
-  `order` int(11) NOT NULL DEFAULT 0,
+  `publish` tinyint NOT NULL DEFAULT '1',
+  `order` int NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `discountValue` int(11) DEFAULT 0,
-  `discountType` varchar(10) DEFAULT NULL,
-  `maxDiscountValue` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `discountValue` int DEFAULT '0',
+  `discountType` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `maxDiscountValue` int DEFAULT '0'
+) ;
 
 --
--- Đang đổ dữ liệu cho bảng `promotions`
+-- Dumping data for table `promotions`
 --
 
 INSERT INTO `promotions` (`id`, `name`, `code`, `description`, `method`, `discountInformation`, `neverEndDate`, `startDate`, `endDate`, `publish`, `order`, `deleted_at`, `created_at`, `updated_at`, `discountValue`, `discountType`, `maxDiscountValue`) VALUES
 (1, 'Chương trình khuyến mãi tháng 10', 'KMTHANG10', 'Chương trình khuyến mãi tháng 10', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"500.000\",\"discountValue\":\"15\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"30\",\"29\",\"27\",\"28\"],\"product_variant_id\":[\"134\",\"135\",\"136\",\"137\",\"138\",\"null\",\"null\",\"null\"],\"variant_uuid\":[\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\",\"null\",\"null\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy Z Fold6 - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"1\",\"3\",\"7\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"staff_take_care_customer\",\"customer_group\",\"customer_gender\",\"customer_birthday\"],\"condition\":{\"staff_take_care_customer\":[\"201017\"],\"customer_group\":[\"1\",\"2\"],\"customer_gender\":[\"1\"],\"customer_birthday\":[\"8\",\"18\"]}}}', NULL, '2024-10-01 14:00:00', '2024-10-31 14:01:00', 1, 0, '2024-10-03 07:16:35', '2024-09-21 14:02:25', '2024-10-03 07:16:35', 15, 'percent', 500000),
 (2, 'Khuyến mãi 20/10', 'TRIANTHAYCO', 'Khuyến mãi 20/10', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":null,\"discountValue\":\"10\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"29\",\"27\",\"28\"],\"product_variant_id\":[\"135\",\"136\",\"137\",\"138\",\"null\",\"null\",\"null\"],\"variant_uuid\":[\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\",\"null\",\"null\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy Z Fold6 - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"3\",\"8\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"staff_take_care_customer\",\"customer_group\",\"customer_gender\"],\"condition\":{\"staff_take_care_customer\":[\"201014\"],\"customer_group\":[\"1\"],\"customer_gender\":[\"1\",\"2\"]}}}', NULL, '2024-10-01 14:05:00', '2024-10-31 14:05:00', 1, 0, '2024-10-03 07:16:31', '2024-09-21 14:06:40', '2024-10-03 07:16:31', 10, 'percent', 0),
 (3, 'Khuyến mãi dẹp tiệm', 'GOODBYE', 'Khuyến mãi dẹp tiệm', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":null,\"discountValue\":\"3\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"29\",\"28\",\"30\",\"27\"],\"product_variant_id\":[\"134\",\"135\",\"136\",\"137\",\"null\",\"null\",\"138\",\"null\"],\"variant_uuid\":[\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"null\",\"null\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"Samsung Galaxy Z Fold6 - Default\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-09-21 15:10:00', '2025-01-01 15:10:00', 1, 0, '2024-10-03 07:16:28', '2024-09-21 15:10:55', '2024-10-03 07:16:28', 3, 'percent', 0),
-(4, 'Khuyến mãi Noel', 'KHUYENMAINOEL', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"50\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"30\",\"29\",\"29\",\"29\",\"29\"],\"product_variant_id\":[\"210\",\"209\",\"211\",\"212\",\"213\",\"218\",\"219\",\"220\",\"221\"],\"variant_uuid\":[\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"b4b88bae-f694-5110-b0a9-2cbf8639bc49\",\"4d4a52ad-003b-5523-95be-b2792580f24f\",\"12a54d5b-2b1f-55ae-85df-4a198cc09e68\",\"57c2fd44-e5ee-52d9-9d48-29888481059a\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh, Titan\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en, Titan\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng, Titan\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u t\\u1ef1 nhi\\u00ean, Titan\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-03 07:15:00', '2024-12-24 07:15:00', 1, 0, NULL, '2024-10-03 07:15:42', '2024-10-12 13:35:10', 50, 'percent', 0),
+(4, 'Khuyến mãi Noel', 'KHUYENMAINOEL', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"20\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"31\",\"30\",\"30\",\"30\",\"30\",\"28\",\"28\",\"28\",\"28\",\"27\",\"27\",\"27\",\"30\",\"30\",\"29\",\"30\",\"30\",\"29\",\"29\",\"29\"],\"product_variant_id\":[\"393\",\"394\",\"571\",\"572\",\"573\",\"574\",\"404\",\"405\",\"406\",\"407\",\"408\",\"409\",\"410\",\"563\",\"564\",\"567\",\"566\",\"565\",\"568\",\"569\",\"570\"],\"variant_uuid\":[\"93bd3493-b3d7-5c12-b9af-e0dd66ba50ea\",\"989a0d25-8428-5964-8da4-a184a87cd90a\",\"5d514a80-19cf-53fb-8354-e59b73590ffd\",\"14147c00-2b74-52b1-8c64-717b14ff3f57\",\"05fcfe81-05d8-5ae7-bf24-f620f5ce7c2b\",\"201fc4af-669a-590e-9c60-ff12ff317a48\",\"cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f\",\"4ff12264-360e-5341-a38e-e1253e07bb60\",\"9f617c3c-ac73-5ca9-839d-9672ce668e86\",\"1de712db-fe45-535b-a77c-a5b589d66ed7\",\"f4f9a9a3-5891-59a4-b7e8-8f5968f5937d\",\"b1ccf651-d5c2-521f-aed8-393abddbb848\",\"16a756b2-9c92-55b8-a255-f3e73c2d39fa\",\"04a69cd9-722c-5abf-a539-c98df126ae6f\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"75a91c97-ff7e-5a73-b6f5-5b6577cdea54\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"99b74199-95f1-579e-bbb6-a9a566b66c00\",\"3cbc0c16-2450-50a4-a5a2-5f024b03b898\",\"5c15a59b-a3bf-5947-8788-a275a4ec132a\"],\"name\":[\"Test product - M\\u00e0u xanh\",\"Test product - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111\\u1ecf, Titan\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en, Titan\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng, Titan\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng, Titan\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u \\u0111en\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u v\\u00e0ng\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u t\\u00edm\",\"Samsung Galaxy Z Fold6 - M\\u00e0u h\\u1ed3ng\",\"Samsung Galaxy Z Fold6 - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy Z Fold6 - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111\\u1ecf\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u t\\u1ef1 nhi\\u00ean\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-03 07:15:00', '2024-12-24 07:15:00', 1, 0, NULL, '2024-10-03 07:15:42', '2024-11-10 17:49:53', 20, 'percent', 0),
 (5, 'Khuyến mãi tháng 10', 'KHUYENMAITHANG10', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"50\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"31\",\"28\",\"28\",\"28\",\"28\",\"27\",\"27\",\"27\"],\"product_variant_id\":[\"367\",\"368\",\"179\",\"180\",\"181\",\"182\",\"183\",\"184\",\"185\"],\"variant_uuid\":[\"93bd3493-b3d7-5c12-b9af-e0dd66ba50ea\",\"989a0d25-8428-5964-8da4-a184a87cd90a\",\"cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f\",\"4ff12264-360e-5341-a38e-e1253e07bb60\",\"9f617c3c-ac73-5ca9-839d-9672ce668e86\",\"1de712db-fe45-535b-a77c-a5b589d66ed7\",\"f4f9a9a3-5891-59a4-b7e8-8f5968f5937d\",\"b1ccf651-d5c2-521f-aed8-393abddbb848\",\"16a756b2-9c92-55b8-a255-f3e73c2d39fa\"],\"name\":[\"Test product - M\\u00e0u xanh\",\"Test product - M\\u00e0u h\\u1ed3ng\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u \\u0111en\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u v\\u00e0ng\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u t\\u00edm\",\"Samsung Galaxy Z Fold6 - M\\u00e0u h\\u1ed3ng\",\"Samsung Galaxy Z Fold6 - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy Z Fold6 - M\\u00e0u xanh d\\u01b0\\u01a1ng\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-03 08:24:00', '2024-10-31 08:24:00', 1, 0, NULL, '2024-10-03 08:24:59', '2024-10-20 18:38:04', 50, 'percent', 0),
 (6, 'Giảm giá cuối năm', 'GIAMGIACUOINAM', 'Giảm giá cuối năm', 'order_amount_range', '{\"info\":{\"amountFrom\":[\"30.000.000\"],\"amountTo\":[\"100.000.000\"],\"amountValue\":[\"10.000.000\"],\"amountType\":[\"cash\"]},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-21 08:06:00', '2024-12-31 08:06:00', 1, 0, NULL, '2024-10-21 08:07:13', '2024-10-21 13:33:37', 0, NULL, 0),
 (7, 'Giảm giá tháng 11', 'GIAMGIATHANG11', 'Giảm giá tháng 11', 'order_amount_range', '{\"info\":{\"amountFrom\":[\"10.000.000\",\"3.000.000\"],\"amountTo\":[\"100.000.000\",\"5.000.000\"],\"amountValue\":[\"20\",\"250.000\"],\"amountType\":[\"percent\",\"cash\"]},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-21 08:07:00', '2024-11-30 08:07:00', 1, 0, NULL, '2024-10-21 08:08:35', '2024-10-21 13:33:43', 0, NULL, 0);
@@ -2284,14 +2322,14 @@ INSERT INTO `promotions` (`id`, `name`, `code`, `description`, `method`, `discou
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `promotion_conditionable`
+-- Table structure for table `promotion_conditionable`
 --
 
 CREATE TABLE `promotion_conditionable` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `promotion_id` bigint(20) UNSIGNED NOT NULL,
-  `conditionable_value` int(11) DEFAULT NULL,
-  `conditionable_type` varchar(100) DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `promotion_id` bigint UNSIGNED NOT NULL,
+  `conditionable_value` int DEFAULT NULL,
+  `conditionable_type` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2299,21 +2337,21 @@ CREATE TABLE `promotion_conditionable` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `promotion_product_variant`
+-- Table structure for table `promotion_product_variant`
 --
 
 CREATE TABLE `promotion_product_variant` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `promotion_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `variant_uuid` varchar(255) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `promotion_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `variant_uuid` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `model` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `promotion_product_variant`
+-- Dumping data for table `promotion_product_variant`
 --
 
 INSERT INTO `promotion_product_variant` (`id`, `promotion_id`, `product_id`, `variant_uuid`, `model`, `created_at`, `updated_at`) VALUES
@@ -2340,15 +2378,6 @@ INSERT INTO `promotion_product_variant` (`id`, `promotion_id`, `product_id`, `va
 (220, 3, 28, 'null', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
 (221, 3, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
 (222, 3, 27, 'null', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(457, 4, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(458, 4, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(459, 4, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(460, 4, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(461, 4, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(462, 4, 29, 'b4b88bae-f694-5110-b0a9-2cbf8639bc49', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(463, 4, 29, '4d4a52ad-003b-5523-95be-b2792580f24f', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(464, 4, 29, '12a54d5b-2b1f-55ae-85df-4a198cc09e68', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
-(465, 4, 29, '57c2fd44-e5ee-52d9-9d48-29888481059a', 'Product', '2024-10-12 13:35:10', '2024-10-12 13:35:10'),
 (475, 5, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
 (476, 5, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
 (477, 5, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
@@ -2357,27 +2386,48 @@ INSERT INTO `promotion_product_variant` (`id`, `promotion_id`, `product_id`, `va
 (480, 5, 28, '1de712db-fe45-535b-a77c-a5b589d66ed7', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
 (481, 5, 27, 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
 (482, 5, 27, 'b1ccf651-d5c2-521f-aed8-393abddbb848', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(483, 5, 27, '16a756b2-9c92-55b8-a255-f3e73c2d39fa', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04');
+(483, 5, 27, '16a756b2-9c92-55b8-a255-f3e73c2d39fa', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
+(514, 4, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(515, 4, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(516, 4, 30, '5d514a80-19cf-53fb-8354-e59b73590ffd', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(517, 4, 30, '14147c00-2b74-52b1-8c64-717b14ff3f57', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(518, 4, 30, '05fcfe81-05d8-5ae7-bf24-f620f5ce7c2b', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(519, 4, 30, '201fc4af-669a-590e-9c60-ff12ff317a48', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(520, 4, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(521, 4, 28, '4ff12264-360e-5341-a38e-e1253e07bb60', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(522, 4, 28, '9f617c3c-ac73-5ca9-839d-9672ce668e86', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(523, 4, 28, '1de712db-fe45-535b-a77c-a5b589d66ed7', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(524, 4, 27, 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(525, 4, 27, 'b1ccf651-d5c2-521f-aed8-393abddbb848', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(526, 4, 27, '16a756b2-9c92-55b8-a255-f3e73c2d39fa', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(527, 4, 30, '04a69cd9-722c-5abf-a539-c98df126ae6f', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(528, 4, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(529, 4, 29, '75a91c97-ff7e-5a73-b6f5-5b6577cdea54', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(530, 4, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(531, 4, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(532, 4, 29, '99b74199-95f1-579e-bbb6-a9a566b66c00', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(533, 4, 29, '3cbc0c16-2450-50a4-a5a2-5f024b03b898', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
+(534, 4, 29, '5c15a59b-a3bf-5947-8788-a275a4ec132a', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `provinces`
+-- Table structure for table `provinces`
 --
 
 CREATE TABLE `provinces` (
-  `code` varchar(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `name_en` varchar(255) DEFAULT NULL,
-  `full_name` varchar(255) NOT NULL,
-  `full_name_en` varchar(255) DEFAULT NULL,
-  `code_name` varchar(255) DEFAULT NULL,
-  `administrative_unit_id` int(11) DEFAULT NULL,
-  `administrative_region_id` int(11) DEFAULT NULL
+  `code` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `administrative_unit_id` int DEFAULT NULL,
+  `administrative_region_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `provinces`
+-- Dumping data for table `provinces`
 --
 
 INSERT INTO `provinces` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `code_name`, `administrative_unit_id`, `administrative_region_id`) VALUES
@@ -2448,21 +2498,38 @@ INSERT INTO `provinces` (`code`, `name`, `name_en`, `full_name`, `full_name_en`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `routers`
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` bigint UNSIGNED NOT NULL,
+  `customer_id` bigint UNSIGNED NOT NULL,
+  `variant_uuid` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `content` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `score` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `routers`
 --
 
 CREATE TABLE `routers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `canonical` varchar(255) NOT NULL,
-  `module_id` bigint(20) UNSIGNED NOT NULL,
-  `controllers` varchar(255) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `module_id` bigint UNSIGNED NOT NULL,
+  `controllers` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `language_id` bigint(20) UNSIGNED DEFAULT 1
+  `language_id` bigint UNSIGNED DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `routers`
+-- Dumping data for table `routers`
 --
 
 INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_at`, `updated_at`, `language_id`) VALUES
@@ -2511,84 +2578,83 @@ INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_a
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sessions`
+-- Table structure for table `sessions`
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `payload` longtext NOT NULL,
-  `last_activity` int(11) NOT NULL
+  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_general_ci,
+  `payload` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `last_activity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sessions`
+-- Dumping data for table `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('5bvEhQzSotupTrav8lE8E1SSWBK3yof1pPVuqKDS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVEg4UW1YT2cwa1htRnFKWXlQNnVNSXZ6a3RUU2dzbEtJbGtVbE5SaiI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjE6e2k6MDtPOjM1OiJGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxFbnZlbG9wZSI6Mjp7czo0MzoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAHN0YW1wcyI7YTo2OntzOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjtPOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjoxOntzOjM5OiIARmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcABwbHVnaW4iO3M6NzoiZmxhc2hlciI7fXM6MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiO086MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiOjI6e3M6NDU6IgBGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wAGNyZWF0ZWRBdCI7TzoxNzoiRGF0ZVRpbWVJbW11dGFibGUiOjM6e3M6NDoiZGF0ZSI7czoyNjoiMjAyNC0xMS0wMSAxOTo1MDo1NS4zMDY2NzQiO3M6MTM6InRpbWV6b25lX3R5cGUiO2k6MztzOjg6InRpbWV6b25lIjtzOjE2OiJBc2lhL0hvX0NoaV9NaW5oIjt9czo0MjoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAAZm9ybWF0IjtzOjExOiJZLW0tZCBIOmk6cyI7fXM6Mjc6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSWRTdGFtcCI7TzoyNzoiRmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wIjoxOntzOjMxOiIARmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wAGlkIjtzOjMyOiJhNmY4YmZjMjJjNWMzNmQxOTk0MzYxOWYxZDVhMzQ5YSI7fXM6MzA6IkZsYXNoZXJcUHJpbWVcU3RhbXBcRGVsYXlTdGFtcCI7TzozMDoiRmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wIjoxOntzOjM3OiIARmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wAGRlbGF5IjtpOjA7fXM6Mjk6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wIjtPOjI5OiJGbGFzaGVyXFByaW1lXFN0YW1wXEhvcHNTdGFtcCI6MTp7czozNzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wAGFtb3VudCI7aToxO31zOjMzOiJGbGFzaGVyXFByaW1lXFN0YW1wXFByaW9yaXR5U3RhbXAiO086MzM6IkZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcCI6MTp7czo0MzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcABwcmlvcml0eSI7aTowO319czo0OToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAG5vdGlmaWNhdGlvbiI7TzozOToiRmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uIjo0OntzOjQ2OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAHRpdGxlIjtzOjA6IiI7czo0ODoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgBtZXNzYWdlIjtzOjI2OiLEkMSDbmcgbmjhuq1wIHRow6BuaCBjw7RuZyI7czo0NToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgB0eXBlIjtzOjc6InN1Y2Nlc3MiO3M6NDg6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24Ab3B0aW9ucyI7YTowOnt9fX19czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NzE6Imh0dHA6Ly9iYzRkLTE3MS0yNTItMTg4LTE4Ni5uZ3Jvay1mcmVlLmFwcC90aHVvbmdtYWlkaWVudHUvcHVibGljL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9', 1730465455),
-('G7F0g0huAOayTEKYh9jefSmrGoVHNjxKhBPOr6BY', NULL, '127.0.0.1', 'WhatsApp/2', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSk1pQjRscXdseTBqWjh0SjZmcklDeXI2N05IOU1LRzF2NTlsTlBHNCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovL2M1YTctMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1730462879),
-('LpAOgudbwuMax3ZkonkBAgaKZufVFT0OMJkCKOeD', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoia3lXVDc0eVVrZDZqVndhN2V2clJ1eXpaVnZpaTlpN0lSdkZmMjc4RSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovL2M1YTctMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU2OiJsb2dpbl9jdXN0b21lcnNfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo3O3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwMTAxNDt9', 1730463338),
-('NnTe4700dMhoJDdLUukuO1EUPuuwAIymQLhwKGmM', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRWlCQkdMbmY0T1NIc1dtOTJZYmFGZTZOQnBYQ0VvcG5udUtQeE9ZbCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovLzM1ZjEtMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1730464587),
-('SFyBWI6KXlAXum3OM4ddC6WDLXJphPdIg3QRc7M0', 201014, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiM2RoNjBnUXlHRXRUeDBuaWFRbXlWbEVrSGl3U2tObXBYb3JZMHBlNyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0NDoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1730463255),
-('v2V0bzhMYm3ewHQA7AmhJ5RjJWP00xjUX8TdEIX8', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQnNHS2R2anlCYXRSR2VBUzZHTkc0TFpXS0l0Mk9sWEVld2p1WTVYOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NzE6Imh0dHA6Ly8zNWYxLTE3MS0yNTItMTg4LTE4Ni5uZ3Jvay1mcmVlLmFwcC90aHVvbmdtYWlkaWVudHUvcHVibGljL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjE6e2k6MDtPOjM1OiJGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxFbnZlbG9wZSI6Mjp7czo0MzoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAHN0YW1wcyI7YTo2OntzOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjtPOjMxOiJGbGFzaGVyXFByaW1lXFN0YW1wXFBsdWdpblN0YW1wIjoxOntzOjM5OiIARmxhc2hlclxQcmltZVxTdGFtcFxQbHVnaW5TdGFtcABwbHVnaW4iO3M6NzoiZmxhc2hlciI7fXM6MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiO086MzQ6IkZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAiOjI6e3M6NDU6IgBGbGFzaGVyXFByaW1lXFN0YW1wXENyZWF0ZWRBdFN0YW1wAGNyZWF0ZWRBdCI7TzoxNzoiRGF0ZVRpbWVJbW11dGFibGUiOjM6e3M6NDoiZGF0ZSI7czoyNjoiMjAyNC0xMS0wMSAxOTo0MjowOS42MDQ2MTEiO3M6MTM6InRpbWV6b25lX3R5cGUiO2k6MztzOjg6InRpbWV6b25lIjtzOjE2OiJBc2lhL0hvX0NoaV9NaW5oIjt9czo0MjoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcQ3JlYXRlZEF0U3RhbXAAZm9ybWF0IjtzOjExOiJZLW0tZCBIOmk6cyI7fXM6Mjc6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSWRTdGFtcCI7TzoyNzoiRmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wIjoxOntzOjMxOiIARmxhc2hlclxQcmltZVxTdGFtcFxJZFN0YW1wAGlkIjtzOjMyOiJhZTU5YWVhN2E1MzJhMTZhOGQ1OTE5ZDM3MWJjNWZlMiI7fXM6MzA6IkZsYXNoZXJcUHJpbWVcU3RhbXBcRGVsYXlTdGFtcCI7TzozMDoiRmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wIjoxOntzOjM3OiIARmxhc2hlclxQcmltZVxTdGFtcFxEZWxheVN0YW1wAGRlbGF5IjtpOjA7fXM6Mjk6IkZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wIjtPOjI5OiJGbGFzaGVyXFByaW1lXFN0YW1wXEhvcHNTdGFtcCI6MTp7czozNzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcSG9wc1N0YW1wAGFtb3VudCI7aToxO31zOjMzOiJGbGFzaGVyXFByaW1lXFN0YW1wXFByaW9yaXR5U3RhbXAiO086MzM6IkZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcCI6MTp7czo0MzoiAEZsYXNoZXJcUHJpbWVcU3RhbXBcUHJpb3JpdHlTdGFtcABwcmlvcml0eSI7aTowO319czo0OToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXEVudmVsb3BlAG5vdGlmaWNhdGlvbiI7TzozOToiRmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uIjo0OntzOjQ2OiIARmxhc2hlclxQcmltZVxOb3RpZmljYXRpb25cTm90aWZpY2F0aW9uAHRpdGxlIjtzOjA6IiI7czo0ODoiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgBtZXNzYWdlIjtzOjI2OiLEkMSDbmcgbmjhuq1wIHRow6BuaCBjw7RuZyI7czo0NToiAEZsYXNoZXJcUHJpbWVcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbgB0eXBlIjtzOjc6InN1Y2Nlc3MiO3M6NDg6IgBGbGFzaGVyXFByaW1lXE5vdGlmaWNhdGlvblxOb3RpZmljYXRpb24Ab3B0aW9ucyI7YTowOnt9fX19czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9', 1730464929),
-('yTapL2hVJDC2pJGRqto4vIvAnYCzCGMHAai4SF8h', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTHdyUEYwZmw3RG1nb29xeFI2VFIwQTl6NUloS1lMNTZ5OUs1OEQzbSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2NToiaHR0cDovLzg5NzEtMTcxLTI1Mi0xODgtMTg2Lm5ncm9rLWZyZWUuYXBwL3RodW9uZ21haWRpZW50dS9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1730464423);
+('4v6Zj8Eq5h2S0lCkNsVXhLD4uYCgaWsvFkanKEMY', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicjhLYzI3d2FRS2pheDBQTXp0QmNUSGNONWN5ODI0Zldod3dRUHpCQSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozNjoiaHR0cHM6Ly90Y3Nob3AuaWQudm4vZGllbi10aG9haS5odG1sIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1731499010),
+('IM5u2jGcX3jfelvVm8dnkxOM75jvnPdK7tlITq5l', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZDU0U2Fwc1FLakpNZkx3RXNMSGIyTE9EN3BYME80NUJWakpuSVdYTCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731501303),
+('iVgK04Jfksgxf21Fz6oYaddMgJorlrj4BRhCmbzi', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV0FQOHRvMXR3UlZIQXNHcGU2cUVoVDZxWlZwUlhva2pZQmN1c1FiayI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731500812),
+('JDIBRTTWZvzteAchivDSNGegF46Ou9UVs9AtxBEs', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMGhBNnhzclhsVDZ3S0JLNnQ1ZWFqeU5VMUQ0N0RoRlgyU0JNTUdSayI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731501361),
+('MHYMCXrZlMwAy8wyNFKQztwLXywR13llYLj6jpAb', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV1p0WGM1OWNUMjVyQXRESjV4aUhoRXhoTVVHQWdIVWtISHExMXlhSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731501395),
+('ojZICvtXdINu0UVQmwTGt1yJmPT0OPZTYOgtuZvz', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoibTF2cWZBUUVueXJTZzZST3pSdXZCN2U3dFRJeEg1dlRpT2t2dEN4biI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozMjoiaHR0cHM6Ly90Y3Nob3AuaWQudm4vb3JkZXIvaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9', 1731502842);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `slides`
+-- Table structure for table `slides`
 --
 
 CREATE TABLE `slides` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `keyword` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `item` longtext NOT NULL,
-  `setting` longtext NOT NULL,
-  `short_code` varchar(255) NOT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `item` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `setting` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `short_code` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `publish` tinyint NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `slides`
+-- Dumping data for table `slides`
 --
 
 INSERT INTO `slides` (`id`, `name`, `keyword`, `description`, `item`, `setting`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, '13', '14', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":\"1\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"3\",\"alt\":\"4\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"description\":\"5\",\"canonical\":\"6\",\"window\":\"_blank\",\"name\":\"7\",\"alt\":\"8\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":\"9\",\"canonical\":\"10\",\"window\":\"\",\"name\":\"11\",\"alt\":\"12\"}]}', '{\"width\":\"15\",\"height\":\"16\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"17\",\"animationSpeed\":\"18\"}', '[19]', 0, 201014, '2024-08-31 04:55:59', '2024-08-29 10:04:09', '2024-08-31 04:55:59'),
-(2, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/2.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/3.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/4.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/slide\\/5.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"6.000\",\"height\":\"679\",\"animation\":\"cube\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"1.000\",\"animationSpeed\":\"2.000\"}', '[menu id=\"main-slide\"]', 1, 201014, NULL, '2024-08-31 02:50:50', '2024-09-22 14:57:13'),
+(2, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/slide\\/1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/2.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/3.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/4.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/5.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"6.000\",\"height\":\"679\",\"animation\":\"cube\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"1.000\",\"animationSpeed\":\"2.000\"}', '[menu id=\"main-slide\"]', 1, 201014, NULL, '2024-08-31 02:50:50', '2024-11-01 14:19:23'),
 (3, 'Slide phụ', 'second-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/united-kingdom.png\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.990\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"9.999\",\"animationSpeed\":\"9.999\"}', '[second-slide]', 1, 201014, '2024-09-20 12:11:01', '2024-08-31 05:54:34', '2024-09-20 12:11:01'),
 (4, 'Slide Test', 'test-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.000\",\"height\":\"500\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"animationDelay\":\"5.555\",\"animationSpeed\":\"4.444\"}', '[slide-test]', 1, 201014, '2024-08-31 07:09:56', '2024-08-31 07:04:10', '2024-08-31 07:09:56'),
 (5, 'Test', 'test', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/vietnam.png\",\"description\":\"1\",\"canonical\":\"1\",\"window\":\"none\",\"name\":\"1\",\"alt\":\"1\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":\"2\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"2\",\"alt\":\"2\"}]}', '{\"width\":\"1\",\"height\":\"1\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"pauseHover\":\"accept\",\"animationDelay\":\"1\",\"animationSpeed\":\"1\"}', 'test', 1, 201014, '2024-09-02 10:49:46', '2024-09-02 10:49:23', '2024-09-02 10:49:46'),
-(6, 'Banner thân trang', 'banner', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/banner-1.png\",\"description\":\"Nh\\u1ecf g\\u1ecdn, ti\\u1ec7n l\\u1ee3i\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/banner-2.png\",\"description\":\"Ph\\u00f9 h\\u1ee3p m\\u1ecdi \\u0111\\u1ed1i t\\u01b0\\u1ee3ng\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/banner-3.png\",\"description\":\"H\\u00ecnh \\u1ea3nh s\\u1eafc n\\u00e9t\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner', 1, 201014, NULL, '2024-09-22 14:22:57', '2024-09-22 14:36:14'),
-(7, 'Banner chân trang', 'banner-footer', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/banner-footer.png\",\"description\":\"\\u0110\\u1eb7t h\\u00e0ng ngay b\\u00e2y gi\\u1edd \\u0111\\u1ec3 nh\\u1eadn \\u01b0u \\u0111\\u00e3i kh\\u0169ng\",\"canonical\":\"#\",\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner-footer', 1, 201014, NULL, '2024-09-29 17:31:19', '2024-09-29 17:38:02');
+(6, 'Banner thân trang', 'banner', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-2.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-3.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner', 1, 201014, NULL, '2024-09-22 14:22:57', '2024-11-01 14:18:58'),
+(7, 'Banner chân trang', 'banner-footer', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-footer.png\",\"description\":\"\\u0110\\u1eb7t h\\u00e0ng ngay b\\u00e2y gi\\u1edd \\u0111\\u1ec3 nh\\u1eadn \\u01b0u \\u0111\\u00e3i kh\\u0169ng\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner-footer', 1, 201014, NULL, '2024-09-29 17:31:19', '2024-11-01 14:14:50');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sources`
+-- Table structure for table `sources`
 --
 
 CREATE TABLE `sources` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `keyword` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `publish` tinyint NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sources`
+-- Dumping data for table `sources`
 --
 
 INSERT INTO `sources` (`id`, `name`, `keyword`, `description`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -2604,27 +2670,27 @@ INSERT INTO `sources` (`id`, `name`, `keyword`, `description`, `publish`, `delet
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `suppliers`
+-- Table structure for table `suppliers`
 --
 
 CREATE TABLE `suppliers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `fax` varchar(255) DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fax` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
-  `province_id` varchar(10) DEFAULT NULL,
-  `district_id` varchar(10) DEFAULT NULL,
-  `ward_id` varchar(10) DEFAULT NULL
+  `publish` tinyint NOT NULL DEFAULT '0',
+  `province_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ward_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `suppliers`
+-- Dumping data for table `suppliers`
 --
 
 INSERT INTO `suppliers` (`id`, `name`, `address`, `email`, `phone`, `fax`, `created_at`, `updated_at`, `deleted_at`, `publish`, `province_id`, `district_id`, `ward_id`) VALUES
@@ -2634,29 +2700,29 @@ INSERT INTO `suppliers` (`id`, `name`, `address`, `email`, `phone`, `fax`, `crea
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `systems`
+-- Table structure for table `systems`
 --
 
 CREATE TABLE `systems` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `language_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `keyword` varchar(50) NOT NULL,
-  `content` text DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `language_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `keyword` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text COLLATE utf8mb4_general_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `systems`
+-- Dumping data for table `systems`
 --
 
 INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `created_at`, `updated_at`) VALUES
-(1, 1, 201014, 'homepage_company', 'TC Shop', NULL, NULL),
-(2, 1, 201014, 'homepage_brand', 'TC Company', NULL, NULL),
+(1, 1, 201014, 'homepage_company', 'TC Company', NULL, NULL),
+(2, 1, 201014, 'homepage_brand', 'TC Shop', NULL, NULL),
 (3, 1, 201014, 'homepage_slogan', 'TCShop - Chất lượng đặt lên hàng đầu', NULL, NULL),
-(4, 1, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/logo/logo-tcshop.png', NULL, NULL),
-(5, 1, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/logo/logo.png', NULL, NULL),
+(4, 1, 201014, 'homepage_logo', '/userfiles/image/logo/logo-tcshop.png', NULL, NULL),
+(5, 1, 201014, 'homepage_favicon', '/userfiles/image/logo/logo.png', NULL, NULL),
 (6, 1, 201014, 'homepage_copyright', 'Tony Company', NULL, NULL),
 (7, 1, 201014, 'homepage_website', 'open', NULL, NULL),
 (8, 1, 201014, 'contact_office', '11 Đường số 27, Sơn Kỳ, Tân Phú, Hồ Chí Minh, Việt Nam', NULL, NULL),
@@ -2673,7 +2739,7 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 (19, 1, 201014, 'seo_meta_title', 'T&C Shop - Điện thoại, laptop, tablet, phụ kiện chính hãng', NULL, NULL),
 (20, 1, 201014, 'seo_meta_keyword', 'tsshop tscompany dienthoai maytinh phukien laptop', NULL, NULL),
 (21, 1, 201014, 'seo_meta_description', 'Hệ thống cửa hàng bán lẻ điện thoại, máy tính laptop, smartwatch, gia dụng, thiết bị IT, phụ kiện chính hãng - Giá tốt, trả góp 0%, giao miễn phí.', NULL, NULL),
-(22, 1, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/logo/logo-tcshop.png', NULL, NULL),
+(22, 1, 201014, 'seo_meta_image', '/userfiles/image/logo/logo.png', NULL, NULL),
 (23, 1, 201014, 'homepage_short', '<p>&nbsp;</p>\r\n<ddict-div></ddict-div>', NULL, NULL),
 (24, 2, 201014, 'homepage_company', 'Tony Company', NULL, NULL),
 (25, 2, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
@@ -2731,35 +2797,35 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `province_id` varchar(10) DEFAULT NULL,
-  `district_id` varchar(10) DEFAULT NULL,
-  `ward_id` varchar(10) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `province_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ward_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `birthday` datetime DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `ip` text DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `user_agent` text COLLATE utf8mb4_general_ci,
+  `ip` text COLLATE utf8mb4_general_ci,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `user_catalogue_id` bigint(20) UNSIGNED NOT NULL DEFAULT 2,
+  `user_catalogue_id` bigint UNSIGNED NOT NULL DEFAULT '2',
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0
+  `publish` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
@@ -2771,21 +2837,21 @@ INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user_catalogues`
+-- Table structure for table `user_catalogues`
 --
 
 CREATE TABLE `user_catalogues` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0
+  `publish` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user_catalogues`
+-- Dumping data for table `user_catalogues`
 --
 
 INSERT INTO `user_catalogues` (`id`, `name`, `description`, `deleted_at`, `created_at`, `updated_at`, `publish`) VALUES
@@ -2797,16 +2863,16 @@ INSERT INTO `user_catalogues` (`id`, `name`, `description`, `deleted_at`, `creat
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user_catalogue_permission`
+-- Table structure for table `user_catalogue_permission`
 --
 
 CREATE TABLE `user_catalogue_permission` (
-  `user_catalogue_id` bigint(20) UNSIGNED NOT NULL,
-  `permission_id` bigint(20) UNSIGNED NOT NULL
+  `user_catalogue_id` bigint UNSIGNED NOT NULL,
+  `permission_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user_catalogue_permission`
+-- Dumping data for table `user_catalogue_permission`
 --
 
 INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) VALUES
@@ -2902,27 +2968,31 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 86),
 (1, 87),
 (1, 88),
-(1, 89);
+(1, 89),
+(1, 1),
+(1, 90),
+(1, 91),
+(1, 92);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wards`
+-- Table structure for table `wards`
 --
 
 CREATE TABLE `wards` (
-  `code` varchar(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `name_en` varchar(255) DEFAULT NULL,
-  `full_name` varchar(255) DEFAULT NULL,
-  `full_name_en` varchar(255) DEFAULT NULL,
-  `code_name` varchar(255) DEFAULT NULL,
-  `district_code` varchar(20) DEFAULT NULL,
-  `administrative_unit_id` int(11) DEFAULT NULL
+  `code` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `administrative_unit_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wards`
+-- Dumping data for table `wards`
 --
 
 INSERT INTO `wards` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `code_name`, `district_code`, `administrative_unit_id`) VALUES
@@ -13547,27 +13617,49 @@ INSERT INTO `wards` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `co
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `widgets`
+-- Table structure for table `warranty_cards`
+--
+
+CREATE TABLE `warranty_cards` (
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `variant_uuid` varchar(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `warranty_start_date` timestamp NULL DEFAULT NULL,
+  `warranty_end_date` timestamp NULL DEFAULT NULL,
+  `status` enum('active','expired','pending','completed') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `notes` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `quantity` int NOT NULL DEFAULT '0',
+  `date_of_receipt` timestamp NULL DEFAULT NULL,
+  `user_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `widgets`
 --
 
 CREATE TABLE `widgets` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `keyword` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `album` longtext DEFAULT NULL,
-  `model_id` longtext DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `short_code` varchar(255) DEFAULT NULL,
-  `publish` tinyint(4) NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `album` longtext COLLATE utf8mb4_general_ci,
+  `model_id` longtext COLLATE utf8mb4_general_ci,
+  `model` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `short_code` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `publish` tinyint NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `widgets`
+-- Dumping data for table `widgets`
 --
 
 INSERT INTO `widgets` (`id`, `name`, `keyword`, `description`, `album`, `model_id`, `model`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -13581,78 +13673,78 @@ INSERT INTO `widgets` (`id`, `name`, `keyword`, `description`, `album`, `model_i
 (10, 'Tin tức nổi bật', 'featured_news', '{\"1\":null}', NULL, '[\"44\",\"43\",\"46\",\"45\"]', 'Post', 'featured_news', 1, 201014, NULL, '2024-09-29 16:48:50', '2024-10-08 09:08:39');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `administrative_regions`
+-- Indexes for table `administrative_regions`
 --
 ALTER TABLE `administrative_regions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `administrative_units`
+-- Indexes for table `administrative_units`
 --
 ALTER TABLE `administrative_units`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `attributes`
+-- Indexes for table `attributes`
 --
 ALTER TABLE `attributes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `attributes_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `attribute_catalogues`
+-- Indexes for table `attribute_catalogues`
 --
 ALTER TABLE `attribute_catalogues`
   ADD PRIMARY KEY (`id`),
   ADD KEY `attribute_catalogues_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `attribute_catalogue_attribute`
+-- Indexes for table `attribute_catalogue_attribute`
 --
 ALTER TABLE `attribute_catalogue_attribute`
   ADD KEY `attribute_catalogue_attribute_attribute_catalogue_id_foreign` (`attribute_catalogue_id`),
   ADD KEY `attribute_catalogue_attribute_attribute_id_foreign` (`attribute_id`);
 
 --
--- Chỉ mục cho bảng `attribute_catalogue_language`
+-- Indexes for table `attribute_catalogue_language`
 --
 ALTER TABLE `attribute_catalogue_language`
   ADD KEY `attribute_catalogue_language_attribute_catalogue_id_foreign` (`attribute_catalogue_id`),
   ADD KEY `attribute_catalogue_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `attribute_language`
+-- Indexes for table `attribute_language`
 --
 ALTER TABLE `attribute_language`
   ADD KEY `attribute_language_attribute_id_foreign` (`attribute_id`),
   ADD KEY `attribute_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `cache`
+-- Indexes for table `cache`
 --
 ALTER TABLE `cache`
   ADD PRIMARY KEY (`key`);
 
 --
--- Chỉ mục cho bảng `cache_locks`
+-- Indexes for table `cache_locks`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
--- Chỉ mục cho bảng `carts`
+-- Indexes for table `carts`
 --
 ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `carts_customer_id_foreign` (`customer_id`),
-  ADD KEY `carts_product_id_foreign` (`product_id`);
+  ADD KEY `carts_variant_uuid_foreign` (`variant_uuid`);
 
 --
--- Chỉ mục cho bảng `customers`
+-- Indexes for table `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`),
@@ -13662,13 +13754,13 @@ ALTER TABLE `customers`
   ADD KEY `customers_source_id_foreign` (`source_id`);
 
 --
--- Chỉ mục cho bảng `customer_catalogues`
+-- Indexes for table `customer_catalogues`
 --
 ALTER TABLE `customer_catalogues`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `districts`
+-- Indexes for table `districts`
 --
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`code`),
@@ -13676,33 +13768,33 @@ ALTER TABLE `districts`
   ADD KEY `idx_districts_unit` (`administrative_unit_id`);
 
 --
--- Chỉ mục cho bảng `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Chỉ mục cho bảng `generates`
+-- Indexes for table `generates`
 --
 ALTER TABLE `generates`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `jobs`
+-- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
 
 --
--- Chỉ mục cho bảng `job_batches`
+-- Indexes for table `job_batches`
 --
 ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `languages`
+-- Indexes for table `languages`
 --
 ALTER TABLE `languages`
   ADD PRIMARY KEY (`id`),
@@ -13710,7 +13802,7 @@ ALTER TABLE `languages`
   ADD KEY `languages_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `menus`
+-- Indexes for table `menus`
 --
 ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`),
@@ -13718,139 +13810,139 @@ ALTER TABLE `menus`
   ADD KEY `menus_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `menu_catalogues`
+-- Indexes for table `menu_catalogues`
 --
 ALTER TABLE `menu_catalogues`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `menu_catalogues_keyword_unique` (`keyword`);
 
 --
--- Chỉ mục cho bảng `menu_language`
+-- Indexes for table `menu_language`
 --
 ALTER TABLE `menu_language`
   ADD KEY `menu_language_menu_id_foreign` (`menu_id`),
   ADD KEY `menu_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `orders_customer_id_foreign` (`customer_id`);
 
 --
--- Chỉ mục cho bảng `order_payment`
+-- Indexes for table `order_payment`
 --
 ALTER TABLE `order_payment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_payment_order_id_foreign` (`order_id`);
 
 --
--- Chỉ mục cho bảng `order_product`
+-- Indexes for table `order_product`
 --
 ALTER TABLE `order_product`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_product_order_id_foreign` (`order_id`),
-  ADD KEY `order_product_product_id_foreign` (`product_id`);
+  ADD KEY `order_product_variant_uuid_foreign` (`variant_uuid`);
 
 --
--- Chỉ mục cho bảng `password_reset_tokens`
+-- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Chỉ mục cho bảng `permissions`
+-- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `permissions_canonical_unique` (`canonical`);
 
 --
--- Chỉ mục cho bảng `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `posts_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `post_catalogues`
+-- Indexes for table `post_catalogues`
 --
 ALTER TABLE `post_catalogues`
   ADD PRIMARY KEY (`id`),
   ADD KEY `post_catalogues_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `post_catalogue_language`
+-- Indexes for table `post_catalogue_language`
 --
 ALTER TABLE `post_catalogue_language`
   ADD KEY `post_catalogue_language_post_catalogue_id_foreign` (`post_catalogue_id`),
   ADD KEY `post_catalogue_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `post_catalogue_post`
+-- Indexes for table `post_catalogue_post`
 --
 ALTER TABLE `post_catalogue_post`
   ADD KEY `post_catalogue_post_post_catalogue_id_foreign` (`post_catalogue_id`),
   ADD KEY `post_catalogue_post_post_id_foreign` (`post_id`);
 
 --
--- Chỉ mục cho bảng `post_language`
+-- Indexes for table `post_language`
 --
 ALTER TABLE `post_language`
   ADD KEY `post_language_post_id_foreign` (`post_id`),
   ADD KEY `post_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `products_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `product_catalogues`
+-- Indexes for table `product_catalogues`
 --
 ALTER TABLE `product_catalogues`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_catalogues_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `product_catalogue_language`
+-- Indexes for table `product_catalogue_language`
 --
 ALTER TABLE `product_catalogue_language`
   ADD KEY `product_catalogue_language_product_catalogue_id_foreign` (`product_catalogue_id`),
   ADD KEY `product_catalogue_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `product_catalogue_product`
+-- Indexes for table `product_catalogue_product`
 --
 ALTER TABLE `product_catalogue_product`
   ADD KEY `product_catalogue_product_product_catalogue_id_foreign` (`product_catalogue_id`),
   ADD KEY `product_catalogue_product_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `product_catalogue_supplier`
+-- Indexes for table `product_catalogue_supplier`
 --
 ALTER TABLE `product_catalogue_supplier`
   ADD KEY `product_catalogue_supplier_product_catalogue_id_foreign` (`product_catalogue_id`),
   ADD KEY `product_catalogue_supplier_supplier_id_foreign` (`supplier_id`);
 
 --
--- Chỉ mục cho bảng `product_language`
+-- Indexes for table `product_language`
 --
 ALTER TABLE `product_language`
   ADD KEY `product_language_product_id_foreign` (`product_id`),
   ADD KEY `product_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `product_receipts`
+-- Indexes for table `product_receipts`
 --
 ALTER TABLE `product_receipts`
   ADD PRIMARY KEY (`id`),
@@ -13858,7 +13950,7 @@ ALTER TABLE `product_receipts`
   ADD KEY `product_receipts_supplier_id_foreign` (`supplier_id`);
 
 --
--- Chỉ mục cho bảng `product_receipt_detail`
+-- Indexes for table `product_receipt_detail`
 --
 ALTER TABLE `product_receipt_detail`
   ADD PRIMARY KEY (`id`),
@@ -13867,22 +13959,23 @@ ALTER TABLE `product_receipt_detail`
   ADD KEY `product_receipt_detail_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `product_variants`
+-- Indexes for table `product_variants`
 --
 ALTER TABLE `product_variants`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_variants_uuid_unique` (`uuid`),
   ADD KEY `product_variants_product_id_foreign` (`product_id`),
   ADD KEY `product_variants_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `product_variant_attribute`
+-- Indexes for table `product_variant_attribute`
 --
 ALTER TABLE `product_variant_attribute`
   ADD KEY `product_variant_attribute_product_variant_id_foreign` (`product_variant_id`),
   ADD KEY `product_variant_attribute_attribute_id_foreign` (`attribute_id`);
 
 --
--- Chỉ mục cho bảng `product_variant_language`
+-- Indexes for table `product_variant_language`
 --
 ALTER TABLE `product_variant_language`
   ADD PRIMARY KEY (`id`),
@@ -13890,20 +13983,20 @@ ALTER TABLE `product_variant_language`
   ADD KEY `product_variant_language_language_id_foreign` (`language_id`);
 
 --
--- Chỉ mục cho bảng `promotions`
+-- Indexes for table `promotions`
 --
 ALTER TABLE `promotions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `promotion_conditionable`
+-- Indexes for table `promotion_conditionable`
 --
 ALTER TABLE `promotion_conditionable`
   ADD PRIMARY KEY (`id`),
   ADD KEY `promotion_conditionable_promotion_id_foreign` (`promotion_id`);
 
 --
--- Chỉ mục cho bảng `promotion_product_variant`
+-- Indexes for table `promotion_product_variant`
 --
 ALTER TABLE `promotion_product_variant`
   ADD PRIMARY KEY (`id`),
@@ -13911,7 +14004,7 @@ ALTER TABLE `promotion_product_variant`
   ADD KEY `promotion_product_variant_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `provinces`
+-- Indexes for table `provinces`
 --
 ALTER TABLE `provinces`
   ADD PRIMARY KEY (`code`),
@@ -13919,14 +14012,22 @@ ALTER TABLE `provinces`
   ADD KEY `idx_provinces_unit` (`administrative_unit_id`);
 
 --
--- Chỉ mục cho bảng `routers`
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reviews_customer_id_foreign` (`customer_id`),
+  ADD KEY `reviews_variant_uuid_foreign` (`variant_uuid`);
+
+--
+-- Indexes for table `routers`
 --
 ALTER TABLE `routers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `routers_canonical_unique` (`canonical`);
 
 --
--- Chỉ mục cho bảng `sessions`
+-- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
@@ -13934,7 +14035,7 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Chỉ mục cho bảng `slides`
+-- Indexes for table `slides`
 --
 ALTER TABLE `slides`
   ADD PRIMARY KEY (`id`),
@@ -13942,20 +14043,20 @@ ALTER TABLE `slides`
   ADD KEY `slides_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `sources`
+-- Indexes for table `sources`
 --
 ALTER TABLE `sources`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `sources_keyword_unique` (`keyword`);
 
 --
--- Chỉ mục cho bảng `suppliers`
+-- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `systems`
+-- Indexes for table `systems`
 --
 ALTER TABLE `systems`
   ADD PRIMARY KEY (`id`),
@@ -13963,7 +14064,7 @@ ALTER TABLE `systems`
   ADD KEY `systems_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -13971,20 +14072,20 @@ ALTER TABLE `users`
   ADD KEY `users_user_catalogue_id_foreign` (`user_catalogue_id`);
 
 --
--- Chỉ mục cho bảng `user_catalogues`
+-- Indexes for table `user_catalogues`
 --
 ALTER TABLE `user_catalogues`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `user_catalogue_permission`
+-- Indexes for table `user_catalogue_permission`
 --
 ALTER TABLE `user_catalogue_permission`
   ADD KEY `user_catalogue_permission_user_catalogue_id_foreign` (`user_catalogue_id`),
   ADD KEY `user_catalogue_permission_permission_id_foreign` (`permission_id`);
 
 --
--- Chỉ mục cho bảng `wards`
+-- Indexes for table `wards`
 --
 ALTER TABLE `wards`
   ADD PRIMARY KEY (`code`),
@@ -13992,7 +14093,16 @@ ALTER TABLE `wards`
   ADD KEY `idx_wards_unit` (`administrative_unit_id`);
 
 --
--- Chỉ mục cho bảng `widgets`
+-- Indexes for table `warranty_cards`
+--
+ALTER TABLE `warranty_cards`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `warranty_cards_order_id_foreign` (`order_id`),
+  ADD KEY `warranty_cards_product_id_foreign` (`product_id`),
+  ADD KEY `warranty_cards_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `widgets`
 --
 ALTER TABLE `widgets`
   ADD PRIMARY KEY (`id`),
@@ -14000,398 +14110,410 @@ ALTER TABLE `widgets`
   ADD KEY `widgets_user_id_foreign` (`user_id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `attributes`
+-- AUTO_INCREMENT for table `attributes`
 --
 ALTER TABLE `attributes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT cho bảng `attribute_catalogues`
+-- AUTO_INCREMENT for table `attribute_catalogues`
 --
 ALTER TABLE `attribute_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `carts`
+-- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT cho bảng `customers`
+-- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT cho bảng `customer_catalogues`
+-- AUTO_INCREMENT for table `customer_catalogues`
 --
 ALTER TABLE `customer_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `generates`
+-- AUTO_INCREMENT for table `generates`
 --
 ALTER TABLE `generates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `jobs`
+-- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `languages`
+-- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `menus`
+-- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
--- AUTO_INCREMENT cho bảng `menu_catalogues`
+-- AUTO_INCREMENT for table `menu_catalogues`
 --
 ALTER TABLE `menu_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT cho bảng `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `order_payment`
+-- AUTO_INCREMENT for table `order_payment`
 --
 ALTER TABLE `order_payment`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `order_product`
+-- AUTO_INCREMENT for table `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT cho bảng `permissions`
+-- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
--- AUTO_INCREMENT cho bảng `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
--- AUTO_INCREMENT cho bảng `post_catalogues`
+-- AUTO_INCREMENT for table `post_catalogues`
 --
 ALTER TABLE `post_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
--- AUTO_INCREMENT cho bảng `product_catalogues`
+-- AUTO_INCREMENT for table `product_catalogues`
 --
 ALTER TABLE `product_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `product_receipts`
+-- AUTO_INCREMENT for table `product_receipts`
 --
 ALTER TABLE `product_receipts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `product_receipt_detail`
+-- AUTO_INCREMENT for table `product_receipt_detail`
 --
 ALTER TABLE `product_receipt_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT cho bảng `product_variants`
+-- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=766;
 
 --
--- AUTO_INCREMENT cho bảng `product_variant_language`
+-- AUTO_INCREMENT for table `product_variant_language`
 --
 ALTER TABLE `product_variant_language`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=341;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=714;
 
 --
--- AUTO_INCREMENT cho bảng `promotions`
+-- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `promotion_conditionable`
+-- AUTO_INCREMENT for table `promotion_conditionable`
 --
 ALTER TABLE `promotion_conditionable`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `promotion_product_variant`
+-- AUTO_INCREMENT for table `promotion_product_variant`
 --
 ALTER TABLE `promotion_product_variant`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=484;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=535;
 
 --
--- AUTO_INCREMENT cho bảng `routers`
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `routers`
 --
 ALTER TABLE `routers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
--- AUTO_INCREMENT cho bảng `slides`
+-- AUTO_INCREMENT for table `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `sources`
+-- AUTO_INCREMENT for table `sources`
 --
 ALTER TABLE `sources`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT cho bảng `suppliers`
+-- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `systems`
+-- AUTO_INCREMENT for table `systems`
 --
 ALTER TABLE `systems`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201020;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201020;
 
 --
--- AUTO_INCREMENT cho bảng `user_catalogues`
+-- AUTO_INCREMENT for table `user_catalogues`
 --
 ALTER TABLE `user_catalogues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `widgets`
+-- AUTO_INCREMENT for table `warranty_cards`
+--
+ALTER TABLE `warranty_cards`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `widgets`
 --
 ALTER TABLE `widgets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `attributes`
+-- Constraints for table `attributes`
 --
 ALTER TABLE `attributes`
   ADD CONSTRAINT `attributes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `attribute_catalogues`
+-- Constraints for table `attribute_catalogues`
 --
 ALTER TABLE `attribute_catalogues`
   ADD CONSTRAINT `attribute_catalogues_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `attribute_catalogue_attribute`
+-- Constraints for table `attribute_catalogue_attribute`
 --
 ALTER TABLE `attribute_catalogue_attribute`
   ADD CONSTRAINT `attribute_catalogue_attribute_attribute_catalogue_id_foreign` FOREIGN KEY (`attribute_catalogue_id`) REFERENCES `attribute_catalogues` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `attribute_catalogue_attribute_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `attribute_catalogue_language`
+-- Constraints for table `attribute_catalogue_language`
 --
 ALTER TABLE `attribute_catalogue_language`
   ADD CONSTRAINT `attribute_catalogue_language_attribute_catalogue_id_foreign` FOREIGN KEY (`attribute_catalogue_id`) REFERENCES `attribute_catalogues` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `attribute_catalogue_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `attribute_language`
+-- Constraints for table `attribute_language`
 --
 ALTER TABLE `attribute_language`
   ADD CONSTRAINT `attribute_language_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `attribute_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `carts`
+-- Constraints for table `carts`
 --
 ALTER TABLE `carts`
   ADD CONSTRAINT `carts_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `carts_variant_uuid_foreign` FOREIGN KEY (`variant_uuid`) REFERENCES `product_variants` (`uuid`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `customers`
+-- Constraints for table `customers`
 --
 ALTER TABLE `customers`
   ADD CONSTRAINT `customers_customer_catalogue_id_foreign` FOREIGN KEY (`customer_catalogue_id`) REFERENCES `customer_catalogues` (`id`),
   ADD CONSTRAINT `customers_source_id_foreign` FOREIGN KEY (`source_id`) REFERENCES `sources` (`id`);
 
 --
--- Các ràng buộc cho bảng `districts`
+-- Constraints for table `districts`
 --
 ALTER TABLE `districts`
   ADD CONSTRAINT `districts_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`),
   ADD CONSTRAINT `districts_province_code_fkey` FOREIGN KEY (`province_code`) REFERENCES `provinces` (`code`);
 
 --
--- Các ràng buộc cho bảng `languages`
+-- Constraints for table `languages`
 --
 ALTER TABLE `languages`
   ADD CONSTRAINT `languages_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `menus`
+-- Constraints for table `menus`
 --
 ALTER TABLE `menus`
   ADD CONSTRAINT `menus_menu_catalogue_id_foreign` FOREIGN KEY (`menu_catalogue_id`) REFERENCES `menu_catalogues` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `menus_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `menu_language`
+-- Constraints for table `menu_language`
 --
 ALTER TABLE `menu_language`
   ADD CONSTRAINT `menu_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `menu_language_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `order_payment`
+-- Constraints for table `order_payment`
 --
 ALTER TABLE `order_payment`
   ADD CONSTRAINT `order_payment_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `order_product`
+-- Constraints for table `order_product`
 --
 ALTER TABLE `order_product`
   ADD CONSTRAINT `order_product_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `order_product_variant_uuid_foreign` FOREIGN KEY (`variant_uuid`) REFERENCES `product_variants` (`uuid`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `posts`
+-- Constraints for table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `post_catalogues`
+-- Constraints for table `post_catalogues`
 --
 ALTER TABLE `post_catalogues`
   ADD CONSTRAINT `post_catalogues_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `post_catalogue_language`
+-- Constraints for table `post_catalogue_language`
 --
 ALTER TABLE `post_catalogue_language`
   ADD CONSTRAINT `post_catalogue_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `post_catalogue_language_post_catalogue_id_foreign` FOREIGN KEY (`post_catalogue_id`) REFERENCES `post_catalogues` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `post_catalogue_post`
+-- Constraints for table `post_catalogue_post`
 --
 ALTER TABLE `post_catalogue_post`
   ADD CONSTRAINT `post_catalogue_post_post_catalogue_id_foreign` FOREIGN KEY (`post_catalogue_id`) REFERENCES `post_catalogues` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `post_catalogue_post_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `post_language`
+-- Constraints for table `post_language`
 --
 ALTER TABLE `post_language`
   ADD CONSTRAINT `post_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `post_language_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `products`
+-- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_catalogues`
+-- Constraints for table `product_catalogues`
 --
 ALTER TABLE `product_catalogues`
   ADD CONSTRAINT `product_catalogues_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_catalogue_language`
+-- Constraints for table `product_catalogue_language`
 --
 ALTER TABLE `product_catalogue_language`
   ADD CONSTRAINT `product_catalogue_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_catalogue_language_product_catalogue_id_foreign` FOREIGN KEY (`product_catalogue_id`) REFERENCES `product_catalogues` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_catalogue_product`
+-- Constraints for table `product_catalogue_product`
 --
 ALTER TABLE `product_catalogue_product`
   ADD CONSTRAINT `product_catalogue_product_product_catalogue_id_foreign` FOREIGN KEY (`product_catalogue_id`) REFERENCES `product_catalogues` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_catalogue_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_catalogue_supplier`
+-- Constraints for table `product_catalogue_supplier`
 --
 ALTER TABLE `product_catalogue_supplier`
   ADD CONSTRAINT `product_catalogue_supplier_product_catalogue_id_foreign` FOREIGN KEY (`product_catalogue_id`) REFERENCES `product_catalogues` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_catalogue_supplier_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_language`
+-- Constraints for table `product_language`
 --
 ALTER TABLE `product_language`
   ADD CONSTRAINT `product_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_language_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_receipts`
+-- Constraints for table `product_receipts`
 --
 ALTER TABLE `product_receipts`
   ADD CONSTRAINT `product_receipts_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_receipts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_receipt_detail`
+-- Constraints for table `product_receipt_detail`
 --
 ALTER TABLE `product_receipt_detail`
   ADD CONSTRAINT `product_receipt_detail_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
@@ -14399,81 +14521,96 @@ ALTER TABLE `product_receipt_detail`
   ADD CONSTRAINT `product_receipt_detail_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_variants`
+-- Constraints for table `product_variants`
 --
 ALTER TABLE `product_variants`
   ADD CONSTRAINT `product_variants_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_variants_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_variant_attribute`
+-- Constraints for table `product_variant_attribute`
 --
 ALTER TABLE `product_variant_attribute`
   ADD CONSTRAINT `product_variant_attribute_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_variant_attribute_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_variant_language`
+-- Constraints for table `product_variant_language`
 --
 ALTER TABLE `product_variant_language`
   ADD CONSTRAINT `product_variant_language_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_variant_language_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `promotion_conditionable`
+-- Constraints for table `promotion_conditionable`
 --
 ALTER TABLE `promotion_conditionable`
   ADD CONSTRAINT `promotion_conditionable_promotion_id_foreign` FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
 
 --
--- Các ràng buộc cho bảng `promotion_product_variant`
+-- Constraints for table `promotion_product_variant`
 --
 ALTER TABLE `promotion_product_variant`
   ADD CONSTRAINT `promotion_product_variant_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   ADD CONSTRAINT `promotion_product_variant_promotion_id_foreign` FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
 
 --
--- Các ràng buộc cho bảng `provinces`
+-- Constraints for table `provinces`
 --
 ALTER TABLE `provinces`
   ADD CONSTRAINT `provinces_administrative_region_id_fkey` FOREIGN KEY (`administrative_region_id`) REFERENCES `administrative_regions` (`id`),
   ADD CONSTRAINT `provinces_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`);
 
 --
--- Các ràng buộc cho bảng `slides`
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_variant_uuid_foreign` FOREIGN KEY (`variant_uuid`) REFERENCES `product_variants` (`uuid`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `slides`
 --
 ALTER TABLE `slides`
   ADD CONSTRAINT `slides_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `systems`
+-- Constraints for table `systems`
 --
 ALTER TABLE `systems`
   ADD CONSTRAINT `systems_language_id_foreign` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `systems_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_user_catalogue_id_foreign` FOREIGN KEY (`user_catalogue_id`) REFERENCES `user_catalogues` (`id`);
 
 --
--- Các ràng buộc cho bảng `user_catalogue_permission`
+-- Constraints for table `user_catalogue_permission`
 --
 ALTER TABLE `user_catalogue_permission`
   ADD CONSTRAINT `user_catalogue_permission_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `user_catalogue_permission_user_catalogue_id_foreign` FOREIGN KEY (`user_catalogue_id`) REFERENCES `user_catalogues` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `wards`
+-- Constraints for table `wards`
 --
 ALTER TABLE `wards`
   ADD CONSTRAINT `wards_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`),
   ADD CONSTRAINT `wards_district_code_fkey` FOREIGN KEY (`district_code`) REFERENCES `districts` (`code`);
 
 --
--- Các ràng buộc cho bảng `widgets`
+-- Constraints for table `warranty_cards`
+--
+ALTER TABLE `warranty_cards`
+  ADD CONSTRAINT `warranty_cards_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `warranty_cards_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `warranty_cards_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `widgets`
 --
 ALTER TABLE `widgets`
   ADD CONSTRAINT `widgets_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
@@ -14482,4 +14619,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-tcshop
