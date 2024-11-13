@@ -70,6 +70,7 @@
                                                 {{ $val->warranty_time < now() ? 'readonly' : '' }} {{ $status == 'active' ? 'readonly' : '' }}
                                                 {{ in_array($val->variant_uuid, $warrantyVariants) && $status == 'active' ? 'checked' : '' }} />
                                             <input type="hidden" name="variant_uuid[]" value="{{ $val->variant_uuid }}" />
+                                            <input type="hidden" name="product_name[]" value="{{ $val->name }}" />
                                         </td>
                                         <td style="width: 10%;">
                                             <div class="image">
