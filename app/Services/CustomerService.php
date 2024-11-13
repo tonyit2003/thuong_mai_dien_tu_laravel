@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class CustomerService
@@ -137,11 +138,27 @@ class CustomerService extends BaseService implements CustomerServiceInterface
 
     public function updateInfo($id, $request)
     {
+        $customer = Customer::findOrFail($id);
+
         DB::beginTransaction();
         try {
-            $payload = $request->input();
+            $payload = $request->except('image'); // Lấy tất cả dữ liệu trừ file
+            if ($request->hasFile('image')) {
+                // Lưu file vào thư mục `uploads/customers`
+                $file = $request->file('image');
+                $filePath = $file->store('uploads/customers', 'public');
+
+                // Xóa ảnh cũ (nếu cần)
+                if ($customer->image && Storage::disk('public')->exists($customer->image)) {
+                    Storage::disk('public')->delete($customer->image);
+                }
+
+                $payload['image'] = $filePath;
+            }
+
             $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
-            $this->customerRepository->update($id, $payload);
+            $customer->update($payload);
+
             DB::commit();
             return true;
         } catch (Exception $e) {

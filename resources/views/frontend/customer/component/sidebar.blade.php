@@ -1,6 +1,6 @@
 <div class="col-lg-3 sidebar">
     <div class="d-flex align-items-center justify-content-start profile-header">
-        <img src="{{ old('image', $customer->image ?? 'backend/img/no-photo.png') }}" alt="Profile Photo">
+        <img src="storage/{{ old('image', $customer->image ?? 'backend/img/no-photo.png') }}" alt="Profile Photo">
         <div class="ml-3">
             <div>{{ $customer->name }}</div>
             <p><strong>{{ __('customerInfo.edit_info') }}</strong></p>
