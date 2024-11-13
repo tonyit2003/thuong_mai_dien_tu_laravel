@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWarrantyRequest;
+use App\Models\Customer;
 use App\Models\Language;
+use App\Models\ProductVariant;
+use App\Models\ProductVariantLanguage;
 use App\Repositories\OrderProductRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProvinceRepository;
 use App\Repositories\WarrantyRepository;
 use App\Services\OrderService;
 use App\Services\WarrantyService;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
@@ -31,6 +35,7 @@ class WarrantyController extends Controller
         $this->provinceRepository = $provinceRepository;
         $this->warrantyService = $warrantyService;
         $this->warrantyRepository = $warrantyRepository;
+        parent::__construct();
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -101,7 +106,30 @@ class WarrantyController extends Controller
 
     public function warrantyConfirm(StoreWarrantyRequest $request)
     {
+        // Lấy danh sách các sản phẩm được chọn
+        $productIds = $request->input('product_id', []);
+        $variantUuids = $request->input('variant_uuid', []);
+        $notes = $request->input('notes', []);
+        $dateOfReceipts = $request->input('date_of_receipt', []);
+        $productName = $request->input('product_name', []);
+        $id = $request->integer('order_id');
+        $order = $this->orderRepository->findByCondition([['id', '=', $id]], false, ['products']);
+        $system = $this->system;
+
+        // Tạo danh sách dữ liệu gửi mail
+        $mailData = [];
+        foreach ($productIds as $key => $productId) {
+            $mailData[] = [
+                'product_id' => $productId,
+                'variant_uuid' => $variantUuids[$key] ?? null,
+                'note' => $notes[$key] ?? null,
+                'date_of_receipt' => $dateOfReceipts[$key] ?? null,
+                'product_name' => $productName[$key] ?? null
+            ];
+        }
+
         if ($this->warrantyService->createOrUpdate($request)) {
+            $this->warrantyService->mail($mailData, $order, $system);
             flash()->success(__('toast.store_success'));
             return redirect()->route('warranty.warrantyRepair');
         }

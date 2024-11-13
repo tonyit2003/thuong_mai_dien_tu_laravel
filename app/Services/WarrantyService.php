@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Mail\SendWarrantyMail;
+use App\Models\Customer;
 use App\Repositories\WarrantyRepository;
 use App\Services\Interfaces\WarrantyServiceInterface;
 use Auth;
@@ -9,6 +11,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Mail;
 
 /**
  * Class UserService
@@ -98,6 +101,20 @@ class WarrantyService extends BaseService implements WarrantyServiceInterface
             DB::rollBack();
             return false;
         }
+    }
+
+    public function mail($mailData, $order, $system)
+    {
+        $customer_email = Customer::find($order->customer_id);
+        $to = $customer_email->email;
+        $cc = $system['contact_email'];
+        $data = [
+            'data' => $mailData,
+            'customer' => $customer_email,
+            'system' => $system,
+            'to' => $to
+        ];
+        Mail::to($to)->cc($cc)->send(new SendWarrantyMail($data));
     }
 
     public function updateRepair($request)

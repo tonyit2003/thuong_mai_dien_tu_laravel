@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendChangePassword extends Mailable
+class SendWarrantyMail extends Mailable
 {
     use Queueable, SerializesModels;
     protected $data;
@@ -27,7 +27,7 @@ class SendChangePassword extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('mail.title_mail_change_password'),
+            subject: __('mail.title_mail_warranty'),
         );
     }
 
@@ -37,17 +37,12 @@ class SendChangePassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.sendChangePassword',
+            view: 'mail.sendWarranty',
             with: [
-                'user' => $this->data['user'],
+                'data' => $this->data['data'],
+                'customer' => $this->data['customer'],
                 'system' => $this->data['system'],
-                'hostname' => $this->data['hostname'],
-                'ipAddress' => $this->data['ipAddress'],
-                'browser' => $this->data['browser'],
-                'platform' => $this->data['platform'],
-                'device' => $this->data['device'],
-                'currentTime' => $this->data['currentTime'],
-                'link' => $this->data['link'],
+                'to' => $this->data['to'],
             ]
         );
     }
