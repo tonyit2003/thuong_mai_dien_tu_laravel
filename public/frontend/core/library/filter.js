@@ -23,8 +23,8 @@
             },
             change: function (event, ui) {
                 if (isInitialized) {
-                    //   let filterOption = HT.filterOption();
-                    HT.sendDataToFilter();
+                    let option = HT.filterOption();
+                    HT.sendDataToFilter(option);
                 }
             },
         });
@@ -54,13 +54,22 @@
 
     HT.filter = () => {
         $(document).on("change", ".filtering", function () {
-            HT.sendDataToFilter();
+            let option = HT.filterOption();
+            HT.sendDataToFilter(option);
         });
     };
 
-    HT.sendDataToFilter = () => {
-        let option = HT.filterOption();
+    HT.getPaginationFilter = () => {
+        $(document).on("click", ".page-link", function (e) {
+            e.preventDefault();
+            let _this = $(this);
+            let option = HT.filterOption();
+            option.page = _this.text();
+            HT.sendDataToFilter(option);
+        });
+    };
 
+    HT.sendDataToFilter = (option) => {
         $.ajax({
             url: "ajax/product/filter",
             type: "GET",
@@ -111,9 +120,36 @@
         }
     };
 
+    HT.showFilter = () => {
+        if ($(".btn-filter").length) {
+            $(document).on("click", ".btn-filter", function (e) {
+                e.preventDefault();
+                if ($(".filter-content").hasClass("uk-hidden")) {
+                    $(".filter-content").removeClass("uk-hidden");
+                } else {
+                    $(".filter-content").addClass("uk-hidden");
+                }
+            });
+        }
+    };
+
+    HT.closeFilter = () => {
+        if ($(".filter-close").length) {
+            $(document).on("click", ".filter-close", function (e) {
+                e.preventDefault();
+                if (!$(".filter-content").hasClass("uk-hidden")) {
+                    $(".filter-content").addClass("uk-hidden");
+                }
+            });
+        }
+    };
+
     $(document).ready(function () {
+        HT.showFilter();
+        HT.closeFilter();
         HT.setMinMaxValue();
         HT.priceRange();
         HT.filter();
+        HT.getPaginationFilter();
     });
 })(jQuery);

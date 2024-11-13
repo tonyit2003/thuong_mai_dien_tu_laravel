@@ -30,8 +30,8 @@
                 <option value="">{{ __('userPage.sort.by') }}</option>
                 <option value="price:asc">{{ __('userPage.sort.price_asc') }}</option>
                 <option value="price:desc">{{ __('userPage.sort.price_desc') }}</option>
-                <option value="title:asc">{{ __('userPage.sort.title_asc') }}</option>
-                <option value="title:desc">{{ __('userPage.sort.title_desc') }}</option>
+                {{-- <option value="title:asc">{{ __('userPage.sort.title_asc') }}</option>
+                <option value="title:desc">{{ __('userPage.sort.title_desc') }}</option> --}}
             </select>
         </div>
     </div>

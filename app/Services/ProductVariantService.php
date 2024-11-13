@@ -144,6 +144,7 @@ class ProductVariantService extends BaseService implements ProductVariantService
         $param['priceQuery'] = $this->priceQuery($request);
         $param['attributeQuery'] = $this->attributeQuery($request);
         $param['productCatalogueQuery'] = $this->productCatalogueQuery($request);
+        $param['sortQuery'] = $this->sortQuery($request);
         $query = $this->combineFilterQuery($param);
         $productVariants = $this->productVariantRepository->filter($query, $perpage, $path);
         return $productVariants;
@@ -256,6 +257,25 @@ class ProductVariantService extends BaseService implements ProductVariantService
             $query['having'] = function ($query) use ($priceMin, $priceMax) {
                 $query->havingRaw('discounted_price >= ? AND discounted_price <= ?', [$priceMin, $priceMax]);
             };
+        }
+        return $query;
+    }
+
+    private function sortQuery($request)
+    {
+        $sort = $request->input('sort');
+        $query['orderBy'] = null;
+        if (isset($sort)) {
+            switch ($sort) {
+                case 'price:asc': {
+                        $query['orderBy'][] = ['discounted_price', 'ASC'];
+                        break;
+                    }
+                case 'price:desc': {
+                        $query['orderBy'][] = ['discounted_price', 'DESC'];
+                        break;
+                    }
+            }
         }
         return $query;
     }

@@ -27,8 +27,8 @@ return [
     'promotion' => [
         'order_amount_range'            => 'Chiết khấu theo tổng giá trị đơn hàng',
         'product_and_quantity'          => 'Chiết khấu theo từng sản phẩm',
-        'product_quantity_range'        => 'Chiết khấu theo số lượng sản phẩm',
-        'goods_discount_by_quantity'    => 'Mua sản phẩm - giảm giá sản phẩm',
+        // 'product_quantity_range'        => 'Chiết khấu theo số lượng sản phẩm',
+        // 'goods_discount_by_quantity'    => 'Mua sản phẩm - giảm giá sản phẩm',
     ],
     'item' => [
         'Product'                       => 'Phiên bản sản phẩm',

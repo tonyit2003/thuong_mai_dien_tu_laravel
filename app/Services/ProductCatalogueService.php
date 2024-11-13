@@ -158,6 +158,7 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
             }, $mergeArray);
         }
         $result = $this->productCatalogueRepository->update($productCatalogue->id, $payload);
+        $this->setAttributeParent($result);
         return $result;
     }
 
@@ -199,6 +200,29 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
             $val->attributes = $attributeItem;
         }
         return $attributeCatalogues;
+    }
+
+    private function setAttributeParent($child)
+    {
+        if ($child->parent_id == 0) {
+            return;
+        }
+        $parent = $this->productCatalogueRepository->findById($child->parent_id);
+        if (!isset($parent->attribute) && !is_array($parent->attribute)) {
+            $payload['attribute'] = $child->attribute;
+        } else {
+            $result = $parent->attribute;
+            foreach ($child->attribute as $key => $values) {
+                if (isset($result[$key])) {
+                    $result[$key] = array_unique(array_merge($result[$key], $values));
+                } else {
+                    $result[$key] = $values;
+                }
+            }
+            $payload['attribute'] = $result;
+        }
+        $this->productCatalogueRepository->update($parent->id, $payload);
+        return $this->setAttributeParent($parent);
     }
 
     private function createProductCatalogue($request)

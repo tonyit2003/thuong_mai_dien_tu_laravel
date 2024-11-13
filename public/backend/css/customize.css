@@ -1328,4 +1328,8 @@ div .edit {
 #submitCancelOrder .close-modal {
     display: none !important;
 }
+
+.jquery-modal.blocker {
+    z-index: 9999 !important;
+}
 /* end */

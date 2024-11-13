@@ -1,4 +1,4 @@
-<div class="filter-content">
+<div class="filter-content uk-hidden">
     <div class="filter-overlay">
         <div class="filter-close">
             <i class="fi fi-rs-cross"></i>

@@ -110,6 +110,13 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
             }
         }
 
+        if (isset($param['orderBy']) && count($param['orderBy'])) {
+            foreach ($param['orderBy'] as $key => $val) {
+                if (is_null($val)) continue;
+                $query->orderBy($val[0], $val[1]);
+            }
+        }
+
         return $query->paginate($perPage)->withQueryString()->withPath(env('APP_URL') . $path);
     }
 }

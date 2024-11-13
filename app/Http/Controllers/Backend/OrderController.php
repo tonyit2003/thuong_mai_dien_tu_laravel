@@ -68,12 +68,14 @@ class OrderController extends Controller
         $config = [
             'css' => [
                 'backend\css\plugins\toastr\toastr.min.css',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
+                'backend/plugins/modal/jquery.modal.min.css',
             ],
             'js' => [
                 'backend\js\plugins\toastr\toastr.min.js',
                 'backend/library/order.js',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/plugins/modal/jquery.modal.min.js'
             ],
         ];
         $config['seo'] = __('order');
@@ -92,12 +94,14 @@ class OrderController extends Controller
         $config = [
             'css' => [
                 'backend\css\plugins\toastr\toastr.min.css',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
+                'backend/plugins/modal/jquery.modal.min.css',
             ],
             'js' => [
                 'backend\js\plugins\toastr\toastr.min.js',
                 'backend/library/order.js',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/plugins/modal/jquery.modal.min.js'
             ],
         ];
         $config['seo'] = __('order');
