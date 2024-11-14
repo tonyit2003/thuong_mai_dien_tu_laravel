@@ -31,8 +31,8 @@
                                         <div class="mt-3 row">
                                             <label for="username" class="col-sm-2 col-form-label mt-1 ">Email</label>
                                             <div class="col-sm-9">
-                                                <input type="email" class="form-control" name="email" id="username"
-                                                    value="{{ preg_replace('/(?<=.{1}).(?=.*@)/', '*', $customer->email) }}" readonly>
+                                                <input type="email" class="form-control" name="email" id="username" value="{{ $customer->email }}"
+                                                    readonly>
                                             </div>
                                             <div class="col-sm-1"></div>
                                         </div>
@@ -49,8 +49,7 @@
                                         <div class="mt-3 row">
                                             <label for="phone" class="col-sm-2 col-form-label mt-1">{{ __('customerInfo.phone') }}</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="phone" id="phone"
-                                                    value="{{ substr_replace($customer->phone, '******', 2, strlen($customer->phone) - 4) }}"
+                                                <input type="text" class="form-control" name="phone" id="phone" value="{{ $customer->phone }}"
                                                     placeholder="{{ __('customerInfo.enter_phone') }}">
                                             </div>
                                             <div class="col-sm-1"></div>
