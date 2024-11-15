@@ -23,6 +23,8 @@
         $currentStatus = $warranty_card->where('variant_uuid', $product->variant_uuid)->first()->status ?? null;
         return in_array($currentStatus, ['active', 'pending']);
     });
+
+    $deliveryTime = Carbon\Carbon::parse($order->delivery_date);
 @endphp
 
 <form action="{{ route('warranty.warrantyConfirmRepair') }}" method="post">
@@ -85,11 +87,12 @@
                                 @foreach ($activeProducts as $key => $val)
                                     @php
                                         $currentStatus = $warranty_card->where('variant_uuid', $val->variant_uuid)->first()->status ?? null;
+                                        $warrantyEndDate = $deliveryTime->addMonths($val->warranty_time);
                                     @endphp
                                     <tr class="order-item">
                                         <td style="width: 2%;">
                                             <input type="checkbox" name="product_id[]" value="{{ $val->product_id }}" class="input-checkbox"
-                                                {{ $val->created_at->addMonths($val->warranty_time) < now() ? 'readonly' : '' }} />
+                                                {{ $warrantyEndDate < now() ? 'readonly' : '' }} />
                                             <input type="hidden" name="variant_uuid[]" value="{{ $val->variant_uuid }}" />
                                         </td>
                                         <td style="width: 10%;">
@@ -104,7 +107,7 @@
                                             <div class="order-item-name">
                                                 <div style="font-size: 14px">{{ $val->name }}</div>
                                                 <strong style="color: red">{{ __('table.time_warranty') }}:
-                                                    {{ $val->created_at->addMonths($val->warranty_time) > now() ? convertDatetime($val->created_at->addMonths($val->warranty_time), 'H:i d-m-Y') : __('table.warranty_expired') }}
+                                                    {{ $warrantyEndDate > now() ? convertDatetime($warrantyEndDate, 'H:i d-m-Y') : __('table.warranty_expired') }}
                                                 </strong>
                                                 <br>
                                                 <span style="color: #000">{{ __('form.note') }} <span class="text-danger">(*)</span></span>

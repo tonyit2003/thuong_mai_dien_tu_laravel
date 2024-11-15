@@ -58,17 +58,18 @@
                                         ->pluck('date_of_receipt')
                                         ->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'))
                                         ->toArray();
+                                    $deliveryTime = Carbon\Carbon::parse($order->delivery_date);
                                 @endphp
 
                                 @foreach ($orderProducts as $key => $val)
                                     @php
                                         $status = $warrantyStatus[$key] ?? 'unknown';
+                                        $warrantyEndDate = $deliveryTime->addMonths($val->warranty_time);
                                     @endphp
                                     <tr class="order-item">
                                         <td style="width: 2%;">
                                             <input type="checkbox" name="product_id[]" value="{{ $val->product_id }}" class="input-checkbox"
-                                                {{ $val->created_at->addMonths($val->warranty_time) < now() ? 'readonly' : '' }}
-                                                {{ $status == 'active' ? 'readonly' : '' }}
+                                                {{ $warrantyEndDate < now() ? 'readonly' : '' }} {{ $status == 'active' ? 'readonly' : '' }}
                                                 {{ in_array($val->variant_uuid, $warrantyVariants) && $status == 'active' ? 'checked' : '' }} />
                                             <input type="hidden" name="variant_uuid[]" value="{{ $val->variant_uuid }}" />
                                             <input type="hidden" name="product_name[]" value="{{ $val->name }}" />
@@ -85,14 +86,14 @@
                                             <div class="order-item-name">
                                                 <div style="font-size: 14px">{{ $val->name }}</div>
                                                 <strong style="color: red">{{ __('table.time_warranty') }}:
-                                                    {{ $val->created_at->addMonths($val->warranty_time) > now() ? convertDatetime($val->created_at->addMonths($val->warranty_time), 'd-m-Y') : 'Hết hạn bảo hành' }}
+                                                    {{ $warrantyEndDate > now() ? convertDatetime($warrantyEndDate, 'd-m-Y') : 'Hết hạn bảo hành' }}
                                                 </strong>
                                                 <br>
                                                 <span style="color: #000">{{ __('form.error') }} <span class="text-danger">(*)</span></span>
                                                 <input style="color: #000" type="text"
                                                     value="{{ $status == 'active' ? $warrantyNotes[$key] : '' }}" class="form-control" name="notes[]"
                                                     placeholder="{{ __('form.enter_error') }}"
-                                                    {{ $val->created_at->addMonths($val->warranty_time) < now() || $status == 'active' ? 'readonly' : '' }}>
+                                                    {{ $warrantyEndDate < now() || $status == 'active' ? 'readonly' : '' }}>
                                             </div>
                                         </td>
 
@@ -100,7 +101,7 @@
                                             <span>{{ __('form.date_of_receipt') }} </span><span class="text-danger">(*)</span>
                                             <br>
                                             <input type="date" name="date_of_receipt[]" class="form-control"
-                                                {{ isset($warrantyDateOfReceipt[$key]) || $val->created_at->addMonths($val->warranty_time) < now() || $status == 'active' ? 'readonly' : '' }}
+                                                {{ isset($warrantyDateOfReceipt[$key]) || $warrantyEndDate < now() || $status == 'active' ? 'readonly' : '' }}
                                                 value="{{ isset($warrantyDateOfReceipt[$key]) ? $warrantyDateOfReceipt[$key] : \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
                                         </td>

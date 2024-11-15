@@ -34,19 +34,4 @@ class StoreWarrantyRequest extends FormRequest
             'product_id.required' => 'Vui lòng chọn ít nhất một sản phẩm.',
         ];
     }
-
-    protected function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $productIds = $this->input('product_id', []);
-            $notes = $this->input('notes', []);
-
-            foreach ($productIds as $index => $productId) {
-                // Kiểm tra nếu product_id được chọn mà notes trống
-                if (isset($productId) && empty($notes[$index])) {
-                    $validator->errors()->add("notes.$index", 'Ghi chú không được bỏ trống khi sản phẩm được chọn.');
-                }
-            }
-        });
-    }
 }
