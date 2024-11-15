@@ -89,7 +89,7 @@
                                     <tr class="order-item">
                                         <td style="width: 2%;">
                                             <input type="checkbox" name="product_id[]" value="{{ $val->product_id }}" class="input-checkbox"
-                                                {{ $val->warranty_time < now() ? 'readonly' : '' }} />
+                                                {{ $val->created_at->addMonths($val->warranty_time) < now() ? 'readonly' : '' }} />
                                             <input type="hidden" name="variant_uuid[]" value="{{ $val->variant_uuid }}" />
                                         </td>
                                         <td style="width: 10%;">
@@ -104,7 +104,7 @@
                                             <div class="order-item-name">
                                                 <div style="font-size: 14px">{{ $val->name }}</div>
                                                 <strong style="color: red">{{ __('table.time_warranty') }}:
-                                                    {{ $val->warranty_time > now() ? convertDatetime($val->warranty_time, 'H:i d-m-Y') : __('table.warranty_expired') }}
+                                                    {{ $val->created_at->addMonths($val->warranty_time) > now() ? convertDatetime($val->created_at->addMonths($val->warranty_time), 'H:i d-m-Y') : __('table.warranty_expired') }}
                                                 </strong>
                                                 <br>
                                                 <span style="color: #000">{{ __('form.note') }} <span class="text-danger">(*)</span></span>
