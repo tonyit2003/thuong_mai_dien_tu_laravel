@@ -106,7 +106,7 @@ class ProductVariantController extends Controller
             }
             $html .= '</div>';
 
-            $html .= '<div class="uk-flex uk-flex-center">';
+            $html .= '<div class="uk-flex uk-flex-center page-filter">';
             $html .= $productVariants->links('pagination::bootstrap-4');
             $html .= '</div>';
         } else {

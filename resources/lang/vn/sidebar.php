@@ -3,7 +3,7 @@
 return [
     'module' => [
         [
-            'title' => 'Dashboard',
+            'title' => 'Thống kê',
             'icon' => 'fa fa-database',
             'name' => ['dashboard'],
             'route' => 'dashboard/index',

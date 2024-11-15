@@ -115,6 +115,19 @@
         });
     };
 
+    HT.showMore = () => {
+        if ($(".btn-show-more.button__content-show-more").length) {
+            $(document).on(
+                "click",
+                ".btn-show-more.button__content-show-more",
+                function () {
+                    $("#cpsContent").css("max-height", "100000px");
+                    $(this).css("display", "none");
+                }
+            );
+        }
+    };
+
     $(document).ready(function () {
         /* CORE JS */
         HT.changeQuantity();
@@ -122,5 +135,6 @@
         HT.selectProductVariant();
         HT.showAttribute();
         HT.chooseReviewStar();
+        HT.showMore();
     });
 })(jQuery);

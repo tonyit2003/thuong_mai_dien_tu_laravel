@@ -35,6 +35,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             'products.attributeCatalogue',
             'products.attribute',
             'products.variant',
+            'products.warranty_time',
             'product_language.name',
             'product_language.description',
             'product_language.content',

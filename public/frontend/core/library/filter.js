@@ -60,7 +60,7 @@
     };
 
     HT.getPaginationFilter = () => {
-        $(document).on("click", ".page-link", function (e) {
+        $(document).on("click", ".page-filter .page-link", function (e) {
             e.preventDefault();
             let _this = $(this);
             let option = HT.filterOption();

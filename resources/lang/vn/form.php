@@ -300,4 +300,6 @@ return [
     'confirm_out_of_stock'              => 'Xác nhận xuất kho',
     'successful_export'                 => 'Đã xuất kho',
     'invoice'                           => 'Xuất hóa đơn',
+    'warranty_time'                     => 'Thời gian bảo hành',
+    'month'                             => 'tháng',
 ];

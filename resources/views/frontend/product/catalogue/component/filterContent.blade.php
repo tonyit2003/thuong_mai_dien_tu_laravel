@@ -42,8 +42,8 @@
                 </div>
                 <div class="filter-input-value mt5">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        <input type="text" class="min-value input-value">
-                        <input type="text" class="max-value input-value">
+                        <input type="text" class="min-value input-value" readonly>
+                        <input type="text" class="max-value input-value" readonly>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="ibox-content">
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-12">
                 <div class="variant-checkbox uk-flex uk-flex-middle">
                     <input type="checkbox" value="1" name="accept" id="variantCheckbox" class="variantInputCheckbox"
@@ -18,9 +18,10 @@
                     <label for="variantCheckbox" class="turnOnVariant">{{ __('form.product_variant_lable') }}</label>
                 </div>
             </div>
-        </div>
-        <div
-            class="variant-wrapper {{ old('accept') == 1 || (isset($product) && count($product->product_variants) > 0) ? '' : 'hidden' }}">
+        </div> --}}
+        {{-- <div
+            class="variant-wrapper {{ old('accept') == 1 || (isset($product) && count($product->product_variants) > 0) ? '' : 'hidden' }}"> --}}
+        <div class="variant-wrapper">
             <div class="row variant-container">
                 <div class="col-lg-3">
                     <div class="attribute-title">
