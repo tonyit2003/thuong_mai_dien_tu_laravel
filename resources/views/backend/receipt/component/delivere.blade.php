@@ -48,7 +48,7 @@
                         <label for="" class="control-label text-left mr5">{{ __('form.date_approved') }} <span
                                 class="text-danger">(*)</span></label>
                         <div class="form-date">
-                            <input type="text" name="date_approved"
+                            <input type="text" name="date_approved" readonly
                                 value="{{ old('date_approved', $productReceipt->date_approved ?? now()->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i')) }}"
                                 class="form-control datepickerApproved" placeholder="" autocomplete="off">
                             <span><i class="fa fa-calendar"></i></span>

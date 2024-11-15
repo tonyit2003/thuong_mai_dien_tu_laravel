@@ -87,7 +87,6 @@ class WarrantyController extends Controller
         $orderProducts = $this->orderService->setInformation($orderProducts, $language);
         $provinces = $this->provinceRepository->all();
         $warranty_card = $this->warrantyRepository->findByConditionWarranty([['order_id', '=', $order->id]], false);
-
         $config = [
             'css' => [
                 'backend\css\plugins\toastr\toastr.min.css',
