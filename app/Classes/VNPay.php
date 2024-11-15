@@ -19,7 +19,7 @@ class VNPay
         $vnp_TxnRef = $orderCode;
         $vnp_OrderInfo = __('info.vnpay_payment');
         $vnp_OrderType = '140000';
-        $vnp_Amount = $totalPrice;
+        $vnp_Amount = $totalPrice * 100;
         $vnp_Locale = 'vn';
 
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
