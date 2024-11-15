@@ -34,6 +34,7 @@ class Order extends Model
         'shipping',
         'deleted_at',
         'invoice_date',
+        'delivery_date',
     ];
 
     protected $table = 'orders';

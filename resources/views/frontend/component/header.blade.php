@@ -76,9 +76,7 @@
                     </div>
                 </div>
                 <div class="middle-widget">
-                    <div class="uk-flex uk-flex-middle">
-                        <a href="" class="become-vendor">Trở thành đại lý <i class="fa fa-long-arrow-right"
-                                aria-hidden="true"></i></a>
+                    <div class="uk-flex uk-flex-middle uk-flex-space-between">
                         <div class="widget-toolbox uk-flex uk-flex-middle">
                             <div class="toolbox-item">
                                 <a href="" title="" class="uk-flex uk-flex-bottom">
@@ -157,7 +155,7 @@
                                         </svg>
                                         <span id="cartTotalItem" class="number">{{ $cartTotalQuantity }}</span>
                                     </div>
-                                    <div class="toolbox-text">Giỏ Hàng</div>
+                                    <div class="toolbox-text">{{ __('info.cart') }}</div>
 
                                 </a>
                             </div>
@@ -205,25 +203,26 @@
     <div class="header-lower">
         <div class="uk-container uk-container-center">
             <div class="uk-flex uk-flex-middle">
-                <div class="categories">
-                    <span>Danh mục sản phẩm</span>
-                    <?php $categories = ['Rượu & Đồ uống', 'Rau củ', 'Sữa', 'Hải sản', 'Hoa quả', 'Ưu đãi trong ngày', 'Thời trang', 'Bánh mỳ & nước ép', 'Nguyên liệu']; ?>
-                    <div class="categories-dropdown">
-                        <div class="uk-grid uk-grid-small">
-                            <?php for($i = 0; $i<count($categories);$i++){  ?>
-                            <div class="uk-width-large-1-2 mb10">
-                                <div class="categories-item">
-                                    <a href="" title="" class="uk-flex uk-flex-middle">
-                                        <img src="resources/img/categories-<?php echo $i + 1; ?>.png" alt="">
-                                        <span class="title"><?php echo $categories[$i]; ?></span>
-                                        <span class="total"><?php echo rand(0, 20); ?></span>
-                                    </a>
+                <a href="{{ route('home.index') }}">
+                    <div class="categories">
+                        <span class="text-cent">{{ __('info.home_page') }}</span>
+                        {{-- <div class="categories-dropdown">
+                            <div class="uk-grid uk-grid-small">
+                                <?php for($i = 0; $i<count($categories);$i++){  ?>
+                                <div class="uk-width-large-1-2 mb10">
+                                    <div class="categories-item">
+                                        <a href="" title="" class="uk-flex uk-flex-middle">
+                                            <img src="resources/img/categories-<?php echo $i + 1; ?>.png" alt="">
+                                            <span class="title"><?php echo $categories[$i]; ?></span>
+                                            <span class="total"><?php echo rand(0, 20); ?></span>
+                                        </a>
+                                    </div>
                                 </div>
+                                <?php }  ?>
                             </div>
-                            <?php }  ?>
-                        </div>
+                        </div> --}}
                     </div>
-                </div>
+                </a>
                 @include('frontend.component.navigation')
             </div>
         </div>

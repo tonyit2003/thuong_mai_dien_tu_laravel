@@ -135,6 +135,7 @@ class OrderService implements OrderServiceInterface
             }
             if (isset($payload['delivery']) && $payload['delivery'] == 'success') {
                 $payload['payment'] = 'paid';
+                $payload['delivery_date'] = Carbon::now();
             }
             $this->orderRepository->update($id, $payload);
             DB::commit();

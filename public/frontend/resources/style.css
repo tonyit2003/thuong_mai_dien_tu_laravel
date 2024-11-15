@@ -2241,7 +2241,7 @@ a.ui-button:active,
     border-radius: 5px;
     padding: 0 20px;
     font-size: 16px;
-    min-width: 260px;
+    /* min-width: 260px; */
     justify-content: center;
     color: #fff;
     background: var(--primary-color);
@@ -2253,7 +2253,7 @@ a.ui-button:active,
     letter-spacing: 1px;
 }
 .categories > span:before {
-    content: "\f0ae";
+    content: "\f015";
     display: block;
     position: absolute;
     left: 10px;
@@ -2261,7 +2261,7 @@ a.ui-button:active,
     font-family: FontAwesome;
     font-weight: 400 !important;
 }
-.categories > span:after {
+/* .categories > span:after {
     content: "\f106";
     display: block;
     position: absolute;
@@ -2269,7 +2269,7 @@ a.ui-button:active,
     top: -2px;
     font-family: FontAwesome;
     font-weight: 400 !important;
-}
+} */
 .categories-dropdown {
     display: block;
     position: absolute;
