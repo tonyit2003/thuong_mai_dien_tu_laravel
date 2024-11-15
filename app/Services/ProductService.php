@@ -162,6 +162,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             DB::commit();
             return true;
         } catch (Exception $e) {
+            dd($e->getLine(), $e->getMessage());
             DB::rollBack();
             return false;
         }
@@ -176,22 +177,30 @@ class ProductService extends BaseService implements ProductServiceInterface
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $this->updateCatalogueForProduct($product, $request);
                 $this->updateRouter($product, $request, $this->controllerName, $languageId);
-                // lặp qua từng ProductVariant liên quan đến $product. (1 Product có nhiều ProductVariant)
+                // // lặp qua từng ProductVariant liên quan đến $product. (1 Product có nhiều ProductVariant)
+                // $product->product_variants()->each(function ($query) {
+                //     // detach() => xóa các bản ghi trong bảng pivot liên quan đến $product
+                //     $query->languages()->detach();
+                //     $query->attributes()->detach();
+                //     // delete() => xóa các bản ghi trên bảng đang chỉ định liên quan đến $product
+                //     $query->delete();
+                // });
+                // if ($request->input('attribute')) {
+                //     $this->createVariant($product, $request, $languageId);
+                // }
                 $product->product_variants()->each(function ($query) {
-                    // detach() => xóa các bản ghi trong bảng pivot liên quan đến $product
                     $query->languages()->detach();
                     $query->attributes()->detach();
-                    // delete() => xóa các bản ghi trên bảng đang chỉ định liên quan đến $product
-                    $query->delete();
                 });
                 if ($request->input('attribute')) {
-                    $this->createVariant($product, $request, $languageId);
+                    $this->updateVariant($product, $request, $languageId);
                 }
                 $this->productCatalogueService->setAttribute($product);
             }
             DB::commit();
             return true;
         } catch (Exception $e) {
+            dd($e->getMessage(), $e->getLine());
             DB::rollBack();
             return false;
         }
@@ -236,7 +245,8 @@ class ProductService extends BaseService implements ProductServiceInterface
         $payload['user_id'] = Auth::id();
         $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
         // convert_price() từ MyHelper.php
-        $payload['price'] = convert_price($payload['price']) ?? 0;
+        $payload['price'] = convert_price($payload['price'] ?? 0);
+        $payload['warranty_time'] = convert_price($payload['warranty_time'] ?? 0);
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
         $payload['attribute'] = $this->formatJson($request, 'attribute');
         $payload['variant'] = $this->formatJson($request, 'variant');
@@ -247,7 +257,8 @@ class ProductService extends BaseService implements ProductServiceInterface
     {
         $payload = $request->only($this->payload());
         $payload['album'] = $this->formatAlbum($payload['album'] ?? null);
-        $payload['price'] = convert_price($payload['price']);
+        $payload['price'] = convert_price($payload['price'] ?? 0);
+        $payload['warranty_time'] = convert_price($payload['warranty_time'] ?? 0);
         return $this->productRepository->update($id, $payload);
     }
 
@@ -307,6 +318,53 @@ class ProductService extends BaseService implements ProductServiceInterface
         $this->productVariantAttributeRepository->createBatch($productVariantAttribute);
     }
 
+    private function updateVariant($product, $request, $languageId)
+    {
+        $payload = $request->only(['variant', 'productVariant', 'attribute']);
+        $variant = $this->createVariantArray($payload, $product);
+        $variantIds = collect($variant)->map(function ($item) use ($product) {
+            $variant = $product->product_variants()->updateOrCreate(
+                ['uuid' => $item['uuid']],
+                [
+                    'code' => $item['code'],
+                    'quantity' => $item['quantity'],
+                    'sku' => $item['sku'],
+                    'price' => $item['price'],
+                    'barcode' => $item['barcode'],
+                    'file_name' => $item['file_name'],
+                    'file_url' => $item['file_url'],
+                    'album' => $item['album'],
+                    'user_id' => $item['user_id'],
+                ]
+            );
+
+            // Trả về id của bản ghi đã cập nhật hoặc tạo mới
+            return $variant->id;
+        });
+        $productVariantLanguage = [];
+        $productVariantAttribute = [];
+        $attributeCombines = $this->combineAttribute(array_values($payload['attribute']));
+        if (count($variantIds)) {
+            foreach ($variantIds as $key => $val) {
+                $productVariantLanguage[] = [
+                    'product_variant_id' => $val,
+                    'language_id' => $languageId,
+                    'name' => $payload['productVariant']['name'][$key]
+                ];
+                if (count($attributeCombines)) {
+                    foreach ($attributeCombines[$key] as $attributeId) {
+                        $productVariantAttribute[] = [
+                            'product_variant_id' => $val,
+                            'attribute_id' => $attributeId
+                        ];
+                    }
+                }
+            }
+        }
+        $this->productVariantLanguageRepository->createBatch($productVariantLanguage);
+        $this->productVariantAttributeRepository->createBatch($productVariantAttribute);
+    }
+
     private function createVariantArray($payload = [], $product): array
     {
         $variant = [];
@@ -321,7 +379,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                     'code' => $productVariantId,
                     'quantity' => $payload['variant']['quantity'][$key] ?? 0,
                     'sku' => $val,
-                    'price' => $payload['variant']['price'][$key] ? convert_price($payload['variant']['price'][$key]) : '',
+                    'price' => $payload['variant']['price'][$key] ? convert_price($payload['variant']['price'][$key]) : 0,
                     'barcode' => $payload['variant']['barcode'][$key] ?? '',
                     'file_name' => $payload['variant']['file_name'][$key] ?? '',
                     'file_url' => $payload['variant']['file_url'][$key] ?? '',
@@ -401,6 +459,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             'products.image',
             'products.order',
             'products.price',
+            'products.warranty_time',
             'product_language.name',
             'product_language.canonical'
         ];
@@ -425,13 +484,14 @@ class ProductService extends BaseService implements ProductServiceInterface
             'publish',
             'image',
             'album',
-            'price',
+            // 'price',
             'made_in',
             'code',
             'product_catalogue_id',
             'attributeCatalogue',
             'attribute',
             'variant',
+            'warranty_time',
         ];
     }
 

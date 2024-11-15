@@ -480,7 +480,7 @@
                             ${variantAlbumItem}
                         </ul>
                         <div class="row mt20 uk-flex uk-flex-middle">
-                            <div class="col-lg-2 uk-flex uk-flex-middle uk-flex-space-between">
+                            <div class="col-lg-2 uk-flex uk-flex-middle uk-flex-space-between hidden">
                                 <label for="" class="mr10">${inventoryManagement}</label>
                                 <input type="checkbox" class="js-switch" data-target="variantQuantity" ${
                                     variantData.variant_quantity != ""
@@ -523,7 +523,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt20 uk-flex uk-flex-middle">
+                        <div class="row mt20 uk-flex uk-flex-middle hidden">
                             <div class="col-lg-2 uk-flex uk-flex-middle uk-flex-space-between">
                                 <label for="" class="mr10">${fileManagement}</label>
                                 <input type="checkbox" class="js-switch" data-target="disabled" ${
@@ -793,7 +793,7 @@
     };
 
     $(document).ready(function () {
-        HT.setupProductVariant();
+        // HT.setupProductVariant();
         HT.addVariant();
         HT.niceSelect();
         HT.chooseVariantGroup();

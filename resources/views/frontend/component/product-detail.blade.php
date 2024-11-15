@@ -15,6 +15,7 @@
             isset($productVariant->album) && $productVariant->album != ''
                 ? explode(',', $productVariant->album)
                 : json_decode($product->album);
+        $content = $product->content ?? '';
     @endphp
     <div class="uk-grid uk-grid-medium">
         <div class="uk-width-large-3-4">
@@ -56,7 +57,7 @@
                             </span>
                         </h1>
                         <div class="rating">
-                            <div class="uk-flex uk-flex-middle">
+                            {{-- <div class="uk-flex uk-flex-middle">
                                 <div class="author">{{ __('info.evaluate') }}</div>
                                 <div class="star">
                                     <?php for($i = 0; $i<=4; $i++){ ?>
@@ -64,7 +65,7 @@
                                     <?php }  ?>
                                 </div>
                                 <div class="rate-number">(65 {{ __('unit.evaluate') }})</div>
-                            </div>
+                            </div> --}}
                         </div>
                         {!! $price['html'] !!}
                         <div class="description">
@@ -91,6 +92,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div id="cpsContent" class="cps-block-content">
+                <div style="padding: 20px">
+                    {!! $content !!}
+                </div>
+                <div class="cps-block-content_btn-showmore">
+                    <a class="btn-show-more button__content-show-more">
+                        {{ __('info.show_more') }}
+                        <div style="margin-left: 10px">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="10" height="10">
+                                <path
+                                    d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z">
+                                </path>
+                            </svg>
+                        </div>
+                    </a>
                 </div>
             </div>
             @include('frontend.product.product.component.review', [

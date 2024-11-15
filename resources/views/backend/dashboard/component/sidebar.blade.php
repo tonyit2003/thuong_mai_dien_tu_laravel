@@ -15,16 +15,16 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> <span class="block m-t-xs"> <strong
                                     class="font-bold">{{ Auth::user()->name }}</strong>
-                            </span> <span class="text-muted text-xs block">{{ Auth::user()->user_catalogues->name }} <b
-                                    class="caret"></b></span>
+                            </span> <span
+                                class="text-muted text-xs block">{{ Auth::user()->user_catalogues->name }}</span>
                         </span> </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                    {{-- <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="profile.html">Profile</a></li>
                         <li><a href="contacts.html">Contacts</a></li>
                         <li><a href="mailbox.html">Mailbox</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ route('auth.logout') }}">{{ __('navigation.logout') }}</a></li>
-                    </ul>
+                    </ul> --}}
                 </div>
                 <div class="logo-element">
                     TC+

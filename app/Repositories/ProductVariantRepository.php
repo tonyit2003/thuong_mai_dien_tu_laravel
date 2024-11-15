@@ -86,6 +86,10 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
         }
 
         $query->where('products.publish', '=', 1);
+        $query->where('promotions.publish', '=', 1);
+        $query->whereDate('promotions.endDate', '>=', now());
+        $query->whereDate('promotions.startDate', '<=', now());
+        $query->whereNull('promotions.deleted_at');
 
         if (isset($param['where']) && count($param['where'])) {
             foreach ($param['where'] as $key => $val) {

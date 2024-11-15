@@ -73,12 +73,22 @@
                 </div>
             </div>
         </div>
-        <div class="row mb15">
+        {{-- <div class="row mb15 hidden">
             <div class="col-lg-12">
                 <div class="form-row">
                     <label for="">{{ __('form.product_price') }}</label>
                     <input type="text" name="price"
                         value="{{ old('price', isset($product) ? number_format($product->price, 0, ',', '.') : '') }}"
+                        class="form-control int">
+                </div>
+            </div>
+        </div> --}}
+        <div class="row mb15">
+            <div class="col-lg-12">
+                <div class="form-row">
+                    <label for="">{{ __('form.warranty_time') }} ({{ __('form.month') }})</label>
+                    <input type="text" name="warranty_time"
+                        value="{{ old('warranty_time', isset($product) ? number_format($product->warranty_time, 0, ',', '.') : '') }}"
                         class="form-control int">
                 </div>
             </div>
