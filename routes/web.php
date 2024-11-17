@@ -80,7 +80,7 @@ Route::get('address' . config('apps.general.suffix'), [FrontendCustomerControlle
 Route::post('updateAddress', [FrontendCustomerController::class, 'updateAddress'])->name('customer.updateAddress')->middleware(CustomerAuthenticateMiddleware::class);
 Route::get('changePassword' . config('apps.general.suffix'), [FrontendCustomerController::class, 'changePassword'])->name('customer.changePassword')->middleware(CustomerAuthenticateMiddleware::class);
 Route::get('sendChangePassword', [FrontendCustomerController::class, 'sendChangePassword'])->name('customer.sendChangePassword');
-
+Route::get('viewOrder', [FrontendOrderController::class, 'viewOrder'])->name('order.viewOrder')->middleware(CustomerAuthenticateMiddleware::class);;
 
 Route::get('change', [FrontendCustomerController::class, 'change'])->name('customer.change');
 Route::post('updateChangePassword', [FrontendCustomerController::class, 'updateChangePassword'])->name('customer.updateChangePassword')->middleware(CustomerAuthenticateMiddleware::class);

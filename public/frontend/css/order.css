@@ -1,0 +1,110 @@
+.order-container {
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.order-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.status-right {
+    display: flex;
+    align-items: center;
+}
+
+.status-right h3 {
+    font-size: 18px;
+    margin: 0;
+    color: red;
+}
+
+.order-table {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.order-table .product-row:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.product-image img {
+    width: 80px;
+    height: auto;
+    border-radius: 4px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.product-details {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.product-name {
+    font-weight: bold;
+    margin: 0;
+}
+
+.product-quantity {
+    font-size: 14px;
+    color: #555;
+}
+
+.product-price {
+    text-align: right;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 8px;
+}
+
+.discounted-price {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.order-total {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 16px;
+}
+
+.order-total span {
+    color: #d9534f;
+}
+
+.order-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+}
+
+.no-orders {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Hoặc chiều cao cụ thể của container */
+    text-align: center;
+}
+
+.no-orders-image {
+    max-width: 220px; /* Tùy chỉnh kích thước hình ảnh */
+    margin-bottom: 20px; /* Khoảng cách giữa hình ảnh và dòng chữ */
+}
+
+.no-orders-text {
+    font-size: 1.5rem;
+    color: #555; /* Màu chữ */
+}

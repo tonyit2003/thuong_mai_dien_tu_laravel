@@ -56,6 +56,17 @@ class OrderService implements OrderServiceInterface
         return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'order/index']);
     }
 
+    public function paginateOrderAll($customerId)
+    {
+        $perPage = 6;
+        $condition = [
+            'where' => [
+                ['customer_id', '=', $customerId],
+            ]
+        ];
+        return $this->orderRepository->pagination($this->paginateSelect(), $condition, [], $perPage, ['path' => 'viewOrder']);
+    }
+
     public function paginateOutOfStock($request)
     {
         $condition['keyword'] = addslashes($request->input('keyword'));
