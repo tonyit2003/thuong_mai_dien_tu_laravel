@@ -52,7 +52,6 @@
                 <p>Thành tiền: <span>{{ formatCurrency($order->details->sum('price')) }}</span></p>
             </div>
             <div class="order-actions">
-                <a href="#" class="btn btn-primary">Mua lại</a>
                 <a href="#" class="btn btn-default">Liên hệ người bán</a>
             </div>
         </div>
