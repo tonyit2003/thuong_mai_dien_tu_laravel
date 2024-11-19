@@ -114,6 +114,7 @@ Route::get('ajax/product/filter', [AjaxProductVariantController::class, 'filter'
 Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]], function () {
     // DASHBOARD
     Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('dashboard/statisticalReceipt', [ProductReceiptController::class, 'statisticalReceipt'])->name('statisticalReceipt.index');
 
     // USER
     Route::group(['prefix' => 'user'], function () {

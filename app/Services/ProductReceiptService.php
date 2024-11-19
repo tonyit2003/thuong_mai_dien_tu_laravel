@@ -39,6 +39,27 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
         parent::__construct($routerRepository);
     }
 
+    public function statistic()
+    {
+        $month = now()->month;
+        $year = now()->year;
+        $previousMonth = ($month == 1) ? 12 : $month - 1;
+        $previousYear = ($month == 1) ? $year - 1 : $year;
+        $receiptCurrentMonth = $this->productReceiptRepository->getReceiptByTime($month, $year);
+        $receiptPreviousMonth = $this->productReceiptRepository->getReceiptByTime($previousMonth, $previousYear);
+        return [
+            'receiptCurrentMonth' => $receiptCurrentMonth ?? 0,
+            // 'orderPreviousMonth' => $orderPreviousMonth ?? 0,
+            'growth' => growth($receiptCurrentMonth, $receiptPreviousMonth),
+            'totalReceipts' => $this->productReceiptRepository->getTotalReceipts() ?? 0,
+            'cancelReceipts' => $this->productReceiptRepository->getCancelReceipts() ?? 0,
+            'revenueReceipts' => $this->productReceiptRepository->getRevenueReceipts() ?? 0,
+            'totalQuantity' => $this->productReceiptRepository->getTotalQuantity() ?? 0,
+            'totalQuantityMonth' => $this->productReceiptRepository->getTotalQuantityMonth() ?? 0,
+            // 'revenueChart' => convertRevenueChartData($this->productReceiptRepository->getRevenueByYear($year), __('dashboard.month'), 'monthly_revenue', 'month'),
+        ];
+    }
+
     public function mail($email, $productReceipt, $formattedDetails, $system)
     {
         // Tính tổng tiền

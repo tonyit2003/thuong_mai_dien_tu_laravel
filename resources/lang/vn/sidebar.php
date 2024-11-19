@@ -8,6 +8,16 @@ return [
             'name' => ['dashboard'],
             'route' => 'dashboard/index',
             'class' => 'special',
+            'subModule' => [
+                [
+                    'title' => 'Thống kế hóa đơn',
+                    'route' => 'dashboard.index'
+                ],
+                [
+                    'title' => 'Thống kê nhập kho',
+                    'route' => 'statisticalReceipt.index'
+                ]
+            ]
         ],
         [
             'title' => 'Sản phẩm',

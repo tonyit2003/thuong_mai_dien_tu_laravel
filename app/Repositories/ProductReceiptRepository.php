@@ -93,6 +93,44 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }
 
+    public function getReceiptByTime($month, $year)
+    {
+        return $this->model->whereMonth('date_approved', $month)->whereYear('date_approved', $year)->count();
+    }
+
+    public function getTotalReceipts()
+    {
+        return $this->model->where('publish', '=', 3)->count();
+    }
+
+    public function getCancelReceipts()
+    {
+        return $this->model->whereNotNull('deleted_at')->count();
+    }
+
+    public function getRevenueReceipts()
+    {
+        return $this->model->where('publish', '=', 3)->sum('actual_total');
+    }
+
+    public function getTotalQuantity()
+    {
+        return $this->model->where('publish', 3)
+            ->withSum('details', 'actual_quantity')
+            ->get()
+            ->sum('details_sum_actual_quantity');
+    }
+
+    public function getTotalQuantityMonth()
+    {
+        return $this->model->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->where('publish', 3)
+            ->withSum('details', 'actual_quantity')
+            ->get()
+            ->sum('details_sum_actual_quantity');
+    }
+
     public function getProductReceiptById($id = 0)
     {
         // Ensure the language ID is properly set
