@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use Exception;
 
 class MoMo
 {
@@ -47,10 +48,14 @@ class MoMo
             'requestType' => $requestType,
             'signature' => $signature
         );
-        $result = execPostRequest($endpoint, json_encode($data));
-        $jsonResult = json_decode($result, true);
-        $jsonResult['url'] = $jsonResult['payUrl'] ?? '';
-        $jsonResult['errorCode'] = $jsonResult['resultCode'] ?? 1;
-        return $jsonResult;
+        try {
+            $result = execPostRequest($endpoint, json_encode($data));
+            $jsonResult = json_decode($result, true);
+            $jsonResult['url'] = $jsonResult['payUrl'] ?? '';
+            $jsonResult['errorCode'] = $jsonResult['resultCode'] ?? 1;
+            return $jsonResult;
+        } catch (Exception $e) {
+            return ['errorCode' => 1];
+        }
     }
 }

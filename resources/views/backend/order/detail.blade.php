@@ -146,6 +146,15 @@
                             </div>
                         </div>
                         <div class="cancel-block">
+                            {{-- @if ($order->confirm == 'confirm' && $order->delivery == 'success')
+                                <a class="btn btn-success" target="_blank"
+                                    href="{{ write_url('invoice/' . $order->code . '.pdf', true, false) }}">{{ __('form.invoice') }}</a>
+                            @else
+                                @if (($order->confirm == 'confirm' && $order->delivery == 'processing') || ($order->confirm == 'confirm' && $order->delivery == 'pending') || ($order->confirm == 'pending' && $check == false))
+                                    <a href="#submitCancelOrder" rel="modal:open"
+                                        class="btn btn-danger">{{ __('button.cancel_order') }}</a>
+                                @endif
+                            @endif --}}
                             @if ($order->confirm == 'confirm' && $order->delivery != 'pending')
                                 <a class="btn btn-success" target="_blank"
                                     href="{{ write_url('invoice/' . $order->code . '.pdf', true, false) }}">{{ __('form.invoice') }}</a>
