@@ -20,7 +20,7 @@ class SupplierRepository extends BaseRepository implements SupplierRepositoryInt
         parent::__construct($this->model); //truyền model lên lớp cha
     }
 
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])
+    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 40, $extend = [], $relations = [], $orderBy = ['id', 'DESC'], $rawQuery = [])
     {
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
 
