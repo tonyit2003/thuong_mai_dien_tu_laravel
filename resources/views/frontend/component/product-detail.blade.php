@@ -117,7 +117,26 @@
             ])
         </div>
         <div class="uk-width-large-1-4">
-            <div class="aside">
+            @if (isset($product->generalAttribute) && count($product->generalAttribute))
+                <div class="specifications">
+                    <div class="cps-block-technicalInfo">
+                        <div class="is-flex is-justify-content-space-between is-align-items-center">
+                            <h2 class="title is-6">{{ __('info.specifications') }}</h2>
+                        </div>
+                        <ul class="technical-content">
+                            @foreach ($product->generalAttribute as $key => $val)
+                                <li
+                                    class="technical-content-item is-flex is-align-items-center is-justify-content-space-between">
+                                    <p>{{ $key }}</p>
+                                    <div>{{ $val }}</div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
+            {{-- <div class="aside">
                 @if (isset($category))
                     @foreach ($category as $key => $val)
                         @php
@@ -156,7 +175,7 @@
                         </div>
                     @endforeach
                 @endif
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

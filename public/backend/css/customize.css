@@ -433,6 +433,7 @@ a {
 }
 
 .variant-body .remove-attribute,
+.fake-general-attribute,
 .fake-variant {
     height: 42px !important;
     border-radius: 5px;
@@ -442,6 +443,7 @@ a {
     width: 100% !important;
 }
 
+.add-general-attribute,
 .add-variant {
     height: 42px;
     color: #1791f2;
@@ -453,6 +455,7 @@ a {
     padding: 0 40px;
 }
 
+.add-general-attribute:hover,
 .add-variant:hover {
     background-color: #efefef;
 }

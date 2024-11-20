@@ -39,6 +39,7 @@ class ProductController extends FrontendController
         $language = $this->language;
         $product = $this->productRepository->getProductById($id, $language);
         $product = $this->productService->getAttribute($product, $language);
+        $product = $this->productService->setGeneralAttribute($product, $language);
         $category = recursive($this->productCatalogueRepository->all([
             'languages' => function ($query) use ($language) {
                 $query->where('language_id', $language);

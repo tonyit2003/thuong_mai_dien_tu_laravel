@@ -52,4 +52,9 @@ class Attribute extends Model
     {
         return $this->belongsToMany(ProductVariant::class, 'product_variant_attribute', 'attribute_id', 'product_variant_id')->withTimestamps();
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_attribute', 'attribute_id', 'product_id')->withTimestamps();
+    }
 }

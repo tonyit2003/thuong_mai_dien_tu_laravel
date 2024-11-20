@@ -145,12 +145,28 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $product;
     }
 
+    public function setGeneralAttribute($product, $language)
+    {
+        $temp = [];
+        if (isset($product->attributes) && count($product->attributes)) {
+            foreach ($product->attributes as $attribute) {
+                $attributeCatalogue = $this->attributeCatalogueRepository->findById($attribute->attribute_catalogue_id, ['*'], ['languages' => function ($query) use ($language) {
+                    $query->where('language_id', '=', $language);
+                }]);
+                $temp[$attributeCatalogue->languages->first()->pivot->name] = $attribute->languages->first()->pivot->name;
+            }
+        }
+        $product->generalAttribute = $temp;
+        return $product;
+    }
+
     public function create($request, $languageId)
     {
         DB::beginTransaction();
         try {
             $product = $this->createProduct($request);
             if ($product->id > 0) {
+                $this->updateAttributeForProduct($product, $request);
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $this->updateCatalogueForProduct($product, $request);
                 $this->createRouter($product, $request, $this->controllerName, $languageId);
@@ -174,6 +190,7 @@ class ProductService extends BaseService implements ProductServiceInterface
         try {
             $product = $this->updateProduct($id, $request);
             if ($product) {
+                $this->updateAttributeForProduct($product, $request);
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $this->updateCatalogueForProduct($product, $request);
                 $this->updateRouter($product, $request, $this->controllerName, $languageId);
@@ -260,6 +277,13 @@ class ProductService extends BaseService implements ProductServiceInterface
         $payload['price'] = convert_price($payload['price'] ?? 0);
         $payload['warranty_time'] = convert_price($payload['warranty_time'] ?? 0);
         return $this->productRepository->update($id, $payload);
+    }
+
+    private function updateAttributeForProduct($product, $request)
+    {
+        $attributes = array_values($request->generalAttribute);
+        $attributes = array_map('intval', $attributes);
+        $product->attributes()->sync($attributes);
     }
 
     private function updateLanguageForProduct($product, $request, $languageId)
