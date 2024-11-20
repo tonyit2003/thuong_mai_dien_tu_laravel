@@ -9,7 +9,7 @@
     HT.priceRange = () => {
         let isInitialized = false;
         $("#price-range").slider({
-            step: 50000,
+            step: 5000,
             range: true,
             min: minPriceValue,
             max: maxPriceValue,
