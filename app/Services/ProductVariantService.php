@@ -228,14 +228,14 @@ class ProductVariantService extends BaseService implements ProductVariantService
         $query['having'] = null;
         $query['join'] = null;
         $query['select'] = null;
+        $query['where'] = null;
 
         if ($priceMax > $priceMin) {
             $query['join']  = [
                 ['promotion_product_variant', 'promotion_product_variant.variant_uuid', '=', 'product_variants.uuid'],
-                ['promotions', 'promotion_product_variant.promotion_id', '=', 'promotions.id'],
             ];
             $query['select'] = "
-                (product_variants.price - MAX(
+                (product_variants.price - COALESCE(MAX(
                 IF(
                     promotions.maxDiscountValue != 0,
                     LEAST (
@@ -252,7 +252,7 @@ class ProductVariantService extends BaseService implements ProductVariantService
                         ELSE 0
                     END
                 )
-            )) as discounted_price
+            ), 0)) as discounted_price
             ";
             $query['having'] = function ($query) use ($priceMin, $priceMax) {
                 $query->havingRaw('discounted_price >= ? AND discounted_price <= ?', [$priceMin, $priceMax]);

@@ -85,11 +85,16 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
             }
         }
 
+        $query->leftJoin('promotions', function ($join) {
+            $join->on('promotion_product_variant.promotion_id', '=', 'promotions.id')
+                ->where('promotions.publish', 1)
+                ->whereDate('promotions.endDate', '>=', now())
+                ->whereDate('promotions.startDate', '<=', now())
+                ->whereNull('promotions.deleted_at');
+        });
+
+
         $query->where('products.publish', '=', 1);
-        $query->where('promotions.publish', '=', 1);
-        $query->whereDate('promotions.endDate', '>=', now());
-        $query->whereDate('promotions.startDate', '<=', now());
-        $query->whereNull('promotions.deleted_at');
 
         if (isset($param['where']) && count($param['where'])) {
             foreach ($param['where'] as $key => $val) {
