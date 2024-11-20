@@ -7,6 +7,7 @@ use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
 use App\Http\Controllers\Ajax\OrderController as AjaxOrderController;
 use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
+use App\Http\Controllers\Ajax\ProductReceiptController as AjaxProductReceiptController;
 use App\Http\Controllers\Ajax\ProductVariantController as AjaxProductVariantController;
 use App\Http\Controllers\Ajax\ReviewController as AjaxReviewController;
 use App\Http\Controllers\Ajax\SourceController as AjaxSourceController;
@@ -412,6 +413,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
     Route::get('ajax/source/getAllSource', [AjaxSourceController::class, 'getAllSource'])->name('ajax.getAllSource');
     Route::post('ajax/order/update', [AjaxOrderController::class, 'update'])->name('ajax.update');
     Route::get('ajax/order/chart', [AjaxOrderController::class, 'chart'])->name('ajax.chart');
+    Route::get('ajax/productReceipt/chart', [AjaxProductReceiptController::class, 'chart'])->name('ajax.productReceipt.chart');
 });
 
 // LOGIN - LOGOUT DASHBOARD (admin)

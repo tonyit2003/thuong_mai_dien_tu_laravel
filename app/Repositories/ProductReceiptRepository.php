@@ -121,6 +121,74 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
             ->sum('details_sum_actual_quantity');
     }
 
+    public function getRevenueByYear($year)
+    {
+        return DB::table(DB::raw('(SELECT 1 AS month UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12) as months'))
+            ->leftJoin('product_receipts', function ($join) use ($year) {
+                $join->on(DB::raw('MONTH(product_receipts.date_approved)'), '=', 'months.month')
+                    ->where('product_receipts.publish', '=', '3')
+                    ->whereYear('product_receipts.date_approved', '=', $year);
+            })
+            ->select(
+                'months.month',
+                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(12, 2)) as monthly_revenue')
+            )
+            ->groupBy('months.month')
+            ->orderBy('months.month')
+            ->get()
+            ->map(function ($item) {
+                $item->monthly_revenue = (float) $item->monthly_revenue;
+                return $item;
+            });
+    }
+
+    public function revenue7Day()
+    {
+        return DB::table(DB::raw('(SELECT CURDATE() - INTERVAL a.a DAY as date
+        FROM (
+            SELECT 0 AS a UNION ALL
+            SELECT 1 UNION ALL
+            SELECT 2 UNION ALL
+            SELECT 3 UNION ALL
+            SELECT 4 UNION ALL
+            SELECT 5 UNION ALL
+            SELECT 6
+        ) as a) as dates'))
+            ->leftJoin('product_receipts', function ($join) {
+                $join->on(DB::raw('DATE(product_receipts.date_approved)'), '=', DB::raw('dates.date'))
+                    ->where('product_receipts.publish', '=', '3');
+            })
+            ->select(
+                DB::raw('DATE_FORMAT(dates.date, "%d/%m/%Y") as date'),
+                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(12, 2)) as daily_revenue')
+            )
+            ->groupBy(DB::raw('dates.date'))
+            ->orderBy(DB::raw('dates.date'), 'ASC')
+            ->get()
+            ->map(function ($item) {
+                $item->daily_revenue = (float) $item->daily_revenue;
+                return $item;
+            });
+    }
+
+    public function revenueCurrentMonth($currentMonth, $currentYear)
+    {
+        return $this->model
+            ->select(
+                DB::raw('DAY(date_approved) as day'),
+                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(12, 2)) as daily_revenue')
+            )
+            ->whereMonth('date_approved', $currentMonth)
+            ->whereYear('date_approved', $currentYear)
+            ->groupBy('day')
+            ->orderBy('day')
+            ->get()
+            ->map(function ($item) {
+                $item->daily_revenue = (float) $item->daily_revenue;
+                return $item;
+            });
+    }
+
     public function getTotalQuantityMonth()
     {
         return $this->model->whereMonth('created_at', now()->month)

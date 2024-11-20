@@ -56,8 +56,47 @@ class ProductReceiptService extends BaseService implements ProductReceiptService
             'revenueReceipts' => $this->productReceiptRepository->getRevenueReceipts() ?? 0,
             'totalQuantity' => $this->productReceiptRepository->getTotalQuantity() ?? 0,
             'totalQuantityMonth' => $this->productReceiptRepository->getTotalQuantityMonth() ?? 0,
-            // 'revenueChart' => convertRevenueChartData($this->productReceiptRepository->getRevenueByYear($year), __('dashboard.month'), 'monthly_revenue', 'month'),
+            'revenueChart' => convertRevenueChartData($this->productReceiptRepository->getRevenueByYear($year), __('dashboard.month'), 'monthly_revenue', 'month'),
         ];
+    }
+
+    public function getReceiptChart($request)
+    {
+        $type = $request->input('charType');
+        switch ($type) {
+            case 1: {
+                    $year = now()->year;
+                    $response = convertRevenueChartData($this->productReceiptRepository->getRevenueByYear($year), __('dashboard.month'), 'monthly_revenue', 'month');
+                    break;
+                }
+            case 7: {
+                    $response = convertRevenueChartData($this->productReceiptRepository->revenue7Day(), __('dashboard.day'), 'daily_revenue', 'date');
+                    break;
+                }
+            case 30: {
+                    $currentMonth = now()->month;
+                    $currentYear = now()->year;
+                    $daysInMonth = Carbon::createFromDate($currentYear, $currentMonth, 1)->daysInMonth;
+                    $allDays = range(1, $daysInMonth);
+                    $temp = $this->productReceiptRepository->revenueCurrentMonth($currentMonth, $currentYear);
+                    $label = [];
+                    $data = [];
+                    $temp2 = array_map(function ($day) use ($temp, &$label, &$data) {
+                        // lấy phần tử đầu tiên trong $temp mà thỏa mãn điều kiện $record['day'] == $day.
+                        $found = collect($temp)->first(function ($record) use ($day) {
+                            return $record['day'] == $day;
+                        });
+                        $label[] = __('dashboard.day') . ' ' . $day;
+                        $data[] = isset($found) ? $found['daily_revenue'] : 0;
+                    }, $allDays);
+                    $response = [
+                        'label' => $label,
+                        'data' => $data
+                    ];
+                    break;
+                }
+        }
+        return $response;
     }
 
     public function mail($email, $productReceipt, $formattedDetails, $system)

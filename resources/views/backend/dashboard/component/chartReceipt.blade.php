@@ -5,9 +5,15 @@
                 <h5>{{ __('dashboard.revenue_chart') }}</h5>
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-xs btn-white chartButton active" data-chart="1">{{ __('dashboard.current_year') }}</button>
-                        <button type="button" class="btn btn-xs btn-white chartButton" data-chart="30">{{ __('dashboard.current_month') }}</button>
-                        <button type="button" class="btn btn-xs btn-white chartButton" data-chart="7">{{ __('dashboard.last_7_days') }}</button>
+                        <button type="button" class="btn btn-xs btn-white chartButton active" data-chart="1">
+                            {{ __('dashboard.current_year') }}
+                        </button>
+                        <button type="button" class="btn btn-xs btn-white chartButton" data-chart="30">
+                            {{ __('dashboard.current_month') }}
+                        </button>
+                        <button type="button" class="btn btn-xs btn-white chartButton" data-chart="7">
+                            {{ __('dashboard.last_7_days') }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -57,8 +63,8 @@
 </div>
 
 @php
-    $data = json_encode($orderStatistic['revenueChart']['data']);
-    $label = json_encode($orderStatistic['revenueChart']['label']);
+    $data = json_encode($receiptStatistic['revenueChart']['data']);
+    $label = json_encode($receiptStatistic['revenueChart']['label']);
 @endphp
 
 <script>

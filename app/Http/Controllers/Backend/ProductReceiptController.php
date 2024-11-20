@@ -314,7 +314,7 @@ class ProductReceiptController extends Controller
         return [
             'js' => [
                 'backend/js/plugins/chartJs/Chart.min.js',
-                'backend/library/dashboard.js',
+                'backend/library/dashboardReceipt.js',
                 // 'backend/js/plugins/flot/jquery.flot.js',
                 // 'backend/js/plugins/flot/jquery.flot.tooltip.min.js',
                 // 'backend/js/plugins/flot/jquery.flot.spline.js',
