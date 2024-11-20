@@ -62,7 +62,7 @@ class ProductController extends Controller
     public function create()
     {
         Gate::authorize('modules', 'product.create');
-        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language);
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language, true);
         $config = $this->configData();
         $config['seo'] = __('product');
         $config['method'] = 'create';
@@ -85,7 +85,7 @@ class ProductController extends Controller
     {
         Gate::authorize('modules', 'product.update');
         $product = $this->productRepository->getProductById($id, $this->language);
-        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language);
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language, true);
         $config = $this->configData();
         $config['seo'] = __('product');
         $config['method'] = 'edit';

@@ -96,4 +96,5 @@ return [
     'no_reuslt'                     => 'Không có kết quả nào phù hợp',
     'show_more'                     => 'Xem thêm',
     'home_page'                     => 'Trang chủ',
+    'specifications'                => 'Thông số kỹ thuật',
 ];

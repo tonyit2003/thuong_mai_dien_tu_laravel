@@ -43,6 +43,12 @@ class AttributeController extends Controller
     {
         // true: kết quả phải được trả về dưới dạng một mảng kết hợp (associative array) thay vì một đối tượng.
         $payload['attribute'] = json_decode(base64_decode($request->input('attribute')), true);
+        $payload['attribute'] = array_map(function ($val) {
+            if (!is_array($val)) {
+                return [$val];
+            }
+            return $val;
+        }, $payload['attribute']);
         $payload['attributeCatalogueId'] = $request->input('attributeCatalogueId');
         $attributeArray = $payload['attribute'][$payload['attributeCatalogueId']];
         $attributes = [];

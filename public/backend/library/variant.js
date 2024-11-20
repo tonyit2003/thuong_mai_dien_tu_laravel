@@ -792,6 +792,154 @@
         return str;
     };
 
+    HT.addGeneralAttribute = () => {
+        if ($(".add-general-attribute").length) {
+            $(document).on("click", ".add-general-attribute", function () {
+                let html = HT.renderGeneralAttributeItem();
+                $(".general-attribute-body").append(html);
+                HT.checkMaxGeneralAttributeGroup();
+                HT.disabledGeneralAttributeCatalogueChoose();
+            });
+        }
+    };
+
+    HT.renderGeneralAttributeItem = () => {
+        let options = "";
+        for (let i = 0; i < attributeCatalogues.length; i++) {
+            options += `<option value="${attributeCatalogues[i].id}">${attributeCatalogues[i].name}</option>`;
+        }
+
+        return `
+    <div class="row mb20 general-attribute-item uk-flex uk-flex-middle">
+        <div class="col-lg-3">
+            <div class="general-attribute-catalogue">
+                <select name="generalAttributeCatalogue[]" id="" class="choose-general-attribute niceSelect">
+                    <option value="0">${selectAttributeCatalogue}</option>
+                    ${options}
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <input type="text" name="" disabled class="fake-general-attribute form-control">
+        </div>
+        <div class="col-lg-1">
+            <button type="button" class="remove-general-attribute btn btn-danger">
+                <svg data-icon="TrashSolidLarge" aria-hidden="true" focusable="false" width="15" height="16" viewBox="0 0 15 16" class="bem-svg" style="display: block">
+                    <path fill="currentColor" d="M2 14a1 1 0 001 1h9a1 1 0 001-1V6H2v8zM13 2h-3a1 1 0 01-1-1H6a1 1 0 01-1 1H1v2h13V2h-1z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>`;
+    };
+
+    HT.chooseGeneralAttributeGroup = () => {
+        $(document).on("change", ".choose-general-attribute", function () {
+            let _this = $(this);
+            let attributeCatalogueId = _this.val();
+            if (attributeCatalogueId != 0) {
+                _this
+                    .parents(".col-lg-3")
+                    .siblings(".col-lg-8")
+                    .html(HT.select2GeneralAttribute(attributeCatalogueId));
+                $(".selectGeneralAttribute").each(function (key, index) {
+                    HT.getSelect2($(this));
+                });
+            } else {
+                _this
+                    .parents(".col-lg-3")
+                    .siblings(".col-lg-8")
+                    .html(
+                        `<input type="text" name="generalAttribute[${attributeCatalogueId}][]" disabled class="fake-general-attribute form-control">`
+                    );
+            }
+            HT.disabledGeneralAttributeCatalogueChoose();
+        });
+    };
+
+    HT.select2GeneralAttribute = (attributeCatalogueId) => {
+        return `<select class="selectGeneralAttribute general-attribute-${attributeCatalogueId} form-control" name="generalAttribute[${attributeCatalogueId}]"data-catid="${attributeCatalogueId}"></select>`;
+    };
+
+    HT.disabledGeneralAttributeCatalogueChoose = () => {
+        let id = [];
+        $(".choose-general-attribute").each(function () {
+            let _this = $(this);
+            let selected = _this.find("option:selected").val();
+            if (selected != 0) {
+                id.push(selected);
+            }
+        });
+        $(".choose-general-attribute").find("option").removeAttr("disabled");
+        for (let i = 0; i < id.length; i++) {
+            $(".choose-general-attribute")
+                .find("option[value=" + id[i] + "]")
+                .prop("disabled", true);
+        }
+        HT.destroyNiceSelect();
+        HT.niceSelect();
+        $(".choose-general-attribute")
+            .find("option:selected")
+            .removeAttr("disabled");
+    };
+
+    HT.checkMaxGeneralAttributeGroup = () => {
+        let generalAttributeItem = $(".general-attribute-item").length;
+        if (generalAttributeItem >= attributeCatalogues.length) {
+            $(".add-general-attribute").remove();
+        } else {
+            $(".general-attribute-foot").html(
+                `<button type="button" class="add-general-attribute">${btnAddAttribute}</button>`
+            );
+        }
+    };
+
+    HT.removeGeneralAttribute = () => {
+        $(document).on("click", ".remove-general-attribute", function () {
+            let _this = $(this);
+            _this.parents(".general-attribute-item").remove();
+            HT.checkMaxGeneralAttributeGroup();
+        });
+    };
+
+    HT.setupSelect = () => {
+        if ($(".selectGeneralAttribute").length) {
+            let count = $(".selectGeneralAttribute").length;
+            $(".selectGeneralAttribute").each(function () {
+                let _this = $(this);
+                let attributeCatalogueId = _this.attr("data-catid");
+                if (attribute != "") {
+                    $.get(
+                        "ajax/attribute/loadAttribute",
+                        {
+                            attribute: generalAttribute,
+                            attributeCatalogueId: attributeCatalogueId,
+                        },
+                        function (data) {
+                            if (
+                                data.items != "undefined" &&
+                                data.items.length
+                            ) {
+                                for (let i = 0; i < data.items.length; i++) {
+                                    var option = new Option(
+                                        data.items[i].text,
+                                        data.items[i].id,
+                                        true,
+                                        true
+                                    );
+                                    _this.append(option).trigger("change");
+                                }
+                            }
+                            if (--count === 0 && callback) {
+                                callback();
+                            }
+                        }
+                    );
+                }
+                HT.getSelect2(_this);
+            });
+        }
+    };
+
     $(document).ready(function () {
         // HT.setupProductVariant();
         HT.addVariant();
@@ -808,5 +956,10 @@
         HT.setupSelectMultiple(() => {
             HT.productVariant();
         });
+
+        HT.addGeneralAttribute();
+        HT.chooseGeneralAttributeGroup();
+        HT.removeGeneralAttribute();
+        HT.setupSelect();
     });
 })(jQuery);

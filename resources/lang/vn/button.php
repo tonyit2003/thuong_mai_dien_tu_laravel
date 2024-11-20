@@ -44,4 +44,5 @@ return [
     'out_of_stock'                  => 'Xuất kho',
     'invoice'                       => 'Xuất hóa đơn',
     'delivery_successful'           => 'Giao hàng thành công',
+    'add_attribute'                 => 'Thêm thuộc tính',
 ];

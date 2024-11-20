@@ -91,4 +91,9 @@ class Product extends Model
             'option',
         )->withTimestamps();;
     }
+
+    public function attributes()
+    {
+        return $this->belongsToMany(Attribute::class, 'product_attribute', 'product_id', 'attribute_id');
+    }
 }
