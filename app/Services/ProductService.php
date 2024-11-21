@@ -10,6 +10,7 @@ use App\Repositories\ProductVariantLanguageRepository;
 use App\Repositories\PromotionRepository;
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\ProductServiceInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -346,6 +347,7 @@ class ProductService extends BaseService implements ProductServiceInterface
     {
         $payload = $request->only(['variant', 'productVariant', 'attribute']);
         $variant = $this->createVariantArray($payload, $product);
+
         $variantIds = collect($variant)->map(function ($item) use ($product) {
             $variant = $product->product_variants()->updateOrCreate(
                 ['uuid' => $item['uuid']],
@@ -359,12 +361,23 @@ class ProductService extends BaseService implements ProductServiceInterface
                     'file_url' => $item['file_url'],
                     'album' => $item['album'],
                     'user_id' => $item['user_id'],
+                    'deleted_at' => null, // Đảm bảo bản ghi đang cập nhật không bị đánh dấu xóa.
                 ]
             );
 
-            // Trả về id của bản ghi đã cập nhật hoặc tạo mới
             return $variant->id;
-        });
+        })->toArray();
+
+        $productVariantIds = $product->product_variants()->pluck('id')->toArray();
+
+        $missingVariantIds = array_diff($productVariantIds, $variantIds);
+
+        if (!empty($missingVariantIds)) {
+            $product->product_variants()
+                ->whereIn('id', $missingVariantIds)
+                ->update(['deleted_at' => Carbon::now()]);
+        }
+
         $productVariantLanguage = [];
         $productVariantAttribute = [];
         $attributeCombines = $this->combineAttribute(array_values($payload['attribute']));
