@@ -699,7 +699,11 @@
         if (objects.data.length) {
             let model = $(".select-product-and-quantity").val();
             for (let i = 0; i < objects.data.length; i++) {
-                let image = objects.data[i].image;
+                let image =
+                    objects.data[i].album
+                        .replace(/"/g, "")
+                        .replace(/\\/g, "")
+                        .split(",")[0] ?? "backend/img/no-photo.png";
                 let name = objects.data[i].variant_name;
                 let product_variant_id = objects.data[i].product_variant_id;
                 let product_id = objects.data[i].id;
@@ -739,19 +743,6 @@
                             </div>
                             <div class="object-extra-info">
                                 <div class="price">${addCommas(price)}</div>
-                                <div class="object-inventory">
-                                    <div class="uk-flex uk-flex-middle">
-                                        <span class="text-1">${inventoryTitle}:</span>
-                                        <span class="text-value"> ${addCommas(
-                                            inventory
-                                        )}</span>
-                                        <span class="text-1 slash">|</span>
-                                        <span class="text-1">${canBeSold}:</span>
-                                        <span class="text-value"> ${addCommas(
-                                            couldSell
-                                        )}</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

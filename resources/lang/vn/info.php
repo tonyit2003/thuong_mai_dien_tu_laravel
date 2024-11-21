@@ -97,4 +97,5 @@ return [
     'show_more'                     => 'Xem thêm',
     'home_page'                     => 'Trang chủ',
     'specifications'                => 'Thông số kỹ thuật',
+    'temp_out_of_stock'             => 'Tạm hết hàng',
 ];

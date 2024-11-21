@@ -201,6 +201,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         return $this->model->select(DB::raw('
             DAY(created_at) as day,
             COALESCE(SUM(orders.totalPrice), 0) as daily_revenue
-        '))->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->groupBy('day')->orderBy('day')->get();
+        '))->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->where('orders.payment', '=', 'paid')->where('orders.delivery', '=', 'success')->groupBy('day')->orderBy('day')->get();
     }
 }
