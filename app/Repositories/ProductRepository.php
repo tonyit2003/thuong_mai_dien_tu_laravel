@@ -68,6 +68,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $query->select([
             'products.id',
             'products.image',
+            'product_variants.album',
             'product_language.name',
             'product_variants.id as product_variant_id',
             'product_variants.uuid',
