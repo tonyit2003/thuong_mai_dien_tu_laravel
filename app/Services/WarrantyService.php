@@ -66,6 +66,7 @@ class WarrantyService extends BaseService implements WarrantyServiceInterface
                     'status' => $status,
                     'user_id' => $user_id
                 ];
+                dd($payload);
                 $this->warrantyRepository->create($payload);
 
                 // //Kiểm tra xem bản ghi đã tồn tại chưa
