@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>{{ __('dashboard.revenue_chart') }}</h5>
+                <h5>{{ __('dashboard.receipt_chart') }}</h5>
                 <div class="pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-xs btn-white chartButton active" data-chart="1">
@@ -70,5 +70,5 @@
 <script>
     var data = JSON.parse('{!! $data !!}');
     var label = JSON.parse('{!! $label !!}');
-    var revenue = "{{ __('dashboard.revenue') }}"
+    var revenue = "{{ __('dashboard.receipt') }}"
 </script>

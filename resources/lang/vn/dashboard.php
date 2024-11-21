@@ -20,5 +20,7 @@ return [
     'total_receipts'                    => 'Tổng số đơn nhập hàng',
     'total_revenue_receipts'            => 'Tổng tiền nhập kho',
     'total_quantity'                    => 'Tổng số lượng sản phẩm nhập',
-    'new_quantity_month'                => 'Tổng số lương sản nhập mới trong tháng'
+    'new_quantity_month'                => 'Tổng số lương sản nhập mới trong tháng',
+    'receipt_chart'                     => 'Tổng tiền nhập hàng',
+    'receipt'                           => 'Tổng tiền'
 ];
