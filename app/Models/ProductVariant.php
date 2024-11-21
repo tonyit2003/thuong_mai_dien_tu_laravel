@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Traits\QueryScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductVariant extends Model
 {
-    use HasFactory, QueryScopes;
+    use HasFactory, QueryScopes, SoftDeletes;
 
     protected $fillable = [
         'product_id',
