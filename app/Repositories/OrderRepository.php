@@ -80,10 +80,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $query = $this->model->select($column)
             ->where('payment', '=', 'paid')
             ->whereHas('warranty_cards', function ($q) use ($condition) {
-                // Lọc các bảo hành có status = 'active'
                 $q->where('status', '=', 'active');
                 if (!empty($condition['warranty_code'])) {
-                    $q->where('code', '=', $condition['warranty_code']); // Lọc thêm code nếu có
+                    $q->where('code', '=', $condition['warranty_code']);
                 }
             });
 
