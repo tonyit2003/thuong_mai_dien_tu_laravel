@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreWarrantyRequest;
 use App\Mail\SendWarrantyMail;
 use App\Models\Customer;
 use App\Repositories\WarrantyRepository;
@@ -11,7 +12,9 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Mail;
+use Request;
 
 /**
  * Class UserService
@@ -30,77 +33,49 @@ class WarrantyService extends BaseService implements WarrantyServiceInterface
     {
         DB::beginTransaction();
         try {
-            // Lấy thông tin từ request
-            $productIds = $request->input('product_id', []); // Mảng các sản phẩm được chọn
-            $variantUuids = $request->input('variant_uuid', []); // Mảng các variant_uuid tương ứng
-            $orderId = (int) $request->input('order_id');
-            $warrantyStartDate = now();
-            $warrantyDateOfReceiptList = $request->input('date_of_receipt', []); // Mảng ngày nhận hàng
-            $notes = $request->input('notes', []);
-            $status = 'active';
-            $user_id = Auth::user()->id;
+            $products = $request->input('products', []); // Lấy danh sách sản phẩm từ request
+            $orderId = (int)$request->input('order_id');
+            $userId = Auth::id();
 
-            foreach ($productIds as $index => $productId) {
-                $variantUuid = $variantUuids[$index] ?? null;
+            foreach ($products as $product) {
+                if (isset($product['product_id'])) {
+                    $productId = $product['product_id'];
+                    $variantUuid = $product['variant_uuid'] ?? null;
+                    $notes = $product['notes'] ?? null;
+                    $dateOfReceipt = $product['date_of_receipt'] ?? null;
 
-                // Xử lý ngày nhận hàng tương ứng
-                $dateOfReceiptRaw = $warrantyDateOfReceiptList[$index] ?? null;
-                $warrantyDateOfReceipt = null;
-
-                if (!empty($dateOfReceiptRaw)) {
-                    try {
-                        $warrantyDateOfReceipt = Carbon::createFromFormat('Y-m-d', $dateOfReceiptRaw)->format('Y-m-d');
-                    } catch (Exception $e) {
-                        // Nếu format không đúng, bỏ qua hoặc log lỗi
-                        $warrantyDateOfReceipt = null;
+                    // Kiểm tra và định dạng ngày nhận
+                    $warrantyDateOfReceipt = null;
+                    if ($dateOfReceipt) {
+                        try {
+                            $warrantyDateOfReceipt = Carbon::createFromFormat('Y-m-d', $dateOfReceipt)->format('Y-m-d');
+                        } catch (Exception $e) {
+                            $warrantyDateOfReceipt = null;
+                        }
                     }
+
+                    // Chuẩn bị dữ liệu để lưu
+                    $payload = [
+                        'order_id' => $orderId,
+                        'product_id' => (int)$productId,
+                        'variant_uuid' => $variantUuid,
+                        'warranty_start_date' => now(),
+                        'date_of_receipt' => $warrantyDateOfReceipt,
+                        'notes' => $notes,
+                        'status' => 'active',
+                        'user_id' => $userId,
+                    ];
+
+                    // Lưu vào cơ sở dữ liệu
+                    $this->warrantyRepository->create($payload);
                 }
-
-                $payload = [
-                    'order_id' => $orderId,
-                    'product_id' => (int) $productId,
-                    'variant_uuid' => $variantUuid,
-                    'warranty_start_date' => $warrantyStartDate,
-                    'date_of_receipt' => $warrantyDateOfReceipt,
-                    'notes' => $notes[$index] ?? null,
-                    'status' => $status,
-                    'user_id' => $user_id
-                ];
-                dd($payload);
-                $this->warrantyRepository->create($payload);
-
-                // //Kiểm tra xem bản ghi đã tồn tại chưa
-                // $existingWarranty = $this->warrantyRepository->findByOrderAndVariant($orderId, $variantUuid);
-
-                // if ($existingWarranty) {
-                //     // Nếu đã tồn tại, cập nhật bản ghi
-                //     $payload = [
-                //         'warranty_start_date' => $warrantyStartDate,
-                //         'date_of_receipt' => $warrantyDateOfReceipt,
-                //         'notes' => $notes[$index] ?? $existingWarranty->notes,
-                //         'status' => $status,
-                //     ];
-                //     $this->warrantyRepository->update($existingWarranty->id, $payload);
-                // } else {
-                //     // Nếu chưa tồn tại, tạo bản ghi mới
-                //     $payload = [
-                //         'order_id' => $orderId,
-                //         'product_id' => (int) $productId,
-                //         'variant_uuid' => $variantUuid,
-                //         'warranty_start_date' => $warrantyStartDate,
-                //         'date_of_receipt' => $warrantyDateOfReceipt,
-                //         'notes' => $notes[$index] ?? null,
-                //         'status' => $status,
-                //     ];
-                //     $this->warrantyRepository->create($payload);
-                // }
             }
 
             DB::commit();
-            return true;
+            return response()->json(['success' => true, 'message' => 'Warranty data saved successfully.']);
         } catch (Exception $e) {
             DB::rollBack();
-            return false;
+            return response()->json(['success' => false, 'message' => 'Error saving warranty data.']);
         }
     }
 

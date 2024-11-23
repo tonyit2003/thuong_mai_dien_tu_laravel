@@ -22,16 +22,19 @@ class StoreWarrantyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'required|array',
-            'variant_uuid' => 'required|array',
-            'notes' => 'array',
+            
         ];
     }
 
+    /**
+     * Custom error messages.
+     *
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [
-            'product_id.required' => 'Vui lòng chọn ít nhất một sản phẩm.',
+            
         ];
     }
 }

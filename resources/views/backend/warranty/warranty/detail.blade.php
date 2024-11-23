@@ -58,21 +58,27 @@
                                         ->pluck('date_of_receipt')
                                         ->map(fn($date) => \Carbon\Carbon::parse($date)->format('Y-m-d'))
                                         ->toArray();
-                                    $deliveryTime = Carbon\Carbon::parse($order->delivery_date);
                                 @endphp
 
                                 @foreach ($orderProducts as $key => $val)
                                     @php
-                                        $status = $warrantyStatus[$key] ?? 'unknown';
-                                        $warrantyEndDate = $deliveryTime->addMonths($val->warranty_time);
+                                        // Lấy trạng thái từ danh sách bảo hành
+                                        $warrantyData = $warrantyStatuses[$val->product_id] ?? null;
+                                        $variantUuid = $warrantyData['variant_uuid'] ?? null;
+                                        $status = $warrantyData['status'] ?? 'unknown';
+                                        $notes = $warrantyData['notes'] ?? '';
+                                        $dateOfReceipt = $warrantyData['date_of_receipt'] ?? null;
+                                        $warrantyEndDate = Carbon\Carbon::parse($order->delivery_date)->addMonths($val->warranty_time);
                                     @endphp
                                     <tr class="order-item">
                                         <td style="width: 2%;">
-                                            <input type="checkbox" name="product_id[]" value="{{ $val->product_id }}" class="input-checkbox"
-                                                {{ $warrantyEndDate < now() ? 'readonly' : '' }} {{ $status == 'active' ? 'readonly' : '' }}
-                                                {{ in_array($val->variant_uuid, $warrantyVariants) && $status == 'active' ? 'checked' : '' }} />
-                                            <input type="hidden" name="variant_uuid[]" value="{{ $val->variant_uuid }}" />
-                                            <input type="hidden" name="product_name[]" value="{{ $val->name }}" />
+                                            <input type="checkbox" id="checkbox-{{ $key }}"
+                                                name="products[{{ $key }}][product_id]" value="{{ $val->product_id }}"
+                                                class="input-checkbox" {{ $warrantyEndDate < now() ? 'readonly' : '' }}
+                                                {{ $status === 'active' ? 'checked readonly' : '' }} />
+                                            <input type="hidden" name="products[{{ $key }}][variant_uuid]"
+                                                value="{{ $val->variant_uuid }}" />
+                                            <input type="hidden" name="products[{{ $key }}][product_name]" value="{{ $val->name }}" />
                                         </td>
                                         <td style="width: 10%;">
                                             <div class="image">
@@ -86,32 +92,28 @@
                                             <div class="order-item-name">
                                                 <div style="font-size: 14px">{{ $val->name }}</div>
                                                 <strong style="color: red">{{ __('table.time_warranty') }}:
-                                                    {{ $warrantyEndDate > now() ? convertDatetime($warrantyEndDate, 'd-m-Y') : 'Hết hạn bảo hành' }}
+                                                    {{ $warrantyEndDate > now() ? convertDatetime($warrantyEndDate, 'd-m-Y') : __('table.warranty_expired') }}
                                                 </strong>
                                                 <br>
                                                 <span style="color: #000">{{ __('form.error') }} <span class="text-danger">(*)</span></span>
-                                                <input style="color: #000" type="text"
-                                                    value="{{ $status == 'active' ? $warrantyNotes[$key] : '' }}" class="form-control" name="notes[]"
+                                                <input type="text" name="products[{{ $key }}][notes]"
+                                                    value="{{ $status === 'active' ? $notes : '' }}" class="form-control"
                                                     placeholder="{{ __('form.enter_error') }}"
-                                                    {{ $warrantyEndDate < now() || $status == 'active' ? 'readonly' : '' }}>
+                                                    {{ $status === 'active' || $warrantyEndDate < now() ? 'readonly' : '' }}>
                                             </div>
                                         </td>
-
                                         <td style="width: 7%; vertical-align: top;">
-                                            <span>{{ __('form.date_of_receipt') }} </span><span class="text-danger">(*)</span>
-                                            <br>
-                                            <input type="date" name="date_of_receipt[]" class="form-control"
-                                                {{ isset($warrantyDateOfReceipt[$key]) || $warrantyEndDate < now() || $status == 'active' ? 'readonly' : '' }}
-                                                value="{{ isset($warrantyDateOfReceipt[$key]) ? $warrantyDateOfReceipt[$key] : \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                            <input type="date" name="products[{{ $key }}][date_of_receipt]"
+                                                value="{{ $dateOfReceipt ? \Carbon\Carbon::parse($dateOfReceipt)->format('Y-m-d') : now()->format('Y-m-d') }}"
+                                                class="form-control date-field" id="date-{{ $key }}"
+                                                {{ $status === 'active' || $warrantyEndDate < now() ? 'readonly' : '' }}
+                                                min="{{ now()->format('Y-m-d') }}">
                                         </td>
-
                                         <td style="width: 10%;">
                                             <div class="order-item-price">
                                                 {{ formatCurrency($val->price) }}
                                             </div>
                                         </td>
-
                                         <td style="width: 2%;">
                                             <div class="order-item-times">
                                                 ✖
@@ -128,21 +130,21 @@
                                             </div>
                                         </td>
                                         <td style="width: 2% !important;">
-                                            @if ($status == 'active')
+                                            @if ($status === 'active')
                                                 <div class="image">
                                                     <span class="image img-scaledown">
                                                         <img src="backend/img/icons8-repair-100.png" alt="" style="width: 24px">
                                                     </span>
                                                 </div>
-                                            @elseif ($status == 'expired')
+                                            @elseif ($status === 'expired')
                                                 <div class="image">
                                                     <span class="image img-scaledown">
                                                         <img src="backend/img/icons8-process-100.png" alt="" style="width: 24px">
                                                     </span>
                                                 </div>
-                                            @elseif ($status == 'pending')
+                                            @elseif ($status === 'pending')
                                                 <i class="fa fa-hourglass-start" style="color: orange; font-size: 24px;" title="Đang chờ xử lý"></i>
-                                            @elseif ($status == 'completed')
+                                            @elseif ($status === 'completed')
                                                 <div class="image">
                                                     <span class="image img-scaledown">
                                                         <img src="backend/img/icons8-complete-100.png" alt="" style="width: 24px">
@@ -280,11 +282,73 @@
     var canceled = "{{ __('form.canceled') }}"
 
     document.addEventListener('DOMContentLoaded', function() {
-        const checkboxes = document.querySelectorAll('.input-checkbox[readonly]');
+        // Lấy tất cả checkbox
+        const checkboxes = document.querySelectorAll('.input-checkbox');
+
         checkboxes.forEach(function(checkbox) {
-            checkbox.addEventListener('click', function(e) {
+            const key = checkbox.id.split('-')[1]; // Lấy key từ id của checkbox
+            const notesField = document.getElementById(`notes-${key}`);
+            const dateField = document.getElementById(`date-${key}`);
+
+            // Khóa trường notes và date nếu checkbox chưa được check
+            const toggleFields = () => {
+                if (checkbox.checked) {
+                    notesField.removeAttribute('readonly');
+                    dateField.removeAttribute('readonly');
+                } else {
+                    notesField.setAttribute('readonly', 'true');
+                    dateField.setAttribute('readonly', 'true');
+                }
+            };
+
+            // Gọi toggle khi trang tải
+            toggleFields();
+
+            // Thay đổi trạng thái khi checkbox được click
+            checkbox.addEventListener('change', toggleFields);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form[action="{{ route('warranty.warrantyConfirm') }}"]');
+        const checkboxes = document.querySelectorAll('.input-checkbox');
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', function(e) {
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            if (!anyChecked) {
                 e.preventDefault();
+                alert('Vui lòng chọn sản phẩm cần bảo hành.');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form[action="{{ route('warranty.warrantyConfirm') }}"]');
+        const checkboxes = document.querySelectorAll('.input-checkbox');
+
+        form.addEventListener('submit', function(e) {
+            let hasError = false;
+
+            checkboxes.forEach(function(checkbox) {
+                const key = checkbox.id.split('-')[1]; // Get the key from the checkbox ID
+                const notesField = form.querySelector(`input[name="products[${key}][notes]"]`);
+
+                if (checkbox.checked) {
+                    // If the checkbox is checked but the notes field is empty, show an alert and prevent submission
+                    if (!notesField || notesField.value.trim() === '') {
+                        hasError = true;
+                        notesField.classList.add('is-invalid'); // Highlight the field with a class
+                        alert(`Vui lòng nhập ghi chú cho sản phẩm ở dòng ${parseInt(key) + 1}.`);
+                    } else {
+                        notesField.classList.remove('is-invalid'); // Remove error class if valid
+                    }
+                }
             });
+
+            if (hasError) {
+                e.preventDefault(); // Prevent form submission if there's an error
+            }
         });
     });
 </script>

@@ -81,26 +81,47 @@ class WarrantyController extends Controller
     public function detail(Request $request, $id)
     {
         $language = $this->language;
+
+        // Lấy thông tin đơn hàng
         $order = $this->orderRepository->findByCondition([['id', '=', $id]], false, ['products']);
         $order = $this->orderService->setAddress($order);
+
+        // Lấy danh sách sản phẩm của đơn hàng
         $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
         $orderProducts = $this->orderService->setInformation($orderProducts, $language);
+
+        // Lấy danh sách tỉnh/thành phố
         $provinces = $this->provinceRepository->all();
+
+        // Lấy thông tin bảo hành liên quan
         $warranty_card = $this->warrantyRepository->findByConditionWarranty([['order_id', '=', $order->id]], false);
+
+        // Chuẩn bị trạng thái từng sản phẩm dựa trên thông tin bảo hành
+        $warrantyStatuses = [];
+        foreach ($warranty_card as $warranty) {
+            $warrantyStatuses[$warranty->product_id] = [
+                'variant_uuid' => $warranty->variant_uuid,
+                'status' => $warranty->status,
+                'notes' => $warranty->notes,
+                'date_of_receipt' => $warranty->date_of_receipt,
+            ];
+        }
+
+        // Truyền dữ liệu xuống view
         $config = [
             'css' => [
                 'backend\css\plugins\toastr\toastr.min.css',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             ],
             'js' => [
                 'backend\js\plugins\toastr\toastr.min.js',
                 'backend/library/order.js',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
             ],
         ];
         $config['seo'] = __('order');
         $template = 'backend.warranty.warranty.detail';
-        return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts', 'provinces', 'warranty_card'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts', 'provinces', 'warranty_card', 'warrantyStatuses'));
     }
 
     public function warrantyConfirm(StoreWarrantyRequest $request)
@@ -185,6 +206,7 @@ class WarrantyController extends Controller
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
             ],
         ];
+        
         $config['seo'] = __('orderWarranty');
         $template = 'backend.warranty.repair.detail';
         return view('backend.dashboard.layout', compact('template', 'config', 'order', 'orderProducts', 'provinces', 'warranty_card'));
