@@ -23,8 +23,6 @@
         $currentStatus = $warranty_card->where('variant_uuid', $product->variant_uuid)->first()->status ?? null;
         return in_array($currentStatus, ['active', 'pending']);
     });
-
-    $deliveryTime = Carbon\Carbon::parse($order->delivery_date);
 @endphp
 
 <form action="{{ route('warranty.warrantyConfirmRepair') }}" method="post">
@@ -86,8 +84,10 @@
                             <tbody>
                                 @foreach ($activeProducts as $key => $val)
                                     @php
+                                        $currentCard = $warranty_card->firstWhere('variant_uuid', $val->variant_uuid);
                                         $currentStatus = $warranty_card->where('variant_uuid', $val->variant_uuid)->first()->status ?? null;
-                                        $warrantyEndDate = $deliveryTime->addMonths($val->warranty_time);
+                                        $note = $currentCard->notes ?? '';
+                                        $warrantyEndDate = Carbon\Carbon::parse($order->delivery_date)->addMonths($val->warranty_time);
                                     @endphp
                                     <tr class="order-item">
                                         <td style="width: 2%;">
@@ -111,8 +111,8 @@
                                                 </strong>
                                                 <br>
                                                 <span style="color: #000">{{ __('form.note') }} <span class="text-danger">(*)</span></span>
-                                                <input style="color: #000" type="text" value="{{ $warrantyNotes[$key] ?? '' }}"
-                                                    class="form-control" name="notes[]" placeholder="{{ __('form.enter_note') }}" readonly>
+                                                <input style="color: #000" type="text" value="{{ $note }}" class="form-control"
+                                                    name="notes[]" placeholder="{{ __('form.enter_note') }}" readonly>
                                                 <br>
                                                 <select name="status[]" class="form-control setupSelect2" style="width: 160px">
                                                     @foreach ($statuses as $statusKey => $statusLabel)
@@ -188,6 +188,45 @@
             checkbox.addEventListener('click', function(e) {
                 e.preventDefault();
             });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form[action="{{ route('warranty.warrantyConfirmRepair') }}"]');
+        const checkboxes = document.querySelectorAll('.input-checkbox');
+
+        form.addEventListener('submit', function(e) {
+            let anyChecked = false;
+            let hasError = false;
+
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    anyChecked = true;
+
+                    // Find the corresponding notes field for the checked product
+                    const row = checkbox.closest('tr'); // Get the parent row of the checkbox
+                    const notesField = row.querySelector('input[name="notes[]"]'); // Find the notes input within the same row
+
+                    // Check if the notes field is empty
+                    if (!notesField || notesField.value.trim() === '') {
+                        hasError = true;
+                        notesField.classList.add('is-invalid'); // Highlight the invalid notes field
+                        alert('Vui lòng nhập ghi chú cho sản phẩm được chọn.');
+                    } else {
+                        notesField.classList.remove('is-invalid'); // Remove the invalid class if the field is valid
+                    }
+                }
+            });
+
+            // If no product is checked or there's a validation error, prevent form submission
+            if (!anyChecked) {
+                e.preventDefault();
+                alert('Vui lòng chọn ít nhất một sản phẩm để hoàn thành bảo hành.');
+            }
+
+            if (hasError) {
+                e.preventDefault();
+            }
         });
     });
 </script>
