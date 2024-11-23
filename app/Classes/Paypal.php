@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use Illuminate\Support\Facades\App;
 use Srmklive\PayPal\Services\PayPal as PaypalClient;
 
 
@@ -14,6 +15,11 @@ class Paypal
         $provider = new PaypalClient;
         $accessToken = $provider->getAccessToken();
 
+        $canonicalLanguage = App::getLocale() ?? config('app.locale');
+        if (isset($canonicalLanguage) && $canonicalLanguage == 'vn') {
+            $totalPrice = convertVNDToUSD($totalPrice) ?? 0;
+        }
+
         $data = [
             'intent' => 'CAPTURE',
             'application_context' => [
@@ -24,7 +30,7 @@ class Paypal
                 [
                     'amount' => [
                         'currency_code' => 'USD',
-                        'value' => convertVNDToUSD($totalPrice) ?? 0
+                        'value' => $totalPrice
                     ],
                 ]
             ]

@@ -282,8 +282,10 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     private function updateAttributeForProduct($product, $request)
     {
-        $attributes = array_values($request->generalAttribute);
-        $attributes = array_map('intval', $attributes);
+        $attributes = array_values($request->generalAttribute ?? []);
+        if (isset($attributes) && count($attributes)) {
+            $attributes = array_map('intval', $attributes);
+        }
         $product->attributes()->sync($attributes);
     }
 

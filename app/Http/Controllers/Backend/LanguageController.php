@@ -205,6 +205,12 @@ class LanguageController extends Controller
             return redirect()->back();
         }
         flash()->error(__('toast.update_failed'));
+    }
+
+    public function switchFrontendLanguage($id)
+    {
+        $this->languageService->switchBackend($id);
+        // chuyển hướng đến vị trí trước đó
         return redirect()->back();
     }
 

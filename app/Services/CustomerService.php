@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Mail\SendChangePassword;
 use App\Models\Customer;
 use App\Repositories\CustomerRepository;
+use App\Repositories\LanguageRepository;
 use App\Repositories\SourceRepository;
 use App\Services\Interfaces\CustomerServiceInterface;
 use Carbon\Carbon;
@@ -22,11 +23,13 @@ class CustomerService extends BaseService implements CustomerServiceInterface
 {
     protected $customerRepository;
     protected $sourceRepository;
+    protected $languageRepository;
 
-    public function __construct(CustomerRepository $customerRepository, SourceRepository $sourceRepository)
+    public function __construct(CustomerRepository $customerRepository, SourceRepository $sourceRepository, LanguageRepository $languageRepository)
     {
         $this->customerRepository = $customerRepository;
         $this->sourceRepository = $sourceRepository;
+        $this->languageRepository = $languageRepository;
     }
 
     public function paginate($request)
@@ -72,6 +75,15 @@ class CustomerService extends BaseService implements CustomerServiceInterface
             $source = $this->sourceRepository->findByCondition([['keyword', '=', 'website']]);
             $payload['source_id'] = $source->id;
             $payload['customer_catalogue_id'] = 1;
+
+            $language = $this->languageRepository->findByCondition([
+                ['current', '=', 1]
+            ]);
+
+            if (isset($language)) {
+                $payload['language'] = $language->canonical;
+            }
+
             $this->customerRepository->create($payload);
             DB::commit();
             return true;
@@ -89,6 +101,14 @@ class CustomerService extends BaseService implements CustomerServiceInterface
 
             $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
             $payload['password'] = Hash::make($payload['password']);
+
+            $language = $this->languageRepository->findByCondition([
+                ['current', '=', 1]
+            ]);
+
+            if (isset($language)) {
+                $payload['language'] = $language->canonical;
+            }
 
             $this->customerRepository->create($payload);
             DB::commit();
@@ -125,6 +145,14 @@ class CustomerService extends BaseService implements CustomerServiceInterface
                     'customer_catalogue_id' => 1,
                     'source_id' => $sourceGoogle->id,
                 ];
+                
+                $language = $this->languageRepository->findByCondition([
+                    ['current', '=', 1]
+                ]);
+
+                if (isset($language)) {
+                    $payload['language'] = $language->canonical;
+                }
                 $customer = $this->customerRepository->create($payload);
             }
             DB::commit();

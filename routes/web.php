@@ -52,16 +52,17 @@ use App\Http\Controllers\Frontend\PaypalController;
 use App\Http\Controllers\Frontend\RouterController;
 use App\Http\Controllers\Frontend\VNPayController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
+use App\Http\Middleware\SetLocaleFrontend;
 
 // @@use-controller@@
 
 /* FRONTEND ROUTES */
 
-
 // Route cho trang chủ
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/', [HomeController::class, 'index'])->name('home.index')->middleware(SetLocaleFrontend::class);
+Route::get('{id}/switchFrontend', [LanguageController::class, 'switchFrontendLanguage'])->name('language.switchFrontend')->where(['id' => '[0-9]+']);
 
-Route::group(['middleware' => [CustomerAuthenticateMiddleware::class]], function () {
+Route::group(['middleware' => [CustomerAuthenticateMiddleware::class, SetLocaleFrontend::class]], function () {
     // Route cho giỏ hàng
     Route::get('pay' . config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');
     Route::post('pay-information' . config('apps.general.suffix'), [CartController::class, 'store'])->name('cart.store');
@@ -74,35 +75,37 @@ Route::group(['middleware' => [CustomerAuthenticateMiddleware::class]], function
     Route::post('ajax/review/create', [AjaxReviewController::class, 'create'])->name('ajax.review.create');
 });
 
-//Info customer
-Route::get('info' . config('apps.general.suffix'), [FrontendCustomerController::class, 'info'])->name('customer.info')->middleware(CustomerAuthenticateMiddleware::class);
-Route::post('updateInfo', [FrontendCustomerController::class, 'updateInfo'])->name('customer.updateInfo')->middleware(CustomerAuthenticateMiddleware::class);
-Route::get('address' . config('apps.general.suffix'), [FrontendCustomerController::class, 'address'])->name('customer.address')->middleware(CustomerAuthenticateMiddleware::class);
-Route::post('updateAddress', [FrontendCustomerController::class, 'updateAddress'])->name('customer.updateAddress')->middleware(CustomerAuthenticateMiddleware::class);
-Route::get('changePassword' . config('apps.general.suffix'), [FrontendCustomerController::class, 'changePassword'])->name('customer.changePassword')->middleware(CustomerAuthenticateMiddleware::class);
-Route::get('sendChangePassword', [FrontendCustomerController::class, 'sendChangePassword'])->name('customer.sendChangePassword');
-Route::get('viewOrder', [FrontendOrderController::class, 'viewOrder'])->name('order.viewOrder')->middleware(CustomerAuthenticateMiddleware::class);;
+Route::group(['middleware' => [SetLocaleFrontend::class]], function () {
+    //Info customer
+    Route::get('info' . config('apps.general.suffix'), [FrontendCustomerController::class, 'info'])->name('customer.info')->middleware(CustomerAuthenticateMiddleware::class);
+    Route::post('updateInfo', [FrontendCustomerController::class, 'updateInfo'])->name('customer.updateInfo')->middleware(CustomerAuthenticateMiddleware::class);
+    Route::get('address' . config('apps.general.suffix'), [FrontendCustomerController::class, 'address'])->name('customer.address')->middleware(CustomerAuthenticateMiddleware::class);
+    Route::post('updateAddress', [FrontendCustomerController::class, 'updateAddress'])->name('customer.updateAddress')->middleware(CustomerAuthenticateMiddleware::class);
+    Route::get('changePassword' . config('apps.general.suffix'), [FrontendCustomerController::class, 'changePassword'])->name('customer.changePassword')->middleware(CustomerAuthenticateMiddleware::class);
+    Route::get('sendChangePassword', [FrontendCustomerController::class, 'sendChangePassword'])->name('customer.sendChangePassword');
+    Route::get('viewOrder', [FrontendOrderController::class, 'viewOrder'])->name('order.viewOrder')->middleware(CustomerAuthenticateMiddleware::class);;
 
-Route::get('change', [FrontendCustomerController::class, 'change'])->name('customer.change');
-Route::post('updateChangePassword', [FrontendCustomerController::class, 'updateChangePassword'])->name('customer.updateChangePassword')->middleware(CustomerAuthenticateMiddleware::class);
+    Route::get('change', [FrontendCustomerController::class, 'change'])->name('customer.change');
+    Route::post('updateChangePassword', [FrontendCustomerController::class, 'updateChangePassword'])->name('customer.updateChangePassword')->middleware(CustomerAuthenticateMiddleware::class);
 
-// Route cho RouterController
-Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
-Route::get('{canonical}' . '/uuid={uuid}' . config('apps.general.suffix'), [RouterController::class, 'getProduct'])->name('router.getProduct')->where('canonical', '[a-zA-Z0-9-]+');
-Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
-Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
+    // Route cho RouterController
+    Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
+    Route::get('{canonical}' . '/uuid={uuid}' . config('apps.general.suffix'), [RouterController::class, 'getProduct'])->name('router.getProduct')->where('canonical', '[a-zA-Z0-9-]+');
+    Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
+    Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
 
-// Thanh toán VNPay
-Route::get('return/vnpay' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_return'])->name('vnpay.vnpay_return');
-Route::get('return/vnpay_ipn' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_ipn'])->name('vnpay.vnpay_ipn');
+    // Thanh toán VNPay
+    Route::get('return/vnpay' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_return'])->name('vnpay.vnpay_return');
+    Route::get('return/vnpay_ipn' . config('apps.general.suffix'), [VNPayController::class, 'vnpay_ipn'])->name('vnpay.vnpay_ipn');
 
-// Thanh toán MoMo
-Route::get('return/momo' . config('apps.general.suffix'), [MoMoController::class, 'momo_return'])->name('momo.momo_return');
-Route::get('return/momo_ipn' . config('apps.general.suffix'), [MoMoController::class, 'momo_ipn'])->name('momo.momo_ipn');
+    // Thanh toán MoMo
+    Route::get('return/momo' . config('apps.general.suffix'), [MoMoController::class, 'momo_return'])->name('momo.momo_return');
+    Route::get('return/momo_ipn' . config('apps.general.suffix'), [MoMoController::class, 'momo_ipn'])->name('momo.momo_ipn');
 
-// Thanh toán Paypal
-Route::get('paypal/success/id={code}' . config('apps.general.suffix'), [PaypalController::class, 'success'])->name('paypal.success');
-Route::get('paypal/cancel' . config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
+    // Thanh toán Paypal
+    Route::get('paypal/success/id={code}' . config('apps.general.suffix'), [PaypalController::class, 'success'])->name('paypal.success');
+    Route::get('paypal/cancel' . config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
+});
 
 // AJAX
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
