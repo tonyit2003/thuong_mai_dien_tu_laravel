@@ -41,7 +41,8 @@ class AttributeService extends BaseService implements AttributeServiceInterface
             ['attribute_catalogue_attribute', 'attribute_catalogue_attribute.attribute_id', '=', 'attributes.id']
         ];
         $orderBy = [
-            'attributes.id', 'DESC'
+            'attributes.id',
+            'DESC'
         ];
         $extend = [
             'path' => 'attribute/index',
@@ -59,7 +60,6 @@ class AttributeService extends BaseService implements AttributeServiceInterface
             if ($attribute->id > 0) {
                 $this->updateLanguageForAttribute($attribute, $request, $languageId);
                 $this->updateCatalogueForAttribute($attribute, $request);
-                $this->createRouter($attribute, $request, $this->controllerName, $languageId);
             }
 
             DB::commit();
@@ -78,7 +78,6 @@ class AttributeService extends BaseService implements AttributeServiceInterface
             if ($this->updateAttribute($attribute, $request)) {
                 $this->updateLanguageForAttribute($attribute, $request, $languageId);
                 $this->updateCatalogueForAttribute($attribute, $request);
-                $this->updateRouter($attribute, $request, $this->controllerName, $languageId);
             }
             DB::commit();
             return true;
@@ -131,7 +130,6 @@ class AttributeService extends BaseService implements AttributeServiceInterface
 
     private function formatLanguagePayload($payload, $attributeId, $languageId)
     {
-        $payload['canonical'] = Str::slug($payload['canonical']);
         $payload['language_id'] = $languageId;
         $payload['attribute_id'] = $attributeId;
         return $payload;
