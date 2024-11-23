@@ -165,6 +165,13 @@ class LanguageController extends Controller
         return redirect()->back();
     }
 
+    public function switchFrontendLanguage($id)
+    {
+        $this->languageService->switchBackend($id);
+        // chuyển hướng đến vị trí trước đó
+        return redirect()->back();
+    }
+
     private function repositoryInstance($model)
     {
         $repositoryNamespace = '\App\Repositories\\' . ucfirst($model) . 'Repository';

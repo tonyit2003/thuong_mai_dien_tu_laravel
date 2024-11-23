@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\CustomerRepository;
 use App\Repositories\LanguageRepository;
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\LanguageServiceInterface;
@@ -18,11 +19,13 @@ class LanguageService extends BaseService implements LanguageServiceInterface
 {
     protected $languageRepository;
     protected $routerRepository;
+    protected $customerRepository;
 
-    public function __construct(LanguageRepository $languageRepository, RouterRepository $routerRepository)
+    public function __construct(LanguageRepository $languageRepository, RouterRepository $routerRepository, CustomerRepository $customerRepository)
     {
         $this->languageRepository = $languageRepository;
         $this->routerRepository = $routerRepository;
+        $this->customerRepository = $customerRepository;
     }
 
     public function paginate($request)
@@ -88,6 +91,26 @@ class LanguageService extends BaseService implements LanguageServiceInterface
             $payload = ['current' => 0];
             $this->languageRepository->updateByWhere($where, $payload);
 
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function switchBackend($id)
+    {
+        DB::beginTransaction();
+        try {
+            $language = $this->languageRepository->findById($id);
+            if ($language != null) {
+                $payload['language'] = $language->canonical;
+                $customerId = Auth::guard('customers')->id();
+                if (isset($customerId)) {
+                    $this->customerRepository->update($customerId, $payload);
+                }
+            }
             DB::commit();
             return true;
         } catch (Exception $e) {
