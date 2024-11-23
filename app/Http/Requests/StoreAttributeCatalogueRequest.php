@@ -23,7 +23,6 @@ class StoreAttributeCatalogueRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'canonical' => 'required|unique:routers'
         ];
     }
 
@@ -31,8 +30,6 @@ class StoreAttributeCatalogueRequest extends FormRequest
     {
         return [
             'name.required' => "Bạn chưa nhập tên.",
-            'canonical.required' => "Bạn chưa nhập đường dẫn",
-            'canonical.unique' => "Đường dẫn đã tồn tại"
         ];
     }
 }

@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
-class UpdateAttributeCatalogueRequest extends FormRequest
+class TranslateLanguageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +23,14 @@ class UpdateAttributeCatalogueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'translate_name' => 'required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên.",
+            'translate_name.required' => "Bạn chưa nhập tên tiêu đề.",
         ];
     }
 }

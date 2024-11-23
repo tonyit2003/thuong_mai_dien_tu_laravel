@@ -234,6 +234,9 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::get('{id}/switch', [LanguageController::class, 'switchBackendLanguage'])->name('language.switch')->where(['id' => '[0-9]+']);
         Route::get('{id}/{languageId}/{model}/translate', [LanguageController::class, 'translate'])->name('language.translate')->where(['id' => '[0-9]+', 'languageId' => '[0-9]+',]);
         Route::post('storeTranslate', [LanguageController::class, 'storeTranslate'])->name('language.storeTranslate');
+
+        Route::get('{id}/{languageId}/{model}/translateLanguage', [LanguageController::class, 'translateLanguage'])->name('language.translateLanguage')->where(['id' => '[0-9]+', 'languageId' => '[0-9]+',]);
+        Route::post('storetranslateLanguage', [LanguageController::class, 'storetranslateLanguage'])->name('language.storetranslateLanguage');
     });
 
     // PERMISSION

@@ -143,6 +143,39 @@ class LanguageService extends BaseService implements LanguageServiceInterface
         }
     }
 
+    public function saveTranslateLanguage($translateRequest)
+    {
+        DB::beginTransaction();
+        try {
+            $option = $translateRequest->input('option');
+            $payload = [
+                'name' => $translateRequest->input('translate_name'),
+                $this->convertModelToField($option['model']) => $option['id'],
+                'language_id' => $option['languageId'],
+            ];
+            $controllerName = $option['model'] . 'Controller';
+            $repositoryNamespace = '\App\Repositories\\' . ucfirst($option['model']) . 'Repository';
+            if (class_exists($repositoryNamespace)) {
+                $repositoryInstance = app($repositoryNamespace);
+            }
+            $model = $repositoryInstance->findById($option['id']);
+            $model->languages()->detach($option['languageId']);
+            $repositoryInstance->createPivot($model, $payload, 'languages');
+
+            $this->routerRepository->forceDeleteByCondition([
+                ['module_id', '=', $option['id']],
+                ['controllers', '=', 'App\Http\Controllers\Frontend\\' . $controllerName . ''],
+                ['language_id', '=', $option['languageId']]
+            ]);
+
+            DB::commit();
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
     private function convertModelToField($model)
     {
         // PostCatalogue => post_catalogue_id

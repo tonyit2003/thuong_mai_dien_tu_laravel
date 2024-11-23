@@ -26,7 +26,7 @@
                     <td>
                         {{ str_repeat('|----', $attributeCatalogue->level > 0 ? $attributeCatalogue->level - 1 : 0) . $attributeCatalogue->name }}
                     </td>
-                    @include('backend.dashboard.component.languageTd', [
+                    @include('backend.dashboard.component.languageTdLanguage', [
                         'model' => $attributeCatalogue,
                         'modeling' => 'AttributeCatalogue',
                     ])

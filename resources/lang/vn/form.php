@@ -304,4 +304,5 @@ return [
     'month'                             => 'tháng',
     'product_attributes'                => 'Sản phẩm có nhiều thuộc tính',
     'product_attributes_description'    => 'Cho phép bạn thêm các thuộc tính chung của 1 sản phẩm như <strong class="text-danger">RAM</strong>, <strong class="text-danger">Camera</strong>, <strong class="text-danger">Hệ điều hành</strong>, ...',
+    'attributeCatalogueName'            => 'Tên loại thuộc tính'
 ];

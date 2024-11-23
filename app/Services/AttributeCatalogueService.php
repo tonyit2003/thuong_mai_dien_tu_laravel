@@ -42,7 +42,8 @@ class AttributeCatalogueService extends BaseService implements AttributeCatalogu
             ['attribute_catalogue_language', 'attribute_catalogue_language.attribute_catalogue_id', '=', 'attribute_catalogues.id']
         ];
         $orderBy = [
-            'attribute_catalogues.lft', 'ASC'
+            'attribute_catalogues.lft',
+            'ASC'
         ];
         $extend = ['path' => 'attribute/catalogue/index'];
         return $this->attributeCatalogueRepository->pagination($this->paginateSelect(), $condition, $join, $perPage, $extend, [], $orderBy);
@@ -55,7 +56,6 @@ class AttributeCatalogueService extends BaseService implements AttributeCatalogu
             $attributeCatalogue = $this->createAttributeCatalogue($request);
             if ($attributeCatalogue->id > 0) {
                 $this->updateLanguageForAttributeCatalogue($attributeCatalogue, $request, $languageId);
-                $this->createRouter($attributeCatalogue, $request, $this->controllerName, $languageId);
             }
 
             $this->nestedset = new Nestedsetbie([
@@ -80,7 +80,6 @@ class AttributeCatalogueService extends BaseService implements AttributeCatalogu
             $attributeCatalogue = $this->attributeCatalogueRepository->findById($id);
             if ($this->updateAttributeCatalogue($attributeCatalogue, $request)) {
                 $this->updateLanguageForAttributeCatalogue($attributeCatalogue, $request, $languageId);
-                $this->updateRouter($attributeCatalogue, $request, $this->controllerName, $languageId);
             }
 
             $this->nestedset = new Nestedsetbie([
@@ -148,7 +147,6 @@ class AttributeCatalogueService extends BaseService implements AttributeCatalogu
 
     private function formatLanguagePayload($payload, $attributeCatalogue, $languageId)
     {
-        $payload['canonical'] = Str::slug($payload['canonical']);
         $payload['language_id'] = $languageId;
         $payload['attribute_catalogue_id'] = $attributeCatalogue->id;
         return $payload;

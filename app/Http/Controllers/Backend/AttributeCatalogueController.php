@@ -128,7 +128,6 @@ class AttributeCatalogueController extends Controller
         ]);
     }
 
-
     private function configData()
     {
         return [
