@@ -1,8 +1,6 @@
 @include(
     'backend.dashboard.component.breadcrumb',
-    $config['method'] == 'create'
-        ? ['title' => $config['seo']['create']['title']]
-        : ['title' => $config['seo']['edit']['title']]
+    $config['method'] == 'create' ? ['title' => $config['seo']['create']['title']] : ['title' => $config['seo']['edit']['title']]
 )
 @include('backend.dashboard.component.formError')
 @php
@@ -12,18 +10,53 @@
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-9">
-                @include('backend.dashboard.component.content', ['model' => $attribute ?? null])
-                @include('backend.dashboard.component.album')
-                @include('backend.dashboard.component.seo', ['model' => $attribute ?? null])
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>
+                                {{ __('form.general_info') }}
+                            </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row mb15">
+                                <div class="col-lg-12">
+                                    <div class="form-row">
+                                        <label for="" class="control-label text-left">
+                                            {{ __('form.attributeName') }}
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input type="text" name="name" value="{{ old('name', $attribute->name ?? '') }}" class="form-control"
+                                            placeholder="" autocomplete="off" {{ isset($disabled) ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb15">
+                                <div class="col-lg-12">
+                                    <div class="form-row">
+                                        <label for="" class="control-label text-left">
+                                            {{ __('form.select_parent_category') }}
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <select name="attribute_catalogue_id" id="" class="form-control setupSelect2">
+                                            @foreach ($dropdown as $key => $val)
+                                                <option
+                                                    {{ $key == old('attribute_catalogue_id', isset($attribute->attribute_catalogue_id) ? $attribute->attribute_catalogue_id : '') ? 'selected' : '' }}
+                                                    value="{{ $key }}">{{ $val }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right mb15 button-fix">
+                                <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.save') }}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
             </div>
-            <div class="col-lg-3">
-                @include('backend.attribute.attribute.component.aside')
-            </div>
-        </div>
-
-        <div class="text-right mb15 button-fix">
-            <input class="btn btn-primary" type="submit" name="send" value="{{ __('button.save') }}" />
         </div>
     </div>
 </form>

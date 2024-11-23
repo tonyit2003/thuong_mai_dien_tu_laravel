@@ -23,7 +23,7 @@
                             <div class="col-lg-12">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        {{ __('form.title') }}
+                                        {{ __('form.attribute_catalogue_name') }}
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" name="name" value="{{ old('name', $attributeCatalogue->name ?? '') }}"
