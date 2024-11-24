@@ -131,7 +131,7 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
             })
             ->select(
                 'months.month',
-                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(12, 2)) as monthly_revenue')
+                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(16, 2)) as monthly_revenue')
             )
             ->groupBy('months.month')
             ->orderBy('months.month')
@@ -160,7 +160,7 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
             })
             ->select(
                 DB::raw('DATE_FORMAT(dates.date, "%d/%m/%Y") as date'),
-                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(12, 2)) as daily_revenue')
+                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(16, 2)) as daily_revenue')
             )
             ->groupBy(DB::raw('dates.date'))
             ->orderBy(DB::raw('dates.date'), 'ASC')
@@ -176,7 +176,7 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
         return $this->model
             ->select(
                 DB::raw('DAY(date_approved) as day'),
-                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(12, 2)) as daily_revenue')
+                DB::raw('CAST(COALESCE(SUM(product_receipts.actual_total), 0) AS DECIMAL(16, 2)) as daily_revenue')
             )
             ->whereMonth('date_approved', $currentMonth)
             ->whereYear('date_approved', $currentYear)
