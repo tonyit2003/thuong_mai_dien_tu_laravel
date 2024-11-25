@@ -90,6 +90,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                             foreach ($valObject->{$replace} as $keyProduct => $valProduct) {
                                 $productVariantUuids = $valProduct->product_variants->pluck('uuid')->toArray();
                                 $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantUuids,  $valProduct->product_variants);
+                                $valProduct->product_variants = $this->{$serviceVariant}->getReview($valProduct->product_variants);
                             }
                         }
                         $widgets[$keyWidget]->object = $object;
@@ -101,6 +102,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
                         foreach ($object as $keyProduct => $valProduct) {
                             $productVariantUuids = $valProduct->product_variants->pluck('uuid')->toArray();
                             $valProduct->product_variants = $this->{$serviceVariant}->combineProductVariantAndPromotion($productVariantUuids,  $valProduct->product_variants);
+                            $valProduct->product_variants = $this->{$serviceVariant}->getReview($valProduct->product_variants);
                         }
                     }
                     $widgets[$keyWidget]->object = $object;

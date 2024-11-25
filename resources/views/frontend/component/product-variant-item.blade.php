@@ -38,7 +38,11 @@
         @endif
         <div class="product-group">
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                {!! $price['html'] !!}
+                @if ($productVariant->quantity > 0 && $price['price'] > 0)
+                    {!! $price['html'] !!}
+                @else
+                    <span class="btnOutOfStock-small">{{ __('info.temp_out_of_stock') }}</span>
+                @endif
                 <div class="addcart">
                     {{-- {!! renderQuickBuy($product, $canonical, $name) !!} --}}
                 </div>

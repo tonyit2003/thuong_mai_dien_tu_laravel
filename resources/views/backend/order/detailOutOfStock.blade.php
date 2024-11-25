@@ -149,6 +149,8 @@
                                 <a class="btn btn-primary confirm updateField" data-field="delivery"
                                     data-value="success"
                                     data-title="{{ __('form.delivery_successful') }}">{{ __('button.delivery_successful') }}</a>
+                                <a href="#submitCancelOrder" rel="modal:open"
+                                    class="btn btn-danger">{{ __('button.cancel_order') }}</a>
                             @endif
                         </div>
                     </div>
@@ -237,6 +239,20 @@
     </div>
 </div>
 
+<div id="submitCancelOrder" class="modal">
+    <div class="panel-head text-center mb10">{{ __('info.notification') }}</div>
+    <div class="panel-body payment-confirm">
+        <p class="message-text">{!! __('form.confirm_order_deletion', ['orderCode' => $order->code]) !!}</p>
+        <div class="text-right mt20">
+            <a href="#" class="btn btn-danger updateField" data-field="confirm" data-value="cancel"
+                data-title="{{ __('form.order_canceled') }}" data-returnStock="true">
+                {{ __('button.cancel_order') }}
+            </a>
+            <a href="#" class="btn btn-success" rel="modal:close">{{ __('form.cancel') }}</a>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" class="orderId" value="{{ $order->id }}">
 
 <script>
@@ -245,4 +261,6 @@
     var routeOutOfStock = "{{ route('order.outOfStock') }}"
     var invoiceTitle = "{{ __('form.invoice') }}"
     var invoiceUrl = "{{ write_url('invoice/' . $order->code . '.pdf', true, false) }}"
+    var cancelOrder = "{{ __('button.cancel_order') }}"
+    var canceled = "{{ __('form.canceled') }}"
 </script>

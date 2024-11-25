@@ -67,7 +67,9 @@
                                 <div class="rate-number">(65 {{ __('unit.evaluate') }})</div>
                             </div> --}}
                         </div>
-                        {!! $price['html'] !!}
+                        @if ($productVariant->quantity > 0 && $price['price'] > 0)
+                            {!! $price['html'] !!}
+                        @endif
                         <div class="description">
                             {!! $description !!}
                         </div>
@@ -84,16 +86,13 @@
                                     </div>
                                 </div>
                                 <div class="btn-group uk-flex uk-flex-middle">
-                                    @if ($productVariant->quantity > 0)
+                                    @if ($productVariant->quantity > 0 && $price['price'] > 0)
                                         <div class="btn-item btn-1 addToCart" data-productid="{{ $product->id }}"
                                             data-variantuuid="{{ $productVariant->uuid }}">
                                             <a href="" title="">{{ __('info.addToCart') }}</a>
                                         </div>
                                     @else
-                                        <div class="btn-item btn-1 btnOutOfStock" data-productid="{{ $product->id }}"
-                                            data-variantuuid="{{ $productVariant->uuid }}">
-                                            <a href="" title="">{{ __('info.temp_out_of_stock') }}</a>
-                                        </div>
+                                        <span class="btnOutOfStock">{{ __('info.temp_out_of_stock') }}</span>
                                     @endif
                                 </div>
                             </div>

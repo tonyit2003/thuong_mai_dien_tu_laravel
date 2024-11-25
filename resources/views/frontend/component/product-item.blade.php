@@ -17,7 +17,9 @@
             break;
         }
     }
-    $review = getReview($product);
+    $totalReview = isset($productVariant->reviews) ? $productVariant->reviews->count() : 0;
+    $totalRate = isset($productVariant->reviews) ? number_format($productVariant->reviews->avg('score'), 1) : 0;
+    $starPercent = isset($productVariant->reviews) ? ($totalRate / 5) * 100 : 0;
 @endphp
 <div class="product-item product">
     @if ($price['percent'] !== 0)
@@ -31,19 +33,23 @@
         <h3 class="title">
             <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
         </h3>
-        <div class="rating">
-            <div class="uk-flex uk-flex-middle">
-                <div class="star">
-                    @for ($j = 1; $j <= $review['star']; $j++)
-                        <i class="fa fa-star"></i>
-                    @endfor
+        @if ($totalReview !== 0)
+            <div class="rating">
+                <div class="uk-flex uk-flex-middle">
+                    <div class="star-rating" style="--star-width: {{ $starPercent }}%">
+                        <div class="stars"></div>
+                    </div>
+                    <span class="rate-number">({{ $totalReview }})</span>
                 </div>
-                <span class="rate-number">({{ $review['count'] }})</span>
             </div>
-        </div>
+        @endif
         <div class="product-group">
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                {!! $price['html'] !!}
+                @if ($productVariant->quantity > 0 && $price['price'] > 0)
+                    {!! $price['html'] !!}
+                @else
+                    <span class="btnOutOfStock-small">{{ __('info.temp_out_of_stock') }}</span>
+                @endif
                 <div class="addcart">
                     {{-- {!! renderQuickBuy($product, $canonical, $name) !!} --}}
                 </div>

@@ -358,9 +358,14 @@
         $(document).on("click", ".updateField", function (e) {
             e.preventDefault();
             let _this = $(this);
+            let returnStock = false;
+            if (_this.attr("data-returnStock") === "true") {
+                returnStock = true;
+            }
             let option = {
                 payload: {
                     [_this.attr("data-field")]: _this.attr("data-value"),
+                    returnStock: returnStock,
                 },
                 id: $(".orderId").val(),
                 _token: _token,
@@ -403,7 +408,7 @@
         }
 
         if (object.attr("data-value") == "processing") {
-            let button = `<a class="btn btn-success" target="_blank" href="${invoiceUrl}">${invoiceTitle}</a> <a class="btn btn-primary confirm updateField" data-field="delivery" data-value="success" data-title="${invoiceButton}">${invoiceButton}</a>`;
+            let button = `<a class="btn btn-success" target="_blank" href="${invoiceUrl}">${invoiceTitle}</a> <a class="btn btn-primary confirm updateField" data-field="delivery" data-value="success" data-title="${invoiceButton}">${invoiceButton}</a> <a href="#submitCancelOrder" rel="modal:open" class="btn btn-danger">${cancelOrder}</a>`;
             $(".invoice-block").html(button);
 
             let checkImage = "backend/img/sold.png";
@@ -416,6 +421,13 @@
         }
 
         if (object.attr("data-value") == "success") {
+            window.location.href = `${routeOutOfStock}`;
+        }
+
+        if (
+            object.attr("data-value") == "cancel" &&
+            object.attr("data-returnStock") === "true"
+        ) {
             window.location.href = `${routeOutOfStock}`;
         }
 

@@ -10,9 +10,9 @@
             <th class="text-center">
                 {{ __('table.creation_date') }}
             </th>
-            <th class="text-center">
+            {{-- <th class="text-center">
                 {{ __('table.customer') }}
-            </th>
+            </th> --}}
             <th class="text-center">
                 {{ __('table.provisional_total') }}
             </th>
@@ -22,7 +22,7 @@
             <th class="text-center">
                 {{ __('table.totalFinal') }}
             </th>
-            <th class="text-center">
+            <th style="width: 120px" class="text-center">
                 {{ __('table.status') }}
             </th>
             <th class="text-center">
@@ -55,7 +55,7 @@
                     <td>
                         {{ convertDatetime($order->created_at, 'H:i d-m-Y') }}
                     </td>
-                    <td>
+                    {{-- <td>
                         <div>
                             <b>N:</b> {{ $order->fullname }}
                         </div>
@@ -69,7 +69,7 @@
                             <b>A:</b>
                             {{ getAddress($order->province_id, $order->district_id, $order->ward_id, $order->address) }}
                         </div>
-                    </td>
+                    </td> --}}
                     <td class="text-right">
                         {{ formatCurrency($order->totalPriceOriginal) }}
                     </td>
@@ -80,9 +80,13 @@
                         {{ formatCurrency($order->totalPrice) }}
                     </td>
                     <td class="text-center">
-                        {!! $order->confirm != 'cancel'
-                            ? __('statusOrder.confirm')[$order->confirm]
-                            : '<span class="cancel-badge">' . __('statusOrder.confirm')[$order->confirm] . '</span>' !!}
+                        @if ($order->confirm == 'cancel')
+                            <span class="cancel-badge">{{ __('statusOrder.confirm')[$order->confirm] }}</span>
+                        @elseif($order->confirm == 'confirm')
+                            <span class="confirm-badge">{{ __('statusOrder.confirm')[$order->confirm] }}</span>
+                        @else
+                            <span class="pending-badge">{{ __('statusOrder.confirm')[$order->confirm] }}</span>
+                        @endif
                     </td>
                     {{-- @foreach (__('statusOrder') as $keyItem => $item)
                         @if ($keyItem == 'confirm')

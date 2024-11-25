@@ -148,6 +148,9 @@ class OrderService implements OrderServiceInterface
                 $payload['payment'] = 'paid';
                 $payload['delivery_date'] = Carbon::now();
             }
+            if (isset($payload['confirm']) && $payload['confirm'] == 'cancel' && isset($payload['returnStock']) && $payload['returnStock'] == "true") {
+                $this->updateStockQuantity($id, false);
+            }
             $this->orderRepository->update($id, $payload);
             DB::commit();
             return true;
@@ -332,7 +335,7 @@ class OrderService implements OrderServiceInterface
         return $invoice->stream();
     }
 
-    private function updateStockQuantity($orderId)
+    private function updateStockQuantity($orderId, $minusStock = true)
     {
         $orderProducts = $this->orderProductRepository->findByCondition([
             ['order_id', '=', $orderId]
@@ -342,7 +345,11 @@ class OrderService implements OrderServiceInterface
                 $productVariant = $this->productVariantRepository->findByCondition([
                     ['uuid', '=', $orderProduct->variant_uuid]
                 ]);
-                $payload['quantity'] = $productVariant->quantity - $orderProduct->quantity;
+                if ($minusStock) {
+                    $payload['quantity'] = $productVariant->quantity - $orderProduct->quantity;
+                } else {
+                    $payload['quantity'] = $productVariant->quantity + $orderProduct->quantity;
+                }
                 $this->productVariantRepository->updateByWhere([
                     ['uuid', '=', $productVariant->uuid]
                 ], $payload);

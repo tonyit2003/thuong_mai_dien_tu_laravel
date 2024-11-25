@@ -1298,6 +1298,24 @@ div .edit {
     font-size: 1.3rem;
 }
 
+.confirm-badge {
+    padding: 3px 7px;
+    background: #0088ff;
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.pending-badge {
+    padding: 3px 7px;
+    background: #1ab394;
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
 .updateBadge {
     cursor: pointer;
 }
@@ -1334,5 +1352,11 @@ div .edit {
 
 .jquery-modal.blocker {
     z-index: 9999 !important;
+}
+
+.nice-select.open .list {
+    max-height: 400px; /* Giới hạn chiều cao danh sách */
+    overflow-y: auto; /* Thêm thanh cuộn dọc */
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang nếu không cần thiết */
 }
 /* end */

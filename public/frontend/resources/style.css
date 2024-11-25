@@ -3413,7 +3413,6 @@ a.ui-button:active,
         0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-.btnOutOfStock,
 .addToCart {
     padding: 10px 20px;
     background: var(--primary-color);
@@ -3421,7 +3420,6 @@ a.ui-button:active,
     color: #fff;
 }
 
-.btnOutOfStock,
 .addToCart > * {
     color: #fff;
     font-weight: 500;
@@ -4023,7 +4021,6 @@ a.ui-button:active,
     /* Tăng khoảng cách giữa các ký tự */
 }
 
-.btnOutOfStock,
 .addToCart {
     padding: 10px 20px;
     background-color: var(--primary-color);
@@ -4031,13 +4028,11 @@ a.ui-button:active,
     color: #fff;
 }
 
-.btnOutOfStock:hover,
 .addToCart:hover {
     cursor: pointer;
     background-color: var(--hover-cover);
 }
 
-.btnOutOfStock > *,
 .addToCart > * {
     color: #fff;
     font-weight: 500;
@@ -4168,4 +4163,20 @@ a.ui-button:active,
 
 .login-google .uk-flex {
     justify-content: space-around;
+}
+
+.btnOutOfStock {
+    padding: 8px 40px;
+    background: red;
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.btnOutOfStock-small {
+    color: red;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
 }
