@@ -209,7 +209,7 @@ class LanguageController extends Controller
 
     public function switchFrontendLanguage($id)
     {
-        $this->languageService->switchBackend($id);
+        $this->languageService->switchFrontend($id);
         // chuyển hướng đến vị trí trước đó
         return redirect()->back();
     }

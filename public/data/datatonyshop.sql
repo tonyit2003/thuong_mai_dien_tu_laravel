@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 13, 2024 at 01:01 PM
+-- Generation Time: Nov 25, 2024 at 10:32 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.12
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `administrative_regions` (
   `id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `name_en` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `code_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `code_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -57,12 +57,12 @@ INSERT INTO `administrative_regions` (`id`, `name`, `name_en`, `code_name`, `cod
 
 CREATE TABLE `administrative_units` (
   `id` int NOT NULL,
-  `full_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `short_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `short_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `code_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `full_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `short_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `short_name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -90,9 +90,9 @@ INSERT INTO `administrative_units` (`id`, `full_name`, `full_name_en`, `short_na
 CREATE TABLE `attributes` (
   `id` bigint UNSIGNED NOT NULL,
   `attribute_catalogue_id` int NOT NULL DEFAULT '0',
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '1',
   `follow` tinyint NOT NULL DEFAULT '1',
   `order` int NOT NULL DEFAULT '0',
@@ -108,23 +108,69 @@ CREATE TABLE `attributes` (
 
 INSERT INTO `attributes` (`id`, `attribute_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, '2024-07-31 06:21:47', '2024-07-31 05:54:16', '2024-07-31 06:21:47'),
-(2, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-07-31 05:55:24', '2024-07-31 05:55:24'),
-(3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 09:22:29', '2024-08-02 22:20:04'),
-(4, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:20:00', '2024-08-02 22:20:05'),
-(5, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:21:56', '2024-08-02 22:22:01'),
-(7, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:22:20', '2024-08-02 22:22:24'),
-(8, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:22:59', '2024-08-02 22:23:02'),
-(9, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:23:18', '2024-09-30 08:35:14'),
-(10, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:43:18', '2024-09-30 08:35:13'),
-(11, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:43:30', '2024-09-30 08:35:13'),
-(12, 7, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:31:03', '2024-08-10 21:31:03'),
-(13, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 14:43:27', '2024-09-08 14:44:13'),
-(14, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 14:43:51', '2024-09-08 14:44:13'),
-(15, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 14:44:09', '2024-09-08 14:44:12'),
-(16, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 14:53:59', '2024-09-08 14:54:31'),
-(17, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 14:54:28', '2024-09-08 14:54:31'),
-(18, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 15:00:01', '2024-09-30 08:35:11'),
-(19, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 15:00:17', '2024-09-30 08:35:11');
+(2, 1, 'backend/img/no-photo.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-07-31 05:55:24', '2024-10-16 10:24:27'),
+(3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 09:22:29', '2024-10-16 10:24:27'),
+(4, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:20:00', '2024-10-16 10:24:27'),
+(5, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:21:56', '2024-10-16 10:24:27'),
+(7, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:22:20', '2024-10-16 10:24:27'),
+(8, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:22:59', '2024-10-16 10:24:27'),
+(9, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:23:18', '2024-10-16 10:24:27'),
+(10, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:43:18', '2024-10-16 10:24:27'),
+(11, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:43:30', '2024-10-16 10:24:27'),
+(12, 7, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:31:03', '2024-10-16 10:24:27'),
+(13, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:45:10', '2024-10-16 10:24:27'),
+(14, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:45:55', '2024-10-16 10:24:27'),
+(15, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:48:27', '2024-10-16 10:24:27'),
+(16, 5, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-06 16:34:35', '2024-09-06 15:49:09', '2024-09-06 16:34:35'),
+(17, 6, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:49:55', '2024-10-16 10:24:27'),
+(18, 8, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:50:33', '2024-10-16 10:24:27'),
+(19, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:58:53', '2024-10-16 10:24:27'),
+(20, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:04:12', '2024-10-16 10:24:27'),
+(21, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:04:38', '2024-10-16 10:24:27'),
+(22, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:05:34', '2024-10-22 02:14:08'),
+(23, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:20:17', '2024-10-22 02:14:08'),
+(24, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:23:59', '2024-10-22 02:14:08'),
+(25, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:24:18', '2024-10-22 02:14:08'),
+(26, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:25:09', '2024-10-22 02:14:08'),
+(27, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:25:36', '2024-10-22 02:14:08'),
+(28, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:26:52', '2024-10-22 02:14:08'),
+(29, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:27:20', '2024-10-22 02:14:08'),
+(30, 8, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:28:18', '2024-10-22 02:14:08'),
+(31, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:33:09', '2024-11-18 15:36:19'),
+(32, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:34:54', '2024-11-18 15:36:19'),
+(33, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:35:18', '2024-11-18 15:36:19'),
+(34, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:36:07', '2024-11-18 15:36:19'),
+(35, 6, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:37:01', '2024-11-18 15:36:19'),
+(36, 8, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:37:23', '2024-11-18 15:36:19'),
+(37, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:42:00', '2024-11-18 15:36:19'),
+(38, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:42:17', '2024-11-18 15:36:19'),
+(39, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:42:53', '2024-11-18 15:36:19'),
+(41, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:43:45', '2024-11-18 15:36:19'),
+(42, 8, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:45:11', '2024-11-18 15:36:19'),
+(43, 9, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:15:20', '2024-11-18 15:36:19'),
+(44, 10, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:18:02', '2024-11-18 15:36:19'),
+(45, 11, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:18:58', '2024-11-18 15:36:19'),
+(46, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:27:26', '2024-11-18 15:36:19'),
+(47, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:30:08', '2024-11-18 16:34:00'),
+(48, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:33:16', '2024-11-18 16:34:00'),
+(49, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:33:30', '2024-11-18 16:34:00'),
+(50, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:36:02', '2024-11-18 16:34:00'),
+(51, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:36:14', '2024-11-18 16:34:00'),
+(52, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:42:12', '2024-11-18 16:34:00'),
+(53, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:45:42', '2024-11-18 16:34:00'),
+(54, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:49:23', '2024-11-18 16:34:00'),
+(55, 12, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:49:51', '2024-11-18 16:34:00'),
+(56, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:50:08', '2024-11-18 16:34:00'),
+(57, 4, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:51:53', '2024-11-18 16:34:00'),
+(58, 12, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:52:12', '2024-11-18 16:34:00'),
+(59, 5, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:55:17', '2024-11-18 16:34:00'),
+(60, 13, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:06:42', '2024-11-18 16:34:00'),
+(61, 13, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:08:33', '2024-11-18 16:34:00'),
+(62, 13, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:10:21', '2024-11-18 16:34:00'),
+(63, 13, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:12:17', '2024-11-18 16:34:00'),
+(64, 14, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:21:13', '2024-11-18 16:34:00'),
+(65, 13, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:25:14', '2024-11-18 16:34:00'),
+(66, 15, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:30:48', '2024-11-18 16:34:00');
 
 -- --------------------------------------------------------
 
@@ -138,9 +184,9 @@ CREATE TABLE `attribute_catalogues` (
   `lft` int NOT NULL DEFAULT '0',
   `rgt` int NOT NULL DEFAULT '0',
   `level` int NOT NULL DEFAULT '0',
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '1',
   `follow` tinyint NOT NULL DEFAULT '1',
   `order` int NOT NULL DEFAULT '0',
@@ -155,13 +201,21 @@ CREATE TABLE `attribute_catalogues` (
 --
 
 INSERT INTO `attribute_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 0, 12, 13, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-07-29 05:53:43', '2024-08-02 22:21:16'),
+(1, 0, 28, 29, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-07-29 05:53:43', '2024-11-18 16:33:56'),
 (2, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-07-31 06:21:09', '2024-07-29 05:54:18', '2024-07-31 06:21:09'),
-(3, 0, 10, 11, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 01:03:27', '2024-08-02 22:21:15'),
-(4, 0, 8, 9, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 01:03:38', '2024-08-02 22:21:15'),
-(5, 0, 6, 7, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:21:31', '2024-08-02 22:21:34'),
-(6, 0, 2, 5, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:28:10', '2024-08-10 21:28:10'),
-(7, 6, 3, 4, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:30:15', '2024-08-10 21:30:15');
+(3, 0, 26, 27, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 01:03:27', '2024-11-18 16:33:56'),
+(4, 0, 24, 25, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 01:03:38', '2024-11-18 16:33:56'),
+(5, 0, 22, 23, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-02 22:21:31', '2024-11-18 16:33:56'),
+(6, 0, 18, 21, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:28:10', '2024-11-18 16:33:56'),
+(7, 6, 19, 20, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-10 21:30:15', '2024-11-18 16:33:56'),
+(8, 0, 16, 17, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-08-28 00:15:40', '2024-11-18 16:33:56'),
+(9, 0, 14, 15, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:15:01', '2024-11-18 16:33:56'),
+(10, 0, 12, 13, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:17:44', '2024-11-18 16:33:56'),
+(11, 0, 10, 11, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:18:48', '2024-11-18 16:33:56'),
+(12, 0, 8, 9, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:49:39', '2024-11-18 16:33:56'),
+(13, 0, 6, 7, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:06:32', '2024-11-18 16:33:56'),
+(14, 0, 4, 5, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:20:54', '2024-11-18 16:33:56'),
+(15, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:30:39', '2024-11-18 16:33:56');
 
 -- --------------------------------------------------------
 
@@ -190,13 +244,59 @@ INSERT INTO `attribute_catalogue_attribute` (`attribute_catalogue_id`, `attribut
 (4, 10),
 (4, 11),
 (7, 12),
-(1, 13),
+(4, 13),
 (1, 14),
-(1, 15),
-(1, 16),
-(1, 17),
-(1, 18),
-(1, 19);
+(3, 15),
+(5, 16),
+(6, 17),
+(8, 18),
+(1, 19),
+(1, 20),
+(1, 21),
+(5, 22),
+(5, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(3, 28),
+(4, 29),
+(8, 30),
+(1, 31),
+(1, 32),
+(1, 33),
+(4, 34),
+(6, 35),
+(8, 36),
+(1, 37),
+(1, 38),
+(1, 39),
+(4, 41),
+(8, 42),
+(9, 43),
+(10, 44),
+(11, 45),
+(3, 46),
+(3, 47),
+(4, 48),
+(3, 49),
+(4, 50),
+(3, 51),
+(4, 52),
+(4, 53),
+(4, 54),
+(12, 55),
+(3, 56),
+(4, 57),
+(12, 58),
+(5, 59),
+(13, 60),
+(13, 61),
+(13, 62),
+(13, 63),
+(14, 64),
+(13, 65),
+(15, 66);
 
 -- --------------------------------------------------------
 
@@ -207,13 +307,13 @@ INSERT INTO `attribute_catalogue_attribute` (`attribute_catalogue_id`, `attribut
 CREATE TABLE `attribute_catalogue_language` (
   `attribute_catalogue_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `content` longtext COLLATE utf8mb4_general_ci,
-  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_description` text COLLATE utf8mb4_general_ci,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -231,7 +331,15 @@ INSERT INTO `attribute_catalogue_language` (`attribute_catalogue_id`, `language_
 (4, 1, 'Kích thước', NULL, NULL, NULL, NULL, NULL, 'kich-thuoc', '2024-08-02 01:03:38', '2024-08-02 01:03:38'),
 (5, 1, 'Dung lượng', NULL, NULL, NULL, NULL, NULL, 'dung-luong', '2024-08-02 22:21:31', '2024-08-02 22:21:31'),
 (6, 1, 'Màn hình', NULL, NULL, NULL, NULL, NULL, 'man-hinh', '2024-08-10 21:28:10', '2024-08-10 21:28:10'),
-(7, 1, 'Kích cỡ màn hình', NULL, NULL, NULL, NULL, NULL, 'kich-co-man-hinh', '2024-08-10 21:30:15', '2024-08-10 21:30:15');
+(7, 1, 'Kích cỡ màn hình', NULL, NULL, NULL, NULL, NULL, 'kich-co-man-hinh', '2024-08-10 21:30:15', '2024-08-10 21:30:15'),
+(8, 1, 'Camera', NULL, NULL, NULL, NULL, NULL, 'camera', '2024-08-28 00:15:40', '2024-08-28 00:15:40'),
+(9, 1, 'Công nghệ âm thanh', NULL, NULL, NULL, NULL, NULL, 'cong-nghe-am-thanh', '2024-11-18 15:15:01', '2024-11-18 15:15:01'),
+(10, 1, 'Lõi pin', NULL, NULL, NULL, NULL, NULL, 'loi-pin', '2024-11-18 15:17:44', '2024-11-18 15:17:44'),
+(11, 1, 'Dung lượng pin', NULL, NULL, NULL, NULL, NULL, 'dung-luong-pin', '2024-11-18 15:18:48', '2024-11-18 15:18:48'),
+(12, 1, 'Giới tính', NULL, NULL, NULL, NULL, NULL, 'gioi-tinh', '2024-11-18 15:49:39', '2024-11-18 15:49:39'),
+(13, 1, 'Chất lượng in', NULL, NULL, NULL, NULL, NULL, 'chat-luong-in', '2024-11-18 16:06:32', '2024-11-18 16:06:32'),
+(14, 1, 'Góc nhìn', NULL, NULL, NULL, NULL, NULL, 'goc-nhin', '2024-11-18 16:20:54', '2024-11-18 16:20:54'),
+(15, 1, 'Độ phân giải', NULL, NULL, NULL, NULL, NULL, 'do-phan-giai', '2024-11-18 16:30:39', '2024-11-18 16:30:39');
 
 -- --------------------------------------------------------
 
@@ -242,13 +350,13 @@ INSERT INTO `attribute_catalogue_language` (`attribute_catalogue_id`, `language_
 CREATE TABLE `attribute_language` (
   `attribute_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `content` longtext COLLATE utf8mb4_general_ci,
-  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_description` text COLLATE utf8mb4_general_ci,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -269,13 +377,59 @@ INSERT INTO `attribute_language` (`attribute_id`, `language_id`, `name`, `descri
 (10, 1, '14 inch', NULL, NULL, NULL, NULL, NULL, '14-inch', '2024-08-02 22:43:18', '2024-08-02 22:43:18'),
 (11, 1, '16 inch', NULL, NULL, NULL, NULL, NULL, '16-inch', '2024-08-02 22:43:30', '2024-08-02 22:43:30'),
 (12, 1, '11.6 inch', NULL, NULL, NULL, NULL, NULL, '116-inch', '2024-08-10 21:31:03', '2024-08-10 21:31:03'),
-(13, 1, 'Màu hồng', NULL, NULL, NULL, NULL, NULL, 'mau-hong', '2024-09-08 14:43:27', '2024-09-08 14:43:27'),
-(14, 1, 'Màu xám', NULL, NULL, NULL, NULL, NULL, 'mau-xam', '2024-09-08 14:43:51', '2024-09-08 14:43:51'),
-(15, 1, 'Màu xanh dương', NULL, NULL, NULL, NULL, NULL, 'mau-xanh-duong', '2024-09-08 14:44:09', '2024-09-08 14:44:09'),
-(16, 1, 'Màu vàng', NULL, NULL, NULL, NULL, NULL, 'mau-vang', '2024-09-08 14:53:59', '2024-09-08 14:53:59'),
-(17, 1, 'Màu tím', NULL, NULL, NULL, NULL, NULL, 'mau-tim', '2024-09-08 14:54:28', '2024-09-08 14:54:28'),
-(18, 1, 'Màu trắng', NULL, NULL, NULL, NULL, NULL, 'mau-trang', '2024-09-08 15:00:01', '2024-09-08 15:00:01'),
-(19, 1, 'Màu tự nhiên', NULL, NULL, NULL, NULL, NULL, 'mau-tu-nhien', '2024-09-08 15:00:17', '2024-09-08 15:00:17');
+(13, 1, '6.7\" - Tần số quét 120 Hz', NULL, NULL, NULL, NULL, NULL, '67-tan-so-quet-120-hz', '2024-09-06 15:45:10', '2024-09-06 15:45:10'),
+(14, 1, 'Titan tự nhiên', NULL, NULL, NULL, NULL, NULL, 'titan-tu-nhien', '2024-09-06 15:45:55', '2024-09-06 15:45:55'),
+(15, 1, 'Khung Titan & Mặt lưng kính cường lực', NULL, NULL, NULL, NULL, NULL, 'khung-titan-mat-lung-kinh-cuong-luc', '2024-09-06 15:48:27', '2024-09-06 15:48:27'),
+(16, 1, '256 GB', NULL, NULL, NULL, NULL, NULL, '256-gb', '2024-09-06 15:49:09', '2024-09-06 15:49:09'),
+(17, 1, 'OLED', NULL, NULL, NULL, NULL, NULL, 'oled', '2024-09-06 15:49:55', '2024-09-06 15:49:55'),
+(18, 1, 'Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL, NULL, NULL, NULL, 'chinh-48-mp-phu-12-mp-12-mp', '2024-09-06 15:50:33', '2024-09-06 15:50:33'),
+(19, 1, 'Titan đen', NULL, NULL, NULL, NULL, NULL, 'titan-den', '2024-09-06 15:58:53', '2024-09-06 15:58:53'),
+(20, 1, 'Titan xanh', NULL, NULL, NULL, NULL, NULL, 'titan-xanh', '2024-09-06 16:04:12', '2024-09-06 16:04:12'),
+(21, 1, 'Titan trắng', NULL, NULL, NULL, NULL, NULL, 'titan-trang', '2024-09-06 16:04:38', '2024-09-06 16:04:38'),
+(24, 1, 'Hồng nhạt', NULL, NULL, NULL, NULL, NULL, 'hong-nhat', '2024-09-06 16:23:59', '2024-09-06 16:23:59'),
+(25, 1, 'Xanh lá nhạt', NULL, NULL, NULL, NULL, NULL, 'xanh-la-nhat', '2024-09-06 16:24:18', '2024-09-06 16:24:18'),
+(26, 1, 'Xanh dương nhạt', NULL, NULL, NULL, NULL, NULL, 'xanh-duong-nhat', '2024-09-06 16:25:09', '2024-09-06 16:25:09'),
+(27, 1, 'Vàng nhạt', NULL, NULL, NULL, NULL, NULL, 'vang-nhat', '2024-09-06 16:25:36', '2024-09-06 16:25:36'),
+(28, 1, 'Khung nhôm & Mặt lưng kính cường lực', NULL, NULL, NULL, NULL, NULL, 'khung-nhom-mat-lung-kinh-cuong-luc', '2024-09-06 16:26:52', '2024-09-06 16:26:52'),
+(29, 1, '6.1\" - Tần số quét 60 Hz', NULL, NULL, NULL, NULL, NULL, '61-tan-so-quet-60-hz', '2024-09-06 16:27:20', '2024-09-06 16:27:20'),
+(30, 1, 'Chính 48 MP & Phụ 12 MP', NULL, NULL, NULL, NULL, NULL, 'chinh-48-mp-phu-12-mp', '2024-09-06 16:28:18', '2024-09-06 16:28:18'),
+(31, 1, 'Xám', NULL, NULL, NULL, NULL, NULL, 'xam', '2024-09-06 16:33:09', '2024-09-06 16:33:09'),
+(32, 1, 'Hồng', NULL, NULL, NULL, NULL, NULL, 'hong', '2024-09-06 16:34:54', '2024-09-06 16:34:54'),
+(33, 1, 'Xanh Navy', NULL, NULL, NULL, NULL, NULL, 'xanh-navy', '2024-09-06 16:35:18', '2024-09-06 16:35:18'),
+(34, 1, 'Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz', NULL, NULL, NULL, NULL, NULL, 'chinh-76-phu-63-tan-so-quet-120-hz', '2024-09-06 16:36:07', '2024-09-06 16:36:07'),
+(35, 1, 'Dynamic AMOLED 2X', NULL, NULL, NULL, NULL, NULL, 'dynamic-amoled-2x', '2024-09-06 16:37:01', '2024-09-06 16:37:01'),
+(36, 1, 'Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL, NULL, NULL, NULL, 'chinh-50-mp-phu-12-mp-10-mp', '2024-09-06 16:37:23', '2024-09-06 16:37:23'),
+(37, 1, 'Tím', NULL, NULL, NULL, NULL, NULL, 'tim', '2024-09-06 16:42:00', '2024-09-06 16:42:00'),
+(38, 1, 'Đen', NULL, NULL, NULL, NULL, NULL, 'den', '2024-09-06 16:42:17', '2024-09-06 16:42:17'),
+(39, 1, 'Vàng', NULL, NULL, NULL, NULL, NULL, 'vang', '2024-09-06 16:42:53', '2024-09-06 16:42:53'),
+(41, 1, '6.8\" - Tần số quét 120 Hz', NULL, NULL, NULL, NULL, NULL, '68-tan-so-quet-120-hz', '2024-09-06 16:43:45', '2024-09-06 16:43:45'),
+(42, 1, 'Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL, NULL, NULL, NULL, 'chinh-200-mp-phu-50-mp-12-mp-10-mp', '2024-09-06 16:45:11', '2024-09-06 16:45:11'),
+(23, 1, '128GB', NULL, NULL, NULL, NULL, NULL, '128gb', '2024-10-16 10:23:24', '2024-10-16 10:23:24'),
+(22, 1, '1T', NULL, NULL, NULL, NULL, NULL, '1t', '2024-10-16 10:23:55', '2024-10-16 10:23:55'),
+(43, 1, 'Hi-Res Audio', NULL, NULL, NULL, NULL, NULL, 'hi-res-audio', '2024-11-18 15:15:20', '2024-11-18 15:15:20'),
+(44, 1, 'Polymer', NULL, NULL, NULL, NULL, NULL, 'polymer', '2024-11-18 15:18:02', '2024-11-18 15:18:02'),
+(45, 1, '20000 mAh', NULL, NULL, NULL, NULL, NULL, '20000-mah', '2024-11-18 15:18:58', '2024-11-18 15:18:58'),
+(46, 1, 'nhựa PC TPU UniQ Clyde Lock Case', NULL, NULL, NULL, NULL, NULL, 'nhua-pc-tpu-uniq-clyde-lock-case', '2024-11-18 15:27:26', '2024-11-18 15:27:26'),
+(47, 1, 'OPTIX ALUMINIUM UNIQ', NULL, NULL, NULL, NULL, NULL, 'optix-aluminium-uniq', '2024-11-18 15:30:08', '2024-11-18 15:30:08'),
+(48, 1, '14mm', NULL, NULL, NULL, NULL, NULL, '14mm', '2024-11-18 15:33:16', '2024-11-18 15:33:16'),
+(49, 1, 'SL100-01', NULL, NULL, NULL, NULL, NULL, 'sl100-01', '2024-11-18 15:33:30', '2024-11-18 15:33:30'),
+(50, 1, '41mm', NULL, NULL, NULL, NULL, NULL, '41mm', '2024-11-18 15:36:02', '2024-11-18 15:36:02'),
+(51, 1, 'viền thép dây cao su', NULL, NULL, NULL, NULL, NULL, 'vien-thep-day-cao-su', '2024-11-18 15:36:14', '2024-11-18 15:36:14'),
+(52, 1, '40mm', NULL, NULL, NULL, NULL, NULL, '40mm', '2024-11-18 15:42:13', '2024-11-18 15:42:13'),
+(53, 1, '1.62 inch', NULL, NULL, NULL, NULL, NULL, '162-inch', '2024-11-18 15:45:42', '2024-11-18 15:45:42'),
+(54, 1, '26 mm', NULL, NULL, NULL, NULL, NULL, '26-mm', '2024-11-18 15:49:23', '2024-11-18 15:49:23'),
+(55, 1, 'Nữ', NULL, NULL, NULL, NULL, NULL, 'nu', '2024-11-18 15:49:51', '2024-11-18 15:49:51'),
+(56, 1, 'LTP-1129A-7ARDF', NULL, NULL, NULL, NULL, NULL, 'ltp-1129a-7ardf', '2024-11-18 15:50:08', '2024-11-18 15:50:08'),
+(57, 1, '40 mm', NULL, NULL, NULL, NULL, NULL, '40-mm', '2024-11-18 15:51:53', '2024-11-18 15:51:53'),
+(58, 1, 'Nam', NULL, NULL, NULL, NULL, NULL, 'nam', '2024-11-18 15:52:12', '2024-11-18 15:52:12'),
+(59, 1, '64GB', NULL, NULL, NULL, NULL, NULL, '64gb', '2024-11-18 15:55:17', '2024-11-18 15:55:17'),
+(60, 1, '1200 x 4800 dpi', NULL, NULL, NULL, NULL, NULL, '1200-x-4800-dpi', '2024-11-18 16:06:42', '2024-11-18 16:06:42'),
+(61, 1, '1200 x 1200 dpi', NULL, NULL, NULL, NULL, NULL, '1200-x-1200-dpi', '2024-11-18 16:08:33', '2024-11-18 16:08:33'),
+(62, 1, '2400 x 600 dpi', NULL, NULL, NULL, NULL, NULL, '2400-x-600-dpi', '2024-11-18 16:10:21', '2024-11-18 16:10:21'),
+(63, 1, '5760 x 1440 dpi', NULL, NULL, NULL, NULL, NULL, '5760-x-1440-dpi', '2024-11-18 16:12:17', '2024-11-18 16:12:17'),
+(64, 1, '360 độ', NULL, NULL, NULL, NULL, NULL, '360-do', '2024-11-18 16:21:13', '2024-11-18 16:21:13'),
+(65, 1, '3 MP (1296p)', NULL, NULL, NULL, NULL, NULL, '3-mp-1296p', '2024-11-18 16:25:14', '2024-11-18 16:25:14'),
+(66, 1, 'Full HD (1920 x 1080)', NULL, NULL, NULL, NULL, NULL, 'full-hd-1920-x-1080', '2024-11-18 16:30:48', '2024-11-18 16:30:48');
 
 -- --------------------------------------------------------
 
@@ -284,10 +438,17 @@ INSERT INTO `attribute_language` (`attribute_id`, `language_id`, `name`, `descri
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `value` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('change_password_token_10', 's:32:\"M46HWvCC63BGqllZrWSMbRNZpWT3aOqI\";', 1731408753);
 
 -- --------------------------------------------------------
 
@@ -296,8 +457,8 @@ CREATE TABLE `cache` (
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `owner` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -317,6 +478,13 @@ CREATE TABLE `carts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `customer_id`, `variant_uuid`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(27, 10, 'bb02ff3b-dca0-5499-8811-3658fd5ff974', 30, 1, '2024-11-23 09:47:59', '2024-11-23 09:47:59');
+
 -- --------------------------------------------------------
 
 --
@@ -325,48 +493,42 @@ CREATE TABLE `carts` (
 
 CREATE TABLE `customers` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `province_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `district_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ward_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `province_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ward_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `birthday` datetime DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `user_agent` text COLLATE utf8mb4_general_ci,
-  `ip` text COLLATE utf8mb4_general_ci,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `ip` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `publish` tinyint NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `customer_catalogue_id` bigint UNSIGNED NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `source_id` bigint UNSIGNED NOT NULL DEFAULT '3',
-  `sex` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `google_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `google_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `language` varchar(255) COLLATE utf8mb4_general_ci DEFAULT 'vn'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `publish`, `deleted_at`, `customer_catalogue_id`, `remember_token`, `created_at`, `updated_at`, `source_id`, `sex`, `google_id`) VALUES
-(1, 'AAA', '0123456789', '40', '430', '17971', 'aaa', '2003-04-09 01:40:01', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', 'None', NULL, NULL, 'a@gmail.com', NULL, '$2y$12$lBCgoBSE/SA1cCCKjD0E8e88id7rkmCqTCd4E4rN8PEtrj.1CeC/i', 1, NULL, 1, NULL, '2024-09-12 18:40:01', '2024-09-12 18:40:10', 3, '', NULL),
-(2, 'BBB', '0987654321', '44', '457', '19279', 'test', '2003-09-04 01:42:46', '/thuongmaidientu/public/userfiles/image/temp/zoro_avatar.jpg', 'None', NULL, NULL, 'b@gmail.com', NULL, '$2y$12$LYI5XyzYhDLyT8wwPMzUUObJVYNOD/5w3TX3UilxTeVEraLStvGDC', 1, '2024-09-12 18:43:07', 1, NULL, '2024-09-12 18:41:56', '2024-09-12 18:43:07', 3, '', NULL),
-(3, 'Test', 'None', '01', '004', '00148', 'None', '2003-08-10 14:32:12', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', 'None', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$HbmVi/YIfO/hWeHVPIydBeZvcfrrI/OLgvInjcpWPPiUtZJOCqA7W', 1, NULL, 2, NULL, '2024-09-12 18:51:00', '2024-10-17 07:32:12', 3, '', NULL),
-(4, 'CCC', NULL, '0', '0', '0', NULL, '2203-04-01 19:51:08', 'backend/img/no-photo.png', NULL, NULL, NULL, 'ccc@gmail.com', NULL, '$2y$12$dAxAIp1Vh6daB7qzfbZk3u.0YD77XwOurLS5k7obMm4kYsNWEOOhW', 1, NULL, 1, NULL, '2024-09-13 12:50:02', '2024-09-13 12:51:08', 2, '', NULL),
-(5, 'DDD', NULL, '0', '0', '0', NULL, NULL, 'backend/img/no-photo.png', NULL, NULL, NULL, 'ddd@gmail.com', NULL, '$2y$12$u3xVFItCONrLpMYYr1bEJe1WqDDZqklXrjHqCJrmMlgBwg9KkTvTm', 0, NULL, 3, NULL, '2024-09-13 13:02:51', '2024-10-17 07:33:00', 1, '', NULL),
-(6, 'Lê Hữu Tài', '0342937692', '83', '832', '28879', 'Cầu Lộ Hội', '2024-10-20 18:05:50', 'backend/img/no-photo.png', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$yNQGO6xWGE.DTVs521Ppf.U0LPEhMiRCZisBiuwPmdt7nhdE0cf6.', 0, NULL, 1, NULL, '2024-10-12 15:19:28', '2024-10-20 11:05:50', 3, '', NULL),
-(7, 'Cao Tấn Công', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'caotancong2003@gmail.com', NULL, '$2y$12$v78LQZMxmDMeGkz6UNbwXeuix3UVMEPMKcCIog2/NiSYc3TVv1.bW', 1, NULL, 1, NULL, '2024-10-20 11:13:49', '2024-10-20 11:13:49', 3, '', NULL),
-(27, 'Shop T&C', NULL, '1', '1', '1', 'TP .HCM', '2024-10-07 12:48:52', '/thuongmaidientu/public/userfiles/image/temp/bug.png', 'None', NULL, NULL, 'tcshoptelephone@gmail.com', NULL, '$2y$12$lMCli24mnnCUjCfbQt1.Nuxk3AJX9FOz4k0GMtdxhkCZRPQjdYsEW', 1, NULL, 1, NULL, '2024-10-29 05:48:01', '2024-10-29 05:52:05', 9, 'Nam', '117346212502454122054'),
-(28, 'Shop TC', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJvrizm90nEjy2LBB4sAsHazvzGUiPU8rbM_uiGZJpL1qp--Q=s96-c', NULL, NULL, NULL, 'tcshopk3@gmail.com', NULL, '$2y$12$XuwyAlUhzcfs7tsuoPrLc.GKCgKtkA82LAC/0DxeZ/fAZSnoRR1Rm', 1, NULL, 1, NULL, '2024-10-29 06:04:01', '2024-10-29 06:04:01', 9, NULL, '103512913208111756719'),
-(30, 'Lê Hữu Tài', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLMZRgCjzk7Enua2WbdQA5UIGlxhB2lzvBn07usJ8mzDkNGhnI=s96-c', NULL, NULL, NULL, 'acmagaming@gmail.com', NULL, '$2y$12$532wJ6lwAxHvwr80YY1/hOnKe9vTvkvbcxmurGRu1bkoWTI5z93sK', 1, NULL, 1, NULL, '2024-11-08 09:18:28', '2024-11-08 09:18:28', 9, NULL, '116453903575398384686'),
-(33, 'T&C-Company', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJ02ecHQ6wiKmza2orM-sE951kGM8S43ytL6Aa7lLZBtM8YPA=s96-c', NULL, NULL, NULL, 'tcshop.id.vn@gmail.com', NULL, '$2y$12$GruhRiEpR7eq233vrkXmNe85UcIHT9pclyB2Nn5O4z.CdgGPr2Hr2', 1, NULL, 1, NULL, '2024-11-08 09:49:54', '2024-11-08 09:49:54', 9, NULL, '102802497229217561013'),
-(34, 'Tai Le', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocIiSL1WV1htXqQn_H_8IgqeEEz29O1aet3hvZSOOXztD3GphBU=s96-c', NULL, NULL, NULL, 'tonyit2003@gmail.com', NULL, '$2y$12$1GmUwIz2gx1bxH6L7Ct5duqeS0LYRqsMKdPTA5hxjT/v/EUNGjFOS', 1, NULL, 1, NULL, '2024-11-08 09:51:09', '2024-11-08 09:51:09', 9, NULL, '105172921075741450407');
+INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email_verified_at`, `password`, `publish`, `deleted_at`, `customer_catalogue_id`, `remember_token`, `created_at`, `updated_at`, `source_id`, `sex`, `google_id`, `language`) VALUES
+(10, 'Cao Tấn Công', 'caotancong2003@gmail.com', '0362111265', '95', '958', '31900', NULL, '2024-10-25 15:03:47', 'uploads/customers/1GeKDVhW0PuHBEefibjf9tEIDEgeEXZeSzAkyavw.jpg', NULL, NULL, NULL, NULL, '$2y$12$6eJvUF0d9jNXaih9exQQi.FoZMF.jc6hYceSTsBvZE3JWWdt9zpTe', 1, NULL, 1, NULL, '2024-10-05 11:10:53', '2024-11-23 09:26:22', 1, 'Nam', NULL, 'vn'),
+(11, 'Cao Tấn Công', 'lehuutai090403@gmail.com', '0362111265', '06', '061', '01897', NULL, '2024-10-31 21:05:23', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', NULL, NULL, NULL, NULL, '$2y$12$AFMVqj5aZQ3fAJnkSPVy6eAQ/4Dfljxw/QA1amlyt0oxCiwR0cSc.', 1, NULL, 1, NULL, '2024-10-22 02:41:26', '2024-10-31 14:09:59', 1, 'Nam', NULL, 'vn'),
+(12, 'Cao Tấn Công', 'thanhdai.vn01@gmail.com', '0362111265', '1', '3', '97', 'Số nhà 11', '2024-10-24 15:04:20', 'uploads/customers/RZSxhRJR6Sj7lNfTLvPkAK81HBSdnawRr3WC4joW.png', 'Nhà', NULL, NULL, NULL, '$2y$12$F9BZkNKVoaPQva7PDAxtKev4xuzVVwg/J9IFWwdzQ0fLaLKnPCNuG', 1, NULL, 1, NULL, '2024-10-29 06:20:18', '2024-11-15 08:04:20', 3, 'Nữ', '116717421412323431512', 'vn'),
+(15, 'Test', 'test@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$12$vePVb5CE4.HH2GsAGjTHU.v6GtoyYpAaoSLRihsDrYCHwl5391Qs.', 1, NULL, 1, NULL, '2024-11-23 10:48:15', '2024-11-23 10:48:15', 1, NULL, NULL, 'vn'),
+(16, 'Tai Le', 'tonyit2003@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocIiSL1WV1htXqQn_H_8IgqeEEz29O1aet3hvZSOOXztD3GphBU=s96-c', NULL, NULL, NULL, NULL, '$2y$12$wcdKjH95DJGRkZo8zgRYjuM6t8M6.GfUeHY3qfKDEa3Ci6tTaKyXG', 1, NULL, 1, NULL, '2024-11-23 10:49:57', '2024-11-23 10:59:31', 3, NULL, '105172921075741450407', 'vn');
 
 -- --------------------------------------------------------
 
@@ -376,8 +538,8 @@ INSERT INTO `customers` (`id`, `name`, `phone`, `province_id`, `district_id`, `w
 
 CREATE TABLE `customer_catalogues` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -389,10 +551,10 @@ CREATE TABLE `customer_catalogues` (
 --
 
 INSERT INTO `customer_catalogues` (`id`, `name`, `description`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Nhóm khách hàng VIP', 'Very Important Person', 1, NULL, '2024-09-12 18:17:06', '2024-09-12 18:18:45'),
-(2, 'Khách buôn', 'Khách chuyên mua buôn sản phẩm', 1, NULL, '2024-09-12 18:17:48', '2024-10-05 09:40:12'),
-(3, 'Khách mua lẻ', 'Khách chỉ mua lẻ, không mua buôn', 1, NULL, '2024-09-12 18:18:25', '2024-10-05 09:40:12'),
-(4, 'test', 'test', 0, '2024-09-12 18:19:37', '2024-09-12 18:19:26', '2024-09-12 18:19:37');
+(1, 'Khách hàng mới', NULL, 1, NULL, '2024-09-17 03:44:44', '2024-10-05 09:55:03'),
+(2, 'Khách hàng thân thiết', NULL, 1, NULL, '2024-10-05 09:55:21', '2024-10-05 09:55:21'),
+(3, 'Khách hàng VIP', NULL, 1, NULL, '2024-10-05 09:55:32', '2024-10-05 09:55:32'),
+(4, 'Khách hàng đặc biệt', NULL, 1, NULL, '2024-10-05 09:55:42', '2024-10-05 09:55:42');
 
 -- --------------------------------------------------------
 
@@ -401,13 +563,13 @@ INSERT INTO `customer_catalogues` (`id`, `name`, `description`, `publish`, `dele
 --
 
 CREATE TABLE `districts` (
-  `code` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `full_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `province_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `province_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `administrative_unit_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1131,11 +1293,11 @@ INSERT INTO `districts` (`code`, `name`, `name_en`, `full_name`, `full_name_en`,
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_general_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_general_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_general_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1147,8 +1309,8 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `generates` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `schema` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `schema` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1161,8 +1323,8 @@ CREATE TABLE `generates` (
 
 CREATE TABLE `jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `queue` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `attempts` tinyint UNSIGNED NOT NULL,
   `reserved_at` int UNSIGNED DEFAULT NULL,
   `available_at` int UNSIGNED NOT NULL,
@@ -1176,13 +1338,13 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `total_jobs` int NOT NULL,
   `pending_jobs` int NOT NULL,
   `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_general_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_general_ci,
+  `failed_job_ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `options` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `cancelled_at` int DEFAULT NULL,
   `created_at` int NOT NULL,
   `finished_at` int DEFAULT NULL
@@ -1196,15 +1358,15 @@ CREATE TABLE `job_batches` (
 
 CREATE TABLE `languages` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `canonical` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `canonical` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `publish` tinyint NOT NULL DEFAULT '0',
-  `description` text COLLATE utf8mb4_general_ci,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `current` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1213,12 +1375,12 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-11-03 12:10:24', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
-(2, 'Tiếng Anh', 'en', '/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-11-03 12:10:24', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
+(1, 'Tiếng Việt', 'vn', '/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-11-05 03:31:42', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-11-05 03:31:42', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
 (4, 'Test123', 'test', NULL, 201014, '2024-07-03 01:54:57', '2024-07-03 02:15:14', '2024-07-03 02:15:14', 0, 'Ngôn ngữ test', 0),
 (5, 'test', 'test1', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 201014, '2024-07-03 07:53:16', '2024-07-13 03:43:22', '2024-07-13 03:43:22', 1, '123', 0),
 (6, 'Tiếng Hàn', 'kr', '/thuongmaidientu/public/userfiles/image/language/south-korea.png', 201014, '2024-07-13 07:40:27', '2024-08-01 23:06:08', '2024-08-01 23:06:08', 1, 'Ngôn ngữ tiếng Hàn Quốc', 0),
-(7, 'Tiếng Trung', 'cn', '/userfiles/image/language/china.png', 201014, '2024-08-16 07:28:53', '2024-11-03 12:10:24', NULL, 0, NULL, 0);
+(7, 'Tiếng Trung', 'cn', '/userfiles/image/language/china.png', 201014, '2024-08-16 07:28:53', '2024-11-05 03:31:42', NULL, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1233,10 +1395,10 @@ CREATE TABLE `menus` (
   `lft` int NOT NULL DEFAULT '0',
   `rgt` int NOT NULL DEFAULT '0',
   `level` int NOT NULL DEFAULT '0',
-  `type` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '1',
   `order` int DEFAULT '0',
   `user_id` bigint UNSIGNED NOT NULL,
@@ -1250,30 +1412,72 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `parent_id`, `menu_catalogue_id`, `lft`, `rgt`, `level`, `type`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(70, 0, 7, 40, 49, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 08:56:35', '2024-09-21 09:44:43'),
-(71, 0, 7, 28, 39, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 08:56:35', '2024-09-21 09:44:43'),
-(72, 70, 7, 43, 44, 2, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
-(73, 70, 7, 45, 46, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
-(74, 70, 7, 47, 48, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
-(75, 70, 7, 41, 42, 2, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-21 08:58:07', '2024-09-21 09:38:59'),
-(76, 71, 7, 31, 32, 2, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
-(77, 71, 7, 33, 34, 2, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
-(78, 71, 7, 35, 36, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
-(79, 71, 7, 37, 38, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
-(80, 71, 7, 29, 30, 2, NULL, NULL, NULL, NULL, 1, 5, 201014, NULL, '2024-09-21 08:59:46', '2024-09-21 09:44:43'),
-(81, 0, 8, 14, 19, 1, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-21 09:49:04', '2024-09-22 08:36:27'),
-(82, 0, 8, 10, 13, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 09:49:04', '2024-09-21 09:49:21'),
-(83, 0, 8, 20, 25, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-21 09:49:04', '2024-09-22 08:36:27'),
-(84, 0, 8, 26, 27, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:04', '2024-09-21 09:49:21'),
-(85, 81, 8, 15, 18, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
-(86, 85, 8, 16, 17, 3, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
-(87, 83, 8, 23, 24, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
-(88, 83, 8, 21, 22, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:49:34', '2024-11-01 14:59:08'),
-(89, 82, 8, 11, 12, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-21 09:50:04', '2024-11-01 14:59:08'),
-(90, 0, 9, 2, 3, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(91, 0, 9, 4, 5, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(92, 0, 9, 6, 7, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(93, 0, 9, 8, 9, 1, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-09-21 16:02:13', '2024-09-21 16:02:13');
+(41, 0, 4, 128, 133, 1, NULL, NULL, NULL, NULL, 1, 12, 201014, NULL, '2024-09-23 11:02:22', '2024-11-18 15:09:01'),
+(42, 0, 4, 106, 111, 1, NULL, NULL, NULL, NULL, 1, 11, 201014, NULL, '2024-09-23 11:02:22', '2024-11-18 15:09:01'),
+(43, 0, 4, 104, 105, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-23 11:02:22', '2024-11-18 15:09:05'),
+(44, 41, 4, 131, 132, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-23 11:02:54', '2024-11-18 15:08:58'),
+(45, 41, 4, 129, 130, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-23 11:02:54', '2024-11-18 15:08:58'),
+(46, 42, 4, 107, 108, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-23 11:03:07', '2024-11-18 15:08:58'),
+(47, 0, 5, 78, 89, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-23 11:04:59', '2024-09-23 11:16:13'),
+(48, 0, 5, 66, 77, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-23 11:04:59', '2024-09-23 11:16:13'),
+(50, 47, 5, 87, 88, 2, NULL, NULL, NULL, NULL, 1, 5, 201014, NULL, '2024-09-23 11:06:02', '2024-11-18 15:03:09'),
+(51, 47, 5, 81, 82, 2, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-23 11:06:02', '2024-11-18 15:03:09'),
+(52, 47, 5, 83, 84, 2, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-23 11:06:02', '2024-11-18 15:03:09'),
+(53, 47, 5, 85, 86, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-23 11:06:02', '2024-11-18 15:03:09'),
+(54, 48, 5, 75, 76, 2, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-23 11:07:18', '2024-11-18 15:03:09'),
+(55, 58, 5, 123, 124, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-23 11:07:18', '2024-09-23 11:16:15'),
+(56, 58, 5, 125, 126, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-23 11:07:18', '2024-09-23 11:16:15'),
+(57, 47, 5, 79, 80, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-23 11:07:18', '2024-11-18 15:03:09'),
+(58, 0, 5, 122, 127, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-23 11:07:18', '2024-09-23 11:16:13'),
+(59, 0, 6, 114, 115, 1, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-09-23 11:09:07', '2024-09-23 11:11:36'),
+(60, 0, 6, 116, 117, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-09-23 11:09:07', '2024-09-23 11:11:36'),
+(61, 0, 6, 118, 119, 1, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-09-23 11:09:07', '2024-09-23 11:11:36'),
+(62, 0, 6, 120, 121, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-23 11:09:07', '2024-09-23 11:11:36'),
+(63, 0, 4, 112, 113, 1, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-09-24 01:54:24', '2024-11-18 15:09:05'),
+(64, 42, 4, 109, 110, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-10-05 15:37:07', '2024-11-18 15:08:58'),
+(65, 0, 4, 90, 103, 1, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-10-11 13:30:32', '2024-11-18 15:09:33'),
+(68, 65, 4, 99, 100, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-10-12 07:34:54', '2024-11-18 15:08:58'),
+(69, 65, 4, 101, 102, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-10-12 07:34:54', '2024-11-18 15:08:58'),
+(70, 65, 4, 93, 94, 2, NULL, NULL, NULL, NULL, 1, 5, 201014, NULL, '2024-10-12 07:34:54', '2024-11-18 15:08:58'),
+(71, 65, 4, 95, 96, 2, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-10-12 07:34:54', '2024-11-18 15:08:58'),
+(72, 65, 4, 97, 98, 2, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-10-12 07:34:54', '2024-11-18 15:08:58'),
+(73, 65, 4, 91, 92, 2, NULL, NULL, NULL, NULL, 1, 6, 201014, NULL, '2024-10-12 07:34:54', '2024-11-18 15:08:58'),
+(74, 48, 5, 71, 72, 2, NULL, NULL, NULL, NULL, 1, 3, 201014, NULL, '2024-11-18 15:01:47', '2024-11-18 15:03:09'),
+(75, 48, 5, 73, 74, 2, NULL, NULL, NULL, NULL, 1, 2, 201014, NULL, '2024-11-18 15:01:47', '2024-11-18 15:03:09'),
+(76, 48, 5, 69, 70, 2, NULL, NULL, NULL, NULL, 1, 1, 201014, NULL, '2024-11-18 15:01:47', '2024-11-18 15:03:09'),
+(77, 48, 5, 67, 68, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:03:22', '2024-11-18 15:03:22'),
+(78, 0, 4, 52, 65, 1, NULL, NULL, NULL, NULL, 1, 10, 201014, NULL, '2024-11-18 15:07:00', '2024-11-18 15:09:28'),
+(79, 0, 4, 44, 51, 1, NULL, NULL, NULL, NULL, 1, 9, 201014, NULL, '2024-11-18 15:07:00', '2024-11-18 15:09:33'),
+(80, 0, 4, 38, 43, 1, NULL, NULL, NULL, NULL, 1, 8, 201014, NULL, '2024-11-18 15:07:00', '2024-11-18 15:09:33'),
+(81, 0, 4, 26, 37, 1, NULL, NULL, NULL, NULL, 1, 7, 201014, NULL, '2024-11-18 15:07:00', '2024-11-18 15:09:33'),
+(82, 0, 4, 16, 25, 1, NULL, NULL, NULL, NULL, 1, 6, 201014, NULL, '2024-11-18 15:07:00', '2024-11-18 15:09:33'),
+(83, 0, 4, 2, 7, 1, NULL, NULL, NULL, NULL, 1, 5, 201014, NULL, '2024-11-18 15:08:58', '2024-11-18 15:09:33'),
+(84, 0, 4, 8, 15, 1, NULL, NULL, NULL, NULL, 1, 4, 201014, NULL, '2024-11-18 15:08:58', '2024-11-18 15:09:33'),
+(85, 78, 4, 63, 64, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:13:13', '2024-11-18 15:13:13'),
+(86, 78, 4, 61, 62, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:13:13', '2024-11-18 15:13:13'),
+(87, 78, 4, 59, 60, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:24:34', '2024-11-18 15:24:34'),
+(88, 78, 4, 57, 58, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:28:37', '2024-11-18 15:28:37'),
+(89, 78, 4, 55, 56, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:31:34', '2024-11-18 15:31:34'),
+(90, 78, 4, 53, 54, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:34:35', '2024-11-18 15:34:35'),
+(92, 79, 4, 49, 50, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:40:59', '2024-11-18 15:40:59'),
+(94, 79, 4, 45, 46, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:46:46', '2024-11-18 15:46:46'),
+(95, 79, 4, 47, 48, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:46:46', '2024-11-18 15:46:46'),
+(96, 80, 4, 41, 42, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:51:07', '2024-11-18 15:51:07'),
+(97, 80, 4, 39, 40, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:53:34', '2024-11-18 15:53:34'),
+(98, 81, 4, 35, 36, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:57:15', '2024-11-18 15:57:15'),
+(99, 81, 4, 33, 34, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 15:59:54', '2024-11-18 15:59:54'),
+(100, 81, 4, 31, 32, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:01:53', '2024-11-18 16:01:53'),
+(101, 81, 4, 29, 30, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:03:26', '2024-11-18 16:03:26'),
+(102, 81, 4, 27, 28, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:04:55', '2024-11-18 16:04:55'),
+(103, 82, 4, 23, 24, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:07:51', '2024-11-18 16:07:51'),
+(104, 82, 4, 21, 22, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:09:23', '2024-11-18 16:09:23'),
+(105, 82, 4, 17, 18, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:12:57', '2024-11-18 16:12:57'),
+(106, 82, 4, 19, 20, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:12:57', '2024-11-18 16:12:57'),
+(107, 84, 4, 13, 14, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:22:36', '2024-11-18 16:22:36'),
+(108, 84, 4, 11, 12, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:23:58', '2024-11-18 16:23:58'),
+(109, 84, 4, 9, 10, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:26:05', '2024-11-18 16:26:05'),
+(110, 83, 4, 3, 4, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:34:30', '2024-11-18 16:34:30'),
+(111, 83, 4, 5, 6, 2, NULL, NULL, NULL, NULL, 1, 0, 201014, NULL, '2024-11-18 16:34:30', '2024-11-18 16:34:30');
 
 -- --------------------------------------------------------
 
@@ -1283,8 +1487,8 @@ INSERT INTO `menus` (`id`, `parent_id`, `menu_catalogue_id`, `lft`, `rgt`, `leve
 
 CREATE TABLE `menu_catalogues` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `publish` tinyint NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1296,9 +1500,9 @@ CREATE TABLE `menu_catalogues` (
 --
 
 INSERT INTO `menu_catalogues` (`id`, `name`, `keyword`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(7, 'Menu chân trang', 'footer-menu', 1, NULL, '2024-09-21 08:56:03', '2024-09-21 08:56:03'),
-(8, 'Menu chính', 'main-menu', 1, NULL, '2024-09-21 09:48:13', '2024-09-21 09:48:13'),
-(9, 'Menu site link', 'site-link-menu', 1, NULL, '2024-09-21 16:00:52', '2024-09-21 16:00:52');
+(4, 'Menu chính', 'main-menu', 1, NULL, '2024-09-23 10:59:57', '2024-09-23 10:59:57'),
+(5, 'Menu chân trang', 'footer-menu', 1, NULL, '2024-09-23 11:03:56', '2024-09-23 11:03:56'),
+(6, 'Menu site link', 'site-link-menu', 1, NULL, '2024-09-23 11:08:12', '2024-09-23 11:08:12');
 
 -- --------------------------------------------------------
 
@@ -1309,8 +1513,8 @@ INSERT INTO `menu_catalogues` (`id`, `name`, `keyword`, `publish`, `deleted_at`,
 CREATE TABLE `menu_language` (
   `menu_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1320,30 +1524,72 @@ CREATE TABLE `menu_language` (
 --
 
 INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `created_at`, `updated_at`) VALUES
-(70, 1, 'Thông tin và chính sách', '#', '2024-09-21 08:56:35', '2024-09-21 08:56:35'),
-(71, 1, 'Dịch vụ và thông tin khác', '#', '2024-09-21 08:56:35', '2024-09-21 08:56:35'),
-(72, 1, 'Mua hàng và thánh toán', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
-(73, 1, 'Xem ưu đãi', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
-(74, 1, 'Thông tin bảo hành', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
-(75, 1, 'Tra cứu hóa đơn', '#', '2024-09-21 08:58:07', '2024-09-21 08:58:07'),
-(76, 1, 'Khách hàng doanh nghiệp', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
-(77, 1, 'Chính sách bảo mật thông tin', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
-(78, 1, 'Quy chế hoạt động', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
-(79, 1, 'Liên hệ hợp tác kinh doanh', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
-(80, 1, 'Tuyển dụng', '#', '2024-09-21 08:59:46', '2024-09-21 08:59:46'),
-(85, 1, 'iPhone 13 128GB | Chính hãng VN/A', 'iphone-13-128gb-chinh-hang-vna', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
-(86, 1, 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iphone-15-pro-max-256gb-chinh-hang-vna', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
-(87, 1, 'Samsung Galaxy S24 Ultra 12GB 1TB', 'samsung-galaxy-s24-ultra-12gb-1tb', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
-(88, 1, 'Samsung Galaxy Z Fold6', 'samsung-galaxy-z-fold6', '2024-09-21 09:49:34', '2024-09-21 09:49:34'),
-(89, 1, 'Test product', 'test-product', '2024-09-21 09:50:04', '2024-09-21 09:50:04'),
-(90, 1, 'Facebook', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(91, 1, 'Zalo', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(92, 1, 'Tiktok', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(93, 1, 'Youtube', '#', '2024-09-21 16:02:13', '2024-09-21 16:02:13'),
-(81, 1, 'Trang chủ', 'http://tcshop.id.vn/', '2024-11-01 14:59:08', '2024-11-01 14:59:08'),
-(83, 1, 'Điện thoại', 'dien-thoai', '2024-11-01 14:59:08', '2024-11-01 14:59:08'),
-(82, 1, 'Sạc điện thoại', 'sac-dien-thoai', '2024-11-01 14:59:08', '2024-11-01 14:59:08'),
-(84, 1, 'Thông tin', '#', '2024-11-01 14:59:08', '2024-11-01 14:59:08');
+(44, 1, 'Samsung', 'samsung', '2024-09-23 11:02:54', '2024-09-23 11:02:54'),
+(45, 1, 'Iphone', 'iphone', '2024-09-23 11:02:54', '2024-09-23 11:02:54'),
+(47, 1, 'Thông tin chính sách', '#', '2024-09-23 11:04:59', '2024-09-23 11:04:59'),
+(48, 1, 'Dịch vụ và thông tin khác', '#', '2024-09-23 11:04:59', '2024-09-23 11:04:59'),
+(55, 1, 'Khách hàng doanh nghiệp', '#', '2024-09-23 11:07:18', '2024-09-23 11:07:18'),
+(56, 1, 'Chính sách bảo mật thông tin', '#', '2024-09-23 11:07:18', '2024-09-23 11:07:18'),
+(58, 1, 'Liên hệ hợp tác kinh doanh', '#', '2024-09-23 11:07:18', '2024-09-23 11:07:18'),
+(59, 1, 'Facebook', 'https://www.facebook.com/profile.php?id=100023409287674', '2024-09-23 11:11:45', '2024-09-23 11:11:45'),
+(60, 1, 'Zalo', '#', '2024-09-23 11:11:45', '2024-09-23 11:11:45'),
+(61, 1, 'TikTok', '#', '2024-09-23 11:11:45', '2024-09-23 11:11:45'),
+(62, 1, 'Youtube', '#', '2024-09-23 11:11:45', '2024-09-23 11:11:45'),
+(46, 1, 'MSI', 'msi', '2024-10-05 15:37:07', '2024-10-05 15:37:07'),
+(64, 1, 'HP', 'hp', '2024-10-05 15:37:07', '2024-10-05 15:37:07'),
+(68, 1, 'Tư vấn', 'tu-van', '2024-10-12 07:36:57', '2024-10-12 07:36:57'),
+(69, 1, 'Mẹo hay', 'meo-hay', '2024-10-12 07:36:57', '2024-10-12 07:36:57'),
+(70, 1, 'Sản phẩm mới', 'san-pham-moi', '2024-10-12 07:36:57', '2024-10-12 07:36:57'),
+(71, 1, 'Sự kiện', 'su-kien', '2024-10-12 07:36:57', '2024-10-12 07:36:57'),
+(72, 1, 'Đánh giá', 'danh-gia', '2024-10-12 07:36:57', '2024-10-12 07:36:57'),
+(73, 1, 'Mới nhất', 'moi-nhat', '2024-10-12 07:37:13', '2024-10-12 07:37:13'),
+(50, 1, 'Tra cứu hóa đơn', 'https://tcshop.id.vn/viewOrder', '2024-11-18 15:00:25', '2024-11-18 15:00:25'),
+(51, 1, 'Mua hàng và thanh toán', 'https://tcshop.id.vn/viewOrder', '2024-11-18 15:00:25', '2024-11-18 15:00:25'),
+(52, 1, 'Xem ưu đãi', '#', '2024-11-18 15:00:25', '2024-11-18 15:00:25'),
+(53, 1, 'Thông tin bảo hành', '#', '2024-11-18 15:00:25', '2024-11-18 15:00:25'),
+(57, 1, 'Quy chế hoạt động', '#', '2024-11-18 15:02:12', '2024-11-18 15:02:12'),
+(54, 1, 'Tuyển dụng', '#', '2024-11-18 15:03:22', '2024-11-18 15:03:22'),
+(74, 1, 'Tư vấn', 'tu-van', '2024-11-18 15:03:22', '2024-11-18 15:03:22'),
+(75, 1, 'Mẹo hay', 'meo-hay', '2024-11-18 15:03:22', '2024-11-18 15:03:22'),
+(76, 1, 'Sản phẩm mới', 'san-pham-moi', '2024-11-18 15:03:22', '2024-11-18 15:03:22'),
+(77, 1, 'Sự kiện', 'su-kien', '2024-11-18 15:03:22', '2024-11-18 15:03:22'),
+(41, 1, 'Điện thoại', 'dien-thoai', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(42, 1, 'Laptop', 'laptop', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(65, 1, 'Bài viết', 'bai-viet', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(78, 1, 'Phụ kiện', 'phu-kien', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(79, 1, 'Smartwatch', 'smartwatch', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(80, 1, 'Đồng hồ', 'dong-ho', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(81, 1, 'Tablet', 'tablet', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(82, 1, 'Máy in', 'may-in', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(43, 1, 'Thông tin', '#', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(63, 1, 'Liên hệ', '#', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(83, 1, 'Màn hình', 'man-hinh', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(84, 1, 'Camera', 'camera', '2024-11-18 15:08:58', '2024-11-18 15:08:58'),
+(85, 1, 'Sạc dự phòng', 'sac-du-phong', '2024-11-18 15:34:35', '2024-11-18 15:34:35'),
+(86, 1, 'Tai nghe', 'tai-nghe', '2024-11-18 15:34:35', '2024-11-18 15:34:35'),
+(87, 1, 'Bút Tablet', 'but-tablet', '2024-11-18 15:34:35', '2024-11-18 15:34:35'),
+(88, 1, 'Túi đựng Airpods', 'tui-dung-airpods', '2024-11-18 15:34:35', '2024-11-18 15:34:35'),
+(89, 1, 'Miếng dán camera', 'mieng-dan-camera', '2024-11-18 15:34:35', '2024-11-18 15:34:35'),
+(90, 1, 'Dây đồng hồ', 'day-dong-ho', '2024-11-18 15:34:35', '2024-11-18 15:34:35'),
+(92, 1, 'Huawei', 'huawei', '2024-11-18 15:46:46', '2024-11-18 15:46:46'),
+(94, 1, 'Xiaomi', 'xiaomi', '2024-11-18 15:46:46', '2024-11-18 15:46:46'),
+(95, 1, 'Samsung', 'samsung-watch', '2024-11-18 15:46:46', '2024-11-18 15:46:46'),
+(96, 1, 'Casio', 'casio', '2024-11-18 15:53:34', '2024-11-18 15:53:34'),
+(97, 1, 'CITIZEN', 'citizen', '2024-11-18 15:53:34', '2024-11-18 15:53:34'),
+(98, 1, 'iPad', 'ipad', '2024-11-18 16:04:55', '2024-11-18 16:04:55'),
+(99, 1, 'OPPO Pad', 'oppo-pad', '2024-11-18 16:04:55', '2024-11-18 16:04:55'),
+(100, 1, 'Samsung Galaxy Tab', 'samsung-galaxy-tab', '2024-11-18 16:04:55', '2024-11-18 16:04:55'),
+(101, 1, 'Lenovo Tab', 'lenovo-tab', '2024-11-18 16:04:55', '2024-11-18 16:04:55'),
+(102, 1, 'TCL Tab', 'tcl-tab', '2024-11-18 16:04:55', '2024-11-18 16:04:55'),
+(103, 1, 'Máy in Canon', 'may-in-canon', '2024-11-18 16:12:57', '2024-11-18 16:12:57'),
+(104, 1, 'Máy in HP', 'may-in-hp', '2024-11-18 16:12:57', '2024-11-18 16:12:57'),
+(105, 1, 'Máy in Brother', 'may-in-brother', '2024-11-18 16:12:57', '2024-11-18 16:12:57'),
+(106, 1, 'Máy in EPSON', 'may-in-epson', '2024-11-18 16:12:57', '2024-11-18 16:12:57'),
+(107, 1, 'Camera giám sát EZVIZ', 'camera-giam-sat-ezviz', '2024-11-18 16:26:05', '2024-11-18 16:26:05'),
+(108, 1, 'Camera giám sát Imou', 'camera-giam-sat-imou', '2024-11-18 16:26:05', '2024-11-18 16:26:05'),
+(109, 1, 'Camera giám sát BOTSLAB', 'camera-giam-sat-botslab', '2024-11-18 16:26:05', '2024-11-18 16:26:05'),
+(110, 1, 'Màn hình máy tính Asus', 'man-hinh-may-tinh-asus', '2024-11-18 16:34:30', '2024-11-18 16:34:30'),
+(111, 1, 'Màn hình máy tính MSI', 'man-hinh-may-tinh-msi', '2024-11-18 16:34:30', '2024-11-18 16:34:30');
 
 -- --------------------------------------------------------
 
@@ -1353,7 +1599,7 @@ INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `cre
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1428,60 +1674,64 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (69, '2024_08_19_060314_create_menu_catalogues_table', 48),
 (70, '2024_08_21_161212_create_menus_table', 49),
 (71, '2024_08_21_162833_create_menu_language_table', 50),
-(72, '2024_08_28_073535_create_product_receipts_table', 51),
-(73, '2024_08_28_074823_create_product_receipt_detail_table', 51),
-(77, '2024_08_28_083504_create_slides_table', 52),
-(78, '2024_09_01_030204_create_widgets_table', 53),
-(79, '2024_08_28_102508_add_delete_at_to_product_receipt_table', 54),
-(80, '2024_09_03_125107_add_product_id_at_to_product_receipt_detail', 54),
-(81, '2024_09_05_163914_create_suppliers_table', 54),
-(82, '2024_09_05_164614_delete_supplier_infomation_at_to_produc_receipt_table', 54),
-(83, '2024_09_05_164912_add_foreign_key_at_to_product_receipts_table', 54),
-(84, '2024_09_08_110621_add_date_of_receipt_at_to_table_product_receipt_table', 54),
-(85, '2024_09_09_133412_add_date_at_to_product_receipts', 55),
-(86, '2024_09_12_211844_create_sources_table', 56),
-(87, '2024_09_12_230205_create_customer_catalogues_table', 57),
-(88, '2024_09_12_231644_create_customer_catalogues_table', 58),
-(89, '2024_09_12_231703_create_customers_table', 59),
-(90, '2024_09_13_192941_add_source_id_at_to_customers_table', 60),
-(94, '2024_09_16_130836_create_promotions_table', 61),
-(95, '2024_09_16_141326_create_promotion_product_variant_table', 61),
-(96, '2024_09_16_141855_create_promotion_conditionable_table', 61),
-(97, '2024_09_15_103043_crate_product_catalogue_supplier_table', 62),
-(100, '2024_09_15_103116_create_product_catalogue_supplier_table', 63),
-(101, '2024_09_18_013821_add_uuid_to_product_variants_table', 63),
-(102, '2024_09_18_015228_rename_product_variant_id_column_in_promotion_product_variant_table', 64),
-(104, '2024_09_18_015716_change_column_type_in_promotion_product_variant_table', 65),
-(105, '2024_09_16_223210_add_deleted_at_at_to_supplier', 66),
-(106, '2024_09_17_104255_add_address_to_supplier', 66),
-(107, '2024_09_21_151613_modify_order__nullable_in_menus', 67),
-(108, '2024_09_21_203348_add_discount_field_to_promotions_table', 68),
-(109, '2024_09_28_133130_add_actual_quantity_at_to_table', 69),
-(110, '2024_09_28_133348_add_actual_total_at_to_table', 69),
-(112, '2024_10_16_225546_create_table_carts', 70),
-(113, '2024_10_20_184620_remove_name_from_carts_table', 71),
-(114, '2024_10_21_222310_create_orders_table', 72),
-(115, '2024_10_21_224624_create_order_product_table', 73),
-(116, '2024_10_21_225431_create_order_payment_table', 74),
-(117, '2024_10_25_222015_add_sex_at_to_custemers_table', 75),
-(118, '2024_10_27_165920_add_total_price_original_to_orders_table', 76),
-(119, '2024_10_29_011252_add_google_id_to_customers_table', 77),
-(120, '2024_10_29_014817_modify_sex_nullable_in_customers', 78),
-(121, '2024_11_01_142712_add_expected_delivery_date_to_product_receipts', 79),
-(122, '2024_11_02_162152_add_warranty_time_to_products', 80),
-(123, '2024_11_03_160038_create_warranty_cards_table', 81),
-(124, '2024_11_06_143922_add_attribute_to_product_catalogues_table', 82),
-(126, '2024_11_07_181443_add_unique_constraint_to_uuid_in_product_variants', 83),
-(128, '2024_11_07_181529_create_reviews_table', 84),
-(129, '2024_11_07_150032_add_quantity_warranty_at_to_table_warranty_cards', 85),
-(133, '2024_11_08_152757_drop_carts_table', 86),
-(135, '2024_11_08_153107_create_carts_table', 87),
-(136, '2024_11_08_155004_drop_order_product_table', 88),
-(137, '2024_11_08_155216_create_order_product_table', 88),
-(138, '2024_11_09_101557_add_publish_to_reviews_table', 89),
-(140, '2024_11_12_214053_add_invoice_fields_to_orders_table', 90),
-(141, '2024_11_12_181359_add_date_of_receipt_at_warranty_cards', 91),
-(142, '2024_11_12_212615_add_user_id_at_warranty_cards_table', 91);
+(73, '2024_08_28_073535_create_product_receipts_table', 51),
+(74, '2024_08_28_074823_create_product_receipt_detail_table', 52),
+(76, '2024_08_28_102508_add_delete_at_to_product_receipt_table', 53),
+(77, '2024_09_03_125107_add_product_id_at_to_product_receipt_detail', 54),
+(78, '2024_09_05_163914_create_suppliers_table', 55),
+(79, '2024_09_05_164614_delete_supplier_infomation_at_to_produc_receipt_table', 56),
+(80, '2024_09_05_164912_add_foreign_key_at_to_product_receipts_table', 57),
+(81, '2024_09_08_110621_add_date_of_receipt_at_to_table_product_receipt_table', 58),
+(82, '2024_08_28_083504_create_slides_table', 59),
+(83, '2024_09_01_030204_create_widgets_table', 59),
+(84, '2024_09_09_133412_add_date_at_to_product_receipts', 60),
+(85, '2024_09_15_103116_create_product_catalogue_supplier_table', 61),
+(86, '2024_09_12_211844_create_sources_table', 62),
+(87, '2024_09_12_231644_create_customer_catalogues_table', 62),
+(88, '2024_09_12_231703_create_customers_table', 62),
+(89, '2024_09_13_192941_add_source_id_at_to_customers_table', 62),
+(90, '2024_09_15_103043_crate_product_catalogue_supplier_table', 62),
+(91, '2024_09_16_223210_add_deleted_at_at_to_supplier', 63),
+(92, '2024_09_17_104255_add_address_to_supplier', 64),
+(93, '2024_09_16_130836_create_promotions_table', 65),
+(94, '2024_09_16_141326_create_promotion_product_variant_table', 65),
+(95, '2024_09_16_141855_create_promotion_conditionable_table', 65),
+(96, '2024_09_18_013821_add_uuid_to_product_variants_table', 65),
+(97, '2024_09_18_015228_rename_product_variant_id_column_in_promotion_product_variant_table', 65),
+(98, '2024_09_18_015716_change_column_type_in_promotion_product_variant_table', 65),
+(99, '2024_09_21_151613_modify_order__nullable_in_menus', 66),
+(100, '2024_09_21_203348_add_discount_field_to_promotions_table', 66),
+(101, '2024_09_28_133130_add_actual_quantity_at_to_table', 67),
+(102, '2024_09_28_133348_add_actual_total_at_to_table', 67),
+(103, '2024_10_16_225546_create_table_carts', 68),
+(104, '2024_10_20_184620_remove_name_from_carts_table', 69),
+(105, '2024_10_25_222015_add_sex_at_to_custemers_table', 70),
+(106, '2024_10_21_222310_create_orders_table', 71),
+(107, '2024_10_21_224624_create_order_product_table', 71),
+(108, '2024_10_21_225431_create_order_payment_table', 71),
+(109, '2024_10_27_165920_add_total_price_original_to_orders_table', 72),
+(110, '2024_10_29_011252_add_google_id_to_customers_table', 73),
+(111, '2024_10_29_014817_modify_sex_nullable_in_customers', 73),
+(112, '2024_11_01_142712_add_expected_delivery_date_to_product_receipts', 74),
+(115, '2024_11_02_162152_add_warranty_time_to_products', 75),
+(116, '2024_11_03_160038_create_warranty_cards_table', 75),
+(117, '2024_11_07_150032_add_quantity_warranty_at_to_table_warranty_cards', 76),
+(118, '2024_11_06_143922_add_attribute_to_product_catalogues_table', 77),
+(119, '2024_11_07_181443_add_unique_constraint_to_uuid_in_product_variants', 77),
+(120, '2024_11_07_181529_create_reviews_table', 77),
+(121, '2024_11_08_152757_drop_carts_table', 78),
+(122, '2024_11_08_153107_create_carts_table', 78),
+(123, '2024_11_08_155004_drop_order_product_table', 78),
+(124, '2024_11_08_155216_create_order_product_table', 78),
+(125, '2024_11_09_101557_add_publish_to_reviews_table', 79),
+(126, '2024_11_12_181359_add_date_of_receipt_at_warranty_cards', 80),
+(127, '2024_11_12_212615_add_user_id_at_warranty_cards_table', 81),
+(128, '2024_11_12_214053_add_invoice_fields_to_orders_table', 82),
+(129, '2024_11_14_140705_change_warranty_time_type_in_products', 83),
+(130, '2024_11_14_143355_drop_on_delete_cascade_from_order_product', 83),
+(131, '2024_11_15_194330_add_delivery_date_in_orders_table', 84),
+(132, '2024_11_20_165221_create_table_product_attribute', 85),
+(133, '2024_11_23_143649_add_comlumn_language_in_customers_table', 86);
 
 -- --------------------------------------------------------
 
@@ -1492,37 +1742,46 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `orders` (
   `id` bigint UNSIGNED NOT NULL,
   `customer_id` bigint UNSIGNED NOT NULL,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fullname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `province_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `district_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ward_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `province_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ward_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `promotion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `cart` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `totalPrice` double NOT NULL DEFAULT '0',
   `totalPriceOriginal` double NOT NULL DEFAULT '0',
-  `guest_cookie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `method` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `confirm` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `delivery` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `guest_cookie` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `confirm` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `shipping` double NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `invoice_date` timestamp NULL DEFAULT NULL
-) ;
+  `invoice_date` timestamp NULL DEFAULT NULL,
+  `delivery_date` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `customer_id`, `code`, `fullname`, `phone`, `email`, `province_id`, `district_id`, `ward_id`, `address`, `description`, `promotion`, `cart`, `totalPrice`, `totalPriceOriginal`, `guest_cookie`, `method`, `confirm`, `payment`, `delivery`, `shipping`, `deleted_at`, `created_at`, `updated_at`, `invoice_date`) VALUES
-(1, 6, '1731502683', 'Lê Hữu Tài', '0342937692', 'lehuutai090403@gmail.com', '83', '832', '28879', 'Cầu Lộ Hội', NULL, '{\"discount\":14156800,\"name\":\"Gi\\u1ea3m gi\\u00e1 th\\u00e1ng 11\",\"code\":\"GIAMGIATHANG11\",\"startDate\":\"2024-10-21 15:07:00\",\"endDate\":\"2024-11-30 15:07:00\"}', NULL, 56627200, 70784000, NULL, 'cod', 'confirm', 'paid', 'success', 0, NULL, '2024-11-13 12:58:04', '2024-11-13 12:59:29', '2024-11-13 12:59:02');
+INSERT INTO `orders` (`id`, `customer_id`, `code`, `fullname`, `phone`, `email`, `province_id`, `district_id`, `ward_id`, `address`, `description`, `promotion`, `cart`, `totalPrice`, `totalPriceOriginal`, `guest_cookie`, `method`, `confirm`, `payment`, `delivery`, `shipping`, `deleted_at`, `created_at`, `updated_at`, `invoice_date`, `delivery_date`) VALUES
+(32, 10, '1731833928', 'Cao Tấn Công', '0362111265', 'caotancong2003@gmail.com', '95', '958', '31900', NULL, NULL, '{\"discount\":750000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 14250000, 15000000, NULL, 'cod', 'confirm', 'paid', 'success', 0, NULL, '2024-11-17 08:58:48', '2024-11-17 09:00:58', '2024-11-17 09:00:24', '2024-11-17 09:00:58'),
+(33, 10, '1731834260', 'Cao Tấn Công', '0362111265', 'caotancong2003@gmail.com', '95', '958', '31900', NULL, NULL, '{\"discount\":1500000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 28500000, 30000000, NULL, 'cod', 'pending', 'unpaid', 'pending', 0, NULL, '2024-11-17 09:04:20', '2024-11-17 09:04:20', NULL, NULL),
+(34, 10, '1731836706', 'Cao Tấn Công', '0362111265', 'caotancong2003@gmail.com', '95', '958', '31900', NULL, NULL, '{\"discount\":750000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 14250000, 15000000, NULL, 'cod', 'confirm', 'unpaid', 'processing', 0, NULL, '2024-11-17 09:45:06', '2024-11-17 09:45:20', '2024-11-17 09:45:20', NULL),
+(35, 10, '1731836755', 'Cao Tấn Công', '0362111265', 'caotancong2003@gmail.com', '95', '958', '31900', NULL, NULL, '{\"discount\":750000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 14250000, 15000000, NULL, 'cod', 'cancel', 'unpaid', 'pending', 0, NULL, '2024-11-17 09:45:55', '2024-11-17 09:46:10', NULL, NULL),
+(36, 10, '1731837448', 'Cao Tấn Công', '0362111265', 'caotancong2003@gmail.com', '95', '958', '31900', NULL, NULL, '{\"discount\":600000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 11400000, 12000000, NULL, 'cod', 'pending', 'unpaid', 'pending', 0, NULL, '2024-11-17 09:57:28', '2024-11-17 09:57:28', NULL, NULL),
+(37, 12, '1731838569', 'Cao Tấn Công', '0362111265', 'thanhdai.vn01@gmail.com', '01', '001', '00004', 'Số nhà 11', NULL, '{\"discount\":750000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 14250000, 15000000, NULL, 'cod', 'pending', 'unpaid', 'pending', 0, NULL, '2024-11-17 10:16:09', '2024-11-17 10:16:09', NULL, NULL),
+(38, 10, '1731949589', 'Cao Tấn Công', '0362111265', 'caotancong2003@gmail.com', '95', '958', '31900', NULL, NULL, '{\"discount\":1750000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 33250000, 35000000, NULL, 'cod', 'pending', 'unpaid', 'pending', 0, NULL, '2024-11-18 17:06:29', '2024-11-18 17:06:29', NULL, NULL),
+(39, 10, '1731949632', 'Cao Tấn Công', '0362111265', 'caotancong2003@gmail.com', '95', '958', '31900', NULL, NULL, '{\"discount\":750000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 14250000, 15000000, NULL, 'cod', 'confirm', 'paid', 'success', 0, NULL, '2024-11-18 17:07:12', '2024-11-18 17:07:34', '2024-11-18 17:07:32', '2024-11-18 17:07:34'),
+(40, 11, '1732373850', 'Cao Tấn Công', '0362111265', 'lehuutai090403@gmail.com', '06', '061', '01897', NULL, NULL, '{\"discount\":750000,\"name\":\"Khuy\\u1ec5n m\\u00e3i th\\u00e1ng 11\",\"code\":\"KHUYENMAITHANG11\",\"startDate\":\"2024-10-22 09:18:00\",\"endDate\":\"2024-11-30 09:19:00\"}', NULL, 14250000, 15000000, NULL, 'vnpay', 'pending', 'paid', 'pending', 0, NULL, '2024-11-23 15:00:25', '2024-11-23 15:00:25', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1533,12 +1792,12 @@ INSERT INTO `orders` (`id`, `customer_id`, `code`, `fullname`, `phone`, `email`,
 CREATE TABLE `order_payment` (
   `id` bigint UNSIGNED NOT NULL,
   `order_id` bigint UNSIGNED NOT NULL,
-  `method_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `method_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `payment_detail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1565,8 +1824,16 @@ CREATE TABLE `order_product` (
 --
 
 INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `variant_uuid`, `quantity`, `price`, `priceOriginal`, `promotion`, `option`, `created_at`, `updated_at`) VALUES
-(11, 1, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 1, 35592000, 44490000, NULL, NULL, '2024-11-13 12:58:04', '2024-11-13 12:58:04'),
-(12, 1, 27, 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d', 1, 35192000, 43990000, NULL, NULL, '2024-11-13 12:58:04', '2024-11-13 12:58:04');
+(18, 32, 30, 'bb02ff3b-dca0-5499-8811-3658fd5ff974', 1, 15000000, 15000000, NULL, NULL, '2024-11-17 08:58:48', '2024-11-17 08:58:48'),
+(19, 33, 30, 'bb02ff3b-dca0-5499-8811-3658fd5ff974', 1, 15000000, 15000000, NULL, NULL, '2024-11-17 09:04:20', '2024-11-17 09:04:20'),
+(20, 33, 34, '97f51b8b-97d3-5604-9a73-7cb3260db882', 1, 15000000, 15000000, NULL, NULL, '2024-11-17 09:04:20', '2024-11-17 09:04:20'),
+(21, 34, 34, '97f51b8b-97d3-5604-9a73-7cb3260db882', 1, 15000000, 15000000, NULL, NULL, '2024-11-17 09:45:06', '2024-11-17 09:45:06'),
+(22, 35, 34, '97f51b8b-97d3-5604-9a73-7cb3260db882', 1, 15000000, 15000000, NULL, NULL, '2024-11-17 09:45:55', '2024-11-17 09:45:55'),
+(23, 36, 34, '97f51b8b-97d3-5604-9a73-7cb3260db882', 1, 12000000, 15000000, NULL, NULL, '2024-11-17 09:57:28', '2024-11-17 09:57:28'),
+(24, 37, 30, '3a17f688-aedf-58b1-880c-8714f9de1917', 1, 15000000, 15000000, NULL, NULL, '2024-11-17 10:16:09', '2024-11-17 10:16:09'),
+(25, 38, 60, '490104b3-5bf6-5f8f-ad25-40834099bb7b', 1, 35000000, 35000000, NULL, NULL, '2024-11-18 17:06:29', '2024-11-18 17:06:29'),
+(26, 39, 31, 'b8d59c7b-7842-5123-bfb9-f09bdc39e381', 1, 15000000, 15000000, NULL, NULL, '2024-11-18 17:07:12', '2024-11-18 17:07:12'),
+(27, 40, 30, 'bb02ff3b-dca0-5499-8811-3658fd5ff974', 1, 15000000, 15000000, NULL, NULL, '2024-11-23 15:00:25', '2024-11-23 15:00:25');
 
 -- --------------------------------------------------------
 
@@ -1575,8 +1842,8 @@ INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `variant_uuid`, `qu
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1588,8 +1855,8 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `permissions` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1651,46 +1918,47 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 (50, 'Thêm mới menu', 'menu.create', '2024-08-17 21:33:46', '2024-08-17 21:33:46'),
 (51, 'Sửa menu', 'menu.update', '2024-08-17 21:33:59', '2024-08-17 21:33:59'),
 (52, 'Xóa menu', 'menu.destroy', '2024-08-17 21:34:13', '2024-08-17 21:34:13'),
-(53, 'Xem slide', 'slide.index', '2024-08-28 02:07:11', '2024-08-28 02:07:11'),
-(54, 'Thêm mới slide', 'slide.create', '2024-08-28 02:07:23', '2024-08-28 02:07:23'),
-(55, 'Sửa slide', 'slide.update', '2024-08-28 02:07:42', '2024-08-28 02:08:11'),
-(56, 'Xóa slide', 'slide.destroy', '2024-08-28 02:07:53', '2024-08-28 02:07:53'),
-(57, 'Thêm mới widget', 'widget.create', '2024-08-31 07:41:49', '2024-08-31 07:41:49'),
-(58, 'Xem danh sách widget', 'widget.index', '2024-08-31 07:43:23', '2024-08-31 07:43:23'),
-(59, 'Sửa widget', 'widget.update', '2024-08-31 07:43:35', '2024-08-31 07:43:35'),
-(60, 'Xóa widget', 'widget.destroy', '2024-08-31 07:43:50', '2024-08-31 07:43:50'),
-(61, 'Xem danh sách khuyến mãi', 'promotion.index', '2024-09-04 02:32:13', '2024-09-04 02:32:13'),
-(62, 'Tạo khuyến mãi', 'promotion.create', '2024-09-04 02:32:26', '2024-09-04 02:32:26'),
-(63, 'Sửa khuyến mãi', 'promotion.update', '2024-09-04 02:33:00', '2024-09-04 02:33:00'),
-(64, 'Xóa khuyến mãi', 'promotion.destroy', '2024-09-04 02:33:30', '2024-09-04 02:33:30'),
-(65, 'Xem danh sách phiếu nhập kho', 'receipt.index', '2024-09-08 10:19:33', '2024-09-08 10:19:33'),
-(66, 'Thêm phiếu nhập kho', 'receipt.create', '2024-09-08 10:19:49', '2024-09-08 10:19:49'),
-(67, 'Sửa phiếu nhập kho', 'receipt.update', '2024-09-08 10:20:10', '2024-09-08 10:20:10'),
-(68, 'Xóa phiếu nhập kho', 'receipt.destroy', '2024-09-08 10:20:26', '2024-09-08 10:20:26'),
-(69, 'Xem chi tiết phiếu nhập kho', 'receipt.detail', '2024-09-08 10:20:42', '2024-09-08 10:20:42'),
-(70, 'Duyệt phiếu nhập kho', 'receipt.browse', '2024-09-08 10:20:59', '2024-09-08 10:20:59'),
-(71, 'Xem danh sách nguồn khách', 'source.index', '2024-09-12 14:33:01', '2024-09-12 14:33:01'),
-(72, 'Thêm mới nguồn khách', 'source.create', '2024-09-12 14:33:18', '2024-09-12 14:33:18'),
-(73, 'Cập nhật nguồn khách', 'source.update', '2024-09-12 14:33:33', '2024-09-12 14:33:33'),
-(74, 'Xóa nguồn khách', 'source.destroy', '2024-09-12 14:33:47', '2024-09-12 14:33:47'),
-(75, 'Xem danh sách nhóm khách hàng', 'customer.catalogue.index', '2024-09-12 18:04:24', '2024-09-12 18:05:54'),
-(76, 'Thêm nhóm khách hàng', 'customer.catalogue.create', '2024-09-12 18:04:40', '2024-09-12 18:05:40'),
-(77, 'Cập nhật nhóm khách hàng', 'customer.catalogue.update', '2024-09-12 18:04:57', '2024-09-12 18:05:32'),
-(78, 'Xóa nhóm khách hàng', 'customer.catalogue.destroy', '2024-09-12 18:05:17', '2024-09-12 18:05:17'),
-(79, 'Xem danh sách khách hàng', 'customer.index', '2024-09-12 18:07:12', '2024-09-12 18:07:12'),
-(80, 'Thêm mới khách hàng', 'customer.create', '2024-09-12 18:07:29', '2024-09-12 18:07:29'),
-(81, 'Cập nhật khách hàng', 'customer.update', '2024-09-12 18:07:41', '2024-09-12 18:07:41'),
-(82, 'Xóa khách hàng', 'customer.destroy', '2024-09-12 18:07:53', '2024-09-12 18:07:53'),
-(83, 'Xác nhận giao hàng nhập kho', 'receipt.instock', '2024-09-17 18:33:08', '2024-09-17 18:33:08'),
-(84, 'Giám sát phiếu nhập kho', 'monitor.receipt', '2024-09-17 18:33:41', '2024-09-17 18:33:41'),
-(85, 'Xem danh sách nhà cung cấp', 'supplier.index', '2024-09-17 18:34:18', '2024-09-17 18:34:18'),
-(86, 'Thêm nhà cung cấp', 'supplier.create', '2024-09-20 12:02:13', '2024-09-20 12:02:13'),
-(87, 'Sửa nhà cung cấp', 'supplier.update', '2024-09-20 12:02:27', '2024-09-20 12:02:27'),
-(88, 'Xóa nhà cung cấp', 'supplier.destroy', '2024-09-20 12:02:37', '2024-09-20 12:02:37'),
-(89, 'Xem danh dách đơn hàng', 'order.index', '2024-10-27 08:36:01', '2024-10-27 08:36:01'),
-(90, 'Xem danh sách đánh giá', 'review.index', '2024-11-09 03:24:42', '2024-11-09 03:24:42'),
-(91, 'Xóa đánh giá', 'review.destroy', '2024-11-09 15:19:57', '2024-11-09 15:19:57'),
-(92, 'Xuất kho', 'order.outOfStock', '2024-11-12 13:30:14', '2024-11-12 13:30:14');
+(53, 'Xem danh sách phiếu nhập kho', 'receipt.index', '2024-08-28 03:05:09', '2024-08-28 03:05:09'),
+(54, 'Thêm phiếu nhập kho', 'receipt.create', '2024-08-28 03:05:33', '2024-08-28 03:05:33'),
+(55, 'Sửa phiếu nhập kho', 'receipt.update', '2024-09-06 17:59:03', '2024-09-06 17:59:03'),
+(56, 'Xóa phiếu nhập kho', 'receipt.destroy', '2024-09-06 18:02:50', '2024-09-06 18:02:50'),
+(57, 'Xem chi tiết phiếu nhập kho', 'receipt.detail', '2024-09-06 18:03:19', '2024-09-06 18:03:19'),
+(58, 'Duyệt phiếu nhập kho', 'receipt.browse', '2024-09-07 13:35:15', '2024-09-07 13:36:16'),
+(59, 'Xem slide', 'slide.index', '2024-09-08 10:55:02', '2024-09-08 10:55:02'),
+(60, 'Thêm mới slide', 'slide.create', '2024-09-08 10:55:17', '2024-09-08 10:55:17'),
+(61, 'Xóa slide', 'slide.destroy', '2024-09-08 10:56:18', '2024-09-08 10:56:18'),
+(62, 'Sửa slide', 'slide.update', '2024-09-08 10:56:44', '2024-09-08 10:56:44'),
+(63, 'Thêm mới widget', 'widget.create', '2024-09-08 10:57:17', '2024-09-08 10:57:17'),
+(64, 'Xem danh sách widget', 'widget.index', '2024-09-08 10:58:07', '2024-09-08 10:58:07'),
+(65, 'Sửa widget', 'widget.update', '2024-09-08 10:58:28', '2024-09-08 10:58:28'),
+(66, 'Xóa widget', 'widget.destroy', '2024-09-08 10:58:43', '2024-09-08 10:58:43'),
+(67, 'Giám sát phiếu nhập kho', 'monitor.receipt', '2024-09-09 12:21:11', '2024-09-09 12:21:11'),
+(68, 'Xác nhận giao hàng nhập kho', 'receipt.instock', '2024-09-09 12:48:49', '2024-09-09 12:48:49'),
+(69, 'Xem chương trình khuyến mãi', 'promotion.index', '2024-09-09 12:59:00', '2024-09-09 12:59:00'),
+(70, 'Sửa chương trình khuyến mãi', 'promotion.update', '2024-09-09 12:59:44', '2024-09-09 12:59:44'),
+(71, 'Thêm chương trình khuyến mãi', 'promotion.create', '2024-09-09 12:59:58', '2024-09-09 12:59:58'),
+(72, 'Xóa chương trình khuyến mãi', 'promotion.destroy', '2024-09-09 13:00:15', '2024-09-09 13:00:15'),
+(73, 'Xem danh sách nguồn khách', 'source.index', '2024-09-15 05:33:01', '2024-09-15 05:33:01'),
+(74, 'Thêm mới nguồn khách', 'source.create', '2024-09-15 05:33:22', '2024-09-15 05:33:22'),
+(75, 'Cập nhật nguồn khách', 'source.update', '2024-09-15 05:33:48', '2024-09-15 05:33:48'),
+(76, 'Xóa nguồn khách', 'source.destroy', '2024-09-15 05:34:03', '2024-09-15 05:34:03'),
+(77, 'Xem danh sách nhóm khách hàng', 'customer.catalogue.index', '2024-09-15 05:35:01', '2024-09-15 05:35:01'),
+(78, 'Thêm nhóm khách hàng', 'customer.catalogue.create', '2024-09-15 05:35:21', '2024-09-15 05:35:21'),
+(79, 'Cập nhật nhóm khách hàng', 'customer.catalogue.update', '2024-09-15 05:35:48', '2024-09-15 05:35:48'),
+(80, 'Xóa nhóm khách hàng', 'customer.catalogue.destroy', '2024-09-15 05:36:03', '2024-09-15 05:36:03'),
+(81, 'Xem danh sách khách hàng', 'customer.index', '2024-09-15 05:36:39', '2024-09-15 05:38:06'),
+(82, 'Thêm mới khách hàng', 'customer.create', '2024-09-15 05:36:51', '2024-09-15 05:36:51'),
+(83, 'Cập nhật khách hàng', 'customer.update', '2024-09-15 05:37:10', '2024-09-15 05:37:10'),
+(84, 'Xóa khách hàng', 'customer.destroy', '2024-09-15 05:37:28', '2024-09-15 05:37:28'),
+(85, 'Xem danh sách nhà cung cấp', 'supplier.index', '2024-09-16 15:10:49', '2024-09-16 15:10:49'),
+(86, 'Thêm nhà cung cấp', 'supplier.create', '2024-09-17 03:35:38', '2024-09-17 03:35:38'),
+(87, 'Sửa nhà cung cấp', 'supplier.update', '2024-09-17 15:17:20', '2024-09-17 15:17:20'),
+(88, 'Xem đơn hàng', 'order.index', '2024-10-29 05:03:17', '2024-10-29 05:03:17'),
+(89, 'Xem bảo hành', 'warranty.index', '2024-11-01 10:10:45', '2024-11-01 10:10:45'),
+(90, 'Xem danh sách bảo hành', 'warranty.warrantyRepair', '2024-11-06 15:26:16', '2024-11-06 15:26:16'),
+(91, 'Đánh giá sản phẩm', 'review.index', '2024-11-12 10:49:46', '2024-11-12 10:49:46'),
+(92, 'Xóa đánh giá', 'review.destroy', '2024-11-12 10:50:00', '2024-11-12 10:50:00'),
+(93, 'Xuất kho', 'order.outOfStock', '2024-11-13 10:59:39', '2024-11-13 10:59:39');
 
 -- --------------------------------------------------------
 
@@ -1701,9 +1969,9 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 CREATE TABLE `posts` (
   `id` bigint UNSIGNED NOT NULL,
   `post_catalogue_id` int NOT NULL DEFAULT '0',
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '1',
   `order` int NOT NULL DEFAULT '0',
   `follow` tinyint NOT NULL,
@@ -1718,12 +1986,17 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `post_catalogue_id`, `image`, `icon`, `album`, `publish`, `order`, `follow`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(42, 56, NULL, NULL, '', 0, 0, -1, 201014, '2024-07-18 12:28:12', '2024-07-14 08:46:44', '2024-07-18 12:28:12'),
-(43, 58, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-z-fold-6/main_image_3828a995a8748743f617317285ec3e87f291cb7f.jpg', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.jpg\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/cong-nghe\\/cover-cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-15.jpg\"]', 1, 0, 1, 201014, NULL, '2024-07-18 12:33:34', '2024-09-29 17:02:31'),
-(44, 58, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/galaxy-s24-ultra-t9-2_02092024223816.jpg', NULL, '', 1, 0, 1, 201014, NULL, '2024-09-29 16:48:30', '2024-09-29 17:00:58'),
-(45, 58, '/thuongmaidientu/public/userfiles/image/iphone-13/11_3_12_2_1_5.png', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-08 09:05:15', '2024-10-08 09:05:22'),
-(46, 58, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-08 09:05:34', '2024-10-08 09:05:35'),
-(47, 58, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-08 09:06:16', '2024-10-08 09:06:17');
+(44, 58, '/userfiles/image/bai%20bao/A16-6G-4.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-10 15:40:33', '2024-11-02 11:01:38'),
+(45, 58, '/userfiles/image/bai%20bao/oneplus%2013-2.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-10 15:42:55', '2024-11-02 11:00:45'),
+(46, 58, '/userfiles/image/bai%20bao/A%CC%89nh%20ma%CC%80n%20hi%CC%80nh%202024-10-10%20lu%CC%81c%2012_25_33.jpeg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-10 15:43:59', '2024-11-02 11:01:21'),
+(47, 58, '/userfiles/image/bai%20bao/tgdd-asus-zenbook-s-14-ux5406-07.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-10 15:45:23', '2024-11-02 11:00:22'),
+(48, 58, '/userfiles/image/bai%20bao/tgdd-galaxy-s24-fe-02.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-10 15:48:29', '2024-11-02 11:00:10'),
+(49, 59, '/userfiles/image/bai%20bao/tgdd-xiaomi-14t-13.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-12 07:54:13', '2024-11-02 10:59:34'),
+(50, 60, '/userfiles/image/bai%20bao/imagesscr.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-12 07:58:42', '2024-11-02 10:59:55'),
+(51, 63, '/userfiles/image/bai%20bao/redmi-watch-5-1.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-12 08:00:03', '2024-11-02 10:59:18'),
+(52, 62, '/userfiles/image/bai%20bao/5g%20(1).jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-12 08:01:31', '2024-11-02 10:58:34'),
+(53, 61, '/userfiles/image/bai%20bao/tgdd-mo-hop-iphone-16-pro-max-48.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-12 08:03:08', '2024-11-02 10:57:48'),
+(54, 60, '/userfiles/image/bai%20bao/Thumb.jpg', NULL, '', 1, 0, -1, 201014, NULL, '2024-10-12 08:08:51', '2024-11-02 10:30:56');
 
 -- --------------------------------------------------------
 
@@ -1737,9 +2010,9 @@ CREATE TABLE `post_catalogues` (
   `lft` int NOT NULL DEFAULT '0',
   `rgt` int NOT NULL DEFAULT '0',
   `level` int NOT NULL DEFAULT '0',
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '0',
   `order` int NOT NULL DEFAULT '0',
   `user_id` bigint UNSIGNED NOT NULL,
@@ -1754,13 +2027,12 @@ CREATE TABLE `post_catalogues` (
 --
 
 INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `follow`) VALUES
-(52, 0, 4, 5, 1, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:31', '2024-07-14 08:21:49', '2024-10-13 08:47:31', -1),
-(53, 52, 5, 6, 2, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:22', '2024-07-14 08:22:08', '2024-10-13 08:47:22', -1),
-(54, 52, 5, 6, 2, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:26', '2024-07-14 08:23:11', '2024-10-13 08:47:26', -1),
-(55, 54, 8, 9, 3, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:12', '2024-07-14 08:30:11', '2024-10-13 08:47:12', -1),
-(56, 54, 8, 9, 3, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:06', '2024-07-14 08:38:26', '2024-10-13 08:47:06', -1),
-(57, 53, 6, 7, 3, NULL, NULL, '', 1, 0, 201014, '2024-10-13 08:47:00', '2024-07-14 08:43:16', '2024-10-13 08:47:00', -1),
-(58, 0, 2, 3, 1, '/userfiles/image/bai%20bao/tgdd-xiaomi-14t-13.jpg', NULL, '', 1, 0, 201014, NULL, '2024-07-18 12:28:06', '2024-11-01 14:22:46', -1);
+(58, 0, 12, 13, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-07-18 12:28:06', '2024-08-24 07:53:18', -1),
+(59, 0, 10, 11, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-10-12 07:26:11', '2024-10-12 07:26:18', -1),
+(60, 0, 8, 9, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-10-12 07:26:56', '2024-10-12 07:27:53', -1),
+(61, 0, 6, 7, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-10-12 07:28:29', '2024-10-12 07:28:33', -1),
+(62, 0, 4, 5, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-10-12 07:29:31', '2024-10-12 07:29:34', -1),
+(63, 0, 2, 3, 1, 'backend/img/no-photo.png', NULL, '', 1, 0, 201014, NULL, '2024-10-12 07:29:48', '2024-10-12 07:29:52', -1);
 
 -- --------------------------------------------------------
 
@@ -1771,13 +2043,13 @@ INSERT INTO `post_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`
 CREATE TABLE `post_catalogue_language` (
   `post_catalogue_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `content` longtext COLLATE utf8mb4_general_ci,
-  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_description` text COLLATE utf8mb4_general_ci,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -1788,15 +2060,18 @@ CREATE TABLE `post_catalogue_language` (
 --
 
 INSERT INTO `post_catalogue_language` (`post_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(52, 1, 'Bóng đá', '<p>B&oacute;ng đ&aacute;</p>', '<p>B&oacute;ng đ&aacute;</p>', 'Bóng đá', 'Bóng đá', 'Bóng đá', 'bong-da', '2024-07-17 12:54:34', '2024-07-17 12:54:34', NULL),
-(54, 1, 'Bóng đá quốc tế', NULL, NULL, NULL, NULL, NULL, 'bong-da-quoc-te', '2024-07-14 08:23:11', '2024-07-14 08:23:11', NULL),
-(53, 1, 'Bóng đá trong nước', NULL, NULL, NULL, NULL, NULL, 'bong-da-trong-nuoc', '2024-07-14 08:22:46', '2024-07-14 08:22:46', NULL),
-(55, 1, 'Champion league', NULL, NULL, NULL, NULL, NULL, 'champion-league', '2024-07-14 08:30:58', '2024-07-14 08:30:58', NULL),
-(56, 1, 'Premier League', NULL, NULL, NULL, NULL, NULL, 'premier-league', '2024-07-14 08:38:26', '2024-07-14 08:38:26', NULL),
-(57, 1, 'V League 1', NULL, NULL, NULL, NULL, NULL, 'v-league-1', '2024-07-14 08:43:16', '2024-07-14 08:43:16', NULL),
-(52, 2, 'Football', '<p>Football</p>', '<p>Football</p>', 'Football', 'Football', 'Football', 'football', '2024-07-30 20:09:52', '2024-07-30 20:09:52', NULL),
-(58, 2, 'Technology123', '<p>Technology</p>', '<p>Technology</p>', 'Technology', 'Technology', 'Technology', 'technology123', '2024-07-31 04:26:42', '2024-07-31 04:26:42', NULL),
-(58, 1, 'Công nghệ', NULL, NULL, NULL, NULL, NULL, 'cong-nghe', '2024-11-01 14:22:46', '2024-11-01 14:22:46', NULL);
+(59, 1, 'Đánh giá', NULL, NULL, NULL, NULL, NULL, 'danh-gia', '2024-10-12 07:26:11', '2024-10-12 07:26:11', NULL),
+(60, 1, 'Sự kiện', NULL, NULL, NULL, NULL, NULL, 'su-kien', '2024-10-12 07:26:56', '2024-10-12 07:26:56', NULL),
+(61, 1, 'Sản phẩm mới', NULL, NULL, NULL, NULL, NULL, 'san-pham-moi', '2024-10-12 07:28:29', '2024-10-12 07:28:29', NULL),
+(58, 1, 'Mới nhất', NULL, NULL, NULL, NULL, NULL, 'moi-nhat', '2024-10-12 07:28:47', '2024-10-12 07:28:47', NULL),
+(62, 1, 'Mẹo hay', NULL, NULL, NULL, NULL, NULL, 'meo-hay', '2024-10-12 07:29:31', '2024-10-12 07:29:31', NULL),
+(63, 1, 'Tư vấn', NULL, NULL, NULL, NULL, NULL, 'tu-van', '2024-10-12 07:29:48', '2024-10-12 07:29:48', NULL),
+(59, 2, 'Evaluate', NULL, NULL, NULL, NULL, NULL, 'evaluate', '2024-10-13 06:46:28', '2024-10-13 06:46:28', NULL),
+(58, 2, 'News', '<p>Technology</p>', '<p>Technology</p>', 'Technology', 'Technology', 'Technology', 'news', '2024-10-13 06:47:36', '2024-10-13 06:47:36', NULL),
+(60, 2, 'Events', NULL, NULL, NULL, NULL, NULL, 'events', '2024-10-13 06:49:16', '2024-10-13 06:49:16', NULL),
+(61, 2, 'New products', NULL, NULL, NULL, NULL, NULL, 'new-products', '2024-10-13 06:49:51', '2024-10-13 06:49:51', NULL),
+(62, 2, 'Good tips', NULL, NULL, NULL, NULL, NULL, 'good-tips', '2024-10-13 06:50:17', '2024-10-13 06:50:17', NULL),
+(63, 2, 'Advisory', NULL, NULL, NULL, NULL, NULL, 'advisory', '2024-10-13 06:50:46', '2024-10-13 06:50:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -1814,14 +2089,22 @@ CREATE TABLE `post_catalogue_post` (
 --
 
 INSERT INTO `post_catalogue_post` (`post_catalogue_id`, `post_id`) VALUES
-(52, 42),
-(54, 42),
-(56, 42),
-(58, 43),
 (58, 44),
-(58, 45),
 (58, 46),
-(58, 47);
+(58, 47),
+(58, 48),
+(58, 45),
+(59, 49),
+(60, 50),
+(63, 51),
+(62, 52),
+(61, 53),
+(60, 54),
+(63, 54),
+(62, 54),
+(61, 54),
+(59, 54),
+(58, 54);
 
 -- --------------------------------------------------------
 
@@ -1832,13 +2115,13 @@ INSERT INTO `post_catalogue_post` (`post_catalogue_id`, `post_id`) VALUES
 CREATE TABLE `post_language` (
   `post_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `content` longtext COLLATE utf8mb4_general_ci,
-  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_description` text COLLATE utf8mb4_general_ci,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -1849,12 +2132,18 @@ CREATE TABLE `post_language` (
 --
 
 INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(43, 2, 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', '<p>The duo of Galaxy Z Fold 6 along with Z Flip 6 made an impressive debut at the recent Unpacked event.</p>', '<p>Những cải tiến tr&ecirc;n Galaxy Z Fold6 v&agrave; Z Flip6 đ&atilde; mở ra một xu hướng mới cho&nbsp;<a href=\"https://cellphones.com.vn/mobile.html\" target=\"_blank\">điện thoại</a>&nbsp;gập Galaxy - xu hướng mỏng nhẹ nhằm n&acirc;ng cao trải nghiệm người d&ugrave;ng ngay từ những cảm gi&aacute;c cầm nắm đầu ti&ecirc;n.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.JPG\" /></p>\r\n\r\n<p><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\">1.&nbsp;Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#thiet-ke-tinh-te-mau-sac-an-tuong\">2.&nbsp;Thiết kế tinh tế, m&agrave;u sắc ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-flip6-thu-hut-moi-goc-nhin\">3.&nbsp;Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ben-bi-manh-me-va-an-tuong\">4.&nbsp;Bền bỉ, mạnh mẽ v&agrave; ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ket-luan\">5.&nbsp;Kết luận</a></p>\r\n\r\n<h2 id=\"galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\"><strong>Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</strong></h2>\r\n\r\n<p>Galaxy Fold mỏng nhẹ nhất, bền bỉ nhất từ chất liệu đến chuẩn IP48<br />\r\nNhững cải tiến mạnh mẽ ở cả ngoại h&igrave;nh lẫn t&iacute;nh năng đ&atilde; khiến Galaxy Z Fold6 trở th&agrave;nh t&acirc;m điểm của cả thế giới trong sự kiện Unpacked vừa rồi.<br />\r\nVới trọng lượng chỉ 239gram, v&agrave; độ mỏng chỉ 12.1mm khi gập lại v&agrave; 5.6mm khi mở ra đ&atilde; khiến chiếc m&aacute;y n&agrave;y trở th&agrave;nh chiếc Galaxy Fold mỏng nhẹ nhất mọi thời đại. Th&ecirc;m v&agrave;o đ&oacute;,&nbsp;<a href=\"https://cellphones.com.vn/mobile/samsung.html\" target=\"_blank\">Samsung</a>&nbsp;đ&atilde; cải tiến bản lề v&agrave; nếp gấp một c&aacute;ch đ&aacute;ng kể so với đời trước, từ đ&oacute; mang đến sự liền mạch cho người d&ugrave;ng, kh&ocirc;ng bị kh&oacute; chịu bởi nếp gấp nữa.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.JPG\" /></p>\r\n\r\n<p>Điều n&agrave;y đ&atilde; tạo n&ecirc;n một trải nghiệm cầm nắm đ&atilde; tay hơn bao giờ hết. Giờ đ&acirc;y, người d&ugrave;ng c&oacute; thể sử dụng m&aacute;y trong nhiều giờ liền m&agrave; kh&ocirc;ng sợ mỏi tay hay khi sử dụng&nbsp;<a href=\"https://cellphones.com.vn/man-hinh.html\" target=\"_blank\">m&agrave;n h&igrave;nh</a>&nbsp;lớn cũng dễ d&agrave;ng hơn chỉ với 1 tay.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.JPG\" /></p>\r\n\r\n<h2 id=\"thiet-ke-tinh-te-mau-sac-an-tuong\"><strong>Thiết kế tinh tế, m&agrave;u sắc ấn tượng</strong></h2>\r\n\r\n<p>Những đường v&aacute;t phẳng vu&ocirc;ng vức, khung viền&nbsp;<a href=\"https://cellphones.com.vn/phu-kien/camera.html\" target=\"_blank\">camera</a>&nbsp;mới độc đ&aacute;o kết hợp c&ugrave;ng với bộ m&agrave;u sắc mới đ&atilde; g&oacute;p phần tạo n&ecirc;n sự ấn tượng cho Galaxy Z Fold6.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.JPG\" /></p>\r\n\r\n<p>Đặc biệt l&agrave; những m&agrave;u sắc thời thượng như X&aacute;m Metal, Xanh Navy hay Hồng Rose ch&iacute;nh l&agrave; thứ gi&uacute;p người d&ugrave;ng khẳng định phong c&aacute;ch, c&aacute; t&iacute;nh của bản th&acirc;n.</p>\r\n\r\n<h2 id=\"galaxy-z-flip6-thu-hut-moi-goc-nhin\"><strong>Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</strong></h2>\r\n\r\n<p>C&oacute; thể n&oacute;i, chiếc m&aacute;y n&agrave;y được sinh ra l&agrave; d&agrave;nh cho những trendsetter v&agrave; những người th&iacute;ch bắt kịp những trend mới của x&atilde; hội. Minh chứng l&agrave; thiết kế độc bản đầy ấn tượng với viền camera đồng m&agrave;u với th&acirc;n m&aacute;y đầy sự độc đ&aacute;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.JPG\" /></p>\r\n\r\n<p>Đặc biệt, m&agrave;u sắc l&agrave; yếu tố kh&ocirc;ng thể thiếu khi nhắc tới 2 chữ &ldquo;xu hướng&rdquo;. Xanh Mayar, V&agrave;ng Solar, Xanh Mint, X&aacute;m Metal l&agrave; bộ 4 m&agrave;u sắc tạo n&ecirc;n vẻ ấn tượng cho Galaxy Z Flip6 cũng l&agrave; bộ m&agrave;u độc đ&aacute;o cho lựa chọn sở th&iacute;ch của người d&ugrave;ng.</p>\r\n\r\n<h2 id=\"ben-bi-manh-me-va-an-tuong\"><strong>Bền bỉ, mạnh mẽ v&agrave; ấn tượng</strong></h2>\r\n\r\n<p>Đi theo tr&agrave;o lưu nhưng kh&ocirc;ng hề dễ phai nhạt. Galaxy Z Fold6 v&agrave; Z Flip6 c&ograve;n l&agrave; minh chứng cho sự bền bỉ theo năm th&aacute;ng với khả năng tăng cường chống chịu v&agrave; v&agrave; đập ấn tượng. Khung viền nh&ocirc;m cao cấp vừa sang trọng, vừa cứng c&aacute;p, 2 mặt k&iacute;nh Gorilla Glass Victus 2 gi&uacute;p người d&ugrave;ng an t&acirc;m sử dụng hơn, chống va đập, trầy xước tốt hơn.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.JPG\" /></p>\r\n\r\n<p>Kh&ocirc;ng thể kh&ocirc;ng kể đến chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP48 đầu ti&ecirc;n trong giới điện thoại gập. Đ&acirc;y l&agrave; một nỗ lực rất lớn của Samsung bởi nh&igrave;n v&agrave;o cơ chế gập, người d&ugrave;ng cũng c&oacute; thể thấy, việc thiết kế kh&aacute;ng bụi tr&ecirc;n điện thoại gập l&agrave; kh&ocirc;ng dễ d&agrave;ng ch&uacute;t n&agrave;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.JPG\" /></p>\r\n\r\n<h2 id=\"ket-luan\"><strong>Kết luận</strong></h2>\r\n\r\n<p>Ngay từ ngoại h&igrave;nh v&agrave; thiết kế, bộ đ&ocirc;i Galaxy Z Fold6, Z Flip6 đ&atilde; mang đến những ấn tượng lớn cho người d&ugrave;ng. Kh&ocirc;ng chỉ c&oacute; vậy, 2 chiếc m&aacute;y n&agrave;y c&ograve;n mang đến những n&acirc;ng cấp lớn trong phần mềm c&ugrave;ng Galaxy AI đầy quyền năng b&ecirc;n trong m&aacute;y.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.JPG\" /></p>\r\n\r\n<p>C&ugrave;ng với những ưu đ&atilde;i hấp dẫn trong chương tr&igrave;nh đặt h&agrave;ng trước, bộ đ&ocirc;i n&agrave;y trở th&agrave;nh chiếc smartphone rất đ&aacute;ng để sở hữu.<br />\r\nGalaxy Z Fold6 sẽ mở đặt cọc tại hệ thống cửa h&agrave;ng&nbsp;<a href=\"https://cellphones.com.vn/\" target=\"_blank\">CellphoneS</a>&nbsp;từ 20h ng&agrave;y 10/7 với mức gi&aacute; 43,990,000đ cho phi&ecirc;n bản 12GB/256GB. Người d&ugrave;ng sẽ nhận th&ecirc;m c&aacute;c ưu đ&atilde;i khi đặt trước như sau:</p>\r\n\r\n<ul>\r\n	<li>Giảm 1,000,000 khi đặt k&yacute; nhận tin từ 1/7 đến 10/7</li>\r\n	<li>Giảm thẳng 2,000,000đ</li>\r\n	<li><a href=\"https://cellphones.com.vn/thu-cu-doi-moi\" target=\"_blank\">Thu cũ đổi mới</a>&nbsp;giảm 1,000,000đ (model cũ kh&aacute;c), giảm 2,000,000đ (model cũ l&agrave; điện thoại gập)</li>\r\n	<li>Ưu đ&atilde;i ng&acirc;n h&agrave;ng l&ecirc;n tới 1 triệu đồng (HSCB Bank/ VNPAY)</li>\r\n	<li>Tặng bộ qu&agrave; trị gi&aacute; 12 triệu bao gồm:\r\n	<ul>\r\n		<li>Tặng g&oacute;i Samsung Care+ 1 năm v&agrave; Bảo h&agrave;nh Samsung 2 năm</li>\r\n		<li>Tặng 6 th&aacute;ng g&oacute;i&nbsp;<a href=\"https://cellphones.com.vn/phan-mem-microsoft-office-365-personal.html\" target=\"_blank\">Microsoft Office</a>&nbsp;365</li>\r\n		<li>Tặng 2 lần d&aacute;n m&agrave;n h&igrave;nh VIP</li>\r\n		<li>Tặng ốp lưng (chỉ d&agrave;nh cho kh&aacute;ch đặt v&agrave; nhận h&agrave;ng đến 31/7, số lượng c&oacute; hạn)</li>\r\n	</ul>\r\n	</li>\r\n	<li>Cơ hội tr&uacute;ng vi&ecirc;n Kim cương Doji 5mm trị gi&aacute; 56 triệu đồng</li>\r\n</ul>\r\n\r\n<p>Sản phẩm dự kiến sẽ trả h&agrave;ng từ ng&agrave;y 26/07 sắp tới. Như vậy, người d&ugrave;ng sẽ c&oacute; hơn 2 tuần để đặt trước v&agrave; nhận m&aacute;y. Chi tiết ưu đ&atilde;i, c&aacute;c bạn c&oacute; thể bấm v&agrave;o khung b&ecirc;n dưới để xem th&ecirc;m nh&eacute;!</p>', 'Impressions of Galaxy Z Fold6 and Z Flip6: Attract attention right from the impressive durable design, trendy color set and many attractive incentives', 'samsung tech galaxyzfold6', 'The duo of Galaxy Z Fold 6 along with Z Flip 6 made an impressive debut at the recent Unpacked event.', 'impressions-of-galaxy-z-fold6-and-z-flip6-attract-attention-right-from-the-impressive-durable-design-trendy-color-set-and-many-attractive-incentives', '2024-07-18 12:42:17', '2024-07-18 12:42:17', NULL),
-(44, 1, 'Đặc điểm nổi bật của Samsung Galaxy S24 Ultra 12GB 256GB', '<p>Samsung S24 Ultra l&agrave; si&ecirc;u phẩm smartphone đỉnh cao mở đầu năm 2024 đến từ nh&agrave; Samsung với chip Snapdragon 8 Gen 3 For Galaxy mạnh mẽ, c&ocirc;ng nghệ tương lai Galaxy AI c&ugrave;ng khung viền Titan đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế v&agrave; cấu h&igrave;nh. SS Galaxy S24 bản Ultra sở hữu m&agrave;n h&igrave;nh 6.8 inch Dynamic AMOLED 2X tần số qu&eacute;t 120Hz. M&aacute;y cũng sở hữu camera ch&iacute;nh 200MP, camera zoom quang học 50MP, camera tele 10MP v&agrave; camera g&oacute;c si&ecirc;u rộng 12MP.</p>', '<h2><strong>V&igrave; sao n&ecirc;n mua Samsung Galaxy S24 Ultra?</strong></h2>\r\n\r\n<p>Đầu năm 2024, Samsung cho ra mắt&nbsp;<strong>Samsung S24 Ultra</strong>&nbsp;&ndash; Flagship dẫn đầu xu hướng với&nbsp;<strong>c&ocirc;ng nghệ AI</strong>&nbsp;t&iacute;ch hợp c&ugrave;ng nhiều t&iacute;nh năng v&agrave; ưu điểm vượt trội kh&aacute;c. C&aacute;c t&iacute;nh năng AI nổi bật tr&ecirc;n điện thoại&nbsp;<strong>Samsung mới nhất</strong>&nbsp;bao gồm:</p>\r\n\r\n<p>-&nbsp;<strong>Galaxy AI với c&aacute;c t&iacute;nh năng Khoanh tr&ograve;n để t&igrave;m kiếm, Photo Assist, Live Translate, Note Assist</strong>.</p>\r\n\r\n<p>-&nbsp;<strong>Khung viền bằng titan cứng c&aacute;p</strong>, gi&uacute;p thiết bị bền bỉ theo thời gian.</p>\r\n\r\n<p>-&nbsp;<strong>C&aacute;c phi&ecirc;n bản m&agrave;u lấy cảm hứng từ chất liệu đ&aacute; tự nhi&ecirc;n</strong>, mang đến vẻ đẹp sang trọng v&agrave; hiện đại.</p>\r\n\r\n<p>-&nbsp;<strong>Camera t&iacute;ch hợp c&ocirc;ng nghệ AI tuyệt đỉnh</strong>, n&acirc;ng tầm chất lượng v&agrave; khả năng xử l&yacute; h&igrave;nh ảnh.</p>\r\n\r\n<p>-&nbsp;<strong>Hiệu năng cực đỉnh với chip Snapdragon 8 Gen3 for Galaxy</strong>, chiến game mượt m&agrave;.</p>\r\n\r\n<p>-<strong>&nbsp;Pin khoẻ 5000mAh,</strong>&nbsp;k&eacute;o d&agrave;i thời gian sử dụng cả ng&agrave;y d&agrave;i, để kh&ocirc;ng bỏ lỡ khoảnh khắc quan trọng.</p>\r\n\r\n<p>-&nbsp;<strong>M&agrave;n h&igrave;nh Dynamic AMOLED 2X với độ s&aacute;ng l&ecirc;n đến 2600 nit,</strong>&nbsp;ch&igrave;m đắm trong thế giới h&igrave;nh ảnh rực rỡ đầy m&agrave;u sắc.</p>', 'Đặc điểm nổi bật của Samsung Galaxy S24 Ultra 12GB 256GB', 'Đặc điểm nổi bật của Samsung Galaxy S24 Ultra 12GB 256GB', 'Đặc điểm nổi bật của Samsung Galaxy S24 Ultra 12GB 256GB', 'dac-diem-noi-bat-cua-samsung-galaxy-s24-ultra-12gb-256gb', '2024-09-29 17:09:50', '2024-09-29 17:09:50', NULL),
-(43, 1, 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', '<p>Những cải tiến tr&ecirc;n Galaxy Z Fold6 v&agrave; Z Flip6 đ&atilde; mở ra một xu hướng mới cho điện thoại gập Galaxy - xu hướng mỏng nhẹ nhằm n&acirc;ng cao trải nghiệm người d&ugrave;ng ngay từ những cảm gi&aacute;c cầm nắm đầu ti&ecirc;n.</p>', '<p>Những cải tiến tr&ecirc;n Galaxy Z Fold6 v&agrave; Z Flip6 đ&atilde; mở ra một xu hướng mới cho&nbsp;<a href=\"https://cellphones.com.vn/mobile.html\" target=\"_blank\">điện thoại</a>&nbsp;gập Galaxy - xu hướng mỏng nhẹ nhằm n&acirc;ng cao trải nghiệm người d&ugrave;ng ngay từ những cảm gi&aacute;c cầm nắm đầu ti&ecirc;n.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-8.JPG\" /></p>\r\n\r\n<p><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\">1.&nbsp;Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#thiet-ke-tinh-te-mau-sac-an-tuong\">2.&nbsp;Thiết kế tinh tế, m&agrave;u sắc ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#galaxy-z-flip6-thu-hut-moi-goc-nhin\">3.&nbsp;Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ben-bi-manh-me-va-an-tuong\">4.&nbsp;Bền bỉ, mạnh mẽ v&agrave; ấn tượng</a><a href=\"https://cellphones.com.vn/sforum/nhung-tuong-ve-galaxy-z-fold6-va-z-flip6#ket-luan\">5.&nbsp;Kết luận</a></p>\r\n\r\n<h2 id=\"galaxy-z-fold6-dinh-cao-moi-cua-dien-thoai-gap\"><strong>Galaxy Z Fold6: Đỉnh cao mới của điện thoại gập</strong></h2>\r\n\r\n<p>Galaxy Fold mỏng nhẹ nhất, bền bỉ nhất từ chất liệu đến chuẩn IP48<br />\r\nNhững cải tiến mạnh mẽ ở cả ngoại h&igrave;nh lẫn t&iacute;nh năng đ&atilde; khiến Galaxy Z Fold6 trở th&agrave;nh t&acirc;m điểm của cả thế giới trong sự kiện Unpacked vừa rồi.<br />\r\nVới trọng lượng chỉ 239gram, v&agrave; độ mỏng chỉ 12.1mm khi gập lại v&agrave; 5.6mm khi mở ra đ&atilde; khiến chiếc m&aacute;y n&agrave;y trở th&agrave;nh chiếc Galaxy Fold mỏng nhẹ nhất mọi thời đại. Th&ecirc;m v&agrave;o đ&oacute;,&nbsp;<a href=\"https://cellphones.com.vn/mobile/samsung.html\" target=\"_blank\">Samsung</a>&nbsp;đ&atilde; cải tiến bản lề v&agrave; nếp gấp một c&aacute;ch đ&aacute;ng kể so với đời trước, từ đ&oacute; mang đến sự liền mạch cho người d&ugrave;ng, kh&ocirc;ng bị kh&oacute; chịu bởi nếp gấp nữa.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-14.JPG\" /></p>\r\n\r\n<p>Điều n&agrave;y đ&atilde; tạo n&ecirc;n một trải nghiệm cầm nắm đ&atilde; tay hơn bao giờ hết. Giờ đ&acirc;y, người d&ugrave;ng c&oacute; thể sử dụng m&aacute;y trong nhiều giờ liền m&agrave; kh&ocirc;ng sợ mỏi tay hay khi sử dụng&nbsp;<a href=\"https://cellphones.com.vn/man-hinh.html\" target=\"_blank\">m&agrave;n h&igrave;nh</a>&nbsp;lớn cũng dễ d&agrave;ng hơn chỉ với 1 tay.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-11.JPG\" /></p>\r\n\r\n<h2 id=\"thiet-ke-tinh-te-mau-sac-an-tuong\"><strong>Thiết kế tinh tế, m&agrave;u sắc ấn tượng</strong></h2>\r\n\r\n<p>Những đường v&aacute;t phẳng vu&ocirc;ng vức, khung viền&nbsp;<a href=\"https://cellphones.com.vn/phu-kien/camera.html\" target=\"_blank\">camera</a>&nbsp;mới độc đ&aacute;o kết hợp c&ugrave;ng với bộ m&agrave;u sắc mới đ&atilde; g&oacute;p phần tạo n&ecirc;n sự ấn tượng cho Galaxy Z Fold6.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-10.JPG\" /></p>\r\n\r\n<p>Đặc biệt l&agrave; những m&agrave;u sắc thời thượng như X&aacute;m Metal, Xanh Navy hay Hồng Rose ch&iacute;nh l&agrave; thứ gi&uacute;p người d&ugrave;ng khẳng định phong c&aacute;ch, c&aacute; t&iacute;nh của bản th&acirc;n.</p>\r\n\r\n<h2 id=\"galaxy-z-flip6-thu-hut-moi-goc-nhin\"><strong>Galaxy Z Flip6: Thu h&uacute;t mọi g&oacute;c nh&igrave;n</strong></h2>\r\n\r\n<p>C&oacute; thể n&oacute;i, chiếc m&aacute;y n&agrave;y được sinh ra l&agrave; d&agrave;nh cho những trendsetter v&agrave; những người th&iacute;ch bắt kịp những trend mới của x&atilde; hội. Minh chứng l&agrave; thiết kế độc bản đầy ấn tượng với viền camera đồng m&agrave;u với th&acirc;n m&aacute;y đầy sự độc đ&aacute;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-1.JPG\" /></p>\r\n\r\n<p>Đặc biệt, m&agrave;u sắc l&agrave; yếu tố kh&ocirc;ng thể thiếu khi nhắc tới 2 chữ &ldquo;xu hướng&rdquo;. Xanh Mayar, V&agrave;ng Solar, Xanh Mint, X&aacute;m Metal l&agrave; bộ 4 m&agrave;u sắc tạo n&ecirc;n vẻ ấn tượng cho Galaxy Z Flip6 cũng l&agrave; bộ m&agrave;u độc đ&aacute;o cho lựa chọn sở th&iacute;ch của người d&ugrave;ng.</p>\r\n\r\n<h2 id=\"ben-bi-manh-me-va-an-tuong\"><strong>Bền bỉ, mạnh mẽ v&agrave; ấn tượng</strong></h2>\r\n\r\n<p>Đi theo tr&agrave;o lưu nhưng kh&ocirc;ng hề dễ phai nhạt. Galaxy Z Fold6 v&agrave; Z Flip6 c&ograve;n l&agrave; minh chứng cho sự bền bỉ theo năm th&aacute;ng với khả năng tăng cường chống chịu v&agrave; v&agrave; đập ấn tượng. Khung viền nh&ocirc;m cao cấp vừa sang trọng, vừa cứng c&aacute;p, 2 mặt k&iacute;nh Gorilla Glass Victus 2 gi&uacute;p người d&ugrave;ng an t&acirc;m sử dụng hơn, chống va đập, trầy xước tốt hơn.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-9.JPG\" /></p>\r\n\r\n<p>Kh&ocirc;ng thể kh&ocirc;ng kể đến chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP48 đầu ti&ecirc;n trong giới điện thoại gập. Đ&acirc;y l&agrave; một nỗ lực rất lớn của Samsung bởi nh&igrave;n v&agrave;o cơ chế gập, người d&ugrave;ng cũng c&oacute; thể thấy, việc thiết kế kh&aacute;ng bụi tr&ecirc;n điện thoại gập l&agrave; kh&ocirc;ng dễ d&agrave;ng ch&uacute;t n&agrave;o.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-5.JPG\" /></p>\r\n\r\n<h2 id=\"ket-luan\"><strong>Kết luận</strong></h2>\r\n\r\n<p>Ngay từ ngoại h&igrave;nh v&agrave; thiết kế, bộ đ&ocirc;i Galaxy Z Fold6, Z Flip6 đ&atilde; mang đến những ấn tượng lớn cho người d&ugrave;ng. Kh&ocirc;ng chỉ c&oacute; vậy, 2 chiếc m&aacute;y n&agrave;y c&ograve;n mang đến những n&acirc;ng cấp lớn trong phần mềm c&ugrave;ng Galaxy AI đầy quyền năng b&ecirc;n trong m&aacute;y.</p>\r\n\r\n<p><img alt=\"\" src=\"https://cdn-media.sforum.vn/storage/app/media/quannguyen/2024/An%20tuong%20ve%20z%20fold-6/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.JPG\" /></p>\r\n\r\n<p>C&ugrave;ng với những ưu đ&atilde;i hấp dẫn trong chương tr&igrave;nh đặt h&agrave;ng trước, bộ đ&ocirc;i n&agrave;y trở th&agrave;nh chiếc smartphone rất đ&aacute;ng để sở hữu.<br />\r\nGalaxy Z Fold6 sẽ mở đặt cọc tại hệ thống cửa h&agrave;ng&nbsp;<a href=\"https://cellphones.com.vn/\" target=\"_blank\">CellphoneS</a>&nbsp;từ 20h ng&agrave;y 10/7 với mức gi&aacute; 43,990,000đ cho phi&ecirc;n bản 12GB/256GB. Người d&ugrave;ng sẽ nhận th&ecirc;m c&aacute;c ưu đ&atilde;i khi đặt trước như sau:</p>\r\n\r\n<ul>\r\n	<li>Giảm 1,000,000 khi đặt k&yacute; nhận tin từ 1/7 đến 10/7</li>\r\n	<li>Giảm thẳng 2,000,000đ</li>\r\n	<li><a href=\"https://cellphones.com.vn/thu-cu-doi-moi\" target=\"_blank\">Thu cũ đổi mới</a>&nbsp;giảm 1,000,000đ (model cũ kh&aacute;c), giảm 2,000,000đ (model cũ l&agrave; điện thoại gập)</li>\r\n	<li>Ưu đ&atilde;i ng&acirc;n h&agrave;ng l&ecirc;n tới 1 triệu đồng (HSCB Bank/ VNPAY)</li>\r\n	<li>Tặng bộ qu&agrave; trị gi&aacute; 12 triệu bao gồm:\r\n	<ul>\r\n		<li>Tặng g&oacute;i Samsung Care+ 1 năm v&agrave; Bảo h&agrave;nh Samsung 2 năm</li>\r\n		<li>Tặng 6 th&aacute;ng g&oacute;i&nbsp;<a href=\"https://cellphones.com.vn/phan-mem-microsoft-office-365-personal.html\" target=\"_blank\">Microsoft Office</a>&nbsp;365</li>\r\n		<li>Tặng 2 lần d&aacute;n m&agrave;n h&igrave;nh VIP</li>\r\n		<li>Tặng ốp lưng (chỉ d&agrave;nh cho kh&aacute;ch đặt v&agrave; nhận h&agrave;ng đến 31/7, số lượng c&oacute; hạn)</li>\r\n	</ul>\r\n	</li>\r\n	<li>Cơ hội tr&uacute;ng vi&ecirc;n Kim cương Doji 5mm trị gi&aacute; 56 triệu đồng</li>\r\n</ul>\r\n\r\n<p>Sản phẩm dự kiến sẽ trả h&agrave;ng từ ng&agrave;y 26/07 sắp tới. Như vậy, người d&ugrave;ng sẽ c&oacute; hơn 2 tuần để đặt trước v&agrave; nhận m&aacute;y. Chi tiết ưu đ&atilde;i, c&aacute;c bạn c&oacute; thể bấm v&agrave;o khung b&ecirc;n dưới để xem th&ecirc;m nh&eacute;!</p>', 'Những ấn tượng về Galaxy Z Fold6 và Z Flip6: Gây chú ý ngay từ thiết kế bền bỉ ấn tượng, bộ màu sắc trendy cùng nhiều ưu đãi hấp dẫn', 'samsung congnghe galaxyzfold6', 'Bộ đôi Galaxy Z Fold 6 cùng với Z Flip 6 đã chào sân một cách ấn tượng trong sự kiện Unpacked vừa rồi.', 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', '2024-09-29 17:10:34', '2024-09-29 17:10:34', NULL),
-(45, 1, 'abc', NULL, NULL, NULL, NULL, NULL, 'abc', '2024-10-08 09:05:15', '2024-10-08 09:05:15', NULL),
-(46, 1, 'bcd', NULL, NULL, NULL, NULL, NULL, 'bcd', '2024-10-08 09:05:34', '2024-10-08 09:05:34', NULL),
-(47, 1, 'def', NULL, NULL, NULL, NULL, NULL, 'dcf', '2024-10-08 09:06:16', '2024-10-08 09:06:16', NULL);
+(54, 1, 'Cú đêm săn sale: Hàng loạt điện thoại, laptop, đồng hồ,... đua nhau giảm giá nửa đêm, số lượng có hạn', '<h3>Ngay h&ocirc;m nay, c&aacute;c &quot;c&uacute; đ&ecirc;m&quot; h&atilde;y canh thời gian từ 21h đến 7h59 s&aacute;ng h&ocirc;m sau để săn sale gi&aacute; sốc. Sản phẩm đa dạng đến từ nhiều ng&agrave;nh h&agrave;ng như&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"điện thoại\">điện thoại</a>,&nbsp;<a href=\"https://www.thegioididong.com/may-tinh-bang\" rel=\"noopener\" target=\"_blank\" title=\"tablet\">tablet</a>,&nbsp;<a href=\"https://www.thegioididong.com/laptop\" rel=\"noopener\" target=\"_blank\" title=\"laptop\">laptop</a>,&nbsp;<a href=\"https://www.thegioididong.com/dong-ho\" rel=\"noopener\" target=\"_blank\" title=\"đồng hồ thời trang\">đồng hồ thời trang</a>,&nbsp;<a href=\"https://www.thegioididong.com/dong-ho-thong-minh\" rel=\"noopener\" target=\"_blank\" title=\"đồng hồ thông minh\">đồng hồ th&ocirc;ng minh</a>,&nbsp;<a href=\"https://www.thegioididong.com/phu-kien\" rel=\"noopener\" target=\"_blank\" title=\"phụ kiện\">phụ kiện</a>. Đừng bỏ lỡ, l&acirc;u lắm mới c&oacute; một chương tr&igrave;nh gi&aacute; tốt như thế n&agrave;y đấy nh&eacute;!</h3>', '<h3><strong>Th&ocirc;ng tin chi tiết chương tr&igrave;nh</strong></h3>\r\n\r\n<p><strong>Th&ocirc;ng điệp:&nbsp;</strong>Săn sale đ&ecirc;m - Gi&aacute; bao &ecirc;m.</p>\r\n\r\n<p><strong>Nội dung:</strong>&nbsp;Kh&aacute;ch h&agrave;ng canh khung giờ từ 21h - 23h59 v&agrave; - 0h - 7h59 s&aacute;ng h&ocirc;m sau, sau đ&oacute; truy cập v&agrave;o trang web săn sale của Thế Giới Di Động (n&uacute;t cam b&ecirc;n dưới) sẽ c&oacute; cơ hội mua sản phẩm với gi&aacute; giảm cực sốc.</p>\r\n\r\n<p><strong>Thời gian săn sale:&nbsp;</strong>Khung giờ đầu ti&ecirc;n 21h - 23h59 v&agrave; khung giờ thứ 2 từ 0h - 7h59.</p>\r\n\r\n<p><strong>C&aacute;c sản phẩm &aacute;p dụng:</strong>&nbsp;Điện thoại | Tablet | Laptop | Đồng hồ thời trang | Đồng hồ th&ocirc;ng minh | Phụ kiện.</p>\r\n\r\n<p><strong>Săn sale tại:</strong></p>\r\n\r\n<p><strong><a href=\"https://www.thegioididong.com/#flashsale\" rel=\"noopener\" target=\"_blank\" title=\"SĂN FLASHSALE TẠI ĐÂY\" type=\"SĂN FLASHSALE TẠI ĐÂY\">SĂN FLASH SALE TẠI Đ&Acirc;Y</a></strong></p>\r\n\r\n<p><img alt=\"Ngoài ra, đừng quên xem ngay những khuyến mãi cực HOT tại nút cam sau bạn nha!CHƯƠNG TRÌNH KHUYẾN MÃI THẾ GIỚI DI ĐỘNGXem thêm:Mở bán Đồng hồ GPS cao cấp Amazfit T-Rex 3, giá tốt, nhiều tính năngTổng hợp các chương trình ưu đãi dành cho Galaxy Tab S10 seriesĐồng hành cùng Acer: Xem Predator League - Nhận thẻ Zing nạp game 500K\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1565711/1200x380.png\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1565711/1200x380.png\" title=\"Ngoài ra, đừng quên xem ngay những khuyến mãi cực HOT tại nút cam sau bạn nha!CHƯƠNG TRÌNH KHUYẾN MÃI THẾ GIỚI DI ĐỘNGXem thêm:Mở bán Đồng hồ GPS cao cấp Amazfit T-Rex 3, giá tốt, nhiều tính năngTổng hợp các chương trình ưu đãi dành cho Galaxy Tab S10 seriesĐồng hành cùng Acer: Xem Predator League - Nhận thẻ Zing nạp game 500K\" /></p>\r\n\r\n<p><strong>Ch&iacute;nh s&aacute;ch giao h&agrave;ng:</strong>&nbsp;Kh&aacute;ch h&agrave;ng c&oacute; thể nhận tại si&ecirc;u thị hoặc giao h&agrave;ng tận nơi.</p>\r\n\r\n<p><strong>Bảo h&agrave;nh:</strong>&nbsp;Sản phẩm bảo h&agrave;nh giống sản phẩm mới.</p>\r\n\r\n<p><strong>Lưu &yacute;</strong></p>\r\n\r\n<ul>\r\n	<li>Khuyến m&atilde;i c&oacute; thể kết th&uacute;c sớm trước thời hạn nếu hết số lượng sản phẩm.</li>\r\n	<li>&Ocirc; sản phẩm chưa hiển thị ưu đ&atilde;i ch&iacute;nh x&aacute;c, để hiện ưu đ&atilde;i ch&iacute;nh x&aacute;c, kh&aacute;ch cần bấm&nbsp;<strong>Xem chi tiết.</strong></li>\r\n</ul>\r\n\r\n<p><strong>Ngo&agrave;i ra:</strong></p>\r\n\r\n<ul>\r\n	<li>Mỗi ng&agrave;y c&oacute; giới hạn số lượng suất nhất định, khi đ&atilde; hết suất th&igrave; gi&aacute; sản phẩm sẽ quay lại gi&aacute; thường.</li>\r\n	<li>T&ugrave;y sản phẩm, t&ugrave;y chương tr&igrave;nh m&agrave; sẽ được &aacute;p dụng k&egrave;m c&aacute;c khuyến m&atilde;i kh&aacute;c hoặc trả g&oacute;p với c&aacute;c g&oacute;i l&atilde;i suất đặc biệt (0%, 0.5%, 1.25%...).</li>\r\n</ul>', NULL, NULL, NULL, 'cu-dem-san-sale-hang-loat-dien-thoai-laptop-dong-ho-dua-nhau-giam-gia-nua-dem-so-luong-co-han', '2024-11-02 10:30:56', '2024-11-02 10:30:56', NULL),
+(53, 1, 'iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay', '<h3><a href=\"https://www.thegioididong.com/dtdd-apple-iphone\" rel=\"noopener\" target=\"_blank\" title=\"iPhone\">iPhone</a>&nbsp;lu&ocirc;n được biết đến l&agrave; d&ograve;ng sản phẩm ti&ecirc;n phong về khả năng chụp ảnh. V&agrave;&nbsp;<a href=\"https://www.thegioididong.com/dtdd/iphone-16-pro-max\" rel=\"noopener\" target=\"_blank\" title=\"iPhone 16 Pro Max\">iPhone 16 Pro Max</a>&nbsp;ch&iacute;nh l&agrave; minh chứng r&otilde; r&agrave;ng nhất cho sự khẳng định đ&oacute;. Với những n&acirc;ng cấp đ&aacute;ng kể về phần cứng lẫn phần mềm, iPhone 16 Pro Max đ&atilde; vượt xa giới hạn của một chiếc smartphone th&ocirc;ng thường, trở th&agrave;nh một c&ocirc;ng cụ chụp ảnh chuy&ecirc;n nghiệp thực thụ. iPhone 16 Pro Max mang đến những trải nghiệm nhiếp ảnh tuyệt vời.</h3>', '<h3><strong>Hệ thống camera đột ph&aacute;</strong></h3>\r\n\r\n<p><img alt=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-38.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-38.jpg\" title=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" /></p>\r\n\r\n<p>Điểm nhấn đầu ti&ecirc;n phải kể đến ch&iacute;nh l&agrave; hệ thống camera được n&acirc;ng cấp to&agrave;n diện. Cảm biến ch&iacute;nh với k&iacute;ch thước lớn hơn, gi&uacute;p thu được lượng &aacute;nh s&aacute;ng nhiều hơn đ&aacute;ng kể so với thế hệ tiền nhiệm. Điều n&agrave;y đồng nghĩa với việc iPhone 16 Pro Max c&oacute; thể tạo ra những bức ảnh chi tiết, sắc n&eacute;t với độ nhiễu thấp hơn, ngay cả trong điều kiện &aacute;nh s&aacute;ng yếu.</p>\r\n\r\n<p><img alt=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-36.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-36.jpg\" title=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" /></p>\r\n\r\n<p>Kh&ocirc;ng chỉ dừng lại ở cảm biến ch&iacute;nh, Apple c&ograve;n trang bị cho iPhone 16 Pro Max ống k&iacute;nh tele, mang đến khả năng zoom quang học ấn tượng, cho ph&eacute;p bạn bắt trọn mọi khoảnh khắc d&ugrave; ở khoảng c&aacute;ch xa m&agrave; kh&ocirc;ng l&agrave;m giảm chất lượng h&igrave;nh ảnh. Sự kết hợp giữa cảm biến ch&iacute;nh lớn v&agrave; ống k&iacute;nh tele 5X đ&atilde; tạo n&ecirc;n một bước tiến vượt bậc trong khả năng chụp ảnh của iPhone 16 Pro Max.</p>\r\n\r\n<p>B&ecirc;n cạnh đ&oacute;, cảm biến LiDAR tiếp tục được t&iacute;ch hợp tr&ecirc;n iPhone 16 Pro Max, kh&ocirc;ng chỉ hỗ trợ lấy n&eacute;t nhanh v&agrave; ch&iacute;nh x&aacute;c hơn, đặc biệt trong điều kiện thiếu s&aacute;ng, m&agrave; c&ograve;n mở ra c&aacute;nh cửa đến với thế giới thực tế tăng cường (AR) đầy tiềm năng.&nbsp;</p>\r\n\r\n<h3><strong>Sức mạnh xử l&yacute; vượt trội</strong></h3>\r\n\r\n<p><img alt=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-20.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-20.jpg\" title=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" /></p>\r\n\r\n<p>&quot;Tr&aacute;i tim&quot; của iPhone 16 Pro Max l&agrave; chip A18 Pro, con chip mạnh mẽ nhất của Apple t&iacute;nh đến thời điểm hiện tại. Với hiệu năng vượt trội, A18 Pro kh&ocirc;ng chỉ gi&uacute;p xử l&yacute; c&aacute;c t&aacute;c vụ h&agrave;ng ng&agrave;y một c&aacute;ch mượt m&agrave;, m&agrave; c&ograve;n cho ph&eacute;p xử l&yacute; h&igrave;nh ảnh với tốc độ nhanh ch&oacute;ng mặt.</p>\r\n\r\n<p>Chip A18 Pro ch&iacute;nh l&agrave; ch&igrave;a kh&oacute;a để iPhone 16 Pro Max c&oacute; thể quay video 8K, quay video ProRes, hay chụp ảnh với chế độ Deep Fusion, Smart HDR 4,... một c&aacute;ch dễ d&agrave;ng. Sự kết hợp giữa hệ thống camera ti&ecirc;n tiến v&agrave; chip xử l&yacute; mạnh mẽ đ&atilde; tạo n&ecirc;n sức mạnh chụp ảnh đ&aacute;ng kinh ngạc cho iPhone 16 Pro Max.</p>\r\n\r\n<h3><strong>Phần mềm camera th&ocirc;ng minh</strong></h3>\r\n\r\n<p><img alt=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-33.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-33.jpg\" title=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" /></p>\r\n\r\n<p>Kh&ocirc;ng chỉ dừng lại ở phần cứng, iPhone 16 Pro Max c&ograve;n được trang bị phần mềm camera th&ocirc;ng minh với nhiều t&iacute;nh năng chụp ảnh ti&ecirc;n tiến. Chế độ ban đ&ecirc;m được cải thiện, gi&uacute;p chụp ảnh r&otilde; n&eacute;t hơn trong điều kiện &aacute;nh s&aacute;ng yếu với độ nhiễu thấp hơn v&agrave; m&agrave;u sắc ch&acirc;n thực hơn. Deep Fusion tiếp tục ph&aacute;t huy sức mạnh trong việc tối ưu h&oacute;a chi tiết ảnh, mang đến những bức ảnh với độ chi tiết đ&aacute;ng kinh ngạc.</p>\r\n\r\n<p>Smart HDR 4 th&ocirc;ng minh hơn trong việc c&acirc;n bằng s&aacute;ng tối, tạo ra những bức ảnh với dải tương phản động rộng, gi&uacute;p bảo to&agrave;n chi tiết ở cả v&ugrave;ng s&aacute;ng v&agrave; v&ugrave;ng tối. Photographic Styles cho ph&eacute;p người d&ugrave;ng c&aacute; nh&acirc;n h&oacute;a phong c&aacute;ch chụp ảnh của ri&ecirc;ng m&igrave;nh, tạo ra những bức ảnh mang đậm dấu ấn c&aacute; nh&acirc;n.</p>\r\n\r\n<p><img alt=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-53.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-53.jpg\" title=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" /></p>\r\n\r\n<p>B&ecirc;n cạnh khả năng chụp ảnh vượt trội, iPhone 16 Pro Max c&ograve;n sở hữu khả năng quay video chuy&ecirc;n nghiệp. Với c&aacute;c chế độ quay video 8K, ProRes, Cinematic mode,... người d&ugrave;ng c&oacute; thể dễ d&agrave;ng tạo ra những thước phim chất lượng cao, đầy t&iacute;nh nghệ thuật. Chế độ Cinematic mode, với khả năng thay đổi ti&ecirc;u điểm một c&aacute;ch mượt m&agrave; v&agrave; tự nhi&ecirc;n, gi&uacute;p tạo ra những thước phim điện ảnh ấn tượng ngay tr&ecirc;n chiếc điện thoại.</p>\r\n\r\n<h3><strong>Trải nghiệm h&igrave;nh ảnh ho&agrave;n hảo</strong></h3>\r\n\r\n<p><img alt=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-29.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-29.jpg\" title=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" /></p>\r\n\r\n<p>M&agrave;n h&igrave;nh Super Retina XDR tr&ecirc;n iPhone 16 Pro Max kh&ocirc;ng chỉ lớn hơn, m&agrave; c&ograve;n s&aacute;ng hơn v&agrave; sắc n&eacute;t hơn bao giờ hết. Với k&iacute;ch thước lớn, độ s&aacute;ng cao v&agrave; độ ph&acirc;n giải sắc n&eacute;t, m&agrave;n h&igrave;nh Super Retina XDR kh&ocirc;ng chỉ mang đến trải nghiệm xem phim, chơi game tuyệt vời, m&agrave; c&ograve;n l&agrave; c&ocirc;ng cụ hỗ trợ đắc lực cho việc chụp ảnh.</p>\r\n\r\n<p>Người d&ugrave;ng c&oacute; thể xem lại ảnh v&agrave; video với chất lượng hiển thị tốt nhất, từ đ&oacute; điều chỉnh v&agrave; chỉnh sửa ảnh một c&aacute;ch ch&iacute;nh x&aacute;c v&agrave; dễ d&agrave;ng. M&agrave;n h&igrave;nh hiển thị ch&iacute;nh l&agrave; &quot;cửa sổ t&acirc;m hồn&quot; gi&uacute;p bạn chi&ecirc;m ngưỡng trọn vẹn vẻ đẹp của những bức ảnh do ch&iacute;nh m&igrave;nh tạo ra.</p>\r\n\r\n<h3><strong>Kết luận</strong></h3>\r\n\r\n<p><img alt=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-50.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/tgdd-mo-hop-iphone-16-pro-max-50.jpg\" title=\"iPhone 16 Pro Max: Chiếc điện thoại chụp ảnh chuyên nghiệp trong tầm tay\" /></p>\r\n\r\n<p>Với sự kết hợp ho&agrave;n hảo giữa phần cứng mạnh mẽ, phần mềm th&ocirc;ng minh v&agrave; thiết kế tinh tế, iPhone 16 Pro Max xứng đ&aacute;ng l&agrave; một c&ocirc;ng cụ chụp ảnh chuy&ecirc;n nghiệp trong tầm tay. D&ugrave; l&agrave; người d&ugrave;ng th&ocirc;ng thường hay nhiếp ảnh gia chuy&ecirc;n nghiệp, iPhone 16 Pro Max đều c&oacute; thể đ&aacute;p ứng mọi nhu cầu chụp ảnh, gi&uacute;p bạn lưu giữ những khoảnh khắc đ&aacute;ng nhớ một c&aacute;ch ho&agrave;n hảo nhất.</p>', NULL, NULL, NULL, 'iphone-16-pro-max-chiec-dien-thoai-chup-anh-chuyen-nghiep-trong-tam-tay', '2024-11-02 10:57:48', '2024-11-02 10:57:48', NULL),
+(52, 1, 'Hướng dẫn cách bật 5G trên điện thoại Android và iPhone siêu đơn giản để bạn trải nghiệm nhanh nhất', '<h3>5G l&agrave; c&ocirc;ng nghệ mạng di động mới nhất, mang lại tốc độ kết nối vượt trội v&agrave; trải nghiệm internet mượt m&agrave; hơn. Để tận dụng tối đa tiềm năng của 5G, việc biết c&aacute;ch k&iacute;ch hoạt n&oacute; tr&ecirc;n điện thoại của bạn l&agrave; rất quan trọng. Đ&ocirc;i khi bạn đ&atilde; đăng k&yacute; được g&oacute;i cước 5G v&agrave; đ&atilde; ở trong v&ugrave;ng phủ s&oacute;ng 5G nhưng vẫn kh&ocirc;ng sử dụng được th&igrave; rất c&oacute; thể bạn chưa bật 5G b&ecirc;n trong c&agrave;i đặt của&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"điện thoại\">điện thoại</a>. B&agrave;i viết n&agrave;y m&igrave;nh sẽ hướng dẫn bạn&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/cach-bat-5g-tren-dien-thoai-1570991\" rel=\"noopener\" target=\"_blank\" title=\"cách bật 5G trên điện thoại\">c&aacute;ch bật 5G tr&ecirc;n điện thoại</a>&nbsp;Android v&agrave; iPhone một c&aacute;ch dễ d&agrave;ng v&agrave; nhanh ch&oacute;ng nhất nha.</h3>', '<h3><strong>1. C&aacute;ch bật 5G tr&ecirc;n điện thoại Android</strong></h3>\r\n\r\n<p>T&ugrave;y thuộc v&agrave;o từng d&ograve;ng m&aacute;y v&agrave; hệ điều h&agrave;nh, c&aacute;ch bật 5G c&oacute; thể kh&aacute;c nhau. C&aacute;ch bật 5G tr&ecirc;n điện thoại Samsung, OPPO, Xiaomi,... cũng rất đơn giản, bạn h&atilde;y theo d&otilde;i c&aacute;c bước sau nha.</p>\r\n\r\n<p><strong>Bước 1:</strong>&nbsp;V&agrave;o ứng dụng&nbsp;<strong>C&agrave;i đặt</strong>&nbsp;tr&ecirc;n điện thoại của bạn &gt; Nhấn chọn v&agrave;o mục&nbsp;<strong>Kết nối</strong>&nbsp;&gt; Chọn tiếp đến mục&nbsp;<strong>C&aacute;c mạng di động</strong>&nbsp;để bật v&agrave; sử dụng 5G.</p>\r\n\r\n<p><img alt=\"Cách bật 5G trên điện thoại \" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-2.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-2.jpg\" title=\"Cách bật 5G trên điện thoại \" /></p>\r\n\r\n<p><strong>Bước 2:</strong>&nbsp;Nhấn chọn tiếp v&agrave;o mục&nbsp;<strong>Chế độ mạng</strong>, l&uacute;c n&agrave;y bạn h&atilde;y tick chọn v&agrave;o&nbsp;<strong>chế độ cao nhất</strong>&nbsp;l&agrave;&nbsp;<strong>5G/LTE/4G</strong>&nbsp;l&agrave; xong rồi.</p>\r\n\r\n<p><img alt=\"Cách bật 5G trên điện thoại \" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-3.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-3.jpg\" title=\"Cách bật 5G trên điện thoại \" /></p>\r\n\r\n<h3><strong>2. C&aacute;ch bật 5G tr&ecirc;n điện thoại iPhone</strong></h3>\r\n\r\n<p>Cũng tương tự đối với c&aacute;ch bật 5G tr&ecirc;n điện thoại Android, c&aacute;ch bật 5G tr&ecirc;n điện thoại iPhone cũng rất đơn giản, bạn h&atilde;y thực hiện theo c&aacute;c bước sau:</p>\r\n\r\n<p><strong>Bước 1:</strong>&nbsp;Mở ứng dụng&nbsp;<strong>C&agrave;i đặt</strong>&nbsp;tr&ecirc;n điện thoại bạn l&ecirc;n &gt; Nhấn chọn v&agrave;o mục&nbsp;<strong>Di động</strong>&nbsp;&gt; Chọn&nbsp;<strong>v&agrave;o SIM m&agrave; bạn đang sử dụng mạng</strong>&nbsp;nha.</p>\r\n\r\n<p><img alt=\"Cách bật 5G trên điện thoại \" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-1.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-1.jpg\" title=\"Cách bật 5G trên điện thoại \" /></p>\r\n\r\n<p><strong>Bước 2:</strong>&nbsp;Chọn tiếp đến mục&nbsp;<strong>Thoại v&agrave; dữ liệu</strong>&nbsp;&gt;&nbsp;<strong>Chuyển đổi th&agrave;nh 5G tự động</strong>&nbsp;l&agrave; xong.</p>\r\n\r\n<p><img alt=\"Cách bật 5G trên điện thoại \" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-iphone-2.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570991/cach-bat-5g-tren-dien-thoai-iphone-2.jpg\" title=\"Cách bật 5G trên điện thoại \" /></p>\r\n\r\n<p>Tr&ecirc;n đ&acirc;y l&agrave; c&aacute;ch bật 5G tr&ecirc;n điện thoại m&igrave;nh vừa chia sẻ xong. Việc bật 5G tr&ecirc;n điện thoại rất đơn giản v&agrave; mang lại nhiều lợi &iacute;ch về tốc độ v&agrave; hiệu suất kết nối. Chỉ cần đảm bảo thiết bị v&agrave; nh&agrave; mạng hỗ trợ 5G, bạn c&oacute; thể trải nghiệm c&ocirc;ng nghệ mạng ti&ecirc;n tiến n&agrave;y rồi. Cảm ơn bạn đ&atilde; theo d&otilde;i b&agrave;i viết.</p>\r\n\r\n<p>Nếu bạn đang t&igrave;m kiếm một chiếc điện thoại hỗ trợ 5G để tận hưởng tốc độ mạng nhanh ch&oacute;ng v&agrave; mượt m&agrave;, Thế Giới Di Động l&agrave; địa chỉ đ&aacute;ng tin cậy để bạn lựa chọn. Tại đ&acirc;y, bạn c&oacute; thể dễ d&agrave;ng t&igrave;m thấy nhiều d&ograve;ng điện thoại 5G từ c&aacute;c thương hiệu h&agrave;ng đầu như Samsung, Xiaomi, OPPO hay iPhone, ph&ugrave; hợp với mọi nhu cầu v&agrave; ng&acirc;n s&aacute;ch. Nh&acirc;n ngay v&agrave;o n&uacute;t cam b&ecirc;n dưới để tham khảo nha.</p>', NULL, NULL, NULL, 'huong-dan-cach-bat-5g-tren-dien-thoai-android-va-iphone-sieu-don-gian-de-ban-trai-nghiem-nhanh-nhat', '2024-11-02 10:58:34', '2024-11-02 10:58:34', NULL),
+(51, 1, 'Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?', '<h3>Redmi - thương hiệu con của Xiaomi - với d&ograve;ng sản phẩm Redmi Watch 5 Series, mang đến những lựa chọn hấp dẫn cho người d&ugrave;ng phổ th&ocirc;ng. Hai đại diện ti&ecirc;u biểu của d&ograve;ng sản phẩm n&agrave;y l&agrave;&nbsp;<a href=\"https://www.thegioididong.com/dong-ho-thong-minh/redmi-watch-5-lite\" rel=\"noopener\" target=\"_blank\" title=\"Redmi Watch 5 Lite\">Redmi Watch 5 Lite</a>&nbsp;v&agrave;&nbsp;<a href=\"https://www.thegioididong.com/dong-ho-thong-minh/redmi-watch-5-active\" rel=\"noopener\" target=\"_blank\" title=\"Redmi Watch 5 Active\">Redmi Watch 5 Active</a>, mỗi phi&ecirc;n bản đều sở hữu những ưu điểm ri&ecirc;ng biệt, phục vụ cho c&aacute;c nhu cầu v&agrave; sở th&iacute;ch kh&aacute;c nhau. Vậy giữa Redmi Watch 5 Lite v&agrave; Redmi Watch 5 Active đ&acirc;u mới l&agrave; lựa chọn ph&ugrave; hợp với bạn?</h3>', '<h3><strong>1. Thiết kế v&agrave; m&agrave;n h&igrave;nh</strong></h3>\r\n\r\n<p><img alt=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-4.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-4.jpg\" title=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" /></p>\r\n\r\n<p>Redmi Watch 5 Lite hướng đến phong c&aacute;ch thời trang với thiết kế mỏng nhẹ, thanh lịch v&agrave; hiện đại. Mặt đồng hồ h&igrave;nh chữ nhật bo cong mềm mại, kết hợp với d&acirc;y đeo silicone tạo cảm gi&aacute;c thoải m&aacute;i khi đeo. M&agrave;n h&igrave;nh AMOLED 1.55 inch với độ ph&acirc;n giải 360 x 320 pixels mang đến chất lượng hiển thị sắc n&eacute;t, m&agrave;u sắc sống động v&agrave; g&oacute;c nh&igrave;n rộng. Đặc biệt, m&agrave;n h&igrave;nh AMOLED c&ograve;n tiết kiệm pin hơn so với LCD v&agrave; hiển thị r&otilde; r&agrave;ng ngay cả dưới &aacute;nh nắng mặt trời, ph&ugrave; hợp cho c&aacute;c hoạt động ngo&agrave;i trời.</p>\r\n\r\n<p><img alt=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-3.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-3.jpg\" title=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" /></p>\r\n\r\n<p>Ngược lại, Redmi Watch 5 Active c&oacute; thiết kế năng động, trẻ trung với nhiều lựa chọn m&agrave;u sắc tươi s&aacute;ng, ph&ugrave; hợp với c&aacute;c bạn trẻ y&ecirc;u th&iacute;ch sự năng động. M&agrave;n h&igrave;nh LCD 1.6 inch (360 x 320 pixels) tuy lớn hơn nhưng độ ph&acirc;n giải v&agrave; chất lượng hiển thị kh&ocirc;ng bằng m&agrave;n h&igrave;nh AMOLED tr&ecirc;n Watch 5 Lite. M&agrave;n h&igrave;nh LCD cũng ti&ecirc;u tốn nhiều năng lượng hơn v&agrave; hiển thị k&eacute;m hơn dưới &aacute;nh nắng trực tiếp.</p>\r\n\r\n<h3><strong>2. T&iacute;nh năng theo d&otilde;i sức khỏe v&agrave; vận động</strong></h3>\r\n\r\n<p>Cả hai phi&ecirc;n bản đều được trang bị đầy đủ c&aacute;c t&iacute;nh năng theo d&otilde;i sức khỏe cơ bản, gi&uacute;p bạn chủ động chăm s&oacute;c sức khỏe của bản th&acirc;n. Cụ thể, cả hai đều c&oacute; khả năng:</p>\r\n\r\n<p><img alt=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-5.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-5.jpg\" title=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" /></p>\r\n\r\n<ul>\r\n	<li>Đo nhịp tim li&ecirc;n tục: Theo d&otilde;i nhịp tim trong suốt 24 giờ, ph&aacute;t hiện bất thường v&agrave; cảnh b&aacute;o kịp thời.</li>\r\n	<li>Theo d&otilde;i giấc ngủ: Ph&acirc;n t&iacute;ch c&aacute;c giai đoạn giấc ngủ (ngủ s&acirc;u, ngủ n&ocirc;ng, REM), đưa ra đ&aacute;nh gi&aacute; chất lượng giấc ngủ v&agrave; gợi &yacute; cải thiện.</li>\r\n	<li>Đo nồng độ oxy trong m&aacute;u (SpO2): Gi&uacute;p bạn theo d&otilde;i sức khỏe h&ocirc; hấp, đặc biệt hữu &iacute;ch trong thời điểm dịch bệnh.</li>\r\n	<li>Theo d&otilde;i chu kỳ kinh nguyệt: Hỗ trợ chị em phụ nữ theo d&otilde;i chu kỳ, dự đo&aacute;n ng&agrave;y rụng trứng v&agrave; quản l&yacute; sức khỏe sinh sản.</li>\r\n	<li>Theo d&otilde;i mức độ căng thẳng: Nhắc nhở bạn thư gi&atilde;n khi ph&aacute;t hiện mức độ căng thẳng cao.</li>\r\n</ul>\r\n\r\n<p>B&ecirc;n cạnh đ&oacute;, cả hai đồng hồ đều hỗ trợ hơn 100 chế độ luyện tập thể thao kh&aacute;c nhau, từ chạy bộ, bơi lội, đạp xe đến yoga, gi&uacute;p bạn theo d&otilde;i hiệu quả luyện tập v&agrave; đạt được mục ti&ecirc;u r&egrave;n luyện sức khỏe.</p>\r\n\r\n<p><img alt=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-8.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-8.jpg\" title=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" /></p>\r\n\r\n<p>Tuy nhi&ecirc;n, Redmi Watch 5 Lite c&oacute; lợi thế hơn với GPS t&iacute;ch hợp, cho ph&eacute;p theo d&otilde;i ch&iacute;nh x&aacute;c qu&atilde;ng đường, tốc độ v&agrave; lượng calo ti&ecirc;u thụ khi bạn vận động ngo&agrave;i trời m&agrave; kh&ocirc;ng cần mang theo điện thoại. Redmi Watch 5 Active kh&ocirc;ng c&oacute; GPS, do đ&oacute; việc theo d&otilde;i hoạt động ngo&agrave;i trời sẽ phụ thuộc v&agrave;o GPS của điện thoại, k&eacute;m ch&iacute;nh x&aacute;c hơn v&agrave; ti&ecirc;u tốn pin điện thoại.</p>\r\n\r\n<h3><strong>3. Thời lượng pin v&agrave; c&aacute;c t&iacute;nh năng th&ocirc;ng minh</strong></h3>\r\n\r\n<p><img alt=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-9.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-9.jpg\" title=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" /></p>\r\n\r\n<p>Redmi Watch 5 Lite được trang bị vi&ecirc;n pin dung lượng cao, cho thời lượng sử dụng l&ecirc;n đến 18 ng&agrave;y ở chế độ tiết kiệm pin v&agrave; 10 ng&agrave;y ở chế độ sử dụng th&ocirc;ng thường. Trong khi đ&oacute;, Redmi Watch 5 Active c&oacute; thời lượng pin khoảng 10 ng&agrave;y ở chế độ sử dụng th&ocirc;ng thường.</p>\r\n\r\n<p><img alt=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-6.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-6.jpg\" title=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" /></p>\r\n\r\n<p>Cả hai đồng hồ đều hỗ trợ c&aacute;c t&iacute;nh năng th&ocirc;ng minh tiện lợi, gi&uacute;p bạn kết nối với thế giới xung quanh:</p>\r\n\r\n<ul>\r\n	<li>Hiển thị th&ocirc;ng b&aacute;o: Hiển thị th&ocirc;ng b&aacute;o cuộc gọi, tin nhắn, email, ứng dụng từ điện thoại.</li>\r\n	<li>Điều khiển nhạc: Điều khiển ph&aacute;t/dừng, chuyển b&agrave;i h&aacute;t tr&ecirc;n điện thoại.</li>\r\n	<li>B&aacute;o thức: Đặt b&aacute;o thức, nhắc nhở c&ocirc;ng việc.</li>\r\n	<li>T&igrave;m điện thoại: Gi&uacute;p bạn t&igrave;m kiếm điện thoại khi bị thất lạc.</li>\r\n	<li>Dự b&aacute;o thời tiết: Cập nhật th&ocirc;ng tin thời tiết theo thời gian thực.</li>\r\n</ul>\r\n\r\n<h3><strong>4. Khả năng chống nước</strong></h3>\r\n\r\n<p><img alt=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-7.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/0/redmi-watch-5-7.jpg\" title=\"Redmi Watch 5 Lite và Redmi Watch 5 Active: Lựa chọn nào phù hợp cho bạn?\" /></p>\r\n\r\n<p>Cả Redmi Watch 5 Lite v&agrave; Redmi Watch 5 Active đều c&oacute; khả năng chống nước 5ATM, cho ph&eacute;p bạn đeo đồng hồ khi rửa tay, đi mưa hoặc bơi lội (ở v&ugrave;ng nước n&ocirc;ng).</p>\r\n\r\n<h3><strong>Kết luận</strong></h3>\r\n\r\n<p>Redmi Watch 5 Lite v&agrave; Redmi Watch 5 Active đều l&agrave; những chiếc đồng hồ th&ocirc;ng minh đ&aacute;ng gi&aacute; trong ph&acirc;n kh&uacute;c gi&aacute; rẻ, mang đến cho người d&ugrave;ng những trải nghiệm c&ocirc;ng nghệ tuyệt vời.</p>\r\n\r\n<p>Nếu bạn ưu ti&ecirc;n m&agrave;n h&igrave;nh đẹp, thời lượng pin l&acirc;u v&agrave; cần GPS để theo d&otilde;i vận động ngo&agrave;i trời, Redmi Watch 5 Lite l&agrave; lựa chọn ph&ugrave; hợp. Nếu bạn muốn một chiếc đồng hồ th&ocirc;ng minh gi&aacute; rẻ, nhiều m&agrave;u sắc v&agrave; kh&ocirc;ng cần GPS, Redmi Watch 5 Active l&agrave; lựa chọn tốt hơn.</p>', NULL, NULL, NULL, 'redmi-watch-5-lite-va-redmi-watch-5-active-lua-chon-nao-phu-hop-cho-ban', '2024-11-02 10:59:18', '2024-11-02 10:59:18', NULL),
+(49, 1, 'Trên tay Xiaomi 14T: Thiết kế đẹp mắt, cấu hình mạnh mẽ với chip Dimensity 8300-Ultra, hỗ trợ camera Leica xịn sò', '<h3>V&agrave;o cuối th&aacute;ng 09/2024,&nbsp;<a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g\" rel=\"noopener\" target=\"_blank\" title=\"Xiaomi 14T\">Xiaomi 14T</a>&nbsp;- chiếc&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"điện thoại\">điện thoại</a>&nbsp;mới nhất thuộc d&ograve;ng Xiaomi T Series đ&atilde; được ra mắt. Ngay sau khi ra mắt, chiếc điện thoại n&agrave;y cũng nhận được kh&ocirc;ng &iacute;t người d&ugrave;ng, chuy&ecirc;n gia c&ocirc;ng nghệ đ&aacute;nh gi&aacute; cao khi đ&aacute;p ứng được yếu tố P/P (hiệu năng/gi&aacute; th&agrave;nh). Vậy c&ugrave;ng m&igrave;nh&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/tren-tay-xiaomi-14t-1570825\" rel=\"noopener\" target=\"_blank\" title=\"trên tay Xiaomi 14T\">tr&ecirc;n tay Xiaomi 14T</a>&nbsp;xem chiếc điện thoại n&agrave;y c&oacute; g&igrave; th&uacute; vị.</h3>', '<h3><strong>Tr&ecirc;n tay Xiaomi 14T với thiết kế chỉn chu, đẹp mắt</strong></h3>\r\n\r\n<p>Kh&aacute;c với phong c&aacute;ch thiết kế bo cong nhẹ nh&agrave;ng tr&ecirc;n Xiaomi 13T th&igrave; Xiaomi 14T lại đi theo kiểu d&aacute;ng vu&ocirc;ng phẳng ho&agrave;n to&agrave;n. Kiểu d&aacute;ng thiết kế vu&ocirc;ng, phẳng n&agrave;y gi&uacute;p cho chiếc điện thoại tr&ocirc;ng như một khối thống nhất rất gọn g&agrave;ng. Cũng giống như mẫu Xiaomi 14T Pro, Xiaomi 14T cũng được &#39;kho&aacute;c 3 lớp &aacute;o&#39; m&agrave;u kim loại l&agrave; Titan Gray, Titan Blue v&agrave; Titan Black để mang lại cảm gi&aacute;c sang trọng.</p>\r\n\r\n<p><img alt=\"Trên tay mình là Xiaomi 14T màu Xám Titan rất đẹp.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-13.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-13.jpg\" title=\"Trên tay mình là Xiaomi 14T màu Xám Titan rất đẹp.\" /></p>\r\n\r\n<p>Tr&ecirc;n tay m&igrave;nh l&agrave; Xiaomi 14T m&agrave;u Titan Grey rất đẹp.</p>\r\n\r\n<p>C&aacute;c cạnh của Xiaomi 14T được l&agrave;m từ nhựa, bề mặt d&aacute;t phẳng với một ch&uacute;t bo cong nhẹ ở m&eacute;p để giảm thiểu cảm gi&aacute;c cấn tay tay người d&ugrave;ng khi cầm. Tuy phần cạnh được l&agrave;m từ nhựa nhưng khi m&igrave;nh cầm tr&ecirc;n tay c&oacute; ọp ẹp n&agrave;o. B&ecirc;n cạnh đ&oacute;, bề mặt phần cạnh c&ograve;n được l&agrave;m nh&aacute;m nhẹ n&ecirc;n để giảm thiểu t&igrave;nh trạng b&aacute;m mồ h&ocirc;i, dấu v&acirc;n tay.</p>\r\n\r\n<p><img alt=\"Xiaomi 14T có chất lượng hoàn thiện rất chắc chắn.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-31.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-31.jpg\" title=\"Xiaomi 14T có chất lượng hoàn thiện rất chắc chắn.\" /></p>\r\n\r\n<p>Xiaomi 14T c&oacute; chất lượng ho&agrave;n thiện rất chắc chắn.</p>\r\n\r\n<p>Mặt lưng Xiaomi 14T được ho&agrave;n thiện từ k&iacute;nh phẳng ho&agrave;n to&agrave;n với bề mặt nh&aacute;m mịn. theo trải nghiệm của m&igrave;nh, mặt lưng của Xiaomi 14T c&oacute; thể chống b&aacute;m v&acirc;n tay rất tốt nhưng kh&ocirc;ng b&aacute;m tốt hay m&aacute;y kh&aacute; trơn. Ch&iacute;nh v&igrave; thế m&agrave; m&igrave;nh nghĩ anh em n&ecirc;n sử dụng th&ecirc;m ốp lưng để hạn chế t&igrave;nh trạng trơn tuột, cũng như gi&uacute;p sản phẩm chống va đập tốt hơn.</p>\r\n\r\n<p><img alt=\"Mặt lưng Xiaomi 14T tuy được thiết kế nhám có thể hạn chế tốt vết bẩn từ mồ hôi tay nhưng khá trơn khi cầm trên tay.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-04.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-04.jpg\" title=\"Mặt lưng Xiaomi 14T tuy được thiết kế nhám có thể hạn chế tốt vết bẩn từ mồ hôi tay nhưng khá trơn khi cầm trên tay.\" /></p>\r\n\r\n<p>Mặt lưng Xiaomi 14T tuy được thiết kế nh&aacute;m c&oacute; thể hạn chế tốt vết bẩn từ mồ h&ocirc;i tay nhưng kh&aacute; trơn khi cầm tr&ecirc;n tay.</p>\r\n\r\n<p>Phần nổi bật nhất tr&ecirc;n thiết kế của Xiaomi 14T l&agrave; camera. Vị tr&iacute; cụm camera nằm ở g&oacute;c tr&ecirc;n mạn tr&aacute;i của thiết bị v&agrave; bao quanh bởi khung vu&ocirc;ng được cắt CNC rất tinh xảo. Phần camera n&agrave;y vừa kh&ocirc;ng qu&aacute; lồi, vừa c&oacute; m&agrave;u tương đồng với mặt lưng n&ecirc;n tr&ocirc;ng tổng thể thiết bị rất h&agrave;i h&ograve;a v&agrave; đồng nhất.</p>\r\n\r\n<p><img alt=\"Cụm camera của Xiaomi 14T được thiết kế rất gọn gàng và có màu sắc tương đồng với mặt lưng.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-16.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-16.jpg\" title=\"Cụm camera của Xiaomi 14T được thiết kế rất gọn gàng và có màu sắc tương đồng với mặt lưng.\" /></p>\r\n\r\n<p>Cụm camera của Xiaomi 14T được thiết kế rất gọn g&agrave;ng v&agrave; c&oacute; m&agrave;u sắc tương đồng với mặt lưng.</p>\r\n\r\n<p>Những vị tr&iacute; n&uacute;t bấm vật l&yacute;, cổng kết nối, khe cắm SIM của Xiaomi 13T được sắp xếp tương tự thế hệ trước, hay nhiều sản phẩm tầm trung, cận cao cấp kh&aacute;c của Xiaomi. Do vậy, người d&ugrave;ng c&oacute; thể l&agrave;m quen sản phẩm tương đối nhanh ch&oacute;ng.</p>\r\n\r\n<p><img alt=\"Cạnh viền trên Xiaomi 14T chứa mic phụ và cổng hồng ngoại IR.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-11.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-11.jpg\" title=\"Cạnh viền trên Xiaomi 14T chứa mic phụ và cổng hồng ngoại IR.\" /></p>\r\n\r\n<p>Cạnh viền tr&ecirc;n Xiaomi 14T chứa mic phụ v&agrave; cổng hồng ngoại IR.</p>\r\n\r\n<p><img alt=\"Cạnh phải Xiaomi 14T chứa cụm phím tăng giảm âm lượng và nút nguồn.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-09.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-09.jpg\" title=\"Cạnh phải Xiaomi 14T chứa cụm phím tăng giảm âm lượng và nút nguồn.\" /></p>\r\n\r\n<p>Cạnh phải Xiaomi 14T chứa cụm ph&iacute;m tăng giảm &acirc;m lượng v&agrave; n&uacute;t nguồn.</p>\r\n\r\n<p><img alt=\"Cạnh trên Xiaomi 14T chứa mic, dải loa, khe cắm SIM và cổng sạc USB-C.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-12.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-12.jpg\" title=\"Cạnh trên Xiaomi 14T chứa mic, dải loa, khe cắm SIM và cổng sạc USB-C.\" /></p>\r\n\r\n<p>Cạnh tr&ecirc;n Xiaomi 14T chứa mic, dải loa, khe cắm SIM v&agrave; cổng sạc USB-C.</p>\r\n\r\n<p>Quay sang mặt trước, Xiaomi 14T g&acirc;y ấn tượng với m&agrave;n h&igrave;nh lớn 6.67 inch, 4 viền m&agrave;n h&igrave;nh ngo&agrave;i mỏng hơn đ&aacute;ng kể so với thế hệ trước. Nhờ thế m&agrave; thiết bị c&oacute; thể mang lại trải nghiệm kh&ocirc;ng gian hiển thị rộng r&atilde;i rất đ&atilde; mắt.</p>\r\n\r\n<p><img alt=\"Màn hình Xiaomi 14T có kích thước lớn cùng chất lượng hiển thị sắc nét.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-24.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-24.jpg\" title=\"Màn hình Xiaomi 14T có kích thước lớn cùng chất lượng hiển thị sắc nét.\" /></p>\r\n\r\n<p>M&agrave;n h&igrave;nh Xiaomi 14T c&oacute; k&iacute;ch thước lớn c&ugrave;ng chất lượng hiển thị sắc n&eacute;t.</p>\r\n\r\n<p>Về chi tiết hiển thị, Xiaomi 14T được trang bị tấm nền OLED, độ ph&acirc;n giải 1.5K v&agrave; tần số qu&eacute;t 144 Hz. Ngo&agrave;i ra, m&agrave;n h&igrave;nh hỗ trợ chuẩn HDR10+ v&agrave; Dolby Vision mang đến trải nghiệm &#39;thị gi&aacute;c&#39; tuyệt vời.</p>\r\n\r\n<h3><strong>Xiaomi 14T cấu h&igrave;nh mạnh mẽ với chip MediaTek Dimensity 8300-Ultra</strong></h3>\r\n\r\n<p>Trước khi đi v&agrave;o chi tiết, m&igrave;nh sẽ t&oacute;m tắt to&agrave;n bộ th&ocirc;ng số cấu h&igrave;nh Xiaomi 14T cho mọi người tiện theo d&otilde;i b&agrave;i viết.</p>\r\n\r\n<ul>\r\n	<li>M&agrave;n h&igrave;nh: K&iacute;ch thước 6.67 inch, tấm nền OLED, độ ph&acirc;n giải 1.5K (2.712 x 1.220 pixels), tần số qu&eacute;t 144 Hz.</li>\r\n	<li>CPU: Dimensity 8300-Ultra.</li>\r\n	<li>RAM: 12 GB hoặc 16 GB.</li>\r\n	<li>Bộ nhớ trong: 256 GB, 512 GB hoặc 1 TB.</li>\r\n	<li>Camera sau: 50 MP (ch&iacute;nh) + 50 MP (tele) + 12 MP (g&oacute;c si&ecirc;u rộng).</li>\r\n	<li>Camera selfie: 32 MP.</li>\r\n	<li>Pin: 5.500 mAh, hỗ trợ sạc nhanh 67 W.</li>\r\n</ul>\r\n\r\n<p>Xem th&ecirc;m:&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/tong-hop-bo-vi-xu-ly-mediatek-dimensity-ra-mat-nam-2021-1341151\" rel=\"noopener\" target=\"_blank\" title=\"Tìm hiểu vi xử lý Dimensity 8300-Ultra cùng nhiều con chip mạnh mẽ khác của MediaTek\">T&igrave;m hiểu vi xử l&yacute; Dimensity 8300-Ultra c&ugrave;ng nhiều con chip mạnh mẽ kh&aacute;c của MediaTek</a></p>\r\n\r\n<p><img alt=\"Xiaomi 14T được trang bị bộ cấu hình mạnh mẽ và nổi bật nhất trong phân khúc.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-21.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-21.jpg\" title=\"Xiaomi 14T được trang bị bộ cấu hình mạnh mẽ và nổi bật nhất trong phân khúc.\" /></p>\r\n\r\n<p>Xiaomi 14T được trang bị bộ cấu h&igrave;nh mạnh mẽ v&agrave; nổi bật nhất trong ph&acirc;n kh&uacute;c.</p>\r\n\r\n<p>Xiaomi 14T được cung cấp sức mạnh từ chip MediaTek Dimensity 8300-Ultra. Đ&acirc;y l&agrave; con chip được gia c&ocirc;ng dựa tr&ecirc;n tiến tr&igrave;nh 4 nm ti&ecirc;n tiến với kiến tr&uacute;c 8 nh&acirc;n tương tự phi&ecirc;n bản Dimensity 8300 phổ th&ocirc;ng nhưng lại c&oacute; số xung nhịp vượt trội hơn. Do đ&oacute;, chip c&oacute; thể gi&uacute;p thiết bị đ&aacute;p ứng tốt mọi nhu cầu sử dụng của người d&ugrave;ng, kể cả c&aacute;c t&aacute;c vụ li&ecirc;n quan đến AI.</p>\r\n\r\n<p><img alt=\"Xiaomi 14T sẽ không khiến bạn thất vọng về hiệu năng nhờ được trang bị chip Dimensity 8300-Ultra.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-22.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-22.jpg\" title=\"Xiaomi 14T sẽ không khiến bạn thất vọng về hiệu năng nhờ được trang bị chip Dimensity 8300-Ultra.\" /></p>\r\n\r\n<p>Xiaomi 14T sẽ kh&ocirc;ng khiến bạn thất vọng về hiệu năng nhờ được trang bị chip Dimensity 8300-Ultra.</p>\r\n\r\n<p>B&ecirc;n cạnh đ&oacute;, Xiaomi 14T c&ograve;n được trang bị RAM cơ bản 12 GB (tối đa 16 GB), đảm bảo thiết bị đa nhiệm mượt m&agrave;. M&aacute;y c&ograve;n được trang bị bộ nhớ trong c&oacute; dung lượng cơ bản 256 GB (tối đa 1 TB) c&oacute; thể mang đến kh&ocirc;ng gian rộng lớn để người d&ugrave;ng thỏa sức lưu trữ dữ liệu.</p>\r\n\r\n<p><img alt=\"Xiaomi 14T được trang bị dung lượng RAM lớn.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-23.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-23.jpg\" title=\"Xiaomi 14T được trang bị dung lượng RAM lớn.\" /></p>\r\n\r\n<p>Xiaomi 14T được trang bị dung lượng RAM lớn.</p>\r\n\r\n<p>Xiaomi 14T c&ograve;n c&oacute; sự cải tiến nhẹ về pin với mức dung lượng 5.000 mAh, một con số tốt tr&ecirc;n thị trường hiện nay v&agrave; với vi&ecirc;n pin n&agrave;y, thiết bị ho&agrave;n to&agrave;n c&oacute; thể đem đến thời lượng sử dụng l&acirc;u d&agrave;i. Kh&ocirc;ng những thế, Xiaomi 14T c&ograve;n hỗ trợ t&iacute;nh năng sạc nhanh với c&ocirc;ng suất 67 W, gi&uacute;p người d&ugrave;ng c&oacute; thể r&uacute;t ngắn thời gian sạc để kh&ocirc;ng bị gi&aacute;n đoạn việc sử dụng.</p>\r\n\r\n<h3><strong>Xiaomi 14T camera 50 MP sắc n&eacute;t, c&oacute; sự hỗ trợ của Leica</strong></h3>\r\n\r\n<p>M&igrave;nh cũng sẽ t&oacute;m tắt lại th&ocirc;ng số camera Xiaomi 14T cho mọi người tiện theo d&otilde;i.</p>\r\n\r\n<ul>\r\n	<li>Camera ch&iacute;nh: Độ ph&acirc;n giải 50 MP, PDAF, OIS.</li>\r\n	<li>Camera tele: Độ ph&acirc;n giải 50 MP, PDAF, Zoom 2x.</li>\r\n	<li>Camera g&oacute;c si&ecirc;u rộng: Độ ph&acirc;n giải 12 MP, khẩu độ f/2.2, ti&ecirc;u cự 15 mm.</li>\r\n	<li>Camera selfie: Độ ph&acirc;n giải 32 MP.</li>\r\n</ul>\r\n\r\n<p><img alt=\"Xiaomi 14T được trang bị bộ camera xịn sò cùng sự hỗ trợ của Leica.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-15.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-15.jpg\" title=\"Xiaomi 14T được trang bị bộ camera xịn sò cùng sự hỗ trợ của Leica.\" /></p>\r\n\r\n<p>Xiaomi 14T được trang bị bộ camera xịn s&ograve; c&ugrave;ng sự hỗ trợ của Leica.</p>\r\n\r\n<p>Camera Leica l&agrave; điểm m&agrave; Xiaomi 14T được nhấn rất mạnh v&agrave; l&agrave; ưu điểm của sản phẩm n&agrave;y khi so với nhiều thiết bị kh&aacute;c trong c&ugrave;ng ph&acirc;n kh&uacute;c. Tuy nhi&ecirc;n, thiết bị kh&ocirc;ng được trang bị cảm biến light fusion 900, n&ecirc;n chất lượng ảnh sẽ thua một ch&uacute;t so với Xiaomi 14T Pro. D&ugrave; vậy, sản phẩm vẫn c&oacute; thể cho ra những bức ảnh đẹp mắt, đầy m&agrave;u sắc nghệ thuật chuẩn Leica.</p>\r\n\r\n<h3><strong>Xiaomi 14T gi&aacute; bao nhi&ecirc;u?</strong></h3>\r\n\r\n<p>C&oacute; thể thấy, Xiaomi 14T được cung cấp đầy đủ những trang bị xịn s&ograve; vượt trội trong ph&acirc;n kh&uacute;c. Nếu bạn đang t&igrave;m kiếm cho m&igrave;nh một chiếc điện thoại sở hữu một vẻ ngo&agrave;i đẹp mắt c&ugrave;ng hiệu năng tốt th&igrave; Xiaomi 14T l&agrave; một lựa chọn hợp l&yacute; m&agrave; bạn n&ecirc;n c&acirc;n nhắc đến. Hiện tại, Xiaomi 14T đang được mở b&aacute;n tại Thế Giới Di Động với những mức gi&aacute; như sau:</p>\r\n\r\n<ul>\r\n	<li>Phi&ecirc;n bản RAM 12 GB + 256 GB Bộ nhớ trong c&oacute; gi&aacute; 12.99 triệu đồng.</li>\r\n	<li>Phi&ecirc;n bản RAM 12 GB + 512 GB Bộ nhớ trong c&oacute; gi&aacute; 13.99 triệu đồng.</li>\r\n</ul>\r\n\r\n<p><img alt=\"Xiaomi 14T là sản phẩm tầm trung rất đáng dùng.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-02.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570825/tgdd-xiaomi-14t-02.jpg\" title=\"Xiaomi 14T là sản phẩm tầm trung rất đáng dùng.\" /></p>', NULL, NULL, NULL, 'tren-tay-xiaomi-14t-thiet-ke-dep-mat-cau-hinh-manh-me-voi-chip-dimensity-8300-ultra-ho-tro-camera-leica-xin-so', '2024-11-02 10:59:34', '2024-11-02 10:59:34', NULL);
+INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(50, 1, 'Đừng quên Hotsale Xiaomi 14T: Giảm liền 1 triệu, tặng bộ sạc đến 120 W trị giá 1.5 triệu, còn tặng thêm bảo hành cao cấp 3 triệu', '<h3><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g\" rel=\"noopener\" target=\"_blank\" title=\"Xiaomi 14T\">Xiaomi 14T</a>&nbsp;series mới ra mắt c&aacute;ch đ&acirc;y kh&ocirc;ng l&acirc;u, mang đến nhiều gi&aacute; trị sử dụng vượt trội cho người d&ugrave;ng. Với thiết kế hiện đại v&agrave; hiệu năng mạnh mẽ, Xiaomi 14T v&agrave;&nbsp;<a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-pro-5g-12gb-256gb\" rel=\"noopener\" target=\"_blank\" title=\"Xiaomi 14T Pro\">Xiaomi 14T Pro</a>&nbsp;đ&aacute;p ứng mọi nhu cầu c&ocirc;ng việc v&agrave; giải tr&iacute;. Chương tr&igrave;nh khuyến m&atilde;i hấp dẫn: Giảm ngay 1 triệu đồng v&agrave; tặng bộ sạc 120 W trị gi&aacute; đến 1.5 triệu. Hoặc bạn c&oacute; thể tham gia thu cũ đổi mới với trợ gi&aacute; l&ecirc;n đến 3 triệu. Ngo&agrave;i ra, c&ograve;n c&oacute; g&oacute;i trả g&oacute;p 0% v&agrave; bảo h&agrave;nh cao cấp trị gi&aacute; 3 triệu đồng, đảm bảo sự an t&acirc;m tuyệt đối khi sử dụng.</h3>', '<p><strong>Thời gian diễn ra:&nbsp;</strong>Dự kiến đến ng&agrave;y 31/10/2024.</p>\r\n\r\n<p><strong>Lưu &yacute;:</strong></p>\r\n\r\n<ul>\r\n	<li>Khuyến m&atilde;i c&oacute; thể kết th&uacute;c sớm trước thời hạn nếu hết số lượng sản phẩm hoặc th&ocirc;ng tin khuyến m&atilde;i c&oacute; thay đổi.</li>\r\n	<li>&Ocirc; sản phẩm chưa hiển thị ưu đ&atilde;i ch&iacute;nh x&aacute;c,&nbsp;để hiện ưu đ&atilde;i ch&iacute;nh x&aacute;c, kh&aacute;ch cần&nbsp;bấm&nbsp;<strong>Xem chi tiết</strong>.</li>\r\n</ul>\r\n\r\n<p><strong>Ưu đ&atilde;i chung:</strong></p>\r\n\r\n<ul>\r\n	<li>Giảm ngay 1 triệu + Tặng bộ sạc đến 120 W trị gi&aacute; đến 1.5 triệu HOẶC thu cũ đổi mới trợ gi&aacute; đến 3 triệu.</li>\r\n	<li>Trả g&oacute;p 0%.</li>\r\n	<li>Bảo h&agrave;nh cao cấp trị gi&aacute; 3 triệu.</li>\r\n</ul>\r\n\r\n<h3><strong>Xiaomi 14T</strong></h3>\r\n\r\n<p><img alt=\"Xiaomi 14T\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/thumb%20Xiaomi%2014T%20-%202.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/thumb%20Xiaomi%2014T%20-%202.jpg\" title=\"Xiaomi 14T\" /></p>\r\n\r\n<p>Xiaomi 14T sở hữu m&agrave;n h&igrave;nh AMOLED 6.67 inch rộng r&atilde;i, độ ph&acirc;n giải 1.5K (1.220 x 2.712 Pixels), mang lại trải nghiệm h&igrave;nh ảnh sống động, sắc n&eacute;t. Tần số qu&eacute;t 144 Hz gi&uacute;p h&igrave;nh ảnh chuyển động mượt m&agrave;, đặc biệt hữu &iacute;ch trong c&aacute;c t&aacute;c vụ chơi game hoặc xem phim. Độ s&aacute;ng tối đa l&ecirc;n đến 4.000 nits, đảm bảo hiển thị tốt ngay cả dưới &aacute;nh nắng mặt trời. Mặt k&iacute;nh cường lực Corning Gorilla Glass 5 tăng cường độ bền, bảo vệ m&agrave;n h&igrave;nh khỏi c&aacute;c va đập kh&ocirc;ng mong muốn.</p>\r\n\r\n<p>Cụm camera sau của Xiaomi 14T được trang bị ba ống k&iacute;nh mạnh mẽ, bao gồm camera ch&iacute;nh 50 MP v&agrave; hai camera phụ 50 MP, 12 MP, cho ra những bức ảnh chi tiết v&agrave; chất lượng cao. Camera trước c&oacute; độ ph&acirc;n giải 32 MP, hỗ trợ chụp selfie r&otilde; n&eacute;t v&agrave; đẹp mắt, gi&uacute;p người d&ugrave;ng dễ d&agrave;ng lưu giữ những khoảnh khắc ấn tượng. Hệ thống camera c&ograve;n hỗ trợ nhiều t&iacute;nh năng chụp chuy&ecirc;n nghiệp, ph&ugrave; hợp cho những người y&ecirc;u th&iacute;ch nhiếp ảnh.</p>\r\n\r\n<p><img alt=\"Xiaomi 14T\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/14T%20-%2010.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/14T%20-%2010.jpg\" title=\"Xiaomi 14T\" /></p>\r\n\r\n<p>Về hiệu năng, Xiaomi 14T được trang bị chip xử l&yacute; MediaTek Dimensity 8300 Ultra 8 nh&acirc;n mạnh mẽ, đảm bảo xử l&yacute; mượt m&agrave; c&aacute;c t&aacute;c vụ từ đơn giản đến phức tạp. Hệ điều h&agrave;nh Xiaomi HyperOS dựa tr&ecirc;n Android 14 mang lại giao diện trực quan v&agrave; hiện đại. Vi&ecirc;n pin 5.000mAh hỗ trợ sạc nhanh 67 W gi&uacute;p sạc đầy nhanh ch&oacute;ng, đồng thời c&ocirc;ng nghệ tiết kiệm pin đảm bảo thời gian sử dụng l&acirc;u d&agrave;i.</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g\"><label>Trả g&oacute;p 0%</label><img data-proid=\"329938\" src=\"https://cdn.tgdd.vn/Products/Images/42/329938/xiaomi-14t-grey-thumb-600x600.jpg\" title=\"Xiaomi 14T 5G 12GB/256GB\" /><img height=\"40\" id=\"iconlabel\" src=\"https://cdn.tgdd.vn/2023/10/campaign/label-tgdd-200x200.png?v=2024\" width=\"40\" /></a></p>\r\n\r\n<p><a data-cache=\"False\" data-pro=\"3\" data-s=\"ShortDayPromotion\" data-site=\"1\" href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g\">Xiaomi 14T 5G 12GB/256GB</a></p>\r\n\r\n<p><strong>11.990.000₫</strong><br />\r\n12.990.000₫&nbsp;<i>-7%</i></p>\r\n\r\n<p>Qu&agrave;&nbsp;<b>1.000.000₫</b></p>\r\n\r\n<p>Xem đặc điểm nổi bật</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g\">Xem chi tiết</a></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g-12gb-512gb\"><label>Trả g&oacute;p 0%</label><img data-proid=\"329939\" src=\"https://cdn.tgdd.vn/Products/Images/42/329939/xiaomi-14t-grey-thumb-600x600.jpg\" title=\"Xiaomi 14T 5G 12GB/512GB\" /></a></p>\r\n\r\n<p><a data-cache=\"False\" data-pro=\"3\" data-s=\"ShortDayPromotion\" data-site=\"1\" href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g-12gb-512gb\">Xiaomi 14T 5G 12GB/512GB</a></p>\r\n\r\n<p><strong>12.990.000₫</strong><br />\r\n13.990.000₫&nbsp;<i>-7%</i></p>\r\n\r\n<p>Qu&agrave;&nbsp;<b>1.000.000₫</b></p>\r\n\r\n<p>Xem đặc điểm nổi bật</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g-12gb-512gb\">Xem chi tiết</a></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g-12gb-512gb-xanh\"><label>Trả g&oacute;p 0%</label><img data-proid=\"329892\" src=\"https://cdn.tgdd.vn/Products/Images/42/329892/xiaomi-14t-blue-thumb-600x600.jpg\" title=\"Xiaomi 14T 5G 12GB/512GB Xanh\" /><img height=\"40\" id=\"iconlabel\" src=\"https://cdn.tgdd.vn/2023/10/campaign/label-tgdd-200x200.png?v=2024\" width=\"40\" /></a></p>\r\n\r\n<p><a data-cache=\"False\" data-pro=\"3\" data-s=\"ShortDayPromotion\" data-site=\"1\" href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g-12gb-512gb-xanh\">Xiaomi 14T 5G 12GB/512GB Xanh</a></p>\r\n\r\n<p><strong>12.990.000₫</strong><br />\r\n13.990.000₫&nbsp;<i>-7%</i></p>\r\n\r\n<p>Qu&agrave;&nbsp;<b>1.000.000₫</b></p>\r\n\r\n<p>Xem đặc điểm nổi bật</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-5g-12gb-512gb-xanh\">Xem chi tiết</a></p>\r\n\r\n<h3><strong>Xiaomi 14T Pro</strong></h3>\r\n\r\n<p><img alt=\"Xiaomi 14T Pro\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/14T%20-%2011.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/14T%20-%2011.jpg\" title=\"Xiaomi 14T Pro\" /></p>\r\n\r\n<p>Xiaomi 14T Pro g&acirc;y ấn tượng với m&agrave;n h&igrave;nh AMOLED 6.67 inch, độ ph&acirc;n giải 1.5K (1.220 x 2.712 Pixels) mang đến h&igrave;nh ảnh sắc n&eacute;t v&agrave; sống động. Với tần số qu&eacute;t 144 Hz, người d&ugrave;ng sẽ được trải nghiệm h&igrave;nh ảnh mượt m&agrave; v&agrave; ch&iacute;nh x&aacute;c, l&yacute; tưởng cho cả việc chơi game v&agrave; xem video. Độ s&aacute;ng tối đa l&ecirc;n đến 4.000 nits, đảm bảo hiển thị r&otilde; r&agrave;ng ngay cả dưới &aacute;nh s&aacute;ng mạnh. Mặt k&iacute;nh cường lực Corning Gorilla Glass 5 bảo vệ m&agrave;n h&igrave;nh, tăng cường độ bền v&agrave; khả năng chống trầy xước.</p>\r\n\r\n<p>Cụm camera sau của Xiaomi 14T Pro gồm ba ống k&iacute;nh với camera ch&iacute;nh 50 MP c&ugrave;ng hai camera phụ giống phi&ecirc;n bản Xiaomi 14T, mang đến khả năng chụp ảnh chuy&ecirc;n nghiệp với độ chi tiết cao. Camera trước c&oacute; độ ph&acirc;n giải 32 MP, gi&uacute;p người d&ugrave;ng chụp selfie r&otilde; n&eacute;t v&agrave; chất lượng, ph&ugrave; hợp cho c&aacute;c nhu cầu chụp ảnh h&agrave;ng ng&agrave;y v&agrave; video call. Hệ thống camera hỗ trợ nhiều t&iacute;nh năng ti&ecirc;n tiến, gi&uacute;p ghi lại những khoảnh khắc ấn tượng v&agrave; sống động.</p>\r\n\r\n<p><img alt=\"Xiaomi 14T Pro\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/14T%20-%2012.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570509/14T%20-%2012.jpg\" title=\"Xiaomi 14T Pro\" /></p>\r\n\r\n<p>Xiaomi 14T Pro được trang bị chip xử l&yacute; MediaTek Dimensity 9300+ 8 nh&acirc;n mạnh mẽ, kết hợp GPU ARM Immortalis-G720 MP12, gi&uacute;p tối ưu h&oacute;a hiệu năng v&agrave; xử l&yacute; c&aacute;c t&aacute;c vụ đồ họa nặng. Hệ điều h&agrave;nh Xiaomi HyperOS dựa tr&ecirc;n Android 14 cung cấp giao diện th&acirc;n thiện v&agrave; dễ sử dụng. Vi&ecirc;n pin dung lượng 5. 000mAh hỗ trợ sạc nhanh 120 W, đảm bảo sạc đầy pin trong thời gian ngắn v&agrave; sử dụng l&acirc;u d&agrave;i nhờ c&ocirc;ng nghệ tiết kiệm pin.</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-pro-5g-12gb-256gb\"><label>Trả g&oacute;p 0%</label><img data-proid=\"329940\" src=\"https://cdn.tgdd.vn/Products/Images/42/329940/xiaomi-14t-pro-blue-thumb-600x600.jpg\" title=\"Xiaomi 14T Pro 5G 12GB/256GB\" /><img height=\"40\" id=\"iconlabel\" src=\"https://cdn.tgdd.vn/2023/10/campaign/label-tgdd-200x200.png?v=2024\" width=\"40\" /></a></p>\r\n\r\n<p><a data-cache=\"False\" data-pro=\"3\" data-s=\"ShortDayPromotion\" data-site=\"1\" href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-pro-5g-12gb-256gb\">Xiaomi 14T Pro 5G 12GB/256GB</a></p>\r\n\r\n<p><strong>15.990.000₫</strong><br />\r\n16.990.000₫&nbsp;<i>-5%</i></p>\r\n\r\n<p>Qu&agrave;&nbsp;<b>1.500.000₫</b></p>\r\n\r\n<p>Xem đặc điểm nổi bật</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-pro-5g-12gb-256gb\">Xem chi tiết</a></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-pro-12gb-512gb\"><label>Trả g&oacute;p 0%</label><img data-proid=\"329890\" src=\"https://cdn.tgdd.vn/Products/Images/42/329890/xiaomi-14t-pro-grey-thumb-600x600.jpg\" title=\"Xiaomi 14T Pro 5G 12GB/512GB\" /></a></p>\r\n\r\n<p><a data-cache=\"False\" data-pro=\"3\" data-s=\"ShortDayPromotion\" data-site=\"1\" href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-pro-12gb-512gb\">Xiaomi 14T Pro 5G 12GB/512GB</a></p>\r\n\r\n<p><strong>16.990.000₫</strong><br />\r\n17.990.000₫&nbsp;<i>-5%</i></p>\r\n\r\n<p>Qu&agrave;&nbsp;<b>1.500.000₫</b></p>\r\n\r\n<p>Xem đặc điểm nổi bật</p>\r\n\r\n<p><a href=\"https://www.thegioididong.com/dtdd/xiaomi-14t-pro-12gb-512gb\">Xem chi tiết</a></p>\r\n\r\n<p>Ngo&agrave;i ra, đừng qu&ecirc;n xem ngay những khuyến m&atilde;i cực HOT tại n&uacute;t cam sau bạn nha!</p>', NULL, NULL, NULL, 'dung-quen-hotsale-xiaomi-14t-giam-lien-1-trieu-tang-bo-sac-den-120-w-tri-gia-15-trieu-con-tang-them-bao-hanh-cao-cap-3-trieu', '2024-11-02 10:59:55', '2024-11-02 10:59:55', NULL),
+(48, 1, 'Du lịch thời 4.0 cùng Galaxy S24 FE: Một trợ thủ đa năng, tính năng khoanh tròn tìm kiếm trên Google tiện dụng', '<h3>Samsung galaxy S24 FE&nbsp;mới ra mắt c&oacute; kh&aacute; nhiều những trang bị, n&acirc;ng cấp tốt, từ thiết kế cao cấp, camera xịn s&ograve;, hiệu năng ổn định đến Galaxy AI đ&atilde; qu&aacute; đủ l&yacute; do để khiến bạn xuống tiền chọn mua. Tuy nhi&ecirc;n, với Galaxy S24 FE trong tay, bạn thậm ch&iacute; c&ograve;n c&oacute; thể c&oacute; th&ecirc;m một trợ thủ đắc lực hỗ trợ bạn đi du lịch một m&igrave;nh thật dễ d&agrave;ng kh&ocirc;ng hề lo lắng. V&igrave; sao lại thế? Đọc b&agrave;i viết n&agrave;y để biết thế n&agrave;o l&agrave; du lịch thời 4.0, đi một m&igrave;nh vẫn vui như thường c&ugrave;ng Galaxy S24 FE nh&eacute;!</h3>', '<h2><strong>Chip mạnh + Pin lớn = tiết kiệm điện chẳng ngại h&agrave;nh tr&igrave;nh d&agrave;i</strong></h2>\r\n\r\n<p>Galaxy S24 FE được trang bị con chip Exynos 2400e mới của nh&agrave; Samsung. Được biết, con chip Exynos 2400e được ph&aacute;t triển dựa tr&ecirc;n tiến tr&igrave;nh 4 nm bao gồm: 1 l&otilde;i Cortex-X4 tốc độ 3.2 GHz, 2 l&otilde;i Cortex-A720 xung nhịp 2.9 GHz trong khi 3 l&otilde;i Cortex-A720 kh&aacute;c c&oacute; xung nhịp 2.6 GHz v&agrave; 4 l&otilde;i Cortex-A520 xung nhịp 1.95 GHz. Ta c&oacute; thể thấy, c&aacute;c l&otilde;i Cortex-A720 v&agrave; Cortex-X4 của Exynos 2400e chạy ở tốc độ xung nhịp thấp hơn một ch&uacute;t.</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0 cùng Galaxy S24 FE\" data-original=\"https://cdn.tgdd.vn/News/1559949/3-1280x720.jpg\" src=\"https://cdn.tgdd.vn/News/1559949/3-1280x720.jpg\" title=\"Du lịch thời 4.0 cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Galaxy S24 FE g&acirc;y ấn tượng với con chip Exynos 2400e mới.</p>\r\n\r\n<p>Nhờ con chip mới Exynos 2400e, Galaxy S24 FE c&oacute; thể chạy tốt c&aacute;c t&aacute;c vụ cơ bản, lẫn n&acirc;ng cao v&agrave; đặc biệt vi xử l&yacute; n&agrave;y c&ograve;n tối ưu tốt cho c&aacute;c t&aacute;c vụ li&ecirc;n quan AI. N&oacute;i về AI, chiếc điện thoại n&agrave;y cũng được hỗ trợ c&aacute;c t&aacute;c vụ Galaxy AI như: Circle To Search, phi&ecirc;n dịch cuộc gọi, trợ l&yacute; chat, trợ l&yacute; h&igrave;nh ảnh,...&nbsp;</p>\r\n\r\n<p>Xem th&ecirc;m:&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/tong-hop-chip-exynos-1507138\" rel=\"noopener\" target=\"_blank\" title=\"Tìm hiểu vi xử lý Exynos 2400e cùng nhiều con chip Exynos khác của Samsung\">T&igrave;m hiểu vi xử l&yacute; Exynos 2400e c&ugrave;ng nhiều con chip Exynos kh&aacute;c của Samsung</a></p>\r\n\r\n<p>Trong chuyến đi chơi lu&ocirc;n c&oacute; những điểm &ldquo;chết&rdquo; thời gian như ngồi xe, m&aacute;y bay hay chờ check-in ph&ograve;ng, chờ lượt mua v&eacute; tham quan hay di chuyển giữa c&aacute;c địa điểm, những l&uacute;c như vậy th&igrave; c&ograve;n g&igrave; hơn một trận Li&ecirc;n Qu&acirc;n giải tr&iacute;?</p>\r\n\r\n<p>Vi xử l&yacute; Exynos 2400e tr&ecirc;n Galaxy S24 FE ho&agrave;n to&agrave;n c&oacute; thể c&acirc;n tốt c&aacute;c tựa game MOBA quen thuộc như Li&ecirc;n Qu&acirc;n Mobile, LMHT: Tốc Chiến,.. Hoặc c&aacute;c tựa game bắn s&uacute;ng như PUBG, COD hay Free Fire. Thậm ch&iacute; c&aacute;c game nặng hơn nếu bạn thiết lập mức đồ họa hợp l&yacute;.</p>\r\n\r\n<p><img alt=\"Game trên Galaxy S24 FE 2024\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/Galaxy%20S24%20FE%20game%20gsmarena.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/Galaxy%20S24%20FE%20game%20gsmarena.jpg\" title=\"Game trên Galaxy S24 FE 2024\" /></p>\r\n\r\n<p>Với c&aacute; nh&acirc;n m&igrave;nh, điều sợ h&atilde;i nhất khi đi chơi xa ch&iacute;nh l&agrave; điện thoại hết pin, l&uacute;c đ&oacute; mọi kết nối của bạn với thế giới dường như dừng lại. Rất nhiều người sợ việc rời khỏi chiếc điện thoại, họ dễ cảm thấy hoảng loạn khi mất kết nối với internet, trong đ&oacute; c&oacute; m&igrave;nh.</p>\r\n\r\n<p>Tuy nhi&ecirc;n, sự kết hợp của vi&ecirc;n pin dung lượng lớn 4.700 mAh, m&agrave;n h&igrave;nh Dynamic AMOLED 2X tiết kiệm điện c&ugrave;ng vi xử l&yacute; Exynos 2400e được tinh chỉnh để ph&ugrave; hợp hơn với nhu cầu sử dụng, n&oacute;i kh&ocirc;ng ngoa khi Galaxy S24 FE ch&iacute;nh l&agrave; người bạn đồng h&agrave;nh tốt nhất cho bạn trong những chuyến du lịch ngẫu hứng. Đ&ocirc;i khi c&oacute; lẽ cũng kh&ocirc;ng cần mang v&aacute;c theo củ sạc, pin dự ph&ograve;ng b&ecirc;n người mọi l&uacute;c, mọi nơi.</p>\r\n\r\n<h3><strong>Camera đẹp để l&agrave;m g&igrave;? Để c&oacute; những kỉ niệm nhiều &quot;like&quot;</strong></h3>\r\n\r\n<p><img alt=\"Du lịch thời 4.0 cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570636/tgdd-s24-fe-muc-cam-22.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570636/tgdd-s24-fe-muc-cam-22.jpg\" title=\"Du lịch thời 4.0 cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Thực tế, đi du lịch m&agrave; kh&ocirc;ng c&oacute; những bức ảnh đẹp ch&iacute;nh l&agrave; sự thiếu s&oacute;t đ&aacute;ng tiếc nhất! Nhưng bạn y&ecirc;n t&acirc;m khi đ&atilde; c&oacute; Galaxy S24 FE trong tay, l&agrave;m sao m&agrave; chuyến du lịch của bạn l&agrave; thiếu đi những bức ảnh xinh lung linh cơ chứ?</p>\r\n\r\n<p>Với hệ thống camera sau chất lượng tương tự như c&aacute;c chiếc flagship Galaxy S24, Galaxy S24 Plus đắt tiền, đặc biệt l&agrave; ống k&iacute;nh 50 MP mắt thần b&oacute;ng đ&ecirc;m, chắc chắn bạn sẽ c&oacute; những tấm ảnh để đời, kỉ niệm đ&aacute;ng nhớ,... Khả năng chống rung sẽ gi&uacute;p bạn lưu giữ lại những thước phim vlog t&acirc;m huyết nhất.</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-3.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-3.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Ngo&agrave;i ra, c&aacute;c ống k&iacute;nh g&oacute;c si&ecirc;u rộng chuy&ecirc;n trị c&aacute;c phong cảnh, hay ống k&iacute;nh zoom tele 3X cũng sẽ gi&uacute;p bạn bắt được c&aacute;c chi tiết ở xa, những ảnh ch&acirc;n dung nghệ thuật nhất,... Cũng đừng qu&ecirc;n camera selfie với khả năng chụp ch&acirc;n dung cực tốt, x&oacute;a ph&ocirc;ng ch&acirc;n thật v&agrave; l&agrave;m đẹp tự nhi&ecirc;n.</p>\r\n\r\n<p>Với bộ c&ocirc;ng cụ Galaxy AI thậm ch&iacute; bạn c&oacute; thể l&agrave;m chủ được phần hậu kỳ ảnh một c&aacute;ch dễ d&agrave;ng m&agrave; kh&ocirc;ng cần nhờ đến c&aacute;c ứng dụng trả ph&iacute; đắt tiền: X&oacute;a b&oacute;ng, x&oacute;a vật thể, bổ sung h&igrave;nh ảnh bằng AI,...</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-4.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-4.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Tất cả mọi thứ bạn cần đều c&oacute; AI gi&uacute;p sức từ việc kh&ocirc;ng thể c&acirc;n chỉnh g&oacute;c chụp, chụp tr&uacute;ng người hay background lộn xộn Galaxy AI đều c&oacute; thể giải quyết. Ngo&agrave;i ra, bạn c&ograve;n c&oacute; thể thay đổi h&igrave;nh ảnh theo c&aacute;c phong c&aacute;ch kh&aacute;c nhau, vui nhộn s&aacute;ng tạo hơn.</p>\r\n\r\n<h3><strong>Đừng ngại kh&oacute;, đ&atilde; c&oacute; Circle to Search with Google lo</strong></h3>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-8.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-8.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Thay v&igrave; bắt đầu một cuối tuần hay chuỗi ng&agrave;y lễ lớn bằng việc cứ lăn tr&ograve;n tr&ecirc;n chiếc giường với chiếc điện thoại xoay ngang, tại sao kh&ocirc;ng mở ngay l&ecirc;n &ldquo;Top top&rdquo; hay Instagram, t&igrave;m một địa điểm th&uacute; vị n&agrave;o đ&oacute; v&agrave; nhấn giữ n&uacute;t Home. Để l&agrave;m chi &agrave;? Để k&iacute;ch hoạt t&iacute;nh năng Circle to Search with Google l&ecirc;n, để t&igrave;m ngay t&ecirc;n, địa điểm, h&agrave;nh tr&igrave;nh, review,.. cũng như tất tần tật về h&igrave;nh ảnh bạn đang xem.</p>\r\n\r\n<p>Bạn qu&ecirc;n l&agrave; m&igrave;nh đang cầm tr&ecirc;n tay chiếc Galaxy S24 FE, chiếc smartphone sở hữu c&ocirc;ng nghệ Galaxy AI xịn s&ograve; nhất hiện tại hay sao?</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/tgdd-galaxy-s24-fe-23.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/tgdd-galaxy-s24-fe-23.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Thay v&igrave; &ldquo;cap m&agrave;n h&igrave;nh&rdquo; gửi bạn b&egrave; hoặc l&ecirc;n c&aacute;c hội nh&oacute;m đăng đ&agrave;n chờ duyệt, th&igrave; chỉ cần v&agrave;i thao t&aacute;c với t&iacute;nh năng Circle to Search with Google bạn đ&atilde; c&oacute; h&agrave;ng trăm kết quả kh&aacute;c nhau. Bạn ho&agrave;n to&agrave;n c&oacute; thể nắm trong tay mọi thứ về địa điểm sắp đến, thậm ch&iacute; cả v&eacute; t&agrave;u xe, m&aacute;y bay,... Cực kỳ tiện lợi v&agrave; hữu &iacute;ch cho những chuyến đi t&ugrave;y hứng m&agrave; đầy trải nghiệm của bạn.</p>\r\n\r\n<p>Thậm ch&iacute; bạn c&oacute; thể chốt lu&ocirc;n những outfit ph&ugrave; hợp cho địa điểm chuyến đi, vibes m&agrave; bạn hướng đến,... với một c&uacute; khoanh tr&ograve;n tr&ecirc;n m&agrave;n h&igrave;nh, vừa nhanh ch&oacute;ng, vừa tiện lợi cực kỳ.</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-6.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-6.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Ngo&agrave;i ra, với Circle to Search with Google, bạn c&oacute; thể d&ugrave;ng để tra cứu c&aacute;c h&igrave;nh ảnh m&atilde; QR tr&ecirc;n m&agrave;n h&igrave;nh một c&aacute;ch nhanh ch&oacute;ng, bạn c&oacute; thể &ldquo;kiểm tra&rdquo; ngay lập tức đường link trước khi quyết định qu&eacute;t bằng camera, gi&uacute;p bạn tr&aacute;nh được c&aacute;c cạm bẫy khi đi du lịch một m&igrave;nh hay c&aacute;c giao dịch kh&aacute;c.</p>\r\n\r\n<h3><strong>Dịch thuật trực tiếp, tưởng kh&ocirc;ng cần nhưng cần kh&ocirc;ng tưởng</strong></h3>\r\n\r\n<p><img alt=\"Du lịch thời 4.0 cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570494/tgdd-galaxy-s24-fe-13.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570494/tgdd-galaxy-s24-fe-13.jpg\" title=\"Du lịch thời 4.0 cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Nếu bạn nghĩ rằng t&iacute;nh năng Dịch thuật trực tiếp sẽ chỉ cần khi bạn ra nước ngo&agrave;i, chỉ cần cho c&aacute;c chuyến du lịch xa khỏi đất nước th&igrave; bạn đ&atilde; lầm to rồi! Việt Nam đang l&agrave; điểm đến của nhiều kh&aacute;ch du lịch tr&ecirc;n to&agrave;n thế giới. Do đ&oacute;, chỉ cần ra đường th&igrave; bạn cũng đ&atilde; c&oacute; thể gặp ngay c&aacute;c kh&aacute;ch du lịch, người nước ngo&agrave;i định cư, người nước ngo&agrave;i đi l&agrave;m tại Việt Nam.</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-1.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-1.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Sẽ ra sao nếu một người nước ngo&agrave;i tiến lại hỏi đường, hoặc l&agrave;m quen bạn để giao lưu văn h&oacute;a? Nếu khả năng giao tiếp của bạn c&oacute; hạn th&igrave; đừng lo, t&iacute;nh năng Dịch thuật trực tiếp với 16 ng&ocirc;n ngữ sẽ gi&uacute;p bạn tự tin giao lưu với người nước ngo&agrave;i từ c&aacute;c ng&ocirc;n ngữ quen thuộc như Anh, Ph&aacute;p, Trung, H&agrave;n, Nhật,.... đến c&aacute;c ng&ocirc;n ngữ kh&aacute;c như T&acirc;y Ban Nha, Hindi, Thụy Điển,...</p>\r\n\r\n<p>L&agrave;m quen kết bạn lu&ocirc;n l&agrave; những nhu cầu cơ bản của con người, c&ograve;n g&igrave; vui hơn khi được kết nối trực tiếp vượt qua r&agrave;o cản ng&ocirc;n ngữ. V&agrave; t&iacute;nh năng Dịch thuật trực tiếp n&agrave;y ho&agrave;n to&agrave;n c&oacute; trong bộ c&ocirc;ng cụ Galaxy AI tr&ecirc;n Galaxy S24 FE, đề ph&ograve;ng bạn đ&atilde; qu&ecirc;n!</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-2.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/galaxy-s24-fe-2.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>V&agrave; dĩ nhi&ecirc;n, đối với c&aacute;c chuyến du lịch nước ngo&agrave;i, mọi trường hợp đều phải sử dụng ngoại ngữ th&igrave; Dịch thuật trực tiếp sẽ l&agrave; cứu c&aacute;nh cho bạn trong c&aacute;c t&igrave;nh huống phức tạp, kh&oacute; khăn ngo&agrave;i tầm với của vốn ng&ocirc;n ngữ v&agrave; k&iacute; hiệu h&igrave;nh thể của bạn. Nhất l&agrave; trong trường hợp đi một m&igrave;nh v&agrave; cần sự gi&uacute;p đỡ từ người bản xứ.</p>\r\n\r\n<p>H&atilde;y cất ngay những nỗi sợ đơn độc đ&oacute;, x&aacute;ch h&agrave;nh trang l&ecirc;n v&agrave; l&agrave;m một chuyến đi thật &ldquo;chill&rdquo; thật đ&atilde; th&ocirc;i n&agrave;o!</p>\r\n\r\n<h3><strong>Tổng kết lại</strong></h3>\r\n\r\n<p>Chỉ với Galaxy S24 FE, một chuyến du lịch tự th&acirc;n l&agrave; ho&agrave;n to&agrave;n khả thi d&agrave;nh cho bạn, đặc biệt l&agrave; với bộ c&ocirc;ng cụ hữu &iacute;ch Galaxy AI, vi&ecirc;n pin lớn hay hiệu năng mạnh mẽ, hệ thống camera xuất sắc,... sẽ l&agrave; những yếu tố gi&uacute;p bạn tận hưởng chuyến du lịch &ldquo;trong mơ&rdquo;.</p>\r\n\r\n<p><img alt=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/tgdd-galaxy-s24-fe-17.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570824/tgdd-galaxy-s24-fe-17.jpg\" title=\"Du lịch thời 4.0, đi một mình vẫn vui như thường cùng Galaxy S24 FE\" /></p>\r\n\r\n<p>Nếu bạn chưa c&oacute; Galaxy S24 FE trong tay th&igrave; ngại g&igrave; kh&ocirc;ng đến ngay c&aacute;c cửa h&agrave;ng Thế Giới Di Động để trải nghiệm v&agrave; &ldquo;tậu&rdquo; ngay chiếc smartphone n&agrave;y th&ocirc;i n&agrave;o!</p>', NULL, NULL, NULL, 'du-lich-thoi-40-cung-galaxy-s24-fe-mot-tro-thu-da-nang-tinh-nang-khoanh-tron-tim-kiem-tren-google-tien-dung', '2024-11-02 11:00:10', '2024-11-02 11:00:10', NULL),
+(47, 1, 'Trên tay ASUS Zenbook S 14 UX5406: Ngoại hình cao cấp, bền bỉ, hiệu năng mạnh mẽ với chip Intel Core Ultra 7 (Series 2)', '<h3>V&agrave;o ng&agrave;y 10/10, ASUS đ&atilde; ra mắt mẫu laptop ultrabook mới mang tr&ecirc;n&nbsp;<a href=\"https://www.thegioididong.com/laptop/asus-ux5406sa-ultra-7-pv140ws\" rel=\"noopener\" target=\"_blank\" title=\"ASUS Zenbook S 14 UX5406\">ASUS Zenbook S 14 UX5406</a>. Sản phẩm vừa sở hữu thiết kế mỏng gọn, vừa được trang bị bộ cấu h&igrave;nh mạnh mẽ. C&ugrave;ng m&igrave;nh&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/tren-tay-asus-zenbook-s-14-ux5406-1570876\" rel=\"noopener\" target=\"_blank\" title=\"trên tay ASUS Zenbook S 14 UX5406\">tr&ecirc;n tay ASUS Zenbook S 14 UX5406</a>&nbsp;để xem chiếc&nbsp;<a href=\"https://www.thegioididong.com/laptop\" rel=\"noopener\" target=\"_blank\" title=\"laptop\">laptop</a>&nbsp;n&agrave;y c&oacute; g&igrave; mới nha!</h3>', '<h2>V&agrave;o ng&agrave;y 10/10, ASUS đ&atilde; ra mắt mẫu laptop ultrabook mới mang tr&ecirc;n ASUS Zenbook S14 UX5406. Sản phẩm vừa sở hữu thiết kế mỏng gọn, vừa được trang bị bộ cấu h&igrave;nh mạnh mẽ. C&ugrave;ng m&igrave;nh&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/tren-tay-asus-zenbook-s-14-ux5406-1570876\" rel=\"noopener\" target=\"_blank\" title=\"trên tay ASUS Zenbook S 14 UX5406\">tr&ecirc;n tay ASUS Zenbook S 14 UX5406</a>&nbsp;để xem chiếc&nbsp;<a href=\"https://www.thegioididong.com/laptop\" rel=\"noopener\" target=\"_blank\" title=\"laptop\">laptop</a>&nbsp;n&agrave;y c&oacute; g&igrave; mới nha!</h2>\r\n\r\n<p>Xem th&ecirc;m:&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/laptop-snapdragon-x-elite-dau-tien-tai-the-gioi-di-dong-1569789\" rel=\"noopener\" target=\"_blank\" title=\"ASUS Vivobook S 15 S5507QA X1E có phải là một lựa chọn đáng đầu tư?\">ASUS Vivobook S 15 S5507QA X1E c&oacute; phải l&agrave; một lựa chọn đ&aacute;ng đầu tư?</a></p>\r\n\r\n<h3><strong>Tr&ecirc;n tay ASUS Zenbook S 14 UX5406 với thiết kế sang trọng, mỏng gọn</strong></h3>\r\n\r\n<p>Về ngoại h&igrave;nh, ASUS Zenbook S 14 UX5406 vẫn được thừa hưởng những ưu điểm của d&ograve;ng ASUS Zenbook S về sự mỏng, gọn với phần khung m&aacute;y chỉ d&agrave;y 1.1 cm. Nhờ thế m&agrave; người d&ugrave;ng c&oacute; thể thoải m&aacute;i cầm sản phẩm tr&ecirc;n tay cũng như cất gọn v&agrave;o balo, t&uacute;i x&aacute;ch để mang đi bất cứ đ&acirc;u. Kh&ocirc;ng đơn giản l&agrave; kế thừa, chiếc laptop n&agrave;y c&ograve;n được cải thiện độ bền nhờ phần khung l&agrave;m từ vật liệu mới mang t&ecirc;n Ceraluminum (nh&ocirc;m + gốm). Loại chất liệu n&agrave;y gi&uacute;p thiết bị vừa nhẹ, vừa hạn chế trầy xước, chống b&aacute;m v&acirc;n tay, chống ăn m&ograve;n tốt hơn kim loại.</p>\r\n\r\n<p><img alt=\"ASUS Zenbook S 14 UX5406 được hoàn thiện từ vật liệu mới vừa bền bỉ, vừa nhẹ.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-07.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-07.jpg\" title=\"ASUS Zenbook S 14 UX5406 được hoàn thiện từ vật liệu mới vừa bền bỉ, vừa nhẹ.\" /></p>\r\n\r\n<p>ASUS Zenbook S 14 UX5406 được ho&agrave;n thiện từ vật liệu mới vừa bền bỉ, vừa nhẹ.</p>\r\n\r\n<p>Cảm gi&aacute;c đầu ti&ecirc;n m&agrave; m&igrave;nh tr&ecirc;n tay ASUS Zenbook S 14 UX5406 l&agrave; bề mặt rất mịn, &ecirc;m v&agrave; kh&oacute; b&aacute;m v&acirc;n tay đ&uacute;ng như h&atilde;ng đ&atilde; tr&igrave;nh b&agrave;y. Bề mặt A của ASUS Zenbook S 14 UX5406 vẫn c&oacute; th&ecirc;m logo chữ A c&aacute;ch điệu để tạo th&agrave;nh điểm nhấn, nhờ thế m&agrave; tr&ocirc;ng chiếc điện thoại n&agrave;y kh&ocirc;ng c&oacute; nhiều sự kh&aacute;c biệt so với nhiều mẫu ASUS Zenbook kh&aacute;c.</p>\r\n\r\n<p><img alt=\"Cảm giác cầm ASUS Zenbook S 14 UX5406 trên tay rất thoải mái và nhẹ nhàng.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-33.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-33.jpg\" title=\"Cảm giác cầm ASUS Zenbook S 14 UX5406 trên tay rất thoải mái và nhẹ nhàng.\" /></p>\r\n\r\n<p>Cảm gi&aacute;c cầm ASUS Zenbook S 14 UX5406 tr&ecirc;n tay rất thoải m&aacute;i v&agrave; nhẹ nh&agrave;ng.</p>\r\n\r\n<p>ASUS Zenbook S 14 UX5406 tuy c&oacute; th&acirc;n h&igrave;nh mỏng nhưng vẫn được ASUS trang bị đầy đủ những cổng kết nối cần thiết để người d&ugrave;ng sử dụng chung với c&aacute;c thiết bị ngoại vi. Ở cạnh tr&aacute;i của m&aacute;y chứa cổng HDMI, 2 cổng USB-C (chuẩn Thunderbolt 4) v&agrave; jack cắm tai nghe chuẩn 3.5 mm. C&ograve;n ở cạnh phải của m&aacute;y th&igrave; chỉ chứa cổng USB-A.</p>\r\n\r\n<p><img alt=\"Cạnh phải của ASUS Zenbook S 14 UX5406.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-08.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-08.jpg\" title=\"Cạnh phải của ASUS Zenbook S 14 UX5406.\" /></p>\r\n\r\n<p>Cạnh phải của ASUS Zenbook S 14 UX5406.</p>\r\n\r\n<p><img alt=\"Cạnh trái của ASUS Zenbook S 14 UX5406.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-10.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-10.jpg\" title=\"Cạnh trái của ASUS Zenbook S 14 UX5406.\" /></p>\r\n\r\n<p>Cạnh tr&aacute;i của ASUS Zenbook S 14 UX5406.</p>\r\n\r\n<p>Ở b&ecirc;n trong ASUS Zenbook S 14 UX5406 được trang bị hệ thống b&agrave;n ph&iacute;m 75%, đặc biệt c&ograve;n c&oacute; th&ecirc;m n&uacute;t Copilot để người d&ugrave;ng sử dụng t&iacute;nh năng AI của Windows nhanh ch&oacute;ng. C&aacute;c n&uacute;t bấm được ho&agrave;n thiện tốt, đảm bảo mang lại trải nghiệm g&otilde; thoải m&aacute;i. Ở tr&ecirc;n h&atilde;ng Fn c&ograve;n c&oacute; th&ecirc;m khe tản nhiệt để m&aacute;y m&aacute;t mẻ hơn khi hoạt động.</p>\r\n\r\n<p><img alt=\"ASUS Zenbook S 14 UX5406 được trang bị hệ thống bàn phím 75% cùng khe tản nhiệt ở trên hãng Fn.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-18.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-18.jpg\" title=\"ASUS Zenbook S 14 UX5406 được trang bị hệ thống bàn phím 75% cùng khe tản nhiệt ở trên hãng Fn.\" /></p>\r\n\r\n<p>ASUS Zenbook S 14 UX5406 được trang bị hệ thống b&agrave;n ph&iacute;m 75% c&ugrave;ng khe tản nhiệt ở tr&ecirc;n h&atilde;ng Fn.</p>\r\n\r\n<p>ASUS Zenbook S 14 UX5406 cũng được trang bị trackpad lớn c&ugrave;ng chất lượng ho&agrave;n thiện tốt. Cảm gi&aacute;c vuốt chạm mượt m&agrave;, c&ugrave;ng độ b&aacute;m tay tốt v&agrave; phản hồi nhanh ch&oacute;ng.</p>\r\n\r\n<h3><strong>ASUS Zenbook S 14 UX5406 m&agrave;n h&igrave;nh 3K sắc n&eacute;t</strong></h3>\r\n\r\n<p>ASUS Zenbook S 14 UX5406 được trang bị m&agrave;n h&igrave;nh 14 inch với 4 viền xung quanh kh&ocirc;ng qu&aacute; d&agrave;y để mang lại kh&ocirc;ng gian hiển thị tốt cho người d&ugrave;ng. Về chất lượng hiển thị, thiết bị được trang bị m&agrave;n h&igrave;nh OLED, độ ph&acirc;n giải 3K v&agrave; tần số qu&eacute;t 120 Hz.</p>\r\n\r\n<p><img alt=\"ASUS Zenbook S 14 UX5406 được trang bị màn hình 14 inch cùng chất lượng hiển thị tuyệt vời.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-27.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570876/tgdd-asus-zenbook-s-14-ux5406-27.jpg\" title=\"ASUS Zenbook S 14 UX5406 được trang bị màn hình 14 inch cùng chất lượng hiển thị tuyệt vời.\" /></p>\r\n\r\n<p>ASUS Zenbook S 14 UX5406 được trang bị m&agrave;n h&igrave;nh 14 inch c&ugrave;ng chất lượng hiển thị tuyệt vời.</p>\r\n\r\n<p>Ngo&agrave;i ra, ASUS Zenbook S 14 UX5406 c&ograve;n c&oacute; độ s&aacute;ng m&agrave;n h&igrave;nh 500 nits, 100% DCI-P3,.. Bộ th&ocirc;ng số n&agrave;y đảm bảo thiết bị c&oacute; thể mang lại kh&ocirc;ng gian hiển thị tốt c&ugrave;ng chất lượng h&igrave;nh ảnh tuyệt vời để bạn giải tr&iacute;, l&agrave;m việc.</p>\r\n\r\n<h3><strong>ASUS Zenbook S 14 UX5406 cấu h&igrave;nh mạnh mẽ với chip Intel Core Ultra 7 (Series 2)</strong></h3>\r\n\r\n<p>Trước khi đi v&agrave;o chi tiết, m&igrave;nh sẽ t&oacute;m tắt to&agrave;n bộ th&ocirc;ng số cấu h&igrave;nh ASUS Zenbook S 14 UX5406 cho mọi người tham khảo.</p>\r\n\r\n<ul>\r\n	<li>M&agrave;n h&igrave;nh: K&iacute;ch thước 14 inch, tấm nền OLED, độ ph&acirc;n giải 3K, tần số qu&eacute;t 120 Hz, tỉ lệ m&agrave;n h&igrave;nh 16:10 v&agrave; độ s&aacute;ng tối đa 500 nits.</li>\r\n	<li>CPU: Intel Core Ultra 7 (Series 2).</li>\r\n	<li>GPU: Intel Arc Graphics.</li>\r\n	<li>RAM: 32 GB LPDDR5x.</li>\r\n	<li>Dung lượng ổ cứng: 1 TB.</li>\r\n	<li>Hệ điều h&agrave;nh: Windows 11.</li>\r\n	<li>Pin: 72 Wh</li>\r\n</ul>', NULL, NULL, NULL, 'tren-tay-asus-zenbook-s-14-ux5406-ngoai-hinh-cao-cap-ben-bi-hieu-nang-manh-me-voi-chip-intel-core-ultra-7-series-2', '2024-11-02 11:00:22', '2024-11-02 11:00:22', NULL),
+(45, 1, 'Tổng hợp tin rò rỉ về Oneplus 13: Màn hình BOE X2, pin 6.000 mAh, kháng nước IP69', '<h3>Th&aacute;ng 10/2024, c&aacute;c h&atilde;ng&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"smartphone\">smartphone</a>&nbsp;đang rục rịch h&eacute; lộ những mẫu flagship cao cấp nhất cho dịp cuối năm, v&agrave; OnePlus cũng kh&ocirc;ng ngoại lệ. OnePlus 13, flagship tiếp theo của h&atilde;ng, đang l&agrave; t&acirc;m điểm ch&uacute; &yacute; với nhiều tin đồn về m&agrave;n h&igrave;nh, pin, khả năng kh&aacute;ng nước... Dưới đ&acirc;y sẽ l&agrave; tổng hợp tin r&ograve; rỉ về OnePlus 13.</h3>', '<h2>Th&aacute;ng 10/2024, c&aacute;c h&atilde;ng&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"smartphone\">smartphone</a>&nbsp;đang rục rịch h&eacute; lộ những mẫu flagship cao cấp nhất cho dịp cuối năm, v&agrave; OnePlus cũng kh&ocirc;ng ngoại lệ. OnePlus 13, flagship tiếp theo của h&atilde;ng, đang l&agrave; t&acirc;m điểm ch&uacute; &yacute; với nhiều tin đồn về m&agrave;n h&igrave;nh, pin, khả năng kh&aacute;ng nước... Dưới đ&acirc;y sẽ l&agrave; tổng hợp tin r&ograve; rỉ về OnePlus 13.</h2>\r\n\r\n<p><img alt=\"Tổng hợp tin rò rỉ về Oneplus 13: Màn hình BOE X2, pin 6000 mAh, kháng nước IP69\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570955/oneplus%2013-5.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570955/oneplus%2013-5.jpg\" title=\"Tổng hợp tin rò rỉ về Oneplus 13: Màn hình BOE X2, pin 6000 mAh, kháng nước IP69\" /></p>\r\n\r\n<p>Minh họa m&agrave;n h&igrave;nh OnePlus 13 (Ảnh: Gizmochina)</p>\r\n\r\n<p>OnePlus 13 dự kiến sẽ được trang bị vi xử l&yacute; Snapdragon 8 Gen 4 mới nhất của Qualcomm (dự kiến ra mắt v&agrave;o cuối th&aacute;ng n&agrave;y), kết hợp với dung lượng RAM khủng l&ecirc;n đến 24 GB. M&aacute;y được cho l&agrave; sẽ c&oacute; vi&ecirc;n pin c&ocirc;ng nghệ Si/Ca dung lượng 6.000 mAh, hỗ trợ sạc c&oacute; d&acirc;y 100 W v&agrave; sạc kh&ocirc;ng d&acirc;y 50 W.</p>\r\n\r\n<p>Theo leaker nổi tiếng Digital Chat Station tr&ecirc;n Weibo, OnePlus 13 sẽ c&oacute; hệ thống 3 camera sau với camera ch&iacute;nh sử dụng cảm biến Sony LYT808. Camera si&ecirc;u rộng v&agrave; camera tiềm vọng 3x sẽ sử dụng cảm biến Sony IMX882. Cả 3 camera sau tr&ecirc;n OnePlus 13 đều c&oacute; độ ph&acirc;n giải 50 MP. So với OnePlus 12, camera si&ecirc;u rộng được n&acirc;ng cấp độ ph&acirc;n giải, trong khi camera tiềm vọng c&oacute; độ ph&acirc;n giải thấp hơn.</p>\r\n\r\n<p><img alt=\"OnePlus 13 được cho là sẽ sở hữu màn hình chuẩn flagship với tấm nền BOE X2, độ phân giải 2K+, tần số quét 120 Hz và công nghệ LTPO. Máy cũng sẽ được trang bị cảm biến vân tay siêu âm dưới màn hình. OnePlus 13 có thể theo xu hướng thiết kế với 4 cạnh cong nhẹ, tương tự các flagship đến từ Trung Quốc gần đây.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570955/oneplus%2013.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570955/oneplus%2013.jpg\" title=\"OnePlus 13 được cho là sẽ sở hữu màn hình chuẩn flagship với tấm nền BOE X2, độ phân giải 2K+, tần số quét 120 Hz và công nghệ LTPO. Máy cũng sẽ được trang bị cảm biến vân tay siêu âm dưới màn hình. OnePlus 13 có thể theo xu hướng thiết kế với 4 cạnh cong nhẹ, tương tự các flagship đến từ Trung Quốc gần đây.\" /></p>\r\n\r\n<p>Vi xử l&yacute; Snapdragon 8 Gen 4 tr&ecirc;n OnePlus 13 (Ảnh: GSMArena )</p>\r\n\r\n<p>OnePlus 13 được cho l&agrave; sẽ sở hữu m&agrave;n h&igrave;nh chuẩn flagship với tấm nền BOE X2, độ ph&acirc;n giải 2K+, tần số qu&eacute;t 120 Hz v&agrave; c&ocirc;ng nghệ LTPO. M&aacute;y cũng sẽ được trang bị cảm biến v&acirc;n tay si&ecirc;u &acirc;m dưới m&agrave;n h&igrave;nh. OnePlus 13 c&oacute; thể theo xu hướng thiết kế với 4 cạnh cong nhẹ, tương tự c&aacute;c flagship đến từ Trung Quốc gần đ&acirc;y.</p>\r\n\r\n<p>Đặc biệt, OnePlus 13 c&oacute; thể sẽ đạt chuẩn kh&aacute;ng bụi, nước IP69, ti&ecirc;u chuẩn cao nhất hiện nay.</p>\r\n\r\n<p>Tr&ecirc;n đ&acirc;y l&agrave; tổng hợp c&aacute;c tin đồn về OnePlus 13, dự kiến ra mắt v&agrave;o cuối th&aacute;ng 10 n&agrave;y. Bạn c&oacute; mong chờ flagship mới nhất của OnePlus kh&ocirc;ng?</p>', NULL, NULL, NULL, 'tong-hop-tin-ro-ri-ve-oneplus-13-man-hinh-boe-x2-pin-6000-mah-khang-nuoc-ip69', '2024-11-02 11:00:45', '2024-11-02 11:00:45', NULL),
+(46, 1, 'Lộ bằng chứng cho thấy Redmi Note 14 5G sắp sửa ra mắt thị trường quốc tế', '<h3>Th&aacute;ng 9 vừa qua,&nbsp;<a href=\"https://www.thegioididong.com/dtdd-xiaomi\" rel=\"noopener\" target=\"_blank\" title=\"Xiaomi\">Xiaomi</a>&nbsp;đ&atilde; ra mắt 3&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"điện thoại\">điện thoại</a>&nbsp;thuộc d&ograve;ng&nbsp;<a href=\"https://www.thegioididong.com/dtdd/xiaomi-redmi-note-14\" rel=\"noopener\" target=\"_blank\" title=\"Redmi Note 14\">Redmi Note 14</a>&nbsp;tại thị trường nội địa Trung Quốc. Giờ đ&acirc;y, bản to&agrave;n cầu của Redmi Note 14 5G đ&atilde; c&oacute; mặt tr&ecirc;n nền tảng chứng nhận SDPPI của Indonesia.</h3>', '<h2>Th&aacute;ng 9 vừa qua,&nbsp;<a href=\"https://www.thegioididong.com/dtdd-xiaomi\" rel=\"noopener\" target=\"_blank\" title=\"Xiaomi\">Xiaomi</a>&nbsp;đ&atilde; ra mắt 3&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"điện thoại\">điện thoại</a>&nbsp;thuộc d&ograve;ng&nbsp;<a href=\"https://www.thegioididong.com/dtdd/xiaomi-redmi-note-14\" rel=\"noopener\" target=\"_blank\" title=\"Redmi Note 14\">Redmi Note 14</a>&nbsp;tại thị trường nội địa Trung Quốc. Giờ đ&acirc;y, bản to&agrave;n cầu của Redmi Note 14 5G đ&atilde; c&oacute; mặt tr&ecirc;n nền tảng chứng nhận SDPPI của Indonesia.</h2>\r\n\r\n<p>Phi&ecirc;n bản to&agrave;n cầu của Redmi Note 14 5G đ&atilde; đạt được chứng nhận bởi cơ quan SDPPI của Indonesia với số giấy chứng nhận &ldquo;104201/SDPPI/2024&rdquo; v&agrave; m&atilde; PLG &ldquo;10047&rdquo;, được liệt k&ecirc; trong cơ sở dữ liệu chứng nhận với số model &ldquo;24094RAD4G&rdquo;. Ngo&agrave;i ra, t&ecirc;n của chiếc smartphone n&agrave;y cũng được đề cập trong cơ sở dữ liệu.</p>\r\n\r\n<p><img alt=\"đạt chứng nhận Indonesia\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570942/rmno141.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570942/rmno141.jpg\" title=\"đạt chứng nhận Indonesia\" /></p>\r\n\r\n<p>Redmi Note 14 5G đạt chứng nhận bởi cơ quan SDPPI (Ảnh: The Tech Outlook)</p>\r\n\r\n<p>Trước đ&oacute;,&nbsp;<a href=\"https://www.thetechoutlook.com/tech-whispers/xiaomis-redmi-note-14-5g-global-variant-appears-on-the-indonesian-sdppi-certification-platform/\" rel=\"nofollow\" target=\"_blank\" title=\"The Tech Outlook\">The Tech Outlook</a>&nbsp;cũng đ&atilde; ph&aacute;t hiện phi&ecirc;n bản to&agrave;n cầu của Redmi Note 14 5G tr&ecirc;n cơ sở dữ liệu chứng nhận của FCC v&agrave; EEC. Những chứng nhận trước đ&oacute; c&ugrave;ng với chứng nhận SDPPI gần đ&acirc;y c&oacute; thể l&agrave; dấu hiệu cho thấy mẫu smartphone n&agrave;y sắp ra mắt to&agrave;n cầu v&agrave; ch&uacute;ng ta c&oacute; thể sẽ sớm chứng kiến điều n&agrave;y.</p>\r\n\r\n<p>Với việc ra mắt tại thị trường Trung Quốc, c&aacute;c th&ocirc;ng số cấu h&igrave;nh Redmi Note 14 5G đ&atilde; được tiết lộ. Điện thoại được trang bị chip MediaTek Dimensity 7025 Ultra, t&iacute;ch hợp GPU IMG BXM-8-256. Thiết bị chạy hệ điều h&agrave;nh HyperOS t&ugrave;y biến tr&ecirc;n nền tảng Android 14. Về m&agrave;n h&igrave;nh, m&aacute;y sở hữu m&agrave;n h&igrave;nh OLED 6.67 inch, độ ph&acirc;n giải 1080 x 2400 pixel, tần số qu&eacute;t 120 Hz v&agrave; độ s&aacute;ng tối đa 2100 nits.</p>\r\n\r\n<p><img alt=\"Thông số Redmi Note 14 5G\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570942/A%CC%89nh%20ma%CC%80n%20hi%CC%80nh%202024-10-10%20lu%CC%81c%2012.19.33.jpeg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570942/A%CC%89nh%20ma%CC%80n%20hi%CC%80nh%202024-10-10%20lu%CC%81c%2012.19.33.jpeg\" title=\"Thông số Redmi Note 14 5G\" /></p>\r\n\r\n<p>C&aacute;c th&ocirc;ng số cấu h&igrave;nh nổi bật của Redmi Note 14 5G (Ảnh: Xiaomi)</p>\r\n\r\n<p>Mặt sau của thiết bị c&oacute; cụm camera k&eacute;p, bao gồm: Camera ch&iacute;nh 50 MP v&agrave; ống k&iacute;nh macro 2 MP. Ở mặt trước, m&aacute;y trang bị camera selfie 16 MP. Về pin, thiết bị c&oacute; dung lượng 5110 mAh, hỗ trợ sạc nhanh 45 W.</p>\r\n\r\n<p>C&aacute;c th&ocirc;ng số kh&aacute;c bao gồm kết nối mạng 5G, Wi-Fi 802.11 a/b/g/n/ac với hỗ trợ băng tần k&eacute;p, Bluetooth 5.3, GPS, cổng USB Type-C 2.0, cảm biến v&acirc;n tay cạnh b&ecirc;n, đạt chuẩn kh&aacute;ng nước v&agrave; bụi IP64, độ d&agrave;y 8 mm v&agrave; trọng lượng 190 gam.</p>\r\n\r\n<p aria-label=\"Bản dịch: Phiên bản Trung Quốc của Redmi Note 14 Pro+ sử dụng cảm biến camera 50MP OVX8000. Nhưng điều này đã thay đổi với phiên bản Toàn cầu. Ngoài ra, cảm biến macro 2MP OV02B10 đã được bổ sung thay cho camera Telephoto. Redmi Note 14 Pro có cảm biến Samsung ISOCELL HP3, cảm biến này sẽ tốt hơn Sony IMX882 ở phiên bản Trung Quốc của thiết bị này. Chúng tôi hy vọng Xiaomi có thể gây ngạc nhiên cho người dùng bằng một phần mềm camera tốt.\" data-placeholder=\"Bản dịch\" data-ved=\"2ahUKEwinq8yYjOeIAxWGqVYBHY5kGBQQ3ewLegQICBAU\" dir=\"ltr\">Bạn c&oacute; mong đợi Redmi Note 14 5G ra mắt quốc tế kh&ocirc;ng?</p>', NULL, NULL, NULL, 'lo-bang-chung-cho-thay-redmi-note-14-5g-sap-sua-ra-mat-thi-truong-quoc-te', '2024-11-02 11:01:21', '2024-11-02 11:01:21', NULL),
+(44, 1, 'Galaxy A16 5G ra mắt: 6 năm cập nhật Android, màn hình AMOLED và camera 50 MP', '<h3>C&aacute;ch đ&acirc;y một tuần, c&aacute;c th&ocirc;ng số kỹ thuật v&agrave; t&iacute;nh năng ch&iacute;nh của Galaxy A16 5G v&agrave; Galaxy A16 4G được tiết lộ. B&acirc;y giờ,&nbsp;<a href=\"https://www.thegioididong.com/dtdd-samsung\" rel=\"noopener\" target=\"_blank\" title=\"Samsung\">Samsung</a>&nbsp;đ&atilde; ch&iacute;nh thức ra mắt Galaxy A16 5G v&agrave; ch&uacute;ng ta đ&atilde; biết c&aacute;i gi&aacute; của chiếc&nbsp;<a href=\"https://www.thegioididong.com/dtdd\" rel=\"noopener\" target=\"_blank\" title=\"điện thoại\">điện thoại</a>&nbsp;gi&aacute; rẻ mới của thương hiệu n&agrave;y. Dưới đ&acirc;y sẽ l&agrave; gi&aacute; b&aacute;n v&agrave; cấu h&igrave;nh Galaxy A16 5G vừa mới ra mắt.</h3>', '<h3><strong>Cấu h&igrave;nh Galaxy A16 5G</strong></h3>\r\n\r\n<p><img alt=\"Giá bán và cấu hình Galaxy A16 5G vừa mới ra mắt.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570898/A16-6G-2.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570898/A16-6G-2.jpg\" title=\"Giá bán và cấu hình Galaxy A16 5G vừa mới ra mắt.\" /></p>\r\n\r\n<p>Galaxy A16 5G c&oacute; m&agrave;n h&igrave;nh giọt nước Super AMOLED 6.7 inch to hơn Galaxy A15 5G (6.5 inch), tần số qu&eacute;t 90 Hz, độ s&aacute;ng tối đa 800 nits v&agrave; độ ph&acirc;n giải Full HD (tỷ lệ 19.5:9, 1080 x 2340 pixel). Vi&ecirc;n pin lớn dung lượng lớn 5.000 mAh, hỗ trợ sạc nhanh c&oacute; d&acirc;y 25 W.</p>\r\n\r\n<p>Kh&ocirc;ng giống như Galaxy A15 5G chỉ c&oacute; 1 phi&ecirc;n bản vi xử l&yacute;, Galaxy A16 5G c&oacute; 2 phi&ecirc;n bản vi xử l&yacute; gồm Exynos 1330 v&agrave; Dimensity 6300. Ri&ecirc;ng với phi&ecirc;n bản Galaxy A16 5G ở Ch&acirc;u u sẽ c&oacute; RAM 4 GB v&agrave; bộ nhớ trong 128 GB. Người d&ugrave;ng thậm ch&iacute; c&oacute; thể mở rộng bộ nhớ l&ecirc;n đến 1.5 TB th&ocirc;ng qua khe cắm thẻ nhớ microSD.</p>\r\n\r\n<p><img alt=\"Giá bán và cấu hình Galaxy A16 5G vừa mới ra mắt.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570898/A16-6G-33.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570898/A16-6G-33.jpg\" title=\"Giá bán và cấu hình Galaxy A16 5G vừa mới ra mắt.\" /></p>\r\n\r\n<p>Một trong những kh&iacute;a cạnh đ&aacute;ng ch&uacute; &yacute; nhất của Galaxy A16 5G chắc chắn l&agrave; khả năng hỗ trợ phần mềm l&acirc;u d&agrave;i. Đ&acirc;y l&agrave; mẫu Galaxy A series gi&aacute; rẻ đầu ti&ecirc;n hứa hẹn c&oacute; tới 6 bản cập nhật hệ điều h&agrave;nh Android lớn. V&igrave; Galaxy A16 5G xuất xưởng với hệ điều h&agrave;nh Android 14 n&ecirc;n chiếc m&aacute;y thậm ch&iacute; sẽ được hỗ trợ đến Android 20.</p>\r\n\r\n<p>Galaxy A16 5G c&oacute; hệ thống 3 camera sau: Camera ch&iacute;nh 50 MP + camera si&ecirc;u rộng 5 MP + 2 MP v&agrave; camera selfie 13 MP để chụp ảnh tự sướng v&agrave; gọi video. C&aacute;c t&iacute;nh năng đ&aacute;ng ch&uacute; &yacute; kh&aacute;c bao gồm cảm biến v&acirc;n tay cạnh b&ecirc;n, Bluetooth 5.3 v&agrave; khả năng chống bụi v&agrave; nước IP54.</p>\r\n\r\n<h3><strong>M&agrave;u sắc v&agrave; gi&aacute; b&aacute;n Galaxy A16 5G</strong></h3>\r\n\r\n<p><img alt=\"Giá bán và cấu hình Galaxy A16 5G vừa mới ra mắt.\" data-original=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570898/A16-6G-1.jpg\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/News/1570898/A16-6G-1.jpg\" title=\"Giá bán và cấu hình Galaxy A16 5G vừa mới ra mắt.\" /></p>\r\n\r\n<p>Samsung Galaxy A16 5G c&oacute; ba t&ugrave;y chọn m&agrave;u, cụ thể l&agrave; Xanh dương, Xanh l&aacute; v&agrave; X&aacute;m. Mặt lưng được ho&agrave;n thiện nh&aacute;m v&agrave; c&oacute; c&aacute;c đường v&acirc;n tạo n&ecirc;n c&aacute;c đường s&aacute;ng ch&eacute;o thu h&uacute;t &aacute;nh nh&igrave;n hơn. Mức gi&aacute; ch&iacute;nh thức của Galaxy A16 5G ở Ph&aacute;p l&agrave; 249 EURO cho phi&ecirc;n bản bộ nhớ 4 GB/128 GB.</p>\r\n\r\n<p>Hiện tại, trong l&uacute;c Galaxy A16 5G chưa ra mắt, ch&uacute;ng ta ho&agrave;n to&agrave;n c&oacute; thể sở hữu c&aacute;c chiếc&nbsp;<a href=\"https://www.thegioididong.com/dtdd/samsung-galaxy-a15\" rel=\"noopener\" target=\"_blank\" title=\"Galaxy A15\">Galaxy A15</a>&nbsp;v&agrave;&nbsp;<a href=\"https://www.thegioididong.com/dtdd/samsung-galaxy-a15-5g\" rel=\"noopener\" target=\"_blank\" title=\"Galaxy A15 5G\">Galaxy A15 5G</a>&nbsp;đang c&oacute; gi&aacute; cực tốt tại&nbsp;<a href=\"https://www.thegioididong.com/\" rel=\"noopener\" target=\"_blank\" title=\"Thế Giới Di Động\">Thế Giới Di Động</a>.</p>', NULL, NULL, NULL, 'galaxy-a16-5g-ra-mat-6-nam-cap-nhat-android-man-hinh-amoled-va-camera-50-mp', '2024-11-02 11:01:38', '2024-11-02 11:01:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -1865,9 +2154,9 @@ INSERT INTO `post_language` (`post_id`, `language_id`, `name`, `description`, `c
 CREATE TABLE `products` (
   `id` bigint UNSIGNED NOT NULL,
   `product_catalogue_id` int NOT NULL DEFAULT '0',
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '1',
   `follow` tinyint NOT NULL DEFAULT '1',
   `order` int NOT NULL DEFAULT '0',
@@ -1875,13 +2164,13 @@ CREATE TABLE `products` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `attributeCatalogue` text COLLATE utf8mb4_general_ci,
-  `code` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
-  `made_in` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `attributeCatalogue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `made_in` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `price` double NOT NULL DEFAULT '0',
-  `attribute` text COLLATE utf8mb4_general_ci,
-  `variant` text COLLATE utf8mb4_general_ci,
-  `warranty_time` timestamp NULL DEFAULT NULL
+  `attribute` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `variant` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `warranty_time` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1889,15 +2178,62 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_catalogue_id`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attributeCatalogue`, `code`, `made_in`, `price`, `attribute`, `variant`, `warranty_time`) VALUES
-(20, 1, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-09-08 14:18:39', '2024-08-11 07:49:34', '2024-09-08 14:18:39', '[\"1\",\"3\"]', '1723387586', NULL, 200000, '{\"1\":[\"2\",\"3\",\"4\"],\"3\":[\"8\",\"9\"]}', '{\"quantity\":[\"100\",\"100\",\"100\",\"100\",\"100\",\"100\"],\"sku\":[\"1723387586-2-8\",\"1723387586-2-9\",\"1723387586-4-8\",\"1723387586-4-9\",\"1723387586-3-8\",\"1723387586-3-9\"],\"price\":[\"20.000.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\",\"200.000\"],\"barcode\":[null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null],\"album\":[null,null,null,null,null,null]}', NULL),
-(26, 2, '/thuongmaidientu/public/userfiles/image/thoi-su/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg', NULL, '', 1, -1, 0, 201014, '2024-09-08 14:18:36', '2024-08-26 19:31:31', '2024-09-08 14:18:36', '[\"1\",\"3\",\"4\"]', 'SacIphone', 'Hàn Quốc', 500000, '{\"1\":[\"2\",\"3\"],\"3\":[\"8\"],\"4\":[\"11\"]}', '{\"quantity\":[\"100\",\"1\"],\"sku\":[\"SacIphone-3-8-11\",\"SacIphone-3-8-10\"],\"price\":[\"500.000\",\"500.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[null,null]}', NULL),
-(27, 3, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-z-fold-6/samsung-galaxy-z-fold-6-xanh_5.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 14:47:39', '2024-11-13 10:23:29', '[\"1\"]', '1725805125', 'Hàn Quốc', 43990000, '{\"1\":[\"13\",\"14\",\"15\"]}', '{\"quantity\":[null,null,null],\"sku\":[\"1725805125-13\",\"1725805125-14\",\"1725805125-15\"],\"price\":[\"43.990.000\",\"43.990.000\",\"43.990.000\"],\"barcode\":[null,null,null],\"file_name\":[null,null,null],\"file_url\":[null,null,null],\"album\":[\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png\"]}', NULL),
-(28, 3, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_7__2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_9__2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 14:58:35', '2024-11-13 10:23:22', '[\"1\"]', '1725806874', 'Hàn Quốc', 44490000, '{\"1\":[\"4\",\"14\",\"16\",\"17\"]}', '{\"quantity\":[null,null,null,null],\"sku\":[\"1725806874-4\",\"1725806874-14\",\"1725806874-16\",\"1725806874-4\"],\"price\":[\"44.490.000\",\"44.490.000\",\"44.490.000\",\"44.490.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"]}', NULL),
-(29, 5, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:07:03', '2024-11-13 10:23:17', '[\"1\"]', '1725807621', 'USA', 34990000, '{\"1\":[\"2\",\"4\",\"18\",\"19\"]}', '{\"quantity\":[null,null,null,null],\"sku\":[\"1725807621-2\",\"1725807621-4\",\"1725807621-18\",\"1725807621-19\"],\"price\":[\"34.990.000\",\"34.990.000\",\"34.990.000\",\"34.990.000\"],\"barcode\":[null,null,null,null],\"file_name\":[null,null,null,null],\"file_url\":[null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"]}', NULL),
-(30, 5, '/thuongmaidientu/public/userfiles/image/iphone-13/iphone-13_2.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/13_4_7_2_7.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13-0-0.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]', 1, -1, 0, 201014, NULL, '2024-09-08 15:24:54', '2024-11-13 10:23:12', '[\"1\",\"3\",\"5\"]', '1725808096', 'USA', 17290000, '{\"1\":[\"3\",\"4\",\"13\",\"17\",\"18\"],\"3\":[\"8\",\"9\"],\"5\":[\"7\"]}', '{\"quantity\":[null,null,null,null,null,null,null,null,null,null],\"sku\":[\"1725808096-3-8-7\",\"1725808096-3-9-7\",\"1725808096-4-8-7\",\"1725808096-4-9-7\",\"1725808096-13-8-7\",\"1725808096-13-9-7\",\"1725808096-17-8-7\",\"1725808096-17-9-7\",\"1725808096-18-8-7\",\"1725808096-18-9-7\"],\"price\":[\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\",\"17.290.000\"],\"barcode\":[null,null,null,null,null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null,null,null,null,null],\"album\":[null,null,null,null,null,null,null,null,null,null]}', NULL),
-(31, 2, '/thuongmaidientu/public/userfiles/image/logo/logo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-08 15:53:50', '2024-11-13 10:23:47', '[\"1\"]', '1725810741', 'Hàn Quốc', 2000000, '{\"1\":[\"2\",\"13\"]}', '{\"quantity\":[\"5\",\"5\"],\"sku\":[\"1725810741-2\",\"1725810741-13\"],\"price\":[\"15.000.000\",\"15.000\"],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"]}', NULL),
-(32, 1, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:33:08', '2024-09-30 08:12:57', '2024-09-30 08:33:08', '', '1727683874', NULL, 200000, '', '', NULL),
-(33, 2, 'backend/img/no-photo.png', NULL, '', -1, -1, 0, 201014, '2024-09-30 08:35:02', '2024-09-30 08:34:18', '2024-09-30 08:35:02', '', '1727685190', NULL, 0, '', '', NULL);
+(30, 5, '/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:57:44', '2024-11-15 12:19:38', '[\"1\",\"3\",\"4\",\"5\",\"6\",\"8\"]', '1725638189', 'Mỹ', 0, '{\"1\":[\"14\",\"19\",\"20\",\"21\"],\"3\":[\"15\"],\"4\":[\"13\"],\"5\":[\"5\",\"7\",\"22\"],\"6\":[\"17\"],\"8\":[\"18\"]}', '{\"quantity\":[\"5\",\"4\",\"4\",\"3\",\"3\",\"3\",\"2\",\"2\",\"2\",\"2\",\"2\",\"2\"],\"sku\":[\"1725638189-14-15-13-5-17-18\",\"1725638189-14-15-13-7-17-18\",\"1725638189-14-15-13-22-17-18\",\"1725638189-19-15-13-5-17-18\",\"1725638189-19-15-13-7-17-18\",\"1725638189-19-15-13-22-17-18\",\"1725638189-20-15-13-5-17-18\",\"1725638189-20-15-13-7-17-18\",\"1725638189-20-15-13-22-17-18\",\"1725638189-21-15-13-5-17-18\",\"1725638189-21-15-13-7-17-18\",\"1725638189-21-15-13-22-17-18\"],\"price\":[\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"1.499.999.985\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\"],\"barcode\":[null,null,null,null,null,null,null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null,null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null,null,null,null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\",\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"]}', 24),
+(31, 5, '/userfiles/image/iphone-13/15_2_7_2_5.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:29:07', '2024-11-15 12:52:06', '[\"1\",\"3\",\"4\",\"5\",\"6\",\"8\"]', '1725639572', 'Mỹ', 0, '{\"1\":[\"24\",\"25\",\"26\",\"27\"],\"3\":[\"28\"],\"4\":[\"29\"],\"5\":[\"7\",\"23\"],\"6\":[\"17\"],\"8\":[\"30\"]}', '{\"quantity\":[4,3,\"2\",\"1\",\"1\",\"1\",\"1\",\"1\"],\"sku\":[\"1725639572-24-28-29-7-17-30\",\"1725639572-24-28-29-23-17-30\",\"1725639572-25-28-29-7-17-30\",\"1725639572-25-28-29-23-17-30\",\"1725639572-26-28-29-7-17-30\",\"1725639572-26-28-29-23-17-30\",\"1725639572-27-28-29-7-17-30\",\"1725639572-27-28-29-23-17-30\"],\"price\":[\"15000000\",\"15000000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\"],\"barcode\":[null,null,null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\",\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\",\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\",\"\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\",\"\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\",\"\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\"]}', 24),
+(32, 6, '/userfiles/image/samsung-galaxy-z-fold-6/samsung-galaxy-z-fold-6-xam_6.png', NULL, '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png\",\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png\"]', 1, -1, 0, 201014, NULL, '2024-09-06 16:38:09', '2024-11-15 12:19:24', '[\"1\",\"3\",\"4\",\"5\",\"6\",\"8\"]', '1725640303', 'Hàn quốc', 0, '{\"1\":[\"31\",\"32\",\"33\"],\"3\":[\"28\"],\"4\":[\"34\"],\"5\":[\"5\",\"7\",\"22\"],\"6\":[\"35\"],\"8\":[\"36\"]}', '{\"quantity\":[\"19\",\"1\",\"1\",\"9\",\"1\",\"1\",\"6\",\"1\",\"1\"],\"sku\":[\"1725640303-31-28-34-5-35-36\",\"1725640303-31-28-34-7-35-36\",\"1725640303-31-28-34-22-35-36\",\"1725640303-32-28-34-5-35-36\",\"1725640303-32-28-34-7-35-36\",\"1725640303-32-28-34-22-35-36\",\"1725640303-33-28-34-5-35-36\",\"1725640303-33-28-34-7-35-36\",\"1725640303-33-28-34-22-35-36\"],\"price\":[\"15\",\"15.000.000\",\"15.000.000\",\"15\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\"],\"barcode\":[null,null,null,null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\",\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\"]}', 12),
+(33, 6, '/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:46:22', '2024-11-15 12:19:16', '[\"1\",\"3\",\"4\",\"5\",\"6\",\"8\"]', '1725640830', 'Hàn quốc', 0, '{\"1\":[\"31\",\"37\",\"38\",\"39\"],\"3\":[\"15\"],\"4\":[\"41\"],\"5\":[\"5\",\"7\",\"22\"],\"6\":[\"35\"],\"8\":[\"42\"]}', '{\"quantity\":[\"2\",\"2\",\"2\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\"],\"sku\":[\"1725640830-31-15-41-5-35-42\",\"1725640830-31-15-41-7-35-42\",\"1725640830-31-15-41-22-35-42\",\"1725640830-37-15-41-5-35-42\",\"1725640830-37-15-41-7-35-42\",\"1725640830-37-15-41-22-35-42\",\"1725640830-38-15-41-5-35-42\",\"1725640830-38-15-41-7-35-42\",\"1725640830-38-15-41-22-35-42\",\"1725640830-39-15-41-5-35-42\",\"1725640830-39-15-41-7-35-42\",\"1725640830-39-15-41-22-35-42\"],\"price\":[\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\",\"15.000.000\"],\"barcode\":[null,null,null,null,null,null,null,null,null,null,null,null],\"file_name\":[null,null,null,null,null,null,null,null,null,null,null,null],\"file_url\":[null,null,null,null,null,null,null,null,null,null,null,null],\"album\":[\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\",\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\"]}', 12),
+(34, 9, '/userfiles/image/Laptop%20HP/hp-15s-fq5229tu-i3-8u237pa-glr-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-17 04:14:48', '2024-11-15 12:19:06', '[\"5\"]', '1726546459', NULL, 0, '{\"5\":[\"7\"]}', '{\"quantity\":[\"8\"],\"sku\":[\"1726546459-7\"],\"price\":[\"15.000.000\"],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/Laptop%20HP\\/hp-15s-fq5229tu-i3-8u237pa-glr-1-750x500.jpg\"]}', 0),
+(35, 12, '/userfiles/image/tai-nghe/tai-nghe-bluetooth-chup-tai-soundcore-h30i-a3012-den-1-638630427313456762-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:15:46', '2024-11-18 15:16:33', '[\"9\"]', '1731942928', NULL, 0, '{\"9\":[\"43\"]}', '{\"quantity\":[null],\"sku\":[\"1731942928-43\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/tai-nghe\\/tai-nghe-bluetooth-chup-tai-soundcore-h30i-a3012-den-1-638630427313456762-750x500.jpg\"]}', 0),
+(36, 11, '/userfiles/image/sac-du-phong/pin-sac-du-phong-polymer-20000mah-type-c-10-5w-ava-g-dx258-den-1-638671778558277338-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:19:53', '2024-11-18 15:19:56', '[\"10\",\"11\"]', '1731943141', NULL, 0, '{\"10\":[\"44\"],\"11\":[\"45\"]}', '{\"quantity\":[null],\"sku\":[\"1731943141-44-45\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/sac-du-phong\\/pin-sac-du-phong-polymer-20000mah-type-c-10-5w-ava-g-dx258-den-1-638671778558277338-750x500.jpg\"]}', 12),
+(38, 13, '/userfiles/image/but-tablet/but-cam-ung-apple-pencil-2-apple-mu8f2-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:24:15', '2024-11-18 15:24:51', '[\"1\"]', '1731943360', NULL, 0, '{\"1\":[\"31\"]}', '{\"quantity\":[null],\"sku\":[\"1731943360-31\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/but-tablet\\/but-cam-ung-apple-pencil-2-apple-mu8f2-1-750x500.jpg\"]}', 12),
+(39, 14, '/userfiles/image/tui-dung-airpods/tui-dung-airpods-pro-2-nhua-pc-tpu-uniq-clyde-lock-case-xanh-mint-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:28:12', '2024-11-18 15:28:23', '[\"3\"]', '1731943651', NULL, 0, '{\"3\":[\"46\"]}', '{\"quantity\":[null],\"sku\":[\"1731943651-46\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/tui-dung-airpods\\/tui-dung-airpods-pro-2-nhua-pc-tpu-uniq-clyde-lock-case-xanh-mint-1-750x500.jpg\"]}', 6),
+(40, 15, '/userfiles/image/mieng-dan-camera/mieng-dan-camera-iphone-16-pro-16-pro-max-optix-aluminium-uniq-den-1-638629654032750948-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:30:39', '2024-11-18 17:04:01', '[\"3\"]', '1731943812', NULL, 0, '{\"3\":[\"47\"]}', '{\"quantity\":[null],\"sku\":[\"1731943812-47\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/mieng-dan-camera\\/mieng-dan-camera-iphone-16-pro-16-pro-max-optix-aluminium-uniq-den-1-638629654032750948-750x500.jpg\"]}', 0),
+(41, 15, '/userfiles/image/mieng-dan-camera/mieng-dan-camera-iphone-16-pro-16-pro-max-optix-aluminium-uniq-den-1-638629654032750948-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:31:24', '2024-11-18 15:31:26', '[\"3\"]', '1731943855', NULL, 0, '{\"3\":[\"47\"]}', '{\"quantity\":[null],\"sku\":[\"1731943855-47\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/mieng-dan-camera\\/mieng-dan-camera-iphone-16-pro-16-pro-max-optix-aluminium-uniq-den-1-638629654032750948-750x500.jpg\"]}', 0),
+(42, 16, '/userfiles/image/day-dong-ho/day-mvw-sl100-01-da-den-3-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:34:25', '2024-11-19 05:15:44', '[\"4\",\"3\",\"1\"]', '1731944014', NULL, 0, '{\"4\":[\"48\"],\"3\":[\"49\"],\"1\":[\"4\"]}', '{\"quantity\":[1],\"sku\":[\"1731944014-4-49-48\"],\"price\":[\"15000\"],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/day-dong-ho\\/day-mvw-sl100-01-da-den-3-750x500.jpg\"]}', 0),
+(43, 18, '/userfiles/image/smartwatch/huawei-watch-gt-5-xanh-1-638626892782150981-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:38:09', '2024-11-18 15:40:46', '[\"4\",\"3\"]', '1731944236', NULL, 0, '{\"4\":[\"50\"],\"3\":[\"51\"]}', '{\"quantity\":[null],\"sku\":[\"1731944236-51-50\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/smartwatch\\/huawei-watch-gt-5-xanh-1-638626892782150981-750x500.jpg\"]}', 12),
+(44, 19, '/userfiles/image/smartwatch/samsung-galaxy-watch-5-40-mm-bac-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:42:58', '2024-11-18 15:43:41', '[\"4\"]', '1731944537', NULL, 0, '{\"4\":[\"52\"]}', '{\"quantity\":[null],\"sku\":[\"1731944537-52\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/smartwatch\\/samsung-galaxy-watch-5-40-mm-bac-1-750x500.jpg\"]}', 12),
+(45, 20, '/userfiles/image/smartwatch/mi-band-8-vang-glr-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:46:28', '2024-11-18 15:46:31', '[\"4\"]', '1731944745', NULL, 0, '{\"4\":[\"53\"]}', '{\"quantity\":[null],\"sku\":[\"1731944745-53\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/smartwatch\\/mi-band-8-vang-glr-1-750x500.jpg\"]}', 0),
+(46, 22, '/userfiles/image/dong-ho/casio-ltp-1129a-7ardf-bac-2-2-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:50:57', '2024-11-18 16:46:22', '[\"4\",\"12\",\"3\"]', '1731945013', NULL, 0, '{\"4\":[\"54\"],\"12\":[\"55\"],\"3\":[\"56\"]}', '{\"quantity\":[null],\"sku\":[\"1731945013-56-54-55\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/dong-ho\\/casio-ltp-1129a-7ardf-bac-2-2-750x500.jpg\"]}', 12),
+(47, 23, '/userfiles/image/dong-ho/citizen-nj0150-81x-nam-1-750x500.jpeg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:53:23', '2024-11-18 15:54:09', '[\"4\",\"12\"]', '1731945115', NULL, 0, '{\"4\":[\"52\"],\"12\":[\"58\"]}', '{\"quantity\":[null],\"sku\":[\"1731945115-52-58\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/dong-ho\\/citizen-nj0150-81x-nam-1-750x500.jpeg\"]}', 12),
+(48, 25, '/userfiles/image/tablet/ipad-9-wifi-trang-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:56:57', '2024-11-18 15:56:59', '[\"5\"]', '1731945381', NULL, 0, '{\"5\":[\"59\"]}', '{\"quantity\":[null],\"sku\":[\"1731945381-59\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/tablet\\/ipad-9-wifi-trang-1-750x500.jpg\"]}', 6),
+(49, 26, '/userfiles/image/tablet/oppo-pad-neo-xam-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:59:45', '2024-11-18 16:01:39', '[\"5\"]', '1731945528', NULL, 0, '{\"5\":[\"59\",\"5\"]}', '{\"quantity\":[null,null],\"sku\":[\"1731945528-59\",\"1731945528-5\"],\"price\":[null,null],\"barcode\":[null,null],\"file_name\":[null,null],\"file_url\":[null,null],\"album\":[\"\\/userfiles\\/image\\/tablet\\/oppo-pad-neo-xam-1-750x500.jpg\",\"\\/userfiles\\/image\\/tablet\\/oppo-pad-neo-xam-1-750x500.jpg\"]}', 12),
+(50, 27, '/userfiles/image/tablet/samsung-galaxy-tab-s10-ultra-sliver-1-638629880095543985-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:01:37', '2024-11-18 16:01:37', '[\"5\"]', '1731945637', NULL, 0, '{\"5\":[\"23\"]}', '{\"quantity\":[null],\"sku\":[\"1731945637-23\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/tablet\\/samsung-galaxy-tab-s10-ultra-sliver-1-638629880095543985-750x500.jpg\"]}', 12),
+(51, 28, '/userfiles/image/tablet/lenovo-tab-plus-5-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:03:13', '2024-11-18 16:03:15', '[\"5\"]', '1731945750', NULL, 0, '{\"5\":[\"23\"]}', '{\"quantity\":[null],\"sku\":[\"1731945750-23\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/tablet\\/lenovo-tab-plus-5-750x500.jpg\"]}', 0),
+(52, 29, '/userfiles/image/tablet/tcl-tab-11-den-5-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:04:44', '2024-11-18 16:04:46', '[\"5\"]', '1731945848', NULL, 0, '{\"5\":[\"23\"]}', '{\"quantity\":[null],\"sku\":[\"1731945848-23\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/tablet\\/tcl-tab-11-den-5-750x500.jpg\"]}', 0),
+(53, 31, '/userfiles/image/may-in/may-in-phun-mau-canon-pixma-gm2070-1-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:07:41', '2024-11-18 16:09:15', '[\"13\"]', '1731946014', NULL, 0, '{\"13\":[\"60\"]}', '{\"quantity\":[null],\"sku\":[\"1731946014-60\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/may-in\\/may-in-phun-mau-canon-pixma-gm2070-1-1-750x500.jpg\"]}', 12),
+(54, 32, '/userfiles/image/may-in/laser-trang-den-hp-107a-4zb77a-2-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:09:13', '2024-11-18 16:09:13', '[\"13\"]', '1731946119', NULL, 0, '{\"13\":[\"61\"]}', '{\"quantity\":[null],\"sku\":[\"1731946119-61\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/may-in\\/laser-trang-den-hp-107a-4zb77a-2-1-750x500.jpg\"]}', 0),
+(55, 33, '/userfiles/image/may-in/may-in-laser-brother-hl-l2321d-xam-1-1-700x467.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:10:52', '2024-11-18 16:10:52', '[\"13\"]', '1731946228', NULL, 0, '{\"13\":[\"62\"]}', '{\"quantity\":[null],\"sku\":[\"1731946228-62\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/may-in\\/may-in-laser-brother-hl-l2321d-xam-1-1-700x467.jpg\"]}', 0),
+(56, 34, '/userfiles/image/may-in/phun-mau-epson-ecotank-l1210-c11cj70501-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:12:45', '2024-11-18 16:12:45', '[\"13\"]', '1731946341', NULL, 0, '{\"13\":[\"63\"]}', '{\"quantity\":[null],\"sku\":[\"1731946341-63\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/may-in\\/phun-mau-epson-ecotank-l1210-c11cj70501-1-750x500.jpg\"]}', 0),
+(57, 36, '/userfiles/image/camera-ip-360-do-1080p-ezviz-c6n-trang-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:21:50', '2024-11-18 16:21:50', '[\"14\"]', '1731946884', NULL, 0, '{\"14\":[\"64\"]}', '{\"quantity\":[null],\"sku\":[\"1731946884-64\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/camera-ip-360-do-1080p-ezviz-c6n-trang-1-750x500.jpg\"]}', 0),
+(58, 37, '/userfiles/image/camera-ip-360-do-3mp-imou-ta32-trang-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:23:50', '2024-11-18 16:23:51', '[\"14\"]', '1731947004', NULL, 0, '{\"14\":[\"64\"]}', '{\"quantity\":[null],\"sku\":[\"1731947004-64\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/camera-ip-360-do-3mp-imou-ta32-trang-1-750x500.jpg\"]}', 12),
+(59, 38, '/userfiles/image/camera-ip-360-do-3mp-botslab-c212-1-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:25:54', '2024-11-18 16:25:54', '[\"13\"]', '1731947118', NULL, 0, '{\"13\":[\"65\"]}', '{\"quantity\":[null],\"sku\":[\"1731947118-65\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/camera-ip-360-do-3mp-botslab-c212-1-1-750x500.jpg\"]}', 12),
+(60, 43, '/userfiles/image/man-hinh/asus-vg249q3a-23-8-inch-fhd-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:31:46', '2024-11-18 16:49:08', '[\"15\"]', '1731947457', NULL, 0, '{\"15\":[\"66\"]}', '{\"quantity\":[null],\"sku\":[\"1731947457-66\"],\"price\":[\"35.000.000\"],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[\"\\/userfiles\\/image\\/man-hinh\\/asus-vg249q3a-23-8-inch-fhd-1-750x500.jpg\"]}', 0),
+(61, 42, '/userfiles/image/man-hinh/msi-pro-mp225-2145-inch-fhd-den-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:33:46', '2024-11-21 15:09:07', '[\"15\"]', '1731947587', NULL, 0, '{\"15\":[\"66\"]}', '{\"quantity\":[null],\"sku\":[\"1731947587-66\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[null]}', 0),
+(67, 42, '/userfiles/image/laptop/399.png', NULL, '[\"\\/userfiles\\/image\\/laptop\\/396.png\"]', 1, -1, 0, 201014, NULL, '2024-11-20 10:26:30', '2024-11-21 16:01:51', '[\"1\"]', '1732098062', 'Hàn Quốc', 0, '{\"1\":[\"2\"]}', '{\"quantity\":[null],\"sku\":[\"1732098062-2\"],\"price\":[null],\"barcode\":[null],\"file_name\":[null],\"file_url\":[null],\"album\":[null]}', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_attribute`
+--
+
+CREATE TABLE `product_attribute` (
+  `product_id` bigint UNSIGNED NOT NULL,
+  `attribute_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_attribute`
+--
+
+INSERT INTO `product_attribute` (`product_id`, `attribute_id`) VALUES
+(67, 2),
+(67, 8),
+(61, 7),
+(61, 2),
+(61, 64),
+(67, 64),
+(67, 18);
 
 -- --------------------------------------------------------
 
@@ -1911,9 +2247,9 @@ CREATE TABLE `product_catalogues` (
   `lft` int NOT NULL DEFAULT '0',
   `rgt` int NOT NULL DEFAULT '0',
   `level` int NOT NULL DEFAULT '0',
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '1',
   `follow` tinyint NOT NULL DEFAULT '1',
   `order` int NOT NULL DEFAULT '0',
@@ -1929,11 +2265,44 @@ CREATE TABLE `product_catalogues` (
 --
 
 INSERT INTO `product_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `image`, `icon`, `album`, `publish`, `follow`, `order`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `attribute`) VALUES
-(1, 0, 2, 7, 1, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-09 08:00:56', '2024-11-13 10:23:29', '{\"1\": {\"0\": \"3\", \"1\": \"4\", \"2\": \"13\", \"3\": \"18\", \"4\": \"17\", \"5\": \"2\", \"6\": \"19\", \"7\": \"14\", \"8\": \"16\", \"14\": \"15\"}, \"3\": [\"8\", \"9\"], \"5\": [\"7\"]}'),
-(2, 0, 8, 9, 1, '/thuongmaidientu/public/userfiles/image/sac-dien-thoai/cu-sac-nhanh-iphone-20w-pd-type.png', NULL, '', 1, 1, 0, 201014, NULL, '2024-08-26 19:19:29', '2024-11-13 10:23:47', '{\"1\": [\"2\", \"13\"]}'),
-(3, 1, 5, 6, 2, '/thuongmaidientu/public/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_12__2.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-23 11:40:38', '2024-11-13 10:23:29', '{\"1\": [\"4\", \"14\", \"16\", \"17\", \"13\", \"15\"]}'),
-(4, 3, 4, 5, 3, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, '2024-09-25 18:34:33', '2024-09-23 17:47:26', '2024-09-25 18:34:33', 'null'),
-(5, 1, 3, 4, 2, '/thuongmaidientu/public/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-10-03 07:02:08', '2024-11-13 10:23:17', '{\"1\": [\"3\", \"4\", \"13\", \"18\", \"17\", \"2\", \"19\"], \"3\": [\"8\", \"9\"], \"5\": [\"7\"]}');
+(4, 0, 72, 77, 1, '/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 15:56:02', '2024-11-18 17:01:25', '{\"1\": [\"31\", \"37\", \"38\", \"39\", \"32\", \"33\", \"24\", \"25\", \"26\", \"27\", \"14\", \"19\", \"20\", \"21\"], \"3\": [\"15\", \"28\"], \"4\": [\"41\", \"34\", \"29\", \"13\"], \"5\": [\"5\", \"7\", \"22\", \"23\"], \"6\": [\"35\", \"17\"], \"8\": [\"42\", \"36\", \"30\", \"18\"]}'),
+(5, 4, 75, 76, 2, '/userfiles/image/iphone-15-pro-max/iphone-15-pro-max_3.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:17:36', '2024-11-18 15:29:48', '{\"1\": [\"24\", \"25\", \"26\", \"27\", \"14\", \"19\", \"20\", \"21\"], \"3\": [\"28\", \"15\"], \"4\": [\"29\", \"13\"], \"5\": [\"7\", \"23\", \"5\", \"22\"], \"6\": [\"17\"], \"8\": [\"30\", \"18\"]}'),
+(6, 4, 73, 74, 2, '/userfiles/image/samsung-galaxy-s24-ultra-1tb/samsung-galaxy-s24-ultra_10__2.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-06 16:30:49', '2024-11-18 15:29:48', '{\"1\": [\"31\", \"37\", \"38\", \"39\", \"32\", \"33\"], \"3\": [\"15\", \"28\"], \"4\": [\"41\", \"34\"], \"5\": [\"5\", \"7\", \"22\"], \"6\": [\"35\"], \"8\": [\"42\", \"36\"]}'),
+(7, 0, 66, 71, 1, '/userfiles/image/Laptop%20HP/hp-15s-fq5229tu-i3-8u237pa-glr-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-10 02:30:40', '2024-11-18 15:29:48', '{\"5\": [\"7\"]}'),
+(8, 7, 69, 70, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-09-10 02:30:51', '2024-11-18 15:29:48', NULL),
+(9, 7, 67, 68, 2, '/userfiles/image/Laptop%20HP/hp-15s-fq5229tu-i3-8u237pa-glr-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-10-04 06:52:44', '2024-11-18 15:29:48', '{\"5\": [\"7\"]}'),
+(10, 0, 52, 65, 1, '/userfiles/image/tai-nghe/tai-nghe-bluetooth-chup-tai-soundcore-h30i-a3012-den-1-638630427313456762-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:10:43', '2024-11-18 17:01:49', '{\"1\": [\"31\", \"4\"], \"3\": [\"46\", \"47\", \"49\"], \"4\": [\"48\"], \"9\": [\"43\"], \"10\": [\"44\"], \"11\": [\"45\"]}'),
+(11, 10, 63, 64, 2, '/userfiles/image/sac-du-phong/pin-sac-du-phong-polymer-20000mah-type-c-10-5w-ava-g-dx258-den-1-638671778558277338-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:12:00', '2024-11-18 16:04:01', '{\"10\": [\"44\"], \"11\": [\"45\"]}'),
+(12, 10, 61, 62, 2, '/userfiles/image/tai-nghe/tai-nghe-bluetooth-chup-tai-soundcore-h30i-a3012-den-1-638630427313456762-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:12:52', '2024-11-18 16:04:01', '{\"9\": [\"43\"]}'),
+(13, 10, 59, 60, 2, '/userfiles/image/but-tablet/but-cam-ung-apple-pencil-2-apple-mu8f2-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:22:33', '2024-11-18 16:04:01', '{\"1\": [\"31\"]}'),
+(14, 10, 57, 58, 2, '/userfiles/image/tui-dung-airpods/tui-dung-airpods-pro-2-nhua-pc-tpu-uniq-clyde-lock-case-xanh-mint-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:27:03', '2024-11-18 16:04:01', '{\"3\": [\"46\"]}'),
+(15, 10, 55, 56, 2, '/userfiles/image/mieng-dan-camera/mieng-dan-camera-iphone-16-pro-16-pro-max-optix-aluminium-uniq-den-1-638629654032750948-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:29:41', '2024-11-18 16:04:01', '{\"3\": [\"47\"]}'),
+(16, 10, 53, 54, 2, '/userfiles/image/day-dong-ho/day-mvw-sl100-01-da-den-3-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:32:53', '2024-11-18 16:04:01', '{\"1\": [\"4\"], \"3\": [\"49\"], \"4\": [\"48\"]}'),
+(17, 0, 44, 51, 1, '/userfiles/image/smartwatch/huawei-watch-gt-5-xanh-1-638626892782150981-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:37:03', '2024-11-18 16:39:41', '{\"3\": [\"51\"], \"4\": [\"50\", \"52\", \"53\"]}'),
+(18, 17, 49, 50, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:40:34', '2024-11-18 16:04:01', '{\"3\": [\"51\"], \"4\": [\"50\"]}'),
+(19, 17, 47, 48, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:41:45', '2024-11-18 16:04:01', '{\"4\": [\"52\"]}'),
+(20, 17, 45, 46, 2, '/userfiles/image/smartwatch/mi-band-8-vang-glr-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:45:21', '2024-11-18 16:04:01', '{\"4\": [\"53\"]}'),
+(21, 0, 38, 43, 1, '/userfiles/image/dong-ho/citizen-nj0150-81x-nam-1-750x500.jpeg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:48:28', '2024-11-18 17:01:03', '{\"3\": [\"56\"], \"4\": [\"54\", \"52\"], \"12\": [\"55\", \"58\"]}'),
+(22, 21, 41, 42, 2, '/userfiles/image/dong-ho/casio-ltp-1129a-7ardf-bac-2-2-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:49:03', '2024-11-18 16:29:44', '{\"3\": [\"56\"], \"4\": [\"54\"], \"12\": [\"55\"]}'),
+(23, 21, 39, 40, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:51:39', '2024-11-18 16:29:44', '{\"4\": [\"52\"], \"12\": [\"58\"]}'),
+(24, 0, 26, 37, 1, '/userfiles/image/tablet/samsung-galaxy-tab-s10-ultra-sliver-1-638629880095543985-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:55:51', '2024-11-18 16:41:53', '{\"5\": [\"59\", \"5\", \"23\"]}'),
+(25, 24, 35, 36, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:56:19', '2024-11-18 16:29:44', '{\"5\": [\"59\"]}'),
+(26, 24, 33, 34, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 15:58:24', '2024-11-18 16:29:44', '{\"5\": [\"59\", \"5\"]}'),
+(27, 24, 31, 32, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:00:32', '2024-11-18 16:29:44', '{\"5\": [\"23\"]}'),
+(28, 24, 29, 30, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:02:27', '2024-11-18 16:29:44', '{\"5\": [\"23\"]}'),
+(29, 24, 27, 28, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:03:57', '2024-11-18 16:29:44', '{\"5\": [\"23\"]}'),
+(30, 0, 16, 25, 1, '/userfiles/image/may-in/may-in-phun-mau-canon-pixma-gm2070-1-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:05:30', '2024-11-18 17:00:41', '{\"13\": [\"60\", \"61\", \"62\", \"63\"]}'),
+(31, 30, 23, 24, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:06:02', '2024-11-18 16:29:44', '{\"13\": [\"60\"]}'),
+(32, 30, 21, 22, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:08:16', '2024-11-18 16:29:44', '{\"13\": [\"61\"]}'),
+(33, 30, 19, 20, 2, '/userfiles/image/may-in/may-in-laser-brother-hl-l2321d-xam-1-1-700x467.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:10:05', '2024-11-18 16:29:44', '{\"13\": [\"62\"]}'),
+(34, 30, 17, 18, 2, '/userfiles/image/may-in/phun-mau-epson-ecotank-l1210-c11cj70501-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:11:59', '2024-11-18 16:29:44', '{\"13\": [\"63\"]}'),
+(35, 0, 8, 15, 1, '/userfiles/image/camera/camera-ip-360-do-3mp-botslab-c212-1-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:19:16', '2024-11-18 16:43:21', '{\"13\": [\"65\"], \"14\": [\"64\"]}'),
+(36, 35, 13, 14, 2, '/userfiles/image/camera-ip-360-do-1080p-ezviz-c6n-trang-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:20:18', '2024-11-18 16:29:44', '{\"14\": [\"64\"]}'),
+(37, 35, 11, 12, 2, '/userfiles/image/camera-ip-360-do-3mp-imou-ta32-trang-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:23:17', '2024-11-18 16:29:44', '{\"14\": [\"64\"]}'),
+(38, 35, 9, 10, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:24:34', '2024-11-18 16:29:44', '{\"13\": [\"65\"]}'),
+(42, 0, 2, 7, 1, '/userfiles/image/man-hinh/asus-vg249q3a-23-8-inch-fhd-1-750x500.jpg', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:29:38', '2024-11-21 16:01:51', '{\"1\": [\"2\"], \"5\": [], \"7\": [], \"15\": [\"66\"]}'),
+(43, 42, 5, 6, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:32:02', '2024-11-18 16:33:51', '{\"15\": [\"66\"]}'),
+(44, 42, 3, 4, 2, 'backend/img/no-photo.png', NULL, '', 1, -1, 0, 201014, NULL, '2024-11-18 16:32:56', '2024-11-18 16:33:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -1944,13 +2313,13 @@ INSERT INTO `product_catalogues` (`id`, `parent_id`, `lft`, `rgt`, `level`, `ima
 CREATE TABLE `product_catalogue_language` (
   `product_catalogue_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `content` longtext COLLATE utf8mb4_general_ci,
-  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_description` text COLLATE utf8mb4_general_ci,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -1961,11 +2330,44 @@ CREATE TABLE `product_catalogue_language` (
 --
 
 INSERT INTO `product_catalogue_language` (`product_catalogue_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 1, 'Sạc điện thoại', '<ul>\r\n	<li>C&ocirc;ng nghệ PD sạc cho c&aacute;c sản phẩm Apple nhanh ch&oacute;ng</li>\r\n	<li>Cổng Type-C c&ocirc;ng suất 20W gi&uacute;p tiết kiệm nhiều thời gian</li>\r\n	<li>Thiết kế chuẩn thương hiệu Apple nhỏ gọn v&agrave; sang trọng</li>\r\n	<li>Bảo vệ qu&aacute; d&ograve;ng, tr&aacute;nh hiện tượng chập mạch, qu&aacute; nhiệt</li>\r\n</ul>', '<h2><strong>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tiết kiệm tối đa thời gian sạc điện thoại</strong></h2>\r\n\r\n<p>Nhanh ch&oacute;ng, tiết kiệm tối đa thời gian l&agrave; những g&igrave; m&agrave; người d&ugrave;ng iPhone mong đợi ở chiếc sạc pin của m&igrave;nh. Để c&oacute; thể l&agrave;m được điều đ&oacute; th&igrave; việc sử dụng củ sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng l&agrave; điều cần thiết m&agrave; bạn kh&ocirc;ng n&ecirc;n bỏ qua.</p>\r\n\r\n<h3><strong>Thiết kế nhỏ gọn, an to&agrave;n d&ograve;ng điện</strong></h3>\r\n\r\n<p><a href=\"https://cellphones.com.vn/phu-kien/sac-dien-thoai/sac/sac-nhanh-power-delivery.html\" target=\"_blank\" title=\"Củ sạc nhanh\">Củ sạc nhanh</a>&nbsp;Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng được thiết kế si&ecirc;u nhỏ gọn, tinh tế gi&uacute;p bạn c&oacute; thể mang đến bất cứ nơi đ&acirc;u. Chất liệu cao cấp c&ugrave;ng m&agrave;u trắng nổi bật mang đến sự sang trọng v&agrave; độ bền bỉ c&ugrave;ng với thời gian.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-1.jpg\" /></p>\r\n\r\n<p>Củ sạc c&ograve;n c&oacute; khả năng bảo vệ sản phẩm tr&aacute;nh qu&aacute; d&ograve;ng, qu&aacute; điện &aacute;p hay hiện tượng mạch điện bị chập v&agrave; qu&aacute; nhiệt trong qu&aacute; tr&igrave;nh sạc. Sản phẩm được kiểm định khắt khe v&agrave; được cấp chứng chỉ an to&agrave;n ch&aacute;y nổ: ROSH, CE, FCC gi&uacute;p đảm đảm an to&agrave;n cho người sử dụng.</p>\r\n\r\n<p><em>&gt;&gt;&gt;&nbsp;<strong>Xem th&ecirc;m</strong>:&nbsp;<a href=\"https://cellphones.com.vn/de-sac-doi-apple-magsafe-mhxf3.html\" target=\"_blank\">Sạc đ&ocirc;i Apple MagSafe Duo</a>&nbsp;| Ch&iacute;nh h&atilde;ng Apple Việt Nam mang đến một thiết kế sang trọng, vượt trội</em></p>\r\n\r\n<h3><strong>C&ocirc;ng suất sạc nhanh, v&ocirc; c&ugrave;ng tiện &iacute;ch</strong></h3>\r\n\r\n<p>Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng c&oacute; c&ocirc;ng suất l&ecirc;n đến 20W. C&ocirc;ng nghệ sạc nhanh Power Delivery (PD) n&agrave;y gi&uacute;p người d&ugrave;ng c&oacute; thể tiết kiệm được nhiều thời gian d&agrave;nh cho việc chờ đợi pin đầy.</p>\r\n\r\n<p><img alt=\"Sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA chính hãng tiết kiệm tối đa thời gian sạc điện thoại\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/phu-kien/cu-sac/Apple/cu-sac-nhanh-iphone-20w-pd-type-c-2.jpg\" /></p>\r\n\r\n<p>Ngo&agrave;i ra, sạc c&ograve;n được trang bị cổng Type-C mang đến sự thuận tiện khi sử dụng. C&ocirc;ng nghệ Power Delivery (PD) c&oacute; thể sạc tr&ecirc;n c&aacute;c thiết bị như iPhone 12, iPhone 12 Mini, iPhone 12 Pro, iPhone 12 Pro max hay c&aacute;c d&ograve;ng điện thoại iPhone 11 Series,&hellip;</p>\r\n\r\n<h2><strong>Mua ngay sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng tại CellphoneS</strong></h2>\r\n\r\n<p>Để mua sạc nhanh Apple iPhone 20W Type-C PD MHJE3ZA ch&iacute;nh h&atilde;ng với chất lượng đảm bảo, chế độ bảo h&agrave;nh tốt nhất v&agrave; gi&aacute; cả cạnh tranh bạn h&atilde;y đến ngay hệ thống cửa h&agrave;ng của CellphoneS. Để c&oacute; thể tư vấn th&ecirc;m về sản phẩm cũng như h&igrave;nh thức mua h&agrave;ng, bạn h&atilde;y li&ecirc;n hệ tới số hotline hoặc tham khảo th&ecirc;m th&ocirc;ng tin tại website của CellphoneS nh&eacute;. Khi mua sạc&nbsp;&nbsp;iPhone 20W Type-C PD MHJE3ZA tại CellphoneS, kh&aacute;ch h&agrave;ng c&oacute; thể mua trả g&oacute;p với l&atilde;i suất từ 0% c&ugrave;ng với đ&oacute;, sản phẩm sẽ được bảo h&agrave;nh h&iacute;nh h&atilde;ng 12 th&aacute;ng tại trung t&acirc;m bảo h&agrave;nh ủy quyền Cares.vn</p>', NULL, NULL, NULL, 'sac-dien-thoai', '2024-09-20 15:22:46', '2024-09-20 15:22:46', NULL),
-(1, 1, 'Điện thoại', NULL, NULL, NULL, NULL, NULL, 'dien-thoai', '2024-09-20 15:22:58', '2024-09-20 15:22:58', NULL),
-(3, 1, 'Samsung', NULL, NULL, NULL, NULL, NULL, 'samsung', '2024-09-23 11:40:38', '2024-09-23 11:40:38', NULL),
-(4, 1, 'Samsung đời cũ', NULL, NULL, NULL, NULL, NULL, 'samsung-doi-cu', '2024-09-23 17:47:26', '2024-09-23 17:47:26', NULL),
-(5, 1, 'Iphone', NULL, NULL, NULL, NULL, NULL, 'iphone', '2024-10-03 07:02:08', '2024-10-03 07:02:08', NULL);
+(8, 1, 'MSI', NULL, NULL, NULL, NULL, NULL, 'msi', '2024-09-10 02:30:51', '2024-09-10 02:30:51', NULL),
+(7, 1, 'Laptop', NULL, NULL, NULL, NULL, NULL, 'laptop', '2024-11-02 11:15:30', '2024-11-02 11:15:30', NULL),
+(6, 1, 'Samsung', NULL, NULL, NULL, NULL, NULL, 'samsung', '2024-11-02 11:15:49', '2024-11-02 11:15:49', NULL),
+(5, 1, 'Iphone', NULL, NULL, NULL, NULL, NULL, 'iphone', '2024-11-02 11:16:03', '2024-11-02 11:16:03', NULL),
+(9, 1, 'HP', NULL, NULL, NULL, NULL, NULL, 'hp', '2024-11-02 11:16:19', '2024-11-02 11:16:19', NULL),
+(11, 1, 'Sạc dự phòng', NULL, NULL, NULL, NULL, NULL, 'sac-du-phong', '2024-11-18 15:12:00', '2024-11-18 15:12:00', NULL),
+(12, 1, 'Tai nghe', NULL, NULL, NULL, NULL, NULL, 'tai-nghe', '2024-11-18 15:12:52', '2024-11-18 15:12:52', NULL),
+(13, 1, 'Bút Tablet', NULL, NULL, NULL, NULL, NULL, 'but-tablet', '2024-11-18 15:22:33', '2024-11-18 15:22:33', NULL),
+(14, 1, 'Túi đựng Airpods', NULL, NULL, NULL, NULL, NULL, 'tui-dung-airpods', '2024-11-18 15:27:03', '2024-11-18 15:27:03', NULL),
+(15, 1, 'Miếng dán camera', NULL, NULL, NULL, NULL, NULL, 'mieng-dan-camera', '2024-11-18 15:29:41', '2024-11-18 15:29:41', NULL),
+(16, 1, 'Dây đồng hồ', NULL, NULL, NULL, NULL, NULL, 'day-dong-ho', '2024-11-18 15:32:53', '2024-11-18 15:32:53', NULL),
+(18, 1, 'Huawei', NULL, NULL, NULL, NULL, NULL, 'huawei', '2024-11-18 15:40:34', '2024-11-18 15:40:34', NULL),
+(19, 1, 'Samsung', NULL, NULL, NULL, NULL, NULL, 'samsung-watch', '2024-11-18 15:44:27', '2024-11-18 15:44:27', NULL),
+(20, 1, 'Xiaomi', NULL, NULL, NULL, NULL, NULL, 'xiaomi', '2024-11-18 15:45:21', '2024-11-18 15:45:21', NULL),
+(22, 1, 'Casio', NULL, NULL, NULL, NULL, NULL, 'casio', '2024-11-18 15:49:03', '2024-11-18 15:49:03', NULL),
+(23, 1, 'CITIZEN', NULL, NULL, NULL, NULL, NULL, 'citizen', '2024-11-18 15:51:39', '2024-11-18 15:51:39', NULL),
+(25, 1, 'iPad', NULL, NULL, NULL, NULL, NULL, 'ipad', '2024-11-18 15:56:19', '2024-11-18 15:56:19', NULL),
+(26, 1, 'OPPO Pad', NULL, NULL, NULL, NULL, NULL, 'oppo-pad', '2024-11-18 15:58:24', '2024-11-18 15:58:24', NULL),
+(27, 1, 'Samsung Galaxy Tab', NULL, NULL, NULL, NULL, NULL, 'samsung-galaxy-tab', '2024-11-18 16:00:32', '2024-11-18 16:00:32', NULL),
+(28, 1, 'Lenovo Tab', NULL, NULL, NULL, NULL, NULL, 'lenovo-tab', '2024-11-18 16:02:27', '2024-11-18 16:02:27', NULL),
+(29, 1, 'TCL Tab', NULL, NULL, NULL, NULL, NULL, 'tcl-tab', '2024-11-18 16:03:57', '2024-11-18 16:03:57', NULL),
+(31, 1, 'Máy in Canon', NULL, NULL, NULL, NULL, NULL, 'may-in-canon', '2024-11-18 16:06:02', '2024-11-18 16:06:02', NULL),
+(32, 1, 'Máy in HP', NULL, NULL, NULL, NULL, NULL, 'may-in-hp', '2024-11-18 16:08:16', '2024-11-18 16:08:16', NULL),
+(33, 1, 'Máy in Brother', NULL, NULL, NULL, NULL, NULL, 'may-in-brother', '2024-11-18 16:10:05', '2024-11-18 16:10:05', NULL),
+(34, 1, 'Máy in EPSON', NULL, NULL, NULL, NULL, NULL, 'may-in-epson', '2024-11-18 16:11:59', '2024-11-18 16:11:59', NULL),
+(36, 1, 'Camera giám sát EZVIZ', NULL, NULL, NULL, NULL, NULL, 'camera-giam-sat-ezviz', '2024-11-18 16:20:18', '2024-11-18 16:20:18', NULL),
+(37, 1, 'Camera giám sát Imou', NULL, NULL, NULL, NULL, NULL, 'camera-giam-sat-imou', '2024-11-18 16:23:17', '2024-11-18 16:23:17', NULL),
+(38, 1, 'Camera giám sát BOTSLAB', NULL, NULL, NULL, NULL, NULL, 'camera-giam-sat-botslab', '2024-11-18 16:24:34', '2024-11-18 16:24:34', NULL),
+(43, 1, 'Màn hình máy tính Asus', NULL, NULL, NULL, NULL, NULL, 'man-hinh-may-tinh-asus', '2024-11-18 16:32:02', '2024-11-18 16:32:02', NULL),
+(44, 1, 'Màn hình máy tính MSI', NULL, NULL, NULL, NULL, NULL, 'man-hinh-may-tinh-msi', '2024-11-18 16:32:56', '2024-11-18 16:32:56', NULL),
+(17, 1, 'Smartwatch', NULL, NULL, NULL, NULL, NULL, 'smartwatch', '2024-11-18 16:39:41', '2024-11-18 16:39:41', NULL),
+(42, 1, 'Màn hình', NULL, NULL, NULL, NULL, NULL, 'man-hinh', '2024-11-18 16:41:20', '2024-11-18 16:41:20', NULL),
+(24, 1, 'Tablet', NULL, NULL, NULL, NULL, NULL, 'tablet', '2024-11-18 16:41:53', '2024-11-18 16:41:53', NULL),
+(35, 1, 'Camera', NULL, NULL, NULL, NULL, NULL, 'camera', '2024-11-18 16:43:22', '2024-11-18 16:43:22', NULL),
+(30, 1, 'Máy in', NULL, NULL, NULL, NULL, NULL, 'may-in', '2024-11-18 17:00:41', '2024-11-18 17:00:41', NULL),
+(21, 1, 'Đồng hồ', NULL, NULL, NULL, NULL, NULL, 'dong-ho', '2024-11-18 17:01:03', '2024-11-18 17:01:03', NULL),
+(4, 1, 'Điện thoại', NULL, NULL, NULL, NULL, NULL, 'dien-thoai', '2024-11-18 17:01:25', '2024-11-18 17:01:25', NULL),
+(10, 1, 'Phụ kiện', NULL, NULL, NULL, NULL, NULL, 'phu-kien', '2024-11-18 17:01:49', '2024-11-18 17:01:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -1983,16 +2385,38 @@ CREATE TABLE `product_catalogue_product` (
 --
 
 INSERT INTO `product_catalogue_product` (`product_catalogue_id`, `product_id`) VALUES
-(1, 20),
-(2, 26),
-(2, 31),
-(3, 28),
-(3, 27),
-(1, 32),
-(2, 33),
-(5, 29),
 (5, 30),
-(1, 31);
+(5, 31),
+(6, 32),
+(6, 33),
+(9, 34),
+(12, 35),
+(11, 36),
+(13, 38),
+(14, 39),
+(15, 40),
+(15, 41),
+(16, 42),
+(18, 43),
+(19, 44),
+(20, 45),
+(22, 46),
+(23, 47),
+(25, 48),
+(26, 49),
+(27, 50),
+(28, 51),
+(29, 52),
+(31, 53),
+(32, 54),
+(33, 55),
+(34, 56),
+(36, 57),
+(37, 58),
+(38, 59),
+(43, 60),
+(42, 61),
+(42, 67);
 
 -- --------------------------------------------------------
 
@@ -2010,14 +2434,19 @@ CREATE TABLE `product_catalogue_supplier` (
 --
 
 INSERT INTO `product_catalogue_supplier` (`product_catalogue_id`, `supplier_id`) VALUES
-(1, 2),
-(2, 2),
-(3, 2),
-(5, 2),
-(1, 3),
-(2, 3),
-(3, 3),
-(5, 3);
+(5, 19),
+(6, 20),
+(8, 21),
+(9, 21),
+(9, 22),
+(5, 22),
+(6, 22),
+(5, 23),
+(6, 23),
+(7, 23),
+(9, 23),
+(8, 20),
+(16, 19);
 
 -- --------------------------------------------------------
 
@@ -2028,13 +2457,13 @@ INSERT INTO `product_catalogue_supplier` (`product_catalogue_id`, `supplier_id`)
 CREATE TABLE `product_language` (
   `product_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `content` longtext COLLATE utf8mb4_general_ci,
-  `meta_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_keyword` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_description` text COLLATE utf8mb4_general_ci,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `meta_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -2045,20 +2474,38 @@ CREATE TABLE `product_language` (
 --
 
 INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(20, 1, 'SP-TEST 123', NULL, NULL, NULL, NULL, NULL, 'sp-test', '2024-08-24 07:53:59', '2024-08-24 07:53:59', NULL),
-(20, 2, 'SP-TEST 123 EN', NULL, NULL, NULL, NULL, NULL, 'sp-test-en', '2024-08-26 09:04:07', '2024-08-26 09:04:07', NULL),
-(26, 1, 'Sạc Iphone', NULL, NULL, NULL, NULL, NULL, 'sac-iphone', '2024-09-08 02:01:11', '2024-09-08 02:01:11', NULL),
-(30, 2, 'iPhone 13 128GB', '<p>Short description</p>', '<p>Long description</p>', 'iPhone 13 128GB', 'iPhone 13 128GB', 'Description SEO', 'iphone-13-128gb-en', '2024-09-08 15:48:32', '2024-09-08 15:48:32', NULL),
-(32, 1, 'test567', NULL, NULL, NULL, NULL, NULL, 'test567', '2024-09-30 08:12:57', '2024-09-30 08:12:57', NULL),
-(33, 1, 'Test 6465yu', NULL, NULL, NULL, NULL, NULL, 'test-6465yu', '2024-09-30 08:34:18', '2024-09-30 08:34:18', NULL),
-(30, 1, 'iPhone 13 128GB | Chính hãng VN/A', '<h2>Đặc điểm nổi bật của iPhone 13 128GB | Ch&iacute;nh h&atilde;ng VN/A</h2>\r\n\r\n<ul>\r\n	<li>Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G tốc độ cao</li>\r\n	<li>Kh&ocirc;ng gian hiển thị sống động - M&agrave;n h&igrave;nh 6.1&quot; Super Retina XDR độ s&aacute;ng cao, sắc n&eacute;t</li>\r\n	<li>Trải nghiệm điện ảnh đỉnh cao - Camera k&eacute;p 12MP, hỗ trợ ổn định h&igrave;nh ảnh quang học</li>\r\n	<li>Tối ưu điện năng - Sạc nhanh 20 W, đầy 50% pin trong khoảng 30 ph&uacute;t</li>\r\n</ul>', '<h2><strong>Đ&aacute;nh gi&aacute; iPhone 13 - Flagship được mong chờ năm 2021</strong></h2>\r\n\r\n<p>Cuối năm 2020, bộ 4 iPhone 12 đ&atilde; được ra mắt với nhiều c&aacute;i tiến. Sau đ&oacute;, mọi sự quan t&acirc;m lại đổ dồn v&agrave;o sản phẩm tiếp theo &ndash;&nbsp;<strong>iPhone 13.</strong>&nbsp;Vậy iP&nbsp;13 sẽ c&oacute; những g&igrave; nổi bật, h&atilde;y t&igrave;m hiểu ngay sau đ&acirc;y nh&eacute;!</p>\r\n\r\n<h3><strong>Thiết kế với nhiều đột ph&aacute;</strong></h3>\r\n\r\n<p>Về k&iacute;ch thước, iPhone 13 sẽ c&oacute; 4 phi&ecirc;n bản kh&aacute;c nhau v&agrave; k&iacute;ch thước kh&ocirc;ng đổi so với series iPhone 12 hiện tại. Nếu iPhone 12 c&oacute; sự thay đổi trong thiết kế từ g&oacute;c cạnh bo tr&ograve;n (Thiết kế được duy tr&igrave; từ thời iPhone 6 đến iPhone 11 Pro Max) sang thiết kế vu&ocirc;ng vắn (đ&atilde; từng c&oacute; mặt tr&ecirc;n iPhone 4 đến iPhone 5S, SE).</p>\r\n\r\n<p>Điện thoại&nbsp;<a href=\"https://cellphones.com.vn/iphone-13.html\" target=\"_blank\" title=\"iPhone 13 128GB chính hãng\"><strong>iPhone 13</strong></a>&nbsp;vẫn được duy tr&igrave; một thiết kế tương tự. M&aacute;y&nbsp;vẫn c&oacute; phi&ecirc;n bản khung viền th&eacute;p, một số phi&ecirc;n bản khung nh&ocirc;m c&ugrave;ng mặt lưng k&iacute;nh. Tương tự năm ngo&aacute;i, Apple&nbsp;cũng sẽ cho ra mắt 4 phi&ecirc;n bản l&agrave; iPhone 13, 13 mini, 13 Pro v&agrave; 13 Pro Max.</p>\r\n\r\n<p><img alt=\"Thiết kế với nhiều đột phá\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-1.jpg\" /></p>\r\n\r\n<p>Phần tai thỏ tr&ecirc;n iPhone 13 cũng c&oacute; thay đổi so với thế hệ trước, cụ thể tai thỏ n&agrave;y được l&agrave;m nhỏ hơn so với 20%, trong khi đ&oacute; độ d&agrave;y của m&aacute;y vẫn được giữ nguy&ecirc;n.&nbsp;Điểm kh&aacute;c biệt nhất về thiết kế tr&ecirc;n thế hệ iPhone 2021 n&agrave;y đ&oacute; l&agrave; camera ch&eacute;o.</p>\r\n\r\n<p>M&agrave;u sắc tr&ecirc;n mẫu iPhone mới n&agrave;y cũng đa dạng hơn, trong đ&oacute; nổi bật l&agrave; iPhone 13 m&agrave;u hồng. C&aacute;c m&agrave;u sắc c&ograve;n lại đề đ&atilde; từng được xuất hiện tr&ecirc;n c&aacute;c phi&ecirc;n bản trước đ&oacute; như trắng, đen, đỏ, xanh blue.</p>\r\n\r\n<p><img alt=\"Nhiều màu sắc lựa chọn\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/iphone-13-13.png\" /></p>\r\n\r\n<h3><strong>M&agrave;n h&igrave;nh m&agrave;n h&igrave;nh Super Retina XDR độ s&aacute;ng cao</strong></h3>\r\n\r\n<p>Điện thoại iPhone 13 sẽ được sử dụng tấm nền OLED chất lượng cao v&agrave; c&oacute; k&iacute;ch thước 6.1 inch, lớn hơn&nbsp;<strong><a href=\"https://cellphones.com.vn/iphone-13-mini.html\" target=\"_blank\">iPhone 13 mini</a></strong>&nbsp;(5.4 inch). Với tấm nền n&agrave;y với c&ocirc;ng nghệ ProMotion gi&uacute;p iPhone 13 tiết kiệm pin đến tối đa khi sử dụng. Người d&ugrave;ng cũng c&oacute; thể dễ d&agrave;ng điều chỉnh tốc độ l&agrave;m tươi t&ugrave;y theo &yacute; th&iacute;ch.</p>\r\n\r\n<p><img alt=\"Màn hình tần số quét 120Hz, sự xuất hiện lại của TouchID\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-2.jpg\" /></p>\r\n\r\n<p>Về khả năng hiển thị, mang đến chất lượng hiển thị vượt trội với m&agrave;n h&igrave;nh OLED độ ph&acirc;n giải cao, độ s&aacute;ng lớn. Nhờ đ&oacute; người d&ugrave;ng c&oacute; thể nh&igrave;n r&otilde; trong nhiều điều kiện s&aacute;ng kh&aacute;c nhau, kể cả ngo&agrave;i trời.</p>\r\n\r\n<p>Cụ thể, m&agrave;n h&igrave;nh&nbsp;Super Retina XDR với độ s&aacute;ng cao l&ecirc;n đ&ecirc;n 800 nits, v&agrave; tối đa c&oacute; thể l&ecirc;n tới&nbsp;1200 nits c&ugrave;ng dải m&agrave;u rộng P3, tỉ lệ tương phản lớn. Ph&iacute;a b&ecirc;n ngo&agrave;i m&agrave;n h&igrave;nh được phủ lớp&nbsp;oleophobic gi&uacute;p chống b&aacute;m v&acirc;n tay. Nhờ đ&oacute; hạn chế được c&aacute;c t&igrave;nh trạng b&aacute;m bụi bẩn v&agrave; mồ h&ocirc;i trong qu&aacute; tr&igrave;nh sử dụng.</p>\r\n\r\n<h3><strong>Camera k&eacute;p 12MP, hỗ trợ ổn định h&igrave;nh ảnh quang học</strong></h3>\r\n\r\n<p>iPhone 13 c&oacute; một sự thay đổi lớn về camera so với tr&ecirc;n iPhone 12 Series. Cụ thể, iPhone c&oacute; thể được trang bị ống k&iacute;nh si&ecirc;u rộng mới gi&uacute;p m&aacute;y hiển thị được nhiều chi tiết hơn ở c&aacute;c bức h&igrave;nh thiếu s&aacute;ng.&nbsp;Trong khi đ&oacute; ống k&iacute;nh g&oacute;c rộng c&oacute; thể thu được nhiều s&aacute;ng hơn, l&ecirc;n đến 47% gi&uacute;p chất lượng bức ảnh, video được cải thiện hơn.</p>\r\n\r\n<p>Cụm camera được trang bị t&iacute;nh năng ổn định h&igrave;nh ảnh quang học c&ugrave;ng cảm biến mới, nhờ đ&oacute; bức h&igrave;nh chụp mang lại khả năng ổn định.</p>\r\n\r\n<p><img alt=\"Camera tiềm vọng, hỗ trợ zoom 10x\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-4.jpg\" /></p>\r\n\r\n<p>Số ống k&iacute;nh tr&ecirc;n iPhone 13 vẫn được giữ nguy&ecirc;n so với iPhone 12, chỉ kh&aacute;c về vị tr&iacute; từng ống kinh. Cả hai ống k&iacute;nh vẫn sở hữu độ ph&acirc;n giải 12MP. Trong đ&oacute; camera g&oacute;c rộng được trang bị khẩu độ&nbsp;&fnof; / 1.6 trong khi g&oacute;c si&ecirc;u rộng l&agrave;&nbsp;&fnof; / 2.4 c&ugrave;ng g&oacute;c quay 120 độ.</p>\r\n\r\n<p>Với iP13, người d&ugrave;ng c&oacute; thể quay phim chuy&ecirc;n nghiệp với chế độ điện ảnh. Cụm camera n&agrave;y cũng hỗ trợ người d&ugrave;ng chụp c&ugrave;ng l&uacute;c nhiều bức ảnh kh&aacute;c nhau m&agrave; kh&ocirc;ng cần nhấc ng&oacute;n tay. Đặc biệt với chế độ ch&acirc;n dung hỗ trợ l&agrave;m mờ hậu cảnh chuy&ecirc;n nghiệp gi&uacute;p to&agrave;n bức ảnh tập trung v&agrave;o chủ thể m&agrave; người d&ugrave;ng hướng tới.</p>\r\n\r\n<p>Ở chế độ chụp&nbsp;Smart HDR 4, m&aacute;y c&oacute; thể nhận diện được tối đa bốn người kh&aacute;c nhau trong một khung h&igrave;nh. Sau đ&oacute; sẽ tiến h&agrave;nh tối ưu h&oacute;a &aacute;nh s&aacute;ng, độ tương phản v&agrave; tone m&agrave;y cho từng người, mang lại một bức ảnh chất lượng tốt nhất.&nbsp;Nếu sử dụng b&ecirc;n đ&ecirc;m để chụp c&aacute;c bức ảnh thiếu s&aacute;ng, l&uacute;c n&agrave;y chế độ&nbsp;Deep Fusion k&iacute;ch hoạt v&agrave; ph&acirc;n t&iacute;ch chế độ phơi s&aacute;ng ở từng&nbsp;pixel.&nbsp;</p>\r\n\r\n<p><img alt=\"Chế độ điện ảnh chuyên nghiệp\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-5.jpg\" /></p>\r\n\r\n<p>Nhờ đ&oacute;, ảnh chụp tr&ecirc;n điện thoại hứa hẹn mang đến chất lượng như được chụp từ một m&aacute;y ảnh chuy&ecirc;n nghiệp. H&igrave;nh ảnh cho ra với chi tiết r&otilde;, dải nhạy s&aacute;ng cao, m&agrave;u sắc ch&acirc;n thực. Khả năng chụp đ&ecirc;m tr&ecirc;n 13 cũng được cải thiện với khả năng phơi s&aacute;ng tốt hơn mang đến nhi&ecirc;u chi tiết hơn.</p>\r\n\r\n<p>Về camera trước, điện thoại vẫn được trang bị camera đơn nằm trong notch tai thỏ với độ ph&acirc;n giải&nbsp;12MP c&ugrave;ng&nbsp;khẩu độ&nbsp;&fnof; / 2.2. Camera selfie n&agrave;y cũng được trang bị nhiều c&ocirc;ng nghệ chụp ảnh chuy&ecirc;n nghiệp như&nbsp;hiệu ứng bokeh, chế độ điện ảnh,&nbsp;Animoji v&agrave; Memoji,... mang lại những bức h&igrave;nh selfie chất lượng.</p>\r\n\r\n<p><img alt=\"Camera trước 12MP\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-6.jpg\" /></p>\r\n\r\n<h3><strong>Khả năng quay video được cải thiện</strong></h3>\r\n\r\n<p>Về khả năng quay video, iPhone 13 c&oacute; thể hỗ trợ quay video 4K ở tốc độ ở ba tốc độ khung h&igrave;nh kh&aacute;c nhau. M&aacute;y cũng hỗ trợ t&iacute;nh năng ổn định h&igrave;nh ảnh quang học c&ugrave;ng khả năng zoom 3x.&nbsp;Nhờ đ&oacute;, hứa hẹn mang để khả năng quay phim chuy&ecirc;n nghiệp.</p>\r\n\r\n<p><img alt=\"Khả năng quay video được cải thiện\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-7.jpg\" /></p>\r\n\r\n<p>iPhone 13 cũng hỗ trợ nhiều c&ocirc;ng cụ t&ugrave;y chỉnh n&acirc;ng cao với c&ocirc;ng nghệ Dolby Vision c&ugrave;ng khả năng quay Video HDR với độ ph&acirc;n giải 4K. Đặc biệt, người d&ugrave;ng c&oacute; thể l&agrave;m mọi việc tr&ecirc;n chiếc điện thoại n&agrave;y từ quay phim, chỉnh sửa&nbsp;đến&nbsp;render video một c&aacute;ch mượt m&agrave;.</p>\r\n\r\n<h3><strong>Tốc độ 5G tốt hơn với nhiều băng tần</strong></h3>\r\n\r\n<p>Thế hệ iPhone mới được cải thiện chất lượng 5G với nhiều băng tần hơn. Nhờ đ&oacute; việc xem trực tuyến hay tải xuống dữ liệu diễn ra nhanh hơn. Đặc biệt với chế độ dữ liệu th&ocirc;ng minh, thiết bị sẽ tự động ph&aacute;t hiện v&agrave; giảm tải tốc độ khi kh&ocirc;ng cần thiết kể tiết kiệm năng lượng.</p>\r\n\r\n<p><img alt=\"Chip set gia tăng tốc độ 5G\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-10.jpg\" /></p>\r\n\r\n<h3><strong>Hiệu năng vượt trội với chip Apple A15</strong></h3>\r\n\r\n<p>iPhone 13 Series sẽ được trang bị con chip Apple A15 Bionic, chip set được sản xuất tr&ecirc;n quy tr&igrave;nh 5nm. Theo nh&agrave; sản xuất, con chip&nbsp;Apple A15 Bionic cho CPU nhanh hơn 50% v&agrave; GPU nhanh hơn 30% so với đối thủ.</p>\r\n\r\n<p><img alt=\"Hiệu năng vượt trội với chip Apple A15\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-9.jpg\" /></p>\r\n\r\n<p>Hiệu năng tr&ecirc;n iPhone l&agrave; một điều khỏi phải b&agrave;n c&atilde;i. Vẫn mang trọng m&igrave;nh một sức mạnh vượt trội nhờ con chip Apple A15 được tối ưu, hệ điều h&agrave;nh iOS t&ugrave;y biến. iPhone 13 cũng c&oacute; thể chiến tốt mọi tựa game mới nhất mới max cấu h&igrave;nh đồ họa, mang đến những trải nghiệm chơi game mượt m&agrave;.</p>\r\n\r\n<h3><strong>C&ocirc;ng nghệ pin mới n&acirc;ng cao thời gian sử dụng</strong></h3>\r\n\r\n<p>Với bộ vi xử l&yacute; mới được tối ưu, điện thoại iPhone 13 mang lại vi&ecirc;n pin với thời gian sử dụng l&acirc;u d&agrave;i hơn. Cũng như mọi năm, Apple kh&ocirc;ng tiết lộ ch&iacute;nh x&aacute;c dung lượng pin cụ thể tr&ecirc;n thiết bị của m&igrave;nh. Tuy hi&ecirc;n, theo h&atilde;ng c&ocirc;ng bố th&igrave;&nbsp;thời lượng sử dụng pin tr&ecirc;n iPhone 13 sẽ được gia tăng đ&aacute;ng kể l&ecirc;n khoảng 2,5 tiếng so với thế hệ trước đ&oacute;.</p>\r\n\r\n<p><img alt=\"Công nghệ pin mới nâng cao thời gian sử dụng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE13-4.jpg\" /></p>\r\n\r\n<h3><strong>Dung lượng bộ nhớ được mở rộng</strong></h3>\r\n\r\n<p>iPhone 12 sở hữu bộ nhớ ti&ecirc;u chuẩn 64GB v&agrave; cao cấp nhất l&agrave; 512GB. Nhưng sang iPhone 13 lại kh&aacute;c, iPhone 13 phi&ecirc;n bản cao cấp c&oacute; thể sẽ loại bỏ phi&ecirc;n bản 64GB thay v&agrave;o đ&oacute; bản dung lượng bộ nhớ ti&ecirc;u chuẩn l&agrave; 128GB c&ugrave;ng t&ugrave;y chọn dung lượng lớn nhất l&ecirc;n đến 512B.&nbsp;&nbsp;</p>\r\n\r\n<p><img alt=\"Dung lượng bộ nhớ được mở rộng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-11.jpg\" /></p>\r\n\r\n<p>Về dung lượng RAM, chưa c&oacute; th&ocirc;ng tin chi tiết. Tuy nhi&ecirc;n, dự đoạn sẽ được trang bị bộ nhớ RAM từ 4-6GB. Với dung lượng n&agrave;y, người d&ugrave;ng c&oacute; thể thoải m&aacute;i đa nhiệm trong sử dụng h&agrave;ng ng&agrave;y.</p>\r\n\r\n<h3><strong>C&aacute;ch t&iacute;nh năng kh&aacute;c: thẻ sim, wifi, siri</strong></h3>\r\n\r\n<p>Ngo&agrave;i những điểm tr&ecirc;n, iPhone 13 cũng vẫn được trang bị 2 sim (1 sim vật l&yacute; v&agrave; 1 esim), tiếp tục hỗ trợ 5G như tr&ecirc;n iPhone 12. C&aacute;c kết nối kh&ocirc;ng d&acirc;y kh&aacute;c như wifi, bluetooth cũng được trang bị những c&ocirc;ng nghệ mới. Hey Siri cũng l&agrave; một t&iacute;nh năng y&ecirc;u th&iacute;ch của người d&ugrave;ng iPhone.</p>\r\n\r\n<p><img alt=\"Cách tính năng khác: thẻ sim, wifi, siri\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/mobile/apple/IPHONE-13-12.jpg\" /></p>\r\n\r\n<p>M&aacute;y vẫn được trang bị c&ocirc;ng nghệ mở kh&oacute;a v&agrave; bảo mật&nbsp;Face ID - nhận đạng khu&ocirc;n mặt với tốc độ nhanh hơn. B&ecirc;n cạnh đ&oacute; l&agrave; chuẩn kh&aacute;ng nước v&agrave; bụi bẩn IP68 theo chuẩn&nbsp;IEC 60529.</p>\r\n\r\n<h2><strong>Điện thoại iPhone 13 ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<p>Điện thoại iPhone 13 đ&atilde; được ch&iacute;nh thức giới thiệu đến người ti&ecirc;u d&ugrave;ng tại sự kiện &quot;California Streaming&quot; c&ugrave;ng một loạt c&aacute;c sản phẩm Apple kh&aacute;c như&nbsp;iPad mini 6,&nbsp;Apple Watch Series 7 v&agrave;o ng&agrave;y 14/9 vừa qua.&nbsp;&nbsp;</p>\r\n\r\n<h2>Điện thoại&nbsp;<strong>iPhone 13 (128GB| 256GB| 512GB) gi&aacute; bao nhi&ecirc;u tiền?</strong></h2>\r\n\r\n<p>Điện thoại iPhone 13 dự kiến l&ecirc;n kệ tại thị trường Việt Nam với mức gi&aacute; khoảng gần 25 triệu đồng ở phi&ecirc;n bản ti&ecirc;u chuẩn v&agrave; hơn 30 triệu đồng - gần 31 triệu cho phi&ecirc;n bản cấu h&igrave;nh cao cấp nhất. Mức gi&aacute; n&agrave;y kh&ocirc;ng c&oacute; sự ch&ecirc;nh lệnh qu&aacute; lớn so với iPhone 12 trước đ&oacute;. M&aacute;y sẽ sớm được l&ecirc;n kệ c&aacute;c thệ thống b&aacute;n lẻ trong thời gian sắp tới.</p>\r\n\r\n<p>Vậy&nbsp;iPhone 13 128GB gi&aacute; bao nhi&ecirc;u, c&oacute; g&igrave; kh&aacute;c với những phi&ecirc;n bản dung lượng bộ nhớ kh&aacute;c.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<table border=\"0\">\r\n	<tbody>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB&nbsp;Đen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.390.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong><strong>iPhone 13 128GB Đỏ</strong></strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 18.790.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB Trắng</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.290.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>iPhone 13 128GB Hồng</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.490.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong>iPhone 13 128GB Xanh L&aacute;</strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 19.290.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong><strong>iPhone 13 128GB Xanh Dương</strong></strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Gi&aacute; chỉ từ 18.990.000 đồng</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>', 'iPhone 13 128GB Chính hãng VN/A', 'iPhone 13 128GB Chính hãng VN/A', 'Cuối năm 2020, bộ 4 iPhone 12 đã được ra mắt với nhiều cái tiến. Sau đó, mọi sự quan tâm lại đổ dồn vào sản phẩm tiếp theo – iPhone 13. Vậy iP 13 sẽ có những gì nổi bật, hãy tìm hiểu ngay sau đây nhé!', 'iphone-13-128gb-chinh-hang-vna', '2024-11-13 10:23:12', '2024-11-13 10:23:12', NULL);
-INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(29, 1, 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', '<p>Đặc điểm nổi bật của iPhone 15 Pro Max 256GB | Ch&iacute;nh h&atilde;ng VN/A</p>\r\n\r\n<ul>\r\n	<li>Thiết kế khung viền từ titan chuẩn h&agrave;ng kh&ocirc;ng vũ trụ - Cực nhẹ, bền c&ugrave;ng viền cạnh mỏng cầm nắm thoải m&aacute;i</li>\r\n	<li>Hiệu năng Pro chiến game thả ga - Chip A17 Pro mang lại hiệu năng đồ họa v&ocirc; c&ugrave;ng sống động v&agrave; ch&acirc;n thực</li>\r\n	<li>Thoả sức s&aacute;ng tạo v&agrave; quay phim chuy&ecirc;n nghiệp - Cụm 3 camera sau đến 48MP v&agrave; nhiều chế độ ti&ecirc;n tiến</li>\r\n	<li>N&uacute;t t&aacute;c vụ mới gi&uacute;p nhanh ch&oacute;ng k&iacute;ch hoạt t&iacute;nh năng y&ecirc;u th&iacute;ch của bạn</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', '<blockquote>\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inches</strong>&nbsp;với độ ph&acirc;n giải&nbsp;<strong>2796 x 1290 pixels</strong>, cung cấp trải nghiệm h&igrave;nh ảnh sắc n&eacute;t, ch&acirc;n thực. So với c&aacute;c phi&ecirc;n bản tiền nhiệm, thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\" title=\"iPhone 15\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max đảm bảo mang tới hiệu năng mạnh mẽ với sự hỗ trợ của chipset&nbsp;<strong>Apple A17 Pro</strong>, c&ugrave;ng bộ nhớ ấn tượng. Đặc biệt hơn, điện thoại iPhone 15 ProMax mới n&agrave;y c&ograve;n được đ&aacute;nh gi&aacute; cao với camera sau&nbsp;<strong>48MP</strong>&nbsp;v&agrave; camera trước&nbsp;<strong>12MP</strong>, hỗ trợ chụp ảnh với độ r&otilde; n&eacute;t cực đỉnh.</p>\r\n</blockquote>\r\n\r\n<h2><strong>Đ&aacute;nh gi&aacute; iPhone 15 Pro Max chi tiết - những cải tiến nổi bật</strong></h2>\r\n\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;kh&ocirc;ng chỉ ghi điểm với&nbsp;<strong>cấu h&igrave;nh mạnh mẽ</strong>&nbsp;m&agrave; c&ograve;n g&acirc;y ấn tượng với&nbsp;<strong>nhiều t&iacute;nh năng mới</strong>&nbsp;đ&aacute;ng ch&uacute; &yacute;. Từ thiết kế khung titan cho tới hiệu năng đột ph&aacute;, tất cả đều được n&acirc;ng cấp để mang tới cho người d&ugrave;ng trải nghiệm smartphone tuyệt vời chưa từng c&oacute;. Những t&iacute;nh năng n&agrave;y sẽ được tr&igrave;nh b&agrave;y chi tiết hơn trong c&aacute;c phần b&agrave;i viết dưới đ&acirc;y, gi&uacute;p bạn c&oacute; c&aacute;i nh&igrave;n to&agrave;n diện về sự đột ph&aacute; của iPhone 15 ProMax.</p>\r\n\r\n<h3><strong>Kiểu d&aacute;ng sang trọng, thiết kế Titan thời thượng</strong></h3>\r\n\r\n<p><strong>Thiết kế titan</strong>&nbsp;dễ d&agrave;ng thể hiện được n&eacute;t đẳng cấp v&agrave; sự tinh tế ngay từ vẻ bề ngo&agrave;i của&nbsp;<strong>iPhone 15 Pro Max</strong>. Khung viền titan b&oacute;ng bẩy của m&aacute;y, được chế t&aacute;c qua nhiều quy tr&igrave;nh gia c&ocirc;ng cơ kh&iacute;, ch&agrave; nh&aacute;m v&agrave; đ&aacute;nh b&oacute;ng, mang lại vẻ đẹp sang trọng v&agrave; độ bền tuyệt vời. Với khung viền uốn cong v&agrave; kiểu d&aacute;ng si&ecirc;u mỏng, thế hệ iPhone n&agrave;y đem lại trải nghiệm cầm nắm kh&aacute; thoải m&aacute;i.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max sở hữu kiểu dáng sang trọng và thời thượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-1.jpg\" title=\"iPhone 15 Pro Max sở hữu kiểu dáng sang trọng và thời thượng\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max sở hữu kiểu d&aacute;ng sang trọng v&agrave; thời thượng</em></p>\r\n\r\n<h3><strong>Tấm nền Super Retina XDR hiển thị mượt m&agrave; v&agrave; sắc n&eacute;t</strong></h3>\r\n\r\n<p>Mượt m&agrave;, sắc n&eacute;t trong từng điểm ảnh l&agrave; những g&igrave;&nbsp;<strong>smartphone iPhone 15 Pro Max</strong>&nbsp;thể hiện được về khả năng hiển thị. Theo đ&oacute;,&nbsp;<strong>Super Retina XDR 6.7 inch OLED</strong>&nbsp;t&aacute;i hiện h&igrave;nh ảnh với độ&nbsp;<strong>sống động</strong>&nbsp;đ&aacute;ng kinh ngạc ở độ ph&acirc;n giải&nbsp;<strong>2796x1290 pixel</strong>. Đồng thời, c&aacute;c thao t&aacute;c vuốt, chạm tr&ecirc;n m&agrave;n h&igrave;nh iPhone 15 ProMax cũng v&ocirc; c&ugrave;ng lu&ocirc;n nhạy b&eacute;n, th&ocirc;ng qua c&ocirc;ng nghệ ProMotion 120Hz, đảm bảo tiết kiệm pin ấn tượng.</p>\r\n\r\n<p><img alt=\"Super Retina XDR 6.7 inch OLED là tấm nền hiển thị trên iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-2.jpg\" title=\"Super Retina XDR 6.7 inch OLED là tấm nền hiển thị trên iPhone 15 Pro Max\" /></p>\r\n\r\n<p><em>Super Retina XDR 6.7 inch OLED l&agrave; tấm nền hiển thị tr&ecirc;n iPhone 15 Pro Max</em></p>\r\n\r\n<h3><strong>Vi xử l&yacute; Apple A17 Pro cho hiệu năng mạnh mẽ h&agrave;ng đầu</strong></h3>\r\n\r\n<p>Để xứng tầm với iPhone 15 Pro Max, Apple đ&atilde; trang bị con&nbsp;<strong>chip A17 Pro</strong>&nbsp;n&acirc;ng sức mạnh của iPhone l&ecirc;n một đẳng cấp mới. Con chip A17 Pro cao cấp n&agrave;y đảm bảo trải nghiệm xử l&yacute; c&ocirc;ng việc mượt m&agrave;, chơi game đỉnh cao. C&ograve;n về khả năng xử l&yacute; đồ hoạ, GPU của iPhone 15 Promax cung cấp tốc độ xử l&yacute;&nbsp;<strong>vượt trội hơn bốn lần</strong>&nbsp;so với phi&ecirc;n bản trước với sự hỗ trợ từ c&ocirc;ng nghệ d&ograve; tia cao cấp. Qua đ&oacute;, m&aacute;y đảm bảo tạo n&ecirc;n hiệu ứng &aacute;nh s&aacute;ng ch&acirc;n thực h&agrave;ng đầu, n&acirc;ng cấp độ trau chuốt về mặt h&igrave;nh ảnh của c&aacute;c tựa game đồ họa.</p>\r\n\r\n<p><img alt=\"Apple đã trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax lên một đẳng cấp mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-3.jpg\" title=\"Apple đã trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax lên một đẳng cấp mới\" /></p>\r\n\r\n<p><em>Apple đ&atilde; trang bị con chip A17 Pro đưa sức mạnh của iPhone 15 Promax l&ecirc;n một đẳng cấp mới</em></p>\r\n\r\n<h3><strong>Cụm camera Zoom 5x mạnh mẽ, quay chụp chuy&ecirc;n nghiệp</strong></h3>\r\n\r\n<p>Kể từ khi ra mắt iPhone 15 Pro Max lu&ocirc;n được ca tụng l&agrave; sở hữu&nbsp;<strong>cụm camera chuy&ecirc;n nghiệp</strong>&nbsp;h&agrave;ng đầu hiện nay, mang lại trải nghiệm chụp ảnh cực tốt. Với&nbsp;<strong>7 ti&ecirc;u cự</strong>&nbsp;kh&aacute;c nhau, từ g&oacute;c rộng, si&ecirc;u rộng rộng, cận cảnh cho tới ph&oacute;ng to 5x, thế hệ iPhone mới n&agrave;y c&oacute; thể được&nbsp;<strong>xem như chiếc m&aacute;y ảnh</strong>&nbsp;chuy&ecirc;n dụng cao cấp.</p>\r\n\r\n<p>Nhờ vậy m&agrave; bạn c&oacute; thể linh hoạt ghi lại nhiều tấm h&igrave;nh sắc n&eacute;t với độ chi tiết cực cao. B&ecirc;n cạnh đ&oacute;, t&iacute;nh năng chụp ảnh ch&acirc;n dung được n&acirc;ng cấp đ&aacute;ng kể, với khả năng tự động ph&aacute;t hiện v&agrave; chuyển sang chế độ ch&acirc;n dung khi cần thiết.</p>\r\n\r\n<p><img alt=\"iPhone mới này có thể được xem như 1 chiếc máy ảnh chuyên dụng cao cấp\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-4.jpg\" title=\"iPhone mới này có thể được xem như 1 chiếc máy ảnh chuyên dụng cao cấp\" /></p>\r\n\r\n<p><em>iPhone mới n&agrave;y c&oacute; thể được xem như 1 chiếc m&aacute;y ảnh chuy&ecirc;n dụng cao cấp</em></p>\r\n\r\n<p>Ở cảm biến&nbsp;<strong>camera ch&iacute;nh 48MP</strong>, Apple đ&atilde; tinh chỉnh lại để m&aacute;y ảnh n&agrave;y c&oacute; được khả năng kiểm so&aacute;t &aacute;nh s&aacute;ng th&ocirc;ng minh hơn. Cụ thể, chế độ ban đ&ecirc;m tr&ecirc;n m&aacute;y được hỗ trợ dải tần nhạy s&aacute;ng, hỗ trợ chụp ảnh sắc n&eacute;t hơn ngay cả trong tối. Nhờ vậy m&agrave; những tấm h&igrave;nh được quay chụp qua iPhone 15 ProMax c&oacute; thể t&aacute;i tạo t&ocirc;ng m&agrave;u da v&agrave; m&agrave;u sắc tuyệt đẹp hơn.</p>\r\n\r\n<p>Chưa dừng lại ở đ&oacute;, sản phẩm c&ograve;n cho ph&eacute;p&nbsp;<strong>zoom quang học l&ecirc;n đến 5 lần</strong>, điều m&agrave; c&aacute;c phi&ecirc;n bản iPhone thế hệ trước đ&oacute; chưa l&agrave;m được. Với ưu điểm n&agrave;y, iPhone 15 PRM cho ph&eacute;p bạn c&oacute; thể chụp lại c&aacute;c khung cảnh từ xa một c&aacute;ch r&otilde; n&eacute;t m&agrave; kh&ocirc;ng cần di chuyển lại gần m&agrave; vẫn c&oacute; độ sắc n&eacute;t cao.</p>\r\n\r\n<h3><strong>N&uacute;t t&aacute;c vụ mới thao t&aacute;c nhanh tr&ecirc;n iPhone 15 Pro Max</strong></h3>\r\n\r\n<p><strong>N&uacute;t t&aacute;c vụ của iPhone 15 Pro Max</strong>&nbsp;l&agrave; một t&iacute;nh năng mới lần đầu ti&ecirc;n xuất hiện tr&ecirc;n iPhone, được chuyển đổi từ thanh gạt chuyển chế độ &acirc;m thanh. N&uacute;t n&agrave;y cho ph&eacute;p bạn thao t&aacute;c một c&aacute;ch tiện lợi, dễ d&agrave;ng hơn, với c&aacute;c tiện &iacute;ch thường d&ugrave;ng. Tr&ecirc;n n&uacute;t t&aacute;c vụ mới n&agrave;y, bạn c&oacute; thể thao t&aacute;c v&agrave; k&iacute;ch hoạt c&aacute;c t&iacute;nh năng như mở camera, ghi &acirc;m, đ&egrave;n pin, dịch một c&aacute;ch nhanh ch&oacute;ng, tiện dụng.</p>\r\n\r\n<h3><strong>Cổng USB-C mới truyền tải dữ liệu nhanh hơn</strong></h3>\r\n\r\n<p><strong>iPhone 15 Pro Max</strong>&nbsp;giới thiệu một ưu điểm nổi bật &ndash;&nbsp;<strong>cổng USB-C mới</strong>&nbsp;trong lần ra mắt trong 2023 vừa rồi. Đ&acirc;y l&agrave; lần đầu ti&ecirc;n iPhone hỗ trợ chuẩn USB 3, với tốc độ truyền dữ liệu l&ecirc;n đến 10Gb/s, gi&uacute;p bạn truyền tải c&aacute;c tệp tin lớn một c&aacute;ch nhanh ch&oacute;ng.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max sử dụng cổng USB-C hoàn toàn mới truyền tải nhanh hơn\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-5.jpg\" title=\"iPhone 15 Pro Max sử dụng cổng USB-C hoàn toàn mới truyền tải nhanh hơn\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max sử dụng cổng USB-C ho&agrave;n to&agrave;n mới truyền tải nhanh hơn</em></p>\r\n\r\n<p>Sự chuyển đổi sang cổng USB-C kh&ocirc;ng chỉ tạo ra bước tiến lớn về giao thức kết nối m&agrave; c&ograve;n mang lại sự tiện lợi khi dễ d&agrave;ng kết nối với c&aacute;c phụ kiện v&agrave; thiết bị kh&aacute;c. Việc n&agrave;y cho ph&eacute;p bạn sử dụng một loại c&aacute;p duy nhất cho tất cả c&aacute;c thiết bị của m&igrave;nh, tạo n&ecirc;n một trải nghiệm kết nối thuận tiện v&agrave; hiệu quả hơn.</p>\r\n\r\n<h3><strong>Thời lượng pin liền mạch l&ecirc;n đến 29 giờ ấn tượng</strong></h3>\r\n\r\n<p>Mặc d&ugrave; được trang bị nhiều t&iacute;nh năng mạnh mẽ v&agrave; hiện đại,&nbsp;<strong>điện thoại iPhone 15 Pro Max</strong>&nbsp;vẫn duy tr&igrave; thời lượng pin ấn tượng, đứng đầu trong c&aacute;c d&ograve;ng smartphone hiện nay. Người d&ugrave;ng c&oacute; thể tận hưởng giải tr&iacute; với thời gian xem video li&ecirc;n tục&nbsp;<strong>l&ecirc;n đến 29 giờ</strong>, vượt trội hơn iPhone 12 Pro Max tới 9 giờ. Điều n&agrave;y cho thấy Apple đ&atilde; tối ưu h&oacute;a hiệu quả pin vượt bậc, mang đến trải nghiệm liền mạch suốt ng&agrave;y d&agrave;i.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max cho thời gian xem video liên tục lên đến 29 giờ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-6.jpg\" title=\"iPhone 15 Pro Max cho thời gian xem video liên tục lên đến 29 giờ\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max cho thời gian xem video li&ecirc;n tục l&ecirc;n đến 29 giờ</em></p>\r\n\r\n<p>Kh&ocirc;ng chỉ c&oacute; thời lượng pin d&agrave;i,&nbsp;<strong>iP 15 Pro Max</strong>&nbsp;c&ograve;n hỗ trợ sạc nhanh v&agrave; sạc nhanh kh&ocirc;ng d&acirc;y qua&nbsp;<strong>c&ocirc;ng nghệ MagSafe</strong>. Do vậy m&agrave; việc nạp năng lượng của iPhone 15 Promax đ&atilde; trở n&ecirc;n tiện lợi v&agrave; nhanh ch&oacute;ng hơn. Người d&ugrave;ng c&oacute; thể an t&acirc;m rằng thiết bị lu&ocirc;n sẵn s&agrave;ng cho mọi nhu cầu, từ c&ocirc;ng việc đến giải tr&iacute;. Điều n&agrave;y gi&uacute;p cuộc sống trở n&ecirc;n tiện lợi hơn khi kh&ocirc;ng phải lo lắng về việc sạc pin, d&ugrave; bạn đang ở đ&acirc;u v&agrave; l&agrave;m g&igrave;. Từ đ&oacute; hiệu suất sử dụng được đảm bảo li&ecirc;n tục v&agrave; hiệu quả.</p>\r\n\r\n<h3><strong>Notch dạng Dynamic Island, n&acirc;ng cấp trải nghiệm sử dụng</strong></h3>\r\n\r\n<p><strong>Dynamic Island tr&ecirc;n iPhone 15 Pro Max</strong>&nbsp;l&agrave; một t&iacute;nh năng nổi bật gi&uacute;p người d&ugrave;ng c&oacute; trải nghiệm tiện lợi hơn bao giờ hết. Kh&ocirc;ng chỉ hiển thị th&ocirc;ng b&aacute;o một c&aacute;ch tinh tế, Dynamic Island c&ograve;n cho ph&eacute;p kiểm so&aacute;t &acirc;m nhạc v&agrave; xem bản đồ m&agrave; kh&ocirc;ng cần rời khỏi ứng dụng đang sử dụng.</p>\r\n\r\n<p><img alt=\"Dynamic Island trên iPhone 15 Pro Max là một tính năng nổi bật\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-7.jpg\" title=\"Dynamic Island trên iPhone 15 Pro Max là một tính năng nổi bật\" /></p>\r\n\r\n<p><em>Dynamic Island tr&ecirc;n iPhone 15 ProMax l&agrave; một t&iacute;nh năng nổi bật</em></p>\r\n\r\n<p>Đặc biệt, khi bạn thực hiện nhiều t&aacute;c vụ c&ugrave;ng l&uacute;c, Dynamic Island sẽ tự động t&aacute;ch th&agrave;nh hai phần ri&ecirc;ng biệt, gi&uacute;p bạn dễ d&agrave;ng quản l&yacute; v&agrave; theo d&otilde;i. T&iacute;nh năng n&agrave;y mang lại sự linh hoạt v&agrave; hiệu quả trong việc sử dụng, biến sản phẩm trở th&agrave;nh một lựa chọn tuyệt vời cho những ai y&ecirc;u th&iacute;ch c&ocirc;ng nghệ hiện đại.</p>\r\n\r\n<h3><strong>Hệ điều h&agrave;nh iOS 17 mới đa dạng t&iacute;nh năng độc đ&aacute;o</strong></h3>\r\n\r\n<p>iPhone 15 ProMax vận h&agrave;nh tr&ecirc;n phi&ecirc;n bản&nbsp;<strong>iOS thế hệ thứ 17</strong>, đem lại nhiều n&acirc;ng cấp lớn về bảo mật, hiệu suất. Một t&iacute;nh năng nổi bật trong phi&ecirc;n bản hệ điều h&agrave;nh mới n&agrave;y l&agrave; &Aacute;p ph&iacute;ch li&ecirc;n hệ, cho ph&eacute;p tạo ảnh đại diện t&ugrave;y chỉnh với ảnh, văn bản v&agrave; c&aacute;c yếu tố đồ họa kh&aacute;c.</p>\r\n\r\n<p>Hệ điều h&agrave;nh iOS 17 c&ograve;n t&iacute;ch hợp&nbsp;<strong>NameDrop</strong>, một t&iacute;nh năng mới hỗ trợ chia sẻ th&ocirc;ng tin li&ecirc;n hệ giữa c&aacute;c thiết bị Apple chỉ bằng c&aacute;ch chạm nhẹ hai thiết bị v&agrave;o nhau. Ngay lập tức, cửa sổ chia sẻ sẽ xuất hiện, gi&uacute;p việc trao đổi th&ocirc;ng tin diễn ra nhanh ch&oacute;ng v&agrave; dễ d&agrave;ng.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max vận hành trên phiên bản iOS thế hệ thứ 17, đem lại nhiều nâng cấp lớn về bảo mật, hiệu suất\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-8.jpg\" title=\"iPhone 15 Pro Max vận hành trên phiên bản iOS thế hệ thứ 17, đem lại nhiều nâng cấp lớn về bảo mật, hiệu suất\" /></p>\r\n\r\n<p><em>iPhone 15 ProMax vận h&agrave;nh tr&ecirc;n phi&ecirc;n bản iOS thế hệ thứ 17, đem lại nhiều n&acirc;ng cấp lớn về bảo mật, hiệu suất</em></p>\r\n\r\n<p>B&ecirc;n cạnh đ&oacute;, từ Live Photo, video hoặc ảnh, iOS 17 cũng hỗ trợ người d&ugrave;ng s&aacute;ng tạo ra c&aacute;c nh&atilde;n d&aacute;n với&nbsp;<strong>hiệu ứng động</strong>&nbsp;độc đ&aacute;o. Những nh&atilde;n d&aacute;n n&agrave;y c&oacute; thể sử dụng trong c&aacute;c ứng dụng như Tin nhắn, Ghi ch&uacute; v&agrave; Đ&aacute;nh dấu, mang lại trải nghiệm giao tiếp sinh động v&agrave; th&uacute; vị hơn. Nh&atilde;n d&aacute;n động được tạo ra th&ocirc;ng qua c&ocirc;ng cụ cắt v&agrave; chỉnh sửa ảnh hoặc video trong ứng dụng Tin nhắn, l&agrave;m cho cuộc tr&ograve; chuyện trở n&ecirc;n sinh động hơn bao giờ hết.</p>\r\n\r\n<p>Những cải tiến n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao hiệu suất của thiết bị m&agrave; c&ograve;n tăng cường khả năng tương t&aacute;c v&agrave; c&aacute; nh&acirc;n h&oacute;a. Với iOS 17, iPhone 15 Pro Max kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ ti&ecirc;n tiến m&agrave; c&ograve;n l&agrave; một c&ocirc;ng cụ hỗ trợ đắc lực cho cuộc sống h&agrave;ng ng&agrave;y của người d&ugrave;ng. Sự kết hợp giữa c&aacute;c t&iacute;nh năng mới mẻ v&agrave; hiệu suất vượt trội đảm bảo rằng người d&ugrave;ng sẽ c&oacute; những trải nghiệm tuyệt vời v&agrave; tiện &iacute;ch tối đa từ chiếc điện thoại n&agrave;y.</p>\r\n\r\n<h2><strong>So s&aacute;nh iPhone 15 Pro Max v&agrave; 14 Pro Max</strong></h2>\r\n\r\n<p>Ngay khi được ra mắt, iPhone 15 Pro Max đ&atilde; nhận được kh&aacute; nhiều đ&aacute;nh gi&aacute; cao từ ph&iacute;a người d&ugrave;ng từ thiết kế, m&agrave;n h&igrave;nh, camera cho tới hiệu năng. Tuy nhi&ecirc;n cũng kh&ocirc;ng &iacute;t người tỏ ra thắc mắc, băn khoăn khi so s&aacute;nh phi&ecirc;n bản Pro Max của iPhone thế hệ 14 v&agrave; 15. Nh&igrave;n chung, th&igrave; ở hầu hết mọi kh&iacute;a cạnh, thế hệ&nbsp;<strong>iPhone 15 Pro Max đ&atilde; c&oacute; nhiều cải tiến</strong>&nbsp;ấn tượng so với thế hệ tiền nhiệm trước đ&oacute;.</p>\r\n\r\n<p><strong>Bảng so s&aacute;nh th&ocirc;ng số iP 15 Pro Max v&agrave; 14 Pro Max:</strong></p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Th&ocirc;ng số</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iPhone 15 Pro Max</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iPhone 14 Pro Max</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>K&iacute;ch thước m&agrave;n h&igrave;nh</p>\r\n			</td>\r\n			<td>\r\n			<p>6.7 inches</p>\r\n			</td>\r\n			<td>\r\n			<p>6.7 inches</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Loại m&agrave;n h&igrave;nh</p>\r\n			</td>\r\n			<td>\r\n			<p>Super Retina XDR, OLED</p>\r\n			</td>\r\n			<td>\r\n			<p>Super Retina XDR, OLED</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Độ ph&acirc;n giải&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>2796 x 1290 pixels</p>\r\n			</td>\r\n			<td>\r\n			<p>2796 x 1290 pixels</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Tốc độ l&agrave;m mới&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>Up to 120Hz with ProMotion</p>\r\n			</td>\r\n			<td>\r\n			<p>Up to 120Hz with ProMotion</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Vi xử l&yacute;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>A17 Pro</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>A16 Bionic</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>RAM</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>8GB</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>6GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB, 512GB, 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>128GB, 256GB, 512GB, 1TB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera ch&iacute;nh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>48MP (wide)</p>\r\n			</td>\r\n			<td>\r\n			<p>48MP (wide)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera Tele</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (<strong>5x optical zoom</strong>)</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (3x optical zoom)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera g&oacute;c rộng</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (ultra-wide)</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP (ultra-wide)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Camera trước&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP</p>\r\n			</td>\r\n			<td>\r\n			<p>12MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Dung lượng pin</p>\r\n			</td>\r\n			<td>\r\n			<p>4352 mAh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p>4352 mAh&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Khả năng sạc</p>\r\n			</td>\r\n			<td>\r\n			<p>Fast charging, MagSafe wireless charging</p>\r\n			</td>\r\n			<td>\r\n			<p>Fast charging, MagSafe wireless charging</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Hệ điều h&agrave;nh&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>iOS 17</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>iOS 16 (c&oacute; thể n&acirc;ng cấp l&ecirc;n)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Hỗ trợ 5G</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Wifi</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Wifi 6E</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Wifi 6</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Bluetooth</p>\r\n			</td>\r\n			<td>\r\n			<p>Bluetooth 5.3</p>\r\n			</td>\r\n			<td>\r\n			<p>Bluetooth 5.3</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Kết cấu vỏ</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Vỏ hợp kim titan</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Vỏ l&agrave;m bằng th&eacute;p kh&ocirc;ng gỉ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Trọng lượng</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>221g</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>240g</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>K&iacute;ch thước&nbsp;</p>\r\n			</td>\r\n			<td>\r\n			<p><strong>159.9 x 76.7 x 8.25 mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>160.7 x 77.6 x 7.85 mm</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Cụ thể:</p>\r\n\r\n<p>-&nbsp;<strong>Về thiết kế v&agrave; vật liệu</strong>: sản phẩm mới&nbsp;<strong>vượt trội với khung titan</strong>&nbsp;v&agrave;&nbsp;<strong>m&agrave;u sắc mới</strong>&nbsp;(Đen Titan, Trắng Titan, Xanh Titan, Tự nhi&ecirc;n Titan). Trong khi đ&oacute;, iPhone 14 Pro Max lại được đ&aacute;nh gi&aacute; cao ở bộ khung ho&agrave;n thiện từ chất liệu th&eacute;p kh&ocirc;ng gỉ c&ugrave;ng c&aacute;c m&agrave;u Đen Kh&ocirc;ng Gian, V&agrave;ng, Bạc v&agrave; T&iacute;m Đậm.</p>\r\n\r\n<p>-&nbsp;<strong>Về khả năng xử l&yacute;</strong>: nhờ được trang bị chipset A17 Pro n&ecirc;n 15 Promax đem tới&nbsp;<strong>hiệu suất v&agrave; đồ họa tốt hơn</strong>&nbsp;con chip A16 Bionic của iPhone 14 ProMax. Đồng thời, camera của iPhone 15 Pro Max cũng được cải tiến với khả năng zoom quang học xa hơn, hỗ trợ ghi Log video v&agrave; cổng USB-C. Th&ocirc;ng số n&agrave;y ở iPhone 14 Pro Max chỉ được giới hạn ở camera ch&iacute;nh 48MP v&agrave; cổng Lightning.</p>\r\n\r\n<p>-&nbsp;<strong>Về dung lượng v&agrave; gi&aacute; cả</strong>: iPhone 15 Pro Max bắt đầu&nbsp;<strong>từ 256GB</strong>&nbsp;với gi&aacute; khởi điểm $1,199, cao hơn so với iPhone 14 Pro Max bắt đầu từ 128GB với gi&aacute; khởi điểm $1,099. Cả hai thiết bị đều c&oacute; thời lượng pin tương đương v&agrave; hỗ trợ sạc nhanh c&ugrave;ng sạc kh&ocirc;ng d&acirc;y MagSafe. Chi tiết c&aacute;c so s&aacute;nh về cấu h&igrave;nh v&agrave; th&ocirc;ng số kỹ thuật giữa 2 d&ograve;ng m&aacute;y n&agrave;y sẽ được thể hiện trong bảng tổng hợp dưới đ&acirc;y.</p>\r\n\r\n<p><img alt=\"Thiết kế và vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan và màu sắc mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-9.jpg\" title=\"Thiết kế và vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan và màu sắc mới\" /></p>\r\n\r\n<p><em>Thiết kế v&agrave; vật liệu của iPhone 15 Pro Max vượt trội 14 Pro Max với khung titan v&agrave; m&agrave;u sắc mới</em></p>\r\n\r\n<p>Như vậy, so với iPhone Pro Max thế hệ 14, thế hệ 15 được n&acirc;ng cấp về chipset, RAM, hệ điều h&agrave;nh, kết nối WIFI, cổng sạc, camera, chất liệu v&agrave; trọng lượng. Tiếp theo đ&acirc;y, h&atilde;y c&ugrave;ng t&igrave;m hiểu xem chiếc smartphone cao cấp n&agrave;y c&oacute; những m&agrave;u sắc n&agrave;o v&agrave; m&agrave;u n&agrave;o đẹp nhất nh&eacute;!</p>\r\n\r\n<h2><strong>iPhone 15 Pro Max gi&aacute; bao nhi&ecirc;u? Bảng gi&aacute; mới nhất th&aacute;ng 7/2024</strong></h2>\r\n\r\n<p>Việc Apple ra mắt sản phẩm n&agrave;y đ&atilde; thu h&uacute;t sự ch&uacute; &yacute; lớn từ cộng đồng c&ocirc;ng nghệ to&agrave;n cầu do mức gi&aacute; ch&ecirc;nh lệch so với thế hệ trước. Mức gi&aacute;&nbsp;khởi điểm l&agrave; 1.199 USD tại thị trường Mỹ. Tuy nhi&ecirc;n, gi&aacute; th&agrave;nh hiện tại của d&ograve;ng iPhone n&agrave;y đ&atilde; c&oacute; sự hạ nhiệt hơn so với thời điểm vừa mới được ra mắt.</p>\r\n\r\n<p><strong>Bảng gi&aacute; iPhone 15 Pro Max</strong>&nbsp;mới nhất th&aacute;ng 7/2024 như sau:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>T&ecirc;n m&aacute;y</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n tại CellphoneS</strong></p>\r\n\r\n			<p><strong>(Chưa bao gồm c&aacute;c khuyến m&atilde;i)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; thu cũ l&ecirc;n đời tại CellphoneS</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 256GB</p>\r\n			</td>\r\n			<td>\r\n			<p>29.090.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>27.090.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 512GB</p>\r\n			</td>\r\n			<td>\r\n			<p>36.290.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>34.290.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>iPhone 15 Pro Max 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>42.890.000 VNĐ</p>\r\n			</td>\r\n			<td>\r\n			<p>38.890.000 VNĐ</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p><strong><img alt=\"Bảng giá iPhone 15 Pro Max mới nhất tại CellphoneS\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-12.jpg\" title=\"Bảng giá iPhone 15 Pro Max mới nhất tại CellphoneS\" /></strong></p>\r\n\r\n<p><em>iPhone 15 Pro Max 256GB tốt ưu đ&atilde;i lớn tại hệ thống CellphoneS - T7/2024</em></p>\r\n\r\n<p><em><strong>Lưu &yacute;</strong>: gi&aacute; b&aacute;n c&oacute; thể thay đổi, li&ecirc;n hệ trực tiếp để được tư vấn chi tiết nhất!</em></p>\r\n\r\n<h2><strong>iPhone 15 Pro Max c&oacute; mấy m&agrave;u? M&agrave;u n&agrave;o đẹp?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Điện thoại&nbsp;<strong>iPhone 15 Pro Max 256GB</strong>&nbsp;được Apple giới thiệu với&nbsp;<strong>4 m&agrave;u sắc</strong>&nbsp;thời thượng l&agrave;:&nbsp;<strong>titan tự nhi&ecirc;n, titan trắng, titan đen v&agrave; titan xanh</strong>. Những m&agrave;u sắc mới n&agrave;y&nbsp;mang lại vẻ đẹp&nbsp;<strong>tinh tế v&agrave; sang trọng</strong>&nbsp;h&agrave;ng đầu thế giới smartphone hiện nay.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"4 màu sắc của iPhone 15 Pro Max lần lượt là: titan tự nhiên, titan trắng, titan đen và titan xanh\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-10.jpg\" title=\"4 màu sắc của iPhone 15 Pro Max lần lượt là: titan tự nhiên, titan trắng, titan đen và titan xanh\" /></p>\r\n\r\n<p><em>4 m&agrave;u sắc của iPhone 15 Pro Max lần lượt l&agrave;: titan tự nhi&ecirc;n, titan trắng, titan đen v&agrave; titan xanh</em></p>\r\n\r\n<p><strong>- Titan Tự Nhi&ecirc;n</strong>: Đ&acirc;y l&agrave; một m&agrave;u sắc ho&agrave;n to&agrave;n mới mẻ, chưa từng c&oacute; mặt tr&ecirc;n bất kỳ d&ograve;ng thiết bị n&agrave;o trước đ&oacute; của nh&agrave; T&aacute;o. M&agrave;u n&agrave;y tương đồng với m&agrave;u bạc pha x&aacute;m &aacute;nh kim, c&oacute; đặc t&iacute;nh phản chiếu &aacute;nh s&aacute;ng tốt, mang lại vẻ ngo&agrave;i độc đ&aacute;o v&agrave; hiện đại.</p>\r\n\r\n<p><strong>- Titan Trắng</strong>: Khung viền titan mang lại cho phi&ecirc;n bản iPhone m&agrave;u trắng n&agrave;y một vẻ ngo&agrave;i b&oacute;ng bẩy v&agrave; tinh tế hơn. B&ecirc;n cạnh đ&oacute;, m&agrave;u trắng trung t&iacute;nh cũng gi&uacute;p dễ d&agrave;ng phối hợp với c&aacute;c phụ kiện v&agrave; trang phục kh&aacute;c nhau, tạo n&ecirc;n sự thanh lịch v&agrave; tinh khiết cho người d&ugrave;ng.</p>\r\n\r\n<p><strong>- Titan Đen</strong>: M&agrave;u đen tr&ecirc;n iPhone 15 ProMax l&agrave; sự kết hợp giữa &aacute;nh kim loại của Titanium v&agrave; sắc đen huyền b&iacute;, mang lại vẻ tinh tế, sang trọng h&agrave;ng đầu. So với c&aacute;c phi&ecirc;n bản m&agrave;u đen tr&ecirc;n c&aacute;c thiết bị tiền nhiệm, m&agrave;u đen c&oacute; phần nhạt hơn, tạo n&ecirc;n sự độc đ&aacute;o hiếm c&oacute; cho d&ograve;ng điện thoại n&agrave;y.</p>\r\n\r\n<p><strong>- Titan Xanh</strong>: M&agrave;u xanh n&agrave;y được pha ch&uacute;t x&aacute;m, mang lại vẻ b&iacute; ẩn v&agrave; mạnh mẽ. So với m&agrave;u xanh lam tr&ecirc;n iPhone 12 Pro, titan xanh tối v&agrave; đậm hơn, ph&ugrave; hợp với những ai th&iacute;ch sự kh&aacute;c biệt v&agrave; phong c&aacute;ch.</p>\r\n\r\n<p>Việc chọn m&agrave;u ph&ugrave; hợp khi mua iPhone 15 Pro Max cũng c&ograve;n t&ugrave;y thuộc v&agrave;o từng sở th&iacute;ch v&agrave; c&aacute; t&iacute;nh của ri&ecirc;ng mỗi người d&ugrave;ng. Titan Đen v&agrave; Titan Trắng l&agrave; hai lựa chọn kh&aacute; được ưa chuộng v&igrave; khả năng dễ d&agrave;ng kết hợp với c&aacute;c phụ kiện kh&aacute;c. Trong khi đ&oacute;, Titan Tự Nhi&ecirc;n v&agrave; Titan Xanh mang lại sự mới mẻ v&agrave; c&aacute; t&iacute;nh. Do vậy m&agrave; c&ograve;n t&ugrave;y thuộc v&agrave;o phong c&aacute;ch v&agrave; y&ecirc;u cầu của mỗi người m&agrave; t&ugrave;y chọn m&agrave;u sắc ưng &yacute; sẽ c&oacute; sự kh&aacute;c biệt.</p>\r\n\r\n<h2><strong>iPhone 15 Pro Max c&oacute; mấy phi&ecirc;n bản bộ nhớ trong?</strong></h2>\r\n\r\n<p>Trong lần trở lại thị trường năm 2023 vừa rồi,&nbsp;<strong>iPhone 15 Promax</strong>&nbsp;c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave;&nbsp;<strong>256GB, 512GB v&agrave; lớn nhất 1TB</strong>&nbsp;để đ&aacute;p ứng c&aacute;c y&ecirc;u cầu ghi nhớ dữ liệu ng&agrave;y c&agrave;ng lớn.</p>\r\n\r\n<p><img alt=\"iPhone 15 Promax có 3 phiên bản bộ nhớ trong là 256GB, 512GB và lớn nhất 1TB\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-11.jpg\" title=\"iPhone 15 Promax có 3 phiên bản bộ nhớ trong là 256GB, 512GB và lớn nhất 1TB\" /></p>\r\n\r\n<p><em>iPhone 15 Promax c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; lớn nhất 1TB</em></p>\r\n\r\n<p>Vậy l&agrave;m sao chọn dung lượng bộ nhớ&nbsp;<strong>ph&ugrave; hợp với nhu cầu sử dụng</strong>&nbsp;của m&igrave;nh? Dưới đ&acirc;y l&agrave; th&ocirc;ng số tham khảo về khả năng lưu trữ tr&ecirc;n iP 15 Pro Max:</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong&nbsp;256GB</strong>: Dung lượng n&agrave;y c&oacute; thể lưu trữ khoảng 2300 bức ảnh định dạng JPG, 362 video 4K UHD, hơn 1105 ph&uacute;t video FHD, v&agrave; 1100 b&agrave;i h&aacute;t n&eacute;n. Trong số c&aacute;c phi&ecirc;n bản bộ nhớ, đ&acirc;y ph&ugrave; hợp với&nbsp;<strong>người d&ugrave;ng th&ocirc;ng thường</strong>&nbsp;nhất.</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong</strong><strong>&nbsp;512GB</strong>: Phi&ecirc;n bản n&agrave;y gi&uacute;p lưu trữ tới 1400 b&agrave;i h&aacute;t n&eacute;n, 2095 ph&uacute;t video FHD hoặc 804 ph&uacute;t video 4K UHD v&agrave; 2800 bức ảnh JPG. Với&nbsp;<strong>người d&ugrave;ng hay chụp ảnh hoặc quay video</strong>&nbsp;nhiều th&igrave; đ&acirc;y l&agrave; ph&acirc;n kh&uacute;c iPhone 15 ProMax ph&ugrave; hợp n&ecirc;n lựa chọn.</p>\r\n\r\n<p>-&nbsp;<strong>Bộ nhớ trong</strong><strong>&nbsp;1TB</strong>: Phi&ecirc;n bản n&agrave;y c&oacute; thể lưu trữ tới 3200 ảnh JPG, 2565 ph&uacute;t video FHD hay 894 ph&uacute;t 4K UHD, c&ugrave;ng với 1600 b&agrave;i h&aacute;t n&eacute;n. Đ&acirc;y l&agrave; t&ugrave;y chọn ph&ugrave; hợp nhất với&nbsp;<strong>người d&ugrave;ng c&oacute; nhiều nhu cầu đa phương tiện</strong>.</p>\r\n\r\n<h2><strong>iPhone 15 Promax dung lượng 256GB c&oacute; đủ d&ugrave;ng kh&ocirc;ng?</strong></h2>\r\n\r\n<p>Thế hệ điện thoại Apple mới 2023 n&agrave;y, Apple đ&atilde; loại bỏ phi&ecirc;n bản dung lượng bộ nhớ trong 128GB. Theo đ&oacute;,&nbsp;<strong>iPhone 15 ProMax 256GB</strong>&nbsp;bộ nhớ trong sẽ l&agrave; phi&ecirc;n bản bộ nhớ chuẩn. Vậy 256GB bộ nhớ lưu trữ c&oacute; đủ d&ugrave;ng kh&ocirc;ng, ph&ugrave; hợp sử dụng với những ai?</p>\r\n\r\n<blockquote>\r\n<p>Tr&ecirc;n thực tế,&nbsp;<strong>bộ nhớ trong 256GB</strong>&nbsp;l&agrave; dung lượng lưu trữ&nbsp;<strong>đủ lớn</strong>, ph&ugrave; hợp với nhu cầu sử dụng của&nbsp;<strong>đại đa số người d&ugrave;ng</strong>&nbsp;cơ bản.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max dung lượng 256GB có đủ dùng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/apple-iphone-15-pro-22.jpg\" /></p>\r\n\r\n<p>Theo đ&oacute;, nếu sử dụng điện thoại trong c&aacute;c nhu cầu như chơi game, gọi điện, nhắn tin, lướt web th&igrave;&nbsp;<strong>256GB ho&agrave;n to&agrave;n c&oacute; thể đ&aacute;p ứng</strong>&nbsp;được nhu cầu.&nbsp;Tuy nhi&ecirc;n, với người d&ugrave;ng thực hiện c&aacute;c c&ocirc;ng việc về s&aacute;ng tạo nội dung, cần lưu trữ những h&igrave;nh ảnh hay thước phim độ ph&acirc;n giải cao với dung lượng lớn th&igrave; c&oacute; thể c&acirc;n nhắc đến những phi&ecirc;n bản dung lượng cao hơn.</p>\r\n\r\n<h2><strong>Điện thoại iPhone 15 Pro Max ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Điện thoại&nbsp;<strong>iPhone Pro Max thứ 15</strong>&nbsp;của Apple đ&atilde; ch&iacute;nh thức được ra mắt người ti&ecirc;u d&ugrave;ng to&agrave;n cầu v&agrave;o ng&agrave;y&nbsp;<strong>12 th&aacute;ng 9 năm 2023 tại sự kiện Wonderlust</strong>&nbsp;của Apple. Đ&acirc;y l&agrave; sự kiện ra mắt iPhone mới, bao gồm c&aacute;c phi&ecirc;n bản từ ti&ecirc;u chuẩn cho tới ProMax c&oacute; mặt trong Series.</p>\r\n</blockquote>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max chính thức ra mắt vào ngày 12 tháng 9 năm 2023 tại sự kiện Wonderlust\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-13.jpg\" title=\"iPhone 15 Pro Max chính thức ra mắt vào ngày 12 tháng 9 năm 2023 tại sự kiện Wonderlust\" /></p>\r\n\r\n<p><em>iPhone 15 Pro Max ch&iacute;nh thức ra mắt v&agrave;o ng&agrave;y 12 th&aacute;ng 9 năm 2023 tại sự kiện Wonderlust</em></p>\r\n\r\n<p>Sau khi ra mắt, c&aacute;c sản phẩm bắt đầu nhận đơn đặt h&agrave;ng từ ng&agrave;y 15 th&aacute;ng 9 v&agrave; ch&iacute;nh thức b&aacute;n ra v&agrave;o ng&agrave;y 22 th&aacute;ng 9 năm 2023. Hiện tại, bạn ho&agrave;n to&agrave;n c&oacute; thể gh&eacute; tới v&agrave; tham khảo th&ecirc;m d&ograve;ng iPhone cao cấp n&agrave;y ở c&aacute;c cửa h&agrave;ng c&ocirc;ng nghệ chất lượng cao như CellphoneS.</p>\r\n\r\n<p><img alt=\"Mua iPhone 15 Pro Max chính hãng trả góp &amp;#34;3 KHÔNG&amp;#34; tại CellphoneS\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max/iphone-15-pro-max-19.jpg\" title=\"Mua iPhone 15 Pro Max chính hãng trả góp &amp;#34;3 KHÔNG&amp;#34; tại CellphoneS\" /></p>\r\n\r\n<p><em>Mua iPhone 15 Pro Max ch&iacute;nh h&atilde;ng trả g&oacute;p &quot;3 KH&Ocirc;NG&quot; tại CellphoneS</em></p>\r\n\r\n<h2><strong>Trải nghiệm ngay sản phẩm iPhone 15 Pro Max tại CellphoneS</strong></h2>\r\n\r\n<p>B&ecirc;n cạnh những đ&aacute;nh gi&aacute; về th&ocirc;ng số, t&iacute;nh năng đ&atilde; đề cập, bạn c&oacute; thể đến ngay CellphoneS để trải nghiệm trực tiếp iPhone 15 Pro Max. Đặc biệt, trong qu&aacute; tr&igrave;nh trải nghiệm nếu c&oacute; bất kỳ thắc mắc n&agrave;o kh&aacute;ch h&agrave;ng sẽ được nh&acirc;n vi&ecirc;n tư vấn chi tiết nhất.</p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-42.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-43.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-40.JPG\" /></p>\r\n\r\n<p><img alt=\"Trải nghiệm ngay sản phẩm iPhone 15 Pro Max\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-41.jpg\" /></p>\r\n\r\n<h2><strong>Một số c&acirc;u hỏi thường gặp về iPhone 15 Pro Max</strong></h2>\r\n\r\n<p>iPhone 15 Pro Max sở hữu cấu h&igrave;nh vượt trội nhưng người d&ugrave;ng c&ograve;n nhiều thắc mắc đến sản phẩm n&agrave;y trước khi c&oacute; quyết định n&acirc;ng cấp. Một số thắc mắc phổ biến m&agrave; người d&ugrave;ng quan t&acirc;m đến sản phẩm n&agrave;y phải kể đến như:</p>\r\n\r\n<h3><strong>iPhone 15&nbsp;Pro Max nặng bao nhi&ecirc;u gram?</strong></h3>\r\n\r\n<p>Với khung viền titan cải tiến nhờ đ&oacute; thế hệ điện thoại mới n&agrave;y nhẹ hơn đ&aacute;ng kể so với phi&ecirc;n bản tiền nhiệm. Cụ thể&nbsp;<strong>iPhone 15 Pro Max c&oacute; trọng lượng</strong>&nbsp;rơi v&agrave;o khoảng&nbsp;<strong>221 gram</strong>, nhẹ hơn tới 20g so với tr&ecirc;n 14 Pro Max (240 gam). Với trọng lượng giảm, thiết bị gi&uacute;p người d&ugrave;ng c&oacute; những trải nghiệm cầm nắm thoải m&aacute;i hơn.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max nặng bao nhiêu\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-14-pro-max-16.jpg\" /></p>\r\n\r\n<h3><strong>iPhone 15&nbsp;Pro Max c&oacute; m&agrave;u hồng, đỏ kh&ocirc;ng</strong></h3>\r\n\r\n<p>Năm 2023, sản phẩm iPhone 15 ProMax&nbsp;<strong>kh&ocirc;ng c&oacute; m&agrave;u hồng v&agrave; đỏ</strong>. Đặc điểm m&agrave;u sắc tr&ecirc;n d&ograve;ng iPhone Pro của Apple đ&oacute; l&agrave; sử dụng những tone m&agrave;u trung t&iacute;nh. Trong khi đ&oacute; phi&ecirc;n bản thường,&nbsp; Plus hay mini sẽ được trang bị những gam m&agrave;u rực rỡ như v&agrave;ng, đỏ, t&iacute;m hồng,...</p>\r\n\r\n<h3><strong>Đang d&ugrave;ng iPhone 14 Pro/Pro Max c&oacute; n&ecirc;n mua 15 Pro Max kh&ocirc;ng?</strong></h3>\r\n\r\n<p>Sở hữu nhiều n&acirc;ng cấp nổi trội về thiết kế v&agrave; t&iacute;nh năng, vậy người d&ugrave;ng sử dụng phi&ecirc;n bản 14 Pro v&agrave; Pro Max c&oacute; n&ecirc;n n&acirc;ng cấp l&ecirc;n thế hệ mới n&agrave;y kh&ocirc;ng? C&acirc;u trả lời l&agrave;&nbsp;<strong>c&oacute;</strong>. 15 Pro Max với khung titan sang trọng, cổng sạc với c&ugrave;ng n&uacute;t t&aacute;c vụ tiện lợi. B&ecirc;n cạnh đ&oacute;, điện thoại c&ograve;n được cải tiến cấu h&igrave;nh với con chip A17 Pro c&ugrave;ng camera n&acirc;ng cấp khả năng chụp zoom l&ecirc;n 5x. Với những t&iacute;nh năng tr&ecirc;n th&igrave; những người d&ugrave;ng muốn trải nghiệm những c&ocirc;ng nghệ mới nhất ho&agrave;n to&agrave;n n&ecirc;n trải nghiệm. Trường hợp người d&ugrave;ng muốn trải nghiệm nhưng c&ograve;n vướng mắc về gi&aacute; th&igrave; c&oacute; thể tham khảo đến chương tr&igrave;nh thu cũ l&ecirc;n đời để sở hữu điện thoại c&ocirc;ng nghệ mới nhất với khoản chi ph&iacute; cần b&ugrave; th&ecirc;m hợp l&yacute;.</p>\r\n\r\n<h3><strong>K&iacute;ch thước của iPhone 15 Pro Max bao nhi&ecirc;u?</strong></h3>\r\n\r\n<p>C&ugrave;ng sở hữu m&agrave;n h&igrave;nh k&iacute;ch thước&nbsp;<strong>6.7 inch</strong>&nbsp;như thế hệ thệ 14 Pro Max tuy nhi&ecirc;n k&iacute;ch thước điện thoại mới n&agrave;y c&oacute; sự thay đổi đ&ocirc;i ch&uacute;t. Cụ thể, m&aacute;y d&agrave;y hơn đ&ocirc;i ch&uacute;t so với tr&ecirc;n iPhone 14 Pro Max v&agrave; giảm k&iacute;ch thước về chiều d&agrave;i v&agrave; rộng. Chi tiết k&iacute;ch thước tr&ecirc;n iPhone 15 Pro Max như sau: D&agrave;y&nbsp;8,25mm, rộng&nbsp;76,7 mm v&agrave; d&agrave;i&nbsp;159,9 mm.</p>\r\n\r\n<h3><strong>iP 15 ProMax c&oacute; chống nước, chống sốc kh&ocirc;ng?</strong></h3>\r\n\r\n<p>Mẫu điện thoại cao cấp mới n&agrave;y vẫn được Apple trang bị c&aacute;c ti&ecirc;u chuẩn kh&aacute;ng nước v&agrave; bụi bẩn như thế hệ trước đ&oacute;. Cụ thể,&nbsp;iP 15 ProMax được trang bị chuẩn&nbsp;<strong>kh&aacute;ng nước v&agrave; bụi bẩn&nbsp;IP68 theo ti&ecirc;u chuẩn IEC 60529</strong>&nbsp;gi&uacute;p bảo vệ thiết bị dưới nước ở độ s&acirc;u 6 m&eacute;t trong thời gian tối đa 30 ph&uacute;t. Tuy nhi&ecirc;n, t&iacute;nh năng kh&aacute;ng nước sẽ kh&ocirc;ng được h&atilde;ng bảo h&agrave;nh, do đ&oacute; khuyến k&iacute;ch người d&ugrave;ng kh&ocirc;ng test thử t&iacute;nh năng n&agrave;y.</p>\r\n\r\n<p><img alt=\"iPhone 15 Pro Max có chống nước\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-14-pro-max-15.jpg\" /></p>\r\n\r\n<h3><strong>M&agrave;u titan tr&ecirc;n iPhone 15 Pro Max gần với m&agrave;u g&igrave;?</strong></h3>\r\n\r\n<p>Cả bốn m&agrave;u tr&ecirc;n phi&ecirc;n bản 15 Pro Max đều l&agrave; những m&agrave;u mới, trong đ&oacute; Titanium tự nhi&ecirc;n nhận được nhiều sự quan t&acirc;m nhất của người d&ugrave;ng. Ba phi&ecirc;n bản m&agrave;u c&ograve;n lại tuy mới nhưng vẫn c&oacute; nhiều điểm tương đồng với những m&agrave;u sắc trước đ&oacute;, như sau:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u iPhone 15 Pro Max</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>So s&aacute;nh với m&agrave;u trước đ&oacute;</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan tự nhi&ecirc;n</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;u mới lần đầu xuất hiện</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan đen</p>\r\n			</td>\r\n			<td>\r\n			<p>Kh&aacute; giống&nbsp;Pacific Blue tr&ecirc;n&nbsp;iPhone 12 Pro nhưng sắc xanh đậm hơn</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan trắng</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute; nhiều điểm tương đồng với&nbsp;Black Space trước đ&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Titan xanh</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;u sắc gần giống với m&agrave;u Bạc&nbsp;Silver</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Nh&igrave;n chung, tuy cả bốn m&agrave;u đều l&agrave; m&agrave;u mới nhưng ch&uacute;ng đều c&oacute; điểm tương đồng với những m&agrave;u sắc từng được xuất hiện trước đ&oacute; của Apple.</p>\r\n\r\n<h3><strong>Điện thoại iPhone 15 Pro Max c&oacute; kết nối 5G kh&ocirc;ng?</strong></h3>\r\n\r\n<p>iPhone 15 Pro Max c&oacute; được trang bị&nbsp;<strong>kết nối 5G</strong>&nbsp;nhưng để sử dụng th&igrave; nh&agrave; mạng m&agrave; người d&ugrave;ng đang sử dụng phải hỗ trợ kết nối n&agrave;y. Một số nh&agrave; mạng tại Việt Nam c&oacute; hỗ trợ kết nối 5G phải kể đến như Vinaphone, Viettel, Mobifone&hellip;</p>\r\n\r\n<p><img alt=\"Điện thoại iPhone 15 Pro Max có kết nối 5G không\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iphone_15/iphone-15-pro-max-24.png\" /></p>\r\n\r\n<p>(Nguồn ảnh Apple.com)</p>', 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iPhone 15 Pro Max 256GB | Chính hãng VN/A', 'iPhone 15 Pro Max sở hữu màn hình Super Retina XDR OLED 6.7 inches với độ phân giải 2796 x 1290 pixels, cung cấp trải nghiệm hình ảnh sắc nét, chân thực. So với các phiên bản tiền nhiệm, thế hệ iPhone 15 bản Pro Max đảm bảo mang tới hiệu năng mạnh mẽ với sự hỗ trợ của chipset Apple A17 Pro, cùng bộ nhớ ấn tượng. Đặc biệt hơn, điện thoại iPhone 15 ProMax mới này còn được đánh giá cao với camera sau 48MP và camera trước 12MP, hỗ trợ chụp ảnh với độ rõ nét cực đỉnh.', 'iphone-15-pro-max-256gb-chinh-hang-vna', '2024-11-13 10:23:17', '2024-11-13 10:23:17', NULL);
-INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(28, 1, 'Samsung Galaxy S24 Ultra 12GB 1TB', '<h2>Đặc điểm nổi bật của Samsung Galaxy S24 Ultra 12GB 1TB</h2>\r\n\r\n<ul>\r\n	<li>Mở kho&aacute; giới hạn tiềm năng với AI - Hỗ trợ phi&ecirc;n dịch cuộc gọi, khoanh v&ugrave;ng t&igrave;m kiếm, Trợ l&iacute; Note v&agrave; ch&igrave;nh sửa anh</li>\r\n	<li>Tuyệt t&aacute;c thiết kế bền bỉ v&agrave; ho&agrave;n hảo - Vỏ ngo&agrave;i bằng titan mới c&ugrave;ng m&agrave;u sắc lấy cảm hứng từ chất liệu đ&aacute; tự nhi&ecirc;n</li>\r\n	<li>T&iacute;ch hợp S-Pen cực nhạy - Thoải m&aacute;t viết, chạm thật ch&iacute;nh x&aacute;c tr&ecirc;n m&agrave;n h&igrave;nh c&ugrave;ng nhiều t&iacute;nh năng tiện &iacute;ch</li>\r\n	<li>Nắm trong tay trọn bộ chi tiết ch&acirc;n thực nhất - Camera 200MP hỗ trợ khả năng xử l&yacute; AI cải thiện độ n&eacute;t v&agrave; t&ocirc;ng m&agrave;u</li>\r\n</ul>', '<p><strong>Samsung Galaxy S24 Ultra 1TB&nbsp;</strong>l&agrave; chiếc smartphone flagship mới của nh&agrave; Samsung với m&agrave;n h&igrave;nh&nbsp;<strong>Dynamic AMOLED 2X</strong>, mang đến trải nghiệm giải tr&iacute; đỉnh cao. M&aacute;y cũng được trang bị con chip&nbsp;<strong>Snapdragon 8 Gen 3 for Galaxy</strong>, đi k&egrave;m với&nbsp;<strong>RAM 12GB&nbsp;</strong>v&agrave; bộ nhớ trong l&ecirc;n tới&nbsp;<strong>1TB</strong>. Hệ thống camera của S24 Ultra cũng được n&acirc;ng cấp đ&aacute;ng kể với camera ch&iacute;nh&nbsp;<strong>200MP</strong>, mang lại khả năng nhiếp ảnh tuyệt vời.</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra 1TB &ndash; Si&ecirc;u phẩm d&agrave;nh cho những người đam m&ecirc; c&ocirc;ng nghệ</strong></h2>\r\n\r\n<p>Si&ecirc;u phẩm AI smartphone&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-s24-ultra.html\" target=\"_blank\" title=\"điện thoại Samsung S24 Ultra mới nhất\"><strong>S24 Ultra</strong></a>&nbsp;được Samsung trang bị những&nbsp;<strong>c&ocirc;ng nghệ v&agrave; t&iacute;nh năng h&agrave;ng đầu</strong>. Với m&agrave;n h&igrave;nh lớn, cấu h&igrave;nh mạnh mẽ, camera đỉnh cao v&agrave; dung lượng lưu trữ khủng, sản phẩm hứa hẹn sẽ l&agrave; một lựa chọn ho&agrave;n hảo cho những người đam m&ecirc; c&ocirc;ng nghệ.</p>\r\n\r\n<h3><strong>Camera 200MP, mang đến chất lượng vượt trội</strong></h3>\r\n\r\n<p>S24 Ultra được trang bị một camera sau với độ ph&acirc;n giải khủng l&ecirc;n đến 200MP. Điều n&agrave;y mang đến khả năng chụp ảnh với chi tiết tuyệt vời v&agrave; độ n&eacute;t cao. Bạn sẽ c&oacute; khả năng tạo ra những bức ảnh sắc n&eacute;t, ch&acirc;n thực v&agrave; sống động.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra 1TB – Siêu phẩm dành cho những người đam mê công nghệ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-4_1.jpg\" /></p>\r\n\r\n<p>Điểm đặc biệt của phi&ecirc;n bản Ultra năm n&agrave;y l&agrave; m&aacute;y đ&atilde; sử dụng cảm biến thế hệ mới. Điều n&agrave;y đảm bảo rằng bạn c&oacute; thể chụp ảnh với mức độ chi tiết tuyệt vời v&agrave; độ n&eacute;t cao. Cảm biến cung cấp khả năng thu nhận &aacute;nh s&aacute;ng tốt hơn, gi&uacute;p t&aacute;i tạo m&agrave;u sắc ch&iacute;nh x&aacute;c v&agrave; độ tương phản tốt hơn trong c&aacute;c bức ảnh.</p>\r\n\r\n<h3><strong>Mượt m&agrave; mọi t&aacute;c vụ với Snapdragon 8 Gen 3 for Galaxy</strong></h3>\r\n\r\n<p>S24 Ultra được thiết kế với mục ti&ecirc;u mang đến hiệu năng mạnh mẽ v&agrave; trải nghiệm tuyệt vời cho người d&ugrave;ng. Với bộ vi xử l&yacute; Snapdragon 8 Gen 3, cung cấp hiệu suất mạnh mẽ, cho ph&eacute;p bạn chơi game đồ họa cao, xem video chất lượng cao một c&aacute;ch trơn tru.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra 1TB – Siêu phẩm dành cho những người đam mê công nghệ\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-1_2.jpg\" /></p>\r\n\r\n<p>B&ecirc;n trong, Galaxy S24 Ultra được trang bị chipset Snapdragon 8 Gen 3 for Galaxy, cung cấp sức mạnh xử l&yacute; v&agrave; hiệu năng đ&aacute;ng kinh ngạc. Với dung lượng RAM 12GB v&agrave; bộ nhớ trong l&ecirc;n đến 1TB, người d&ugrave;ng c&oacute; đủ kh&ocirc;ng gian lưu trữ v&agrave; đồng thời trải nghiệm mượt m&agrave; khi sử dụng S24 Ultra.</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<p>Theo c&aacute;c nguồn tin đ&aacute;ng tin cậy, ng&agrave;y 17 th&aacute;ng 1 năm 2024 sắp tới sẽ chứng kiến sự kiện ra mắt Samsung Galaxy S24 Ultra v&agrave; c&aacute;c phi&ecirc;n bản S24 kh&aacute;c. Sự kiện ra mắt diễn ra tại Mỹ, nơi Samsung thường chọn l&agrave; địa điểm để giới thiệu những sản phẩm của m&igrave;nh.</p>\r\n\r\n<p><img alt=\"Khi nào ra mắt\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-2_2.jpg\" /></p>\r\n\r\n<p>C&ograve;n với người d&ugrave;ng Việt Nam, ch&uacute;ng ta sẽ phải chờ th&ecirc;m một khoảng thời gian cho đến khi S24 Series được mở b&aacute;n. Đ&acirc;y cũng sẽ l&agrave; cơ hội để những người đam m&ecirc; c&ocirc;ng nghệ c&oacute; thể sở hữu ngay chiếc điện thoại đẳng cấp n&agrave;y v&agrave; trải nghiệm những t&iacute;nh năng độc đ&aacute;o m&agrave; n&oacute; mang lại.&nbsp;</p>\r\n\r\n<h2><strong>Samsung Galaxy S24 Ultra c&oacute; gi&aacute; bao nhi&ecirc;u?</strong></h2>\r\n\r\n<p>Samsung Galaxy S24 Ultra l&agrave; một chiếc điện thoại cao cấp v&agrave; c&oacute; mức gi&aacute; kh&aacute; đắt đỏ. Với phi&ecirc;n bản cao cấp l&agrave; 1TB th&igrave; mức gi&aacute; khởi điểm sẽ rơi v&agrave;o khoảng 44.49 triệu đồng.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy S24 Ultra có giá bao nhiêu?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_s/Samsung-S24/samsung-galaxy-s24-ultra-1tb-3_2.jpg\" /></p>\r\n\r\n<p>D&ugrave; gi&aacute; b&aacute;n của&nbsp;<strong>Samsung Galaxy S24 Ultra 1TB&nbsp;</strong>c&oacute; thể cao, nhưng sản phẩm n&agrave;y được trang bị những cải tiến đ&aacute;ng kể về camera, m&agrave;n h&igrave;nh v&agrave; hiệu năng. Với những t&iacute;nh năng v&agrave; c&ocirc;ng nghệ h&agrave;ng đầu, Galaxy S24 Ultra xứng đ&aacute;ng l&agrave; một chiếc điện thoại cao cấp m&agrave; người d&ugrave;ng c&oacute; thể xem x&eacute;t.&nbsp;</p>', 'Samsung Galaxy S24 Ultra 12GB 1TB', 'Samsung Galaxy S24 Ultra 12GB 1TB', 'Samsung Galaxy S24 Ultra 1TB là chiếc smartphone flagship mới của nhà Samsung với màn hình Dynamic AMOLED 2X, mang đến trải nghiệm giải trí đỉnh cao. Máy cũng được trang bị con chip Snapdragon 8 Gen 3 for Galaxy, đi kèm với RAM 12GB và bộ nhớ trong lên tới 1TB. Hệ thống camera của S24 Ultra cũng được nâng cấp đáng kể với camera chính 200MP, mang lại khả năng nhiếp ảnh tuyệt vời.', 'samsung-galaxy-s24-ultra-12gb-1tb', '2024-11-13 10:23:22', '2024-11-13 10:23:22', NULL);
-INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `description`, `content`, `meta_title`, `meta_keyword`, `meta_description`, `canonical`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(27, 1, 'Samsung Galaxy Z Fold6', '<h2>Đặc điểm nổi bật của Samsung Galaxy Z Fold6</h2>\r\n\r\n<ul>\r\n	<li>M&agrave;n h&igrave;nh ch&iacute;nh Dynamic AMOLED 2X 7.6 inch cho trải nghiệm giải tr&iacute;, l&agrave;m việc đỉnh cao.</li>\r\n	<li>Chip Snapdragon 8 Gen 3 cho tốc độ xử l&yacute; si&ecirc;u nhanh, đ&aacute;p ứng tốt mọi nhu cầu sử dụng.</li>\r\n	<li>Camera ch&iacute;nh 50.0 MP ghi lại những khoảnh khắc đẹp với độ chi tiết, m&agrave;u sắc ấn tượng.</li>\r\n	<li>Pin 4400mAh cho ph&eacute;p bạn sử dụng điện thoại cả ng&agrave;y d&agrave;i m&agrave; kh&ocirc;ng cần lo lắng về việc hết pin.</li>\r\n</ul>', '<blockquote>\r\n<p><a href=\"https://cellphones.com.vn/samsung-galaxy-z-fold-6.html\" target=\"_blank\" title=\"Samsung Galaxy Z Fold 6 mới nhất\"><strong>Samsung Z Fold 6</strong></a>&nbsp;l&agrave; si&ecirc;u phẩm&nbsp;<strong>điện thoại gập</strong>&nbsp;được ra mắt ng&agrave;y 10/7, hiệu năng dẫn đầu ph&acirc;n kh&uacute;c với chip 8 nh&acirc;n&nbsp;<strong>Snapdragon 8 Gen 3 for Galaxy</strong>, 12GB RAM c&ugrave;ng bộ nhớ trong từ&nbsp;<strong>256GB đến 1TB</strong>. Thay đổi mạnh mẽ về&nbsp;<strong>hiệu năng v&agrave; thiết kế</strong>, Galaxy Z Fold 6 hứa hẹn sẽ l&agrave; chiếc&nbsp;<strong>smartphone AI</strong>&nbsp;đ&aacute;ng sở hữu nhất nửa cuối năm 2024. C&ugrave;ng CellphoneS cập nhật tất tần tật th&ocirc;ng tin về Galaxy Z Fold6 ngay đ&acirc;y nh&eacute;!</p>\r\n</blockquote>\r\n\r\n<h2><strong>V&igrave; sao n&ecirc;n mua&nbsp;Samsung Galaxy Z Fold 6?</strong></h2>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;l&agrave; bước nhảy vọt về c&ocirc;ng nghệ điện thoại gập, mang lại trải nghiệm độc đ&aacute;o v&agrave; vượt trội cho người d&ugrave;ng. C&oacute;&nbsp;<strong>8 l&yacute; do</strong>&nbsp;v&igrave; sao n&ecirc;n mua Samsugn Z Fold 6 như sau:</p>\r\n\r\n<p>- T&iacute;ch hợp c&aacute;c t&iacute;nh năng<strong>&nbsp;Galaxy AI:</strong>&nbsp;Khoanh tr&ograve;n để t&igrave;m kiếm, Trợ l&yacute; Note quyền năng, Trợ l&yacute; chat th&ocirc;ng minh, Interpreter,...</p>\r\n\r\n<p>- Thiết kế<strong>&nbsp;si&ecirc;u mỏng nhẹ</strong>&nbsp;với trọng lượng chỉ&nbsp;<strong>249g, độ mỏng 5.6mm</strong>&nbsp;dễ d&agrave;ng cầm nắm v&agrave; mang theo.</p>\r\n\r\n<p>- M&agrave;u sắc tinh tế, thời thượng, thể hiện c&aacute; t&iacute;nh ri&ecirc;ng:&nbsp;<strong>X&aacute;m Metal, Hồng Ros&eacute;, Xanh Navy.</strong></p>\r\n\r\n<p>- Hiệu năng mạnh mẽ như PC thu nhỏ với bộ vi xử l&yacute;<strong>&nbsp;Snapdragon&reg; 8 Gen 3 for Galaxy</strong>&nbsp;tối ưu ri&ecirc;ng cho điện thoại Samsung.</p>\r\n\r\n<p><strong>-&nbsp;</strong>Dung lượng<strong>&nbsp;pin 4400mAh&nbsp;</strong>mang đến trải nghiệm li&ecirc;n tục m&agrave; kh&ocirc;ng lo gi&aacute;n đoạn.</p>\r\n\r\n<p><strong>-&nbsp;</strong>M&agrave;n h&igrave;nh với<strong>&nbsp;độ s&aacute;ng tối đa</strong>&nbsp;<strong>2600 nits</strong>, cho khả năng hiển thị ấn tượng dưới nhiều điều kiện &aacute;nh s&aacute;ng kh&aacute;c nhau.</p>\r\n\r\n<p>- M&agrave;n h&igrave;nh ngo&agrave;i k&iacute;ch thước&nbsp;<strong>6.3 inch,</strong>&nbsp;mở rộng diện t&iacute;ch hiển thị.</p>\r\n\r\n<p>- Camera thu ph&oacute;ng sắc n&eacute;t, chụp ảnh chi tiết v&agrave; sống động c&ugrave;ng khả năng chụp ảnh chuy&ecirc;n nghiệp với&nbsp;<strong>ProVisual Engine.</strong></p>\r\n\r\n<p><img alt=\"Những lý do nên mua Samsung Z Fold 6\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-12.jpg\" title=\"Những lý do nên mua Samsung Z Fold 6\" /></p>\r\n\r\n<p><em>Top 8 l&yacute; do n&ecirc;n mua ngay Samsung Galaxy Z Fold 6</em></p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 gi&aacute; bao nhi&ecirc;u? Bảng gi&aacute; mới nhất</strong></h2>\r\n\r\n<p><strong>Gi&aacute; Samsung Galaxy Z Fold 6</strong>&nbsp;tại thời điểm ra mắt l&agrave;<strong>&nbsp;43,990,000 đồng</strong>&nbsp;cho bản 12GB 256GB. C&aacute;c phi&ecirc;n bản kh&aacute;c tại thời điểm ra mắt c&oacute; gi&aacute; như sau:</p>\r\n\r\n<p>Bảng gi&aacute; chi tiết c&aacute;c phi&ecirc;n bản:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Phi&ecirc;n bản Samsung&nbsp;Z Fold6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; mở b&aacute;n quốc tế</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Gi&aacute; b&aacute;n mở b&aacute;n Việt Nam</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6&nbsp;12GB RAM + 256GB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>1,899 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>43,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6&nbsp;12GB RAM + 512GB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>2,019 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>47,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p>Samsung Z Fold 6 12GB RAm + 1TB bộ nhớ trong</p>\r\n			</td>\r\n			<td>\r\n			<p>2,259 USD</p>\r\n			</td>\r\n			<td>\r\n			<p>54,990,000 đồng</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Như vậy, gi&aacute; khởi điểm Z Fold 6 cao hơn Z Fold 5 khoảng 100 USD ở thời điểm ra mắt. Đồng thời để n&acirc;ng cấp bộ nhớ trong c&aacute;c phi&ecirc;n bản năm nay, người d&ugrave;ng sẽ cần b&ugrave; th&ecirc;m khoảng 4 triệu đồng.</p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 ra mắt khi n&agrave;o?</strong></h2>\r\n\r\n<blockquote>\r\n<p>Th&ocirc;ng tin ch&iacute;nh thức, điện thoại gập&nbsp;<strong>Samsung Z Fold6 đ&atilde; được&nbsp;ra mắt v&agrave;o ng&agrave;y 10/7/2024</strong>&nbsp;tại sự kiện&nbsp;<strong>Galaxy Unpacked</strong>&nbsp;diễn ra ở&nbsp;<strong>thủ đ&ocirc; Paris</strong>.</p>\r\n</blockquote>\r\n\r\n<p>Vẫn như th&ocirc;ng lệ kể từ khi ra mắt d&ograve;ng sản phẩm Galaxy Z Series sẽ xuất hiện v&agrave;o khoảng đầu m&ugrave;a h&egrave; năm 2024. Cụ thể th&igrave; điện thoại Z Fold 6 sẽ ch&iacute;nh thức được giới thiệu trong khoảng nửa đầu th&aacute;ng 7 năm 2024.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy Z Fold6 khi nào ra mắt?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-2.png\" /></p>\r\n\r\n<p><em>Samsung Z Fold6 ch&iacute;nh thức ra mắt v&agrave;o ng&agrave;y 10/7/2024</em></p>\r\n\r\n<p>Vậy ở phi&ecirc;n bản năm nay, Samsung Galaxy Z Fold 6 đ&atilde; c&oacute; những thay đổi g&igrave; so với bản tiền nhiệm? Liệu những thay đổi n&agrave;y c&oacute; mang đến lợi &iacute;ch trực tiếp cho người d&ugrave;ng Samsung Gập kh&ocirc;ng? Xem ngay qua phần so s&aacute;nh tiếp theo!</p>\r\n\r\n<h2><strong>Bảng so s&aacute;nh th&ocirc;ng số Z Fold 6 v&agrave; Z Fold 5 chi tiết</strong></h2>\r\n\r\n<p>L&agrave; thế hệ điện thoại gập cao cấp mới nhất nh&agrave; Samsung,&nbsp;<strong>Galaxy Z Fold 6</strong>&nbsp;dự kiến được trang bị nhiều c&ocirc;ng nghệ ti&ecirc;n tiến v&agrave; vượt trội. B&ecirc;n cạnh những cải tiến về bộ vi xử l&yacute; gi&uacute;p n&acirc;ng cao hiệu năng v&agrave; tối ưu h&oacute;a thời gian sử dụng. Những n&acirc;ng cấp n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao trải nghiệm người d&ugrave;ng m&agrave; c&ograve;n khẳng định sự ph&aacute;t triển kh&ocirc;ng ngừng của d&ograve;ng sản phẩm Z Fold.</p>\r\n\r\n<p>Bảng so s&aacute;nh th&ocirc;ng số kỹ thuật<strong>&nbsp;Galaxy Z Fold6 v&agrave; Z Fold5:</strong></p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Ti&ecirc;u ch&iacute; so s&aacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 5</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p><strong>M&agrave;n h&igrave;nh phụ&nbsp;6.3 inch</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ 6.2 inch</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ m&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X QXGA+</p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X QXGA+</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ ph&acirc;n giải (pixel)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2160 x 1856</p>\r\n			</td>\r\n			<td>\r\n			<p>2176 x 1812</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ s&aacute;ng tối đa</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>2600nits</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>1750nits</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;nh cường lực</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Glass Victus 2</p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Victus 2</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chống nước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>IP48</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>IPX8</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Tần số qu&eacute;t</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi gập</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>153,5 x 68,1 x 12,1mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>154,9 x 67,1 x 13,4mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi mở</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>153,5 x 132,6 x 5,6mm</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>154,9 x 129,9 x 6,1mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Trọng lượng&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>239 gram</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>253 gram</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>RAM</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Bộ nhớ trong</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chip xử l&yacute;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Snapdragon 8 Gen 3 For Galaxy</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 2 For Galaxy</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Kết nối&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Hỗ trợ S Pen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera sau</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera trước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh:&nbsp;4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh: 4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ chụp ảnh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p><strong>Zoom quang học 3X chất lượng 2X</strong></p>\r\n\r\n			<p>Thu ph&oacute;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p>Thu ph&ograve;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Dung lượng pin</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u sắc</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>X&aacute;m Metal,&nbsp;&nbsp;Xanh Navy, Hồng Rose</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Xanh Icy, Đen Phantom, Kem Ivory</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Như vậy, dễ thấy Samsung Fold thế hệ thứ 6 đ&atilde; được n&acirc;ng cấp&nbsp;<strong>mỏng nhẹ hơn</strong>. B&ecirc;n cạnh đ&oacute; l&agrave;&nbsp;<strong>cải tiến về camera, chipset v&agrave; m&agrave;u sắc</strong>&nbsp;thiết kế. Vậy so với Z Flip 6 c&ugrave;ng ra mắt năm nay th&igrave; th&ocirc;ng số giữa hai thiết bị n&agrave;y c&oacute; g&igrave; kh&aacute;c biệt? Đ&acirc;u l&agrave; điểm tạo n&ecirc;n sự ch&ecirc;nh lệch về gi&aacute; giữa Fold 6 v&agrave; Flip 6? Đọc ngay nội dung so s&aacute;nh tiếp theo!</p>\r\n\r\n<h2><strong>Bảng so s&aacute;nh th&ocirc;ng số Z Fold 6 v&agrave; Z Flip 6 chi tiết</strong></h2>\r\n\r\n<p>D&ograve;ng sản phẩm&nbsp;<strong>Galaxy Z Fold 6 v&agrave;&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-z-flip-6.html\" target=\"_blank\" title=\"Samsung Galaxy Z Flip 6\">Z Flip 6</a></strong>&nbsp;của Samsung đều mang lại những cải tiến vượt trội, nhưng mỗi thiết bị lại c&oacute; những đặc điểm v&agrave; t&iacute;nh năng ri&ecirc;ng biệt để phục vụ nhu cầu đa dạng của người d&ugrave;ng. Dưới đ&acirc;y l&agrave; bảng so s&aacute;nh chi tiết về th&ocirc;ng số kỹ thuật của Z Fold 6 v&agrave; Z Flip 6, gi&uacute;p bạn dễ d&agrave;ng đ&aacute;nh gi&aacute; v&agrave; lựa chọn thiết bị ph&ugrave; hợp nhất với nhu cầu c&aacute; nh&acirc;n. Từ m&agrave;n h&igrave;nh, hiệu năng, đến t&iacute;nh năng đặc biệt, mọi chi tiết đều được liệt k&ecirc; r&otilde; r&agrave;ng để mang đến c&aacute;i nh&igrave;n to&agrave;n diện v&agrave; cụ thể nhất.</p>\r\n\r\n<p>Bảng so s&aacute;nh th&ocirc;ng số kỹ thuật&nbsp;<strong>Galaxy Z Fold6 v&agrave; Z Flip6</strong>:</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Ti&ecirc;u ch&iacute; so s&aacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Fold 6</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Z Flip 6</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;n h&igrave;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 7.6 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ&nbsp;6.3 inch</p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh 6.7 inch</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh phụ 3.4 inch&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ m&agrave;n h&igrave;nh ch&iacute;nh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X</p>\r\n			</td>\r\n			<td>\r\n			<p>Dynamic AMOLED 2X&nbsp;</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ ph&acirc;n giải (pixel)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2160 x 1856 (QXGA+)</p>\r\n			</td>\r\n			<td>\r\n			<p>2640 x 1080&nbsp; (FHD+)</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Độ s&aacute;ng tối đa</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>2600nits</p>\r\n			</td>\r\n			<td>\r\n			<p>2600nits</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;nh cường lực</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Glass Victus 2</p>\r\n			</td>\r\n			<td>\r\n			<p>Corning Gorilla Victus 2</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chống nước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>IP48</p>\r\n			</td>\r\n			<td>\r\n			<p>IP48</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Tần số qu&eacute;t</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n			<td>\r\n			<p>120 Hz</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi gập</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>153,5 x 68,1 x 12,1mm</p>\r\n			</td>\r\n			<td>\r\n			<p>85,1 x 71,9 x 14,9 mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>K&iacute;ch thước khi mở</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>153,5 x 132,6 x 5,6mm</p>\r\n			</td>\r\n			<td>\r\n			<p>165,1 x 71,9 x 6,9 mm</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Trọng lượng&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>239 gram</p>\r\n			</td>\r\n			<td>187gram</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>RAM</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n			<td>\r\n			<p>12GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Bộ nhớ trong</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB/ 1TB</p>\r\n			</td>\r\n			<td>\r\n			<p>256GB / 512GB</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Chip xử l&yacute;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 3 For Galaxy</p>\r\n			</td>\r\n			<td>\r\n			<p>Snapdragon 8 Gen 3 For Galaxy</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Kết nối&nbsp;</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n			<td>\r\n			<p>5G</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Hỗ trợ S Pen</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>C&oacute;</p>\r\n			</td>\r\n			<td>\r\n			<p>-</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera sau</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP + 12.0 MP + 10.0 MP</p>\r\n			</td>\r\n			<td>\r\n			<p>50.0 MP +&nbsp; 12.0 MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Camera trước</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>M&agrave;n h&igrave;nh ch&iacute;nh:&nbsp;4MP</p>\r\n\r\n			<p>M&agrave;n h&igrave;nh ngo&agrave;i: 10MP</p>\r\n			</td>\r\n			<td>\r\n			<p>10MP</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>C&ocirc;ng nghệ chụp ảnh</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 3X</p>\r\n\r\n			<p>Zoom quang học 3X chất lượng 2X</p>\r\n\r\n			<p>Thu ph&oacute;ng kh&ocirc;ng gian 30X</p>\r\n			</td>\r\n			<td>\r\n			<p>Zoom quang học 2X</p>\r\n\r\n			<p>Thu ph&ograve;ng kh&ocirc;ng gian 10X</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Dung lượng pin</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>4.400 mAh</p>\r\n			</td>\r\n			<td>\r\n			<p>4.000 mAh</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p><strong>M&agrave;u sắc</strong></p>\r\n			</td>\r\n			<td>\r\n			<p>X&aacute;m Metal,&nbsp;&nbsp;Xanh Navy, Hồng Rose</p>\r\n			</td>\r\n			<td>\r\n			<p>Xanh Maya, Xanh Mint, X&aacute;m Metal, V&agrave;ng Solar</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>Qua bảng so s&aacute;nh nhanh c&oacute; thể thấy được&nbsp;<strong>Z Fold 6 v&agrave; Z Flip 6</strong>&nbsp;đều sử dụng con chip mạnh như nhau. Tuy nhi&ecirc;n do concept thiết kế n&ecirc;n Z Fold6 c&oacute; k&iacute;ch thước to hơn, pin lớn hơn để đ&aacute;p ứng m&agrave;n h&igrave;nh rộng hơn. Ngo&agrave;i ra, giữa hai thiết bị gập mới n&agrave;y c&ograve;n kh&aacute;c nhau ở c&ocirc;ng nghệ camera, m&agrave;u sắc chủ đạo.</p>\r\n\r\n<h2><strong>Đ&aacute;nh gi&aacute; Samsung Galaxy Z Fold 6 về thiết kế v&agrave; hiệu năng</strong></h2>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6 5G</strong>&nbsp;l&agrave; phi&ecirc;n bản đ&aacute;nh dấu sự lột x&aacute;c ho&agrave;n to&agrave;n của d&ograve;ng sản phẩm điện thoại gập của Samsung sau 5 phi&ecirc;n bản kh&ocirc;ng c&oacute; qu&aacute; nhiều kh&aacute;c biệt. Ở tr&ecirc;n phi&ecirc;n bản n&agrave;y, Samsung đ&atilde; c&oacute; những sự bổ sung n&agrave;o để kh&ocirc;ng l&agrave;m những người h&acirc;m mộ của m&igrave;nh thất vọng? C&ugrave;ng&nbsp;<strong>đ&aacute;nh gi&aacute; Samsung Fold 6</strong>&nbsp;qua c&aacute;c nội dung ch&iacute;nh sau đ&acirc;y:</p>\r\n\r\n<ul>\r\n	<li>N&acirc;ng cấp vượt bậc về khả năng quay, chụp</li>\r\n	<li>Cấu h&igrave;nh h&agrave;ng đầu với con chip độc quyền cho Galaxy</li>\r\n	<li>Vi&ecirc;n pin lớn t&iacute;ch hợp khả năng sạc si&ecirc;u tốc</li>\r\n	<li>Sự lột x&aacute;c trong thiết kế</li>\r\n	<li>M&agrave;n h&igrave;nh Dynamic AMOLED 2X HD+ 120Hz sắc n&eacute;t nay mượt m&agrave; hơn</li>\r\n</ul>\r\n\r\n<p>Chi tiết c&aacute;c đ&aacute;nh gi&aacute; như sau:</p>\r\n\r\n<h3><strong>Những t&iacute;nh năng AI ấn tượng</strong></h3>\r\n\r\n<p><strong>Galaxy Z Fold 6</strong>&nbsp;được trang bị những&nbsp;<strong>t&iacute;nh năng AI</strong>&nbsp;ấn tượng, n&acirc;ng tầm trải nghiệm người d&ugrave;ng l&ecirc;n một đẳng cấp mới. Với khả năng xử l&yacute; th&ocirc;ng minh v&agrave; tự động h&oacute;a ti&ecirc;n tiến, thiết bị gi&uacute;p tối ưu h&oacute;a hiệu suất l&agrave;m việc v&agrave; s&aacute;ng tạo. C&aacute;c t&iacute;nh năng như phi&ecirc;n dịch trực tiếp, trợ l&yacute; ghi ch&uacute;, v&agrave; chỉnh sửa ảnh chuy&ecirc;n nghiệp mang lại sự tiện lợi v&agrave; hiệu quả chưa từng c&oacute;.</p>\r\n\r\n<p><strong>Khoanh Tr&ograve;n Để T&igrave;m Kiếm</strong></p>\r\n\r\n<p>Khai th&aacute;c sức mạnh của m&agrave;n h&igrave;nh gập lớn bằng c&aacute;ch&nbsp;<strong>khoanh tr&ograve;n bất cứ thứ g&igrave;</strong>&nbsp;bạn cần t&igrave;m kiếm tr&ecirc;n Z Fold6. T&iacute;nh năng n&agrave;y gi&uacute;p bạn dễ d&agrave;ng t&igrave;m th&ocirc;ng tin chỉ với một thao t&aacute;c đơn giản, d&ugrave; l&agrave; sử dụng ng&oacute;n tay hay S Pen, biến việc t&igrave;m kiếm trở n&ecirc;n nhanh ch&oacute;ng v&agrave; thuận tiện hơn bao giờ hết.</p>\r\n\r\n<p><img alt=\"Khoanh tròn để tìm kiếm là một tính năng hữu ích trên Z Fold 6\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-9.jpg\" title=\"Khoanh tròn để tìm kiếm là một tính năng hữu ích trên Z Fold 6\" /></p>\r\n\r\n<p><em>Khoanh tr&ograve;n để t&igrave;m kiếm l&agrave; một t&iacute;nh năng hữu &iacute;ch tr&ecirc;n Z Fold 6</em></p>\r\n\r\n<p><strong>Trợ L&yacute; Note Quyền Năng (Note Assist)</strong></p>\r\n\r\n<p><strong>Note Assist</strong>l&agrave; c&ocirc;ng cụ đắc lực cho những ai thường xuy&ecirc;n&nbsp;<strong>ghi ch&uacute;</strong>, đặc biệt l&agrave; trong c&aacute;c buổi họp hoặc giảng b&agrave;i. C&ocirc;ng cụ n&agrave;y tự động chuyển đổi c&aacute;c bản ghi &acirc;m th&agrave;nh văn bản, sắp xếp ch&uacute;ng th&agrave;nh c&aacute;c ghi ch&uacute; r&otilde; r&agrave;ng v&agrave; t&oacute;m tắt hiệu quả. B&uacute;t S Pen c&agrave;ng l&agrave;m tăng t&iacute;nh năng n&agrave;y, gi&uacute;p bạn đa t&aacute;c vụ dễ d&agrave;ng. Hơn thế nữa, trợ l&yacute; chat th&ocirc;ng minh v&agrave; tr&igrave;nh duyệt th&ocirc;ng minh của Galaxy Z Fold 6 gi&uacute;p bạn tối ưu h&oacute;a c&ocirc;ng việc với chỉ một v&agrave;i từ kh&oacute;a v&agrave; t&oacute;m tắt to&agrave;n bộ trang web chỉ trong nh&aacute;y mắt.</p>\r\n\r\n<p><strong>Trợ L&yacute; Chỉnh Ảnh Chuy&ecirc;n Nghiệp (Photo Assist)</strong></p>\r\n\r\n<p><strong>Photo Assist</strong>&nbsp;l&agrave; c&ocirc;ng cụ chỉnh sửa ảnh ti&ecirc;n tiến, biến mọi bức ảnh trở n&ecirc;n ho&agrave;n hảo ngay tr&ecirc;n chiếc&nbsp;<strong>Samsung Galaxy Z Fold 6</strong>. Photo Assist cho ph&eacute;p bạn x&aacute;c định đối tượng trong ảnh, di chuyển, x&oacute;a hoặc ph&oacute;ng to đối tượng đ&oacute; một c&aacute;ch dễ d&agrave;ng. Studio ch&acirc;n dung AI gi&uacute;p bạn tạo ra những bức ch&acirc;n dung nghệ thuật tuyệt đẹp, trong khi t&iacute;nh năng chuyển động chậm tức th&igrave; cho ph&eacute;p &aacute;p dụng hiệu ứng slow-motion c&oacute; chọn lọc cho video. Ph&aacute;c hoạ th&ocirc;ng minh sử dụng AI để biến những bức ph&aacute;c thảo th&agrave;nh h&igrave;nh ảnh thực, mang đến cho bạn trải nghiệm chỉnh sửa ảnh đầy s&aacute;ng tạo v&agrave; chuy&ecirc;n nghiệp.</p>\r\n\r\n<p><img alt=\"Photo Assist trên Z Fold6 cho phép bạn xác định đối tượng trong ảnh, di chuyển, xóa hoặc phóng to đối tượng đó\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-11.jpg\" title=\"Photo Assist trên Z Fold6 cho phép bạn xác định đối tượng trong ảnh, di chuyển, xóa hoặc phóng to đối tượng đó\" /></p>\r\n\r\n<p><em>Photo Assist tr&ecirc;n Z Fold6 cho ph&eacute;p bạn x&aacute;c định đối tượng trong ảnh, di chuyển, x&oacute;a hoặc ph&oacute;ng to đối tượng đ&oacute;</em></p>\r\n\r\n<p><strong>T&iacute;nh năng Interpreter (phi&ecirc;n dịch vi&ecirc;n)</strong></p>\r\n\r\n<p>T&iacute;nh năng&nbsp;<strong>phi&ecirc;n dịch tr&ecirc;n Z Fold 6 5G</strong>&nbsp;cũng l&agrave; một t&iacute;nh năng AI ấn tượng, bạn c&oacute; thể sử dụng để:</p>\r\n\r\n<p><strong>- Phi&ecirc;n Dịch Tối Ưu Với M&agrave;n H&igrave;nh K&eacute;p</strong>: Tận dụng tối đa m&agrave;n h&igrave;nh k&eacute;p, bạn c&oacute; thể phi&ecirc;n dịch ngay tại chỗ, d&ugrave; l&agrave; khi muốn thể hiện bản th&acirc;n, theo d&otilde;i hội nghị quốc tế, hay trao đổi với hướng dẫn vi&ecirc;n du lịch. T&iacute;nh năng n&agrave;y gi&uacute;p bạn vượt qua r&agrave;o cản ng&ocirc;n ngữ, mở ra thế giới mới mẻ v&agrave; đa dạng chỉ trong tầm tay.</p>\r\n\r\n<p><strong>- Phi&ecirc;n Dịch Trực Tiếp Cuộc Gọi</strong>: Với khả năng dịch c&aacute;c cuộc tr&ograve; chuyện qua điện thoại ngay lập tức, t&iacute;nh năng n&agrave;y ho&agrave;n hảo để dịch giọng n&oacute;i theo thời gian thực tr&ecirc;n nhiều ứng dụng kh&aacute;c nhau. Điều n&agrave;y đặc biệt hữu &iacute;ch khi bạn thực hiện c&aacute;c cuộc gọi li&ecirc;n quan đến hai ng&ocirc;n ngữ kh&aacute;c nhau, đảm bảo mọi th&ocirc;ng tin được truyền tải ch&iacute;nh x&aacute;c v&agrave; hiệu quả.</p>\r\n\r\n<p><strong>- Tr&ograve; Chuyện Với Gemini</strong>: T&iacute;nh năng Tr&ograve; chuyện với Gemini được t&iacute;ch hợp để hỗ trợ bạn trong việc học tập, viết nội dung, l&ecirc;n kế hoạch v&agrave; nhiều hơn thế. Gemini kh&ocirc;ng chỉ gi&uacute;p bạn phi&ecirc;n dịch m&agrave; c&ograve;n trở th&agrave;nh trợ thủ đắc lực trong cuộc sống h&agrave;ng ng&agrave;y.</p>\r\n\r\n<p><img alt=\"Tính năng phiên dịch trên Z Fold 6 cũng là một tính năng AI ấn tượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-10.jpg\" title=\"Tính năng phiên dịch trên Z Fold 6 cũng là một tính năng AI ấn tượng\" /></p>\r\n\r\n<p><em>T&iacute;nh năng phi&ecirc;n dịch tr&ecirc;n Z Fold 6 cũng l&agrave; một t&iacute;nh năng AI ấn tượng</em></p>\r\n\r\n<h3><strong>Tỷ lệ m&agrave;n h&igrave;nh 22.1:9 mới vu&ocirc;ng vức hơn</strong></h3>\r\n\r\n<p>Một n&acirc;ng cấp đ&aacute;ng ch&uacute; &yacute; kh&aacute;c của&nbsp;<strong>Samsung Galaxy Z Fold 6</strong>&nbsp;nằm ở m&agrave;n h&igrave;nh phụ. K&iacute;ch thước bề rộng khi gập m&aacute;y tăng th&ecirc;m 1mm v&agrave; chiều cao giảm 1.4mm, tỷ lệ m&agrave;n h&igrave;nh phụ giảm từ 23.1:9 xuống c&ograve;n&nbsp;<strong>22.1:9</strong>, gần bằng với tỷ lệ 21:9 của Sony Xperia. K&iacute;ch thước m&agrave;n h&igrave;nh phụ cũng tăng&nbsp;<strong>từ 6.2 inch l&ecirc;n 6.3 inch</strong>, mang đến trải nghiệm rộng r&atilde;i v&agrave; thoải m&aacute;i hơn. M&agrave;n h&igrave;nh ch&iacute;nh b&ecirc;n trong cũng c&oacute; sự thay đổi về k&iacute;ch thước, giữ nguy&ecirc;n k&iacute;ch thước đường ch&eacute;o 7.6 inch nhưng với bề ngang rộng hơn, mang lại cảm gi&aacute;c vu&ocirc;ng vức v&agrave; dễ thao t&aacute;c hơn.</p>\r\n\r\n<p><img alt=\"Màn hình phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-15.jpg\" title=\"Màn hình phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới\" /></p>\r\n\r\n<p><em>M&agrave;n h&igrave;nh phụ Galaxy Z Fold 6 lớn 6,3 inch với tỷ lệ 22,1:9 mới</em></p>\r\n\r\n<h3><strong>N&acirc;ng cấp vượt bậc về khả năng quay, chụp</strong></h3>\r\n\r\n<p><strong>Samsung Galaxy Z Fold6</strong>&nbsp;đ&aacute;nh dấu sự thay đổi vượt trội về khả năng chụp h&igrave;nh, quay phim của thiết bị. Mẫu điện thoại gập Z Fold thế hệ thứ s&aacute;u sở hữu nhiều t&iacute;nh năng vượt trội cả cụm camera sau lẫn camera trước.&nbsp;</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-3.png\" /></p>\r\n\r\n<p><em>Samsung Fold6 sở hữu camera ch&iacute;nh 50MP</em></p>\r\n\r\n<p>Camera g&oacute;c rộng của m&aacute;y c&oacute;&nbsp;<strong>cảm biến 50MP</strong>, camera tele cảm biến 10MP để chất lượng h&igrave;nh ảnh của c&aacute;c chế độ phụ trợ được sắc n&eacute;t hơn. Th&ecirc;m v&agrave;o đ&oacute; l&agrave; camera g&oacute;c si&ecirc;u rộng 12MP, hỗ trợ tối đa cho những bức ảnh chụp nhiều người hay to&agrave;n cảnh.</p>\r\n\r\n<p>Với cảm biến lớn hơn, camera của Z Fold 6 cũng được n&acirc;ng cấp về chất lượng quay video. Điện thoại Galaxy Z Fold 6 giờ đ&acirc;y đ&atilde; c&oacute; thể&nbsp;<strong>quay phim với chất lượng cao</strong>. Về mặt trước, điện thoại sẽ được trang bị bộ đ&ocirc;i camera selfie 10MP ở m&agrave;n h&igrave;nh phụ v&agrave; 4MP ở m&agrave;n h&igrave;nh ch&iacute;nh.</p>\r\n\r\n<h3><strong>Cấu h&igrave;nh h&agrave;ng đầu với chipset Snapdragon 8 Gen 3 For Galaxy</strong></h3>\r\n\r\n<p>Với khả năng đẩy xung nhịp l&ecirc;n cao hơn để tăng tốc độ xử l&yacute;, d&ograve;ng chip Snapdragon cho Galaxy vẫn sẽ tiếp tục được trang bị tr&ecirc;n thiết bị mới. Cụ thể th&igrave; Galaxy Z Fold 6 sẽ sở hữu mẫu chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;độc quyền.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-7.png\" /></p>\r\n\r\n<p><em>Galaxy Z Fold 6 sẽ sở hữu mẫu chip Snapdragon 8 Gen 3 độc quyền</em></p>\r\n\r\n<p>Dung lượng RAM 12GB vẫn sẽ được giữ nguy&ecirc;n từ phi&ecirc;n bản Z Fold 5 l&ecirc;n Z Fold 6. RAM tr&ecirc;n điện thoại Z Fold 6 vẫn thừa khả năng để đảm bảo c&aacute;c hoạt động đa nhiệm hay chạy song song c&ugrave;ng l&uacute;c hay ứng dụng được mượt m&agrave;, nhanh ch&oacute;ng.</p>\r\n\r\n<p>Điện thoại Galaxy Z Fold 6 sẽ c&oacute; tới 3 tuỳ chọn bộ nhớ l&agrave;&nbsp;<strong>256GB, 512GB v&agrave; 1TB</strong>. Phi&ecirc;n bản bộ nhớ 128GB đ&atilde; ho&agrave;n to&agrave;n bị loại bỏ do kh&ocirc;ng c&ograve;n đủ khả năng để đ&aacute;p ứng được c&aacute;c nhu cầu quay chụp chuy&ecirc;n dụng hay l&agrave;m việc tr&ecirc;n chiếc điện thoại n&agrave;y.</p>\r\n\r\n<h3><strong>Dung lượng pin 4400mAh, thoải m&aacute;i sử dụng ng&agrave;y d&agrave;i</strong></h3>\r\n\r\n<p>Z Fold 6 sở hữu vi&ecirc;n pin&nbsp;<strong>4400mAh</strong>&nbsp;đảm bảo thời gian sử dụng l&acirc;u d&agrave;i cho c&aacute;c nhu cầu giải tr&iacute; v&agrave; c&ocirc;ng việc. Với khả năng&nbsp;<strong>ph&aacute;t video l&ecirc;n đến 23 giờ</strong>&nbsp;v&agrave;&nbsp;<strong>ph&aacute;t &acirc;m thanh l&ecirc;n đến 77 giờ</strong>&nbsp;(ở điều kiện thử nghiệm, tr&ecirc;n thực tế c&oacute; thể thay đổi), người d&ugrave;ng c&oacute; thể thoải m&aacute;i tận hưởng những trải nghiệm đa phương tiện m&agrave; kh&ocirc;ng lo hết pin giữa chừng. Hiệu suất pin vượt trội n&agrave;y mang lại sự tiện lợi v&agrave; đ&aacute;ng tin cậy cho mọi hoạt động h&agrave;ng ng&agrave;y.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-3.png\" /></p>\r\n\r\n<p><em>Galaxy Fold6 sở hữu vi&ecirc;n pin 4400mAh</em></p>\r\n\r\n<p>Vi&ecirc;n pin mới cũng sẽ được t&iacute;ch hợp c&ocirc;ng nghệ sạc ti&ecirc;n tiến để mang tới khả năng sạc đầy si&ecirc;u tốc. Samsung Galaxy Z Fold 6 sẽ hỗsạc nhanh c&oacute; c&ocirc;ng suất 25W. Nhờ vậy m&agrave; Z Fold 6 sẽ kh&ocirc;ng chỉ c&oacute; được thời lượng d&ugrave;ng thoải m&aacute;i m&agrave; c&ograve;n r&uacute;t ngắn được thời gian sạc pin.</p>\r\n\r\n<h3><strong>Mỏng nhẹ hơn, đa dạng tuỳ chọn m&agrave;u sắc</strong></h3>\r\n\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;kh&ocirc;ng thay đổi nhiều về tổng thể ngoại h&igrave;nh nhưng mang đến những cải tiến đ&aacute;ng gi&aacute;. So với thế hệ trước, Galaxy Z Fold6&nbsp;<strong>nhẹ hơn 14g</strong>&nbsp;v&agrave;&nbsp;<strong>mỏng hơn</strong>&nbsp;đ&aacute;ng kể, khi mở ra mỏng hơn 0.5mm v&agrave; khi gập lại mỏng hơn 1.3mm, mang lại cảm gi&aacute;c cầm nắm nhẹ nh&agrave;ng v&agrave; thoải m&aacute;i. Thiết kế vu&ocirc;ng vức hơn cũng tạo cảm gi&aacute;c cao cấp v&agrave; cứng c&aacute;p hơn. Samsung mang đến 3 t&ugrave;y chọn m&agrave;u sắc cho Galaxy Z Fold6:&nbsp;<strong>X&aacute;m Metal, Xanh Navy v&agrave; Hồng Rose</strong>, gi&uacute;p người d&ugrave;ng thể hiện c&aacute; t&iacute;nh ri&ecirc;ng.</p>\r\n\r\n<p><img alt=\"Galaxy Z Fold6 nhẹ hơn 14g và mỏng hơn đáng kể so với thế hệ trước\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-17.jpg\" title=\"Galaxy Z Fold6 nhẹ hơn 14g và mỏng hơn đáng kể so với thế hệ trước\" /></p>\r\n\r\n<p><em>Galaxy Z Fold6 nhẹ hơn 14g v&agrave; mỏng hơn đ&aacute;ng kể so với thế hệ trước</em></p>\r\n\r\n<p><strong>Bản lề cải tiến</strong>&nbsp;của phi&ecirc;n bản Z Fold mới mang đến trải nghiệm gập mở mượt m&agrave; v&agrave; bền hơn. Ngo&agrave;i ra, khả năng chống nước&nbsp;<strong>đạt chuẩn IP48</strong>, tức l&agrave; vẫn c&oacute; khả năng chống bụi nhẹ, l&agrave; một bước tiến so với thế hệ trước kh&ocirc;ng c&oacute; khả năng chống bụi.</p>\r\n\r\n<p>M&agrave;n h&igrave;nh phụ của Galaxy Z Fold 6 đ&atilde; được n&acirc;ng cấp từ 6.2 inch l&ecirc;n 6.3 inch, mang lại trải nghiệm thao t&aacute;c thoải m&aacute;i v&agrave; rộng r&atilde;i hơn so với thế hệ trước. K&iacute;ch thước thay đổi của m&aacute;y cũng ảnh hưởng đến m&agrave;n h&igrave;nh ch&iacute;nh, gi&uacute;p bề ngang rộng hơn v&agrave; thiết kế vu&ocirc;ng vức hơn, mặc d&ugrave; k&iacute;ch thước đường ch&eacute;o vẫn giữ nguy&ecirc;n 7.6 inch.</p>\r\n\r\n<h3><strong>M&agrave;n h&igrave;nh&nbsp;Dynamic AMOLED 2X HD+ 120Hz sắc n&eacute;t, độ s&aacute;ng vượt trội</strong></h3>\r\n\r\n<p><strong>Galaxy Z Fold 6</strong>&nbsp;được trang bị m&agrave;n h&igrave;nh ch&iacute;nh&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;với độ ph&acirc;n giải&nbsp;<strong>2376 x 968</strong>, mang đến h&igrave;nh ảnh sắc n&eacute;t v&agrave; sống động. Độ s&aacute;ng tối đa l&ecirc;n đến&nbsp;<strong>2600 nits</strong>&nbsp;đảm bảo khả năng hiển thị r&otilde; r&agrave;ng ngay cả dưới &aacute;nh s&aacute;ng mặt trời mạnh. Tốc độ l&agrave;m mới&nbsp;<strong>120Hz</strong>&nbsp;mang lại trải nghiệm mượt m&agrave;, l&yacute; tưởng cho việc xem video, chơi game v&agrave; lướt web.</p>\r\n\r\n<p><img alt=\"Đánh giá Samsung Galaxy Z Fold 6 về thiết kế và hiệu năng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-4.png\" /></p>\r\n\r\n<p><em>M&agrave;n h&igrave;nh Galaxy Z Fold 6 c&oacute; độ s&aacute;ng m&agrave;n h&igrave;nh tối đa l&ecirc;n đến 2600nits</em></p>\r\n\r\n<p>Những th&ocirc;ng số ấn tượng n&agrave;y kh&ocirc;ng chỉ n&acirc;ng cao chất lượng h&igrave;nh ảnh m&agrave; c&ograve;n cải thiện trải nghiệm người d&ugrave;ng, mang lại cảm gi&aacute;c ch&acirc;n thực v&agrave; sống động trong từng t&aacute;c vụ h&agrave;ng ng&agrave;y. M&agrave;n h&igrave;nh Z Fold 6 chắc chắn sẽ l&agrave;m h&agrave;i l&ograve;ng những kh&aacute;ch h&agrave;ng kh&oacute; t&iacute;nh nhất, từ nhu cầu giải tr&iacute; đến c&ocirc;ng việc.</p>\r\n\r\n<h2><strong>Samsung Z Fold 6 c&oacute; mấy m&agrave;u? M&agrave;u n&agrave;o mới xuất hiện?</strong></h2>\r\n\r\n<blockquote>\r\n<p><strong>Samsung Z Fold 6</strong>&nbsp;mang đến cho người d&ugrave;ng&nbsp;<strong>5 t&ugrave;y chọn m&agrave;u sắc</strong>&nbsp;đa dạng gồm&nbsp;<strong>X&aacute;m, Hồng, Xanh, Đen v&agrave; Trắng</strong>. M&agrave;u Đen v&agrave; Trắng l&agrave; hai m&agrave;u sắc độc quyền chỉ c&oacute; tại Samsung Store, mang đến sự lựa chọn đặc biệt cho những ai y&ecirc;u th&iacute;ch sự sang trọng v&agrave; tinh tế.</p>\r\n</blockquote>\r\n\r\n<p>Với sự bổ sung của c&aacute;c t&ugrave;y chọn m&agrave;u mới n&agrave;y, bạn c&oacute; thể dễ d&agrave;ng thể hiện c&aacute; t&iacute;nh ri&ecirc;ng của m&igrave;nh, từ vẻ ngo&agrave;i thanh lịch, quyến rũ đến phong c&aacute;ch hiện đại, mạnh mẽ. Samsung Z Fold 6 kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ ti&ecirc;n tiến m&agrave; c&ograve;n l&agrave; một phụ kiện thời trang đẳng cấp, ph&ugrave; hợp với mọi phong c&aacute;ch sống.</p>\r\n\r\n<p><img alt=\"Samsung Z Fold 6 mang đến cho người dùng 5 tùy chọn màu sắc đa dạng gồm Xám, Hồng, Xanh, Đen và Trắng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-5.png\" title=\"Samsung Z Fold 6 mang đến cho người dùng 5 tùy chọn màu sắc đa dạng gồm Xám, Hồng, Xanh, Đen và Trắng\" /></p>\r\n\r\n<p><em>Samsung Z Fold 6 mang đến cho người d&ugrave;ng 5 t&ugrave;y chọn m&agrave;u sắc đa dạng gồm X&aacute;m, Hồng, Xanh, Đen v&agrave; Trắng</em></p>\r\n\r\n<p>C&oacute; thể thấy, hầu hết bản m&agrave;u tr&ecirc;n phi&ecirc;n bản tiền nhiệm đ&atilde; thay thế bằng bộ m&agrave;u mới. Như Z Fold 5 c&oacute; c&aacute;c phi&ecirc;n bản: Xanh Icy, Đen Phantom, Kem Ivory v&agrave; 2 bản độc quyền chỉ b&aacute;n tr&ecirc;n trang trực tuyến Samsung: Xanh Downtown v&agrave; Ghi Urban.</p>\r\n\r\n<h2><strong>Samsung Galaxy Z Fold 6 c&oacute; mấy phi&ecirc;n bản bộ nhớ?</strong></h2>\r\n\r\n<blockquote>\r\n<p><strong>Samsung Galaxy Z Fold 6</strong>&nbsp;c&oacute;&nbsp;<strong>3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; 1TB</strong>&nbsp;để người d&ugrave;ng lựa chọn ph&ugrave; hợp với nhu cầu của m&igrave;nh. Tất cả đều đi c&ugrave;ng bộ nhớ RAM 12GB xử l&yacute; đa nhiệm mượt m&agrave;.</p>\r\n</blockquote>\r\n\r\n<p>Bạn c&oacute; thể lựa chọn giữa c&aacute;c phi&ecirc;n bản lưu trữ 256GB, 512GB, v&agrave; 1TB, gi&uacute;p bạn thoải m&aacute;i lưu trữ dữ liệu, ứng dụng v&agrave; nội dung y&ecirc;u th&iacute;ch m&agrave; kh&ocirc;ng lo hết dung lượng. Sự đa dạng trong t&ugrave;y chọn bộ nhớ của Galaxy Z Fold 6 đảm bảo đ&aacute;p ứng mọi nhu cầu từ cơ bản đến cao cấp, mang lại trải nghiệm sử dụng tối ưu cho người d&ugrave;ng.</p>\r\n\r\n<p><img alt=\"Samsung Galaxy Z Fold 6 có 3 phiên bản bộ nhớ trong là 256GB, 512GB và 1TB\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-18.jpg\" title=\"Samsung Galaxy Z Fold 6 có 3 phiên bản bộ nhớ trong là 256GB, 512GB và 1TB\" /></p>\r\n\r\n<p><em>Samsung Galaxy Z Fold 6 c&oacute; 3 phi&ecirc;n bản bộ nhớ trong l&agrave; 256GB, 512GB v&agrave; 1TB</em></p>\r\n\r\n<h2><strong>Samsung ZFold 6 c&oacute; n&acirc;ng cấp khả năng chống nước kh&ocirc;ng?</strong></h2>\r\n\r\n<p><strong>Samsung ZFold 6</strong>&nbsp;5G tiếp tục n&acirc;ng cấp khả năng chống nước với&nbsp;<strong>ti&ecirc;u chuẩn IP48</strong>, đồng thời ti&ecirc;u chuẩn n&agrave;y cũng đảm bảo thiết bị c&oacute; thể&nbsp;<strong>chống bụi nhẹ</strong>, đ&acirc;y l&agrave; một cải tiến đ&aacute;ng kể so với thế hệ tiền nhiệm vốn kh&ocirc;ng c&oacute; khả năng chống bụi.</p>\r\n\r\n<p>Điều n&agrave;y gi&uacute;p Z Fold 6 trở n&ecirc;n bền bỉ v&agrave; đ&aacute;ng tin cậy hơn trong nhiều điều kiện sử dụng. Tr&ecirc;n thị trường điện thoại gập hiện nay, khả năng chống nước của Galaxy Z Fold 6 gi&uacute;p thiết bị nổi bật hơn, mang lại sự y&ecirc;n t&acirc;m cho người. Với những cải tiến n&agrave;y, Galaxy Z Fold 6 kh&ocirc;ng chỉ l&agrave; một thiết bị c&ocirc;ng nghệ cao cấp m&agrave; c&ograve;n l&agrave; người bạn đồng h&agrave;nh đ&aacute;ng tin cậy trong mọi t&igrave;nh huống.</p>\r\n\r\n<p><img alt=\"Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/samsung-galaxy-z-fold-6-16.jpg\" title=\"Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng\" /></p>\r\n\r\n<p><em>Z Fold 6 được trang bị chuẩn chống nước IP48 chất lượng</em></p>\r\n\r\n<h2><strong>Chuy&ecirc;n gia c&ocirc;ng nghệ n&oacute;i g&igrave; về Samsung Z Fold 6?</strong></h2>\r\n\r\n<p><strong>Samsung Z Fold 6</strong>&nbsp;l&agrave; thế hệ điện thoại cao cấp của Samsung được tr&igrave;nh l&agrave;ng năm 2024. Với những n&acirc;ng cấp đ&aacute;ng để mẫu điện thoại đ&oacute;n nhận nhiều đ&aacute;nh gi&aacute; t&iacute;ch cực từ chuy&ecirc;n gia, nổi bật phải kể đến như:&nbsp;</p>\r\n\r\n<p>- Anh Huy NL - Người s&aacute;ng lập Schannel: &quot;Galaxy Z Fold6 năm nay m&igrave;nh thấy&nbsp;<strong>như một chiếc m&aacute;y t&iacute;nh thu gọn</strong>, dễ d&agrave;ng thao t&aacute;c, đa nhiệm hơn bao giờ hết tr&ecirc;n m&agrave;n h&igrave;nh si&ecirc;u lớn. Xử l&iacute; c&ocirc;ng việc nh&agrave;nh gọn chỉ cần v&agrave;i thao t&aacute;c c&ugrave;ng thanh t&aacute;c vụ mới tr&ecirc;n Z Fold6.&quot;</p>\r\n\r\n<p>- Anh Tuấn Ngọc - chuy&ecirc;n gia review c&ocirc;ng nghệ: &quot;Thiết kế&nbsp;<strong>tinh tế</strong>&nbsp;v&agrave;&nbsp;<strong>cảm gi&aacute;c nhẹ nh&agrave;ng hơn</strong>&nbsp;của Galaxy Z Fold6 khiến n&oacute; trở th&agrave;nh chiếc Fold mang nhiều điểm nhất từ trước đến nay. Galaxy Ai tr&ecirc;n Z Fold6 gi&uacute;p cho m&igrave;nh đa nhiệm tối ưu với c&ocirc;ng việc hơn bao giờ &quot;.</p>\r\n\r\n<p><img alt=\"Chuyên gia đánh giá gì về Z Fold 6?\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Samsung/samsung_z/Z6-Series/dien-thoai-samsung-z-flip-6-chuyen-gia.jpg\" /></p>', 'Samsung Galaxy Z Fold6', 'Samsung Galaxy Z Fold6', 'Samsung Z Fold 6 là siêu phẩm điện thoại gập được ra mắt ngày 10/7, hiệu năng dẫn đầu phân khúc với chip 8 nhân Snapdragon 8 Gen 3 for Galaxy, 12GB RAM cùng bộ nhớ trong từ 256GB đến 1TB. Thay đổi mạnh mẽ về hiệu năng và thiết kế, Galaxy Z Fold 6 hứa hẹn sẽ là chiếc smartphone AI đáng sở hữu nhất nửa cuối năm 2024. Cùng CellphoneS cập nhật tất tần tật thông tin về Galaxy Z Fold6 ngay đây nhé!', 'samsung-galaxy-z-fold6', '2024-11-13 10:23:29', '2024-11-13 10:23:29', NULL),
-(31, 1, 'Test product', '<p>Test product</p>', '<p>Test product</p>', 'Test product', 'Test product', 'Test product', 'test-product', '2024-11-13 10:23:47', '2024-11-13 10:23:47', NULL);
+(34, 1, 'Laptop HP 15s fq5229TU i3 1215U/8GB/512GB/Win11', NULL, NULL, NULL, NULL, NULL, 'laptop2222', '2024-11-15 12:19:06', '2024-11-15 12:19:06', NULL),
+(33, 1, 'Điện thoại Samsung Galaxy S24 Ultra 5G', NULL, NULL, NULL, NULL, NULL, 'dien-thoai-samsung-galaxy-s24-ultra-5g', '2024-11-15 12:19:16', '2024-11-15 12:19:16', NULL),
+(32, 1, 'Điện thoại Samsung Galaxy Z Fold6', NULL, NULL, NULL, NULL, NULL, 'dien-thoai-samsung-galaxy-z-fold6', '2024-11-15 12:19:24', '2024-11-15 12:19:24', NULL),
+(31, 1, 'Điện thoại iPhone 15', NULL, NULL, NULL, NULL, NULL, 'dien-thoai-iphone-15', '2024-11-15 12:19:32', '2024-11-15 12:19:32', NULL),
+(30, 1, 'Điện thoại iPhone 15 Pro Max', NULL, NULL, NULL, NULL, NULL, 'dien-thoai-iphone-15-pro-max', '2024-11-15 12:19:38', '2024-11-15 12:19:38', NULL),
+(35, 1, 'Tai nghe Bluetooth Chụp tai soundcore H30i', NULL, NULL, NULL, NULL, NULL, 'tai-nghe-bluetooth-chup-tai-soundcore-h30i', '2024-11-18 15:16:33', '2024-11-18 15:16:33', NULL),
+(36, 1, 'Pin sạc dự phòng', NULL, NULL, NULL, NULL, NULL, 'pin-sac-du-phong', '2024-11-18 15:19:53', '2024-11-18 15:19:53', NULL),
+(38, 1, 'Bút cảm ứng Apple Pencil 2 MU8F2', NULL, NULL, NULL, NULL, NULL, 'but-cam-ung-apple-pencil-2-mu8f2', '2024-11-18 15:24:15', '2024-11-18 15:24:15', NULL),
+(39, 1, 'Túi đựng AirPods Pro 2', NULL, NULL, NULL, NULL, NULL, 'tui-dung-airpods-pro-2', '2024-11-18 15:28:23', '2024-11-18 15:28:23', NULL),
+(41, 1, 'Miếng dán camera iPhone 15 Pro/15 Pro Max', NULL, NULL, NULL, NULL, NULL, 'mieng-dan-camera-iphone-15-pro15-pro-max', '2024-11-18 15:31:24', '2024-11-18 15:31:24', NULL),
+(42, 1, 'Dây da đồng hồ', NULL, NULL, NULL, NULL, NULL, 'day-da-dong-ho', '2024-11-18 15:34:25', '2024-11-18 15:34:25', NULL),
+(43, 1, 'Đồng hồ thông minh Huawei Watch GT 5', NULL, NULL, NULL, NULL, NULL, 'dong-ho-thong-minh-huawei-watch-gt-5', '2024-11-18 15:40:46', '2024-11-18 15:40:46', NULL),
+(44, 1, 'Đồng hồ thông minh Samsung Galaxy Watch5', NULL, NULL, NULL, NULL, NULL, 'dong-ho-thong-minh-samsung-galaxy-watch5', '2024-11-18 15:43:41', '2024-11-18 15:43:41', NULL),
+(45, 1, 'Vòng đeo tay thông minh Mi Band 8', NULL, NULL, NULL, NULL, NULL, 'vong-deo-tay-thong-minh-mi-band-8', '2024-11-18 15:46:28', '2024-11-18 15:46:28', NULL),
+(47, 1, 'Đồng hồ CITIZEN Tsuyosa NJ0150-81X', NULL, NULL, NULL, NULL, NULL, 'dong-ho-citizen-tsuyosa-nj0150-81x', '2024-11-18 15:54:09', '2024-11-18 15:54:09', NULL),
+(48, 1, 'Máy tính bảng iPad 9 WiFi', NULL, NULL, NULL, NULL, NULL, 'may-tinh-bang-ipad-9-wifi', '2024-11-18 15:56:57', '2024-11-18 15:56:57', NULL),
+(49, 1, 'Máy tính bảng OPPO Pad Neo WiFi', NULL, NULL, NULL, NULL, NULL, 'may-tinh-bang-oppo-pad-neo-wifi', '2024-11-18 15:59:45', '2024-11-18 15:59:45', NULL),
+(50, 1, 'Máy tính bảng Samsung Galaxy Tab S10 Ultra 5G', NULL, NULL, NULL, NULL, NULL, 'may-tinh-bang-samsung-galaxy-tab-s10-ultra-5g', '2024-11-18 16:01:37', '2024-11-18 16:01:37', NULL),
+(51, 1, 'Máy tính bảng Lenovo Tab Plus WiFi 8GB', NULL, NULL, NULL, NULL, NULL, 'may-tinh-bang-lenovo-tab-plus-wifi-8gb', '2024-11-18 16:03:13', '2024-11-18 16:03:13', NULL),
+(52, 1, 'Máy tính bảng TCL Tab 11 WiFi 4GB', NULL, NULL, NULL, NULL, NULL, 'may-tinh-bang-tcl-tab-11-wifi-4gb', '2024-11-18 16:04:44', '2024-11-18 16:04:44', NULL),
+(53, 1, 'Máy in phun trắng đen đơn năng Canon PIXMA GM2070 Wifi', NULL, NULL, NULL, NULL, NULL, 'may-in-phun-trang-den-don-nang-canon-pixma-gm2070-wifi', '2024-11-18 16:07:41', '2024-11-18 16:07:41', NULL),
+(54, 1, 'Máy in laser trắng đen đơn năng HP 107a (4ZB77A)', NULL, NULL, NULL, NULL, NULL, 'may-in-laser-trang-den-don-nang-hp-107a-4zb77a', '2024-11-18 16:09:13', '2024-11-18 16:09:13', NULL),
+(55, 1, 'Máy in laser trắng đen đơn năng Brother HL-L2321D', NULL, NULL, NULL, NULL, NULL, 'may-in-laser-trang-den-don-nang-brother-hl-l2321d', '2024-11-18 16:10:52', '2024-11-18 16:10:52', NULL),
+(56, 1, 'Máy In phun màu đơn năng Epson EcoTank L1210 (C11CJ70501)', NULL, NULL, NULL, NULL, NULL, 'may-in-phun-mau-don-nang-epson-ecotank-l1210-c11cj70501', '2024-11-18 16:12:45', '2024-11-18 16:12:45', NULL),
+(57, 1, 'Camera IP 360 Độ 2MP Ezviz C6N', NULL, NULL, NULL, NULL, NULL, 'camera-ip-360-do-2mp-ezviz-c6n', '2024-11-18 16:21:50', '2024-11-18 16:21:50', NULL),
+(58, 1, 'Camera IP 360 Độ 3MP IMOU TA32CP-L', NULL, NULL, NULL, NULL, NULL, 'camera-ip-360-do-3mp-imou-ta32cp-l', '2024-11-18 16:23:50', '2024-11-18 16:23:50', NULL),
+(59, 1, 'Camera IP 360 Độ 3MP BOTSLAB C212', NULL, NULL, NULL, NULL, NULL, 'camera-ip-360-do-3mp-botslab-c212', '2024-11-18 16:25:54', '2024-11-18 16:25:54', NULL),
+(46, 1, 'Đồng hồ CASIO', NULL, NULL, NULL, NULL, NULL, 'dong-ho-casio', '2024-11-18 16:46:22', '2024-11-18 16:46:22', NULL),
+(60, 1, 'Màn hình Gaming Asus TUF VG249Q3A 23.8 inch FHD/IPS/180Hz/1ms/FreeSync/DisplayPort/HDMI', NULL, NULL, NULL, NULL, NULL, 'man-hinh-gaming-asus-tuf-vg249q3a-238-inch-fhdips180hz1msfreesyncdisplayporthdmi', '2024-11-18 16:49:08', '2024-11-18 16:49:08', NULL),
+(40, 1, 'Miếng dán camera iPhone 16 Pro/16 Pro Max', NULL, NULL, NULL, NULL, NULL, 'mieng-dan-camera-iphone-16-pro16-pro-max', '2024-11-18 17:04:01', '2024-11-18 17:04:01', NULL),
+(61, 1, 'Màn hình MSI Pro MP225 21.45 inch FHD/IPS/100Hz/1ms/HDMI', NULL, NULL, NULL, NULL, NULL, 'man-hinh-msi-pro-mp225-2145-inch-fhdips100hz1mshdmi', '2024-11-21 15:09:07', '2024-11-21 15:09:07', NULL),
+(67, 1, '12', '<p>1</p>', '<p>1</p>', '1', '1', '1', '1111111', '2024-11-21 16:01:51', '2024-11-21 16:01:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -2069,30 +2516,32 @@ INSERT INTO `product_language` (`product_id`, `language_id`, `name`, `descriptio
 CREATE TABLE `product_receipts` (
   `id` bigint UNSIGNED NOT NULL,
   `date_created` timestamp NULL DEFAULT NULL,
+  `date_of_receipt` timestamp NULL DEFAULT NULL,
+  `date_of_booking` timestamp NULL DEFAULT NULL,
+  `expected_delivery_date` timestamp NULL DEFAULT NULL,
+  `date_approved` timestamp NULL DEFAULT NULL,
   `publish` tinyint NOT NULL DEFAULT '0',
   `user_id` bigint UNSIGNED NOT NULL,
   `total` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `actual_total` decimal(12,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `supplier_id` bigint UNSIGNED NOT NULL,
-  `date_of_receipt` timestamp NULL DEFAULT NULL,
-  `date_of_booking` timestamp NULL DEFAULT NULL,
-  `date_approved` timestamp NULL DEFAULT NULL,
-  `actual_total` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `expected_delivery_date` timestamp NULL DEFAULT NULL
+  `supplier_id` bigint UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product_receipts`
 --
 
-INSERT INTO `product_receipts` (`id`, `date_created`, `publish`, `user_id`, `total`, `created_at`, `updated_at`, `deleted_at`, `supplier_id`, `date_of_receipt`, `date_of_booking`, `date_approved`, `actual_total`, `expected_delivery_date`) VALUES
-(2, '2024-10-28 08:15:43', 3, 201014, '50050000.00', '2024-10-28 08:15:43', '2024-10-28 08:16:14', NULL, 3, '2024-10-28 08:15:51', NULL, '2024-10-30 08:16:00', '50050000.00', NULL),
-(3, '2024-10-29 06:05:52', 1, 201014, '150000.00', '2024-10-29 06:05:52', '2024-10-29 06:06:01', NULL, 2, '2024-10-29 06:06:01', NULL, NULL, '0.00', NULL),
-(4, '2024-11-02 11:03:24', 2, 201014, '34000000.00', '2024-11-02 11:03:24', '2024-11-02 11:03:29', NULL, 3, '2024-11-02 11:03:29', '2024-11-02 11:03:29', NULL, '0.00', '2024-11-02 11:03:00'),
-(5, '2024-11-02 11:12:54', 2, 201014, '180000.00', '2024-11-02 11:12:54', '2024-11-02 11:12:59', NULL, 3, '2024-11-02 11:12:59', '2024-11-02 11:12:59', NULL, '0.00', '2024-11-02 11:12:00'),
-(6, '2024-11-13 13:00:15', 2, 201014, '510000.00', '2024-11-13 13:00:15', '2024-11-13 13:00:25', NULL, 3, '2024-11-13 13:00:25', '2024-11-13 13:00:25', NULL, '0.00', '2024-11-13 13:00:00');
+INSERT INTO `product_receipts` (`id`, `date_created`, `date_of_receipt`, `date_of_booking`, `expected_delivery_date`, `date_approved`, `publish`, `user_id`, `total`, `actual_total`, `created_at`, `updated_at`, `deleted_at`, `supplier_id`) VALUES
+(220, '2024-11-01 09:07:13', '2024-11-01 09:07:22', '2024-11-01 09:07:22', '2024-11-30 09:07:00', '2024-11-01 09:08:00', 3, 201014, '209999999.00', '209999999.00', '2024-11-01 09:07:13', '2024-11-01 09:08:16', NULL, 19),
+(221, '2024-11-01 11:24:45', '2024-11-01 11:25:01', '2024-11-01 11:25:01', '2024-11-30 11:24:00', NULL, 2, 201014, '1.00', '0.00', '2024-11-01 11:24:45', '2024-11-01 11:25:01', NULL, 19),
+(222, '2024-11-02 11:02:04', '2024-11-02 11:04:14', '2024-11-02 11:04:14', '2024-11-30 11:02:00', NULL, 2, 201014, '30000000.00', '0.00', '2024-11-02 11:02:04', '2024-11-02 11:04:14', NULL, 19),
+(223, '2024-11-02 11:08:47', '2024-11-02 11:08:58', '2024-11-02 11:08:58', '2024-11-30 11:08:00', NULL, 2, 201014, '2.00', '0.00', '2024-11-02 11:08:47', '2024-11-02 11:08:58', NULL, 19),
+(224, '2024-11-02 11:10:28', '2024-11-02 11:10:43', '2024-11-02 11:10:43', '2024-11-30 11:10:00', NULL, 2, 201014, '2.00', '0.00', '2024-11-02 11:10:28', '2024-11-02 11:10:43', NULL, 19),
+(225, '2024-11-15 12:50:23', '2024-11-15 12:50:36', '2024-11-15 12:50:36', '2024-11-30 12:50:00', '2024-11-15 12:52:00', 3, 201014, '20000000.00', '20000000.00', '2024-11-15 12:50:23', '2024-11-15 12:52:06', NULL, 19),
+(226, '2024-11-19 05:15:25', '2024-11-19 05:15:30', '2024-11-19 05:15:30', '2024-11-19 05:15:00', '2024-11-19 05:15:00', 3, 201014, '10000.00', '10000.00', '2024-11-19 05:15:25', '2024-11-19 05:15:44', NULL, 19);
 
 -- --------------------------------------------------------
 
@@ -2105,20 +2554,21 @@ CREATE TABLE `product_receipt_detail` (
   `product_receipt_id` bigint UNSIGNED NOT NULL,
   `product_variant_id` bigint UNSIGNED NOT NULL,
   `quantity` int NOT NULL DEFAULT '0',
+  `actual_quantity` int NOT NULL DEFAULT '0',
   `price` decimal(12,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `product_id` bigint UNSIGNED NOT NULL,
-  `actual_quantity` int NOT NULL DEFAULT '0'
+  `product_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product_receipt_detail`
 --
 
-INSERT INTO `product_receipt_detail` (`id`, `product_receipt_id`, `product_variant_id`, `quantity`, `price`, `created_at`, `updated_at`, `product_id`, `actual_quantity`) VALUES
-(27, 6, 764, 10, '1000.00', '2024-11-13 13:00:15', '2024-11-13 13:00:15', 31, 0),
-(28, 6, 765, 5, '100000.00', '2024-11-13 13:00:15', '2024-11-13 13:00:15', 31, 0);
+INSERT INTO `product_receipt_detail` (`id`, `product_receipt_id`, `product_variant_id`, `quantity`, `actual_quantity`, `price`, `created_at`, `updated_at`, `product_id`) VALUES
+(497, 225, 519, 1, 1, '10000000.00', '2024-11-15 12:50:23', '2024-11-15 12:52:06', 31),
+(498, 225, 520, 1, 1, '10000000.00', '2024-11-15 12:50:23', '2024-11-15 12:52:06', 31),
+(499, 226, 557, 1, 1, '10000.00', '2024-11-19 05:15:25', '2024-11-19 05:15:44', 42);
 
 -- --------------------------------------------------------
 
@@ -2129,20 +2579,20 @@ INSERT INTO `product_receipt_detail` (`id`, `product_receipt_id`, `product_varia
 CREATE TABLE `product_variants` (
   `id` bigint UNSIGNED NOT NULL,
   `product_id` bigint UNSIGNED NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `quantity` int NOT NULL DEFAULT '0',
-  `sku` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sku` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `price` double NOT NULL DEFAULT '0',
-  `barcode` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `file_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `file_url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `album` text COLLATE utf8mb4_general_ci,
+  `barcode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `file_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `album` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '1',
   `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `uuid` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `uuid` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2150,29 +2600,100 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `code`, `quantity`, `sku`, `price`, `barcode`, `file_name`, `file_url`, `album`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`, `uuid`) VALUES
-(743, 30, '3,7,8', 0, '1725808096-3-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'd5d1f792-bb5e-5f2b-8fbf-5a028dcd3227'),
-(744, 30, '3,7,9', 0, '1725808096-3-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '3dfe35b8-fae3-59a0-b55f-b979d9143edb'),
-(745, 30, '4,7,8', 0, '1725808096-4-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '581a401f-1fe3-53a2-a789-8b8d5af36bf6'),
-(746, 30, '4,7,9', 0, '1725808096-4-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'de33adc1-9f84-56a3-88f7-69482ddc1e5e'),
-(747, 30, '7,8,13', 0, '1725808096-13-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'a466e365-3c1d-5bf0-95ea-59d413b39454'),
-(748, 30, '7,9,13', 0, '1725808096-13-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '4e3e89a0-3261-502d-987e-cf2a848d4a5b'),
-(749, 30, '7,8,17', 0, '1725808096-17-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'f53ad24b-d763-5b3c-82f3-a4f468ae097f'),
-(750, 30, '7,9,17', 0, '1725808096-17-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'a610f96b-2d09-59ac-b5f3-b0db402f21d1'),
-(751, 30, '7,8,18', 0, '1725808096-18-8-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', 'db278c98-5345-5eea-a644-fca543cac611'),
-(752, 30, '7,9,18', 0, '1725808096-18-9-7', 17290000, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-13 10:23:12', '2024-11-13 10:23:12', '14fcb80a-134c-5c52-a7cb-e387dbe34059'),
-(753, 29, '2', 0, '1725807621-2', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '75a91c97-ff7e-5a73-b6f5-5b6577cdea54'),
-(754, 29, '4', 0, '1725807621-4', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '99b74199-95f1-579e-bbb6-a9a566b66c00'),
-(755, 29, '18', 0, '1725807621-18', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '3cbc0c16-2450-50a4-a5a2-5f024b03b898'),
-(756, 29, '19', 0, '1725807621-19', 34990000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-13 10:23:17', '2024-11-13 10:23:17', '5c15a59b-a3bf-5947-8788-a275a4ec132a'),
-(757, 28, '4', 99, '1725806874-4', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 12:59:01', 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f'),
-(758, 28, '14', 0, '1725806874-14', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 10:23:22', '4ff12264-360e-5341-a38e-e1253e07bb60'),
-(759, 28, '16', 0, '1725806874-16', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_3__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 10:23:22', '9f617c3c-ac73-5ca9-839d-9672ce668e86'),
-(760, 28, '17', 0, '1725806874-4', 44490000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"', 1, 201014, NULL, '2024-11-13 10:23:22', '2024-11-13 10:23:22', '1de712db-fe45-535b-a77c-a5b589d66ed7'),
-(761, 27, '13', 99, '1725805125-13', 43990000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png\"', 1, 201014, NULL, '2024-11-13 10:23:29', '2024-11-13 12:59:01', 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d'),
-(762, 27, '14', 0, '1725805125-14', 43990000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png\"', 1, 201014, NULL, '2024-11-13 10:23:29', '2024-11-13 10:23:29', 'b1ccf651-d5c2-521f-aed8-393abddbb848'),
-(763, 27, '15', 0, '1725805125-15', 43990000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png\"', 1, 201014, NULL, '2024-11-13 10:23:29', '2024-11-13 10:23:29', '16a756b2-9c92-55b8-a255-f3e73c2d39fa'),
-(764, 31, '2', 5, '1725810741-2', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\"', 1, 201014, NULL, '2024-11-13 10:23:47', '2024-11-13 10:23:47', '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea'),
-(765, 31, '13', 5, '1725810741-13', 15000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-11-13 10:23:47', '2024-11-13 10:23:47', '989a0d25-8428-5964-8da4-a184a87cd90a');
+(497, 34, '7', 5, '1726546459-7', 15000000, '', '', '', '\"\\/userfiles\\/image\\/Laptop%20HP\\/hp-15s-fq5229tu-i3-8u237pa-glr-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-13 14:56:01', '2024-11-17 09:45:19', '97f51b8b-97d3-5604-9a73-7cb3260db882'),
+(498, 33, '5,15,31,35,41,42', 2, '1725640830-31-15-41-5-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_13__2.png,\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_11__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '37a33f5f-c567-5843-9862-3e517b9d8202'),
+(499, 33, '7,15,31,35,41,42', 2, '1725640830-31-15-41-7-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '85f03f5f-0a70-5457-ab7a-9db720da7330'),
+(500, 33, '15,22,31,35,41,42', 2, '1725640830-31-15-41-22-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_12__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', 'cd9db8b5-667a-5bff-ab19-8cfd5dac5f08'),
+(501, 33, '5,15,35,37,41,42', 1, '1725640830-37-15-41-5-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '218268cc-ade5-5dab-9a87-c18f25f78d98'),
+(502, 33, '7,15,35,37,41,42', 1, '1725640830-37-15-41-7-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '6182b80f-6812-5df9-9067-1e9b0e05ccbc'),
+(503, 33, '15,22,35,37,41,42', 1, '1725640830-37-15-41-22-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_10__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', 'dbca4ca8-9e07-5290-a168-bc383c17658c'),
+(504, 33, '5,15,35,38,41,42', 1, '1725640830-38-15-41-5-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_5__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '7da9a57f-4b73-5d7c-9b11-5700d9db4a41'),
+(505, 33, '7,15,35,38,41,42', 1, '1725640830-38-15-41-7-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '4d64fa3b-e574-5590-958f-6b925788cbe1'),
+(506, 33, '15,22,35,38,41,42', 1, '1725640830-38-15-41-22-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_6__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', 'ffda5a01-dcf4-5ade-a204-5b2cb6b446a2'),
+(507, 33, '5,15,35,39,41,42', 1, '1725640830-39-15-41-5-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '6836def8-2234-51d0-8449-90306879dd26'),
+(508, 33, '7,15,35,39,41,42', 1, '1725640830-39-15-41-7-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', 'd66431be-a896-5421-abcd-73cac5db6cef'),
+(509, 33, '15,22,35,39,41,42', 1, '1725640830-39-15-41-22-35-42', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-s24-ultra-1tb\\/samsung-galaxy-s24-ultra_1__2.png\"', 1, 201014, NULL, '2024-11-13 14:56:09', '2024-11-13 14:56:09', '322c3dc4-1de6-57d6-836d-70cebea2ac19'),
+(510, 32, '5,28,31,34,35,36', 19, '1725640303-31-28-34-5-35-36', 15, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', '4326fb25-b00c-5975-b4e0-1ce1a8c48a09'),
+(511, 32, '7,28,31,34,35,36', 0, '1725640303-31-28-34-7-35-36', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-17 08:54:05', 'a00cb06e-e08b-5e90-ae9b-27aa1b4336e3'),
+(512, 32, '22,28,31,34,35,36', 1, '1725640303-31-28-34-22-35-36', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xam_2.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', '09422474-d0b1-5e21-87e9-54edd004bb80'),
+(513, 32, '5,28,32,34,35,36', 9, '1725640303-32-28-34-5-35-36', 15, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', '3ef7655b-27bd-54f7-a92d-f9a21b57943f'),
+(514, 32, '7,28,32,34,35,36', 1, '1725640303-32-28-34-7-35-36', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', '8b9b0204-23b5-5b3d-81ba-ecf67e63b3c4'),
+(515, 32, '22,28,32,34,35,36', 1, '1725640303-32-28-34-22-35-36', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_3.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-hong_7.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', 'b84bb1f3-6b83-56fd-9bc8-fba3353778c5'),
+(516, 32, '5,28,33,34,35,36', 6, '1725640303-33-28-34-5-35-36', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', '8753a283-e5bf-5822-8e42-2cf942e94154'),
+(517, 32, '7,28,33,34,35,36', 1, '1725640303-33-28-34-7-35-36', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', 'b2a5a5fb-e102-54d5-b9dc-2a2d943d6e21'),
+(518, 32, '22,28,33,34,35,36', 1, '1725640303-33-28-34-22-35-36', 15000000, '', '', '', '\"\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_6.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_7.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_5.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_4.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_1.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_2.png,\\/userfiles\\/image\\/samsung-galaxy-z-fold-6\\/samsung-galaxy-z-fold-6-xanh_3.png\"', 1, 201014, NULL, '2024-11-13 14:56:15', '2024-11-13 14:56:15', '76bacd85-cc9b-5dd7-bd43-0f7f16871651'),
+(519, 31, '7,17,24,28,29,30', 3, '1725639572-24-28-29-7-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-18 17:07:29', 'b8d59c7b-7842-5123-bfb9-f09bdc39e381'),
+(520, 31, '17,23,24,28,29,30', 3, '1725639572-24-28-29-23-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/iphone-13_2.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-15 12:52:06', '8d064857-5400-5fed-b926-189cf6568bc9'),
+(521, 31, '7,17,25,28,29,30', 2, '1725639572-25-28-29-7-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-13 14:56:25', 'e5dc7cdf-d62e-52d9-8c34-56c52de0c645'),
+(522, 31, '17,23,25,28,29,30', 1, '1725639572-25-28-29-23-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/11_3_12_2_1_5.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-13 14:56:25', 'efb0d4d1-c017-552e-b550-2abfac859111'),
+(523, 31, '7,17,26,28,29,30', 1, '1725639572-26-28-29-7-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-13 14:56:25', 'a2e5fcb4-d778-58e8-bbf8-e94a8dbdc581'),
+(524, 31, '17,23,26,28,29,30', 1, '1725639572-26-28-29-23-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/12_3_8_2_8.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-13 14:56:25', 'd0dd220d-1862-50b5-9a63-6594b2f30a62'),
+(525, 31, '7,17,27,28,29,30', 1, '1725639572-27-28-29-7-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-13 14:56:25', 'e254db31-a39e-5063-bc72-b10a3bd0a1b8'),
+(526, 31, '17,23,27,28,29,30', 1, '1725639572-27-28-29-23-17-30', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-13\\/15_2_7_2_5.png\"', 1, 201014, NULL, '2024-11-13 14:56:25', '2024-11-13 14:56:25', 'd0404400-2b50-50fb-9964-d6b4345c0fff'),
+(539, 30, '5,13,14,15,17,18', 1, '1725638189-14-15-13-5-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-17 09:00:21', 'bb02ff3b-dca0-5499-8811-3658fd5ff974'),
+(540, 30, '7,13,14,15,17,18', 3, '1725638189-14-15-13-7-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-15 12:24:26', '3a17f688-aedf-58b1-880c-8714f9de1917'),
+(541, 30, '13,14,15,17,18,22', 4, '1725638189-14-15-13-22-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', '8c42a661-20b5-58cc-a4ef-50f6330bb51e'),
+(542, 30, '5,13,15,17,18,19', 3, '1725638189-19-15-13-5-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', '2b7fefd3-6ee7-5a45-a21f-09b650ee66c7'),
+(543, 30, '7,13,15,17,18,19', 3, '1725638189-19-15-13-7-17-18', 1499999985, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', 'eee9306d-a418-5865-9298-463a6e5488eb'),
+(544, 30, '13,15,17,18,19,22', 3, '1725638189-19-15-13-22-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', '0f0eafa9-db56-52a3-a732-ea2a4591c378'),
+(545, 30, '5,13,15,17,18,20', 2, '1725638189-20-15-13-5-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', 'a29788c9-70a4-5ae4-84f5-a3a9b79fdb14'),
+(546, 30, '7,13,15,17,18,20', 2, '1725638189-20-15-13-7-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', 'c5fbfa41-0016-56f0-85fa-7f9d8fd85623'),
+(547, 30, '13,15,17,18,20,22', 2, '1725638189-20-15-13-22-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', 'bbfe535c-f30b-5c13-b812-06d985cbbde9'),
+(548, 30, '5,13,15,17,18,21', 2, '1725638189-21-15-13-5-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', '02ee0a6d-80c6-59d9-b9ef-aee256a40290'),
+(549, 30, '7,13,15,17,18,21', 2, '1725638189-21-15-13-7-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', '56ac1614-e4ed-5fca-94a0-2812c68b468a'),
+(550, 30, '13,15,17,18,21,22', 2, '1725638189-21-15-13-22-17-18', 15000000, '', '', '', '\"\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_4__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_5__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_6__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_7__1.png,\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_8__1.png\"', 1, 201014, NULL, '2024-11-14 07:21:45', '2024-11-14 07:21:45', 'c7078ff9-9e39-5cec-97fb-99b687e8fa6b'),
+(551, 35, '43', 0, '1731942928-43', 0, '', '', '', '\"\\/userfiles\\/image\\/tai-nghe\\/tai-nghe-bluetooth-chup-tai-soundcore-h30i-a3012-den-1-638630427313456762-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:15:47', '2024-11-18 15:16:02', '1a6e552c-e2da-5a1a-ba70-f56ebdd59332'),
+(552, 36, '44,45', 0, '1731943141-44-45', 0, '', '', '', '\"\\/userfiles\\/image\\/sac-du-phong\\/pin-sac-du-phong-polymer-20000mah-type-c-10-5w-ava-g-dx258-den-1-638671778558277338-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:19:53', '2024-11-18 15:19:53', 'df08796f-e2e7-594a-b646-e20d8490fc9a'),
+(553, 38, '31', 0, '1731943360-31', 0, '', '', '', '\"\\/userfiles\\/image\\/but-tablet\\/but-cam-ung-apple-pencil-2-apple-mu8f2-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:24:15', '2024-11-18 15:24:15', '77cc0076-23ab-5567-92a8-50db326f7358'),
+(554, 39, '46', 0, '1731943651-46', 0, '', '', '', '\"\\/userfiles\\/image\\/tui-dung-airpods\\/tui-dung-airpods-pro-2-nhua-pc-tpu-uniq-clyde-lock-case-xanh-mint-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:28:12', '2024-11-18 15:28:12', '7c6a4082-5162-5abe-b7f7-6ff1a2a5735b'),
+(555, 40, '47', 0, '1731943812-47', 0, '', '', '', '\"\\/userfiles\\/image\\/mieng-dan-camera\\/mieng-dan-camera-iphone-16-pro-16-pro-max-optix-aluminium-uniq-den-1-638629654032750948-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:30:39', '2024-11-18 17:04:01', 'aca9cc16-4f7b-517b-87f0-cd9e55df75ea'),
+(556, 41, '47', 0, '1731943855-47', 0, '', '', '', '\"\\/userfiles\\/image\\/mieng-dan-camera\\/mieng-dan-camera-iphone-16-pro-16-pro-max-optix-aluminium-uniq-den-1-638629654032750948-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:31:24', '2024-11-18 15:31:24', 'e69c75f7-9cb4-524b-b796-1e93647b7c5a'),
+(557, 42, '4,48,49', 1, '1731944014-4-49-48', 15000, '', '', '', '\"\\/userfiles\\/image\\/day-dong-ho\\/day-mvw-sl100-01-da-den-3-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:34:25', '2024-11-19 05:15:44', '0b694960-402c-5df7-995b-af9fc20a3ad3'),
+(558, 43, '50,51', 0, '1731944236-51-50', 0, '', '', '', '\"\\/userfiles\\/image\\/smartwatch\\/huawei-watch-gt-5-xanh-1-638626892782150981-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:38:09', '2024-11-18 15:38:09', '89261282-ab5b-5bd0-b5ae-f5e679981d1e'),
+(559, 44, '52', 0, '1731944537-52', 0, '', '', '', '\"\\/userfiles\\/image\\/smartwatch\\/samsung-galaxy-watch-5-40-mm-bac-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:42:58', '2024-11-18 15:43:41', '2b6bfc57-8677-5fb2-8f26-4b6891bb2573'),
+(560, 45, '53', 0, '1731944745-53', 0, '', '', '', '\"\\/userfiles\\/image\\/smartwatch\\/mi-band-8-vang-glr-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:46:28', '2024-11-18 15:46:28', 'fe66fef1-2855-5269-b5f7-6fa5976fe11e'),
+(561, 46, '54,55,56', 0, '1731945013-56-54-55', 0, '', '', '', '\"\\/userfiles\\/image\\/dong-ho\\/casio-ltp-1129a-7ardf-bac-2-2-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:50:57', '2024-11-18 16:46:22', '2c013ba7-169e-5d74-aff8-b821717004fc'),
+(562, 47, '52,58', 0, '1731945115-52-58', 0, '', '', '', '\"\\/userfiles\\/image\\/dong-ho\\/citizen-nj0150-81x-nam-1-750x500.jpeg\"', 1, 201014, NULL, '2024-11-18 15:53:23', '2024-11-18 15:54:09', '503319e5-b7bb-56fc-b792-24dde48e9736'),
+(563, 48, '59', 0, '1731945381-59', 0, '', '', '', '\"\\/userfiles\\/image\\/tablet\\/ipad-9-wifi-trang-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:56:57', '2024-11-18 15:56:57', '2230b6a7-c845-50d4-90fc-90ef86b06db9'),
+(564, 49, '59', 0, '1731945528-59', 0, '', '', '', '\"\\/userfiles\\/image\\/tablet\\/oppo-pad-neo-xam-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:59:45', '2024-11-18 15:59:45', 'b267455f-63b5-5772-a0d4-663533e7368c'),
+(565, 49, '5', 0, '1731945528-5', 0, '', '', '', '\"\\/userfiles\\/image\\/tablet\\/oppo-pad-neo-xam-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 15:59:45', '2024-11-18 15:59:45', '30174e78-0122-5940-848b-67e82bde8ff8'),
+(566, 50, '23', 0, '1731945637-23', 0, '', '', '', '\"\\/userfiles\\/image\\/tablet\\/samsung-galaxy-tab-s10-ultra-sliver-1-638629880095543985-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:01:37', '2024-11-18 16:01:37', 'c93f2478-9383-5bcd-a04c-0c02a811f251'),
+(567, 51, '23', 0, '1731945750-23', 0, '', '', '', '\"\\/userfiles\\/image\\/tablet\\/lenovo-tab-plus-5-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:03:13', '2024-11-18 16:03:13', '7de71166-431c-5207-8ff4-8b0fd5ac9ef6'),
+(568, 52, '23', 0, '1731945848-23', 0, '', '', '', '\"\\/userfiles\\/image\\/tablet\\/tcl-tab-11-den-5-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:04:44', '2024-11-18 16:04:44', 'e63a7e68-8036-50b6-882a-04c234183c66'),
+(569, 53, '60', 0, '1731946014-60', 0, '', '', '', '\"\\/userfiles\\/image\\/may-in\\/may-in-phun-mau-canon-pixma-gm2070-1-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:07:41', '2024-11-18 16:07:41', '95a16d72-f8bd-52d9-8e6f-a8257ef01c07'),
+(570, 54, '61', 0, '1731946119-61', 0, '', '', '', '\"\\/userfiles\\/image\\/may-in\\/laser-trang-den-hp-107a-4zb77a-2-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:09:13', '2024-11-18 16:09:13', '04f69c71-07f8-5df0-933e-566dbcb89420'),
+(571, 55, '62', 0, '1731946228-62', 0, '', '', '', '\"\\/userfiles\\/image\\/may-in\\/may-in-laser-brother-hl-l2321d-xam-1-1-700x467.jpg\"', 1, 201014, NULL, '2024-11-18 16:10:52', '2024-11-18 16:10:52', '287577f3-6b48-52ad-9ead-12e79296e5b4'),
+(572, 56, '63', 0, '1731946341-63', 0, '', '', '', '\"\\/userfiles\\/image\\/may-in\\/phun-mau-epson-ecotank-l1210-c11cj70501-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:12:45', '2024-11-18 16:12:45', '0d8d310f-cec2-57ed-bf90-351862f6325a'),
+(573, 57, '64', 0, '1731946884-64', 0, '', '', '', '\"\\/userfiles\\/image\\/camera-ip-360-do-1080p-ezviz-c6n-trang-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:21:50', '2024-11-18 16:21:50', '8dc87880-e085-5be6-9fb7-49ef881b39fc'),
+(574, 58, '64', 0, '1731947004-64', 0, '', '', '', '\"\\/userfiles\\/image\\/camera-ip-360-do-3mp-imou-ta32-trang-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:23:50', '2024-11-18 16:23:50', '38140383-6b1d-5220-add8-8a2d6b869a0a'),
+(575, 59, '65', 0, '1731947118-65', 0, '', '', '', '\"\\/userfiles\\/image\\/camera-ip-360-do-3mp-botslab-c212-1-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:25:54', '2024-11-18 16:25:54', 'db56f125-b730-5ef2-948f-9d92e13c2a6d'),
+(576, 60, '66', 0, '1731947457-66', 35000000, '', '', '', '\"\\/userfiles\\/image\\/man-hinh\\/asus-vg249q3a-23-8-inch-fhd-1-750x500.jpg\"', 1, 201014, NULL, '2024-11-18 16:31:46', '2024-11-18 16:49:08', '490104b3-5bf6-5f8f-ad25-40834099bb7b'),
+(577, 61, '66', 0, '1731947587-66', 0, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-18 16:33:46', '2024-11-21 15:09:07', '98a937f6-e2c4-5c86-922a-aee4e3a3cbdb'),
+(578, 67, '7', 0, '1732098062-7', 0, '', '', '', '\"\\/userfiles\\/image\\/laptop\\/396.png,\\/userfiles\\/image\\/laptop\\/397.png,\\/userfiles\\/image\\/laptop\\/398.png,\\/userfiles\\/image\\/laptop\\/399.png,\\/userfiles\\/image\\/laptop\\/400_3.png,\\/userfiles\\/image\\/laptop\\/401.png\"', 1, 201014, '2024-11-21 15:02:24', '2024-11-20 10:26:31', '2024-11-21 15:02:24', 'a7b2c11b-fd73-5b17-be69-d56eda88f7e3'),
+(579, 67, '7,12', 0, '1732098062-7-12', 0, '', '', '', '\"\\/userfiles\\/image\\/laptop\\/396.png,\\/userfiles\\/image\\/laptop\\/397.png,\\/userfiles\\/image\\/laptop\\/398.png,\\/userfiles\\/image\\/laptop\\/399.png,\\/userfiles\\/image\\/laptop\\/401.png\"', 1, 201014, '2024-11-21 15:15:42', '2024-11-21 08:59:37', '2024-11-21 15:15:42', '45f47c66-7212-505b-a070-966186c6e40d'),
+(580, 67, '5,12', 0, '1732098062-5-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:15:42', '2024-11-21 08:59:37', '2024-11-21 15:15:42', '1b1b6111-64c7-5669-b318-185f41ee9df9'),
+(581, 61, '2,66', 0, '1731947587-2-66', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:09:07', '2024-11-21 14:12:58', '2024-11-21 15:09:07', 'da8162af-ccc8-5592-bda3-a7dfcb4aa116'),
+(582, 61, '3,66', 0, '1731947587-3-66', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:09:07', '2024-11-21 14:12:58', '2024-11-21 15:09:07', '931c2c0b-a364-54f3-96b5-58a5540bed2e'),
+(583, 67, '12,23', 0, '1732098062-23-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:15:42', '2024-11-21 15:09:30', '2024-11-21 15:15:42', '16b301d3-6bf8-5931-8f05-6fca5f046e92'),
+(584, 67, '2,5,12', 0, '1732098062-2-5-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', 'd6e73503-0520-58cf-ba64-b0dddaf7f075'),
+(585, 67, '2,7,12', 0, '1732098062-2-7-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', '3f637e48-45a0-5ba2-aee1-3688ff66b778'),
+(586, 67, '2,12,23', 0, '1732098062-2-23-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', 'cb0ac704-8177-526e-b372-f362d6065eaa'),
+(587, 67, '3,5,12', 0, '1732098062-3-5-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', 'fec32209-af3d-5d8c-88ac-1d95aba3cf3b'),
+(588, 67, '3,7,12', 0, '1732098062-3-7-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', '5f77f7f7-7779-5472-9856-7b62529a2317'),
+(589, 67, '3,12,23', 0, '1732098062-3-23-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', '5e4ee793-a67c-5383-b0ec-73f46247ac72'),
+(590, 67, '4,5,12', 0, '1732098062-4-5-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', 'ac87f52a-3680-5471-b2b3-5a95fd919922'),
+(591, 67, '4,7,12', 0, '1732098062-4-7-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', '9eadc7e5-acc4-5907-949c-ad242f40f129'),
+(592, 67, '4,12,23', 0, '1732098062-4-23-12', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 15:17:45', '2024-11-21 15:15:42', '2024-11-21 15:17:45', '0eb0cdba-7e1a-52cc-80bc-d3d856ba3ad4'),
+(593, 67, '2,5', 0, '1732098062-2-5', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', 'eaea56db-c5e1-57cc-bebc-81166145e56f'),
+(594, 67, '3,5', 0, '1732098062-3-5', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', '15d38ac4-e144-5979-9026-ff0091e33a5c'),
+(595, 67, '4,5', 0, '1732098062-4-5', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', '1385b2ae-8857-5d97-ac5a-45506386a690'),
+(596, 67, '2,7', 0, '1732098062-2-7', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', '3adbd63a-299c-5652-b76a-0b6d4ef906e5'),
+(597, 67, '3,7', 0, '1732098062-3-7', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', 'f3d5a45e-575d-58fe-a499-d00c66881e2f'),
+(598, 67, '4,7', 0, '1732098062-4-7', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', 'c4fb689c-8b8a-5510-ad15-3b7ce9f046b6'),
+(599, 67, '2,23', 0, '1732098062-2-23', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', 'f439a63c-1667-5f10-b5b0-556dd0fb2f51'),
+(600, 67, '3,23', 0, '1732098062-3-23', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', '57e3c83d-37ee-5c93-b50a-38f3192026cc'),
+(601, 67, '4,23', 0, '1732098062-4-23', 0, '', '', '', '\"\"', 1, 201014, '2024-11-21 16:01:51', '2024-11-21 15:17:45', '2024-11-21 16:01:51', 'e430764c-c228-5dfb-8daf-154d0e1bc4aa'),
+(602, 67, '2', 0, '1732098062-2', 0, '', '', '', '\"\"', 1, 201014, NULL, '2024-11-21 16:01:51', '2024-11-21 16:01:51', 'f74e49a2-4bca-5f23-b311-666807095ba2');
 
 -- --------------------------------------------------------
 
@@ -2192,49 +2713,288 @@ CREATE TABLE `product_variant_attribute` (
 --
 
 INSERT INTO `product_variant_attribute` (`product_variant_id`, `attribute_id`, `created_at`, `updated_at`) VALUES
-(743, 3, NULL, NULL),
-(743, 8, NULL, NULL),
-(743, 7, NULL, NULL),
-(744, 3, NULL, NULL),
-(744, 9, NULL, NULL),
-(744, 7, NULL, NULL),
-(745, 4, NULL, NULL),
-(745, 8, NULL, NULL),
-(745, 7, NULL, NULL),
-(746, 4, NULL, NULL),
-(746, 9, NULL, NULL),
-(746, 7, NULL, NULL),
-(747, 13, NULL, NULL),
-(747, 8, NULL, NULL),
-(747, 7, NULL, NULL),
-(748, 13, NULL, NULL),
-(748, 9, NULL, NULL),
-(748, 7, NULL, NULL),
-(749, 17, NULL, NULL),
-(749, 8, NULL, NULL),
-(749, 7, NULL, NULL),
-(750, 17, NULL, NULL),
-(750, 9, NULL, NULL),
-(750, 7, NULL, NULL),
-(751, 18, NULL, NULL),
-(751, 8, NULL, NULL),
-(751, 7, NULL, NULL),
-(752, 18, NULL, NULL),
-(752, 9, NULL, NULL),
-(752, 7, NULL, NULL),
-(753, 2, NULL, NULL),
-(754, 4, NULL, NULL),
-(755, 18, NULL, NULL),
-(756, 19, NULL, NULL),
-(757, 4, NULL, NULL),
-(758, 14, NULL, NULL),
-(759, 16, NULL, NULL),
-(760, 17, NULL, NULL),
-(761, 13, NULL, NULL),
-(762, 14, NULL, NULL),
-(763, 15, NULL, NULL),
-(764, 2, NULL, NULL),
-(765, 13, NULL, NULL);
+(497, 7, NULL, NULL),
+(498, 31, NULL, NULL),
+(498, 15, NULL, NULL),
+(498, 41, NULL, NULL),
+(498, 5, NULL, NULL),
+(498, 35, NULL, NULL),
+(498, 42, NULL, NULL),
+(499, 31, NULL, NULL),
+(499, 15, NULL, NULL),
+(499, 41, NULL, NULL),
+(499, 7, NULL, NULL),
+(499, 35, NULL, NULL),
+(499, 42, NULL, NULL),
+(500, 31, NULL, NULL),
+(500, 15, NULL, NULL),
+(500, 41, NULL, NULL),
+(500, 22, NULL, NULL),
+(500, 35, NULL, NULL),
+(500, 42, NULL, NULL),
+(501, 37, NULL, NULL),
+(501, 15, NULL, NULL),
+(501, 41, NULL, NULL),
+(501, 5, NULL, NULL),
+(501, 35, NULL, NULL),
+(501, 42, NULL, NULL),
+(502, 37, NULL, NULL),
+(502, 15, NULL, NULL),
+(502, 41, NULL, NULL),
+(502, 7, NULL, NULL),
+(502, 35, NULL, NULL),
+(502, 42, NULL, NULL),
+(503, 37, NULL, NULL),
+(503, 15, NULL, NULL),
+(503, 41, NULL, NULL),
+(503, 22, NULL, NULL),
+(503, 35, NULL, NULL),
+(503, 42, NULL, NULL),
+(504, 38, NULL, NULL),
+(504, 15, NULL, NULL),
+(504, 41, NULL, NULL),
+(504, 5, NULL, NULL),
+(504, 35, NULL, NULL),
+(504, 42, NULL, NULL),
+(505, 38, NULL, NULL),
+(505, 15, NULL, NULL),
+(505, 41, NULL, NULL),
+(505, 7, NULL, NULL),
+(505, 35, NULL, NULL),
+(505, 42, NULL, NULL),
+(506, 38, NULL, NULL),
+(506, 15, NULL, NULL),
+(506, 41, NULL, NULL),
+(506, 22, NULL, NULL),
+(506, 35, NULL, NULL),
+(506, 42, NULL, NULL),
+(507, 39, NULL, NULL),
+(507, 15, NULL, NULL),
+(507, 41, NULL, NULL),
+(507, 5, NULL, NULL),
+(507, 35, NULL, NULL),
+(507, 42, NULL, NULL),
+(508, 39, NULL, NULL),
+(508, 15, NULL, NULL),
+(508, 41, NULL, NULL),
+(508, 7, NULL, NULL),
+(508, 35, NULL, NULL),
+(508, 42, NULL, NULL),
+(509, 39, NULL, NULL),
+(509, 15, NULL, NULL),
+(509, 41, NULL, NULL),
+(509, 22, NULL, NULL),
+(509, 35, NULL, NULL),
+(509, 42, NULL, NULL),
+(510, 31, NULL, NULL),
+(510, 28, NULL, NULL),
+(510, 34, NULL, NULL),
+(510, 5, NULL, NULL),
+(510, 35, NULL, NULL),
+(510, 36, NULL, NULL),
+(511, 31, NULL, NULL),
+(511, 28, NULL, NULL),
+(511, 34, NULL, NULL),
+(511, 7, NULL, NULL),
+(511, 35, NULL, NULL),
+(511, 36, NULL, NULL),
+(512, 31, NULL, NULL),
+(512, 28, NULL, NULL),
+(512, 34, NULL, NULL),
+(512, 22, NULL, NULL),
+(512, 35, NULL, NULL),
+(512, 36, NULL, NULL),
+(513, 32, NULL, NULL),
+(513, 28, NULL, NULL),
+(513, 34, NULL, NULL),
+(513, 5, NULL, NULL),
+(513, 35, NULL, NULL),
+(513, 36, NULL, NULL),
+(514, 32, NULL, NULL),
+(514, 28, NULL, NULL),
+(514, 34, NULL, NULL),
+(514, 7, NULL, NULL),
+(514, 35, NULL, NULL),
+(514, 36, NULL, NULL),
+(515, 32, NULL, NULL),
+(515, 28, NULL, NULL),
+(515, 34, NULL, NULL),
+(515, 22, NULL, NULL),
+(515, 35, NULL, NULL),
+(515, 36, NULL, NULL),
+(516, 33, NULL, NULL),
+(516, 28, NULL, NULL),
+(516, 34, NULL, NULL),
+(516, 5, NULL, NULL),
+(516, 35, NULL, NULL),
+(516, 36, NULL, NULL),
+(517, 33, NULL, NULL),
+(517, 28, NULL, NULL),
+(517, 34, NULL, NULL),
+(517, 7, NULL, NULL),
+(517, 35, NULL, NULL),
+(517, 36, NULL, NULL),
+(518, 33, NULL, NULL),
+(518, 28, NULL, NULL),
+(518, 34, NULL, NULL),
+(518, 22, NULL, NULL),
+(518, 35, NULL, NULL),
+(518, 36, NULL, NULL),
+(519, 24, NULL, NULL),
+(519, 28, NULL, NULL),
+(519, 29, NULL, NULL),
+(519, 7, NULL, NULL),
+(519, 17, NULL, NULL),
+(519, 30, NULL, NULL),
+(520, 24, NULL, NULL),
+(520, 28, NULL, NULL),
+(520, 29, NULL, NULL),
+(520, 23, NULL, NULL),
+(520, 17, NULL, NULL),
+(520, 30, NULL, NULL),
+(521, 25, NULL, NULL),
+(521, 28, NULL, NULL),
+(521, 29, NULL, NULL),
+(521, 7, NULL, NULL),
+(521, 17, NULL, NULL),
+(521, 30, NULL, NULL),
+(522, 25, NULL, NULL),
+(522, 28, NULL, NULL),
+(522, 29, NULL, NULL),
+(522, 23, NULL, NULL),
+(522, 17, NULL, NULL),
+(522, 30, NULL, NULL),
+(523, 26, NULL, NULL),
+(523, 28, NULL, NULL),
+(523, 29, NULL, NULL),
+(523, 7, NULL, NULL),
+(523, 17, NULL, NULL),
+(523, 30, NULL, NULL),
+(524, 26, NULL, NULL),
+(524, 28, NULL, NULL),
+(524, 29, NULL, NULL),
+(524, 23, NULL, NULL),
+(524, 17, NULL, NULL),
+(524, 30, NULL, NULL),
+(525, 27, NULL, NULL),
+(525, 28, NULL, NULL),
+(525, 29, NULL, NULL),
+(525, 7, NULL, NULL),
+(525, 17, NULL, NULL),
+(525, 30, NULL, NULL),
+(526, 27, NULL, NULL),
+(526, 28, NULL, NULL),
+(526, 29, NULL, NULL),
+(526, 23, NULL, NULL),
+(526, 17, NULL, NULL),
+(526, 30, NULL, NULL),
+(539, 14, NULL, NULL),
+(539, 15, NULL, NULL),
+(539, 13, NULL, NULL),
+(539, 5, NULL, NULL),
+(539, 17, NULL, NULL),
+(539, 18, NULL, NULL),
+(540, 14, NULL, NULL),
+(540, 15, NULL, NULL),
+(540, 13, NULL, NULL),
+(540, 7, NULL, NULL),
+(540, 17, NULL, NULL),
+(540, 18, NULL, NULL),
+(541, 14, NULL, NULL),
+(541, 15, NULL, NULL),
+(541, 13, NULL, NULL),
+(541, 22, NULL, NULL),
+(541, 17, NULL, NULL),
+(541, 18, NULL, NULL),
+(542, 19, NULL, NULL),
+(542, 15, NULL, NULL),
+(542, 13, NULL, NULL),
+(542, 5, NULL, NULL),
+(542, 17, NULL, NULL),
+(542, 18, NULL, NULL),
+(543, 19, NULL, NULL),
+(543, 15, NULL, NULL),
+(543, 13, NULL, NULL),
+(543, 7, NULL, NULL),
+(543, 17, NULL, NULL),
+(543, 18, NULL, NULL),
+(544, 19, NULL, NULL),
+(544, 15, NULL, NULL),
+(544, 13, NULL, NULL),
+(544, 22, NULL, NULL),
+(544, 17, NULL, NULL),
+(544, 18, NULL, NULL),
+(545, 20, NULL, NULL),
+(545, 15, NULL, NULL),
+(545, 13, NULL, NULL),
+(545, 5, NULL, NULL),
+(545, 17, NULL, NULL),
+(545, 18, NULL, NULL),
+(546, 20, NULL, NULL),
+(546, 15, NULL, NULL),
+(546, 13, NULL, NULL),
+(546, 7, NULL, NULL),
+(546, 17, NULL, NULL),
+(546, 18, NULL, NULL),
+(547, 20, NULL, NULL),
+(547, 15, NULL, NULL),
+(547, 13, NULL, NULL),
+(547, 22, NULL, NULL),
+(547, 17, NULL, NULL),
+(547, 18, NULL, NULL),
+(548, 21, NULL, NULL),
+(548, 15, NULL, NULL),
+(548, 13, NULL, NULL),
+(548, 5, NULL, NULL),
+(548, 17, NULL, NULL),
+(548, 18, NULL, NULL),
+(549, 21, NULL, NULL),
+(549, 15, NULL, NULL),
+(549, 13, NULL, NULL),
+(549, 7, NULL, NULL),
+(549, 17, NULL, NULL),
+(549, 18, NULL, NULL),
+(550, 21, NULL, NULL),
+(550, 15, NULL, NULL),
+(550, 13, NULL, NULL),
+(550, 22, NULL, NULL),
+(550, 17, NULL, NULL),
+(550, 18, NULL, NULL),
+(551, 43, NULL, NULL),
+(552, 44, NULL, NULL),
+(552, 45, NULL, NULL),
+(553, 31, NULL, NULL),
+(554, 46, NULL, NULL),
+(556, 47, NULL, NULL),
+(557, 48, NULL, NULL),
+(557, 49, NULL, NULL),
+(557, 4, NULL, NULL),
+(558, 50, NULL, NULL),
+(558, 51, NULL, NULL),
+(559, 52, NULL, NULL),
+(560, 53, NULL, NULL),
+(562, 52, NULL, NULL),
+(562, 58, NULL, NULL),
+(563, 59, NULL, NULL),
+(564, 59, NULL, NULL),
+(565, 5, NULL, NULL),
+(566, 23, NULL, NULL),
+(567, 23, NULL, NULL),
+(568, 23, NULL, NULL),
+(569, 60, NULL, NULL),
+(570, 61, NULL, NULL),
+(571, 62, NULL, NULL),
+(572, 63, NULL, NULL),
+(573, 64, NULL, NULL),
+(574, 64, NULL, NULL),
+(575, 65, NULL, NULL),
+(561, 54, NULL, NULL),
+(561, 55, NULL, NULL),
+(561, 56, NULL, NULL),
+(576, 66, NULL, NULL),
+(555, 47, NULL, NULL),
+(577, 66, NULL, NULL),
+(602, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2246,7 +3006,7 @@ CREATE TABLE `product_variant_language` (
   `id` bigint UNSIGNED NOT NULL,
   `product_variant_id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2256,29 +3016,76 @@ CREATE TABLE `product_variant_language` (
 --
 
 INSERT INTO `product_variant_language` (`id`, `product_variant_id`, `language_id`, `name`, `created_at`, `updated_at`) VALUES
-(691, 743, 1, 'Màu đỏ, Titan, 256GB', NULL, NULL),
-(692, 744, 1, 'Màu đỏ, Bạc, 256GB', NULL, NULL),
-(693, 745, 1, 'Màu đen, Titan, 256GB', NULL, NULL),
-(694, 746, 1, 'Màu đen, Bạc, 256GB', NULL, NULL),
-(695, 747, 1, 'Màu hồng, Titan, 256GB', NULL, NULL),
-(696, 748, 1, 'Màu hồng, Bạc, 256GB', NULL, NULL),
-(697, 749, 1, 'Màu tím, Titan, 256GB', NULL, NULL),
-(698, 750, 1, 'Màu tím, Bạc, 256GB', NULL, NULL),
-(699, 751, 1, 'Màu trắng, Titan, 256GB', NULL, NULL),
-(700, 752, 1, 'Màu trắng, Bạc, 256GB', NULL, NULL),
-(701, 753, 1, 'Màu xanh', NULL, NULL),
-(702, 754, 1, 'Màu đen', NULL, NULL),
-(703, 755, 1, 'Màu trắng', NULL, NULL),
-(704, 756, 1, 'Màu tự nhiên', NULL, NULL),
-(705, 757, 1, 'Màu đen', NULL, NULL),
-(706, 758, 1, 'Màu xám', NULL, NULL),
-(707, 759, 1, 'Màu vàng', NULL, NULL),
-(708, 760, 1, 'Màu tím', NULL, NULL),
-(709, 761, 1, 'Màu hồng', NULL, NULL),
-(710, 762, 1, 'Màu xám', NULL, NULL),
-(711, 763, 1, 'Màu xanh dương', NULL, NULL),
-(712, 764, 1, 'Màu xanh', NULL, NULL),
-(713, 765, 1, 'Màu hồng', NULL, NULL);
+(499, 497, 1, '256GB', NULL, NULL),
+(500, 498, 1, 'Xám, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 512GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(501, 499, 1, 'Xám, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 256GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(502, 500, 1, 'Xám, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 1T, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(503, 501, 1, 'Tím, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 512GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(504, 502, 1, 'Tím, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 256GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(505, 503, 1, 'Tím, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 1T, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(506, 504, 1, 'Đen, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 512GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(507, 505, 1, 'Đen, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 256GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(508, 506, 1, 'Đen, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 1T, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(509, 507, 1, 'Vàng, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 512GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(510, 508, 1, 'Vàng, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 256GB, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(511, 509, 1, 'Vàng, Khung Titan & Mặt lưng kính cường lực, 6.8\" - Tần số quét 120 Hz, 1T, Dynamic AMOLED 2X, Chính 200 MP & Phụ 50 MP, 12 MP, 10 MP', NULL, NULL),
+(512, 510, 1, 'Xám, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 512GB, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(513, 511, 1, 'Xám, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 256GB, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(514, 512, 1, 'Xám, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 1T, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(515, 513, 1, 'Hồng, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 512GB, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(516, 514, 1, 'Hồng, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 256GB, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(517, 515, 1, 'Hồng, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 1T, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(518, 516, 1, 'Xanh Navy, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 512GB, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(519, 517, 1, 'Xanh Navy, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 256GB, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(520, 518, 1, 'Xanh Navy, Khung nhôm & Mặt lưng kính cường lực, Chính 7.6\" & Phụ 6.3\" - Tần số quét 120 Hz, 1T, Dynamic AMOLED 2X, Chính 50 MP & Phụ 12 MP, 10 MP', NULL, NULL),
+(521, 519, 1, 'Hồng nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(522, 520, 1, 'Hồng nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 128GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(523, 521, 1, 'Xanh lá nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(524, 522, 1, 'Xanh lá nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 128GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(525, 523, 1, 'Xanh dương nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(526, 524, 1, 'Xanh dương nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 128GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(527, 525, 1, 'Vàng nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(528, 526, 1, 'Vàng nhạt, Khung nhôm & Mặt lưng kính cường lực, 6.1\" - Tần số quét 60 Hz, 128GB, OLED, Chính 48 MP & Phụ 12 MP', NULL, NULL),
+(529, 539, 1, 'Titan tự nhiên, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 512GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(530, 540, 1, 'Titan tự nhiên, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(531, 541, 1, 'Titan tự nhiên, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 1T, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(532, 542, 1, 'Titan đen, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 512GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(533, 543, 1, 'Titan đen, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(534, 544, 1, 'Titan đen, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 1T, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(535, 545, 1, 'Titan xanh, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 512GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(536, 546, 1, 'Titan xanh, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(537, 547, 1, 'Titan xanh, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 1T, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(538, 548, 1, 'Titan trắng, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 512GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(539, 549, 1, 'Titan trắng, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 256GB, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(540, 550, 1, 'Titan trắng, Khung Titan & Mặt lưng kính cường lực, 6.7\" - Tần số quét 120 Hz, 1T, OLED, Chính 48 MP & Phụ 12 MP, 12 MP', NULL, NULL),
+(543, 551, 1, 'Hi-Res Audio', NULL, NULL),
+(544, 552, 1, 'Polymer, 20000 mAh', NULL, NULL),
+(545, 553, 1, 'Xám', NULL, NULL),
+(547, 554, 1, 'nhựa PC TPU UniQ Clyde Lock Case', NULL, NULL),
+(550, 556, 1, 'OPTIX ALUMINIUM UNIQ', NULL, NULL),
+(551, 557, 1, '14mm, SL100-01, Màu đen', NULL, NULL),
+(553, 558, 1, '41mm, viền thép dây cao su', NULL, NULL),
+(555, 559, 1, '40mm', NULL, NULL),
+(556, 560, 1, '1.62 inch', NULL, NULL),
+(559, 562, 1, '40mm, Nam', NULL, NULL),
+(560, 563, 1, '64GB', NULL, NULL),
+(561, 564, 1, '64GB', NULL, NULL),
+(562, 565, 1, '512GB', NULL, NULL),
+(563, 566, 1, '128GB', NULL, NULL),
+(564, 567, 1, '128GB', NULL, NULL),
+(565, 568, 1, '128GB', NULL, NULL),
+(566, 569, 1, '1200 x 4800 dpi', NULL, NULL),
+(567, 570, 1, '1200 x 1200 dpi', NULL, NULL),
+(568, 571, 1, '2400 x 600 dpi', NULL, NULL),
+(569, 572, 1, '5760 x 1440 dpi', NULL, NULL),
+(570, 573, 1, '360 độ', NULL, NULL),
+(571, 574, 1, '360 độ', NULL, NULL),
+(572, 575, 1, '3 MP (1296p)', NULL, NULL),
+(577, 561, 1, '26 mm, Nữ, LTP-1129A-7ARDF', NULL, NULL),
+(579, 576, 1, 'Full HD (1920 x 1080)', NULL, NULL),
+(580, 555, 1, 'OPTIX ALUMINIUM UNIQ', NULL, NULL),
+(602, 577, 1, 'Full HD (1920 x 1080)', NULL, NULL),
+(624, 602, 1, 'Màu xanh', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2288,12 +3095,12 @@ INSERT INTO `product_variant_language` (`id`, `product_variant_id`, `language_id
 
 CREATE TABLE `promotions` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `method` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `discountInformation` longtext COLLATE utf8mb4_general_ci,
-  `neverEndDate` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `discountInformation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `neverEndDate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `startDate` timestamp NULL DEFAULT NULL,
   `endDate` timestamp NULL DEFAULT NULL,
   `publish` tinyint NOT NULL DEFAULT '1',
@@ -2302,22 +3109,20 @@ CREATE TABLE `promotions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `discountValue` int DEFAULT '0',
-  `discountType` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `discountType` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `maxDiscountValue` int DEFAULT '0'
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `promotions`
 --
 
 INSERT INTO `promotions` (`id`, `name`, `code`, `description`, `method`, `discountInformation`, `neverEndDate`, `startDate`, `endDate`, `publish`, `order`, `deleted_at`, `created_at`, `updated_at`, `discountValue`, `discountType`, `maxDiscountValue`) VALUES
-(1, 'Chương trình khuyến mãi tháng 10', 'KMTHANG10', 'Chương trình khuyến mãi tháng 10', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"500.000\",\"discountValue\":\"15\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"30\",\"29\",\"27\",\"28\"],\"product_variant_id\":[\"134\",\"135\",\"136\",\"137\",\"138\",\"null\",\"null\",\"null\"],\"variant_uuid\":[\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\",\"null\",\"null\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy Z Fold6 - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"1\",\"3\",\"7\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"staff_take_care_customer\",\"customer_group\",\"customer_gender\",\"customer_birthday\"],\"condition\":{\"staff_take_care_customer\":[\"201017\"],\"customer_group\":[\"1\",\"2\"],\"customer_gender\":[\"1\"],\"customer_birthday\":[\"8\",\"18\"]}}}', NULL, '2024-10-01 14:00:00', '2024-10-31 14:01:00', 1, 0, '2024-10-03 07:16:35', '2024-09-21 14:02:25', '2024-10-03 07:16:35', 15, 'percent', 500000),
-(2, 'Khuyến mãi 20/10', 'TRIANTHAYCO', 'Khuyến mãi 20/10', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":null,\"discountValue\":\"10\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"29\",\"27\",\"28\"],\"product_variant_id\":[\"135\",\"136\",\"137\",\"138\",\"null\",\"null\",\"null\"],\"variant_uuid\":[\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\",\"null\",\"null\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy Z Fold6 - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\"]}},\"source\":{\"status\":\"choose\",\"data\":[\"3\",\"8\"]},\"apply\":{\"status\":\"choose\",\"data\":[\"staff_take_care_customer\",\"customer_group\",\"customer_gender\"],\"condition\":{\"staff_take_care_customer\":[\"201014\"],\"customer_group\":[\"1\"],\"customer_gender\":[\"1\",\"2\"]}}}', NULL, '2024-10-01 14:05:00', '2024-10-31 14:05:00', 1, 0, '2024-10-03 07:16:31', '2024-09-21 14:06:40', '2024-10-03 07:16:31', 10, 'percent', 0),
-(3, 'Khuyến mãi dẹp tiệm', 'GOODBYE', 'Khuyến mãi dẹp tiệm', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":null,\"discountValue\":\"3\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"29\",\"28\",\"30\",\"27\"],\"product_variant_id\":[\"134\",\"135\",\"136\",\"137\",\"null\",\"null\",\"138\",\"null\"],\"variant_uuid\":[\"b51bdea1-ddd3-593b-b381-7c4b1761d839\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"736153d0-89ce-587c-b49c-4a64080d69f8\",\"null\",\"null\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"null\"],\"name\":[\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - Default\",\"Samsung Galaxy S24 Ultra 12GB 1TB - Default\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"Samsung Galaxy Z Fold6 - Default\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-09-21 15:10:00', '2025-01-01 15:10:00', 1, 0, '2024-10-03 07:16:28', '2024-09-21 15:10:55', '2024-10-03 07:16:28', 3, 'percent', 0),
-(4, 'Khuyến mãi Noel', 'KHUYENMAINOEL', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"20\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"31\",\"30\",\"30\",\"30\",\"30\",\"28\",\"28\",\"28\",\"28\",\"27\",\"27\",\"27\",\"30\",\"30\",\"29\",\"30\",\"30\",\"29\",\"29\",\"29\"],\"product_variant_id\":[\"393\",\"394\",\"571\",\"572\",\"573\",\"574\",\"404\",\"405\",\"406\",\"407\",\"408\",\"409\",\"410\",\"563\",\"564\",\"567\",\"566\",\"565\",\"568\",\"569\",\"570\"],\"variant_uuid\":[\"93bd3493-b3d7-5c12-b9af-e0dd66ba50ea\",\"989a0d25-8428-5964-8da4-a184a87cd90a\",\"5d514a80-19cf-53fb-8354-e59b73590ffd\",\"14147c00-2b74-52b1-8c64-717b14ff3f57\",\"05fcfe81-05d8-5ae7-bf24-f620f5ce7c2b\",\"201fc4af-669a-590e-9c60-ff12ff317a48\",\"cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f\",\"4ff12264-360e-5341-a38e-e1253e07bb60\",\"9f617c3c-ac73-5ca9-839d-9672ce668e86\",\"1de712db-fe45-535b-a77c-a5b589d66ed7\",\"f4f9a9a3-5891-59a4-b7e8-8f5968f5937d\",\"b1ccf651-d5c2-521f-aed8-393abddbb848\",\"16a756b2-9c92-55b8-a255-f3e73c2d39fa\",\"04a69cd9-722c-5abf-a539-c98df126ae6f\",\"0d31ed9e-8a60-51f1-b15b-f6f50b339ebe\",\"75a91c97-ff7e-5a73-b6f5-5b6577cdea54\",\"2fdd1452-c3a2-52a9-88ba-ef4ae71792ac\",\"0ed350a3-acd6-57b0-bd00-caecec088e8c\",\"99b74199-95f1-579e-bbb6-a9a566b66c00\",\"3cbc0c16-2450-50a4-a5a2-5f024b03b898\",\"5c15a59b-a3bf-5947-8788-a275a4ec132a\"],\"name\":[\"Test product - M\\u00e0u xanh\",\"Test product - M\\u00e0u h\\u1ed3ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111\\u1ecf, Titan\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en, Titan\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng, Titan\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng, Titan\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u \\u0111en\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u v\\u00e0ng\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u t\\u00edm\",\"Samsung Galaxy Z Fold6 - M\\u00e0u h\\u1ed3ng\",\"Samsung Galaxy Z Fold6 - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy Z Fold6 - M\\u00e0u xanh d\\u01b0\\u01a1ng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111\\u1ecf\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u xanh\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 13 128GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u h\\u1ed3ng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u \\u0111en\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u tr\\u1eafng\",\"iPhone 15 Pro Max 256GB | Ch\\u00ednh h\\u00e3ng VN\\/A - M\\u00e0u t\\u1ef1 nhi\\u00ean\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-03 07:15:00', '2024-12-24 07:15:00', 1, 0, NULL, '2024-10-03 07:15:42', '2024-11-10 17:49:53', 20, 'percent', 0),
-(5, 'Khuyến mãi tháng 10', 'KHUYENMAITHANG10', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"50\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"31\",\"31\",\"28\",\"28\",\"28\",\"28\",\"27\",\"27\",\"27\"],\"product_variant_id\":[\"367\",\"368\",\"179\",\"180\",\"181\",\"182\",\"183\",\"184\",\"185\"],\"variant_uuid\":[\"93bd3493-b3d7-5c12-b9af-e0dd66ba50ea\",\"989a0d25-8428-5964-8da4-a184a87cd90a\",\"cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f\",\"4ff12264-360e-5341-a38e-e1253e07bb60\",\"9f617c3c-ac73-5ca9-839d-9672ce668e86\",\"1de712db-fe45-535b-a77c-a5b589d66ed7\",\"f4f9a9a3-5891-59a4-b7e8-8f5968f5937d\",\"b1ccf651-d5c2-521f-aed8-393abddbb848\",\"16a756b2-9c92-55b8-a255-f3e73c2d39fa\"],\"name\":[\"Test product - M\\u00e0u xanh\",\"Test product - M\\u00e0u h\\u1ed3ng\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u \\u0111en\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u v\\u00e0ng\",\"Samsung Galaxy S24 Ultra 12GB 1TB - M\\u00e0u t\\u00edm\",\"Samsung Galaxy Z Fold6 - M\\u00e0u h\\u1ed3ng\",\"Samsung Galaxy Z Fold6 - M\\u00e0u x\\u00e1m\",\"Samsung Galaxy Z Fold6 - M\\u00e0u xanh d\\u01b0\\u01a1ng\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-03 08:24:00', '2024-10-31 08:24:00', 1, 0, NULL, '2024-10-03 08:24:59', '2024-10-20 18:38:04', 50, 'percent', 0),
-(6, 'Giảm giá cuối năm', 'GIAMGIACUOINAM', 'Giảm giá cuối năm', 'order_amount_range', '{\"info\":{\"amountFrom\":[\"30.000.000\"],\"amountTo\":[\"100.000.000\"],\"amountValue\":[\"10.000.000\"],\"amountType\":[\"cash\"]},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-21 08:06:00', '2024-12-31 08:06:00', 1, 0, NULL, '2024-10-21 08:07:13', '2024-10-21 13:33:37', 0, NULL, 0),
-(7, 'Giảm giá tháng 11', 'GIAMGIATHANG11', 'Giảm giá tháng 11', 'order_amount_range', '{\"info\":{\"amountFrom\":[\"10.000.000\",\"3.000.000\"],\"amountTo\":[\"100.000.000\",\"5.000.000\"],\"amountValue\":[\"20\",\"250.000\"],\"amountType\":[\"percent\",\"cash\"]},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-21 08:07:00', '2024-11-30 08:07:00', 1, 0, NULL, '2024-10-21 08:08:35', '2024-10-21 13:33:43', 0, NULL, 0);
+(1, 'Khuyến mãi đợt 1', 'KMthang10', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"40\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"34\"],\"product_variant_id\":[\"358\"],\"variant_uuid\":[\"97f51b8b-97d3-5604-9a73-7cb3260db882\"],\"name\":[\"Laptop HP 15s fq5229TU i3 1215U\\/8GB\\/512GB\\/Win11 - 256GB\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-09-24 02:12:00', '2024-10-30 02:12:00', 1, 0, NULL, '2024-09-24 02:16:09', '2024-10-16 07:39:22', 40, 'percent', 0),
+(2, 'km', 'km', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":null,\"discountValue\":\"30\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\"],\"product_variant_id\":[\"329\",\"328\",\"327\",\"326\",\"325\",\"324\",\"323\",\"320\",\"321\",\"322\",\"319\"],\"variant_uuid\":[\"c7078ff9-9e39-5cec-97fb-99b687e8fa6b\",\"56ac1614-e4ed-5fca-94a0-2812c68b468a\",\"02ee0a6d-80c6-59d9-b9ef-aee256a40290\",\"bbfe535c-f30b-5c13-b812-06d985cbbde9\",\"c5fbfa41-0016-56f0-85fa-7f9d8fd85623\",\"a29788c9-70a4-5ae4-84f5-a3a9b79fdb14\",\"0f0eafa9-db56-52a3-a732-ea2a4591c378\",\"8c42a661-20b5-58cc-a4ef-50f6330bb51e\",\"2b7fefd3-6ee7-5a45-a21f-09b650ee66c7\",\"eee9306d-a418-5865-9298-463a6e5488eb\",\"3a17f688-aedf-58b1-880c-8714f9de1917\"],\"name\":[\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan tr\\u1eafng, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan tr\\u1eafng, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan tr\\u1eafng, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan xanh, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan xanh, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan xanh, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan \\u0111en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan t\\u1ef1 nhi\\u00ean, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan \\u0111en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan \\u0111en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan t\\u1ef1 nhi\\u00ean, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-05 02:21:00', '2024-10-31 02:21:00', 1, 0, NULL, '2024-09-24 02:21:15', '2024-10-16 07:38:24', 30, 'percent', 0),
+(3, 'Khuyến mãi tháng 10', 'KHUYENMAITHANG10', NULL, 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"20\",\"discountType\":\"percent\",\"model\":\"Product\",\"object\":{\"id\":[\"34\",\"33\",\"33\",\"33\",\"33\",\"33\",\"33\",\"32\",\"32\",\"32\",\"32\",\"32\",\"31\",\"31\",\"31\",\"31\",\"31\",\"31\",\"30\",\"30\",\"30\"],\"product_variant_id\":[\"497\",\"336\",\"335\",\"334\",\"333\",\"337\",\"338\",\"344\",\"345\",\"346\",\"347\",\"348\",\"312\",\"313\",\"314\",\"315\",\"316\",\"317\",\"322\",\"323\",\"324\"],\"variant_uuid\":[\"97f51b8b-97d3-5604-9a73-7cb3260db882\",\"7da9a57f-4b73-5d7c-9b11-5700d9db4a41\",\"dbca4ca8-9e07-5290-a168-bc383c17658c\",\"6182b80f-6812-5df9-9067-1e9b0e05ccbc\",\"218268cc-ade5-5dab-9a87-c18f25f78d98\",\"4d64fa3b-e574-5590-958f-6b925788cbe1\",\"ffda5a01-dcf4-5ade-a204-5b2cb6b446a2\",\"09422474-d0b1-5e21-87e9-54edd004bb80\",\"3ef7655b-27bd-54f7-a92d-f9a21b57943f\",\"8b9b0204-23b5-5b3d-81ba-ecf67e63b3c4\",\"b84bb1f3-6b83-56fd-9bc8-fba3353778c5\",\"8753a283-e5bf-5822-8e42-2cf942e94154\",\"e5dc7cdf-d62e-52d9-8c34-56c52de0c645\",\"efb0d4d1-c017-552e-b550-2abfac859111\",\"a2e5fcb4-d778-58e8-bbf8-e94a8dbdc581\",\"d0dd220d-1862-50b5-9a63-6594b2f30a62\",\"e254db31-a39e-5063-bc72-b10a3bd0a1b8\",\"d0404400-2b50-50fb-9964-d6b4345c0fff\",\"eee9306d-a418-5865-9298-463a6e5488eb\",\"0f0eafa9-db56-52a3-a732-ea2a4591c378\",\"a29788c9-70a4-5ae4-84f5-a3a9b79fdb14\"],\"name\":[\"Laptop HP 15s fq5229TU i3 1215U\\/8GB\\/512GB\\/Win11 - 256GB\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy S24 Ultra 5G - \\u0110en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.8\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy S24 Ultra 5G - T\\u00edm, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.8\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy S24 Ultra 5G - T\\u00edm, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.8\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy S24 Ultra 5G - T\\u00edm, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.8\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy S24 Ultra 5G - \\u0110en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.8\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy S24 Ultra 5G - \\u0110en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.8\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy Z Fold6 - X\\u00e1m, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, Ch\\u00ednh 7.6\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy Z Fold6 - H\\u1ed3ng, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, Ch\\u00ednh 7.6\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy Z Fold6 - H\\u1ed3ng, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, Ch\\u00ednh 7.6\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy Z Fold6 - H\\u1ed3ng, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, Ch\\u00ednh 7.6\",\"\\u0110i\\u1ec7n tho\\u1ea1i Samsung Galaxy Z Fold6 - Xanh Navy, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, Ch\\u00ednh 7.6\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 - Xanh l\\u00e1 nh\\u1ea1t, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.1\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 - Xanh l\\u00e1 nh\\u1ea1t, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.1\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 - Xanh d\\u01b0\\u01a1ng nh\\u1ea1t, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.1\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 - Xanh d\\u01b0\\u01a1ng nh\\u1ea1t, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.1\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 - V\\u00e0ng nh\\u1ea1t, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.1\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 - V\\u00e0ng nh\\u1ea1t, Khung nh\\u00f4m & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.1\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan \\u0111en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan \\u0111en, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\",\"\\u0110i\\u1ec7n tho\\u1ea1i iPhone 15 Pro Max - Titan xanh, Khung Titan & M\\u1eb7t l\\u01b0ng k\\u00ednh c\\u01b0\\u1eddng l\\u1ef1c, 6.7\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-05 06:22:00', '2025-01-30 06:22:00', 1, 0, NULL, '2024-10-05 06:23:19', '2024-11-17 09:57:17', 20, 'percent', 0),
+(4, 'Khuyễn mãi tháng 11', 'KHUYENMAITHANG11', NULL, 'order_amount_range', '{\"info\":{\"amountFrom\":[\"0\",\"50.000.001\"],\"amountTo\":[\"50.000.000\",\"100.000.000\"],\"amountValue\":[\"5\",\"10\"],\"amountType\":[\"percent\",\"percent\"]},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-10-22 02:18:00', '2024-11-30 02:19:00', 1, 0, NULL, '2024-10-22 02:19:20', '2024-10-22 02:45:06', 0, NULL, 0),
+(39, '1', '1', '1', 'product_and_quantity', '{\"info\":{\"quantity\":\"1\",\"maxDiscountValue\":\"0\",\"discountValue\":\"5\",\"discountType\":\"percent\",\"model\":\"ProductCatalogue\",\"object\":{\"id\":[\"44\",\"42\",\"43\",\"35\",\"37\",\"38\",\"36\"],\"product_variant_id\":[\"undefined\",\"undefined\",\"undefined\",\"undefined\",\"undefined\",\"undefined\",\"undefined\"],\"variant_uuid\":[\"undefined\",\"undefined\",\"undefined\",\"undefined\",\"undefined\",\"undefined\",\"undefined\"],\"name\":[\"M\\u00e0n h\\u00ecnh m\\u00e1y t\\u00ednh MSI\",\"M\\u00e0n h\\u00ecnh\",\"M\\u00e0n h\\u00ecnh m\\u00e1y t\\u00ednh Asus\",\"Camera\",\"Camera gi\\u00e1m s\\u00e1t Imou\",\"Camera gi\\u00e1m s\\u00e1t BOTSLAB\",\"Camera gi\\u00e1m s\\u00e1t EZVIZ\"]}},\"source\":{\"status\":\"all\",\"data\":null},\"apply\":{\"status\":\"all\",\"data\":null}}', NULL, '2024-11-21 07:53:00', '2024-11-30 07:53:00', 1, 0, NULL, '2024-11-21 08:09:27', '2024-11-21 08:13:08', 5, 'percent', 0);
 
 -- --------------------------------------------------------
 
@@ -2329,7 +3134,7 @@ CREATE TABLE `promotion_conditionable` (
   `id` bigint UNSIGNED NOT NULL,
   `promotion_id` bigint UNSIGNED NOT NULL,
   `conditionable_value` int DEFAULT NULL,
-  `conditionable_type` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `conditionable_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2344,8 +3149,8 @@ CREATE TABLE `promotion_product_variant` (
   `id` bigint UNSIGNED NOT NULL,
   `promotion_id` bigint UNSIGNED NOT NULL,
   `product_id` bigint UNSIGNED NOT NULL,
-  `variant_uuid` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `model` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `variant_uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `model` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2355,59 +3160,14 @@ CREATE TABLE `promotion_product_variant` (
 --
 
 INSERT INTO `promotion_product_variant` (`id`, `promotion_id`, `product_id`, `variant_uuid`, `model`, `created_at`, `updated_at`) VALUES
-(125, 1, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(126, 1, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(127, 1, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(128, 1, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(129, 1, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(130, 1, 29, 'null', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(131, 1, 27, 'null', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(132, 1, 28, 'null', 'Product', '2024-09-24 15:00:37', '2024-09-24 15:00:37'),
-(190, 2, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-09-24 15:41:46', '2024-09-24 15:41:46'),
-(191, 2, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-09-24 15:41:46', '2024-09-24 15:41:46'),
-(192, 2, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-09-24 15:41:46', '2024-09-24 15:41:46'),
-(193, 2, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-09-24 15:41:46', '2024-09-24 15:41:46'),
-(194, 2, 29, 'null', 'Product', '2024-09-24 15:41:46', '2024-09-24 15:41:46'),
-(195, 2, 27, 'null', 'Product', '2024-09-24 15:41:46', '2024-09-24 15:41:46'),
-(196, 2, 28, 'null', 'Product', '2024-09-24 15:41:46', '2024-09-24 15:41:46'),
-(215, 3, 30, 'b51bdea1-ddd3-593b-b381-7c4b1761d839', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(216, 3, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(217, 3, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(218, 3, 30, '736153d0-89ce-587c-b49c-4a64080d69f8', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(219, 3, 29, 'null', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(220, 3, 28, 'null', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(221, 3, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(222, 3, 27, 'null', 'Product', '2024-10-03 07:15:58', '2024-10-03 07:15:58'),
-(475, 5, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(476, 5, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(477, 5, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(478, 5, 28, '4ff12264-360e-5341-a38e-e1253e07bb60', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(479, 5, 28, '9f617c3c-ac73-5ca9-839d-9672ce668e86', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(480, 5, 28, '1de712db-fe45-535b-a77c-a5b589d66ed7', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(481, 5, 27, 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(482, 5, 27, 'b1ccf651-d5c2-521f-aed8-393abddbb848', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(483, 5, 27, '16a756b2-9c92-55b8-a255-f3e73c2d39fa', 'Product', '2024-10-20 18:38:04', '2024-10-20 18:38:04'),
-(514, 4, 31, '93bd3493-b3d7-5c12-b9af-e0dd66ba50ea', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(515, 4, 31, '989a0d25-8428-5964-8da4-a184a87cd90a', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(516, 4, 30, '5d514a80-19cf-53fb-8354-e59b73590ffd', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(517, 4, 30, '14147c00-2b74-52b1-8c64-717b14ff3f57', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(518, 4, 30, '05fcfe81-05d8-5ae7-bf24-f620f5ce7c2b', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(519, 4, 30, '201fc4af-669a-590e-9c60-ff12ff317a48', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(520, 4, 28, 'cf06b7b7-9bae-5b99-a5a1-bb6ce365da9f', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(521, 4, 28, '4ff12264-360e-5341-a38e-e1253e07bb60', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(522, 4, 28, '9f617c3c-ac73-5ca9-839d-9672ce668e86', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(523, 4, 28, '1de712db-fe45-535b-a77c-a5b589d66ed7', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(524, 4, 27, 'f4f9a9a3-5891-59a4-b7e8-8f5968f5937d', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(525, 4, 27, 'b1ccf651-d5c2-521f-aed8-393abddbb848', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(526, 4, 27, '16a756b2-9c92-55b8-a255-f3e73c2d39fa', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(527, 4, 30, '04a69cd9-722c-5abf-a539-c98df126ae6f', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(528, 4, 30, '0d31ed9e-8a60-51f1-b15b-f6f50b339ebe', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(529, 4, 29, '75a91c97-ff7e-5a73-b6f5-5b6577cdea54', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(530, 4, 30, '2fdd1452-c3a2-52a9-88ba-ef4ae71792ac', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(531, 4, 30, '0ed350a3-acd6-57b0-bd00-caecec088e8c', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(532, 4, 29, '99b74199-95f1-579e-bbb6-a9a566b66c00', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(533, 4, 29, '3cbc0c16-2450-50a4-a5a2-5f024b03b898', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53'),
-(534, 4, 29, '5c15a59b-a3bf-5947-8788-a275a4ec132a', 'Product', '2024-11-10 17:49:53', '2024-11-10 17:49:53');
+(92, 1, 34, '97f51b8b-97d3-5604-9a73-7cb3260db882', 'Product', '2024-10-16 07:39:22', '2024-10-16 07:39:22'),
+(113, 3, 34, '97f51b8b-97d3-5604-9a73-7cb3260db882', 'Product', '2024-11-17 09:57:17', '2024-11-17 09:57:17'),
+(146, 39, 60, '490104b3-5bf6-5f8f-ad25-40834099bb7b', 'ProductCatalogue', '2024-11-21 08:13:08', '2024-11-21 08:13:08'),
+(147, 39, 67, 'a7b2c11b-fd73-5b17-be69-d56eda88f7e3', 'ProductCatalogue', '2024-11-21 08:13:08', '2024-11-21 08:13:08'),
+(148, 39, 61, '98a937f6-e2c4-5c86-922a-aee4e3a3cbdb', 'ProductCatalogue', '2024-11-21 08:13:08', '2024-11-21 08:13:08'),
+(149, 39, 59, 'db56f125-b730-5ef2-948f-9d92e13c2a6d', 'ProductCatalogue', '2024-11-21 08:13:08', '2024-11-21 08:13:08'),
+(150, 39, 58, '38140383-6b1d-5220-add8-8a2d6b869a0a', 'ProductCatalogue', '2024-11-21 08:13:08', '2024-11-21 08:13:08'),
+(151, 39, 57, '8dc87880-e085-5be6-9fb7-49ef881b39fc', 'ProductCatalogue', '2024-11-21 08:13:08', '2024-11-21 08:13:08');
 
 -- --------------------------------------------------------
 
@@ -2416,12 +3176,12 @@ INSERT INTO `promotion_product_variant` (`id`, `promotion_id`, `product_id`, `va
 --
 
 CREATE TABLE `provinces` (
-  `code` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `full_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `full_name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `administrative_unit_id` int DEFAULT NULL,
   `administrative_region_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2505,12 +3265,19 @@ CREATE TABLE `reviews` (
   `id` bigint UNSIGNED NOT NULL,
   `customer_id` bigint UNSIGNED NOT NULL,
   `variant_uuid` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `content` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `score` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `publish` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `customer_id`, `variant_uuid`, `content`, `score`, `created_at`, `updated_at`, `publish`) VALUES
+(2, 10, 'b8d59c7b-7842-5123-bfb9-f09bdc39e381', 'a', 1, '2024-11-18 17:08:46', '2024-11-18 17:08:57', 1);
 
 -- --------------------------------------------------------
 
@@ -2520,9 +3287,9 @@ CREATE TABLE `reviews` (
 
 CREATE TABLE `routers` (
   `id` bigint UNSIGNED NOT NULL,
-  `canonical` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `canonical` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `module_id` bigint UNSIGNED NOT NULL,
-  `controllers` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `controllers` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `language_id` bigint UNSIGNED DEFAULT '1'
@@ -2533,11 +3300,9 @@ CREATE TABLE `routers` (
 --
 
 INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_at`, `updated_at`, `language_id`) VALUES
-(14, 'cong-nghe', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-18 12:28:06', '2024-07-18 12:28:06', 1),
-(15, 'nhung-an-tuong-ve-galaxy-z-fold6-va-z-flip6-gay-chu-y-ngay-tu-thiet-ke-ben-bi-an-tuong-bo-mau-sac-trendy-cung-nhieu-uu-dai-hap-dan', 43, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-07-18 12:33:34', '2024-07-18 12:33:34', 1),
+(14, 'moi-nhat', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-18 12:28:06', '2024-10-12 07:28:47', 1),
 (27, 'mau-sac', 1, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-07-29 05:53:43', '2024-07-29 05:53:43', 1),
 (38, 'color', 1, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-07-31 04:24:47', '2024-07-31 04:24:47', 2),
-(41, 'technology123', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-07-31 04:26:42', '2024-07-31 04:26:42', 2),
 (59, 'mau-xanh', 2, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-07-31 05:55:24', '2024-07-31 05:55:24', 1),
 (60, 'chat-lieu', 3, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-02 01:03:27', '2024-08-02 01:03:27', 1),
 (61, 'kich-thuoc', 4, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-02 01:03:38', '2024-08-02 01:03:38', 1),
@@ -2550,30 +3315,164 @@ INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_a
 (68, 'bac', 9, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:23:18', '2024-08-02 22:23:18', 1),
 (69, '14-inch', 10, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:43:18', '2024-08-02 22:43:18', 1),
 (70, '16-inch', 11, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-02 22:43:30', '2024-08-02 22:43:30', 1),
-(71, 'dien-thoai', 1, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-08-09 08:00:57', '2024-08-09 08:00:57', 1),
-(83, 'man-hinh', 6, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-10 21:28:10', '2024-08-10 21:28:10', 1),
+(83, 'man-hinh3', 6, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-10 21:28:10', '2024-08-10 21:28:10', 1),
 (84, 'kich-co-man-hinh', 7, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-10 21:30:15', '2024-08-10 21:30:15', 1),
 (85, '116-inch', 12, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-08-10 21:31:03', '2024-08-10 21:31:03', 1),
 (105, 'sac-dien-thoai', 2, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-08-26 19:19:29', '2024-08-26 19:19:29', 1),
-(107, 'mau-hong', 13, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-08 14:43:27', '2024-09-08 14:43:27', 1),
-(108, 'mau-xam', 14, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-08 14:43:51', '2024-09-08 14:43:51', 1),
-(109, 'mau-xanh-duong', 15, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-08 14:44:09', '2024-09-08 14:44:09', 1),
-(110, 'samsung-galaxy-z-fold6', 27, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-08 14:47:39', '2024-09-08 14:47:39', 1),
-(111, 'mau-vang', 16, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-08 14:53:59', '2024-09-08 14:53:59', 1),
-(112, 'mau-tim', 17, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-08 14:54:28', '2024-09-08 14:54:28', 1),
-(113, 'samsung-galaxy-s24-ultra-12gb-1tb', 28, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-08 14:58:36', '2024-09-08 14:58:36', 1),
-(114, 'mau-trang', 18, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-08 15:00:01', '2024-09-08 15:00:01', 1),
-(115, 'mau-tu-nhien', 19, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-08 15:00:17', '2024-09-08 15:00:17', 1),
-(116, 'iphone-15-pro-max-256gb-chinh-hang-vna', 29, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-08 15:07:03', '2024-09-08 15:07:03', 1),
-(117, 'iphone-13-128gb-chinh-hang-vna', 30, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-08 15:24:54', '2024-09-08 15:24:54', 1),
-(118, 'iphone-13-128gb-en', 30, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-08 15:48:32', '2024-09-08 15:48:32', 2),
-(119, 'test-product', 31, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-08 15:53:50', '2024-09-08 15:53:50', 1),
-(120, 'samsung', 3, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-09-23 11:40:38', '2024-09-23 11:40:38', 1),
-(122, 'dac-diem-noi-bat-cua-samsung-galaxy-s24-ultra-12gb-256gb', 44, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-09-29 16:48:30', '2024-09-29 16:48:30', 1),
-(125, 'iphone', 5, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-10-03 07:02:08', '2024-10-03 07:02:08', 1),
-(126, 'abc', 45, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-08 09:05:15', '2024-10-08 09:05:15', 1),
-(127, 'bcd', 46, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-08 09:05:34', '2024-10-08 09:05:34', 1),
-(128, 'dcf', 47, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-08 09:06:16', '2024-10-08 09:06:16', 1);
+(107, 'camera2', 8, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-08-28 00:15:40', '2024-08-28 00:15:40', 1),
+(109, 'sp1', 28, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-08-29 02:45:20', '2024-08-29 02:45:20', 1),
+(110, 'sp2', 29, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-08-29 02:46:17', '2024-08-29 02:46:17', 1),
+(111, '67-tan-so-quet-120-hz', 13, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 15:45:10', '2024-09-06 15:45:10', 1),
+(112, 'titan-tu-nhien', 14, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 15:45:55', '2024-09-06 15:45:55', 1),
+(113, 'khung-titan-mat-lung-kinh-cuong-luc', 15, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 15:48:27', '2024-09-06 15:48:27', 1),
+(115, 'oled', 17, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 15:49:55', '2024-09-06 15:49:55', 1),
+(116, 'chinh-48-mp-phu-12-mp-12-mp', 18, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 15:50:33', '2024-09-06 15:50:33', 1),
+(118, 'dien-thoai', 4, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-09-06 15:56:02', '2024-09-06 15:56:02', 1),
+(119, 'dien-thoai-iphone-15-pro-max', 30, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-06 15:57:44', '2024-09-06 15:57:44', 1),
+(120, 'titan-den', 19, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 15:58:53', '2024-09-06 15:58:53', 1),
+(121, 'titan-xanh', 20, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:04:12', '2024-09-06 16:04:12', 1),
+(122, 'titan-trang', 21, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:04:38', '2024-09-06 16:04:38', 1),
+(123, '1t', 22, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:05:34', '2024-09-06 16:05:34', 1),
+(124, 'iphone', 5, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-09-06 16:17:36', '2024-09-06 16:17:36', 1),
+(125, '128gb', 23, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:20:17', '2024-09-06 16:20:17', 1),
+(126, 'hong-nhat', 24, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:23:59', '2024-09-06 16:23:59', 1),
+(127, 'xanh-la-nhat', 25, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:24:18', '2024-09-06 16:24:18', 1),
+(128, 'xanh-duong-nhat', 26, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:25:09', '2024-09-06 16:25:09', 1),
+(129, 'vang-nhat', 27, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:25:36', '2024-09-06 16:25:36', 1),
+(130, 'khung-nhom-mat-lung-kinh-cuong-luc', 28, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:26:52', '2024-09-06 16:26:52', 1),
+(131, '61-tan-so-quet-60-hz', 29, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:27:20', '2024-09-06 16:27:20', 1),
+(132, 'chinh-48-mp-phu-12-mp', 30, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:28:18', '2024-09-06 16:28:18', 1),
+(133, 'dien-thoai-iphone-15', 31, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-06 16:29:07', '2024-09-06 16:29:07', 1),
+(134, 'samsung', 6, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-09-06 16:30:49', '2024-09-06 16:30:49', 1),
+(135, 'xam', 31, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:33:09', '2024-09-06 16:33:09', 1),
+(136, 'hong', 32, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:34:54', '2024-09-06 16:34:54', 1),
+(137, 'xanh-navy', 33, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:35:18', '2024-09-06 16:35:18', 1),
+(138, 'chinh-76-phu-63-tan-so-quet-120-hz', 34, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:36:07', '2024-09-06 16:36:07', 1),
+(139, 'dynamic-amoled-2x', 35, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:37:01', '2024-09-06 16:37:01', 1),
+(140, 'chinh-50-mp-phu-12-mp-10-mp', 36, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:37:23', '2024-09-06 16:37:23', 1),
+(141, 'dien-thoai-samsung-galaxy-z-fold6', 32, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-06 16:38:09', '2024-09-06 16:38:09', 1),
+(142, 'tim', 37, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:42:00', '2024-09-06 16:42:00', 1),
+(143, 'den', 38, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:42:17', '2024-09-06 16:42:17', 1),
+(144, 'vang', 39, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:42:53', '2024-09-06 16:42:53', 1),
+(146, '68-tan-so-quet-120-hz', 41, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:43:45', '2024-09-06 16:43:45', 1),
+(147, 'chinh-200-mp-phu-50-mp-12-mp-10-mp', 42, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-09-06 16:45:11', '2024-09-06 16:45:11', 1),
+(148, 'dien-thoai-samsung-galaxy-s24-ultra-5g', 33, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-06 16:46:22', '2024-09-06 16:46:22', 1),
+(149, 'laptop', 7, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-09-10 02:30:40', '2024-09-10 02:30:40', 1),
+(150, 'msi', 8, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-09-10 02:30:51', '2024-09-10 02:30:51', 1),
+(151, 'laptop2222', 34, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-09-17 04:14:48', '2024-09-17 04:14:48', 1),
+(152, 'hp', 9, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-10-04 06:52:44', '2024-10-04 06:52:44', 1),
+(153, 'galaxy-a16-5g-ra-mat-6-nam-cap-nhat-android-man-hinh-amoled-va-camera-50-mp', 44, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-10 15:40:33', '2024-10-10 15:40:33', 1),
+(154, 'tong-hop-tin-ro-ri-ve-oneplus-13-man-hinh-boe-x2-pin-6000-mah-khang-nuoc-ip69', 45, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-10 15:42:55', '2024-10-10 15:42:55', 1),
+(155, 'lo-bang-chung-cho-thay-redmi-note-14-5g-sap-sua-ra-mat-thi-truong-quoc-te', 46, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-10 15:43:59', '2024-10-10 15:43:59', 1),
+(156, 'tren-tay-asus-zenbook-s-14-ux5406-ngoai-hinh-cao-cap-ben-bi-hieu-nang-manh-me-voi-chip-intel-core-ultra-7-series-2', 47, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-10 15:45:23', '2024-10-10 15:45:23', 1),
+(157, 'du-lich-thoi-40-cung-galaxy-s24-fe-mot-tro-thu-da-nang-tinh-nang-khoanh-tron-tim-kiem-tren-google-tien-dung', 48, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-10 15:48:29', '2024-10-10 15:48:29', 1),
+(158, 'danh-gia', 59, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-12 07:26:11', '2024-10-12 07:26:11', 1),
+(159, 'su-kien', 60, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-12 07:26:56', '2024-10-12 07:26:56', 1),
+(160, 'san-pham-moi', 61, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-12 07:28:29', '2024-10-12 07:28:29', 1),
+(161, 'meo-hay', 62, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-12 07:29:31', '2024-10-12 07:29:31', 1),
+(162, 'tu-van', 63, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-12 07:29:48', '2024-10-12 07:29:48', 1),
+(163, 'tren-tay-xiaomi-14t-thiet-ke-dep-mat-cau-hinh-manh-me-voi-chip-dimensity-8300-ultra-ho-tro-camera-leica-xin-so', 49, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-12 07:54:13', '2024-10-12 07:54:13', 1),
+(164, 'dung-quen-hotsale-xiaomi-14t-giam-lien-1-trieu-tang-bo-sac-den-120-w-tri-gia-15-trieu-con-tang-them-bao-hanh-cao-cap-3-trieu', 50, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-12 07:58:42', '2024-10-12 07:58:42', 1),
+(165, 'redmi-watch-5-lite-va-redmi-watch-5-active-lua-chon-nao-phu-hop-cho-ban', 51, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-12 08:00:03', '2024-10-12 08:00:03', 1),
+(166, 'huong-dan-cach-bat-5g-tren-dien-thoai-android-va-iphone-sieu-don-gian-de-ban-trai-nghiem-nhanh-nhat', 52, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-12 08:01:31', '2024-10-12 08:01:31', 1),
+(167, 'iphone-16-pro-max-chiec-dien-thoai-chup-anh-chuyen-nghiep-trong-tam-tay', 53, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-12 08:03:08', '2024-10-12 08:03:08', 1),
+(168, 'cu-dem-san-sale-hang-loat-dien-thoai-laptop-dong-ho-dua-nhau-giam-gia-nua-dem-so-luong-co-han', 54, 'App\\Http\\Controllers\\Frontend\\PostController', '2024-10-12 08:08:51', '2024-10-12 08:08:51', 1),
+(169, 'evaluate', 59, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-13 06:46:28', '2024-10-13 06:46:28', 2),
+(170, 'news', 58, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-13 06:47:36', '2024-10-13 06:47:36', 2),
+(171, 'events', 60, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-13 06:49:16', '2024-10-13 06:49:16', 2),
+(172, 'new-products', 61, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-13 06:49:51', '2024-10-13 06:49:51', 2),
+(173, 'good-tips', 62, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-13 06:50:17', '2024-10-13 06:50:17', 2),
+(174, 'advisory', 63, 'App\\Http\\Controllers\\Frontend\\PostCatalogueController', '2024-10-13 06:50:46', '2024-10-13 06:50:46', 2),
+(175, 'phu-kien', 10, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:10:43', '2024-11-18 15:10:43', 1),
+(176, 'sac-du-phong', 11, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:12:00', '2024-11-18 15:12:00', 1),
+(177, 'tai-nghe', 12, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:12:52', '2024-11-18 15:12:52', 1),
+(178, 'cong-nghe-am-thanh', 9, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-11-18 15:15:01', '2024-11-18 15:15:01', 1),
+(179, 'hi-res-audio', 43, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:15:20', '2024-11-18 15:15:20', 1),
+(180, 'tai-nghe-bluetooth-chup-tai-soundcore-h30i', 35, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:15:46', '2024-11-18 15:15:46', 1),
+(181, 'loi-pin', 10, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-11-18 15:17:44', '2024-11-18 15:17:44', 1),
+(182, 'polymer', 44, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:18:02', '2024-11-18 15:18:02', 1),
+(183, 'dung-luong-pin', 11, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-11-18 15:18:48', '2024-11-18 15:18:48', 1),
+(184, '20000-mah', 45, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:18:58', '2024-11-18 15:18:58', 1),
+(185, 'pin-sac-du-phong', 36, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:19:53', '2024-11-18 15:19:53', 1),
+(186, 'but-tablet', 13, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:22:33', '2024-11-18 15:22:33', 1),
+(188, 'but-cam-ung-apple-pencil-2-mu8f2', 38, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:24:15', '2024-11-18 15:24:15', 1),
+(189, 'tui-dung-airpods', 14, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:27:03', '2024-11-18 15:27:03', 1),
+(190, 'nhua-pc-tpu-uniq-clyde-lock-case', 46, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:27:26', '2024-11-18 15:27:26', 1),
+(191, 'tui-dung-airpods-pro-2', 39, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:28:12', '2024-11-18 15:28:12', 1),
+(192, 'mieng-dan-camera', 15, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:29:41', '2024-11-18 15:29:41', 1),
+(193, 'optix-aluminium-uniq', 47, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:30:08', '2024-11-18 15:30:08', 1),
+(194, 'mieng-dan-camera-iphone-16-pro16-pro-max', 40, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:30:39', '2024-11-18 15:30:39', 1),
+(195, 'mieng-dan-camera-iphone-15-pro15-pro-max', 41, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:31:24', '2024-11-18 15:31:24', 1),
+(196, 'day-dong-ho', 16, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:32:53', '2024-11-18 15:32:53', 1),
+(197, '14mm', 48, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:33:16', '2024-11-18 15:33:16', 1),
+(198, 'sl100-01', 49, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:33:30', '2024-11-18 15:33:30', 1),
+(199, 'day-da-dong-ho', 42, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:34:25', '2024-11-18 15:34:25', 1),
+(200, '41mm', 50, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:36:02', '2024-11-18 15:36:02', 1),
+(201, 'vien-thep-day-cao-su', 51, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:36:14', '2024-11-18 15:36:14', 1),
+(202, 'smartwatch', 17, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:37:03', '2024-11-18 15:37:03', 1),
+(203, 'dong-ho-thong-minh-huawei-watch-gt-5', 43, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:38:09', '2024-11-18 15:38:09', 1),
+(204, 'huawei', 18, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:40:34', '2024-11-18 15:40:34', 1),
+(205, 'samsung-watch', 19, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:41:45', '2024-11-18 15:44:27', 1),
+(206, '40mm', 52, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:42:13', '2024-11-18 15:42:13', 1),
+(207, 'dong-ho-thong-minh-samsung-galaxy-watch5', 44, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:42:58', '2024-11-18 15:42:58', 1),
+(208, 'xiaomi', 20, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:45:21', '2024-11-18 15:45:21', 1),
+(209, '162-inch', 53, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:45:42', '2024-11-18 15:45:42', 1),
+(210, 'vong-deo-tay-thong-minh-mi-band-8', 45, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:46:28', '2024-11-18 15:46:28', 1),
+(211, 'dong-ho', 21, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:48:28', '2024-11-18 15:48:28', 1),
+(212, 'casio', 22, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:49:03', '2024-11-18 15:49:03', 1),
+(213, '26-mm', 54, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:49:23', '2024-11-18 15:49:23', 1),
+(214, 'gioi-tinh', 12, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-11-18 15:49:39', '2024-11-18 15:49:39', 1),
+(215, 'nu', 55, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:49:51', '2024-11-18 15:49:51', 1),
+(216, 'ltp-1129a-7ardf', 56, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:50:08', '2024-11-18 15:50:08', 1),
+(217, 'dong-ho-casio', 46, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:50:57', '2024-11-18 15:50:57', 1),
+(218, 'citizen', 23, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:51:39', '2024-11-18 15:51:39', 1),
+(219, '40-mm', 57, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:51:53', '2024-11-18 15:51:53', 1),
+(220, 'nam', 58, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:52:12', '2024-11-18 15:52:12', 1),
+(221, 'dong-ho-citizen-tsuyosa-nj0150-81x', 47, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:53:23', '2024-11-18 15:53:23', 1),
+(222, '64gb', 59, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 15:55:17', '2024-11-18 15:55:17', 1),
+(223, 'tablet', 24, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:55:51', '2024-11-18 15:55:51', 1),
+(224, 'ipad', 25, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:56:19', '2024-11-18 15:56:19', 1),
+(225, 'may-tinh-bang-ipad-9-wifi', 48, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:56:57', '2024-11-18 15:56:57', 1),
+(226, 'oppo-pad', 26, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 15:58:24', '2024-11-18 15:58:24', 1),
+(227, 'may-tinh-bang-oppo-pad-neo-wifi', 49, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 15:59:45', '2024-11-18 15:59:45', 1),
+(228, 'samsung-galaxy-tab', 27, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:00:32', '2024-11-18 16:00:32', 1),
+(229, 'may-tinh-bang-samsung-galaxy-tab-s10-ultra-5g', 50, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:01:37', '2024-11-18 16:01:37', 1),
+(230, 'lenovo-tab', 28, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:02:27', '2024-11-18 16:02:27', 1),
+(231, 'may-tinh-bang-lenovo-tab-plus-wifi-8gb', 51, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:03:13', '2024-11-18 16:03:13', 1),
+(232, 'tcl-tab', 29, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:03:57', '2024-11-18 16:03:57', 1),
+(233, 'may-tinh-bang-tcl-tab-11-wifi-4gb', 52, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:04:44', '2024-11-18 16:04:44', 1),
+(234, 'may-in', 30, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:05:30', '2024-11-18 16:05:30', 1),
+(235, 'may-in-canon', 31, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:06:02', '2024-11-18 16:06:02', 1),
+(236, 'chat-luong-in', 13, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-11-18 16:06:32', '2024-11-18 16:06:32', 1),
+(237, '1200-x-4800-dpi', 60, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 16:06:42', '2024-11-18 16:06:42', 1),
+(238, 'may-in-phun-trang-den-don-nang-canon-pixma-gm2070-wifi', 53, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:07:41', '2024-11-18 16:07:41', 1),
+(239, 'may-in-hp', 32, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:08:16', '2024-11-18 16:08:16', 1),
+(240, '1200-x-1200-dpi', 61, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 16:08:33', '2024-11-18 16:08:33', 1),
+(241, 'may-in-laser-trang-den-don-nang-hp-107a-4zb77a', 54, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:09:13', '2024-11-18 16:09:13', 1),
+(242, 'may-in-brother', 33, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:10:05', '2024-11-18 16:10:05', 1),
+(243, '2400-x-600-dpi', 62, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 16:10:21', '2024-11-18 16:10:21', 1),
+(244, 'may-in-laser-trang-den-don-nang-brother-hl-l2321d', 55, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:10:52', '2024-11-18 16:10:52', 1),
+(245, 'may-in-epson', 34, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:11:59', '2024-11-18 16:11:59', 1),
+(246, '5760-x-1440-dpi', 63, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 16:12:17', '2024-11-18 16:12:17', 1),
+(247, 'may-in-phun-mau-don-nang-epson-ecotank-l1210-c11cj70501', 56, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:12:45', '2024-11-18 16:12:45', 1),
+(248, 'camera', 35, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:19:16', '2024-11-18 16:19:16', 1),
+(249, 'camera-giam-sat-ezviz', 36, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:20:18', '2024-11-18 16:20:18', 1),
+(250, 'goc-nhin', 14, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-11-18 16:20:54', '2024-11-18 16:20:54', 1),
+(251, '360-do', 64, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 16:21:13', '2024-11-18 16:21:13', 1),
+(252, 'camera-ip-360-do-2mp-ezviz-c6n', 57, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:21:50', '2024-11-18 16:21:50', 1),
+(253, 'camera-giam-sat-imou', 37, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:23:17', '2024-11-18 16:23:17', 1),
+(254, 'camera-ip-360-do-3mp-imou-ta32cp-l', 58, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:23:50', '2024-11-18 16:23:50', 1),
+(255, 'camera-giam-sat-botslab', 38, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:24:34', '2024-11-18 16:24:34', 1),
+(256, '3-mp-1296p', 65, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 16:25:14', '2024-11-18 16:25:14', 1),
+(257, 'camera-ip-360-do-3mp-botslab-c212', 59, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:25:54', '2024-11-18 16:25:54', 1),
+(261, 'man-hinh', 42, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:29:38', '2024-11-18 16:29:38', 1),
+(262, 'do-phan-giai', 15, 'App\\Http\\Controllers\\Frontend\\AttributeCatalogueController', '2024-11-18 16:30:39', '2024-11-18 16:30:39', 1),
+(263, 'full-hd-1920-x-1080', 66, 'App\\Http\\Controllers\\Frontend\\AttributeController', '2024-11-18 16:30:48', '2024-11-18 16:30:48', 1),
+(264, 'man-hinh-gaming-asus-tuf-vg249q3a-238-inch-fhdips180hz1msfreesyncdisplayporthdmi', 60, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:31:46', '2024-11-18 16:31:46', 1),
+(265, 'man-hinh-may-tinh-asus', 43, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:32:02', '2024-11-18 16:32:02', 1),
+(266, 'man-hinh-may-tinh-msi', 44, 'App\\Http\\Controllers\\Frontend\\ProductCatalogueController', '2024-11-18 16:32:56', '2024-11-18 16:32:56', 1),
+(267, 'man-hinh-msi-pro-mp225-2145-inch-fhdips100hz1mshdmi', 61, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-18 16:33:46', '2024-11-18 16:33:46', 1),
+(268, '1111111', 67, 'App\\Http\\Controllers\\Frontend\\ProductController', '2024-11-20 10:26:30', '2024-11-20 10:26:30', 1);
 
 -- --------------------------------------------------------
 
@@ -2582,11 +3481,11 @@ INSERT INTO `routers` (`id`, `canonical`, `module_id`, `controllers`, `created_a
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_general_ci,
-  `payload` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `last_activity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -2595,12 +3494,10 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('4v6Zj8Eq5h2S0lCkNsVXhLD4uYCgaWsvFkanKEMY', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicjhLYzI3d2FRS2pheDBQTXp0QmNUSGNONWN5ODI0Zldod3dRUHpCQSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozNjoiaHR0cHM6Ly90Y3Nob3AuaWQudm4vZGllbi10aG9haS5odG1sIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjAxMDE0O30=', 1731499010),
-('IM5u2jGcX3jfelvVm8dnkxOM75jvnPdK7tlITq5l', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZDU0U2Fwc1FLakpNZkx3RXNMSGIyTE9EN3BYME80NUJWakpuSVdYTCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731501303),
-('iVgK04Jfksgxf21Fz6oYaddMgJorlrj4BRhCmbzi', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV0FQOHRvMXR3UlZIQXNHcGU2cUVoVDZxWlZwUlhva2pZQmN1c1FiayI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731500812),
-('JDIBRTTWZvzteAchivDSNGegF46Ou9UVs9AtxBEs', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMGhBNnhzclhsVDZ3S0JLNnQ1ZWFqeU5VMUQ0N0RoRlgyU0JNTUdSayI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731501361),
-('MHYMCXrZlMwAy8wyNFKQztwLXywR13llYLj6jpAb', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV1p0WGM1OWNUMjVyQXRESjV4aUhoRXhoTVVHQWdIVWtISHExMXlhSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL2RpZW4tdGhvYWkuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1731501395),
-('ojZICvtXdINu0UVQmwTGt1yJmPT0OPZTYOgtuZvz', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoibTF2cWZBUUVueXJTZzZST3pSdXZCN2U3dFRJeEg1dlRpT2t2dEN4biI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozMjoiaHR0cHM6Ly90Y3Nob3AuaWQudm4vb3JkZXIvaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9', 1731502842);
+('22skJodeD3mp81B2kZMopJYEpeI4fsRgEQKFXWa9', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQWMwaTRDU0tJellLUUVLOG5OTHU5VEx1Qlk2dEt2TTh0RW5oUHBodCI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1732372660),
+('9TgwEBtLjm8DYQInBqdTpQouhZgPZZbi3wiDmx4R', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWDZwQjR4cDRhM05iVkNJS0VzZWU1NFA1Yk16S3NLbDQ5U01aT01WbiI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czoyMDoiaHR0cHM6Ly90Y3Nob3AuaWQudm4iO319', 1732460927),
+('bqR7sjzIrMoqpD67PKb0Q0fln8ol47x7MNsBQGzM', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidWllTDZCeWFLRERqWWFianljUklldFpuQWR3YjhIQkh1bTY4ZDBYQSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTc6Imh0dHBzOi8vdGNzaG9wLmlkLnZuL29yZGVyLWluZm9ybWF0aW9uL2lkPTE3MzIzNzM4NTAuaHRtbCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MTg6ImZsYXNoZXI6OmVudmVsb3BlcyI7YTowOnt9czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTE7fQ==', 1732374033),
+('XePmR2J6hm4niM0CZfj2f7bWRUCnTBMxVkkS82Dh', NULL, '192.168.1.10', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVUduTkl4NHVFMHhCaDE1OXNZbHJtUmNmWkxQZXkxbHJkNTcxSWRLbyI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozMjoiaHR0cDovLzE5Mi4xNjguMS40L3Rjc2hvcC9wdWJsaWMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1732461118);
 
 -- --------------------------------------------------------
 
@@ -2610,12 +3507,12 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `slides` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `item` longtext COLLATE utf8mb4_general_ci NOT NULL,
-  `setting` longtext COLLATE utf8mb4_general_ci NOT NULL,
-  `short_code` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `item` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `setting` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `short_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `publish` tinyint NOT NULL DEFAULT '0',
   `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -2628,13 +3525,8 @@ CREATE TABLE `slides` (
 --
 
 INSERT INTO `slides` (`id`, `name`, `keyword`, `description`, `item`, `setting`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '13', '14', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":\"1\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"3\",\"alt\":\"4\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/luffy_avatar.jpg\",\"description\":\"5\",\"canonical\":\"6\",\"window\":\"_blank\",\"name\":\"7\",\"alt\":\"8\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":\"9\",\"canonical\":\"10\",\"window\":\"\",\"name\":\"11\",\"alt\":\"12\"}]}', '{\"width\":\"15\",\"height\":\"16\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"17\",\"animationSpeed\":\"18\"}', '[19]', 0, 201014, '2024-08-31 04:55:59', '2024-08-29 10:04:09', '2024-08-31 04:55:59'),
-(2, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/slide\\/1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/2.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/3.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/4.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/5.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"6.000\",\"height\":\"679\",\"animation\":\"cube\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"1.000\",\"animationSpeed\":\"2.000\"}', '[menu id=\"main-slide\"]', 1, 201014, NULL, '2024-08-31 02:50:50', '2024-11-01 14:19:23'),
-(3, 'Slide phụ', 'second-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/vietnam.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/china.png\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/language\\/united-kingdom.png\",\"description\":null,\"canonical\":null,\"window\":\"\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.990\",\"height\":\"600\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"9.999\",\"animationSpeed\":\"9.999\"}', '[second-slide]', 1, 201014, '2024-09-20 12:11:01', '2024-08-31 05:54:34', '2024-09-20 12:11:01'),
-(4, 'Slide Test', 'test-slide', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Mbappe-1720749600.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/bong-da\\/Olmo-1720749496.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/cam-nhan-nhanh-samsung-galaxy-z-fold6-flip6-12.jpg\",\"description\":null,\"canonical\":null,\"window\":\"_blank\",\"name\":null,\"alt\":null}]}', '{\"width\":\"1.000\",\"height\":\"500\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"animationDelay\":\"5.555\",\"animationSpeed\":\"4.444\"}', '[slide-test]', 1, 201014, '2024-08-31 07:09:56', '2024-08-31 07:04:10', '2024-08-31 07:09:56'),
-(5, 'Test', 'test', NULL, '{\"1\":[{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/vietnam.png\",\"description\":\"1\",\"canonical\":\"1\",\"window\":\"none\",\"name\":\"1\",\"alt\":\"1\"},{\"image\":\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/south-korea.png\",\"description\":\"2\",\"canonical\":\"2\",\"window\":\"_blank\",\"name\":\"2\",\"alt\":\"2\"}]}', '{\"width\":\"1\",\"height\":\"1\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"thumbnails\",\"pauseHover\":\"accept\",\"animationDelay\":\"1\",\"animationSpeed\":\"1\"}', 'test', 1, 201014, '2024-09-02 10:49:46', '2024-09-02 10:49:23', '2024-09-02 10:49:46'),
-(6, 'Banner thân trang', 'banner', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-2.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-3.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner', 1, 201014, NULL, '2024-09-22 14:22:57', '2024-11-01 14:18:58'),
-(7, 'Banner chân trang', 'banner-footer', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-footer.png\",\"description\":\"\\u0110\\u1eb7t h\\u00e0ng ngay b\\u00e2y gi\\u1edd \\u0111\\u1ec3 nh\\u1eadn \\u01b0u \\u0111\\u00e3i kh\\u0169ng\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner-footer', 1, 201014, NULL, '2024-09-29 17:31:19', '2024-11-01 14:14:50');
+(1, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/slide\\/1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/2.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/3.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/4.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/5.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'main-slide', 1, 201014, NULL, '2024-09-23 10:57:03', '2024-11-02 10:53:34'),
+(2, 'Banner thân trang', 'banner', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-1.png\",\"description\":\"Nh\\u1ecf g\\u1ecdn, ti\\u1ec7n l\\u1ee3i\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-2.png\",\"description\":\"Ph\\u00f9 h\\u1ee3p m\\u1ecdi \\u0111\\u1ed1i t\\u01b0\\u1ee3ng\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner-3.png\",\"description\":\"H\\u00ecnh \\u1ea3nh s\\u1eafc n\\u00e9t\",\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner', 1, 201014, NULL, '2024-09-23 10:58:44', '2024-11-02 10:53:12');
 
 -- --------------------------------------------------------
 
@@ -2644,9 +3536,9 @@ INSERT INTO `slides` (`id`, `name`, `keyword`, `description`, `item`, `setting`,
 
 CREATE TABLE `sources` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `publish` tinyint NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -2658,14 +3550,9 @@ CREATE TABLE `sources` (
 --
 
 INSERT INTO `sources` (`id`, `name`, `keyword`, `description`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Tiktok', 'tiktok', '<p>C&aacute;c kh&aacute;ch h&agrave;ng đển với hệ thống từ tiktok</p>', 1, NULL, '2024-09-12 14:52:37', '2024-09-12 14:57:03'),
-(2, 'Shoppe', 'shoppe', '<p>C&aacute;c kh&aacute;ch h&agrave;ng đển với hệ thống từ shoppe</p>', 1, NULL, '2024-09-12 14:58:06', '2024-09-12 15:06:40'),
-(3, 'Website', 'website', NULL, 1, NULL, '2024-09-12 15:06:04', '2024-09-12 15:06:40'),
-(5, 'Instagram', 'instagram', '<p>Kh&aacute;ch h&agrave;ng mua h&agrave;ng từ Instagram</p>', 1, NULL, '2024-09-12 15:10:54', '2024-09-12 15:10:57'),
-(6, 'Facebook', 'facebook', '<p>Kh&aacute;ch h&agrave;ng mua h&agrave;ng từ Facebook, fanpage,...</p>', 1, NULL, '2024-09-12 15:11:26', '2024-09-12 15:11:28'),
-(7, 'Youtube', 'youtube', '<p>Kh&aacute;ch h&agrave;ng mua h&agrave;ng từ youtube shop</p>', 1, NULL, '2024-09-12 15:11:55', '2024-09-12 15:47:49'),
-(8, 'Khách hàng offline', 'store', '<p>Kh&aacute;ch mua h&agrave;ng trực tiếp từ của h&agrave;ng</p>', 1, NULL, '2024-09-12 16:03:33', '2024-09-29 15:34:13'),
-(9, 'Google', 'google', NULL, 1, NULL, '2024-10-28 18:38:10', '2024-10-28 18:38:12');
+(1, 'Website', 'website', '<p>Đăng k&yacute; t&agrave;i khoản tại website</p>', 0, NULL, '2024-09-23 12:49:14', '2024-10-05 09:56:52'),
+(2, 'Khách hàng offline', 'store', '<p>Kh&aacute;ch h&agrave;ng trực tiếp của cửa h&agrave;ng</p>', 0, NULL, '2024-10-05 09:56:33', '2024-10-05 09:56:33'),
+(3, 'Google', 'google', NULL, 0, NULL, '2024-10-29 06:19:55', '2024-10-29 06:19:55');
 
 -- --------------------------------------------------------
 
@@ -2675,18 +3562,18 @@ INSERT INTO `sources` (`id`, `name`, `keyword`, `description`, `publish`, `delet
 
 CREATE TABLE `suppliers` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fax` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fax` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `publish` tinyint NOT NULL DEFAULT '0',
-  `province_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `district_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ward_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `province_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ward_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -2694,8 +3581,11 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `name`, `address`, `email`, `phone`, `fax`, `created_at`, `updated_at`, `deleted_at`, `publish`, `province_id`, `district_id`, `ward_id`) VALUES
-(2, 'Tony', NULL, 'lehuutai090403@gmail.com', '113', NULL, '2024-10-08 07:26:04', '2024-10-08 09:05:49', NULL, 1, '04', '042', '0'),
-(3, 'ABC', NULL, 'abc@gmail.com', '114', NULL, '2024-10-08 07:27:09', '2024-10-08 07:27:12', NULL, 1, '0', '0', '0');
+(19, 'Cao Tấn Công', NULL, 'caotancong2003@gmail.com', '0362111265', NULL, '2024-10-05 10:59:30', '2024-10-28 09:15:19', NULL, 1, '0', '0', '0'),
+(20, 'Nguyễn Quốc Tiến', 'Số nhà 11', 'tien.10c5.42@gmail.com', '0362111265', NULL, '2024-10-05 11:00:14', '2024-11-01 08:50:49', NULL, 1, '79', '0', '0'),
+(21, 'Lê Trí Cường', 'Số nhà 11', 'letricuong@gmail.com', '0362111265', NULL, '2024-10-05 11:01:03', '2024-10-22 02:37:58', NULL, 1, '79', '787', '27667'),
+(22, 'Lê Hữu Tài', '1', 'lehuutai090403@gmail.com', '0362111265', NULL, '2024-10-28 16:15:36', '2024-11-01 08:46:37', NULL, 1, '77', '747', '26508'),
+(23, 'Nguyễn Thị Thanh Thủy', 'Tân Trụ', 'thuyntt@huit.edu.vn', '0362111265', NULL, '2024-10-29 07:15:23', '2024-10-29 07:15:26', NULL, 1, '79', '766', '27007');
 
 -- --------------------------------------------------------
 
@@ -2707,8 +3597,8 @@ CREATE TABLE `systems` (
   `id` bigint UNSIGNED NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `keyword` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `content` text COLLATE utf8mb4_general_ci,
+  `keyword` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2718,12 +3608,12 @@ CREATE TABLE `systems` (
 --
 
 INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `created_at`, `updated_at`) VALUES
-(1, 1, 201014, 'homepage_company', 'TC Company', NULL, NULL),
+(1, 1, 201014, 'homepage_company', 'TC Shop Company', NULL, NULL),
 (2, 1, 201014, 'homepage_brand', 'TC Shop', NULL, NULL),
-(3, 1, 201014, 'homepage_slogan', 'TCShop - Chất lượng đặt lên hàng đầu', NULL, NULL),
+(3, 1, 201014, 'homepage_slogan', 'Tech & connectivity', NULL, NULL),
 (4, 1, 201014, 'homepage_logo', '/userfiles/image/logo/logo-tcshop.png', NULL, NULL),
 (5, 1, 201014, 'homepage_favicon', '/userfiles/image/logo/logo.png', NULL, NULL),
-(6, 1, 201014, 'homepage_copyright', 'Tony Company', NULL, NULL),
+(6, 1, 201014, 'homepage_copyright', 'TC Shop Company', NULL, NULL),
 (7, 1, 201014, 'homepage_website', 'open', NULL, NULL),
 (8, 1, 201014, 'contact_office', '11 Đường số 27, Sơn Kỳ, Tân Phú, Hồ Chí Minh, Việt Nam', NULL, NULL),
 (9, 1, 201014, 'contact_address', '11 Đường số 27, Sơn Kỳ, Tân Phú, Hồ Chí Minh, Việt Nam', NULL, NULL),
@@ -2736,16 +3626,16 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 (16, 1, 201014, 'contact_tax', '943', NULL, NULL),
 (17, 1, 201014, 'contact_website', 'tcshop.id.vn', NULL, NULL),
 (18, 1, 201014, 'contact_map', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4648.830339913121!2d106.6262624757035!3d10.803509158692233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bfd56e5e211%3A0xc0c7a099415a25f5!2zMTEgxJDGsOG7nW5nIHPhu5EgMjcsIFPGoW4gS-G7sywgVMOibiBQaMO6LCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e1!3m2!1svi!2s!4v1723706582173!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', NULL, NULL),
-(19, 1, 201014, 'seo_meta_title', 'T&C Shop - Điện thoại, laptop, tablet, phụ kiện chính hãng', NULL, NULL),
-(20, 1, 201014, 'seo_meta_keyword', 'tsshop tscompany dienthoai maytinh phukien laptop', NULL, NULL),
-(21, 1, 201014, 'seo_meta_description', 'Hệ thống cửa hàng bán lẻ điện thoại, máy tính laptop, smartwatch, gia dụng, thiết bị IT, phụ kiện chính hãng - Giá tốt, trả góp 0%, giao miễn phí.', NULL, NULL),
-(22, 1, 201014, 'seo_meta_image', '/userfiles/image/logo/logo.png', NULL, NULL),
-(23, 1, 201014, 'homepage_short', '<p>&nbsp;</p>\r\n<ddict-div></ddict-div>', NULL, NULL),
+(19, 1, 201014, 'seo_meta_title', 'TC Shop Company', NULL, NULL),
+(20, 1, 201014, 'seo_meta_keyword', 'TC Shop Company', NULL, NULL),
+(21, 1, 201014, 'seo_meta_description', 'TC Shop Company', NULL, NULL),
+(22, 1, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/logo/logo-tcshop.png', NULL, NULL),
+(23, 1, 201014, 'homepage_short', '<p>VietNam</p>\r\n\r\n<p><img alt=\"\" src=\"/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png\" style=\"width: 512px; height: 512px;\" /></p>\r\n<ddict-div></ddict-div>', NULL, NULL),
 (24, 2, 201014, 'homepage_company', 'Tony Company', NULL, NULL),
 (25, 2, 201014, 'homepage_brand', 'Tony Company', NULL, NULL),
 (26, 2, 201014, 'homepage_slogan', 'Tony Company', NULL, NULL),
-(27, 2, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/thoi-su/united-kingdom.png', NULL, NULL),
-(28, 2, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/thoi-su/vietnam.png', NULL, NULL),
+(27, 2, 201014, 'homepage_logo', '/thuongmaidientu/public/userfiles/image/logo/logo-tcshop.png', NULL, NULL),
+(28, 2, 201014, 'homepage_favicon', '/thuongmaidientu/public/userfiles/image/logo/logo.png', NULL, NULL),
 (29, 2, 201014, 'homepage_copyright', 'Tony Company', NULL, NULL),
 (30, 2, 201014, 'homepage_website', 'open', NULL, NULL),
 (31, 2, 201014, 'homepage_short', '<p>english infomation</p>\r\n<ddict-div></ddict-div>', NULL, NULL),
@@ -2787,12 +3677,16 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 (67, 7, 201014, 'seo_meta_keyword', '托尼公司', NULL, NULL),
 (68, 7, 201014, 'seo_meta_description', '托尼公司', NULL, NULL),
 (69, 7, 201014, 'seo_meta_image', '/thuongmaidientu/public/userfiles/image/vietnam.png', NULL, NULL),
-(70, 1, 201014, 'contact_facebook', 'https://www.facebook.com/tonyit2003', NULL, NULL),
-(71, 1, 201014, 'social_facebook', 'https://www.facebook.com/tonyit2003', NULL, NULL),
-(72, 1, 201014, 'social_youtube', '#', NULL, NULL),
-(73, 1, 201014, 'social_twitter', '#', NULL, NULL),
-(74, 1, 201014, 'social_tiktok', '#', NULL, NULL),
-(75, 1, 201014, 'social_instagram', '#', NULL, NULL);
+(70, 2, 201014, 'social_facebook', NULL, NULL, NULL),
+(71, 2, 201014, 'social_youtube', NULL, NULL, NULL),
+(72, 2, 201014, 'social_twitter', NULL, NULL, NULL),
+(73, 2, 201014, 'social_tiktok', NULL, NULL, NULL),
+(74, 2, 201014, 'social_instagram', NULL, NULL, NULL),
+(75, 1, 201014, 'social_facebook', NULL, NULL, NULL),
+(76, 1, 201014, 'social_youtube', NULL, NULL, NULL),
+(77, 1, 201014, 'social_twitter', NULL, NULL, NULL),
+(78, 1, 201014, 'social_tiktok', NULL, NULL, NULL),
+(79, 1, 201014, 'social_instagram', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2802,21 +3696,21 @@ INSERT INTO `systems` (`id`, `language_id`, `user_id`, `keyword`, `content`, `cr
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `province_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `district_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ward_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `province_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ward_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `birthday` datetime DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `user_agent` text COLLATE utf8mb4_general_ci,
-  `ip` text COLLATE utf8mb4_general_ci,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `ip` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_catalogue_id` bigint UNSIGNED NOT NULL DEFAULT '2',
@@ -2829,10 +3723,17 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `ip`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_catalogue_id`, `deleted_at`, `publish`) VALUES
-(201014, 'Lê Hữu Tài', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 22:58:58', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-09-29 15:58:58', 1, NULL, 1),
-(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 07:32:38', '/thuongmaidientu/public/userfiles/image/language/luffy_avatar.jpg', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-08-29 00:32:38', 1, NULL, 1),
-(201018, 'Test', '456', '01', '004', '00127', '123', '2003-04-09 17:51:57', '/thuongmaidientu/public/userfiles/image/bong-da/gsj6vjkaaaedb3g-1720771505-172-6000-6526-1720772015.jpg', '789', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$stkbs.mmtNHaeLuWNjs2LuMm8D3Q9uhORT3nMWng3d9WHKjRc/0fW', NULL, '2024-08-06 01:40:05', '2024-09-12 18:54:10', 4, '2024-09-12 18:54:10', 1),
-(201019, 'aaa', 'aaa', '02', '027', '00781', 'aaa', '2003-04-09 01:54:49', '/thuongmaidientu/public/userfiles/image/temp/zoro_avatar.jpg', 'aaa', NULL, NULL, 'aaa@gmail.com', NULL, '$2y$12$0i9ICs8levbeCQF3W15DouwBbuXWLIp5pYvyuDWRV33wwUpYFY2aK', NULL, '2024-09-12 18:54:49', '2024-09-12 18:54:56', 4, '2024-09-12 18:54:56', 1);
+(201014, 'Quản Trị Viên', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 18:51:47', '/userfiles/image/temp/teach.jpg', 'Không có', NULL, NULL, 'lehuutai090403@gmail.com', NULL, '$2y$12$KwcyXVfXTEt4BlJwb6pN7OjJ/R7cL1.6YplpgE9eEYHvdf0mKjEJi', NULL, '2024-07-01 08:12:14', '2024-11-18 11:51:47', 1, NULL, 1),
+(201017, 'Giáo sư', '0342937692', '79', '767', '27016', '11, đường số 27', '2003-04-09 00:26:02', '/thuongmaidientu/public/userfiles/image/temp/bug.png', 'Không có', NULL, NULL, 'professor@gmail.com', NULL, '$2y$12$5EtDhkipNarNE6nWvwQOeOPFO2povGNPKS2rGhEmIDk7pZzCsE8z6', NULL, '2024-07-14 06:59:51', '2024-11-18 11:36:50', 1, '2024-11-18 11:36:50', 1),
+(201018, 'Test', '456', '01', '004', '00127', '11, đường số 27', '2003-04-09 17:51:57', '/thuongmaidientu/public/userfiles/image/bong-da/gsj6vjkaaaedb3g-1720771505-172-6000-6526-1720772015.jpg', '789', NULL, NULL, 'test@gmail.com', NULL, '$2y$12$stkbs.mmtNHaeLuWNjs2LuMm8D3Q9uhORT3nMWng3d9WHKjRc/0fW', NULL, '2024-08-06 01:40:05', '2024-11-18 11:36:46', 4, '2024-11-18 11:36:46', 1),
+(201019, 'cong', NULL, '0', '0', '0', NULL, '2024-10-05 17:46:36', 'backend/img/no-photo.png', NULL, NULL, NULL, 'cao@gmail.com', NULL, '$2y$12$HS9vUTSfWdFUUhFHCMQVk.vQa5p34VbE08Y3gZz/NMxHmg/CKkpFq', NULL, '2024-10-05 10:46:37', '2024-11-18 11:36:41', 1, '2024-11-18 11:36:41', 1),
+(201020, 'Quản Lý Doanh Nghiệp', NULL, '0', '0', '0', NULL, NULL, '/userfiles/image/temp/luffy.jpg', NULL, NULL, NULL, 'quanlydoanhnghiep@gmail.com', NULL, '$2y$12$6FruZFfwCdKe6ftACewJQuIHg7BLNIXpmC7wZ7/Lsl94HYi.dUulK', NULL, '2024-11-18 11:40:40', '2024-11-18 11:40:40', 8, NULL, 1),
+(201021, 'Nhân Viên CSKH', NULL, '0', '0', '0', NULL, NULL, '/userfiles/image/temp/nami.jpg', NULL, NULL, NULL, 'nhanvienchamsockhachhang@gmail.com', NULL, '$2y$12$m4aGDrve.Wbxp3PU04leFuhKIw4qEha5ZBiYwgikxAJ4RGR8OiVAq', NULL, '2024-11-18 11:44:44', '2024-11-18 11:44:44', 7, NULL, 1),
+(201022, 'Nhân Viên Bảo Hành', NULL, '0', '0', '0', NULL, NULL, '/userfiles/image/temp/franky.jpg', NULL, NULL, NULL, 'nhanvienbaohanh@gmail.com', NULL, '$2y$12$074a.CI4mIRrJDIPuDofWu032Cbyc8VCh9MMxyK0dayZekb/KeJcS', NULL, '2024-11-18 11:45:50', '2024-11-18 11:45:50', 6, NULL, 1),
+(201023, 'Nhân Viên Marketing', NULL, '0', '0', '0', NULL, NULL, '/userfiles/image/temp/robin.jpg', NULL, NULL, NULL, 'nhanvienmarketing@gmail.com', NULL, '$2y$12$AeiF6t2p9iatUpbiBJMsMuHyiVYUOL0uDXCfG7Lj6HCixKQbyq9R.', NULL, '2024-11-18 11:47:14', '2024-11-18 11:47:14', 5, NULL, 1),
+(201024, 'Nhân Viên Bán Hàng', NULL, '0', '0', '0', NULL, NULL, '/userfiles/image/temp/brook.jpg', NULL, NULL, NULL, 'nhanvienbanhang@gmail.com', NULL, '$2y$12$VYVo1hbObIqRPVQO/l8ZCe2dmbbVJnk2dbHFsL7.6jTfAWqdPRAVm', NULL, '2024-11-18 11:48:31', '2024-11-18 11:48:31', 4, NULL, 1),
+(201025, 'Nhân Viên Kho', NULL, '0', '0', '0', NULL, NULL, '/userfiles/image/temp/zoro.jpg', NULL, NULL, NULL, 'nhanvienkho@gmail.com', NULL, '$2y$12$dmW9reGNn3H/Ap0JZ7USp.uPKan/K1996PJcr/p2TyCHj.1tbp2G6', NULL, '2024-11-18 11:49:57', '2024-11-18 11:49:57', 2, NULL, 1),
+(201026, 'Nhân viên CEO', NULL, '0', '0', '0', NULL, NULL, '/userfiles/image/temp/sanji.jpg', NULL, NULL, NULL, 'nhanvienceo@gmail.com', NULL, '$2y$12$Ddq1D7wA4z6m28Vj7l8yaeWLqJgOoEmSD23vjFappGudBRcknJFtq', NULL, '2024-11-18 11:53:54', '2024-11-18 11:53:54', 9, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -2842,8 +3743,8 @@ INSERT INTO `users` (`id`, `name`, `phone`, `province_id`, `district_id`, `ward_
 
 CREATE TABLE `user_catalogues` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -2856,9 +3757,14 @@ CREATE TABLE `user_catalogues` (
 
 INSERT INTO `user_catalogues` (`id`, `name`, `description`, `deleted_at`, `created_at`, `updated_at`, `publish`) VALUES
 (1, 'Quản trị viên', 'Quản lý toàn bộ chức năng', NULL, '2024-07-01 06:12:43', '2024-07-11 09:49:17', 1),
-(2, 'Cộng tác viên', 'Xử lý 1 vài chức năng trong hệ thống', NULL, '2024-07-01 06:19:35', '2024-07-19 19:24:07', 1),
+(2, 'Nhân viên kho', 'Thực hiện việc nhập kho, xuất kho', NULL, '2024-07-01 06:19:35', '2024-11-18 11:55:22', 1),
 (3, 'test123', '123456', '2024-07-01 07:14:37', '2024-07-01 07:03:17', '2024-07-01 07:14:37', 0),
-(4, 'Writer', NULL, NULL, '2024-07-16 09:01:18', '2024-07-19 20:04:36', 1);
+(4, 'Nhân viên bán hàng', 'Thực hiện chức năng xử lý đơn hàng', NULL, '2024-07-16 09:01:18', '2024-11-18 11:56:37', 1),
+(5, 'Nhân viên marketing', 'Thực hiện việc tạo các chương trình khuyến mãi, làm slide cho trang web', NULL, '2024-11-18 11:34:33', '2024-11-18 11:57:05', 1),
+(6, 'Nhân viên bảo hành', 'Thực hiện việc quản lý bảo hành sản phẩm', NULL, '2024-11-18 11:35:17', '2024-11-18 11:58:12', 1),
+(7, 'Nhân viên chăm sóc khách hàng', 'Thực hiện việc duyệt bài đánh giá, và phục vụ việc phản hồi khách hàng', NULL, '2024-11-18 11:35:41', '2024-11-18 11:59:06', 1),
+(8, 'Quản lý doanh nghiệp', 'Thực hiện việc xác nhận đơn nhập hàng', NULL, '2024-11-18 11:36:31', '2024-11-18 11:59:21', 1),
+(9, 'Nhân viên CEO', 'Thực hiện việc tạo bài viết mới cho doanh nghiệp', NULL, '2024-11-18 11:52:39', '2024-11-18 11:59:37', 1);
 
 -- --------------------------------------------------------
 
@@ -2876,18 +3782,12 @@ CREATE TABLE `user_catalogue_permission` (
 --
 
 INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) VALUES
-(2, 6),
-(2, 7),
-(2, 8),
-(4, 7),
-(2, 9),
 (1, 12),
 (1, 11),
 (1, 10),
 (1, 9),
 (1, 8),
 (1, 7),
-(1, 6),
 (1, 5),
 (1, 4),
 (1, 3),
@@ -2969,10 +3869,105 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 87),
 (1, 88),
 (1, 89),
-(1, 1),
+(1, 6),
 (1, 90),
+(1, 1),
 (1, 91),
-(1, 92);
+(1, 92),
+(1, 93),
+(2, 53),
+(2, 54),
+(2, 55),
+(2, 56),
+(2, 57),
+(2, 33),
+(2, 34),
+(2, 35),
+(2, 36),
+(2, 37),
+(2, 38),
+(2, 39),
+(2, 40),
+(2, 41),
+(2, 42),
+(2, 43),
+(2, 44),
+(2, 45),
+(2, 46),
+(2, 47),
+(2, 48),
+(4, 88),
+(5, 59),
+(5, 60),
+(5, 61),
+(5, 62),
+(6, 90),
+(6, 89),
+(7, 91),
+(7, 92),
+(2, 93),
+(9, 1),
+(9, 2),
+(9, 3),
+(9, 4),
+(9, 5),
+(9, 6),
+(9, 7),
+(9, 8),
+(9, 9),
+(8, 10),
+(8, 11),
+(8, 12),
+(8, 13),
+(8, 14),
+(8, 15),
+(8, 16),
+(8, 17),
+(8, 18),
+(8, 19),
+(8, 20),
+(8, 21),
+(8, 22),
+(8, 23),
+(8, 24),
+(8, 25),
+(8, 26),
+(8, 27),
+(8, 28),
+(8, 29),
+(8, 30),
+(8, 31),
+(8, 32),
+(8, 49),
+(8, 50),
+(8, 51),
+(8, 52),
+(8, 58),
+(8, 63),
+(8, 64),
+(8, 65),
+(8, 66),
+(8, 67),
+(8, 73),
+(8, 74),
+(8, 75),
+(8, 76),
+(8, 77),
+(8, 78),
+(8, 79),
+(8, 80),
+(8, 81),
+(8, 82),
+(8, 83),
+(8, 84),
+(8, 85),
+(8, 86),
+(8, 87),
+(2, 68),
+(5, 69),
+(5, 70),
+(5, 71),
+(5, 72);
 
 -- --------------------------------------------------------
 
@@ -2981,13 +3976,13 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 --
 
 CREATE TABLE `wards` (
-  `code` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `full_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `full_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `code_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `district_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `full_name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `district_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `administrative_unit_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -13624,11 +14619,11 @@ CREATE TABLE `warranty_cards` (
   `id` bigint UNSIGNED NOT NULL,
   `order_id` bigint UNSIGNED NOT NULL,
   `product_id` bigint UNSIGNED NOT NULL,
-  `variant_uuid` varchar(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `variant_uuid` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `warranty_start_date` timestamp NULL DEFAULT NULL,
   `warranty_end_date` timestamp NULL DEFAULT NULL,
-  `status` enum('active','expired','pending','completed') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
-  `notes` text COLLATE utf8mb4_unicode_ci,
+  `status` enum('active','expired','pending','completed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `quantity` int NOT NULL DEFAULT '0',
@@ -13644,13 +14639,13 @@ CREATE TABLE `warranty_cards` (
 
 CREATE TABLE `widgets` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `keyword` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `album` longtext COLLATE utf8mb4_general_ci,
-  `model_id` longtext COLLATE utf8mb4_general_ci,
-  `model` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `short_code` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `album` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `model_id` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `model` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `short_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `publish` tinyint NOT NULL DEFAULT '0',
   `user_id` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -13663,14 +14658,13 @@ CREATE TABLE `widgets` (
 --
 
 INSERT INTO `widgets` (`id`, `name`, `keyword`, `description`, `album`, `model_id`, `model`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(2, 'Test 1', 'test-1', '{\"2\":\"<p>b kdjbd&nbsp;<\\/p>\",\"1\":\"<p>Test 1<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/thoi-su\\/united-kingdom.png\"]', '[\"2\",\"1\"]', 'ProductCatalogue', 'test-1', 0, 201014, '2024-09-20 13:28:03', '2024-09-02 07:11:36', '2024-09-20 13:28:03'),
-(4, 'Test ne', 'test ne', '{\"2\":\"<p>haha EN 123<\\/p>\",\"7\":\"<p>\\u54c8\\u54c8<\\/p>\",\"1\":\"<p>haha VN<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/iphone-15-pro-max\\/iphone-15-pro-max_3.png\"]', '[\"1\"]', 'ProductCatalogue', 'test ne', 0, 201014, '2024-09-20 13:28:01', '2024-09-02 10:16:00', '2024-09-20 13:28:01'),
-(5, 'Sản phẩm nổi bật', 'featured-product', '{\"1\":null}', NULL, '[\"31\",\"29\",\"30\",\"27\",\"28\"]', 'Product', NULL, 1, 201014, NULL, '2024-09-20 13:34:21', '2024-09-20 14:24:07'),
-(6, 'Danh mục sản phẩm', 'category', '{\"1\":null}', NULL, '[\"2\",\"1\"]', 'ProductCatalogue', 'category', 1, 201014, NULL, '2024-09-20 14:28:56', '2024-10-03 07:31:44'),
-(7, 'Danh mục trang chủ', 'category-home', '{\"1\":null}', NULL, '[\"2\",\"1\"]', 'ProductCatalogue', 'category-home', 1, 201014, NULL, '2024-09-22 18:51:35', '2024-10-04 12:21:11'),
-(8, 'Danh mục sản phẩm cho menu', 'category-menu', '{\"1\":null}', NULL, '[\"2\",\"1\"]', 'ProductCatalogue', 'category-menu', 1, 201014, NULL, '2024-09-22 19:14:46', '2024-09-22 19:14:48'),
-(9, 'Sản phẩm bán chạy', 'bestseller', '{\"1\":\"<p style=\\\"color:white\\\">H&atilde;y mua ngay !!!<\\/p>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/BESTSELLER.png\"]', '[\"31\",\"30\",\"29\",\"28\",\"27\"]', 'Product', 'bestseller', 1, 201014, NULL, '2024-09-26 13:18:33', '2024-09-26 14:42:00'),
-(10, 'Tin tức nổi bật', 'featured_news', '{\"1\":null}', NULL, '[\"44\",\"43\",\"46\",\"45\"]', 'Post', 'featured_news', 1, 201014, NULL, '2024-09-29 16:48:50', '2024-10-08 09:08:39');
+(1, 'Sản phẩm bán chạy', 'bestseller', '{\"1\":null}', '[\"\\/userfiles\\/image\\/banner\\/BESTSELLER.png\"]', '[\"61\",\"60\",\"56\",\"55\",\"54\",\"53\",\"52\",\"51\",\"50\",\"49\",\"48\",\"46\",\"44\",\"43\",\"42\",\"33\",\"30\"]', 'Product', 'bestseller', 1, 201014, NULL, '2024-09-28 06:03:51', '2024-11-18 17:18:00'),
+(2, 'Danh mục sản phẩm cho menu', 'category-menu', '{\"1\":null}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/BESTSELLER.png\"]', '[\"4\",\"7\",\"21\",\"30\",\"42\",\"17\",\"35\",\"10\",\"24\"]', 'ProductCatalogue', 'category-menu', 1, 201014, NULL, '2024-09-28 06:11:55', '2024-11-18 17:22:38'),
+(3, 'Danh mục trang chủ', 'category-home', '{\"1\":null}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/BESTSELLER.png\"]', '[\"4\",\"7\",\"30\",\"42\",\"35\",\"10\",\"17\",\"21\",\"24\"]', 'ProductCatalogue', 'category-home', 1, 201014, NULL, '2024-09-28 06:15:16', '2024-11-18 17:21:19'),
+(4, 'Danh mục sản phẩm menu', 'category', '{\"1\":null}', '[\"\\/userfiles\\/image\\/banner\\/BESTSELLER.png\"]', '[\"4\",\"7\",\"30\",\"42\",\"35\",\"21\",\"17\",\"10\",\"24\"]', 'ProductCatalogue', 'category', 1, 201014, NULL, '2024-09-28 06:16:24', '2024-11-18 17:20:23'),
+(5, 'Sản phẩm nổi bật', 'featured-product', '{\"2\":\"<p>Featured Products<\\/p>\",\"1\":\"<table>\\r\\n\\t<tbody>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td>S\\u1ea3n ph\\u1ea9m n\\u1ed5i b\\u1eadt<\\/td>\\r\\n\\t\\t<\\/tr>\\r\\n\\t<\\/tbody>\\r\\n<\\/table>\"}', '[\"\\/thuongmaidientu\\/public\\/userfiles\\/image\\/banner\\/BESTSELLER.png\"]', '[\"30\"]', 'Product', 'featured-product', 1, 201014, NULL, '2024-09-28 06:17:51', '2024-11-18 17:17:18'),
+(6, 'test', 'test', '{\"1\":null}', NULL, '[\"4\"]', 'ProductCatalogue', 'test', 0, 201014, '2024-09-28 07:14:41', '2024-09-28 07:14:11', '2024-09-28 07:14:41'),
+(7, 'Tin tức nổi bật', 'featured_news', '{\"1\":null}', NULL, '[\"53\",\"44\",\"49\",\"51\",\"52\",\"46\",\"47\"]', 'Post', 'featured_news', 1, 201014, NULL, '2024-10-10 15:30:34', '2024-10-12 08:06:53');
 
 --
 -- Indexes for dumped tables
@@ -13907,6 +14901,13 @@ ALTER TABLE `products`
   ADD KEY `products_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `product_attribute`
+--
+ALTER TABLE `product_attribute`
+  ADD KEY `product_attribute_product_id_foreign` (`product_id`),
+  ADD KEY `product_attribute_attribute_id_foreign` (`attribute_id`);
+
+--
 -- Indexes for table `product_catalogues`
 --
 ALTER TABLE `product_catalogues`
@@ -14117,25 +15118,25 @@ ALTER TABLE `widgets`
 -- AUTO_INCREMENT for table `attributes`
 --
 ALTER TABLE `attributes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `attribute_catalogues`
 --
 ALTER TABLE `attribute_catalogues`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `customer_catalogues`
@@ -14171,25 +15172,25 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `menu_catalogues`
 --
 ALTER TABLE `menu_catalogues`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `order_payment`
@@ -14201,67 +15202,67 @@ ALTER TABLE `order_payment`
 -- AUTO_INCREMENT for table `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `post_catalogues`
 --
 ALTER TABLE `post_catalogues`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `product_catalogues`
 --
 ALTER TABLE `product_catalogues`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `product_receipts`
 --
 ALTER TABLE `product_receipts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
 
 --
 -- AUTO_INCREMENT for table `product_receipt_detail`
 --
 ALTER TABLE `product_receipt_detail`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500;
 
 --
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=766;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=603;
 
 --
 -- AUTO_INCREMENT for table `product_variant_language`
 --
 ALTER TABLE `product_variant_language`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=714;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=625;
 
 --
 -- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `promotion_conditionable`
@@ -14273,67 +15274,67 @@ ALTER TABLE `promotion_conditionable`
 -- AUTO_INCREMENT for table `promotion_product_variant`
 --
 ALTER TABLE `promotion_product_variant`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=535;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `routers`
 --
 ALTER TABLE `routers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 
 --
 -- AUTO_INCREMENT for table `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sources`
 --
 ALTER TABLE `sources`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `systems`
 --
 ALTER TABLE `systems`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201020;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201027;
 
 --
 -- AUTO_INCREMENT for table `user_catalogues`
 --
 ALTER TABLE `user_catalogues`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `warranty_cards`
 --
 ALTER TABLE `warranty_cards`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
 -- AUTO_INCREMENT for table `widgets`
 --
 ALTER TABLE `widgets`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -14430,7 +15431,7 @@ ALTER TABLE `order_payment`
 --
 ALTER TABLE `order_product`
   ADD CONSTRAINT `order_product_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_product_variant_uuid_foreign` FOREIGN KEY (`variant_uuid`) REFERENCES `product_variants` (`uuid`) ON DELETE CASCADE;
+  ADD CONSTRAINT `order_product_variant_uuid_foreign` FOREIGN KEY (`variant_uuid`) REFERENCES `product_variants` (`uuid`);
 
 --
 -- Constraints for table `posts`
@@ -14470,6 +15471,13 @@ ALTER TABLE `post_language`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `product_attribute`
+--
+ALTER TABLE `product_attribute`
+  ADD CONSTRAINT `product_attribute_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_attribute_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_catalogues`
