@@ -99,7 +99,7 @@ class LanguageService extends BaseService implements LanguageServiceInterface
         }
     }
 
-    public function switchBackend($id)
+    public function switchFrontend($id)
     {
         DB::beginTransaction();
         try {
