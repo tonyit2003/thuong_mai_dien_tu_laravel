@@ -351,7 +351,7 @@ class ProductService extends BaseService implements ProductServiceInterface
         $variant = $this->createVariantArray($payload, $product);
 
         $variantIds = collect($variant)->map(function ($item) use ($product) {
-            $variant = $product->product_variants()->updateOrCreate(
+            $variant = $product->product_variants()->withTrashed()->updateOrCreate(
                 ['uuid' => $item['uuid']],
                 [
                     'code' => $item['code'],
@@ -363,7 +363,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                     'file_url' => $item['file_url'],
                     'album' => $item['album'],
                     'user_id' => $item['user_id'],
-                    'deleted_at' => null, // Đảm bảo bản ghi đang cập nhật không bị đánh dấu xóa.
+                    'deleted_at' => null,
                 ]
             );
 

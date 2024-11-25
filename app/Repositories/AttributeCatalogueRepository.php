@@ -41,13 +41,14 @@ class AttributeCatalogueRepository extends BaseRepository implements AttributeCa
 
     public function getAll($languageId = 0, $notParent = false)
     {
-        $query = $this->model->with(['attribute_catalogue_language' => function ($query) use ($languageId) {
-            $query->where('language_id', $languageId);
-        }]);
-        if ($notParent == true) {
+        $query = $this->model
+            ->join('attribute_catalogue_language', 'attribute_catalogues.id', '=', 'attribute_catalogue_language.attribute_catalogue_id')
+            ->where('attribute_catalogue_language.language_id', $languageId);
+        if ($notParent) {
             $query->whereRaw('attribute_catalogues.rgt - attribute_catalogues.lft = ?', [1]);
         }
-        return $query->get();
+        $query->orderBy('attribute_catalogue_language.name', 'ASC');
+        return $query->select('attribute_catalogues.*')->get();
     }
 
     public function getAttributeCatalogueWhereIn($whereIn = [], $whereInField = 'id', $language = 1)

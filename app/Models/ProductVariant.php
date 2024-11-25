@@ -24,6 +24,7 @@ class ProductVariant extends Model
         'publish',
         'user_id',
         'uuid',
+        'deleted_at',
     ];
 
     protected $table = 'product_variants';
