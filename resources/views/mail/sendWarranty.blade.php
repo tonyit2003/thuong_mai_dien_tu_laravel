@@ -78,13 +78,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $item)
-                        <tr>
-                            <td style="width: 60%">{{ $item['product_name'] }}</td>
-                            <td style="width: 20%; text-align: center">{{ \Carbon\Carbon::parse($item['date_of_receipt'])->format('d/m/Y') }}</td>
-                            <td style="width: 20%">{{ $item['note'] }}</td>
-                        </tr>
+                    @foreach ($data as $key => $val)
+                        @if (is_array($val))
+                            <tr>
+                                <td style="width: 60%">{{ $val['product_name'] }}</td>
+                                <td style="width: 20%; text-align: center">{{ \Carbon\Carbon::parse($val['date_of_receipt'])->format('d/m/Y') }}</td>
+                                <td style="width: 20%">{{ $val['note'] }}</td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="3">Dữ liệu không hợp lệ</td>
+                            </tr>
+                        @endif
                     @endforeach
+
                 </tbody>
             </table>
             <p>Chúng tôi sẽ tiến hành kiểm tra và liên hệ với bạn nếu cần thêm thông tin.</p>
