@@ -98,4 +98,7 @@ return [
     'home_page'                     => 'Trang chủ',
     'specifications'                => 'Thông số kỹ thuật',
     'temp_out_of_stock'             => 'Tạm hết hàng',
+    'search'                        => 'Tìm kiếm',
+    'search_product'                => 'Tìm kiếm sản phẩm...',
+    'search_result_for'             => 'Kết quả tìm kiếm cho',
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Requests\SearchProductRequest;
 use App\Repositories\ProductCatalogueRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
@@ -10,6 +11,7 @@ use App\Repositories\ReviewRepository;
 use App\Services\ProductService;
 use App\Services\ProductVariantService;
 use App\Services\ReviewService;
+use Illuminate\Http\Request;
 
 class ProductController extends FrontendController
 {
@@ -64,6 +66,31 @@ class ProductController extends FrontendController
         $system = $this->system;
         $seo = seo($product);
         return view('frontend.product.product.index', compact('config', 'language', 'seo', 'system', 'product', 'productVariant', 'productCatalogue', 'breadcrumb', 'category', 'language', 'reviews'));
+    }
+
+    public function search(SearchProductRequest $request)
+    {
+        $keyword = $request->input('keyword');
+        $language = $this->language;
+        $config = $this->config();
+        $system = $this->system;
+        $productVariants = $this->productVariantService->searchProduct($request, $language);
+        if (isset($keyword) && isset($productVariants) && count($productVariants)) {
+            $productVariantUuids = $productVariants->pluck('uuid')->toArray();
+            if (count($productVariantUuids) && isset($productVariantUuids)) {
+                $productVariants = $this->productVariantService->combineProductVariantAndPromotion($productVariantUuids, $productVariants);
+            }
+            $this->productVariantService->getCatalogueName($productVariants, $this->language);
+            $productVariants = $this->productVariantService->getReview($productVariants);
+        }
+        $seo = [
+            'meta_title' => $keyword ?? '',
+            'meta_keyword' =>  $keyword ?? '',
+            'meta_description' =>  $keyword ?? '',
+            'meta_image' => asset('userfiles/image/logo/logo.png'),
+            'canonical' =>  $keyword ?? '',
+        ];
+        return view('frontend.product.product.search', compact('config', 'language', 'seo', 'system', 'keyword', 'productVariants'));
     }
 
     private function config()

@@ -49,6 +49,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\MoMoController;
 use App\Http\Controllers\Frontend\OrderController as FrontendOrderController;
 use App\Http\Controllers\Frontend\PaypalController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\Frontend\RouterController;
 use App\Http\Controllers\Frontend\VNPayController;
 use App\Http\Middleware\CustomerAuthenticateMiddleware;
@@ -76,6 +77,9 @@ Route::group(['middleware' => [CustomerAuthenticateMiddleware::class, SetLocaleF
 });
 
 Route::group(['middleware' => [SetLocaleFrontend::class]], function () {
+    // Search
+    Route::get('search' . config('apps.general.suffix'), [FrontendProductController::class, 'search'])->name('product.search');
+
     //Info customer
     Route::get('info' . config('apps.general.suffix'), [FrontendCustomerController::class, 'info'])->name('customer.info')->middleware(CustomerAuthenticateMiddleware::class);
     Route::post('updateInfo', [FrontendCustomerController::class, 'updateInfo'])->name('customer.updateInfo')->middleware(CustomerAuthenticateMiddleware::class);
