@@ -19,7 +19,7 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row mb15">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
                                         {{ __('form.product_name') }}

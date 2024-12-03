@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </td>
-                    @include('backend.dashboard.component.languageTd', [
+                    @include('backend.dashboard.component.languageTdLanguage', [
                         'model' => $attribute,
                         'modeling' => 'Attribute',
                     ])

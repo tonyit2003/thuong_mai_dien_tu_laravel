@@ -50,7 +50,11 @@
             </table>
             <hr>
             <div class="order-total">
-                <p>Thành tiền: <span>{{ formatCurrency($order->details->sum('price')) }}</span></p>
+                <p>Thành tiền:
+                    <span>
+                        {{ formatCurrency($order->details->sum(function ($item) {return $item->price * $item->quantity;})) }}
+                    </span>
+                </p>
             </div>
             <div class="order-actions">
                 <a href="#" class="btn btn-default">Liên hệ người bán</a>
