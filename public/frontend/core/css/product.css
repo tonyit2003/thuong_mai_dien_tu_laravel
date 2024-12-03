@@ -332,7 +332,7 @@ label {
     white-space: nowrap;
     color: gold; /* Màu của ngôi sao đầy đủ */
     width: var(--star-width); /* Sử dụng biến CSS để đặt giá trị width */
-    letter-spacing: 3px;
+    /* letter-spacing: 3px; */
 }
 
 /* Đặt chiều rộng cho modal */

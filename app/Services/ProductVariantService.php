@@ -150,6 +150,17 @@ class ProductVariantService extends BaseService implements ProductVariantService
         return $productVariants;
     }
 
+    public function searchProduct($request, $language)
+    {
+        $keyword = $request->input('keyword');
+        if (isset($keyword)) {
+            $path = 'search' . config('apps.general.suffix');
+            return $this->productVariantRepository->searchProduct($keyword, $language, $path);
+        } else {
+            return [];
+        }
+    }
+
     private function combineFilterQuery($param)
     {
         $query = [];

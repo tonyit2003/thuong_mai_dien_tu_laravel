@@ -69,6 +69,7 @@ class PostService extends BaseService implements PostServiceInterface
             return true;
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             return false;
         }
     }
@@ -88,6 +89,7 @@ class PostService extends BaseService implements PostServiceInterface
             return true;
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e->getMessage(), $e->getLine());
             return false;
         }
     }

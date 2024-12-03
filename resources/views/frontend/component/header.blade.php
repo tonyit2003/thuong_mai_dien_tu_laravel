@@ -69,12 +69,18 @@
                         </a>
                     </div>
                     <div class="header-form">
-                        <form action="" class="uk-form form search-form">
+                        <form action="{{ route('product.search') }}" method="GET" class="uk-form form search-form">
+                            @if ($errors->any())
+                                @php
+                                    flash()->error($errors->all()[0]);
+                                @endphp
+                            @endif
                             <div class="form-row">
-                                <input type="text" name="" class="input-text"
-                                    placeholder="Tìm kiếm sản phẩm...">
+                                <input type="text" name="keyword" class="input-text"
+                                    value="{{ request('keyword') ?: '' }}"
+                                    placeholder="{{ __('info.search_product') }}">
                             </div>
-                            <button type="submit" name="search" value="submit">Search</button>
+                            <button type="submit">{{ __('info.search') }}</button>
                         </form>
                     </div>
                 </div>

@@ -128,4 +128,25 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
 
         return $query->paginate($perPage)->withQueryString()->withPath(env('APP_URL') . $path);
     }
+
+    public function searchProduct($searchTerm = '', $language = 1, $path = '', $perPage = 20)
+    {
+        $keywords = explode(' ', $searchTerm);
+        $query = $this->model
+            ->join('product_variant_language', 'product_variants.id', '=', 'product_variant_language.product_variant_id')
+            ->join('products', 'products.id', '=', 'product_variants.product_id')
+            ->join('product_language', 'products.id', '=', 'product_language.product_id')
+            ->where('product_language.language_id', '=', $language)
+            ->where('product_variant_language.language_id', '=', value: $language)
+            ->select('product_language.name as product_name', 'product_variants.price', 'products.product_catalogue_id', 'product_variants.uuid', 'product_variants.quantity', 'product_variant_language.name as name', 'product_variants.album', 'product_language.canonical as product_canonical');
+
+        foreach ($keywords as $keyword) {
+            $query->where(function ($subQuery) use ($keyword) {
+                $subQuery->where('product_language.name', 'LIKE', "%{$keyword}%")
+                    ->orWhere('product_variant_language.name', 'LIKE', "%{$keyword}%");
+            });
+        }
+
+        return $query->paginate($perPage)->withQueryString()->withPath(env('APP_URL') . $path);
+    }
 }
