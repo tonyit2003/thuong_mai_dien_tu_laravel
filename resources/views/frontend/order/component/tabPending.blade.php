@@ -56,7 +56,4 @@
             </div>
         </div>
     @endforeach
-    <div class="text-center">
-        {{ $orders->links('pagination::bootstrap-4') }}
-    </div>
 @endif

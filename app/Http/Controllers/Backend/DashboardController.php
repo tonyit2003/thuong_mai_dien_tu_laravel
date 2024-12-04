@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Services\CustomerService;
 use App\Services\OrderService;
+use Gate;
 
 class DashboardController extends Controller
 {
@@ -19,6 +20,7 @@ class DashboardController extends Controller
 
     public function index()
     {
+        Gate::authorize('modules', 'dashboard.index');
         $orderStatistic = $this->orderService->statistic();
         $customerStatistic = $this->customerService->statistic();
         $config = $this->config();

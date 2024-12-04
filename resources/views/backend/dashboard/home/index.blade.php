@@ -3,7 +3,7 @@
     @include('backend.dashboard.component.chart')
 
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -315,5 +315,5 @@
         </div>
 
 
-    </div>
+    </div> --}}
 </div>

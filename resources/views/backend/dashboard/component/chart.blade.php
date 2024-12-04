@@ -5,23 +5,20 @@
                 <h5>{{ __('dashboard.revenue_chart') }}</h5>
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-xs btn-white chartButton active"
-                            data-chart="1">{{ __('dashboard.current_year') }}</button>
-                        <button type="button" class="btn btn-xs btn-white chartButton"
-                            data-chart="30">{{ __('dashboard.current_month') }}</button>
-                        <button type="button" class="btn btn-xs btn-white chartButton"
-                            data-chart="7">{{ __('dashboard.last_7_days') }}</button>
+                        <button type="button" class="btn btn-xs btn-white chartButton active" data-chart="1">{{ __('dashboard.current_year') }}</button>
+                        <button type="button" class="btn btn-xs btn-white chartButton" data-chart="30">{{ __('dashboard.current_month') }}</button>
+                        <button type="button" class="btn btn-xs btn-white chartButton" data-chart="7">{{ __('dashboard.last_7_days') }}</button>
                     </div>
                 </div>
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="chartContainer">
                             <canvas id="barChart" height="100"></canvas>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    {{-- <div class="col-lg-3">
                         <ul class="stat-list">
                             <li>
                                 <h2 class="no-margins">2,346</h2>
@@ -51,7 +48,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 

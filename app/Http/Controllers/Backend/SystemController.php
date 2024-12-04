@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Repositories\SystemRepository;
 use App\Services\SystemService;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -31,6 +32,7 @@ class SystemController extends Controller
 
     public function index()
     {
+        Gate::authorize('modules', 'system.index');
         $systemConfig = $this->systemLibrary->config();
         $condition = [
             ['language_id', '=', $this->language]

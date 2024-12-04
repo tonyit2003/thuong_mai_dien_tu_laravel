@@ -9,14 +9,12 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
-                        <a href="{{ route('dashboard.index') }}"><img alt="image" class="img-circle"
-                                src="{{ Auth::user()->image }}" width="60px" height="60px" /></a>
+                        <a href="{{ route('dashboard.index') }}"><img alt="image" class="img-circle" src="{{ Auth::user()->image }}" width="60px"
+                                height="60px" /></a>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> <strong
-                                    class="font-bold">{{ Auth::user()->name }}</strong>
-                            </span> <span
-                                class="text-muted text-xs block">{{ Auth::user()->user_catalogues->name }}</span>
+                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
+                            </span> <span class="text-muted text-xs block">{{ Auth::user()->user_catalogues->name }}</span>
                         </span> </a>
                     {{-- <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="profile.html">Profile</a></li>
@@ -32,30 +30,44 @@
             </li>
             {{-- __('sidebar.module') => resources/lang/{locale}/sidebar.php (locale trong file app.php) --}}
             @foreach (__('sidebar.module') as $key => $val)
-                <li
-                    class="{{ isset($val['class']) ? $val['class'] : '' }} {{ in_array($segment, $val['name']) ? 'active' : '' }}">
-                    <a href="{{ route('dashboard.index') }}"
-                        class="{{ in_array($segment, $val['name']) ? 'text-white' : '' }}">
-                        <i class="{{ $val['icon'] }}"></i>
-                        <span class="nav-label">{{ $val['title'] }}</span>
-                        @if (isset($val['subModule']) && count($val['subModule']))
-                            <span class="fa arrow"></span>
+                @php
+                    // Kiểm tra nếu không có subModule hợp lệ hoặc không có quyền truy cập
+                    $hasValidSubModules =
+                        isset($val['subModule']) &&
+                        count($val['subModule']) &&
+                        collect($val['subModule'])->contains(function ($module) {
+                            return isset($module['permission']) && Gate::allows('modules', $module['permission']);
+                        });
+                @endphp
+
+                @if ($hasValidSubModules || !isset($val['subModule']))
+                    <li class="{{ isset($val['class']) ? $val['class'] : '' }} {{ in_array($segment, $val['name']) ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.index') }}" class="{{ in_array($segment, $val['name']) ? 'text-white' : '' }}">
+                            <i class="{{ $val['icon'] }}"></i>
+                            <span class="nav-label">{{ $val['title'] }}</span>
+                            @if ($hasValidSubModules)
+                                <span class="fa arrow"></span>
+                            @endif
+                        </a>
+
+                        @if ($hasValidSubModules)
+                            <ul class="nav nav-second-level">
+                                @foreach ($val['subModule'] as $module)
+                                    @if (isset($module['permission']) && Gate::allows('modules', $module['permission']))
+                                        <li class="{{ request()->routeIs($module['route']) ? 'active' : '' }}">
+                                            <a href="{{ route($module['route']) }}"
+                                                class="{{ request()->routeIs($module['route']) ? 'text-white' : '' }}">
+                                                {{ $module['title'] }}
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
                         @endif
-                    </a>
-                    @if (isset($val['subModule']))
-                        <ul class="nav nav-second-level">
-                            @foreach ($val['subModule'] as $module)
-                                <li class="{{ request()->routeIs($module['route']) ? 'active' : '' }}">
-                                    <a href="{{ route($module['route']) }}"
-                                        class="{{ request()->routeIs($module['route']) ? 'text-white' : '' }}">
-                                        {{ $module['title'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </li>
+                    </li>
+                @endif
             @endforeach
+
         </ul>
     </div>
 </nav>

@@ -31,4 +31,5 @@ return [
     'review_fail'                           => 'Đánh giá sản phẩm thất bại',
     'not_purchased_product'                 => 'Bạn chưa mua sản phẩm. Vui lòng mua sản phẩm để đánh giá',
     'email_registered'                      => 'Email đã được đăng ký tài khoản. Vui lòng chọn tài khoản Google khác!',
+    'no_permission'                         => 'Không có quyền truy cập',
 ];

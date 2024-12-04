@@ -302,6 +302,7 @@ class ProductReceiptController extends Controller
     }
     public function statisticalReceipt()
     {
+        Gate::authorize('modules', 'dashboard.receipt.index');
         $receiptStatistic = $this->productReceiptService->statistic();
         //$customerStatistic = $this->customerService->statistic();
         $config = $this->config();

@@ -11,11 +11,13 @@ return [
             'subModule' => [
                 [
                     'title' => 'Thống kế hóa đơn',
-                    'route' => 'dashboard.index'
+                    'route' => 'dashboard.index',
+                    'permission' => 'dashboard.index'
                 ],
                 [
                     'title' => 'Thống kê nhập kho',
-                    'route' => 'statisticalReceipt.index'
+                    'route' => 'statisticalReceipt.index',
+                    'permission' => 'dashboard.receipt.index'
                 ]
             ]
         ],
@@ -26,19 +28,23 @@ return [
             'subModule' => [
                 [
                     'title' => 'Nhóm sản phẩm',
-                    'route' => 'product.catalogue.index'
+                    'route' => 'product.catalogue.index',
+                    'permission' => 'product.catalogue.index'
                 ],
                 [
                     'title' => 'Sản phẩm',
-                    'route' => 'product.index'
+                    'route' => 'product.index',
+                    'permission' => 'product.index'
                 ],
                 [
                     'title' => 'Loại thuộc tính',
-                    'route' => 'attribute.catalogue.index'
+                    'route' => 'attribute.catalogue.index',
+                    'permission' => 'attribute.catalogue.index'
                 ],
                 [
                     'title' => 'Thuộc tính',
-                    'route' => 'attribute.index'
+                    'route' => 'attribute.index',
+                    'permission' => 'attribute.index'
                 ],
             ]
         ],
@@ -49,11 +55,13 @@ return [
             'subModule' => [
                 [
                     'title' => 'Đơn hàng',
-                    'route' => 'order.index'
+                    'route' => 'order.index',
+                    'permission' => 'order.index'
                 ],
                 [
                     'title' => 'Xuất kho',
-                    'route' => 'order.outOfStock'
+                    'route' => 'order.outOfStock',
+                    'permission' => 'order.outOfStock'
                 ],
             ]
         ],
@@ -64,11 +72,13 @@ return [
             'subModule' => [
                 [
                     'title' => 'Tiếp nhận bảo hành',
-                    'route' => 'warranty.index'
+                    'route' => 'warranty.index',
+                    'permission' => 'warranty.index'
                 ],
                 [
                     'title' => 'Giao trả sản phẩm',
-                    'route' => 'warranty.warrantyRepair'
+                    'route' => 'warranty.warrantyRepair',
+                    'permission' => 'warranty.warrantyRepair'
                 ],
             ]
         ],
@@ -79,11 +89,13 @@ return [
             'subModule' => [
                 [
                     'title' => 'Nhóm khách hàng',
-                    'route' => 'customer.catalogue.index'
+                    'route' => 'customer.catalogue.index',
+                    'permission' => 'customer.catalogue.index'
                 ],
                 [
                     'title' => 'Khách hàng',
-                    'route' => 'customer.index'
+                    'route' => 'customer.index',
+                    'permission' => 'customer.index'
                 ],
             ]
         ],
@@ -94,11 +106,13 @@ return [
             'subModule' => [
                 [
                     'title' => 'Khuyến mãi',
-                    'route' => 'promotion.index'
+                    'route' => 'promotion.index',
+                    'permission' => 'promotion.index'
                 ],
                 [
                     'title' => 'Nguồn khách',
-                    'route' => 'source.index'
+                    'route' => 'source.index',
+                    'permission' => 'source.index'
                 ],
             ]
         ],
@@ -109,11 +123,13 @@ return [
             'subModule' => [
                 [
                     'title' => 'Nhóm bài viết',
-                    'route' => 'post.catalogue.index'
+                    'route' => 'post.catalogue.index',
+                    'permission' => 'post.catalogue.index'
                 ],
                 [
                     'title' => 'Bài viết',
-                    'route' => 'post.index'
+                    'route' => 'post.index',
+                    'permission' => 'post.index'
                 ]
             ]
         ],
@@ -124,7 +140,8 @@ return [
             'subModule' => [
                 [
                     'title' => 'Đánh giá',
-                    'route' => 'review.index'
+                    'route' => 'review.index',
+                    'permission' => 'review.index'
                 ],
             ]
         ],
@@ -135,11 +152,13 @@ return [
             'subModule' => [
                 [
                     'title' => 'Quản lý phiếu nhập',
-                    'route' => 'receipt.index'
+                    'route' => 'receipt.index',
+                    'permission' => 'receipt.index'
                 ],
                 [
                     'title' => 'Giám sát phiếu nhập',
-                    'route' => 'receipt.monitor'
+                    'route' => 'receipt.monitor',
+                    'permission' => 'receipt.monitor'
                 ]
             ]
         ],
@@ -150,15 +169,18 @@ return [
             'subModule' => [
                 [
                     'title' => 'Nhóm thành viên',
-                    'route' => 'user.catalogue.index'
+                    'route' => 'user.catalogue.index',
+                    'permission' => 'user.catalogue.index'
                 ],
                 [
                     'title' => 'Thành viên',
-                    'route' => 'user.index'
+                    'route' => 'user.index',
+                    'permission' => 'user.index'
                 ],
                 [
                     'title' => 'Quyền',
-                    'route' => 'permission.index'
+                    'route' => 'permission.index',
+                    'permission' => 'permission.index'
                 ],
             ]
         ],
@@ -169,7 +191,8 @@ return [
             'subModule' => [
                 [
                     'title' => 'Nhà cung cấp',
-                    'route' => 'supplier.index'
+                    'route' => 'supplier.index',
+                    'permission' => 'supplier.index'
                 ]
             ]
         ],
@@ -180,7 +203,8 @@ return [
             'subModule' => [
                 [
                     'title' => 'Cài đặt slide',
-                    'route' => 'slide.index'
+                    'route' => 'slide.index',
+                    'permission' => 'slide.index'
                 ],
             ]
         ],
@@ -191,7 +215,8 @@ return [
             'subModule' => [
                 [
                     'title' => 'Cài đặt menu',
-                    'route' => 'menu.index'
+                    'route' => 'menu.index',
+                    'permission' => 'menu.index'
                 ],
             ]
         ],
@@ -202,19 +227,23 @@ return [
             'subModule' => [
                 [
                     'title' => 'Ngôn ngữ',
-                    'route' => 'language.index'
+                    'route' => 'language.index',
+                    'permission' => 'language.index'
                 ],
                 [
                     'title' => 'Module',
-                    'route' => 'generate.index'
+                    'route' => 'generate.index',
+                    'permission' => 'generate.index'
                 ],
                 [
                     'title' => 'Cấu hình hệ thống',
-                    'route' => 'system.index'
+                    'route' => 'system.index',
+                    'permission' => 'system.index'
                 ],
                 [
                     'title' => 'Quản lý widget',
-                    'route' => 'widget.index'
+                    'route' => 'widget.index',
+                    'permission' => 'widget.index'
                 ],
             ]
         ]

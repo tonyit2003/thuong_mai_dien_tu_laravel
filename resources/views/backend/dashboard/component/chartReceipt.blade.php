@@ -19,12 +19,12 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="chartContainer">
                             <canvas id="barChart" height="100"></canvas>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    {{-- <div class="col-lg-3">
                         <ul class="stat-list">
                             <li>
                                 <h2 class="no-margins">2,346</h2>
@@ -54,7 +54,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
