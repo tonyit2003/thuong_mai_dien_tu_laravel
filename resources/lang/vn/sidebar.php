@@ -158,7 +158,7 @@ return [
                 [
                     'title' => 'Giám sát phiếu nhập',
                     'route' => 'receipt.monitor',
-                    'permission' => 'receipt.monitor'
+                    'permission' => 'monitor.receipt'
                 ]
             ]
         ],
