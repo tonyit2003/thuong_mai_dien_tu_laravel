@@ -6,6 +6,7 @@ use App\Models\Province;
 use App\Models\Ward;
 use Carbon\Carbon;
 use CurrencyApi\CurrencyApi\CurrencyApiClient;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 if (!function_exists('convert_price')) {
     function convert_price($price = '', $flag = false)
@@ -643,5 +644,87 @@ if (!function_exists('convertRevenueChartData')) {
             }
         }
         return $newArray;
+    }
+}
+
+if (!function_exists('translateContent')) {
+    function translateContent($content = '', $targetLanguage = 'en')
+    {
+        if (empty($content)) {
+            return '';
+        }
+
+        // Tạo đối tượng Google Translate
+        $tr = new GoogleTranslate($targetLanguage);
+
+        // Nếu nội dung quá dài, chia nhỏ thành các chunk
+        $maxLength = 4500; // Giới hạn an toàn (nhỏ hơn 5000 ký tự)
+        if (strlen($content) > $maxLength) {
+            $chunks = str_split($content, $maxLength);
+            $translatedChunks = [];
+
+            // Dịch từng chunk
+            foreach ($chunks as $chunk) {
+                $translatedChunks[] = $tr->translate($chunk);
+            }
+
+            // Ghép lại các đoạn đã dịch
+            return implode(' ', $translatedChunks);
+        }
+
+        // Dịch trực tiếp nếu nội dung không quá dài
+        return $tr->translate($content);
+    }
+}
+
+
+if (!function_exists('translateContentHasImage')) {
+    function translateContentHasImage($content = '', $targetLanguage = 'en')
+    {
+        if (empty($content)) {
+            return '';
+        }
+
+        // Regex để tìm tất cả các thẻ <img>
+        $pattern = '/<img[^>]*>/i';
+        $matches = [];
+
+        // Tách nội dung
+        preg_match_all($pattern, $content, $matches); // Lấy tất cả các thẻ <img>
+        $imageTags = $matches[0]; // Danh sách thẻ ảnh
+        $textSegments = preg_split($pattern, $content); // Phân đoạn văn bản
+
+        // Tạo đối tượng GoogleTranslate
+        $translate = new GoogleTranslate($targetLanguage);
+
+        // Dịch từng đoạn văn bản
+        $translatedSegments = [];
+
+        foreach ($textSegments as $segment) {
+            if (trim($segment) !== '') {
+                // Chia nhỏ đoạn dài thành các chunk tối đa 5000 ký tự
+                $chunks = str_split($segment, 4500); // Để tránh giới hạn API
+                $translatedText = '';
+
+                foreach ($chunks as $chunk) {
+                    $translatedText .= $translate->translate($chunk); // Dịch từng chunk
+                }
+
+                $translatedSegments[] = $translatedText; // Lưu kết quả
+            } else {
+                $translatedSegments[] = ''; // Giữ khoảng trống nếu không có nội dung
+            }
+        }
+
+        // Ghép nội dung đã dịch với các thẻ ảnh
+        $finalContent = '';
+        foreach ($translatedSegments as $index => $translatedText) {
+            $finalContent .= $translatedText;
+            if (isset($imageTags[$index])) {
+                $finalContent .= $imageTags[$index]; // Thêm thẻ ảnh sau đoạn văn bản tương ứng
+            }
+        }
+
+        return $finalContent;
     }
 }

@@ -7,6 +7,7 @@ use App\Repositories\AttributeRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantAttributeRepository;
 use App\Repositories\ProductVariantLanguageRepository;
+use App\Repositories\ProductVariantRepository;
 use App\Repositories\PromotionRepository;
 use App\Repositories\RouterRepository;
 use App\Services\Interfaces\ProductServiceInterface;
@@ -30,9 +31,10 @@ class ProductService extends BaseService implements ProductServiceInterface
     protected $attributeCatalogueRepository;
     protected $attributeRepository;
     protected $productCatalogueService;
+    protected $productVariantRepository;
     protected $controllerName = 'ProductController';
 
-    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository, PromotionRepository $promotionRepository, AttributeCatalogueRepository $attributeCatalogueRepository, AttributeRepository $attributeRepository, ProductCatalogueService $productCatalogueService)
+    public function __construct(ProductRepository $productRepository, RouterRepository $routerRepository, ProductVariantLanguageRepository $productVariantLanguageRepository, ProductVariantAttributeRepository $productVariantAttributeRepository, PromotionRepository $promotionRepository, AttributeCatalogueRepository $attributeCatalogueRepository, AttributeRepository $attributeRepository, ProductCatalogueService $productCatalogueService, ProductVariantRepository $productVariantRepository)
     {
         $this->productRepository = $productRepository;
         $this->productVariantLanguageRepository = $productVariantLanguageRepository;
@@ -41,6 +43,7 @@ class ProductService extends BaseService implements ProductServiceInterface
         $this->attributeCatalogueRepository = $attributeCatalogueRepository;
         $this->attributeRepository = $attributeRepository;
         $this->productCatalogueService = $productCatalogueService;
+        $this->productVariantRepository = $productVariantRepository;
         parent::__construct($routerRepository);
     }
 
@@ -254,6 +257,50 @@ class ProductService extends BaseService implements ProductServiceInterface
                 }
             }
         }
+        return $products;
+    }
+
+    public function getSimilarProducts($productCatalogueId, $uuid, $language = 1, $randomProductCount = 5, $randomVariantCount = 5)
+    {
+        if (!$productCatalogueId) {
+            return null;
+        }
+
+        $products = $this->productRepository->findByCondition(
+            [['product_catalogue_id', '=', $productCatalogueId]],
+            true,
+            ['languages' => function ($query) use ($language) {
+                $query->where('language_id', $language);
+            }]
+        );
+
+        if ($products->isEmpty()) {
+            return null;
+        }
+
+        $products = $products->shuffle();
+        $products = $products->random(min($randomProductCount, $products->count()));
+
+        foreach ($products as $product) {
+            $productVariants = $this->productVariantRepository->findByCondition(
+                [
+                    ['product_id', '=', $product->id],
+                    ['uuid', '!=', $uuid]
+                ],
+                true,
+                ['languages' => function ($query) use ($language) {
+                    $query->where('language_id', $language);
+                }]
+            );
+            if (isset($productVariants) && count($productVariants)) {
+                $productVariants = $productVariants->shuffle();
+                $productVariants = $productVariants->random(min($randomVariantCount, $productVariants->count()));
+                $product->variants = $productVariants;
+            } else {
+                $product->variants = collect();
+            }
+        }
+
         return $products;
     }
 

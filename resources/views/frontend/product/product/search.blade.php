@@ -19,7 +19,7 @@
             <div class="panel-body">
                 {{-- @include('frontend.product.catalogue.component.filter')
                 @include('frontend.product.catalogue.component.filterContent') --}}
-                @if (isset($productVariants))
+                @if (isset($productVariants) && count($productVariants))
                     <div class="product-list">
                         <div class="uk-grid uk-grid-medium">
                             @foreach ($productVariants as $key => $val)
@@ -33,6 +33,11 @@
                         <div class="uk-flex uk-flex-center">
                             {{ $productVariants->links('pagination::bootstrap-4') }}
                         </div>
+                    </div>
+                @else
+                    <div style="text-align: center">
+                        <img src="{{ asset('backend/img/not-found-phone.png') }}" alt="">
+                        <p class="mt20" style="font-size: 1.5rem; color: #555;">{{ __('info.not_found_product') }}</p>
                     </div>
                 @endif
             </div>

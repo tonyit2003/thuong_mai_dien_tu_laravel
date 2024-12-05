@@ -101,4 +101,6 @@ return [
     'search'                        => 'Tìm kiếm',
     'search_product'                => 'Tìm kiếm sản phẩm...',
     'search_result_for'             => 'Kết quả tìm kiếm cho',
+    'not_found_product'             => 'Không tìm thấy sản phẩm phù hợp',
+    'similar_product'               => 'Sản phẩm tương tự',
 ];

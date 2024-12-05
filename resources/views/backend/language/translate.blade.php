@@ -23,8 +23,14 @@
                 @include('backend.dashboard.component.seo', ['model' => $object ?? null, 'disabled' => 1])
             </div>
             <div class="col-lg-6">
-                @include('backend.dashboard.component.translate', ['model' => $objectTranslate ?? null])
-                @include('backend.dashboard.component.seoTranslate', ['model' => $objectTranslate ?? null])
+                @include('backend.dashboard.component.translate', [
+                    'model' => $objectTranslate ?? null,
+                    'originalModel' => $object,
+                ])
+                @include('backend.dashboard.component.seoTranslate', [
+                    'model' => $objectTranslate ?? null,
+                    'originalModel' => $object,
+                ])
             </div>
         </div>
 

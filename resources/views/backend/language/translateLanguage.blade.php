@@ -22,7 +22,10 @@
                 ])
             </div>
             <div class="col-lg-6">
-                @include('backend.dashboard.component.generalTranslate', ['model' => $objectTranslate ?? null])
+                @include('backend.dashboard.component.generalTranslate', [
+                    'model' => $objectTranslate ?? null,
+                    'originalModel' => $object,
+                ])
             </div>
         </div>
 

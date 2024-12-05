@@ -57,15 +57,7 @@
                             </span>
                         </h1>
                         <div class="rating">
-                            {{-- <div class="uk-flex uk-flex-middle">
-                                <div class="author">{{ __('info.evaluate') }}</div>
-                                <div class="star">
-                                    <?php for($i = 0; $i<=4; $i++){ ?>
-                                    <i class="fa fa-star"></i>
-                                    <?php }  ?>
-                                </div>
-                                <div class="rate-number">(65 {{ __('unit.evaluate') }})</div>
-                            </div> --}}
+
                         </div>
                         @if ($productVariant->quantity > 0 && $price['price'] > 0)
                             {!! $price['html'] !!}
@@ -121,6 +113,44 @@
                 'model' => $product,
                 'modelVariant' => $productVariant,
             ])
+            @if (isset($similarProducts) && count($similarProducts))
+                <div class="cps-block-content">
+                    <div class="uk-container uk-container-center">
+                        <div class="panel-head">
+                            <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                                <h2 class="heading-1"><span>{{ __('info.similar_product') }}</span></h2>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="uk-grid uk-grid-medium">
+                                <div class="uk-width-large-4-4">
+                                    <div class="product-wrapper">
+                                        <div class="swiper-container bestseller-container">
+                                            <div class="swiper-wrapper">
+                                                @foreach ($similarProducts as $productSimilar)
+                                                    @if (isset($productSimilar->variants) && count($productSimilar->variants))
+                                                        @foreach ($productSimilar->variants as $variant)
+                                                            <div class="swiper-slide">
+                                                                @include(
+                                                                    'frontend.component.product-item',
+                                                                    [
+                                                                        'product' => $productSimilar,
+                                                                        'productVariant' => $variant,
+                                                                    ]
+                                                                )
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
         <div class="uk-width-large-1-4">
             @if (isset($product->generalAttribute) && count($product->generalAttribute))
