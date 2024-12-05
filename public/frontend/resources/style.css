@@ -3937,6 +3937,10 @@ a.ui-button:active,
     letter-spacing: 0;
 }
 
+.product-item .stars::after {
+    letter-spacing: 0;
+}
+
 .description-news {
     font-size: 1rem;
     display: -webkit-box; /* Tạo một hộp linh hoạt */

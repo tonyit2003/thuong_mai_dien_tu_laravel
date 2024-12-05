@@ -62,10 +62,11 @@ class ProductController extends FrontendController
             config('apps.general.publish')
         ], true);
         $reviews = $this->reviewService->setCustomerInformation($reviews);
+        $similarProducts = $this->getSimilarProducts($product->product_catalogue_id, $variantUuid, $language);
         $config = $this->config();
         $system = $this->system;
         $seo = seo($product);
-        return view('frontend.product.product.index', compact('config', 'language', 'seo', 'system', 'product', 'productVariant', 'productCatalogue', 'breadcrumb', 'category', 'language', 'reviews'));
+        return view('frontend.product.product.index', compact('config', 'language', 'seo', 'system', 'product', 'productVariant', 'productCatalogue', 'breadcrumb', 'category', 'language', 'reviews', 'similarProducts'));
     }
 
     public function search(SearchProductRequest $request)
@@ -91,6 +92,20 @@ class ProductController extends FrontendController
             'canonical' =>  $keyword ?? '',
         ];
         return view('frontend.product.product.search', compact('config', 'language', 'seo', 'system', 'keyword', 'productVariants'));
+    }
+
+    private function getSimilarProducts($catalogueId, $variantUuid, $language)
+    {
+        $similarProducts = $this->productService->getSimilarProducts($catalogueId ?? null, $variantUuid, $language, 2, 2);
+        if (isset($similarProducts) && count($similarProducts)) {
+            foreach ($similarProducts as $similarProduct) {
+                $productVariantUuids = $similarProduct->variants->pluck('uuid')->toArray();
+                if (count($productVariantUuids) && isset($productVariantUuids)) {
+                    $similarProduct->variants = $this->productVariantService->combineProductVariantAndPromotion($productVariantUuids, $similarProduct->variants);
+                }
+            }
+        }
+        return $similarProducts;
     }
 
     private function config()

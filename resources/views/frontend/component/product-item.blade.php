@@ -13,7 +13,7 @@
     $catName = '';
     foreach ($product->product_catalogues->toArray() as $key => $val) {
         if ($val['id'] == $product->product_catalogue_id) {
-            $catName = $val['languages'][0]['pivot']['name'];
+            $catName = $val['languages'][0]['pivot']['name'] ?? '';
             break;
         }
     }

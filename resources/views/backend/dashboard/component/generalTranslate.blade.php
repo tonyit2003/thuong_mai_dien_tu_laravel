@@ -12,7 +12,8 @@
                         {{ __('form.title') }}
                         <span class="text-danger">(*)</span>
                     </label>
-                    <input type="text" name="translate_name" value="{{ old('translate_name', $model->name ?? '') }}"
+                    <input type="text" name="translate_name"
+                        value="{{ old('translate_name', $model->name ?? translateContent($originalModel->name ?? '')) }}"
                         class="form-control" placeholder="" autocomplete="off">
                 </div>
             </div>
