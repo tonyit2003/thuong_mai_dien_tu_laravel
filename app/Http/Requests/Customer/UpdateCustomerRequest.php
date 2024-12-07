@@ -31,12 +31,12 @@ class UpdateCustomerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => "Bạn chưa nhập địa chỉ email.",
-            'email.email' => "Địa chỉ email không đúng định dạng.",
-            'email.unique' => "Địa chỉ email đã được sử dụng.",
-            'email.max' => "Địa chỉ email không được vượt quá :max ký tự.",
-            'name.required' => "Bạn chưa nhập tên.",
-            'customer_catalogue_id.gt' => "Bạn chưa chọn nhóm khách hàng."
+            'email.required' => __('toast.no_email'),
+            'email.email' => __('toast.email_err'),
+            'email.unique' => __('toast.email_use'),
+            'email.max' => __('toast.email_max'),
+            'name.required' => __('toast.no_name'),
+            'customer_catalogue_id.gt' =>  __('toast.choose_cus_cata')
         ];
     }
 }

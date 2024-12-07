@@ -30,9 +30,9 @@ class StorePostCatalogueRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên tiêu đề.",
-            'canonical.required' => "Bạn chưa nhập đường dẫn",
-            'canonical.unique' => "Đường dẫn đã tồn tại"
+            'name.required' => __('toast.no_post'),
+            'canonical.required' => __('toast.no_canonical'),
+            'canonical.unique' => __('toast.canonical_use')
         ];
     }
 }

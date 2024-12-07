@@ -30,7 +30,7 @@ class StoreMenuChildrenRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'menu.name.required' => "Bạn phải tạo ít nhất một menu.",
+            'menu.name.required' => __('toast.no_menu'),
         ];
     }
 }

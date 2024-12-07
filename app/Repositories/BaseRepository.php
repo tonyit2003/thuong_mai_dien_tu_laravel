@@ -60,11 +60,11 @@ class BaseRepository implements BaseRepositoryInterface
         $query = $this->model
             ->distinct()
             ->select($column)
+            ->customJoin($join ?? null)
             ->keyword($condition['keyword'] ?? null)
             ->customWhere($condition['where'] ?? null)
             ->relationCount($relations ?? null)
             ->relation($relations ?? null)
-            ->customJoin($join ?? null)
             ->customGroupBy($extend['groupBy'] ?? null);
         $paginator = $query->paginate();
         return $paginator->withQueryString()->withPath(env('APP_URL') . $extend['path']);

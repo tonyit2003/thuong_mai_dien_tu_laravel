@@ -22,7 +22,7 @@
             <th class="text-center">
                 {{ __('table.totalFinal') }}
             </th>
-            <th style="width: 120px" class="text-center">
+            <th style="width: 170px" class="text-center">
                 {{ __('table.status') }}
             </th>
             <th class="text-center">
@@ -119,8 +119,7 @@
                         {{ __('statusOrder.payment')[$order->payment] }}
                     </td>
                     <td class="text-center">
-                        <img style="max-width: 54px;"
-                            title="{{ array_column(__('payment.method'), 'title', 'name')[$order->method] ?? '-' }}"
+                        <img style="max-width: 54px;" title="{{ array_column(__('payment.method'), 'title', 'name')[$order->method] ?? '-' }}"
                             src="{{ array_column(__('payment.method'), 'image', 'name')[$order->method] ?? '-' }}"
                             alt="{{ array_column(__('payment.method'), 'title', 'name')[$order->method] ?? '-' }}">
                     </td>

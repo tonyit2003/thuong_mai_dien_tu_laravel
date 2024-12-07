@@ -29,7 +29,7 @@ class StoreUserCatalogueRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên nhóm thành viên."
+            'name.required' => __('toast.user_cata')
         ];
     }
 }

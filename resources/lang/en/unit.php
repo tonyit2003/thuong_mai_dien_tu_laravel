@@ -6,4 +6,7 @@ return [
     'members'       => 'members',
     'px'            => 'px',
     'ms'            => 'ms',
+    'product'       => 'product',
+    'evaluate'      => 'evaluate',
+    'star'          => 'star',
 ];

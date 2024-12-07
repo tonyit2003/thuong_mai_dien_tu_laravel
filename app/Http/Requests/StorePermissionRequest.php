@@ -30,9 +30,9 @@ class StorePermissionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên quyền.",
-            'canonical.required' => "Bạn chưa nhập canonical.",
-            'canonical.unique' => "Canonical đã tồn tại.",
+            'name.required' => __('toast.no_per'),
+            'canonical.required' => __('toast.no_canonical'),
+            'canonical.unique' => __('toast.canonical_use'),
         ];
     }
 }

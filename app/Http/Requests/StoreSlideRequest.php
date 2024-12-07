@@ -32,11 +32,11 @@ class StoreSlideRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên slide.",
-            'keyword.required' => "Bạn chưa nhập từ khóa slide.",
-            'keyword.unique' => "Từ khóa slide đã tồn tại.",
-            'short_code.unique' => "Short code slide đã tồn tại.",
-            'slide.image.required' => "Bạn chưa chọn slide nào.",
+            'name.required' => __('toast.no_name_slide'),
+            'keyword.required' => __('toast.no_key_slide'),
+            'keyword.unique' => __('toast.key_slide_use'),
+            'short_code.unique' => __('toast.short_code_use'),
+            'slide.image.required' => __('toast.choose_slide'),
         ];
     }
 }

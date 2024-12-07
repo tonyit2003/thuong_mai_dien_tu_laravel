@@ -79,9 +79,18 @@ class ProductService extends BaseService implements ProductServiceInterface
         $id = $request->input('product_id') != null ? $request->integer('product_id') : 0;
         $quantity = $request->input('quantity') != null ? $request->integer('quantity') : -1;
         $keyword = addslashes($request->input('keyword')) != null ? addslashes($request->input('keyword')) : NULL;
+
+        $join = [
+            ['product_language', 'product_language.product_id', '=', 'products.id'],
+            ['product_catalogue_product', 'product_catalogue_product.product_id', '=', 'products.id'],
+            ['product_variants', 'product_variants.product_id', '=', 'products.id'],
+            ['product_variant_language', 'product_variant_language.product_variant_id', '=', 'product_variants.id'],
+        ];
+
         $condition = [
             'where' => [
                 ['product_language.language_id', '=', $languageId],
+                ['product_variant_language.language_id', '=', $languageId],
                 ['products.id', '=', $id]
             ]
         ];
@@ -97,12 +106,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             ];
         }
 
-        $join = [
-            ['product_language', 'product_language.product_id', '=', 'products.id'],
-            ['product_catalogue_product', 'product_catalogue_product.product_id', '=', 'products.id'],
-            ['product_variants', 'product_variants.product_id', '=', 'products.id'],
-            ['product_variant_language', 'product_variant_language.product_variant_id', '=', 'product_variants.id'],
-        ];
+
 
         $extend = [
             'path' => 'ajax/product/getProduct',

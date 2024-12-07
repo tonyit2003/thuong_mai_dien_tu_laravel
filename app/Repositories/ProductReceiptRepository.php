@@ -199,11 +199,8 @@ class ProductReceiptRepository extends BaseRepository implements ProductReceiptR
             ->sum('details_sum_actual_quantity');
     }
 
-    public function getProductReceiptById($id = 0)
+    public function getProductReceiptById($id = 0, $languageId)
     {
-        // Ensure the language ID is properly set
-        $languageId = 1/* Your language ID here */;
-
         return $this->model
             ->with([
                 'details.product' => function ($query) use ($languageId) {

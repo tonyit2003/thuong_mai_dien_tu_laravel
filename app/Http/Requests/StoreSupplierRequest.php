@@ -38,18 +38,18 @@ class StoreSupplierRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => "Bạn chưa nhập địa chỉ email.",
-            'email.email' => "Địa chỉ email không đúng định dạng.",
-            'email.unique' => "Địa chỉ email đã được sử dụng.",
-            'email.max' => "Địa chỉ email không được vượt quá :max ký tự.",
-            'name.required' => "Bạn chưa nhập tên.",
-            'name.max' => "Tên không được vượt quá :max ký tự.",
-            'phone.required' => "Bạn chưa nhập số điện thoại.",
-            'phone.string' => "Số điện thoại phải là chuỗi ký tự.",
-            'phone.max' => "Số điện thoại không được vượt quá :max ký tự.",
-            'catalogue.required' => "Bạn chưa chọn nhóm danh mục.",
-            'catalogue.array' => "Danh mục không hợp lệ.",
-            'catalogue.*.string' => "Mỗi danh mục phải là chuỗi ký tự hợp lệ."
+            'email.required' =>  __('toast.no_email'),
+            'email.email' => __('toast.email_err'),
+            'email.unique' => __('toast.email_use'),
+            'email.max' => __('toast.email_max'),
+            'name.required' => __('toast.no_name'),
+            'name.max' => __('toast.name_max'),
+            'phone.required' => __('toast.no_phone'),
+            'phone.string' => __('toast.phone_str'),
+            'phone.max' => __('toast.phone_max'),
+            'catalogue.required' => __('toast.choose_pro_cata'),
+            'catalogue.array' => __('toast.no_pro_cata'),
+            'catalogue.*.string' => __('toast.pro_cata_str')
         ];
     }
 }

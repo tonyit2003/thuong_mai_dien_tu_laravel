@@ -30,9 +30,9 @@ class AuthRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => "Bạn chưa nhập email.",
-            'email.email' => "Email chưa đúng định dạng.",
-            'password.required' => "Bạn chưa nhập mật khẩu.",
+            'email.required' => __('toast.no_email'),
+            'email.email' => __('toast.email_err'),
+            'password.required' => __('toast.no_pass'),
         ];
     }
 }

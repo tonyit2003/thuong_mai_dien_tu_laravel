@@ -41,7 +41,8 @@ class ProductController extends Controller
 
     public function getReceiptById($id)
     {
-        $receipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $languageId = $this->language;
+        $receipt = $this->productReceiptRepository->getProductReceiptById($id, $languageId);
         $formattedDetails = $receipt->details->map(function ($detail) {
             return [
                 'product_id' => (int)$detail->product_id,

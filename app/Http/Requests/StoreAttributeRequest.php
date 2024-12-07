@@ -30,8 +30,8 @@ class StoreAttributeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên.",
-            'attribute_catalogue_id.gt' => "Bạn chưa chọn danh mục cha",
+            'name.required' => __('toast.no_name'),
+            'attribute_catalogue_id.gt' => __('toast.no_root'),
         ];
     }
 }

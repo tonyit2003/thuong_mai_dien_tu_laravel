@@ -33,7 +33,7 @@ class ApprovedReceiptRequest extends FormRequest
 
                     // Kiểm tra nếu số lượng thực nhập lớn hơn số lượng đã định
                     if ($value > $quantity) {
-                        $fail('Số lượng thực nhập không được lớn hơn số lượng.');
+                        $fail(__('quan_not_requan'));
                     }
                 },
             ],
@@ -43,9 +43,9 @@ class ApprovedReceiptRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'date_approved.required' => "Bạn không được để trống ngày giao.",
-            'actualQuantity.*.required' => "Bạn không được để trống số lượng thực nhập.",
-            'actualQuantity.*.gt' => "Số lượng thực nhập phải lớn hơn 0.",
+            'date_approved.required' => __('toast.delivery_date'),
+            'actualQuantity.*.required' => __('toast.no_quan'),
+            'actualQuantity.*.gt' => __('toast.quan_min'),
         ];
     }
 }

@@ -31,9 +31,9 @@ class StoreGenerateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên module",
-            'name.unique' => "Tên module đã tồn tại",
-            'schema.required' => "Bạn chưa nhập schema của module.",
+            'name.required' => __('toast.no_module'),
+            'name.unique' => __('toast.module_use'),
+            'schema.required' => __('toast.no_schema'),
             // 'moduleType.gt' => "Bạn chưa chọn loại module.",
         ];
     }

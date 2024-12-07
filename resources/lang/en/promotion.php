@@ -33,5 +33,6 @@ return [
         'discountValue_fail'            => 'You have not entered the discount value',
         'object_fail'                   => 'You have not selected the applicable discount object',
         'method_not_in'                 => 'You have not selected the promotion method',
+        'discountValue_percent_fail'    => 'The discount percentage cannot be greater than 100%',
     ],
 ];

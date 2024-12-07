@@ -32,8 +32,8 @@ class StoreMenuRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'menu_catalogue_id.gt' => "Bạn chưa chọn vị trí hiển thị.",
-            'menu.name.required' => "Bạn phải tạo ít nhất một menu.",
+            'menu_catalogue_id.gt' => __('toast.no_location'),
+            'menu.name.required' => __('toast.no_menu'),
         ];
     }
 }

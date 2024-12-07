@@ -32,17 +32,17 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => "Bạn chưa nhập địa chỉ email.",
-            'email.email' => "Địa chỉ email không đúng định dạng.",
-            'email.unique' => "Địa chỉ email đã được sử dụng.",
-            'email.max' => "Địa chỉ email không được vượt quá :max ký tự.",
-            'name.required' => "Bạn chưa nhập tên.",
-            'password.required' => "Bạn chưa nhập mật khẩu.",
-            'password.string' => "Mật khẩu phải là một chuỗi ký tự.",
-            'password.min' => "Mật khẩu phải có ít nhất :min ký tự.",
-            're_password.required' => "Bạn chưa nhập lại mật khẩu.",
-            're_password.string' => "Mật khẩu nhập lại phải là một chuỗi ký tự.",
-            're_password.same' => "Mật khẩu nhập lại không khớp với mật khẩu đã nhập."
+            'email.required' => __('toast.no_email'),
+            'email.email' => __('toast.email_err'),
+            'email.unique' => __('toast.email_use'),
+            'email.max' => __('toast.email_max'),
+            'name.required' => __('toast.no_name'),
+            'password.required' => __('toast.no_pass'),
+            'password.string' => __('toast.pass_no_str'),
+            'password.min' => __('toast.pass_min'),
+            're_password.required' => __('toast.no_repass'),
+            're_password.string' => __('toast.repass_no_str'),
+            're_password.same' => __('toast.pass_not_repass')
         ];
     }
 }

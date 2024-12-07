@@ -132,7 +132,8 @@ class ProductReceiptController extends Controller
     public function edit($id, Request $request)
     {
         Gate::authorize('modules', 'receipt.update');
-        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $languageId = $this->language;
+        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id, $languageId);
         $config = $this->configData();
         $config['seo'] = __('receipt');
         $config['method'] = 'edit';
@@ -162,7 +163,8 @@ class ProductReceiptController extends Controller
     public function delete($id)
     {
         Gate::authorize('modules', 'receipt.destroy');
-        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $languageId = $this->language;
+        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id, $languageId);
         $config['seo'] = __('product');
         $template = 'backend.receipt.delete';
         return view('backend.dashboard.layout', compact('template', 'productReceipt', 'config'));
@@ -181,7 +183,8 @@ class ProductReceiptController extends Controller
     public function detail($id)
     {
         Gate::authorize('modules', 'receipt.detail');
-        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $languageId = $this->language;
+        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id, $languageId);
         $config = $this->configData();
         $config['seo'] = __('receipt');
         $config['method'] = 'edit';
@@ -206,7 +209,8 @@ class ProductReceiptController extends Controller
     public function browse($id, Request $request)
     {
         Gate::authorize('modules', 'receipt.browse');
-        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $languageId = $this->language;
+        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id, $languageId);
         $config = $this->configData();
         $config['seo'] = __('receipt');
         $config['method'] = 'edit';
@@ -249,7 +253,8 @@ class ProductReceiptController extends Controller
     public function success($id, Request $request)
     {
         Gate::authorize('modules', 'receipt.browse');
-        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $languageId = $this->language;
+        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id, $languageId);
         $formattedDetails = $productReceipt->details->map(function ($detail) {
             return [
                 'product_id' => (int)$detail->product_id,
@@ -269,7 +274,8 @@ class ProductReceiptController extends Controller
     public function instock($id)
     {
         Gate::authorize('modules', 'receipt.instock');
-        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id);
+        $languageId = $this->language;
+        $productReceipt = $this->productReceiptRepository->getProductReceiptById($id, $languageId);
         $config = $this->configData();
         $config['seo'] = __('receipt');
         $config['method'] = 'edit';

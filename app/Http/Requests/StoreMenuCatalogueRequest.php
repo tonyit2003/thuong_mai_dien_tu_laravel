@@ -30,9 +30,9 @@ class StoreMenuCatalogueRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên vị trí hiển thị.",
-            'keyword.required' => "Bạn chưa nhập từ khóa.",
-            'keyword.unique' => "Từ khóa đã tồn tại.",
+            'name.required' => __('toast.name_location'),
+            'keyword.required' => __('toast.no_key'),
+            'keyword.unique' => __('toast.key_use'),
         ];
     }
 }

@@ -29,7 +29,7 @@ class ExpectedDeliveryDateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'expected_delivery_date.required' => "Bạn không được để trống ngày nhận hàng dự kiến giao.",
+            'expected_delivery_date.required' => __('toast.expected_delivery_date'),
         ];
     }
 }

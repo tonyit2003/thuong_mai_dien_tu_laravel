@@ -30,7 +30,7 @@ class SearchProductRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'keyword.required' => "Bạn chưa nhập từ khóa tìm kiếm.",
+            'keyword.required' => __('toast.no_keyword'),
         ];
     }
 }
