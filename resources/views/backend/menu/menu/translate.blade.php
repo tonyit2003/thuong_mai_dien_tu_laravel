@@ -52,13 +52,15 @@
                                         <div class="col-lg-6">
                                             <div class="form-row">
                                                 <input name="translate[name][]" type="text"
-                                                    value="{{ $val->translate_name ?? '' }}" class="form-control"
-                                                    placeholder="{{ __('form.translate_input') }}" autocomplete="off">
+                                                    value="{{ $val->translate_name ?? translateContent($name) }}"
+                                                    class="form-control" placeholder="{{ __('form.translate_input') }}"
+                                                    autocomplete="off">
                                             </div>
                                             <div class="form-row">
                                                 <input name="translate[canonical][]" type="text"
-                                                    value="{{ $val->translate_canonical ?? '' }}" class="form-control"
-                                                    placeholder="{{ __('form.translate_input') }}" autocomplete="off">
+                                                    value="{{ $val->translate_canonical ?? translateContent($canonical) }}"
+                                                    class="form-control" placeholder="{{ __('form.translate_input') }}"
+                                                    autocomplete="off">
                                             </div>
                                             <input name="translate[id][]" type="hidden" value="{{ $val->id ?? '' }}"
                                                 class="form-control" placeholder="{{ __('form.translate_input') }}"

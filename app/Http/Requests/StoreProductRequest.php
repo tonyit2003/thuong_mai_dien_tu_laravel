@@ -23,6 +23,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'attribute' => 'required',
             'canonical' => 'required|unique:routers',
             'product_catalogue_id' => 'gt:0',
         ];
@@ -35,6 +36,7 @@ class StoreProductRequest extends FormRequest
             'canonical.required' =>  __('toast.no_canonical'),
             'canonical.unique' => __('toast.canonical_use'),
             'product_catalogue_id.gt' => __('toast.no_root'),
+            'attribute.required' => "Bạn chưa nhập phiên bản cho sản phẩm.",
         ];
     }
 }
