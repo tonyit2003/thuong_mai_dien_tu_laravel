@@ -38,7 +38,7 @@ class AttributeController extends Controller
     {
         Gate::authorize('modules', 'attribute.index');
         $attributes = $this->attributeService->paginate($request, $this->language);
-
+        $languageId = $this->language;
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -53,7 +53,7 @@ class AttributeController extends Controller
         $config['seo'] = __('attribute');
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.attribute.attribute.index';
-        return view('backend.dashboard.layout', compact('template', 'config', 'attributes', 'dropdown'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'attributes', 'dropdown', 'languageId'));
     }
 
     public function create()
