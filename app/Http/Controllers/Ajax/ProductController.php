@@ -81,7 +81,6 @@ class ProductController extends Controller
         return response()->json(['data' => $products]);
     }
 
-
     public function loadProductPromotion(Request $request)
     {
         $get = $request->input();
