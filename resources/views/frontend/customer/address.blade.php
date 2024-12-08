@@ -11,8 +11,8 @@
 
                         <!-- Main Content -->
                         <div class="col-lg-9 content">
-                            <h2>Địa Chỉ Của Tôi</h2>
-                            <p>Quản lý thông tin địa chỉ để đặt hàng</p>
+                            <h2>{{ __('info.add') }}</h2>
+                            <p>{{ __('info.add_loca') }}</p>
                             <hr>
                             <!-- Profile Form -->
                             @if ($errors->any())
@@ -24,7 +24,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <label for="" style="margin-bottom: 20px">Địa chỉ</label>
+                            <label for="" style="margin-bottom: 20px">{{ __('info.address') }}</label>
                             <form class="profile-form form" method="post" action="{{ route('customer.updateAddress') }}">
                                 @csrf
                                 <div class="uk-grid uk-grid-medium mb20">

@@ -96,4 +96,5 @@ return [
     'star_score'                        => 'Rating',
     'object'                            => 'Object',
     'click_to_object'                   => 'Click to View Object',
+    'unit'                              => '$',
 ];

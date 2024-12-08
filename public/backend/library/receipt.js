@@ -466,7 +466,9 @@
     }
 
     function formatCurrency(amount) {
-        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"; // Định dạng số
+        return (
+            amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " " + unit
+        ); // Định dạng số
     }
 
     HT.total = () => {

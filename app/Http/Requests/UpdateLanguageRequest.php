@@ -30,9 +30,9 @@ class UpdateLanguageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên ngôn ngữ.",
-            'canonical.required' => "Bạn chưa nhập tên viết tắt.",
-            'canonical.unique' => "Tên viết tắt đã tồn tại.",
+            'name.required' => __('toast.name_lang'),
+            'canonical.required' => __('toast.lang_name'),
+            'canonical.unique' => __('toast.keyword_exit'),
         ];
     }
 }

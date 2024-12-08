@@ -86,4 +86,16 @@ return [
     'pro_cata_str'                          => 'Each category must be a valid string.',
     'user_cata'                             => 'You have not entered the member group name.',
     'choose_user_cata'                      => 'You have not selected a member group.',
+    'name_widget'                           => 'You have not entered the widget name.',
+    'no_widget'                             => 'You have not entered the widget keyword.',
+    'widget_use'                            => 'The widget keyword already exists.',
+    'short_widget_use'                      => 'The short code widget already exists.',
+    'url_use'                               => 'The URL already exists.',
+    'no_url'                                => 'You have not entered a URL.',
+    'no_newpass'                            => 'New password is required.',
+    'newpass_str'                           => 'The new password must be a string.',
+    'newpass_min'                           => 'The new password must be at least 6 characters long.',
+    'newpass_err'                           => 'The confirmation password does not match.',
+    'no_module_cata'                        => 'You have not selected a module type.',
+    'name_lang'                             => 'You have not entered the language name.'
 ];

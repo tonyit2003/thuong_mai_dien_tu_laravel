@@ -40,7 +40,7 @@ class TranslateRequest extends FormRequest
                         })->exists();
                     // Nếu tồn tại bản ghi thỏa mãn điều kiện, gọi callback $fail với thông báo lỗi
                     if ($exist) {
-                        $fail('Đường dẫn đã tồn tại.');
+                        $fail(__('toast.url_use'));
                     }
                 }
             ]
@@ -50,9 +50,9 @@ class TranslateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'translate_name.required' => "Bạn chưa nhập tên tiêu đề.",
-            'translate_canonical.required' => "Bạn chưa nhập đường dẫn.",
-            'translate_canonical.unique' => "Đường dẫn đã tồn tại.",
+            'translate_name.required' => __('toast.no_post'),
+            'translate_canonical.required' => __('toast.no_url'),
+            'translate_canonical.unique' => __('toast.url_use'),
         ];
     }
 }

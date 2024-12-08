@@ -91,7 +91,7 @@
             </table>
 
             <div class="text-right">
-                <h3>{{ __('table.actual_total') }}: <strong class="text-danger total">0 VND</strong></h3>
+                <h3>{{ __('table.actual_total') }}: <strong class="text-danger total">0 {{ __('table.unit') }}</strong></h3>
             </div>
         </div>
     </div>
@@ -101,4 +101,5 @@
     var no_product = "{{ __('table.no_product') }}";
     var price = "{{ __('form.enter_price') }}";
     var productReceiptId = "{{ $productReceipt->id ?? 0 }}";
+    var unit = "{{ __('table.unit') }}";
 </script>

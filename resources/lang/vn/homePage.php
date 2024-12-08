@@ -21,5 +21,7 @@ return [
     ],
     'post' => 'Bài viết',
     'related_articles' => 'Bài viết liên quan',
-    'no_post' => 'Không có bài viết'
+    'no_post' => 'Không có bài viết',
+    'compare' => 'So sánh',
+    'favourite' => 'Yêu thích',
 ];

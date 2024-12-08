@@ -34,10 +34,10 @@ class UpdateChangePasswordRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'password.required' => 'Mật khẩu mới là bắt buộc.',
-            'password.string' => 'Mật khẩu mới phải là một chuỗi ký tự.',
-            'password.min' => 'Mật khẩu mới phải có ít nhất 6 ký tự.',
-            'password.confirmed' => 'Mật khẩu xác nhận không khớp.',
+            'password.required' => __('toast.no_newpass'),
+            'password.string' => __('toast.newpass_str'),
+            'password.min' => __('toast.newpass_min'),
+            'password.confirmed' => __('toast.newpass_err'),
         ];
     }
 }

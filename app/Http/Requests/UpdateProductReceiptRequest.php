@@ -46,11 +46,11 @@ class UpdateProductReceiptRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'product_id.required' => "Vui lòng chọn sản phẩm cần nhập.",
-            'quantityReceipt.*.required' => "Bạn chưa nhập số lượng nhập.",
-            'quantityReceipt.*.gt' => "Số lượng nhập sản phẩm phải lớn hơn 0.",
-            'price.*.required' => "Bạn chưa nhập giá nhập.",
-            'price.*.gt' => "Giá sản phẩm phải lớn hơn 0.",
+            'product_id.required' => __('toast.choose_product'),
+            'quantityReceipt.*.required' => __('toast.choose_num_receipt'),
+            'quantityReceipt.*.gt' => __('toast.num_receipt_min'),
+            'price.*.required' => __('toast.no_price'),
+            'price.*.gt' => __('toast.price_min'),
         ];
     }
 }

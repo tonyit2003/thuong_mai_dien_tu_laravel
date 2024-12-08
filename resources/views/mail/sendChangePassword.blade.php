@@ -94,26 +94,22 @@
         </div>
         <!-- Content -->
         <div class="email-content">
-            <p>Chào bạn <strong>{{ $user->name }}</strong>,</p>
-            <h3>Lưu ý: Tài khoản của bạn đang được truy cập</h3>
-            <p><strong>Thời gian truy cập:</strong> {{ $currentTime }}</p>
-            <p><strong>Trình duyệt:</strong> {{ $browser }}</p>
-            <p><strong>Hệ điều hành (Thiết bị):</strong> {{ $platform }} ({{ $device }})</p>
-
-            <p>Hãy cảnh giác với các hành vi lừa đảo. Tuyệt đối <strong>KHÔNG</strong> cho phép đăng nhập và từ chối các cuộc gọi:</p>
+            <p>{{ __('mail.hi') }} <strong>{{ $user->name }}</strong>,</p>
+            <h3>{{ __('mail.note') }}</h3>
+            <p><strong>{{ __('mail.time') }}</strong> {{ $currentTime }}</p>
+            <p><strong>{{ __('mail.browser') }}</strong> {{ $browser }}</p>
+            <p><strong>{{ __('mail.system') }}</strong> {{ $platform }} ({{ $device }})</p>
+            <p>{{ __('mail.note2') }}<strong>{{ __('mail.NO') }}</strong>{{ __('mail.note9') }}</p>
             <ul>
-                <li>Tự nhận gọi từ {{ $system['homepage_company'] }}</li>
-                <li>Thông báo rằng bạn vừa trúng thưởng</li>
+                <li>{{ __('mail.note3') }} {{ $system['homepage_company'] }}</li>
+                <li>{{ __('mail.note4') }}</li>
             </ul>
-
-            <p><strong>Nếu bạn đang thực hiện đăng nhập, vui lòng xác nhận <a href="{{ $link }}">TẠI ĐÂY</a></strong> (hiệu lực trong vòng 10
-                phút).</p>
-
-            <p>Trân trọng,<br>Đội ngũ Hỗ trợ</p>
+            <p>{{ __('mail.note5') }}<strong><a href="{{ $link }}">{{ __('mail.here') }}</a></strong> {{ __('mail.timemax') }}</p>
+            <p>{{ __('mail.note6') }},<br>{{ __('mail.note8') }}</p>
         </div>
         <!-- Footer -->
         <div class="email-footer">
-            <p>Cần hỗ trợ? Liên hệ chúng tôi <a href="">tại đây</a>.</p>
+            <p>{{ __('mail.note7') }}<a href="">{{ __('mail.here2') }}</a>.</p>
         </div>
     </div>
 </body>

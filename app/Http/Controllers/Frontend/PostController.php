@@ -50,11 +50,8 @@ class PostController extends FrontendController
 
     public function show()
     {
-        $conditions = [
-            'publish' => 1,
-        ];
-
-        $posts = $this->postRepository->findByConditions($conditions)->paginate(10);
+        $language = $this->language;
+        $posts = $this->postRepository->getPost($language);
         $system = $this->system;
         $seo = [
             'meta_title' => $system['seo_meta_title'],
@@ -63,7 +60,6 @@ class PostController extends FrontendController
             'meta_image' => $system['seo_meta_image'],
             'canonical' => config('app.url')
         ];
-        $language = $this->language;
         return view('frontend.post.show', compact('posts', 'language', 'system', 'seo'));
     }
 

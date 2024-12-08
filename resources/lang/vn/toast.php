@@ -86,5 +86,16 @@ return [
     'pro_cata_str'                          => 'Mỗi danh mục phải là chuỗi ký tự hợp lệ.',
     'user_cata'                             => 'Bạn chưa nhập tên nhóm thành viên.',
     'choose_user_cata'                      => 'Bạn chưa chọn nhóm thành viên.',
-
+    'name_widget'                           => 'Bạn chưa nhập tên widget.',
+    'no_widget'                             => 'Bạn chưa nhập từ khóa widget.',
+    'widget_use'                            => 'Từ khóa widget đã tồn tại.',
+    'short_widget_use'                      => 'Short code widget đã tồn tại.',
+    'url_use'                               => 'Đường dẫn đã tồn tại.',
+    'no_url'                                => 'Bạn chưa nhập đường dẫn.',
+    'no_newpass'                            => 'Mật khẩu mới là bắt buộc.',
+    'newpass_str'                           => 'Mật khẩu mới phải là một chuỗi ký tự.',
+    'newpass_min'                           => 'Mật khẩu mới phải có ít nhất 6 ký tự.',
+    'newpass_err'                           => 'Mật khẩu xác nhận không khớp.',
+    'no_module_cata'                        => 'Bạn chưa chọn loại module.',
+    'name_lang'                             => 'Bạn chưa nhập tên ngôn ngữ.',
 ];

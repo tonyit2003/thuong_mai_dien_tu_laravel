@@ -9,7 +9,7 @@
     <!-- Không có đơn hàng -->
     <div class="no-orders">
         <img src="frontend/img/noproduct.png" alt="No Orders" class="no-orders-image">
-        <p class="no-orders-text">Chưa có đơn hàng</p>
+        <p class="no-orders-text">{{ __('info.no_order') }}</p>
     </div>
 @else
     <!-- Hiển thị danh sách đơn hàng hoàn thành -->
@@ -18,7 +18,7 @@
             <div class="order-status">
                 <div></div>
                 <div class="status-right">
-                    <h3>Hoàn thành</h3>
+                    <h3>{{ __('info.success') }}</h3>
                 </div>
             </div>
             <hr>
@@ -47,10 +47,10 @@
             </table>
             <hr>
             <div class="order-total">
-                <p>Thành tiền: <span>{{ formatCurrency($order->details->sum('price')) }}</span></p>
+                <p>{{ __('info.total') }} <span>{{ formatCurrency($order->details->sum('price')) }}</span></p>
             </div>
             <div class="order-actions">
-                <a href="#" class="btn btn-default">Liên hệ người bán</a>
+                <a href="#" class="btn btn-default">{{ __('info.contact') }}</a>
             </div>
         </div>
     @endforeach

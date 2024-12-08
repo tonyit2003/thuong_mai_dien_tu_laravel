@@ -31,10 +31,10 @@ class UpdateProductRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên.",
-            'canonical.required' => "Bạn chưa nhập đường dẫn.",
-            'canonical.unique' => "Đường dẫn đã tồn tại.",
-            'product_catalogue_id.gt' => "Bạn chưa chọn danh mục cha",
+            'name.required' => __('toast.no_post'),
+            'canonical.required' => __('toast.no_url'),
+            'canonical.unique' => __('toast.url_use'),
+            'product_catalogue_id.gt' =>  __('toast.no_root'),
         ];
     }
 }

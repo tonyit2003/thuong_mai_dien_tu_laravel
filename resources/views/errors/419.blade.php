@@ -75,8 +75,8 @@
             <a href="{{ route('home.index') }}"><img src="backend/img/419.png" alt="419 Page Expired"></a>
         </div>
         <div class="error-content">
-            <h3>Mã lỗi 419 - Hết hạn truy cập!</h3>
-            <div class="txt">Xin lỗi, trang đăng nhập của bạn đang hết hạn!</div>
+            <h3>{{ __('error.419') }}</h3>
+            <div class="txt">{{ __('error.no_419') }}</div>
         </div>
     </div>
 </body>

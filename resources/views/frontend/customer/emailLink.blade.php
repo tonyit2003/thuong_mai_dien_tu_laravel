@@ -29,14 +29,14 @@
                                         <img src="frontend/img/mail.png" alt="Security Icon" class="img-fluid rounded-circle"
                                             style="width: 300px; height: auto;">
                                     </div>
-                                    <h5 class="mb-4 text-primary fw-bold">Xác minh bằng liên kết gửi qua Email</h5>
+                                    <h5 class="mb-4 text-primary fw-bold">{{ __('info.verify_mail') }}</h5>
                                     <p class="text-muted">
-                                        Vui lòng nhấn vào liên kết xác thực đã được gửi đến địa chỉ Email
+                                        {{ __('info.verify_link') }}
                                         <br>
                                         {{ $hiddenEmail }}
                                     </p>
                                     <button type="button" id="resendButton" class="btn btn-default px-5 py-2 mt-3" disabled>
-                                        Gửi lại (<span id="timer">60</span>s)
+                                        {{ __('info.send') }} (<span id="timer">60</span>s)
                                     </button>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                     if (countdown <= 0) {
                                         clearInterval(interval);
                                         resendButton.disabled = false;
-                                        resendButton.textContent = "Gửi lại";
+                                        resendButton.textContent = {{ __('info.send') }};
                                         resendButton.addEventListener('click', function() {
                                             // Gửi yêu cầu gửi lại xác minh
                                             window.location.href = "{{ route('customer.sendChangePassword') }}";

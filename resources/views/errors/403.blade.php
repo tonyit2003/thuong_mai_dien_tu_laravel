@@ -75,8 +75,8 @@
             <a href="{{ route('home.index') }}"><img src="backend/img/403.png" alt="404 Error"></a>
         </div>
         <div class="error-content">
-            <h3>Mã lỗi 403 - Truy cập bị từ chối!</h3>
-            <div class="txt">Rất tiếc, bạn không có quyền truy cập vào trang này.</div>
+            <h3>{{ __('error.403') }}</h3>
+            <div class="txt">{{ __('error.no_403') }}</div>
         </div>
     </div>
 </body>

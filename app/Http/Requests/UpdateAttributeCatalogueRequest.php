@@ -29,7 +29,7 @@ class UpdateAttributeCatalogueRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên.",
+            'name.required' => __('toast.no_name'),
         ];
     }
 }

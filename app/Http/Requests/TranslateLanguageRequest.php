@@ -30,7 +30,7 @@ class TranslateLanguageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'translate_name.required' => "Bạn chưa nhập tên tiêu đề.",
+            'translate_name.required' => __('toast.no_post'),
         ];
     }
 }

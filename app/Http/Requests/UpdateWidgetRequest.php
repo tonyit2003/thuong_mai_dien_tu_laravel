@@ -31,10 +31,10 @@ class UpdateWidgetRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên widget.",
-            'keyword.required' => "Bạn chưa nhập từ khóa widget.",
-            'keyword.unique' => "Từ khóa widget đã tồn tại.",
-            'short_code.unique' => "Short code widget đã tồn tại.",
+            'name.required' => __('toast.name_widget'),
+            'keyword.required' => __('toast.no_widget'),
+            'keyword.unique' => __('toast.widget_use'),
+            'short_code.unique' => __('toast.short_widget_use'),
         ];
     }
 }

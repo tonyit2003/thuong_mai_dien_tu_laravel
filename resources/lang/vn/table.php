@@ -96,4 +96,5 @@ return [
     'star_score'                        => 'Điểm đánh giá',
     'object'                            => 'Đối tượng',
     'click_to_object'                   => 'Click để xem đối tượng',
+    'unit'                              => 'VND',
 ];

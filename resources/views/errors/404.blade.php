@@ -75,8 +75,8 @@
             <a href="{{ route('home.index') }}"><img src="backend/img/404.png" alt="404 Error"></a>
         </div>
         <div class="error-content">
-            <h3>Mã lỗi 404 - Trang không tồn tại!</h3>
-            <div class="txt">Xin lỗi, chúng tôi không tìm thấy trang mà bạn cần!</div>
+            <h3>{{ __('error.404') }}</h3>
+            <div class="txt">{{ __('error.no_404') }}</div>
         </div>
     </div>
 </body>

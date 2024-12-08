@@ -21,5 +21,7 @@ return [
     ],
     'post' => 'Post',
     'related_articles' => 'Related Articles',
-    'no_post' => 'No posts available'
+    'no_post' => 'No posts available',
+    'compare' => 'Compare',
+    'favourite' => 'Favourite',
 ];

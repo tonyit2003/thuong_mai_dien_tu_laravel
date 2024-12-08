@@ -31,10 +31,10 @@ class UpdateGenerateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Bạn chưa nhập tên module",
-            'name.unique' => "Tên module đã tồn tại",
-            'schema.required' => "Bạn chưa nhập schema của module.",
-            'moduleType.gt' => "Bạn chưa chọn loại module.",
+            'name.required' => __('toast.no_module'),
+            'name.unique' => __('toast.module_use'),
+            'schema.required' => __('toast.no_schema'),
+            'moduleType.gt' => __('toast.no_module_cata'),
         ];
     }
 }

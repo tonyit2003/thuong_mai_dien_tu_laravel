@@ -9,7 +9,7 @@
     <hr>
     <ul class="list-unstyled">
         <li class="no-boder"><img src="frontend/img/icons8-sale-100.png" alt="">
-            <a href="#">25.10 Lương Về SaleTo</a>
+            <a href="#">25.10 SaleTo</a>
         </li>
         <li class="no-boder"><img src="frontend/img/icons8-account-100.png" alt="">
             <a href="{{ route('customer.info') }}">{{ __('customerInfo.my_account') }}</a>
