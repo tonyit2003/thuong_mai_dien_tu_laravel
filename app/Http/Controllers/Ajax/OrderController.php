@@ -48,7 +48,24 @@ class OrderController extends Controller
 
     public function chart(Request $request)
     {
+        $locale = app()->getLocale();
+        $currency = determineCurrency($locale);
         $chart = $this->orderService->getOrderChart($request);
+
+        if (!isset($chart['data']) || !is_array($chart['data'])) {
+            return response()->json(['error' => 'Invalid data format'], 400);
+        }
+
+        $formattedData = array_map(function ($value) use ($currency) {
+            if ($currency == 'VND') {
+                return floatval($value);  
+            }
+
+            return floatval(str_replace(['$', ','], '', formatCurrency($value)));
+        }, $chart['data']);
+
+        $chart['data'] = $formattedData;
+
         return response()->json($chart);
     }
 }

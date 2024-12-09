@@ -63,7 +63,18 @@
 </div>
 
 @php
-    $data = json_encode($receiptStatistic['revenueChart']['data']);
+    $locale = app()->getLocale();
+    $currency = determineCurrency($locale); 
+
+    $data = json_encode(
+        array_map(function ($value) use ($currency) {
+            if ($currency == 'VND') {
+                return floatval($value); 
+            }
+            return floatval(str_replace(['$', ','], '', formatCurrency($value)));
+        }, $receiptStatistic['revenueChart']['data']),
+    );
+
     $label = json_encode($receiptStatistic['revenueChart']['label']);
 @endphp
 
