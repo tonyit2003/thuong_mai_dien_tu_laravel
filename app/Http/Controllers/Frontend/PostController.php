@@ -30,6 +30,7 @@ class PostController extends FrontendController
 
     public function index($id)
     {
+        $this->setLanguage();
         $language = $this->language;
         $post = $this->postRepository->getPostById($id, $this->language);
         $system = $this->system;
@@ -50,6 +51,7 @@ class PostController extends FrontendController
 
     public function show()
     {
+        $this->setLanguage();
         $language = $this->language;
         $posts = $this->postRepository->getPost($language);
         $system = $this->system;

@@ -30,12 +30,8 @@ class PostCatalogueController extends FrontendController
 
     public function index($id)
     {
-        $conditions = [
-            'publish' => 1,
-            'post_catalogue_id' => $id,
-        ];
-
-        $posts = $this->postRepository->findByConditions($conditions)->paginate(10);
+        $language = $this->language;
+        $posts = $this->postRepository->getPostByCatalogueId($id, $language);
         $system = $this->system;
         $seo = [
             'meta_title' => $system['seo_meta_title'],
@@ -44,7 +40,6 @@ class PostCatalogueController extends FrontendController
             'meta_image' => $system['seo_meta_image'],
             'canonical' => config('app.url')
         ];
-        $language = $this->language;
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $language);
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $language);
         return view('frontend.post.show', compact('posts', 'language', 'system', 'seo', 'breadcrumb', 'postCatalogue'));
