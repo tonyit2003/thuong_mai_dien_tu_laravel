@@ -21,7 +21,7 @@ class RouterController extends FrontendController
     public function index($canonical = '', Request $request)
     {
         $this->setLanguage();
-        if ($canonical == 'bai-viet') {
+        if ($canonical == 'bai-viet' || $canonical == 'post') {
             echo app('App\Http\Controllers\Frontend\PostController')->show();
             return;
         }
