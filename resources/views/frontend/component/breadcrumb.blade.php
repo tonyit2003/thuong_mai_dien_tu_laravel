@@ -1,5 +1,5 @@
 @php
-    $modelName = $model->languages->first()->pivot->name;
+    $modelName = $model->languages->where('id', $language)->first()->pivot->name ?? '';
 @endphp
 <div class="page-breadcrumb background">
     <h1 class="heading-2">
