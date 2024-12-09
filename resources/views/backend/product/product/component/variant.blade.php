@@ -52,7 +52,7 @@
                                         @foreach ($attributeCatalogues as $key => $val)
                                             <option {{ $val->id == $valAttribute ? 'selected' : '' }}
                                                 value="{{ $val->id }}">
-                                                {{ $val->attribute_catalogue_language->first()->name }}</option>
+                                                {{ $val->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -108,11 +108,9 @@
             // map(): nhận vào 1 Collection ban đầu và trả về 1 Collection mới chứa các mục đã được biến đổi
             // $item => đại diện cho từng mục trong tập hợp.
             $attributeCatalogues->map(function ($item) {
-                    // lấy thuộc tính name của bản ghi đầu tiên trong mối quan hệ.
-                    $name = $item->attribute_catalogue_language->first()->name;
                     return [
                         'id' => $item->id,
-                        'name' => $name,
+                        'name' => $item->name,
                     ];
                 })->values()); // values() => loại bỏ các key gốc và tạo ra một Collection mới với các key tuần tự từ 0
 

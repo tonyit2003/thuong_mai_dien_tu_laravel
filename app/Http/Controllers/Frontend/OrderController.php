@@ -27,6 +27,7 @@ class OrderController extends FrontendController
 
     public function store($orderCode)
     {
+        $this->setLanguage();
         if ($this->orderService->create($orderCode, $this->language)) {
             flash()->success(__('toast.order_success'));
             return redirect()->route('cart.success', ['code' => $orderCode]);
@@ -37,6 +38,7 @@ class OrderController extends FrontendController
 
     public function viewOrder()
     {
+        $this->setLanguage();
         $id = Auth::guard('customers')->user()->id;
         $language = $this->language;
         $system = $this->system;

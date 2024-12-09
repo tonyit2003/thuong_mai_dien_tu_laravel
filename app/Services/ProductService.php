@@ -214,7 +214,6 @@ class ProductService extends BaseService implements ProductServiceInterface
                 //     $this->createVariant($product, $request, $languageId);
                 // }
                 $product->product_variants()->each(function ($query) {
-                    $query->languages()->detach();
                     $query->attributes()->detach();
                 });
                 if ($request->input('attribute')) {
@@ -451,6 +450,16 @@ class ProductService extends BaseService implements ProductServiceInterface
                 }
             }
         }
+
+        if (count($productVariantLanguage)) {
+            foreach ($productVariantLanguage as $item) {
+                $this->productVariantLanguageRepository->deleteByCondition([
+                    ['language_id', '=', $languageId],
+                    ['product_variant_id', '=', $item['product_variant_id']]
+                ]);
+            }
+        }
+
         $this->productVariantLanguageRepository->createBatch($productVariantLanguage);
         $this->productVariantAttributeRepository->createBatch($productVariantAttribute);
     }

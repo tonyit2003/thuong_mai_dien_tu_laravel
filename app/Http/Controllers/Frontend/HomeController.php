@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Enums\SlideEnum;
 use App\Enums\WidgetEnum;
 use App\Http\Controllers\FrontendController;
+use App\Repositories\LanguageRepository;
 use App\Repositories\SlideRepository;
 use App\Repositories\SystemRepository;
 use App\Services\SlideService;
@@ -15,19 +16,25 @@ class HomeController extends FrontendController
     protected $slideRepository;
     protected $widgetService;
     protected $slideService;
+    protected $languageRepository;
 
-    public function __construct(SlideRepository $slideRepository, WidgetService $widgetService, SlideService $slideService)
+    public function __construct(SlideRepository $slideRepository, WidgetService $widgetService, SlideService $slideService, LanguageRepository $languageRepository)
     {
         // gọi hàm khởi tạo (constructor) của lớp cha
         parent::__construct();
         $this->slideRepository = $slideRepository;
         $this->widgetService = $widgetService;
         $this->slideService = $slideService;
+        $this->languageRepository = $languageRepository;
     }
 
     public function index()
     {
-        $slides = $this->slideService->getSlides([SlideEnum::MAIN_SLIDE, SlideEnum::BANNER, SlideEnum::BANNER_FOOTER], $this->language);
+        $this->setLanguage();
+        $languageSlide = $this->languageRepository->findByCondition([
+            ['canonical', '=', 'vn']
+        ]);
+        $slides = $this->slideService->getSlides([SlideEnum::MAIN_SLIDE, SlideEnum::BANNER, SlideEnum::BANNER_FOOTER], $languageSlide->id ?? 1);
         // children => lấy các danh mục con của các danh mục trong widget
         // promotion => lấy ra các sản phẩm + khuyến mãi của danh mục product catalogue
         // countObject => đếm các sản phẩm của danh mục

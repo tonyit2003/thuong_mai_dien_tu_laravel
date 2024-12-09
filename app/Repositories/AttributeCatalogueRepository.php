@@ -48,7 +48,7 @@ class AttributeCatalogueRepository extends BaseRepository implements AttributeCa
             $query->whereRaw('attribute_catalogues.rgt - attribute_catalogues.lft = ?', [1]);
         }
         $query->orderBy('attribute_catalogue_language.name', 'ASC');
-        return $query->select('attribute_catalogues.*')->get();
+        return $query->select(['attribute_catalogues.*', 'attribute_catalogue_language.name'])->get();
     }
 
     public function getAttributeCatalogueWhereIn($whereIn = [], $whereInField = 'id', $language = 1)

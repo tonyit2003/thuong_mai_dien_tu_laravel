@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    @include('component.loadingSpinner')
     @include('frontend.component.header')
     @yield('content')
     @include('frontend.component.footer')

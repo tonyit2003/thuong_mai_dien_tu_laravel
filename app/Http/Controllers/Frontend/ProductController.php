@@ -38,6 +38,7 @@ class ProductController extends FrontendController
 
     public function index($id, $variantUuid, $request)
     {
+        $this->setLanguage();
         $language = $this->language;
         $product = $this->productRepository->getProductById($id, $language);
         $product = $this->productService->getAttribute($product, $language);
@@ -71,6 +72,7 @@ class ProductController extends FrontendController
 
     public function search(SearchProductRequest $request)
     {
+        $this->setLanguage();
         $keyword = $request->input('keyword');
         $language = $this->language;
         $config = $this->config();

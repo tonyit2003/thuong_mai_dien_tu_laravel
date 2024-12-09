@@ -62,13 +62,14 @@ class ProductController extends Controller
     public function create()
     {
         Gate::authorize('modules', 'product.create');
-        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language, true);
+        $language = $this->language;
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($language, true);
         $config = $this->configData();
         $config['seo'] = __('product');
         $config['method'] = 'create';
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.product.product.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'dropdown', 'attributeCatalogues'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'dropdown', 'attributeCatalogues', 'language'));
     }
 
     public function store(StoreProductRequest $storeProductRequest)
@@ -85,14 +86,15 @@ class ProductController extends Controller
     {
         Gate::authorize('modules', 'product.update');
         $product = $this->productRepository->getProductById($id, $this->language);
-        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($this->language, true);
+        $language = $this->language;
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAll($language, true);
         $config = $this->configData();
         $config['seo'] = __('product');
         $config['method'] = 'edit';
         $album = json_decode($product->album);
         $dropdown = $this->nestedset->Dropdown();
         $template = 'backend.product.product.store';
-        return view('backend.dashboard.layout', compact('template', 'config', 'product', 'album', 'dropdown', 'attributeCatalogues'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'product', 'album', 'dropdown', 'attributeCatalogues', 'language'));
     }
 
     public function update($id, UpdateProductRequest $updateProductRequest)

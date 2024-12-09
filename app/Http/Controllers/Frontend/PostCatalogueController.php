@@ -30,6 +30,7 @@ class PostCatalogueController extends FrontendController
 
     public function index($id)
     {
+        $this->setLanguage();
         $conditions = [
             'publish' => 1,
             'post_catalogue_id' => $id,
