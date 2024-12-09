@@ -36,7 +36,7 @@ class StoreProductRequest extends FormRequest
             'canonical.required' =>  __('toast.no_canonical'),
             'canonical.unique' => __('toast.canonical_use'),
             'product_catalogue_id.gt' => __('toast.no_root'),
-            'attribute.required' => "Bạn chưa nhập phiên bản cho sản phẩm.",
+            'attribute.required' => __('toast.not_enter_variant'),
         ];
     }
 }

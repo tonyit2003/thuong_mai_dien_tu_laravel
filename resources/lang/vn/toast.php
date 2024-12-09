@@ -86,5 +86,5 @@ return [
     'pro_cata_str'                          => 'Mỗi danh mục phải là chuỗi ký tự hợp lệ.',
     'user_cata'                             => 'Bạn chưa nhập tên nhóm thành viên.',
     'choose_user_cata'                      => 'Bạn chưa chọn nhóm thành viên.',
-
+    'not_enter_variant'                     => 'Bạn chưa nhập phiên bản cho sản phẩm.'
 ];

@@ -92,10 +92,6 @@ Route::group(['middleware' => [SetLocaleFrontend::class]], function () {
     Route::get('change', [FrontendCustomerController::class, 'change'])->name('customer.change');
     Route::post('updateChangePassword', [FrontendCustomerController::class, 'updateChangePassword'])->name('customer.updateChangePassword')->middleware(CustomerAuthenticateMiddleware::class);
 
-    // Route cho RouterController
-    Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
-    Route::get('{canonical}' . '/uuid={uuid}' . config('apps.general.suffix'), [RouterController::class, 'getProduct'])->name('router.getProduct')->where('canonical', '[a-zA-Z0-9-]+');
-    Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
     Route::get('bai-viet' . config('apps.general.suffix'), [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('post.show');
 
     // Thanh toán VNPay
@@ -109,6 +105,11 @@ Route::group(['middleware' => [SetLocaleFrontend::class]], function () {
     // Thanh toán Paypal
     Route::get('paypal/success/id={code}' . config('apps.general.suffix'), [PaypalController::class, 'success'])->name('paypal.success');
     Route::get('paypal/cancel' . config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
+
+    // Route cho RouterController
+    Route::get('{canonical}' . config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
+    Route::get('{canonical}' . '/uuid={uuid}' . config('apps.general.suffix'), [RouterController::class, 'getProduct'])->name('router.getProduct')->where('canonical', '[a-zA-Z0-9-]+');
+    Route::get('{canonical}/page-{page}' . config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
 });
 
 // AJAX
