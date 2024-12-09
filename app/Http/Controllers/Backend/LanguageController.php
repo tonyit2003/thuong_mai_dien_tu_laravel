@@ -212,7 +212,7 @@ class LanguageController extends Controller
     {
         $this->languageService->switchFrontend($id);
         // chuyển hướng đến vị trí trước đó
-        return redirect()->back();
+        return redirect()->route('home.index');
     }
 
     private function repositoryInstance($model)

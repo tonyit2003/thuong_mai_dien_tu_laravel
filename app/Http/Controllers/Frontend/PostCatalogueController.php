@@ -30,6 +30,7 @@ class PostCatalogueController extends FrontendController
 
     public function index($id)
     {
+        $this->setLanguage();
         $language = $this->language;
         $posts = $this->postRepository->getPostByCatalogueId($id, $language);
         $system = $this->system;

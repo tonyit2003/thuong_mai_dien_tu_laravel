@@ -41,7 +41,7 @@
                                         @foreach ($attributeCatalogues as $key => $val)
                                             <option {{ $val->id == $generalAttribute ? 'selected' : '' }}
                                                 value="{{ $val->id }}">
-                                                {{ $val->attribute_catalogue_language->first()->name }}</option>
+                                                {{ $val->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -77,10 +77,9 @@
     var attributeCatalogues =
         @json(
             $attributeCatalogues->map(function ($item) {
-                    $name = $item->attribute_catalogue_language->first()->name;
                     return [
                         'id' => $item->id,
-                        'name' => $name,
+                        'name' => $item->name,
                     ];
                 })->values());
 

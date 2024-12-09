@@ -30,6 +30,7 @@ class CustomerController extends FrontendController
 
     public function info()
     {
+        $this->setLanguage();
         $id = Auth::guard('customers')->user()->id;
         $language = $this->language;
         $system = $this->system;
@@ -58,6 +59,7 @@ class CustomerController extends FrontendController
 
     public function address()
     {
+        $this->setLanguage();
         $id = Auth::guard('customers')->user()->id;
         $language = $this->language;
         $system = $this->system;
@@ -87,6 +89,7 @@ class CustomerController extends FrontendController
 
     public function changePassword()
     {
+        $this->setLanguage();
         $id = Auth::guard('customers')->user()->id;
         $language = $this->language;
         $system = $this->system;
@@ -106,6 +109,7 @@ class CustomerController extends FrontendController
     public function sendChangePassword(Request $request)
     {
         try {
+            $this->setLanguage();
             $user = Auth::guard('customers')->user();
             $system = $this->system;
 
@@ -155,7 +159,7 @@ class CustomerController extends FrontendController
 
     public function change(Request $request)
     {
-
+        $this->setLanguage();
         $user = Auth::guard('customers')->user();
         $token = $request->query('token');
         $cachedToken = Cache::get("change_password_token_{$user->id}");

@@ -25,6 +25,7 @@ class ProductCatalogueController extends FrontendController
 
     public function index($id, $request, $page = 1)
     {
+        $this->setLanguage();
         $config = $this->config();
         $language = $this->language;
         $system = $this->system;

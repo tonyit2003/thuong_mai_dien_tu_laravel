@@ -62,6 +62,7 @@ class RouterController extends FrontendController
 
     private function getRouter($canonical)
     {
+        $this->setLanguage();
         $this->router = $this->routerRepository->findByCondition(
             [
                 ['canonical', '=', $canonical],

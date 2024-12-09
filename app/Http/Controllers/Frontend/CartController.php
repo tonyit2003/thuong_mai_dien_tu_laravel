@@ -49,6 +49,7 @@ class CartController extends FrontendController
 
     public function checkout()
     {
+        $this->setLanguage();
         $language = $this->language;
         $provinces = $this->provinceRepository->all();
         $customer = $this->customerRepository->findById(Auth::guard('customers')->id());
@@ -72,6 +73,7 @@ class CartController extends FrontendController
 
     public function store(StoreCartRequest $storeCartRequest)
     {
+        $this->setLanguage();
         session()->forget('customer_data');
         session(['customer_data' => $storeCartRequest->except('_token', 'voucher', 'create')]);
         $method = $storeCartRequest->input('method');
@@ -93,6 +95,7 @@ class CartController extends FrontendController
 
     public function success($code)
     {
+        $this->setLanguage();
         $language = $this->language;
         $order = $this->orderRepository->findByCondition([['code', '=', $code]], false, ['products']);
         $orderProducts = $this->orderProductRepository->findByCondition([['order_id', '=', $order->id]], true);
