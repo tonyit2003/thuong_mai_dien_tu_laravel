@@ -98,4 +98,5 @@ return [
     'newpass_err'                           => 'Mật khẩu xác nhận không khớp.',
     'no_module_cata'                        => 'Bạn chưa chọn loại module.',
     'name_lang'                             => 'Bạn chưa nhập tên ngôn ngữ.',
+    'not_enter_variant'                     => 'Bạn chưa nhập phiên bản cho sản phẩm.'
 ];

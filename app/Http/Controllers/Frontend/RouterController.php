@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\FrontendController;
 use App\Repositories\RouterRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class RouterController extends FrontendController
 {
@@ -19,6 +20,7 @@ class RouterController extends FrontendController
 
     public function index($canonical = '', Request $request)
     {
+        $this->setLanguage();
         if ($canonical == 'bai-viet') {
             echo app('App\Http\Controllers\Frontend\PostController')->show();
             return;
@@ -35,6 +37,7 @@ class RouterController extends FrontendController
 
     public function page($canonical = '', $page = 1, Request $request)
     {
+        $this->setLanguage();
         $page = isset($page) ? $page : 1;
         $this->getRouter($canonical);
         if (isset($this->router) && !empty($this->router)) {
@@ -47,6 +50,7 @@ class RouterController extends FrontendController
 
     public function getProduct($canonical = '', $variantUuid = '', Request $request)
     {
+        $this->setLanguage();
         $this->getRouter($canonical);
         if (isset($this->router) && !empty($this->router)) {
             $method = 'index';
