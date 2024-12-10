@@ -161,7 +161,7 @@ class ProductService extends BaseService implements ProductServiceInterface
                 $attributeCatalogue = $this->attributeCatalogueRepository->findById($attribute->attribute_catalogue_id, ['*'], ['languages' => function ($query) use ($language) {
                     $query->where('language_id', '=', $language);
                 }]);
-                $temp[$attributeCatalogue->languages->first()->pivot->name] = $attribute->languages->first()->pivot->name;
+                $temp[$attributeCatalogue->languages->where('id', $language)->first()->pivot->name] = $attribute->languages->where('id', $language)->first()->pivot->name;
             }
         }
         $product->generalAttribute = $temp;
