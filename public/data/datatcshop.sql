@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 09, 2024 at 05:44 PM
+-- Generation Time: Dec 10, 2024 at 06:27 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.12
 
@@ -1662,7 +1662,8 @@ INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `province_id`, `distric
 (10, 'Cao Tấn Công', 'caotancong2003@gmail.com', '0362111265', '95', '958', '31900', NULL, '2024-10-25 22:00:23', 'uploads/customers/SGI3jvP4r7JHzmXkfmYNaJv8bLeTIB3uQwKFFRlY.jpg', NULL, NULL, NULL, NULL, '$2y$12$FRCqKBLXh3YiMVLn9cCdXuTX19X4J81eRRIT6g7L46Tnx/LLw7naS', 1, NULL, 1, NULL, '2024-10-05 11:10:53', '2024-12-09 04:47:20', 1, 'Nam', NULL, 'vn'),
 (11, 'Cao Tấn Công', 'lehuutai090403@gmail.com', '0362111265', '06', '061', '01897', NULL, '2024-10-31 21:05:23', '/thuongmaidientu/public/userfiles/image/temp/luffy_avatar.jpg', NULL, NULL, NULL, NULL, '$2y$12$AFMVqj5aZQ3fAJnkSPVy6eAQ/4Dfljxw/QA1amlyt0oxCiwR0cSc.', 1, NULL, 1, NULL, '2024-10-22 02:41:26', '2024-10-31 14:09:59', 1, 'Nam', NULL, 'vn'),
 (12, 'Cao Tấn Công', 'thanhdai.vn01@gmail.com', '0362111265', '1', '3', '97', 'Số nhà 11', '2024-10-24 15:04:20', 'uploads/customers/RZSxhRJR6Sj7lNfTLvPkAK81HBSdnawRr3WC4joW.png', 'Nhà', NULL, NULL, NULL, '$2y$12$F9BZkNKVoaPQva7PDAxtKev4xuzVVwg/J9IFWwdzQ0fLaLKnPCNuG', 1, NULL, 1, NULL, '2024-10-29 06:20:18', '2024-11-15 08:04:20', 3, 'Nữ', '116717421412323431512', 'vn'),
-(15, 'Lê Trí Cường', 'letricuong08@gmail.com', '0362111265', NULL, NULL, NULL, NULL, '2003-12-08 20:09:03', 'uploads/customers/ZCgb6fTYgsA3QbB6UPdL8GYEwAHIhGaSHJWOFnCe.jpg', NULL, NULL, NULL, NULL, '$2y$12$tYr3MizpK0MMJZ2/TQkxdOppwW.Jm4VvyJMg8Y1V.kIHvEwKzWfXi', 1, NULL, 1, NULL, '2024-12-03 23:01:42', '2024-12-09 17:20:30', 1, 'Nam', NULL, 'en');
+(15, 'Lê Trí Cường', 'letricuong08@gmail.com', '0362111265', NULL, NULL, NULL, NULL, '2003-12-08 20:09:03', 'uploads/customers/ZCgb6fTYgsA3QbB6UPdL8GYEwAHIhGaSHJWOFnCe.jpg', NULL, NULL, NULL, NULL, '$2y$12$tYr3MizpK0MMJZ2/TQkxdOppwW.Jm4VvyJMg8Y1V.kIHvEwKzWfXi', 1, NULL, 1, NULL, '2024-12-03 23:01:42', '2024-12-09 17:20:30', 1, 'Nam', NULL, 'en'),
+(16, 'Tai Le', 'tonyit2003@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocIiSL1WV1htXqQn_H_8IgqeEEz29O1aet3hvZSOOXztD3GphBU=s96-c', NULL, NULL, NULL, NULL, '$2y$12$XVNCdbP8hgGJ4uXSlnM8sumwdQTkD8KLnA4v6i/f9Y4GA1ke8cy2C', 1, NULL, 1, NULL, '2024-12-09 17:48:19', '2024-12-09 17:56:53', 3, NULL, '105172921075741450407', 'en');
 
 -- --------------------------------------------------------
 
@@ -2509,8 +2510,8 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `canonical`, `image`, `user_id`, `created_at`, `updated_at`, `deleted_at`, `publish`, `description`, `current`) VALUES
-(1, 'Tiếng Việt', 'vn', '/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-12-09 17:26:20', NULL, 1, 'Ngôn ngữ tiếng Việt', 0),
-(2, 'Tiếng Anh', 'en', '/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-12-09 17:26:20', NULL, 1, 'Ngôn ngữ tiếng Anh', 1),
+(1, 'Tiếng Việt', 'vn', '/userfiles/image/language/vietnam.png', 201014, '2024-07-03 01:42:57', '2024-12-10 05:38:56', NULL, 1, 'Ngôn ngữ tiếng Việt', 1),
+(2, 'Tiếng Anh', 'en', '/userfiles/image/language/united-kingdom.png', 201014, '2024-07-03 01:52:50', '2024-12-10 05:38:56', NULL, 1, 'Ngôn ngữ tiếng Anh', 0),
 (7, 'Tiếng Trung', 'cn', '/userfiles/image/language/china.png', 201014, '2024-08-16 07:28:53', '2024-12-03 19:42:39', '2024-12-03 19:42:39', 1, NULL, 0);
 
 -- --------------------------------------------------------
@@ -2752,59 +2753,59 @@ INSERT INTO `menu_language` (`menu_id`, `language_id`, `name`, `canonical`, `cre
 (58, 2, 'Contact for business cooperation', '#', '2024-12-07 10:55:36', '2024-12-07 10:55:36'),
 (55, 2, 'Corporate Clients', '#', '2024-12-07 10:55:36', '2024-12-07 10:55:36'),
 (56, 2, 'Information security policy', '#', '2024-12-07 10:55:36', '2024-12-07 10:55:36'),
-(173, 2, 'Posts', 'bai-viet', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(178, 2, 'Great tip', 'great-tip', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(177, 2, 'Event', 'event', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(176, 2, 'Evaluate', 'evaluate', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(179, 2, 'New products', 'new-products', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(175, 2, 'Latest', 'latest', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(174, 2, 'Advisory', 'advise', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(118, 2, 'Printer', 'printer', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(152, 2, 'Printer EPSON', 'printer-epson', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(151, 2, 'Printer HP', 'printer-hp', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(150, 2, 'Printer Canon', 'printer-canon', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(120, 2, 'Camera', 'camera-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(157, 2, 'Imou Surveillance Camera', 'imou-surveillance-camera', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(156, 2, 'EZVIZ Surveillance Camera', 'ezviz-surveillance-camera', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(158, 2, 'BOTSLAB Surveillance Camera', 'botslab-surveillance-camera', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(119, 2, 'Screen', 'screen', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(154, 2, 'ASUS Computer Monitor', 'asus-computer-monitor', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(155, 2, 'MSI Computer Monitor', 'msi-computer-monitor', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(117, 2, 'Tablet', 'tablet', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(148, 2, 'TCL Tab', 'tcl-tab-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(147, 2, 'Samsung Galaxy Tab', 'samsung-galaxy-tab-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(146, 2, 'OPPO Pad', 'oppo-pad-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(145, 2, 'iPad', 'ipad-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(149, 2, 'Lenovo Tab', 'lenovo-tab-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(116, 2, 'Clock', 'clock', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(143, 2, 'CITIZEN', 'citizen-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(144, 2, 'Casio', 'casio-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(115, 2, 'Smart watch', 'smart-watch', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(141, 2, 'Xiaomi', 'xiaomi-watch-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(140, 2, 'Huawei', 'huawei-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(142, 2, 'Samsung', 'samsung-watch-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(114, 2, 'Accessory', 'accessory', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(138, 2, 'Tablet pen', 'tablet-pen', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(137, 2, 'Camera Sticker', 'camera-sticker', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(136, 2, 'Airpods case', 'airpods-case', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(135, 2, 'Earphone', 'earphone', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(139, 2, 'Albert', 'albert', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(134, 2, 'Backup charger', 'backup-charger', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(113, 2, 'LapTop', 'laptop-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(133, 2, 'MacBook', 'macbook-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(132, 2, 'Lenovo', 'lenovo-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(131, 2, 'ACER', 'acer-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(130, 2, 'ASUS', 'asus-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(129, 2, 'HP', 'hp-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(128, 2, 'MSI', 'msi-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(112, 2, 'Phone', 'phone-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(127, 2, 'NOKIA', 'nokia-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(125, 2, 'VIVO', 'vivo-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(124, 2, 'Xiaomi', 'xiaomi-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(123, 2, 'OPPO', 'oppo-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(122, 2, 'Samsung', 'samsung-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(121, 2, 'IPhone', 'iphone-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15'),
-(126, 2, 'Realme', 'realme-en', '2024-12-09 17:22:15', '2024-12-09 17:22:15');
+(173, 2, 'Posts', 'bai-viet', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(178, 2, 'Great tip', 'great-tip', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(177, 2, 'Event', 'event', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(176, 2, 'Evaluate', 'evaluate', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(179, 2, 'New products', 'new-products', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(175, 2, 'Latest', 'latest', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(174, 2, 'Advisory', 'advise', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(118, 2, 'Printer', 'printer-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(152, 2, 'Printer EPSON', 'printer-epson', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(151, 2, 'Printer HP', 'printer-hp', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(150, 2, 'Printer Canon', 'printer-canon', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(120, 2, 'Camera', 'camera-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(157, 2, 'Imou Surveillance Camera', 'imou-surveillance-camera', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(156, 2, 'EZVIZ Surveillance Camera', 'ezviz-surveillance-camera', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(158, 2, 'BOTSLAB Surveillance Camera', 'botslab-surveillance-camera', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(119, 2, 'Screen', 'screen', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(154, 2, 'ASUS Computer Monitor', 'asus-computer-monitor', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(155, 2, 'MSI Computer Monitor', 'msi-computer-monitor', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(117, 2, 'Tablet', 'computer-tablet', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(148, 2, 'TCL Tab', 'tcl-tab-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(147, 2, 'Samsung Galaxy Tab', 'samsung-galaxy-tab-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(146, 2, 'OPPO Pad', 'oppo-pad-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(145, 2, 'iPad', 'ipad-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(149, 2, 'Lenovo Tab', 'lenovo-tab-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(116, 2, 'Clock', 'clock', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(143, 2, 'CITIZEN', 'citizen-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(144, 2, 'Casio', 'casio-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(115, 2, 'Smart watch', 'smart-watch', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(141, 2, 'Xiaomi', 'xiaomi-watch-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(140, 2, 'Huawei', 'huawei-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(142, 2, 'Samsung', 'samsung-watch-en', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(114, 2, 'Accessory', 'accessory', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(138, 2, 'Tablet pen', 'tablet-pen', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(137, 2, 'Camera Sticker', 'camera-sticker', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(136, 2, 'Airpods case', 'airpods-case', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(135, 2, 'Earphone', 'earphone', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(139, 2, 'Albert', 'albert', '2024-12-09 17:59:38', '2024-12-09 17:59:38'),
+(134, 2, 'Backup charger', 'backup-charger', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(113, 2, 'LapTop', 'laptop-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(133, 2, 'MacBook', 'macbook-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(132, 2, 'Lenovo', 'lenovo-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(131, 2, 'ACER', 'acer-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(130, 2, 'ASUS', 'asus-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(129, 2, 'HP', 'hp-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(128, 2, 'MSI', 'msi-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(112, 2, 'Phone', 'phone-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(127, 2, 'NOKIA', 'nokia-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(125, 2, 'VIVO', 'vivo-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(124, 2, 'Xiaomi', 'xiaomi-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(123, 2, 'OPPO', 'oppo-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(122, 2, 'Samsung', 'samsung-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(121, 2, 'IPhone', 'iphone-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39'),
+(126, 2, 'Realme', 'realme-en', '2024-12-09 17:59:39', '2024-12-09 17:59:39');
 
 -- --------------------------------------------------------
 
@@ -6834,7 +6835,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ipLv2BYgcyBCMlhV8eqsp9F56NuWPcahu8GZE0AK', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiUEtPc1cxUHRzbTBhekpmanlNM1VvM1c1NnQ2MDhLNnZJdDlHU1dBVSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MzoiaHR0cHM6Ly90Y3Nob3AuaWQudm4vYm90c2xhYi1zdXJ2ZWlsbGFuY2UtY2FtZXJhLmh0bWwiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7czo1NjoibG9naW5fY3VzdG9tZXJzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTU7fQ==', 1733766260);
+('OZ3UB1pskXNeIjAceW7nFyXuFCqCfH2L9v66Skdn', 201014, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNjd4UUZ5MHJLSG5wNWRERGV6UUM1a0UxTkZINGk3TUlFUVpaaFJzUSI7czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czoyMDoiaHR0cHM6Ly90Y3Nob3AuaWQudm4iO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDEwMTQ7fQ==', 1733812016);
 
 -- --------------------------------------------------------
 
@@ -6862,8 +6863,9 @@ CREATE TABLE `slides` (
 --
 
 INSERT INTO `slides` (`id`, `name`, `keyword`, `description`, `item`, `setting`, `short_code`, `publish`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/slide\\/8.png\",\"description\":null,\"canonical\":\"#\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/3(1).png\",\"description\":null,\"canonical\":\"iphone\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/6.png\",\"description\":null,\"canonical\":\"macbook\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/4(1).png\",\"description\":null,\"canonical\":\"samsung\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/5(1).png\",\"description\":null,\"canonical\":\"citizen\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/7.png\",\"description\":null,\"canonical\":\"xiaomi-watch\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/9.png\",\"description\":null,\"canonical\":\"#\",\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'main-slide', 1, 201014, NULL, '2024-09-23 10:57:03', '2024-12-09 13:57:46'),
-(2, 'Banner thân trang', 'banner', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/banner%201.png\",\"description\":null,\"canonical\":\"iphone\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner%202.png\",\"description\":null,\"canonical\":\"dong-ho\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner%203.png\",\"description\":null,\"canonical\":\"#\",\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner', 1, 201014, NULL, '2024-09-23 10:58:44', '2024-12-09 14:12:21');
+(1, 'Slide chính', 'main-slide', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/slide\\/8.png\",\"description\":null,\"canonical\":\"#\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/3(1).png\",\"description\":null,\"canonical\":\"iphone\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/6.png\",\"description\":null,\"canonical\":\"macbook\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/4(1).png\",\"description\":null,\"canonical\":\"samsung\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/5(1).png\",\"description\":null,\"canonical\":\"citizen\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/7.png\",\"description\":null,\"canonical\":\"xiaomi-watch\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/slide\\/9.png\",\"description\":null,\"canonical\":\"#\",\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"cards\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'main-slide', 1, 201014, NULL, '2024-09-23 10:57:03', '2024-12-10 05:40:02'),
+(2, 'Banner thân trang', 'banner', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/banner%201.png\",\"description\":null,\"canonical\":\"iphone\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner%202.png\",\"description\":null,\"canonical\":\"dong-ho\",\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/banner%203.png\",\"description\":null,\"canonical\":\"#\",\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"coverflow\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner', 1, 201014, NULL, '2024-09-23 10:58:44', '2024-12-09 14:12:21'),
+(3, 'Banner popup', 'banner-popup', NULL, '{\"1\":[{\"image\":\"\\/userfiles\\/image\\/banner\\/popup1.png\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/z6115866834222_faec0a88512238af66779ff8d9b7deb3.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/z6115862846891_1c061f7f4730bf4bab6b09842b6cf8d9.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/z6115862845013_41d131284fa87a1c4020ca3b89e240eb.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/z6115862774140_a4944beac959bc867fbeb02cb17f7ba8.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/z6115862764364_580c5e4ecc67f06b6e22a162ce0b36fa.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null},{\"image\":\"\\/userfiles\\/image\\/banner\\/z6115873083468_2b9bdf29c43462113d030efbcfdd1907.jpg\",\"description\":null,\"canonical\":null,\"window\":\"none\",\"name\":null,\"alt\":null}]}', '{\"width\":\"0\",\"height\":\"0\",\"animation\":\"fade\",\"arrow\":\"accept\",\"navigate\":\"dots\",\"autoplay\":\"accept\",\"pauseHover\":\"accept\",\"animationDelay\":\"0\",\"animationSpeed\":\"0\"}', 'banner-popup', 1, 201014, NULL, '2024-12-10 05:56:22', '2024-12-10 06:12:26');
 
 -- --------------------------------------------------------
 
@@ -7136,7 +7138,6 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (1, 7),
 (1, 5),
 (1, 4),
-(1, 3),
 (1, 2),
 (1, 13),
 (1, 14),
@@ -7324,7 +7325,8 @@ INSERT INTO `user_catalogue_permission` (`user_catalogue_id`, `permission_id`) V
 (8, 95),
 (1, 96),
 (8, 96),
-(4, 94);
+(4, 94),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -18500,7 +18502,7 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `customer_catalogues`
@@ -18656,7 +18658,7 @@ ALTER TABLE `routers`
 -- AUTO_INCREMENT for table `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sources`

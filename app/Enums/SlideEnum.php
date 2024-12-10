@@ -7,4 +7,5 @@ enum SlideEnum: string
     const BANNER = 'banner';
     const MAIN_SLIDE = 'main-slide';
     const BANNER_FOOTER = 'banner-footer';
+    const BANNER_POPUP = 'banner-popup';
 }
