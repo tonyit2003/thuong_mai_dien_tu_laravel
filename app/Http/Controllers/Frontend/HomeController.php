@@ -34,7 +34,7 @@ class HomeController extends FrontendController
         $languageSlide = $this->languageRepository->findByCondition([
             ['canonical', '=', 'vn']
         ]);
-        $slides = $this->slideService->getSlides([SlideEnum::MAIN_SLIDE, SlideEnum::BANNER, SlideEnum::BANNER_FOOTER], $languageSlide->id ?? 1);
+        $slides = $this->slideService->getSlides([SlideEnum::MAIN_SLIDE, SlideEnum::BANNER, SlideEnum::BANNER_FOOTER, SlideEnum::BANNER_POPUP], $languageSlide->id ?? 1);
         // children => lấy các danh mục con của các danh mục trong widget
         // promotion => lấy ra các sản phẩm + khuyến mãi của danh mục product catalogue
         // countObject => đếm các sản phẩm của danh mục
