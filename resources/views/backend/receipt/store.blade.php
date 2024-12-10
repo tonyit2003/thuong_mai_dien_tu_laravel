@@ -18,3 +18,7 @@
         </div>
     </div>
 </form>
+
+<script>
+    var lang = {{ $lang }};
+</script>

@@ -120,6 +120,7 @@
                     success: (response) => {
                         const $tableBody = $("#productTableBody").empty();
                         const uniqueProducts = {};
+
                         if (response.data.length) {
                             response.data.forEach((product) => {
                                 const productName = product.name || "N/A";
@@ -127,51 +128,61 @@
                                     product.product_variants || [];
                                 const productVariantLanguage =
                                     product.product_variant_language || [];
-                                for (
-                                    let i = 0;
-                                    i <
-                                    Math.min(
-                                        productVariants.length,
-                                        productVariantLanguage.length
-                                    );
-                                    i++
-                                ) {
-                                    const variant = productVariants[i];
-                                    const variantLanguage =
-                                        productVariantLanguage[i];
-                                    const variantName =
-                                        variantLanguage.name || "N/A";
-                                    const variantQuantity =
-                                        variant.quantity || 0;
-                                    const uniqueKey = `${product.id}-${variant.id}-${variantLanguage.id}`;
 
-                                    if (!uniqueProducts[uniqueKey]) {
-                                        uniqueProducts[uniqueKey] = true;
+                                // Duyệt qua tất cả các product_variant_language để hiển thị các phiên bản sản phẩm
+                                productVariantLanguage.forEach((variant) => {
+                                    // Kiểm tra xem ngôn ngữ có trùng khớp không
+                                    if (variant.language_id === lang) {
+                                        const variantName =
+                                            variant.name || "N/A";
 
-                                        // Kiểm tra xem sản phẩm này có trong danh sách đã chọn không
-                                        const isChecked = HT.selectedProducts[
-                                            `${product.id}-${variant.id}`
-                                        ]
-                                            ? "checked"
-                                            : "";
-                                        const row = `
-                                        <tr>
-                                            <td class="text-center">
-                                                <input id="product-${product.id}-${variant.id}" value="${product.id}" type="checkbox" class="input-checkbox checkBoxItemReceipt" ${isChecked} />
-                                            </td>
-                                            <td>${productName}</td>
-                                            <td>${variantName}</td>
-                                            <td class="text-center">${variantQuantity}</td>
-                                        </tr>`;
+                                        // Tìm kiếm variant dựa trên product_variant_id từ product_variants
+                                        const productVariant =
+                                            productVariants.find(
+                                                (v) =>
+                                                    v.id ===
+                                                    variant.product_variant_id
+                                            );
 
-                                        $tableBody.append(row);
+                                        if (productVariant) {
+                                            const variantQuantity =
+                                                productVariant.quantity || 0;
+
+                                            const uniqueKey = `${product.id}-${variant.product_variant_id}`;
+
+                                            if (!uniqueProducts[uniqueKey]) {
+                                                uniqueProducts[
+                                                    uniqueKey
+                                                ] = true;
+
+                                                // Kiểm tra xem sản phẩm này có trong danh sách đã chọn không
+                                                const isChecked = HT
+                                                    .selectedProducts[
+                                                    `${product.id}-${variant.product_variant_id}`
+                                                ]
+                                                    ? "checked"
+                                                    : "";
+
+                                                const row = `
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <input id="product-${product.id}-${variant.product_variant_id}" value="${product.id}" type="checkbox" class="input-checkbox checkBoxItemReceipt" ${isChecked} />
+                                                    </td>
+                                                    <td>${productName}</td>
+                                                    <td>${variantName}</td>
+                                                    <td class="text-center">${variantQuantity}</td>
+                                                </tr>`;
+
+                                                $tableBody.append(row);
+                                            }
+                                        }
                                     }
-                                }
+                                });
                             });
                         } else {
                             $tableBody.append(
                                 '<tr><td colspan="5" class="text-center">' +
-                                    no_product +
+                                    "không có sản phẩm" +
                                     "</td></tr>"
                             );
                         }
@@ -371,10 +382,15 @@
 
     HT.getDataUpdateProductReceipt = () => {
         $(document).ready(function () {
-            const receiptId = productReceiptId;
-            if (receiptId == 0) {
-                return;
+            // Kiểm tra sự tồn tại của productReceiptId và giá trị hợp lệ
+            if (!productReceiptId || productReceiptId === 0) {
+                console.warn("Invalid or missing productReceiptId.");
+                return; // Nếu không có receiptId hợp lệ, thoát khỏi hàm
             }
+
+            const receiptId = productReceiptId;
+
+            // Tiến hành gọi AJAX nếu receiptId hợp lệ
             $.ajax({
                 url: "ajax/" + receiptId + "/product",
                 type: "GET",
@@ -465,10 +481,19 @@
         return integerPart + (decimalPart ? dec_point + decimalPart : "");
     }
 
-    function formatCurrency(amount) {
-        return (
-            amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " " + unit
-        ); // Định dạng số
+    function formatCurrency(amount, unit) {
+        // Kiểm tra sự tồn tại của 'unit'
+        if (unit) {
+            return (
+                amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") +
+                " " +
+                unit
+            ); // Định dạng số và thêm đơn vị
+        } else {
+            return (
+                amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
+            ); // Chỉ định dạng số mà không có đơn vị
+        }
     }
 
     HT.total = () => {
@@ -529,6 +554,7 @@
     };
 
     $(document).ready(function () {
+        HT.setupDatepickerApproved();
         HT.checkAllReceipt();
         HT.checkBoxItemReceipt();
         HT.getProductReceipt();
@@ -537,7 +563,6 @@
         HT.getDataUpdateProductReceipt();
         HT.getProductCatalogueBySupplierId();
         HT.total();
-        HT.setupDatepickerApproved();
         HT.setupDatepickerExpectedDeliverDate();
     });
 })(jQuery);

@@ -99,14 +99,13 @@ class ProductService extends BaseService implements ProductServiceInterface
             $condition = [
                 'where' => [
                     ['product_language.language_id', '=', $languageId],
+                    ['product_variant_language.language_id', '=', $languageId],
                     ['products.id', '=', $id],
                     ['product_variants.quantity', '<=', $quantity],
                     ['product_language.name', 'LIKE',  "%{$keyword}%"],
                 ]
             ];
         }
-
-
 
         $extend = [
             'path' => 'ajax/product/getProduct',

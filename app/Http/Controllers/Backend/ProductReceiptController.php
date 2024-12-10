@@ -108,8 +108,9 @@ class ProductReceiptController extends Controller
         $config['method'] = 'create';
         $template = 'backend.receipt.store';
         $products = $this->productService->paginate($request, $this->language);
+        $lang = $this->language;
         $suppliers = $this->supplierRepository->all();
-        return view('backend.dashboard.layout', compact('template', 'config', 'products', 'suppliers'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'products', 'suppliers', 'lang'));
     }
 
     public function store(StoreProductReceiptRequest $storeProductReceiptRequest)
@@ -140,7 +141,8 @@ class ProductReceiptController extends Controller
         $template = 'backend.receipt.store';
         $products = $this->productService->paginate($request, $this->language);
         $suppliers = $this->supplierRepository->all();
-        return view('backend.dashboard.layout', compact('template', 'config', 'productReceipt', 'products', 'suppliers'));
+        $lang = $this->language;
+        return view('backend.dashboard.layout', compact('template', 'config', 'productReceipt', 'products', 'suppliers', 'lang'));
     }
 
     public function update($id, UpdateProductReceiptRequest $updateProductReceiptRequest)

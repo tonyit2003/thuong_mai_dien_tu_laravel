@@ -25,8 +25,8 @@
                         <th class="text-center" style="width: 5%">
                             <input type="checkbox" value="" id="checkAllReceipt" class="input-checkbox" />
                         </th>
-                        <th class="text-center" style="width: 25%">{{ __('table.product_name') }}</th>
-                        <th class="text-center" style="width: 60%">{{ __('table.version') }}</th>
+                        <th class="text-center" style="width: 45%">{{ __('table.product_name') }}</th>
+                        <th class="text-center" style="width: 40%">{{ __('table.version') }}</th>
                         <th class="text-center" style="width: 10%">{{ __('table.inventory_quantity') }}</th>
                     </tr>
                 </thead>
