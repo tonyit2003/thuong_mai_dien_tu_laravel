@@ -31,7 +31,7 @@
                             </div>
                         </label>
                         <input type="text" name="translate_meta_title"
-                            value="{{ old('translate_meta_title', $model->meta_title ?? translateContent($originalModel->meta_title ?? '')) }}"
+                            value="{{ old('translate_meta_title', $model->meta_title ?? translateContent($originalModel->meta_title ?? '', $canonicalTranslate)) }}"
                             class="form-control count-keyword" placeholder="" autocomplete="off">
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                             </span>
                         </label>
                         <input type="text" name="translate_meta_keyword"
-                            value="{{ old('translate_meta_keyword', $model->meta_keyword ?? translateContent($originalModel->meta_keyword ?? '')) }}"
+                            value="{{ old('translate_meta_keyword', $model->meta_keyword ?? translateContent($originalModel->meta_keyword ?? '', $canonicalTranslate)) }}"
                             class="form-control" placeholder="" autocomplete="off">
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                             </div>
                         </label>
                         <textarea type="text" name="translate_meta_description" class="form-control count-keyword" placeholder=""
-                            autocomplete="off">{{ old('translate_meta_description', $model->meta_description ?? translateContent($originalModel->meta_description ?? '')) }}</textarea>
+                            autocomplete="off">{{ old('translate_meta_description', $model->meta_description ?? translateContent($originalModel->meta_description ?? '', $canonicalTranslate)) }}</textarea>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                         </label>
                         <div class="input-wrapper">
                             <input type="text" name="translate_canonical"
-                                value="{{ old('translate_canonical', $model->canonical ?? translateContent($originalModel->canonical ?? '')) }}"
+                                value="{{ old('translate_canonical', $model->canonical ?? translateContent($originalModel->name ?? '', $canonicalTranslate)) }}"
                                 class="form-control seo_canonical" placeholder="" autocomplete="off">
                             <span class="baseUrl">{{ config('app.url') }}</span>
                         </div>

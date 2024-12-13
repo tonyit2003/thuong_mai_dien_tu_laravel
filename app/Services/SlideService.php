@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\LanguageRepository;
 use App\Repositories\SlideRepository;
 use App\Services\Interfaces\SlideServiceInterface;
 use Carbon\Carbon;
@@ -16,10 +17,12 @@ use Illuminate\Support\Facades\DB;
 class SlideService extends BaseService implements SlideServiceInterface
 {
     protected $slideRepository;
+    protected $languageRepository;
 
-    public function __construct(SlideRepository $slideRepository)
+    public function __construct(SlideRepository $slideRepository, LanguageRepository $languageRepository)
     {
         $this->slideRepository = $slideRepository;
+        $this->languageRepository = $languageRepository;
     }
 
     public function paginate($request)
@@ -36,7 +39,7 @@ class SlideService extends BaseService implements SlideServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->only(['name', 'keyword', 'setting', 'short_code']);
-            $payload['item'] = $this->handleSlideItem($request->input('slide'), $languageId);
+            $payload['item'] = $this->getSlideItems($request, $languageId);
             $payload['user_id'] = Auth::id();
             $this->slideRepository->create($payload);
             DB::commit();
@@ -104,17 +107,34 @@ class SlideService extends BaseService implements SlideServiceInterface
         return $temp;
     }
 
-    private function handleSlideItem($slide, $languageId)
+    private function getSlideItems($request, $languageId)
+    {
+        $items = $this->handleSlideItem($request->input('slide'), $languageId);
+
+        $languages = $this->languageRepository->findByCondition([
+            ['id', '!=', $languageId]
+        ], true);
+
+        if (isset($languages) && count($languages)) {
+            foreach ($languages as $language) {
+                $items += $this->handleSlideItem($request->input('slide'), $language->id, $language->canonical != 'vn' ? $language->canonical : "vi");
+            }
+        }
+
+        return $items;
+    }
+
+    private function handleSlideItem($slide, $languageId, $canonicalLanguage = '')
     {
         $temp = [];
         foreach ($slide['image'] as $key => $val) {
             $temp[$languageId][] = [
                 'image' => $val,
-                'description' => $slide['description'][$key],
+                'description' => empty($canonicalLanguage) ? $slide['description'][$key] : translateContent($slide['description'][$key], $canonicalLanguage),
                 'canonical' => $slide['canonical'][$key],
                 'window' => isset($slide['window'][$key]) ? $slide['window'][$key] : '',
-                'name' => $slide['name'][$key],
-                'alt' => $slide['alt'][$key],
+                'name' => empty($canonicalLanguage) ? $slide['name'][$key] : translateContent($slide['name'][$key], $canonicalLanguage),
+                'alt' => empty($canonicalLanguage) ? $slide['alt'][$key] : translateContent($slide['alt'][$key], $canonicalLanguage),
             ];
         }
         return $temp;

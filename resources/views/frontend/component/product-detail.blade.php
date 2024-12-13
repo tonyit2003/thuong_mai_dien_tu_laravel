@@ -72,7 +72,7 @@
                                 <div class="quantitybox uk-flex uk-flex-middle">
                                     <div class="minus quantity-button"><img
                                             src="{{ asset('frontend/resources/img/minus.svg') }}" alt=""></div>
-                                    <input type="text" name="" value="1" class="quantity-text">
+                                    <input type="text" name="" value="1" class="quantity-text int">
                                     <div class="plus quantity-button"><img
                                             src="{{ asset('frontend/resources/img/plus.svg') }}" alt="">
                                     </div>
