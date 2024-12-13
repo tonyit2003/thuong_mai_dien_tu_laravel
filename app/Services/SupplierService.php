@@ -25,7 +25,7 @@ class SupplierService extends BaseService implements SupplierServiceInterface
     public function paginate($request)
     {
         $condition['keyword'] = addslashes($request->input('keyword'));
-        $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 40;
+        $perPage = $request->input('perpage') != null ? $request->integer('perpage') : 80;
 
         $join = [
             ['product_catalogue_supplier', 'product_catalogue_supplier.supplier_id', '=', 'suppliers.id'],

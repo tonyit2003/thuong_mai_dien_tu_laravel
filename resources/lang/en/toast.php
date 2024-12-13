@@ -97,5 +97,8 @@ return [
     'newpass_min'                           => 'The new password must be at least 6 characters long.',
     'newpass_err'                           => 'The confirmation password does not match.',
     'no_module_cata'                        => 'You have not selected a module type.',
-    'name_lang'                             => 'You have not entered the language name.'
+    'name_lang'                             => 'You have not entered the language name.',
+    'regex'                                 => 'The phone number is invalid. Example: 0362123765',
+    'date_err'                              => 'The birthdate is invalid.',
+    'before_or_equal'                       => 'The birthdate cannot be a future date.',
 ];

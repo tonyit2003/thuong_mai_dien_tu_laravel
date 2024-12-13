@@ -98,5 +98,8 @@ return [
     'newpass_err'                           => 'Mật khẩu xác nhận không khớp.',
     'no_module_cata'                        => 'Bạn chưa chọn loại module.',
     'name_lang'                             => 'Bạn chưa nhập tên ngôn ngữ.',
-    'not_enter_variant'                     => 'Bạn chưa nhập phiên bản cho sản phẩm.'
+    'not_enter_variant'                     => 'Bạn chưa nhập phiên bản cho sản phẩm.',
+    'regex'                                 => 'Số điện thoại không hợp lệ. Ví dụ: 0362123765',
+    'date_err'                              => 'Ngày sinh không hợp lệ.',
+    'before_or_equal'                       => 'Ngày sinh không thể là ngày tương lai.',
 ];

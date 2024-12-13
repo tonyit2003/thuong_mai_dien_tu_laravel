@@ -65,7 +65,7 @@
                             {{ implode(', ', $addressParts) }}
                         @endif
                     </td>
-                    <td class="text-center">
+                    <td>
                         {{ $user->user_catalogues->name }}
                     </td>
                     <td class="text-center js-switch-{{ $user->id }}">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Requests\InfoCustomerRequest;
 use App\Http\Requests\UpdateChangePasswordRequest;
 use App\Repositories\CustomerRepository;
 use App\Repositories\ProvinceRepository;
@@ -46,7 +47,7 @@ class CustomerController extends FrontendController
         return view('frontend.customer.info', compact('config', 'language', 'system', 'seo', 'customer'));
     }
 
-    public function updateInfo(Request $storeCustomerRequest)
+    public function updateInfo(InfoCustomerRequest $storeCustomerRequest)
     {
         $id = Auth::guard('customers')->user()->id;
         if ($this->customerService->updateInfo($id, $storeCustomerRequest)) {
