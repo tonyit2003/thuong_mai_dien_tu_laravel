@@ -13,7 +13,7 @@
                         <span class="text-danger">(*)</span>
                     </label>
                     <input type="text" name="translate_name"
-                        value="{{ old('translate_name', $model->name ?? translateContent($originalModel->name ?? '')) }}"
+                        value="{{ old('translate_name', $model->name ?? translateContent($originalModel->name ?? '', $canonicalTranslate)) }}"
                         class="form-control" placeholder="" autocomplete="off">
                 </div>
             </div>
@@ -25,7 +25,7 @@
                         {{ __('form.short_description') }}
                     </label>
                     <textarea id="description_1" type="text" name="translate_description" class="form-control ck-editor" placeholder=""
-                        autocomplete="off" data-height="150">{{ old('translate_description', $model->description ?? translateContent($originalModel->description ?? '')) }}</textarea>
+                        autocomplete="off" data-height="150">{{ old('translate_description', $model->description ?? translateContent($originalModel->description ?? '', $canonicalTranslate)) }}</textarea>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                         </a>
                     </div>
                     <textarea id="ckContent_1" type="text" name="translate_content" class="form-control ck-editor" placeholder=""
-                        autocomplete="off" data-height="500">{{ old('translate_content', $model->content ?? translateContentHasImage($originalModel->content ?? '')) }}</textarea>
+                        autocomplete="off" data-height="500">{{ old('translate_content', $model->content ?? translateContentHasImage($originalModel->content ?? '', $canonicalTranslate)) }}</textarea>
                 </div>
             </div>
         </div>

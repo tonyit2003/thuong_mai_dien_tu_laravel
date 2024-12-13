@@ -1,5 +1,10 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo']['permission']['title']])
 
+@php
+    $canonical = \Illuminate\Support\Facades\App::getLocale();
+    $canonical = $canonical == 'vn' ? 'vi' : $canonical;
+@endphp
+
 <form action="{{ route('user.catalogue.updatePermission') }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -16,7 +21,7 @@
                             <th></th>
                             @foreach ($userCatalogues as $userCatalogue)
                                 <th class="text-center">
-                                    {{ $userCatalogue->name }}
+                                    {{ translateContent($userCatalogue->name, $canonical) }}
                                 </th>
                             @endforeach
                         </tr>
@@ -24,7 +29,7 @@
                             <tr>
                                 <td>
                                     <a href="#" class="uk-flex uk-flex-middle uk-flex-space-between">
-                                        {{ $permission->name }}
+                                        {{ translateContent($permission->name, $canonical) }}
                                         <span style="color: red">
                                             ({{ $permission->canonical }})
                                         </span>

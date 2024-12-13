@@ -17,7 +17,11 @@
                         <input type="checkbox" value="{{ $permission->id }}" class="input-checkbox checkBoxItem" />
                     </td>
                     <td>
-                        {{ $permission->name }}
+                        @php
+                            $canonical = \Illuminate\Support\Facades\App::getLocale();
+                            $canonical = $canonical == 'vn' ? 'vi' : $canonical;
+                        @endphp
+                        {{ translateContent($permission->name, $canonical) }}
                     </td>
                     <td>
                         {{ $permission->canonical }}

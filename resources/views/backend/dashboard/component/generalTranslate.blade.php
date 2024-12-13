@@ -13,7 +13,7 @@
                         <span class="text-danger">(*)</span>
                     </label>
                     <input type="text" name="translate_name"
-                        value="{{ old('translate_name', $model->name ?? translateContent($originalModel->name ?? '')) }}"
+                        value="{{ old('translate_name', $model->name ?? translateContent($originalModel->name ?? '', $canonicalTranslate)) }}"
                         class="form-control" placeholder="" autocomplete="off">
                 </div>
             </div>

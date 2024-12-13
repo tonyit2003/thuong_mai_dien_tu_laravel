@@ -13,13 +13,18 @@
     </thead>
     <tbody>
         @if (isset($customerCatalogues) && is_object($customerCatalogues))
+            @php
+                $canonical = \Illuminate\Support\Facades\App::getLocale();
+                $canonical = $canonical == 'vn' ? 'vi' : $canonical;
+            @endphp
             @foreach ($customerCatalogues as $customerCatalogue)
                 <tr>
                     <td class="text-center">
-                        <input type="checkbox" value="{{ $customerCatalogue->id }}" class="input-checkbox checkBoxItem" />
+                        <input type="checkbox" value="{{ $customerCatalogue->id }}"
+                            class="input-checkbox checkBoxItem" />
                     </td>
                     <td>
-                        {{ $customerCatalogue->name }}
+                        {{ translateContent($customerCatalogue->name, $canonical) }}
                     </td>
                     <td class="text-center">
                         {{ $customerCatalogue->customers_count }} {{ __('unit.members') }}
@@ -28,8 +33,9 @@
                         {{ $customerCatalogue->description }}
                     </td>
                     <td class="text-center js-switch-{{ $customerCatalogue->id }}">
-                        <input type="checkbox" value="{{ $customerCatalogue->publish }}" class="js-switch status" data-field="publish"
-                            data-model="{{ $config['model'] }}" data-modelId="{{ $customerCatalogue->id }}"
+                        <input type="checkbox" value="{{ $customerCatalogue->publish }}" class="js-switch status"
+                            data-field="publish" data-model="{{ $config['model'] }}"
+                            data-modelId="{{ $customerCatalogue->id }}"
                             {{ $customerCatalogue->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">

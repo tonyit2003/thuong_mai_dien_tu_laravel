@@ -135,6 +135,8 @@ class LanguageController extends Controller
         $method = 'get' . $model . 'ById';
         $object = $repositoryInstance->{$method}($id, $currentLanguage->id);
         $objectTranslate = $repositoryInstance->{$method}($id, $languageId);
+        $canonicalTranslate = $this->languageRepository->findById($languageId)->canonical;
+        $canonicalTranslate = $canonicalTranslate == 'vn' ? 'vi' : $canonicalTranslate;
         $config = [
             'js' => [
                 'backend/plugins/ckeditor/ckeditor.js',
@@ -154,7 +156,7 @@ class LanguageController extends Controller
             'model' => $model
         ];
         $template = 'backend.language.translate';
-        return view('backend.dashboard.layout', compact('template', 'config', 'object', 'objectTranslate', 'option'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'object', 'objectTranslate', 'option', 'canonicalTranslate'));
     }
 
     public function storeTranslate(TranslateRequest $translateRequest)
@@ -177,6 +179,8 @@ class LanguageController extends Controller
         $method = 'get' . $model . 'ById';
         $object = $repositoryInstance->{$method}($id, $currentLanguage->id);
         $objectTranslate = $repositoryInstance->{$method}($id, $languageId);
+        $canonicalTranslate = $this->languageRepository->findById($languageId)->canonical;
+        $canonicalTranslate = $canonicalTranslate == 'vn' ? 'vi' : $canonicalTranslate;
         $config = [
             'js' => [
                 'backend/plugins/ckeditor/ckeditor.js',
@@ -196,7 +200,7 @@ class LanguageController extends Controller
             'model' => $model
         ];
         $template = 'backend.language.translateLanguage';
-        return view('backend.dashboard.layout', compact('template', 'config', 'object', 'objectTranslate', 'option'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'object', 'objectTranslate', 'option', 'canonicalTranslate'));
     }
 
     public function storetranslateLanguage(TranslateLanguageRequest $translateRequest)

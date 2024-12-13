@@ -194,6 +194,9 @@
                 if (isNaN(value)) {
                     _this.val("0");
                 }
+                if (value < 0) {
+                    _this.val(value * -1);
+                }
             });
 
             $(document).on("keydown", ".int", function (e) {

@@ -9,12 +9,18 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
-                        <a href="{{ route('dashboard.index') }}"><img alt="image" class="img-circle" src="{{ Auth::user()->image }}" width="60px"
-                                height="60px" /></a>
+                        <a href="{{ request()->url() }}"><img alt="image" class="img-circle"
+                                src="{{ Auth::user()->image }}" width="60px" height="60px" /></a>
                     </span>
+                    @php
+                        $canonical = \Illuminate\Support\Facades\App::getLocale();
+                        $canonical = $canonical == 'vn' ? 'vi' : $canonical;
+                    @endphp
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
-                            </span> <span class="text-muted text-xs block">{{ Auth::user()->user_catalogues->name }}</span>
+                        <span class="clear"> <span class="block m-t-xs"> <strong
+                                    class="font-bold">{{ Auth::user()->name }}</strong>
+                            </span> <span
+                                class="text-muted text-xs block">{{ translateContent(Auth::user()->user_catalogues->name, $canonical) }}</span>
                         </span> </a>
                     {{-- <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="profile.html">Profile</a></li>
@@ -41,8 +47,10 @@
                 @endphp
 
                 @if ($hasValidSubModules || !isset($val['subModule']))
-                    <li class="{{ isset($val['class']) ? $val['class'] : '' }} {{ in_array($segment, $val['name']) ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.index') }}" class="{{ in_array($segment, $val['name']) ? 'text-white' : '' }}">
+                    <li
+                        class="{{ isset($val['class']) ? $val['class'] : '' }} {{ in_array($segment, $val['name']) ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.index') }}"
+                            class="{{ in_array($segment, $val['name']) ? 'text-white' : '' }}">
                             <i class="{{ $val['icon'] }}"></i>
                             <span class="nav-label">{{ $val['title'] }}</span>
                             @if ($hasValidSubModules)

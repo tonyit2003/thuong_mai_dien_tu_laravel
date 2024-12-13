@@ -29,6 +29,10 @@
     </thead>
     <tbody>
         @if (isset($users) && is_object($users))
+            @php
+                $canonical = \Illuminate\Support\Facades\App::getLocale();
+                $canonical = $canonical == 'vn' ? 'vi' : $canonical;
+            @endphp
             @foreach ($users as $user)
                 <tr>
                     <td class="text-center">
@@ -62,15 +66,16 @@
                         @endphp
 
                         @if (!empty($addressParts))
-                            {{ implode(', ', $addressParts) }}
+                            {{ translateContent(implode(', ', $addressParts), $canonical) }}
                         @endif
                     </td>
                     <td class="text-center">
-                        {{ $user->user_catalogues->name }}
+                        {{ translateContent($user->user_catalogues->name, $canonical) }}
                     </td>
                     <td class="text-center js-switch-{{ $user->id }}">
-                        <input type="checkbox" value="{{ $user->publish }}" class="js-switch status" data-field="publish"
-                            data-model="{{ $config['model'] }}" data-modelId="{{ $user->id }}" {{ $user->publish == 1 ? 'checked' : '' }} />
+                        <input type="checkbox" value="{{ $user->publish }}" class="js-switch status"
+                            data-field="publish" data-model="{{ $config['model'] }}"
+                            data-modelId="{{ $user->id }}" {{ $user->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
                         <div class="ibox-tools-button">
