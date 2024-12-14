@@ -7,11 +7,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'invoice'                => 'Hóa đơn',
+    'invoice'                => 'HÓA ĐƠN GIÁ TRỊ GIA TĂNG',
     'serial'                 => 'Số serial',
     'date'                   => 'Ngày tạo',
-    'seller'                 => 'Bên bán',
-    'buyer'                  => 'Bên mua',
+    'seller'                 => 'Đơn vị bán hàng',
+    'buyer'                  => 'Người mua hàng',
     'address'                => 'Địa chỉ',
     'code'                   => 'Mã khách hàng',
     'vat'                    => 'Mã số VAT',
@@ -38,4 +38,5 @@ return [
     'page'                   => 'Trang',
     'taxCode'                => 'Mã số thuế',
     'email'                  => 'Email',
+    'sign_and_full_name'     => 'Ký và ghi rõ họ tên',
 ];

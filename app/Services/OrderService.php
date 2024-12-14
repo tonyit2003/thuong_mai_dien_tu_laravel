@@ -353,8 +353,24 @@ class OrderService implements OrderServiceInterface
                 $this->productVariantRepository->updateByWhere([
                     ['uuid', '=', $productVariant->uuid]
                 ], $payload);
+                $this->dataSynchronization($productVariant, $payload['quantity']);
             }
         }
+    }
+
+    private function dataSynchronization($productVariant, $quantity)
+    {
+        $sku = $productVariant->sku;
+        $product = $this->productRepository->findById($productVariant->product_id);
+        $variants = json_decode($product->variant);
+        foreach ($variants->sku as $key => $val) {
+            if ($val === $sku) {
+                $variants->quantity[$key] = $quantity;
+                break;
+            }
+        }
+        $payload['variant'] = json_encode($variants);
+        $this->productRepository->update($productVariant->product_id, $payload);
     }
 
     private function request($cartPromotion, $totalPrice, $totalPriceOriginal, $orderCode)

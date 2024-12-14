@@ -3,95 +3,79 @@
     <head>
         <title>{{ __('invoices::invoice.invoice') }}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
         <style type="text/css" media="screen">
-            html {
-                font-family: sans-serif;
-                line-height: 1.15;
-                margin: 0;
-            }
-
             body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-family: "DejaVu Sans", Arial, sans-serif;
                 font-weight: 400;
-                line-height: 1.5;
-                color: #212529;
+                line-height: 1.6;
+                color: #495057;
                 text-align: left;
-                background-color: #fff;
+                background-color: #fff !important;
                 font-size: 10px;
-                margin: 36pt;
             }
 
             h4 {
+                font-size: 16px;
                 margin-top: 0;
-                margin-bottom: 0.5rem;
+                margin-bottom: 10px;
+                font-weight: bold;
+                color: #343a40;
             }
 
             p {
-                margin-top: 0;
-                margin-bottom: 1rem;
+                margin: 5px 0;
             }
 
-            strong {
-                font-weight: bolder;
-            }
-
-            img {
-                vertical-align: middle;
-                border-style: none;
-            }
-
-            table {
-                border-collapse: collapse;
-            }
-
-            th {
-                text-align: inherit;
-            }
-
-            h4, .h4 {
-                margin-bottom: 0.5rem;
-                font-weight: 500;
-                line-height: 1.2;
-            }
-
-            h4, .h4 {
-                font-size: 1.5rem;
+            .invoice-title {
+                font-size: 20px;
+                color: #2196f3;
+                font-weight: bold;
+                text-transform: uppercase;
             }
 
             .table {
                 width: 100%;
-                margin-bottom: 1rem;
-                color: #212529;
+                margin-bottom: 20px;
+                border-collapse: collapse;
             }
 
-            .table th,
-            .table td {
-                padding: 0.75rem;
-                vertical-align: top;
-            }
-
-            .table.table-items td {
-                border-top: 1px solid #dee2e6;
+            .table th, .table td {
+                padding: 5px 10px;
+                vertical-align: middle;
+                border: 1px solid #dee2e6;
             }
 
             .table thead th {
-                vertical-align: bottom;
-                border-bottom: 2px solid #dee2e6;
+                background-color: #2196f3;
+                color: #fff;
+                font-weight: bold;
+                text-align: center;
+                font-size: 14px;
             }
 
-            .mt-5 {
-                margin-top: 3rem !important;
+            .table tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
             }
 
-            .pr-0,
-            .px-0 {
-                padding-right: 0 !important;
+            .table tbody tr:hover {
+                background-color: #e9ecef;
             }
 
-            .pl-0,
-            .px-0 {
-                padding-left: 0 !important;
+            .table tbody tr td {
+                font-size: 12px;
+            }
+
+            .total-amount {
+                font-size: 14px;
+                font-weight: bold;
+                color: #e63946;
+                text-align: right;
+            }
+
+            .party-header {
+                font-size: 14px;
+                font-weight: bold;
+                color: #495057;
             }
 
             .text-right {
@@ -102,28 +86,66 @@
                 text-align: center !important;
             }
 
-            .text-uppercase {
-                text-transform: uppercase !important;
+            .highlight {
+                background-color: #2196f3;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 5px;
+                font-weight: bold;
+                display: inline-block;
             }
-            * {
-                font-family: "DejaVu Sans";
+
+            .section-title {
+                background-color: #e9ecef;
+                padding: 10px 15px;
+                font-weight: bold;
+                color: #495057;
+                border-left: 5px solid #2196f3;
+                margin-bottom: 15px;
             }
-            body, h1, h2, h3, h4, h5, h6, table, th, tr, td, p, div {
-                line-height: 1.1;
+
+            .amount-in-words {
+                font-style: italic;
+                color: #6c757d;
+                margin-top: 15px;
+                font-size: 10px;
             }
-            .party-header {
-                font-size: 1.5rem;
-                font-weight: 400;
+
+            .page-footer {
+                font-size: 10px;
+                text-align: center;
+                color: #6c757d;
+                border-top: 1px solid #dee2e6;
+                margin-top: 20px;
+                padding-top: 10px;
             }
-            .total-amount {
-                font-size: 12px;
-                font-weight: 700;
+
+            .logo {
+                margin-bottom: 15px;
             }
-            .border-0 {
-                border: none !important;
+
+            .seller-info, .buyer-info {
+                line-height: 1.4;
             }
-            .cool-gray {
-                color: #6B7280;
+
+            .signatures {
+                margin-top: 30px;
+                border: none;
+            }
+
+            .signatures .signature-box {
+                width: 150px;
+                height: 50px;
+                margin: 10px auto;
+                border: 1px dashed #495057;
+                background-color: #fff;
+            }
+
+            .signatures .signer-name {
+                font-weight: bold;
+                color: #495057;
+                margin-top: 5px;
+                text-transform: uppercase;
             }
         </style>
     </head>
@@ -143,7 +165,7 @@
                         </h4>
                     </td>
                     <td class="border-0 pl-0">
-                        <p>{{ __('invoices::invoice.serial') }} <strong>{{ $invoice->getSerialNumber() }}</strong></p>
+                        <p>{{ __('invoices::invoice.serial') }}: <strong>{{ $invoice->getSerialNumber() }}</strong></p>
                         <p>{{ __('invoices::invoice.date') }}: <strong>{{ $invoice->getDate() }}</strong></p>
                     </td>
                 </tr>
@@ -275,7 +297,7 @@
                 @endforeach
                 {{-- Summary --}}
                 @if($invoice->hasItemOrInvoiceDiscount())
-                    <tr>
+                    <tr style="background-color: #fff !important">
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.total_discount') }}</td>
                         <td class="text-right pr-0">
@@ -284,7 +306,7 @@
                     </tr>
                 @endif
                 @if($invoice->taxable_amount)
-                    <tr>
+                    <tr style="background-color: #fff !important">
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.taxable_amount') }}</td>
                         <td class="text-right pr-0">
@@ -319,7 +341,7 @@
                         </td>
                     </tr>
                 @endif
-                    <tr>
+                    <tr style="background-color: #fff !important">
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.total_amount') }}</td>
                         <td class="text-right pr-0 total-amount">
@@ -335,9 +357,26 @@
             </p>
         @endif
 
-        <p>
-            {{ __('invoices::invoice.amount_in_words') }}: {{ $invoice->getTotalAmountInWords() }}
-        </p>
+        <!-- Signature Section -->
+        <table class="table signatures">
+            <tbody>
+                <tr>
+                    <td class="text-center seller-signature">
+                        <p style="font-weight: bold">{{ __('invoices::invoice.seller') }}</p>
+                        <p>{{ __('invoices::invoice.sign_and_full_name') }}</p>
+                        <div class="signature-box"></div>
+                        <p class="signer-name">{{ '________________' }}</p>
+                    </td>
+                    <td class="text-center buyer-signature">
+                        <p style="font-weight: bold">{{ __('invoices::invoice.buyer') }}</p>
+                        <p>{{ __('invoices::invoice.sign_and_full_name') }}</p>
+                        <div class="signature-box"></div>
+                        <p class="signer-name">{{ '________________' }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
 
         <script type="text/php">
             if (isset($pdf) && $PAGE_COUNT > 1) {
