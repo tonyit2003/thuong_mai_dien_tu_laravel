@@ -1,6 +1,7 @@
 @extends('frontend.homepage.layout')
 
 @section('content')
+    @include('frontend.component.backgroundHome')
     @include('frontend.component.homePopup')
     <div id="homepage" class="homepage">
         @include('frontend.component.slide')
