@@ -14,4 +14,7 @@ return [
     'delete' => [
         'title' => 'Xóa sản phẩm'
     ],
+    'variant' => [
+        'title' => 'Danh sách phiên bản sản phẩm'
+    ],
 ];

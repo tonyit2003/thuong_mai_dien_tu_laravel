@@ -20,6 +20,15 @@ class CartController extends FrontendController
         $this->cartRepository = $cartRepository;
     }
 
+    public function checkQuantity(Request $request)
+    {
+        $flag = $this->cartService->checkQuantity($request);
+        return response()->json([
+            'messages' => $flag ? '' : __('toast.check_quantity_failed'),
+            'code' => $flag ? 10 : 11,
+        ]);
+    }
+
     public function create(Request $request)
     {
         $language = $this->language;

@@ -2,6 +2,7 @@
     "use strict";
     var HT = {}; // Khai báo là 1 đối tượng
     var timer;
+    var _token = $('meta[name="csrf-token"]').attr("content");
 
     HT.popupSwiperSlide = () => {
         document.querySelectorAll(".popup-gallery").forEach((popup) => {
@@ -44,7 +45,57 @@
             if (newQuantity < 1) {
                 newQuantity = 1;
             }
-            $(".quantity-text").val(newQuantity);
+            let variant_uuid = $(".addToCart").attr("data-variantuuid");
+            HT.checkQuantity(
+                $(".quantity-text"),
+                variant_uuid,
+                newQuantity,
+                quantity
+            );
+        });
+    };
+
+    HT.checkQuantityInput = () => {
+        $(document).on("input", ".quantity-text", function () {
+            let _this = $(this);
+            let quantity = _this.val();
+            if (quantity < 1) {
+                quantity = 1;
+            }
+            let variant_uuid = $(".addToCart").attr("data-variantuuid");
+            HT.checkQuantity(_this, variant_uuid, quantity, 1);
+        });
+    };
+
+    HT.checkQuantity = (quantityInput, variant_uuid, quantity, oldQuantity) => {
+        let option = {
+            variant_uuid: variant_uuid,
+            quantity: quantity,
+            _token: _token,
+        };
+        $.ajax({
+            url: "ajax/cart/checkQuantity",
+            type: "POST",
+            data: option,
+            dataType: "json",
+            beforeSend: function () {},
+            success: function (res) {
+                if (res.code === 10) {
+                    quantityInput.val(quantity);
+                } else {
+                    toastr.clear();
+                    quantityInput.val(oldQuantity);
+                    toastr.error(res.messages, "ERROR");
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 401) {
+                    var response = xhr.responseJSON;
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                }
+            },
         });
     };
 
@@ -131,6 +182,7 @@
     $(document).ready(function () {
         /* CORE JS */
         HT.changeQuantity();
+        HT.checkQuantityInput();
         HT.popupSwiperSlide();
         HT.selectProductVariant();
         HT.showAttribute();

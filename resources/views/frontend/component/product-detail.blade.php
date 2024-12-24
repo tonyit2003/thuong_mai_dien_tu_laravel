@@ -67,7 +67,10 @@
                         </div>
                         @include('frontend.product.product.component.variant')
                         <div class="quantity">
-                            <div class="text">{{ __('info.quantity') }}</div>
+                            <div class="text">{{ __('info.quantity') }}:
+                                <span style="color: red">{{ $productVariant->quantity ?? 0 }}
+                                    {{ __('info.products_available') }}</span>
+                            </div>
                             <div class="uk-flex uk-flex-middle">
                                 <div class="quantitybox uk-flex uk-flex-middle">
                                     <div class="minus quantity-button"><img

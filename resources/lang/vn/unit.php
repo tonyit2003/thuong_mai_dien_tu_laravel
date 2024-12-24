@@ -9,4 +9,5 @@ return [
     'product'       => 'sản phẩm',
     'evaluate'      => 'đánh giá',
     'star'          => 'sao',
+    'variant'       => 'phiên bản',
 ];

@@ -33,7 +33,8 @@
                                     <span class="text-danger">{{ __('table.display_group') }}: </span>
                                     @foreach ($product->product_catalogues as $val)
                                         @foreach ($val->product_catalogue_language->where('language_id', $languageId) as $cat)
-                                            <a href="{{ route('product.index', ['product_catalogue_id' => $val->id]) }}">{{ $cat->name }}</a>
+                                            <a
+                                                href="{{ route('product.index', ['product_catalogue_id' => $val->id]) }}">{{ $cat->name }}</a>
                                             @if (!$loop->last)
                                                 |
                                             @endif
@@ -52,12 +53,14 @@
                         'modeling' => 'Product',
                     ])
                     <td>
-                        <input type="text" name="order" class="form-control sort-order text-right" data-id="{{ $product->id }}"
-                            data-model="{{ $config['model'] }}" value="{{ $product->order }}">
+                        <input type="text" name="order" class="form-control sort-order text-right"
+                            data-id="{{ $product->id }}" data-model="{{ $config['model'] }}"
+                            value="{{ $product->order }}">
                     </td>
                     <td class="text-center js-switch-{{ $product->id }}">
-                        <input type="checkbox" value="{{ $product->publish }}" class="js-switch status" data-field="publish"
-                            data-model="{{ $config['model'] }}" data-modelId="{{ $product->id }}" {{ $product->publish == 1 ? 'checked' : '' }} />
+                        <input type="checkbox" value="{{ $product->publish }}" class="js-switch status"
+                            data-field="publish" data-model="{{ $config['model'] }}"
+                            data-modelId="{{ $product->id }}" {{ $product->publish == 1 ? 'checked' : '' }} />
                     </td>
                     <td class="text-center">
                         <div class="ibox-tools-button">
@@ -65,6 +68,11 @@
                                 <strong style="min-width: 0px">...</strong>
                             </a>
                             <ul class="dropdown-menu dropdown-user" style="font-size: 13px; left: -170px">
+                                <li>
+                                    <a href="{{ route('product.viewVariant', $product->id) }}">
+                                        {{ __('table.view_variant') }}
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="{{ route('product.edit', $product->id) }}">
                                         {{ __('table.update') }}

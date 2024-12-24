@@ -97,4 +97,5 @@ return [
     'object'                            => 'Object',
     'click_to_object'                   => 'Click to View Object',
     'unit'                              => '$',
+    'view_variant'                      => 'View product variants',
 ];

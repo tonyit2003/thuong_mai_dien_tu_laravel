@@ -8,7 +8,9 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Language;
 use App\Repositories\AttributeCatalogueRepository;
+use App\Repositories\ProductCatalogueRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\ProductVariantRepository;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -21,8 +23,10 @@ class ProductController extends Controller
     protected $nestedset;
     protected $language;
     protected $attributeCatalogueRepository;
+    protected $productVariantRepository;
+    protected $productCatalogueRepository;
 
-    public function __construct(ProductService $productService, ProductRepository $productRepository, AttributeCatalogueRepository $attributeCatalogueRepository)
+    public function __construct(ProductService $productService, ProductRepository $productRepository, AttributeCatalogueRepository $attributeCatalogueRepository, ProductVariantRepository $productVariantRepository, ProductCatalogueRepository $productCatalogueRepository)
     {
         $this->middleware(function ($request, $next) {
             $locale = App::getLocale();
@@ -34,6 +38,8 @@ class ProductController extends Controller
         $this->productService = $productService;
         $this->productRepository = $productRepository;
         $this->attributeCatalogueRepository = $attributeCatalogueRepository;
+        $this->productVariantRepository = $productVariantRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
         $this->initialize();
     }
 
@@ -124,6 +130,43 @@ class ProductController extends Controller
         }
         flash()->error(__('toast.destroy_failed'));
         return redirect()->route('product.index');
+    }
+
+    public function viewVariant($id)
+    {
+        Gate::authorize('modules', 'product.viewVariant');
+        $language = $this->language;
+        $product = $this->productRepository->getProductById($id, $language);
+        $productCatalogue = $this->productCatalogueRepository->findById($product->product_catalogue_id, ['*'], [
+            'languages' => function ($query) use ($language) {
+                $query->where('language_id', $language);
+            }
+        ]);
+        $productVariants = $this->productVariantRepository->findByCondition([
+            ['product_id', '=', $id],
+        ], true, [
+            'languages' => function ($query) use ($language) {
+                $query->where('language_id', $language);
+            }
+        ]);
+        $config = [
+            'js' => [
+                'backend/js/plugins/metisMenu/jquery.metisMenu.js',
+                'backend/js/plugins/slimscroll/jquery.slimscroll.min.js',
+                'backend/js/inspinia.js',
+                'backend/js/plugins/pace/pace.min.js',
+                'backend/js/plugins/footable/footable.all.min.js',
+                'backend/js/plugins/blueimp/jquery.blueimp-gallery.min.js',
+            ],
+            'css' => [
+                'backend/css/plugins/footable/footable.core.css',
+                'backend/css/plugins/blueimp/css/blueimp-gallery.min.css',
+            ]
+        ];
+        $config['seo'] = __('product');
+        $album = json_decode($product->album);
+        $template = 'backend.product.product.viewVariant';
+        return view('backend.dashboard.layout', compact('template', 'config', 'product', 'album', 'productVariants', 'language', 'productCatalogue'));
     }
 
     private function initialize()

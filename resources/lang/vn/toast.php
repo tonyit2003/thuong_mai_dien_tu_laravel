@@ -19,7 +19,7 @@ return [
     'delivere_failed'                       => 'Xác nhận nhập kho không thành công',
     'login_required'                        => 'Bạn cần phải đăng nhập',
     'add_to_cart_success'                   => 'Thêm sản phẩm vào giỏ hàng thành công',
-    'add_to_cart_failed'                    => 'Thêm sản phẩm vào giỏ hàng thất bại',
+    'add_to_cart_failed'                    => 'Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này. Hãy kiểm tra giỏ hàng của bạn!',
     'update_quantity_cart_success'          => 'Cập nhật số lượng thành công',
     'update_quantity_cart_failed'           => 'Cập nhật số lượng thất bại',
     'delete_cart_success'                   => 'Xóa sản phẩm khỏi giỏ hàng thành công',
@@ -102,4 +102,5 @@ return [
     'regex'                                 => 'Số điện thoại không hợp lệ. Ví dụ: 0362123765',
     'date_err'                              => 'Ngày sinh không hợp lệ.',
     'before_or_equal'                       => 'Ngày sinh không thể là ngày tương lai.',
+    'check_quantity_failed'                 => 'Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này.',
 ];

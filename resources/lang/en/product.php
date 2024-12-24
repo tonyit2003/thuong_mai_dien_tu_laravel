@@ -14,4 +14,7 @@ return [
     'delete' => [
         'title' => 'Delete Product'
     ],
+    'variant' => [
+        'title' => 'Product Variant List'
+    ],
 ];

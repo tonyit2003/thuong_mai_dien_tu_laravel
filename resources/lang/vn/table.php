@@ -97,4 +97,9 @@ return [
     'object'                            => 'Đối tượng',
     'click_to_object'                   => 'Click để xem đối tượng',
     'unit'                              => 'VND',
+    'view_variant'                      => 'Xem phiên bản',
+    'variant_name'                      => 'Tên phiên bản',
+    'quantity_entered'                  => 'Số lượng đã nhập',
+    'quantity_sold'                     => 'Số lượng đã bán',
+    'quantity_in_stock'                 => 'Số lượng tồn kho',
 ];
