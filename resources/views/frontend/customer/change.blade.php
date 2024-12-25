@@ -40,11 +40,12 @@
                                 </div>
                             @endif
                             <div class="container">
-                                <for method="POST" action="{{ route('customer.updateChangePassword') }}" class="shadow p-4 bg-white rounded-3 border">
+                                <form method="POST" action="{{ route('customer.updateChangePassword') }}" class="shadow p-4 bg-white rounded-3 border">
                                     @csrf
                                     <div class="" style="margin-bottom: 12px">
                                         <label for="password" class="form-label fw-semibold">{{ __('info.new_pass') }}</label>
-                                        <input type="password" name="password" id="password" class="input-text" placeholder="{{ __('info.enter_new_pass') }}" required>
+                                        <input type="password" name="password" id="password" class="input-text"
+                                            placeholder="{{ __('info.enter_new_pass') }}" required>
                                     </div>
                                     <div class="" style="margin-bottom: 12px">
                                         <label for="password_confirmation" class="form-label fw-semibold">{{ __('info.repass') }}</label>
@@ -54,7 +55,7 @@
                                     <div class="">
                                         <button type="submit" class="btn btn-primary px-4 py-2">{{ __('info.ok_pass') }}</button>
                                     </div>
-                                </for>
+                                </form>
                             </div>
                         </div>
                     </div>
