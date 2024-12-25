@@ -77,25 +77,20 @@
                     ? parseInt(qty) - 1
                     : parseInt(qty) + 1;
                 newQty = newQty < 1 ? 1 : newQty;
-                qtyElement.val(newQty);
-
-                let option = {
-                    quantity: newQty,
-                    customer_id: _this
-                        .siblings(".cart-info")
-                        .find(".customer_id")
-                        .val(),
-                    product_id: _this
-                        .siblings(".cart-info")
-                        .find(".product_id")
-                        .val(),
-                    variant_uuid: _this
-                        .siblings(".cart-info")
-                        .find(".variant_uuid")
-                        .val(),
-                    _token: _token,
-                };
-                HT.handleUpdateCart(_this, option);
+                let cartInfo = _this.siblings(".cart-info");
+                let variant_uuid = cartInfo.find(".variant_uuid").val();
+                let customer_id = cartInfo.find(".customer_id").val();
+                let product_id = cartInfo.find(".product_id").val();
+                HT.checkQuantity(qtyElement, variant_uuid, newQty, qty, () => {
+                    let updateOption = {
+                        quantity: newQty,
+                        customer_id: customer_id,
+                        product_id: product_id,
+                        variant_uuid: variant_uuid,
+                        _token: _token,
+                    };
+                    HT.handleUpdateCart(_this, updateOption);
+                });
             });
         }
     };
@@ -104,27 +99,64 @@
         if ($(".input-qty").length) {
             $(document).on("change", ".input-qty", function () {
                 let _this = $(this);
-                let option = {
-                    quantity:
-                        parseInt(_this.val()) == 0 ? 1 : parseInt(_this.val()),
-                    customer_id: _this
-                        .siblings(".cart-info")
-                        .find(".customer_id")
-                        .val(),
-                    product_id: _this
-                        .siblings(".cart-info")
-                        .find(".product_id")
-                        .val(),
-                    variant_uuid: _this
-                        .siblings(".cart-info")
-                        .find(".variant_uuid")
-                        .val(),
-                    _token: _token,
-                };
-                _this.val(option.quantity);
-                HT.handleUpdateCart(_this, option);
+                let quantity = _this.val() < 1 ? 1 : parseInt(_this.val());
+                let cartInfo = _this.siblings(".cart-info");
+                let variant_uuid = cartInfo.find(".variant_uuid").val();
+                let customer_id = cartInfo.find(".customer_id").val();
+                let product_id = cartInfo.find(".product_id").val();
+                HT.checkQuantity(_this, variant_uuid, quantity, 1, () => {
+                    let updateOption = {
+                        quantity: quantity,
+                        customer_id: customer_id,
+                        product_id: product_id,
+                        variant_uuid: variant_uuid,
+                        _token: _token,
+                    };
+                    HT.handleUpdateCart(_this, updateOption);
+                });
             });
         }
+    };
+
+    HT.checkQuantity = (
+        quantityInput,
+        variant_uuid,
+        quantity,
+        oldQuantity,
+        callback
+    ) => {
+        let option = {
+            variant_uuid: variant_uuid,
+            quantity: quantity,
+            _token: _token,
+        };
+        $.ajax({
+            url: "ajax/cart/checkQuantity",
+            type: "POST",
+            data: option,
+            dataType: "json",
+            beforeSend: function () {},
+            success: function (res) {
+                if (res.code === 10) {
+                    quantityInput.val(quantity);
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                } else {
+                    toastr.clear();
+                    quantityInput.val(oldQuantity);
+                    toastr.error(res.messages, "ERROR");
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 401) {
+                    var response = xhr.responseJSON;
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                }
+            },
+        });
     };
 
     HT.handleUpdateCart = (_this, option) => {

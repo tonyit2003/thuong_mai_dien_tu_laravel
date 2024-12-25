@@ -929,9 +929,6 @@
                                     _this.append(option).trigger("change");
                                 }
                             }
-                            if (--count === 0 && callback) {
-                                callback();
-                            }
                         }
                     );
                 }

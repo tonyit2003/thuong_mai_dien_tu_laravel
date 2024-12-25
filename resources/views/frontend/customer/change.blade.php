@@ -40,20 +40,24 @@
                                 </div>
                             @endif
                             <div class="container">
-                                <form method="POST" action="{{ route('customer.updateChangePassword') }}" class="shadow p-4 bg-white rounded-3 border">
+                                <form method="POST" action="{{ route('customer.updateChangePassword') }}"
+                                    class="shadow p-4 bg-white rounded-3 border">
                                     @csrf
                                     <div class="" style="margin-bottom: 12px">
-                                        <label for="password" class="form-label fw-semibold">{{ __('info.new_pass') }}</label>
+                                        <label for="password"
+                                            class="form-label fw-semibold">{{ __('info.new_pass') }}</label>
                                         <input type="password" name="password" id="password" class="input-text"
                                             placeholder="{{ __('info.enter_new_pass') }}" required>
                                     </div>
                                     <div class="" style="margin-bottom: 12px">
-                                        <label for="password_confirmation" class="form-label fw-semibold">{{ __('info.repass') }}</label>
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="input-text"
-                                            placeholder="{{ __('info.enter_repass') }}" required>
+                                        <label for="password_confirmation"
+                                            class="form-label fw-semibold">{{ __('info.repass') }}</label>
+                                        <input type="password" name="password_confirmation" id="password_confirmation"
+                                            class="input-text" placeholder="{{ __('info.enter_repass') }}" required>
                                     </div>
                                     <div class="">
-                                        <button type="submit" class="btn btn-primary px-4 py-2">{{ __('info.ok_pass') }}</button>
+                                        <button type="submit"
+                                            class="btn btn-primary px-4 py-2">{{ __('info.ok_pass') }}</button>
                                     </div>
                                 </form>
                             </div>

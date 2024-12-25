@@ -125,4 +125,5 @@ return [
     'total'                         => 'Thành tiền:',
     'contact'                       => 'Liên hệ người bán',
     'all'                           => 'Tất cả',
+    'products_available'            => 'sản phẩm có sẵn',
 ];

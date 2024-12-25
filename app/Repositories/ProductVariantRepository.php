@@ -31,6 +31,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantR
                 ->update([
                     'quantity' => DB::raw('quantity + ' . $detail->actual_quantity),
                     'price' => $detail->price + ($detail->price * (PriceEnum::PERCENT_PRICE / 100)),
+                    'quantity_entered' => DB::raw('quantity_entered + ' . $detail->actual_quantity)
                 ]);
             $this->dataSynchronization($detail);
         }

@@ -70,6 +70,7 @@ Route::group(['middleware' => [CustomerAuthenticateMiddleware::class, SetLocaleF
     Route::get('order-information/id={code}' . config('apps.general.suffix'), [CartController::class, 'success'])->name('cart.success');
     Route::get('create-order/id={code}' . config('apps.general.suffix'), [FrontendOrderController::class, 'store'])->name('order.store');
     // AJAX
+    Route::post('ajax/cart/checkQuantity', [AjaxCartController::class, 'checkQuantity'])->name('ajax.cart.checkQuantity');
     Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create');
     Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update');
     Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete');
@@ -350,6 +351,7 @@ Route::group(['middleware' => [AuthenticateMiddleware::class, SetLocale::class]]
         Route::post('{id}/update', [ProductController::class, 'update'])->name('product.update')->where(['id' => '[0-9]+']);
         Route::get('{id}/delete', [ProductController::class, 'delete'])->name('product.delete')->where(['id' => '[0-9]+']);
         Route::post('{id}/destroy', [ProductController::class, 'destroy'])->name('product.destroy')->where(['id' => '[0-9]+']);
+        Route::get('{id}/viewVariant', [ProductController::class, 'viewVariant'])->name('product.viewVariant')->where(['id' => '[0-9]+']);
     });
 
     // PRODUCT RECEIPTS

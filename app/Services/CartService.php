@@ -38,6 +38,16 @@ class CartService implements CartServiceInterface
         $this->orderRepository = $orderRepository;
     }
 
+    public function checkQuantity($request)
+    {
+        $payload = $request->input();
+        $quantity = (int)$payload['quantity'];
+        $variant = $this->productVariantRepository->findByCondition([
+            ['uuid', '=', $payload['variant_uuid']],
+        ]);
+        return $variant->quantity >= $quantity;
+    }
+
     public function create($request, $language = 1)
     {
         DB::beginTransaction();
@@ -68,8 +78,16 @@ class CartService implements CartServiceInterface
 
             if (isset($existingCart)) {
                 $newQuantity = $existingCart->quantity + $payload['quantity'];
+                if ($variant->quantity < $newQuantity) {
+                    DB::rollBack();
+                    return false;
+                }
                 $this->cartRepository->update($existingCart->id, ['quantity' => $newQuantity]);
             } else {
+                if ($variant->quantity < (int)$payload['quantity']) {
+                    DB::rollBack();
+                    return false;
+                }
                 $data = [
                     'customer_id' => $customer_id,
                     'product_id' => $product->id,

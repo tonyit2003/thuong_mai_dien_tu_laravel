@@ -347,8 +347,10 @@ class OrderService implements OrderServiceInterface
                 ]);
                 if ($minusStock) {
                     $payload['quantity'] = $productVariant->quantity - $orderProduct->quantity;
+                    $payload['quantity_sold'] = $productVariant->quantity_sold + $orderProduct->quantity;
                 } else {
                     $payload['quantity'] = $productVariant->quantity + $orderProduct->quantity;
+                    $payload['quantity_sold'] = $productVariant->quantity_sold - $orderProduct->quantity;
                 }
                 $this->productVariantRepository->updateByWhere([
                     ['uuid', '=', $productVariant->uuid]
